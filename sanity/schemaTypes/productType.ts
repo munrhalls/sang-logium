@@ -2,8 +2,8 @@ import { defineType, defineField } from "sanity";
 import { TrolleyIcon } from "@sanity/icons";
 
 export const productType = defineType({
-  name: "productType",
-  title: "Product Type",
+  name: "product",
+  title: "Products",
   type: "document",
   icon: TrolleyIcon,
   fields: [
@@ -14,10 +14,39 @@ export const productType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: {
+        source: "name",
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "image",
+      title: "Product Image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "blockContent",
+    }),
+    defineField({
       name: "price",
       title: "Price",
       type: "number",
-      of: [{ type: "reference", to: { type: "Category" } }],
+      validation: (Rule) => Rule.min(0),
+    }),
+    defineField({
+      name: "categories",
+      title: "Categories",
+      type: "array",
+      of: [{ type: "reference", to: { type: "category" } }],
     }),
     defineField({
       name: "stock",
@@ -30,12 +59,12 @@ export const productType = defineType({
     select: {
       title: "title",
       media: "image",
-      subtitle: "price",
+      price: "price",
     },
     prepare(select) {
       return {
         title: select.title,
-        subtitle: `$${select.subtitle}`,
+        price: `$${select.price}`,
         media: select.media,
       };
     },
