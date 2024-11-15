@@ -138,7 +138,7 @@ export const orderType = defineType({
       name: "customerName",
       amount: "totalPrice",
       currency: "currency",
-      orderId: "orderNumber",
+      orderId: "orderId",
       email: "email",
     },
     prepare(select) {
