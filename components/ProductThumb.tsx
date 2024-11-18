@@ -1,7 +1,7 @@
 import { Product } from "@/sanity.types";
 import Link from "next/link";
 import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
+import imageUrl from "../lib/imageUrl";
 
 const ProductThumb = ({ product }: { product: Product }) => {
   const isOutOfStock = product.stock != null && product.stock <= 0;
@@ -16,7 +16,7 @@ const ProductThumb = ({ product }: { product: Product }) => {
         {product.image && (
           <Image
             className="object-contain transition-transform duration-300 group-hover:scale-105"
-            src={urlFor(product.image).url()}
+            src={imageUrl(product.image).url()}
             alt={product.name || "Product image"}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -27,6 +27,7 @@ const ProductThumb = ({ product }: { product: Product }) => {
             <span className="text-white font-bold text-lg">Out of stock</span>
           </div>
         )}
+        PRODUCT
       </div>
     </Link>
   );
