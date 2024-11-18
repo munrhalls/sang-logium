@@ -12,7 +12,7 @@ export const getAllProducts = async () => {
     const products = await sanityFetch({
       query: ALL_PRODUCTS_QUERY,
     });
-    return products || [];
+    return products.data || [];
   } catch (err) {
     console.error("Error fetching all products: ", err);
     return [];

@@ -1,21 +1,25 @@
-import { Product } from "@/sanity.types";
+import { Category, Product } from "@/sanity.types";
+import ProductsGrid from "./ProductsGrid";
 
 interface ProductViewProps {
   products: Product[];
+  categories: Category[];
 }
 
-export const ProductsView = ({ products }: ProductViewProps) => {
-  return <div>
-    {/* categories */}
-    <div className=""></div>
+export const ProductsView = ({ products, categories }: ProductViewProps) => {
+  return (
+    <div className="flex flex-col">
+      {/* categories */}
+      <div className="W-FULL SM:W-(200px"></div>
 
-    {/* products */}
-    <div>
-        <div class="flex-1">
-            <ProductsGrid products={products} />>
+      {/* products */}
+      <div>
+        <div className="flex-1">
+          <ProductsGrid products={products} />
         </div>
+      </div>
     </div>
-  </div>;
+  );
 };
 
 export default ProductsView;
