@@ -16,7 +16,7 @@ const ProductsGrid = ({ products }: { products: Product[] }) => {
             exit={{ opacity: 0 }}
             className="flex justify-center"
           >
-            <ProductThumb product={product} />
+            <ProductThumb key={product._id} product={product} />
           </motion.div>
         ))}
       </AnimatePresence>

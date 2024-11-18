@@ -57,7 +57,7 @@ export const productType = defineType({
   ],
   preview: {
     select: {
-      title: "title",
+      title: "name",
       media: "image",
       price: "price",
     },
