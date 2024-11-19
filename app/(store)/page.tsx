@@ -10,7 +10,6 @@ export default async function Home() {
 
   return (
     <div>
-      <h1>Hello world</h1>
       <BlackFridayBanner />
       {/* render all prods */}
       <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-4">
