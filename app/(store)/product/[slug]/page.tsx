@@ -38,6 +38,7 @@ export default async function ProductPage({
             </div>
           )}
         </div>
+
         <div className="flex flex-col justify-between">
           <div>
             <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
