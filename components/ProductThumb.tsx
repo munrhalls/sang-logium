@@ -14,7 +14,7 @@ const ProductThumb = ({ product }: { product: Product }) => {
 
   return (
     <Link
-      href={`/products/${product.slug?.current}`}
+      href={`/product/${product.slug?.current}`}
       className={`group flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-alll duration-200 overflow-hidden
           ${isOutOfStock ? "opacity-50" : ""}`}
     >

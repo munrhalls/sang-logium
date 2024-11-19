@@ -358,7 +358,12 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   stock?: number;
 }>;
 
-// Source: ./sanity/lib/products/searchForProducts.ts
+// Source: ./sanity/lib/products/getProductBySlug.ts
+// Variable: GET_PRODUCT_BY_SLUG
+// Query: *[                type == 'product'                && slug == $slug            ]
+export type GET_PRODUCT_BY_SLUGResult = Array<never>;
+
+// Source: ./sanity/lib/products/searchProductsByName.ts
 // Variable: SEARCH_FOR_PRODUCTS_QUERY
 // Query: *[        _type == "product"        && name match $searchParam    ] | order(name asc)
 export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
@@ -445,6 +450,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n          *[\n              _type == \"category\"\n          ] | order(name asc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
+    "\n            *[\n                type == 'product'\n                && slug == $slug\n            ]\n        ": GET_PRODUCT_BY_SLUGResult;
     "*[\n        _type == \"product\"\n        && name match $searchParam\n    ] | order(name asc)": SEARCH_FOR_PRODUCTS_QUERYResult;
     "\n          *[\n              _type == \"sale\"\n              && isActive == true\n              && couponCode == $couponCode\n          ] | order(validFrom desc)[0]\n      ": ACTIVE_SALE_BY_COUPON_QUERYResult;
   }
