@@ -6,6 +6,9 @@ import Link from "next/link";
 import { TrolleyIcon } from "@sanity/icons";
 import Form from "next/form";
 import { ClerkLoaded } from "@clerk/nextjs";
+import logo from "../public/logo compressed.png";
+import Image from "next/image";
+import imageUrl from "../lib/imageUrl";
 
 function Header() {
   const { user } = useUser();
@@ -22,7 +25,7 @@ function Header() {
   };
 
   return (
-    <header className="flex flex-wrap justify-between items-center px-4 py-2">
+    <header className="bg-black flex flex-wrap justify-between items-center px-4 py-2">
       <div className="flex w-full flex-wrap justify-between items-center">
         <Link
           href="/"
@@ -35,7 +38,11 @@ function Header() {
                 sm:mx-0
             "
         >
-          <span>Sang Logium</span>
+          <Image
+            src={logo}
+            alt="Sang Logium Logo"
+            className="max-h-15 max-w-15"
+          />
         </Link>
 
         <Form
