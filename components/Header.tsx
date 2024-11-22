@@ -25,7 +25,7 @@ function Header() {
   };
 
   return (
-    <header className="bg-black flex flex-wrap justify-between items-center px-4 py-2">
+    <header className="bg-black flex flex-wrap justify-between items-center px-4 py-2 h-[4rem]">
       <div className="flex w-full flex-wrap justify-between items-center">
         <Link
           href="/"
@@ -38,35 +38,51 @@ function Header() {
                 sm:mx-0
             "
         >
-          <Image
-            src={logo}
-            alt="Sang Logium Logo"
-            className="max-h-15 max-w-15"
-          />
+          <div className="flex justify-center items-center ">
+            <Image
+              src={logo}
+              alt="Sang Logium Logo"
+              height={40}
+              className="ml-2"
+            />
+            <span
+              style={{ color: "#e3c41d" }}
+              className="font-garamond  ml-3 font-thin"
+            >
+              Sang Logium
+            </span>
+          </div>
         </Link>
 
         <Form
           action="/search"
-          className="flex-1
-        sm:w-auto sm:flex-1 sm:mx-4 mt-2 sm:mt-0"
+          className="flex-1 flex justify-center items-center w-full mx-10"
         >
           <input
             type="text"
             name="query"
             placeholder="Search for products"
+            style={{
+              border: "none",
+              borderBottom: "1px solid red",
+              maxWidth: "20rem",
+            }}
             className="
-            bg-gray-100
-            text-gray-800
+            font-thin
+            bg-black
+            text-red-600
+            placeholder-yellow-500
+            text-center
+            text-xl
             px-4
             py-2
-            rounded
             focus:outline-none
             focus:ring-2
-            focus:ring-blue-800
-            focus:ring-opacity-50
-            border
+            focus:ring-transparent
+            focus:ring-opacity-0
             w-full
             sm:max-w-sm
+            h-full
           "
           />
         </Form>
@@ -74,11 +90,12 @@ function Header() {
         <div className="flex flex-items items-center">
           <Link
             href="/basket"
+            style={{ color: "#000", backgroundColor: "#e3c41d" }}
             className="
-        flex-1 relative flex justify-center items-center space-x-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded"
+        flex-1 relative flex justify-center items-center space-x-2 bg-black rounded mr-2 px-4 py-1"
           >
-            <TrolleyIcon className="w-6 h-6" />
-            <span>My basket</span>
+            <TrolleyIcon className="w-8 h-8" />
+            <span className="text-xl font-bold">My basket</span>
           </Link>
         </div>
 
