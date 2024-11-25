@@ -1,12 +1,12 @@
 "use client";
 
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
-import { PackageIcon } from "@sanity/icons";
+import { Icon, PackageIcon } from "@sanity/icons";
 import Link from "next/link";
 import { TrolleyIcon } from "@sanity/icons";
 import Form from "next/form";
 import { ClerkLoaded } from "@clerk/nextjs";
-import logo from "../public/logo compressed.png";
+import logo from "../public/logo.svg";
 import Image from "next/image";
 import imageUrl from "../lib/imageUrl";
 
@@ -25,8 +25,8 @@ function Header() {
   };
 
   return (
-    <header className="bg-black flex flex-wrap justify-between items-center px-4 py-2 h-[4rem]">
-      <div className="flex w-full flex-wrap justify-between items-center">
+    <header className="bg-black h-[59px]">
+      <div className="">
         <Link
           href="/"
           className="text-2xl
@@ -42,19 +42,19 @@ function Header() {
             <Image
               src={logo}
               alt="Sang Logium Logo"
-              height={40}
+              height={59}
               className="ml-2"
             />
-            <span
+            {/* <span
               style={{ color: "#e3c41d" }}
               className="font-garamond  ml-3 font-thin"
             >
               Sang Logium
-            </span>
+            </span> */}
           </div>
         </Link>
 
-        <Form
+        {/* <Form
           action="/search"
           className="flex-1 flex justify-center items-center w-full mx-10"
         >
@@ -64,13 +64,13 @@ function Header() {
             placeholder="Search for products"
             style={{
               border: "none",
+              color: "red",
               borderBottom: "1px solid red",
               maxWidth: "20rem",
             }}
             className="
             font-thin
             bg-black
-            text-red-600
             placeholder-yellow-500
             text-center
             text-xl
@@ -85,9 +85,9 @@ function Header() {
             h-full
           "
           />
-        </Form>
+        </Form> */}
 
-        <div className="flex flex-items items-center">
+        {/* <div className="flex flex-items items-center">
           <Link
             href="/basket"
             style={{ color: "#000", backgroundColor: "#e3c41d" }}
@@ -97,9 +97,9 @@ function Header() {
             <TrolleyIcon className="w-8 h-8" />
             <span className="text-xl font-bold">My basket</span>
           </Link>
-        </div>
+        </div> */}
 
-        <ClerkLoaded>
+        {/* <ClerkLoaded>
           {user && (
             <Link
               href="/orders"
@@ -131,7 +131,7 @@ function Header() {
               Create a passkey now
             </button>
           )}
-        </ClerkLoaded>
+        </ClerkLoaded> */}
       </div>
     </header>
   );
