@@ -25,7 +25,7 @@ function Header() {
   };
 
   return (
-    <header className="bg-black h-[59px]">
+    <header className="md:h-[80px] sm:h-[60px] bg-black  flex justify-center items-center">
       <div className="">
         <Link
           href="/"
@@ -39,12 +39,7 @@ function Header() {
             "
         >
           <div className="flex justify-center items-center ">
-            <Image
-              src={logo}
-              alt="Sang Logium Logo"
-              height={59}
-              className="ml-2"
-            />
+            <Image src={logo} alt="Sang Logium Logo" height={68} />
             {/* <span
               style={{ color: "#e3c41d" }}
               className="font-garamond  ml-3 font-thin"
