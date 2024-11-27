@@ -43,16 +43,16 @@ function Header() {
         <input
           type="text"
           name="query"
-          placeholder="SEARCH PRODUCTS"
+          placeholder="Search products..."
           className="text-2xl flex-1 bg-transparent border-b border-white text-white placeholder-white focus:outline-none"
         />
       </form>
 
       {/* Basket and User Icons for Desktop */}
-      <div className="hidden lg:grid grid-cols-2 gap-2 items-center justify-around">
+      <div className="max-w-48 hidden lg:grid grid-cols-2 gap-2 items-center justify-evenly">
         <Link
           href="/basket"
-          className="xl:mr-8 2xl:mr-16 flex flex-col justify-center items-center space-x-2 text-white"
+          className="flex flex-col justify-center items-center space-x-2 text-white"
         >
           <FaShoppingCart className="w-[26px] h-[26px] text-white" />
           <span className="text-xl">Basket</span>
