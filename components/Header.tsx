@@ -4,12 +4,10 @@ import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { Icon, PackageIcon } from "@sanity/icons";
 import Link from "next/link";
 import { TrolleyIcon } from "@sanity/icons";
-import Form from "next/form";
 import { ClerkLoaded } from "@clerk/nextjs";
 import logo from "../public/logo.svg";
 import Image from "next/image";
-import imageUrl from "../lib/imageUrl";
-import menu from "../public/icons/Menu.svg";
+import { FaSearch, FaUser, FaShoppingCart } from "react-icons/fa";
 
 function Header() {
   const { user } = useUser();
@@ -26,110 +24,72 @@ function Header() {
   };
 
   return (
-    <header className="md:h-[80px] sm:h-[60px] bg-black  flex justify-center items-center">
-      <div className="">
-        <Link
-          href="/"
-          className="text-2xl
-                font-bold
-                text-blue-500
-                hover:opacity-50
-                cursor-pointer
-                mx-auto
-                sm:mx-0
-            "
-        >
-          <div className="flex justify-center items-center ">
-            <Image src={logo} alt="Sang Logium Logo" height={68} />
-            {/* <span
-              style={{ color: "#e3c41d" }}
-              className="font-garamond  ml-3 font-thin"
-            >
-              Sang Logium
-            </span> */}
-          </div>
+    <header className="bg-black flex justify-center md:justify-between items-center px-4 md:px-10 h-[60px] md:h-[80px]">
+      {/* Logo */}
+      <div className="flex justify-center sm:mr-6 lg:ml-20">
+        <Link href="/">
+          <Image
+            src={logo}
+            alt="Sang Logium Logo"
+            className="h-[52px] md:h-[60px]"
+          />
         </Link>
+      </div>
 
-        {/* <Form
+      {/* Search Input for Desktop */}
+      <div className="hidden md:flex items-center flex-1 max-w-2xl  mr-6">
+        <form
           action="/search"
-          className="flex-1 flex justify-center items-center w-full mx-10"
+          className="flex items-center w-full max-w-lg h-[32px]"
         >
+          <FaSearch className="text-white mr-4  w-6 h-[100%]" />
           <input
             type="text"
             name="query"
-            placeholder="Search for products"
-            style={{
-              border: "none",
-              color: "red",
-              borderBottom: "1px solid red",
-              maxWidth: "20rem",
-            }}
-            className="
-            font-thin
-            bg-black
-            placeholder-yellow-500
-            text-center
-            text-xl
-            px-4
-            py-2
-            focus:outline-none
-            focus:ring-2
-            focus:ring-transparent
-            focus:ring-opacity-0
-            w-full
-            sm:max-w-sm
-            h-full
-          "
+            placeholder="SEARCH PRODUCTS"
+            className="text-2xl flex-1 bg-transparent border-b border-white text-white placeholder-white focus:outline-none"
           />
-        </Form> */}
+        </form>
+      </div>
 
-        {/* <div className="flex flex-items items-center">
-          <Link
-            href="/basket"
-            style={{ color: "#000", backgroundColor: "#e3c41d" }}
-            className="
-        flex-1 relative flex justify-center items-center space-x-2 bg-black rounded mr-2 px-4 py-1"
-          >
-            <TrolleyIcon className="w-8 h-8" />
-            <span className="text-xl font-bold">My basket</span>
-          </Link>
-        </div> */}
+      {/* Basket and User Icons for Desktop */}
+      <div className="hidden md:flex items-center flex-1 justify-around max-w-40 lg:max-w-60 mt-1 lg:mr-5">
+        <Link
+          href="/basket"
+          className="flex flex-col justify-center items-center space-x-2 text-white"
+        >
+          <FaShoppingCart className="w-[26px] h-[26px] text-white" />
+          <span className="text-xl">Basket</span>
+        </Link>
 
-        {/* <ClerkLoaded>
-          {user && (
-            <Link
-              href="/orders"
-              className="flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              <PackageIcon className="w-6 h-6" />
-              <div>My orders</div>
-            </Link>
-          )}
-
+        <ClerkLoaded>
           {user ? (
-            <div>
+            <div className="flex items-center justify-center space-x-2">
               <UserButton />
-
               <div className="hidden sm:block text-xs">
-                <p className="text-gray-400">Welcome back</p>
-                <p className="font-bold">{user.fullName}</p>
+                <p className="text-white">Welcome back</p>
+                <p className="font-bold text-white">{user.fullName}</p>
               </div>
             </div>
           ) : (
-            <SignInButton mode="modal" />
+            <div className="flex flex-col justify-center items-center">
+              {/* <FaUser className="w-[32px] h-[32px] text-white" /> */}
+              <FaUser className="w-[24px] h-[24px] text-white outline-none" />
+              <div className="text-white text-xl mt-[2px]">
+                <SignInButton mode="modal" />
+              </div>
+            </div>
           )}
-
           {user?.passkeys.length === 0 && (
             <button
               onClick={createClerkPasskey}
-              className="bg-white hover:bg-blue-700 hover:text-white animate-pulse text-blue-500 font-bold py-2 px-4 rounded border-blue-300 border"
+              className="bg-white hover:bg-white-700 hover:text-white animate-pulse text-white-500 font-bold py-2 px-4 rounded border-blue-300 border"
             >
               Create a passkey now
             </button>
           )}
-        </ClerkLoaded> */}
+        </ClerkLoaded>
       </div>
-      <Image src={menu} alt="Sang Logium Logo" height={36} />
     </header>
   );
 }

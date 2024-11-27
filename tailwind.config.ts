@@ -11,6 +11,7 @@ export default {
     extend: {
       fontFamily: {
         garamond: ["Garamond", "serif"],
+        iceland: ["Iceland", "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",
