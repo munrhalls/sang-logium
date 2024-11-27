@@ -5,7 +5,6 @@ import Header from "@/components/Header";
 import { SanityLive } from "@/sanity/lib/live";
 import MobileFooter from "@/components/MobileFooter";
 import MobileSearchDrawer from "@/components/ui/mobile-search-drawer";
-// import useStore from "../store";
 
 export const metadata: Metadata = {
   title: "Create Next App",

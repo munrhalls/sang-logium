@@ -1,17 +1,29 @@
 "use client";
 
 import useStore from "../../store";
+import { useEffect, useState } from "react";
 
 export default function MobileSearchDrawer() {
-  const isDrawerOpen = useStore((state) => state.isDrawerOpen); // Get the drawer state from the store
-  const toggleDrawer = useStore((state) => state.toggleDrawer); // Get the toggleDrawer function from the store
+  const isDrawerOpen = useStore((state) => state.isDrawerOpen);
+  const toggleDrawer = useStore((state) => state.toggleDrawer);
+
+  const [isMounted, setIsMounted] = useState(false);
+
+  // for hydration
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div
       className={`z-50 pointer-events-auto fixed top-[60px] left-0 bottom-[60px] bg-white text-black transition-transform duration-300 ${
         isDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
-      style={{ width: "90%", height: "calc(100vh - 4rem)" }} // Adjust height to match remaining space
+      style={{ width: "90%" }}
     >
       <div className="p-4">
         <div className="flex justify-end items-center mr-2">
