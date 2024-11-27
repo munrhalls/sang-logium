@@ -9,6 +9,7 @@ import { ClerkLoaded } from "@clerk/nextjs";
 import logo from "../public/logo.svg";
 import Image from "next/image";
 import imageUrl from "../lib/imageUrl";
+import menu from "../public/icons/Menu.svg";
 
 function Header() {
   const { user } = useUser();
@@ -128,6 +129,7 @@ function Header() {
           )}
         </ClerkLoaded> */}
       </div>
+      <Image src={menu} alt="Sang Logium Logo" height={36} />
     </header>
   );
 }
