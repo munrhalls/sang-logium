@@ -23,6 +23,7 @@ export default function MobileSearchDrawer() {
         <form action="/search" className="mt-4">
           <input
             type="text"
+            name="query"
             placeholder="Look for products by name..."
             className="w-full p-2 bg-gray-800 text-white rounded"
           />
