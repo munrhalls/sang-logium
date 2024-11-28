@@ -1,14 +1,7 @@
 "use client";
 
-import {
-  FaBars,
-  FaSearch,
-  FaShoppingBag,
-  FaUser,
-  FaKey,
-  FaSpinner,
-} from "react-icons/fa";
-import { usetoggleSearchDrawer, useStore } from "../store";
+import { FaBars, FaSearch, FaShoppingBag, FaUser, FaKey } from "react-icons/fa";
+import { useStore } from "../store";
 import { ClerkLoaded } from "@clerk/nextjs";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { UIState } from "../store";
@@ -25,7 +18,10 @@ export default function MobileFooter() {
     }
   };
 
-  const toggleSearchDrawer = usetoggleSearchDrawer();
+  const toggleSearchDrawer = useStore(
+    (state: UIState) => state.toggleSearchDrawer
+  );
+
   const isSearchDrawerOpen = useStore(
     (state: UIState) => state.isSearchDrawerOpen
   );

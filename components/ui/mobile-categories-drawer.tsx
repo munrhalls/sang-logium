@@ -3,9 +3,13 @@
 import { useStore } from "../../store";
 import { useEffect, useState } from "react";
 
-export default function MobileSearchDrawer() {
-  const isSearchDrawerOpen = useStore((state) => state.isSearchDrawerOpen);
-  const toggleSearchDrawer = useStore((state) => state.toggleSearchDrawer);
+export default function MobileCategoriesDrawer() {
+  const isCategoriesDrawerOpen = useStore(
+    (state) => state.isCategoriesDrawerOpen
+  );
+  const toggleCategoriesDrawer = useStore(
+    (state) => state.toggleCategoriesDrawer
+  );
 
   const [isMounted, setIsMounted] = useState(false);
 
@@ -21,13 +25,13 @@ export default function MobileSearchDrawer() {
   return (
     <div
       className={`z-50 pointer-events-auto fixed top-[60px] left-0 bottom-[60px] bg-white text-black transition-transform duration-300 ${
-        isSearchDrawerOpen ? "translate-x-0" : "-translate-x-full"
+        isCategoriesDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
       style={{ width: "90%" }}
     >
       <div className="p-4">
         <div className="flex justify-end items-center mr-2">
-          <button onClick={toggleSearchDrawer} className="text-black">
+          <button onClick={toggleCategoriesDrawer} className="text-black">
             Close
           </button>
         </div>
