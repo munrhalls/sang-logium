@@ -1,7 +1,7 @@
 import { createClient } from "@sanity/client";
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
-import products from "./../sang-logium-data/product.json" assert { type: "json" };
+import products from "../../../sang-logium-data/product.json" assert { type: "json" };
 import dotenv from "dotenv";
 
 dotenv.config({ path: ".env.local" });
@@ -39,13 +39,20 @@ async function uploadImage(url) {
   };
 }
 
+interface SpanBlock {
+  _type: "span";
+  text: string | null;
+}
+
+interface Block {
+  _type: "block";
+  style: string;
+  children: SpanBlock[];
+}
+
 // Function to convert HTML to Portable Text
-function convertDescription(html) {
-  const blocks = [];
-  const dom = new JSDOM(html);
-  const paragraphs = dom.window.document.querySelectorAll(
-    "p, h1, h2, h3, h4, h5, h6"
-  );
+function processBlocks(paragraphs: HTMLElement[]): Block[] {
+  const blocks: Block[] = [];
 
   paragraphs.forEach((element) => {
     blocks.push({
@@ -59,6 +66,7 @@ function convertDescription(html) {
       ],
     });
   });
+
   return blocks;
 }
 
@@ -75,13 +83,20 @@ async function importProducts() {
       };
 
       // Upload the first image
-      let image = null;
+      let image: {
+        _type: string;
+        asset: { _type: string; _ref: string };
+      } | null = null;
       if (product.images && product.images.length > 0) {
         image = await uploadImage(product.images[0]);
       }
 
       // Convert description HTML to Portable Text
-      const description = convertDescription(product.description);
+      const dom = new JSDOM(product.description);
+      const paragraphs = Array.from(
+        dom.window.document.body.children
+      ) as HTMLElement[];
+      const description = processBlocks(paragraphs);
 
       // Parse price to number
       const price = parseFloat(product.price) || 0;

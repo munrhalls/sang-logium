@@ -183,6 +183,8 @@ export type Category = {
   title?: string;
   slug?: Slug;
   description?: string;
+  icon?: string;
+  subcategories?: Array<string>;
 };
 
 export type Slug = {
@@ -293,6 +295,8 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   title?: string;
   slug?: Slug;
   description?: string;
+  icon?: string;
+  subcategories?: Array<string>;
 }>;
 
 // Source: ./sanity/lib/products/getAllProducts.ts
