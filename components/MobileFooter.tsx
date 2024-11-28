@@ -18,6 +18,13 @@ export default function MobileFooter() {
     }
   };
 
+  const toggleCategoriesDrawer = useStore(
+    (state: UIState) => state.toggleCategoriesDrawer
+  );
+  const isCategoriesDrawerOpen = useStore(
+    (state: UIState) => state.isCategoriesDrawerOpen
+  );
+
   const toggleSearchDrawer = useStore(
     (state: UIState) => state.toggleSearchDrawer
   );
@@ -28,7 +35,14 @@ export default function MobileFooter() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around items-center h-16 lg:hidden">
-      <button className="flex flex-col items-center">
+      <button
+        className={`flex flex-col items-center transition-transform duration-150 ${
+          isCategoriesDrawerOpen
+            ? "font-bold shadow-lg bg-white text-black px-4 py-2 rounded"
+            : ""
+        }`}
+        onClick={toggleCategoriesDrawer}
+      >
         <FaBars size={24} />
         <span className="text-xs mt-1">Categories</span>
       </button>

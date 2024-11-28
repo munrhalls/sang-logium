@@ -2,9 +2,9 @@
 
 import { ClerkLoaded } from "@clerk/nextjs";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
-import { Icon, PackageIcon } from "@sanity/icons";
+// import { Icon, PackageIcon } from "@sanity/icons";
 import Link from "next/link";
-import { TrolleyIcon } from "@sanity/icons";
+// import { TrolleyIcon } from "@sanity/icons";
 import logo from "../public/logo.svg";
 import Image from "next/image";
 import { FaSearch, FaUser, FaShoppingCart, FaKey } from "react-icons/fa";
