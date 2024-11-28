@@ -7,29 +7,10 @@ import Link from "next/link";
 import { TrolleyIcon } from "@sanity/icons";
 import logo from "../public/logo.svg";
 import Image from "next/image";
-import {
-  FaSearch,
-  FaUser,
-  FaShoppingCart,
-  FaKey,
-  FaSpinner,
-} from "react-icons/fa";
+import { FaSearch, FaUser, FaShoppingCart, FaKey } from "react-icons/fa";
 
 function Header() {
-  const { user, isLoaded } = useUser();
-
-  console.log(user);
-
-  if (!isLoaded) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        <FaSpinner
-          data-testid="loading-spinner"
-          className="text-white text-4xl animate-spin"
-        />
-      </div>
-    );
-  }
+  const { user } = useUser();
 
   const createClerkPasskey = async () => {
     try {

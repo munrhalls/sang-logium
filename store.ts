@@ -1,13 +1,15 @@
 import { create } from "zustand";
 
 export interface UIState {
-  isDrawerOpen: boolean;
-  toggleDrawer: () => void;
+  isSearchDrawerOpen: boolean;
+  toggleSearchDrawer: () => void;
 }
 
 export const useStore = create<UIState>((set) => ({
-  isDrawerOpen: false,
-  toggleDrawer: () => set((state) => ({ isDrawerOpen: !state.isDrawerOpen })),
+  isSearchDrawerOpen: false,
+  toggleSearchDrawer: () =>
+    set((state) => ({ isSearchDrawerOpen: !state.isSearchDrawerOpen })),
 }));
 
-export const useToggleDrawer = () => useStore((state) => state.toggleDrawer);
+export const usetoggleSearchDrawer = () =>
+  useStore((state) => state.toggleSearchDrawer);
