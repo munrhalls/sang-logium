@@ -23,7 +23,10 @@ function Header() {
   if (!isLoaded) {
     return (
       <div className="flex justify-center items-center h-full">
-        <FaSpinner className="text-white text-4xl animate-spin" />
+        <FaSpinner
+          data-testid="loading-spinner"
+          className="text-white text-4xl animate-spin"
+        />
       </div>
     );
   }
