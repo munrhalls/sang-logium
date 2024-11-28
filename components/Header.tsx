@@ -1,18 +1,32 @@
 "use client";
 
+import { ClerkLoaded } from "@clerk/nextjs";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { Icon, PackageIcon } from "@sanity/icons";
 import Link from "next/link";
 import { TrolleyIcon } from "@sanity/icons";
-import { ClerkLoaded } from "@clerk/nextjs";
 import logo from "../public/logo.svg";
 import Image from "next/image";
-import { FaSearch, FaUser, FaShoppingCart, FaKey } from "react-icons/fa";
+import {
+  FaSearch,
+  FaUser,
+  FaShoppingCart,
+  FaKey,
+  FaSpinner,
+} from "react-icons/fa";
 
 function Header() {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
 
   console.log(user);
+
+  if (!isLoaded) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <FaSpinner className="text-white text-4xl animate-spin" />
+      </div>
+    );
+  }
 
   const createClerkPasskey = async () => {
     try {
