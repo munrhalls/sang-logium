@@ -4,54 +4,17 @@ import { useStore } from "../../store";
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
+
+import { Category } from "@/sanity.types";
+
+import { FaTimes } from "react-icons/fa";
 import {
   FaHeadphones,
   FaMicrophone,
   FaMusic,
-  FaToolbox,
+  FaChevronDown,
   FaRegCircle,
 } from "react-icons/fa";
-import { FaTimes } from "react-icons/fa";
-import { Category } from "../../sanity.types";
-// const categories = [
-//   {
-//     name: "Headphones",
-//     icon: <FaHeadphones />,
-//     subcategories: [
-//       "Over-Ear",
-//       "In-Ear",
-//       "On-Ear",
-//       "Wireless",
-//       "Noise-Cancelling",
-//     ],
-//   },
-//   {
-//     name: "Studio Equipment",
-//     icon: <FaMicrophone />,
-//     subcategories: [
-//       "Microphones",
-//       "Audio Interfaces",
-//       "Studio Monitors",
-//       "Recording Bundles",
-//     ],
-//   },
-//   {
-//     name: "Accessories",
-//     icon: <FaToolbox />,
-//     subcategories: [
-//       "Cables",
-//       "Cases",
-//       "Stands",
-//       "Adapters",
-//       "Replacement Parts",
-//     ],
-//   },
-//   {
-//     name: "Hi-Fi Audio",
-//     icon: <FaMusic />,
-//     subcategories: ["Amplifiers", "DACs", "Speakers", "Turntables"],
-//   },
-// ];
 
 export default function MobileCategoriesDrawer({
   categories,
@@ -87,6 +50,17 @@ export default function MobileCategoriesDrawer({
     );
   }
 
+  const getIcon = (title: string | undefined) => {
+    switch (title) {
+      case "headphones":
+        return <FaHeadphones />;
+      case "microphone":
+        return <FaMicrophone />;
+      default:
+        return <FaMusic />;
+    }
+  };
+
   return (
     <div
       className={`z-50 pointer-events-auto fixed top-[60px] left-0 bottom-[60px] bg-white text-black transition-transform duration-300 flex flex-col ${
@@ -119,9 +93,10 @@ export default function MobileCategoriesDrawer({
                   href={`/category/${category?.title?.toLowerCase().replace(/\s+/g, "-")}`}
                   className="flex items-center text-2xl font-semibold hover:text-gray-600"
                 >
-                  <span className="mr-2">{category.icon}</span>
-                  {category.title}
+                  <span className="mr-3">{getIcon(category.icon)}</span>
+                  <span>{category.title}</span>
                 </Link>
+
                 <div className="ml-6 space-y-1">
                   {category?.subcategories?.map((sub) => (
                     <Link

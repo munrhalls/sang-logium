@@ -1,17 +1,16 @@
 "use client";
-// components/DesktopCategoriesNav.tsx
 import { useState } from "react";
 
 import Link from "next/link";
+
+import { Category } from "@/sanity.types";
 import {
   FaHeadphones,
   FaMicrophone,
   FaMusic,
-  FaToolbox,
   FaChevronDown,
+  FaRegCicrle,
 } from "react-icons/fa";
-import { Category } from "@/sanity.types";
-
 // const categories = [
 //   {
 //     name: "Headphones",
@@ -72,6 +71,17 @@ export default function DesktopCategoriesNav({
     );
   }
 
+  const getIcon = (title: string | undefined) => {
+    switch (title) {
+      case "headphones":
+        return <FaHeadphones />;
+      case "microphone":
+        return <FaMicrophone />;
+      default:
+        return <FaMusic />;
+    }
+  };
+
   return (
     <nav className="hidden lg:block w-full bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
@@ -88,7 +98,7 @@ export default function DesktopCategoriesNav({
                   activeCategory === category.title ? "text-yellow-400" : ""
                 }`}
               >
-                <span className="mr-2">{category.icon}</span>
+                {getIcon(category.icon)}
                 {category.title}
                 <FaChevronDown className="ml-1 w-3 h-3" />
               </button>
