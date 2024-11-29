@@ -98,8 +98,9 @@ export default function DesktopCategoriesNav({
                   activeCategory === category.title ? "text-yellow-400" : ""
                 }`}
               >
-                {getIcon(category.icon)}
-                {category.title}
+                <span className="mr-1"> {getIcon(category.icon)}</span>
+                <span>{category.title}</span>
+
                 <FaChevronDown className="ml-1 w-3 h-3" />
               </button>
 
