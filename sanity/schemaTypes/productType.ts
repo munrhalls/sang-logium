@@ -58,6 +58,7 @@ export const productType = defineType({
           name: "ref",
           type: "reference",
           to: [{ type: "category" }],
+          weak: true,
         },
       ],
       validation: (Rule) => Rule.required(),
