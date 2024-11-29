@@ -13,6 +13,7 @@ export const categoryType = defineType({
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
+
     defineField({
       name: "slug",
       type: "slug",
@@ -20,6 +21,19 @@ export const categoryType = defineType({
         source: "title",
       },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "subcategories",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "name", type: "string" },
+            { name: "slug", type: "slug" },
+          ],
+        },
+      ],
     }),
     defineField({
       name: "description",
@@ -30,20 +44,6 @@ export const categoryType = defineType({
       type: "string",
       description: "Icon identifier (e.g., 'headphones', 'microphone')",
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "subcategories",
-      type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            { name: "title", type: "string" },
-            { name: "slug", type: "slug" },
-            { name: "description", type: "text" },
-          ],
-        },
-      ],
     }),
   ],
   preview: {
