@@ -170,7 +170,14 @@ export type Product = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "category";
   };
-  subcategorySlug?: string;
+  subcategory?: {
+    ref?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "category";
+    };
+  };
   stock?: number;
 };
 
@@ -182,14 +189,13 @@ export type Category = {
   _rev: string;
   title?: string;
   slug?: Slug;
-  description?: string;
-  icon?: string;
   subcategories?: Array<{
-    title?: string;
+    name?: string;
     slug?: Slug;
-    description?: string;
     _key: string;
   }>;
+  description?: string;
+  icon?: string;
 };
 
 export type Slug = {
@@ -420,14 +426,13 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   _rev: string;
   title?: string;
   slug?: Slug;
-  description?: string;
-  icon?: string;
   subcategories?: Array<{
-    title?: string;
+    name?: string;
     slug?: Slug;
-    description?: string;
     _key: string;
   }>;
+  description?: string;
+  icon?: string;
 }>;
 
 // Source: ./sanity/lib/products/getAllProducts.ts
@@ -489,7 +494,14 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "category";
   };
-  subcategorySlug?: string;
+  subcategory?: {
+    ref?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "category";
+    };
+  };
   stock?: number;
 }>;
 
@@ -561,7 +573,14 @@ export type PRODUCT_BY_ID_QUERYResult = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "category";
   };
-  subcategorySlug?: string;
+  subcategory?: {
+    ref?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "category";
+    };
+  };
   stock?: number;
 } | null;
 
@@ -624,7 +643,14 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "category";
   };
-  subcategorySlug?: string;
+  subcategory?: {
+    ref?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "category";
+    };
+  };
   stock?: number;
 }>;
 

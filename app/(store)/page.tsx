@@ -23,7 +23,7 @@ export default async function Home() {
       <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-4">
         <ProductsView products={products} categories={categories} />
         <MobileSearchDrawer />
-        {/* <MobileCategoriesDrawer categoryTree={categoryTree} /> */}
+        <MobileCategoriesDrawer categories={categories} />
       </div>
     </div>
   );

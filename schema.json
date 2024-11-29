@@ -1018,10 +1018,42 @@
         },
         "optional": true
       },
-      "subcategorySlug": {
+      "subcategory": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "object",
+          "attributes": {
+            "ref": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "object",
+                "attributes": {
+                  "_ref": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "reference"
+                    }
+                  },
+                  "_weak": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "boolean"
+                    },
+                    "optional": true
+                  }
+                },
+                "dereferencesTo": "category"
+              },
+              "optional": true
+            }
+          }
         },
         "optional": true
       },
@@ -1084,20 +1116,6 @@
         },
         "optional": true
       },
-      "description": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "icon": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
       "subcategories": {
         "type": "objectAttribute",
         "value": {
@@ -1105,7 +1123,7 @@
           "of": {
             "type": "object",
             "attributes": {
-              "title": {
+              "name": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "string"
@@ -1117,13 +1135,6 @@
                 "value": {
                   "type": "inline",
                   "name": "slug"
-                },
-                "optional": true
-              },
-              "description": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
                 },
                 "optional": true
               }
@@ -1140,6 +1151,20 @@
               }
             }
           }
+        },
+        "optional": true
+      },
+      "description": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "icon": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       }

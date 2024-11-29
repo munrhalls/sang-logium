@@ -100,16 +100,16 @@ export default function MobileCategoriesDrawer({
                 <div className="ml-6 space-y-1">
                   {category?.subcategories?.map((sub) => (
                     <Link
-                      key={sub}
+                      key={category._id + sub.name}
                       href={`/category/${category?.title
                         ?.toLowerCase()
-                        .replace(/\s+/g, "-")}/${sub
-                        .toLowerCase()
+                        .replace(/\s+/g, "-")}/${sub?.name
+                        ?.toLowerCase()
                         .replace(/\s+/g, "-")}`}
                       className="flex items-center text-xl text-gray-600 hover:text-black"
                     >
                       <FaRegCircle className="mr-2 w-2 h-2" />
-                      {sub}
+                      {sub?.name}
                     </Link>
                   ))}
                 </div>

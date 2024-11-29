@@ -111,11 +111,11 @@ export default function DesktopCategoriesNav({
                   <div className="py-2">
                     {category?.subcategories?.map((sub, i) => (
                       <Link
-                        key={`${category._id}-${i}-${sub.title}`}
-                        href={`/category/${category?.title?.toLowerCase()}/${sub?.title?.toLowerCase()}`}
+                        key={`${category._id}-${i}-${sub.name}`}
+                        href={`/category/${category?.title?.toLowerCase()}/${sub?.name?.toLowerCase()}`}
                         className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
                       >
-                        {sub?.title}
+                        {sub?.name}
                       </Link>
                     ))}
                   </div>
