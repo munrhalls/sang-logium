@@ -164,13 +164,13 @@ export type Product = {
     _key: string;
   }>;
   price?: number;
-  categories?: Array<{
+  category?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    _key: string;
     [internalGroqTypeReferenceTo]?: "category";
-  }>;
+  };
+  subcategorySlug?: string;
   stock?: number;
 };
 
@@ -184,7 +184,12 @@ export type Category = {
   slug?: Slug;
   description?: string;
   icon?: string;
-  subcategories?: Array<string>;
+  subcategories?: Array<{
+    title?: string;
+    slug?: Slug;
+    description?: string;
+    _key: string;
+  }>;
 };
 
 export type Slug = {
@@ -281,7 +286,128 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Sale | Order | Product | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type SanityAssistInstructionTask = {
+  _type: "sanity.assist.instructionTask";
+  path?: string;
+  instructionKey?: string;
+  started?: string;
+  updated?: string;
+  info?: string;
+};
+
+export type SanityAssistTaskStatus = {
+  _type: "sanity.assist.task.status";
+  tasks?: Array<{
+    _key: string;
+  } & SanityAssistInstructionTask>;
+};
+
+export type SanityAssistSchemaTypeAnnotations = {
+  _type: "sanity.assist.schemaType.annotations";
+  title?: string;
+  fields?: Array<{
+    _key: string;
+  } & SanityAssistSchemaTypeField>;
+};
+
+export type SanityAssistOutputType = {
+  _type: "sanity.assist.output.type";
+  type?: string;
+};
+
+export type SanityAssistOutputField = {
+  _type: "sanity.assist.output.field";
+  path?: string;
+};
+
+export type SanityAssistInstructionContext = {
+  _type: "sanity.assist.instruction.context";
+  reference?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "assist.instruction.context";
+  };
+};
+
+export type AssistInstructionContext = {
+  _id: string;
+  _type: "assist.instruction.context";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  context?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
+    markDefs?: null;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+};
+
+export type SanityAssistInstructionUserInput = {
+  _type: "sanity.assist.instruction.userInput";
+  message?: string;
+  description?: string;
+};
+
+export type SanityAssistInstructionPrompt = Array<{
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  } | {
+    _key: string;
+  } & SanityAssistInstructionFieldRef | {
+    _key: string;
+  } & SanityAssistInstructionContext | {
+    _key: string;
+  } & SanityAssistInstructionUserInput>;
+  style?: "normal";
+  listItem?: never;
+  markDefs?: null;
+  level?: number;
+  _type: "block";
+  _key: string;
+}>;
+
+export type SanityAssistInstructionFieldRef = {
+  _type: "sanity.assist.instruction.fieldRef";
+  path?: string;
+};
+
+export type SanityAssistInstruction = {
+  _type: "sanity.assist.instruction";
+  prompt?: SanityAssistInstructionPrompt;
+  icon?: string;
+  title?: string;
+  userId?: string;
+  createdById?: string;
+  output?: Array<{
+    _key: string;
+  } & SanityAssistOutputField | {
+    _key: string;
+  } & SanityAssistOutputType>;
+};
+
+export type SanityAssistSchemaTypeField = {
+  _type: "sanity.assist.schemaType.field";
+  path?: string;
+  instructions?: Array<{
+    _key: string;
+  } & SanityAssistInstruction>;
+};
+
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Sale | Order | Product | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/products/getAllCategories.ts
 // Variable: ALL_CATEGORIES_QUERY
@@ -296,7 +422,12 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   slug?: Slug;
   description?: string;
   icon?: string;
-  subcategories?: Array<string>;
+  subcategories?: Array<{
+    title?: string;
+    slug?: Slug;
+    description?: string;
+    _key: string;
+  }>;
 }>;
 
 // Source: ./sanity/lib/products/getAllProducts.ts
@@ -352,14 +483,23 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
     _key: string;
   }>;
   price?: number;
-  categories?: Array<{
+  category?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    _key: string;
     [internalGroqTypeReferenceTo]?: "category";
-  }>;
+  };
+  subcategorySlug?: string;
   stock?: number;
+}>;
+
+// Source: ./sanity/lib/products/getCategoriesTree.ts
+// Variable: GET_CATEGORIES_TREE
+// Query: *[_type == "category"] {      title,      slug,      "subcategories": *[_type == "subcategory" && references(^._id)] {        title,        slug      }    }
+export type GET_CATEGORIES_TREEResult = Array<{
+  title: string | null;
+  slug: Slug | null;
+  subcategories: Array<never>;
 }>;
 
 // Source: ./sanity/lib/products/getProductBySlug.ts
@@ -415,13 +555,13 @@ export type PRODUCT_BY_ID_QUERYResult = {
     _key: string;
   }>;
   price?: number;
-  categories?: Array<{
+  category?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    _key: string;
     [internalGroqTypeReferenceTo]?: "category";
-  }>;
+  };
+  subcategorySlug?: string;
   stock?: number;
 } | null;
 
@@ -478,13 +618,13 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
     _key: string;
   }>;
   price?: number;
-  categories?: Array<{
+  category?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    _key: string;
     [internalGroqTypeReferenceTo]?: "category";
-  }>;
+  };
+  subcategorySlug?: string;
   stock?: number;
 }>;
 
@@ -512,6 +652,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n          *[\n              _type == \"category\"\n          ] | order(name asc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
+    "\n    *[_type == \"category\"] {\n      title,\n      slug,\n      \"subcategories\": *[_type == \"subcategory\" && references(^._id)] {\n        title,\n        slug\n      }\n    }\n  ": GET_CATEGORIES_TREEResult;
     "\n            *[\n                _type == 'product'\n                && slug.current == $slug\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
     "*[\n        _type == \"product\"\n        && name match $searchParam\n    ] | order(name asc)": SEARCH_FOR_PRODUCTS_QUERYResult;
     "\n          *[\n              _type == \"sale\"\n              && isActive == true\n              && couponCode == $couponCode\n          ] | order(validFrom desc)[0]\n      ": ACTIVE_SALE_BY_COUPON_QUERYResult;

@@ -1,7 +1,5 @@
 import { defineType, defineField } from "sanity";
 import { TrolleyIcon } from "@sanity/icons";
-import { Category } from "@/sanity.types";
-import { Rule, ValidationContext } from "sanity";
 
 export const productType = defineType({
   name: "product",
@@ -53,22 +51,8 @@ export const productType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "subcategory",
-      title: "Subcategory",
-      type: "reference",
-      to: { type: "subcategory" },
-      weak: true,
-      options: {
-        filter: async ({ document }) => {
-          if (!document?.category?._ref) return { filter: '_id == "none"' };
-
-          return {
-            filter: "parentCategory._ref == $categoryId",
-            params: { categoryId: document.category._ref },
-          };
-        },
-      },
-      validation: (Rule) => Rule.required(),
+      name: "subcategorySlug",
+      type: "string",
     }),
     defineField({
       name: "stock",

@@ -4,12 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 
 import { Category } from "@/sanity.types";
+
 import {
   FaHeadphones,
   FaMicrophone,
   FaMusic,
   FaChevronDown,
-  FaRegCicrle,
 } from "react-icons/fa";
 // const categories = [
 //   {
@@ -81,6 +81,7 @@ export default function DesktopCategoriesNav({
         return <FaMusic />;
     }
   };
+  console.log("Category structure:", JSON.stringify(categories, null, 2));
 
   return (
     <nav className="hidden lg:block w-full bg-gray-900">
@@ -88,7 +89,7 @@ export default function DesktopCategoriesNav({
         <ul className="flex justify-center items-center h-12">
           {categories.map((category) => (
             <li
-              key={category.title}
+              key={category._id}
               className="relative"
               onMouseEnter={() => setActiveCategory(category.title)}
               onMouseLeave={() => setActiveCategory(undefined)}
@@ -108,13 +109,13 @@ export default function DesktopCategoriesNav({
               {activeCategory === category.title && (
                 <div className="absolute top-12 left-0 w-48 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-700 ease-in-out transform opacity-100 scale-100">
                   <div className="py-2">
-                    {category?.subcategories?.map((sub) => (
+                    {category?.subcategories?.map((sub, i) => (
                       <Link
-                        key={sub}
-                        href={`/category/${category?.title?.toLowerCase()}/${sub.toLowerCase()}`}
+                        key={`${category._id}-${i}-${sub.title}`}
+                        href={`/category/${category?.title?.toLowerCase()}/${sub?.title?.toLowerCase()}`}
                         className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
                       >
-                        {sub}
+                        {sub?.title}
                       </Link>
                     ))}
                   </div>
