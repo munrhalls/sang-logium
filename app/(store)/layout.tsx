@@ -24,9 +24,7 @@ export default function RootLayout({
         <body>
           <main>
             <Header />
-            <DesktopCategoriesNav />
-            <MobileSearchDrawer />
-            <MobileCategoriesDrawer />
+
             {children}
             <MobileFooter />
           </main>

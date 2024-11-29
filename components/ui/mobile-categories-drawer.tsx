@@ -12,48 +12,52 @@ import {
   FaRegCircle,
 } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
+import { Category } from "../../sanity.types";
+// const categories = [
+//   {
+//     name: "Headphones",
+//     icon: <FaHeadphones />,
+//     subcategories: [
+//       "Over-Ear",
+//       "In-Ear",
+//       "On-Ear",
+//       "Wireless",
+//       "Noise-Cancelling",
+//     ],
+//   },
+//   {
+//     name: "Studio Equipment",
+//     icon: <FaMicrophone />,
+//     subcategories: [
+//       "Microphones",
+//       "Audio Interfaces",
+//       "Studio Monitors",
+//       "Recording Bundles",
+//     ],
+//   },
+//   {
+//     name: "Accessories",
+//     icon: <FaToolbox />,
+//     subcategories: [
+//       "Cables",
+//       "Cases",
+//       "Stands",
+//       "Adapters",
+//       "Replacement Parts",
+//     ],
+//   },
+//   {
+//     name: "Hi-Fi Audio",
+//     icon: <FaMusic />,
+//     subcategories: ["Amplifiers", "DACs", "Speakers", "Turntables"],
+//   },
+// ];
 
-const categories = [
-  {
-    name: "Headphones",
-    icon: <FaHeadphones />,
-    subcategories: [
-      "Over-Ear",
-      "In-Ear",
-      "On-Ear",
-      "Wireless",
-      "Noise-Cancelling",
-    ],
-  },
-  {
-    name: "Studio Equipment",
-    icon: <FaMicrophone />,
-    subcategories: [
-      "Microphones",
-      "Audio Interfaces",
-      "Studio Monitors",
-      "Recording Bundles",
-    ],
-  },
-  {
-    name: "Accessories",
-    icon: <FaToolbox />,
-    subcategories: [
-      "Cables",
-      "Cases",
-      "Stands",
-      "Adapters",
-      "Replacement Parts",
-    ],
-  },
-  {
-    name: "Hi-Fi Audio",
-    icon: <FaMusic />,
-    subcategories: ["Amplifiers", "DACs", "Speakers", "Turntables"],
-  },
-];
-
-export default function MobileCategoriesDrawer() {
+export default function MobileCategoriesDrawer({
+  categories,
+}: {
+  categories: Category[];
+}) {
   const isCategoriesDrawerOpen = useStore(
     (state) => state.isCategoriesDrawerOpen
   );
@@ -71,6 +75,18 @@ export default function MobileCategoriesDrawer() {
   if (!isMounted) {
     return null;
   }
+
+  if (!categories || categories.length === 0) {
+    return (
+      <div className="hidden lg:flex w-full bg-gray-900 items-center justify-center ">
+        <p className="text-xl text-white">
+          Oops! It appears we have a slight connection issue...could not load
+          categories. please refresh page.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`z-50 pointer-events-auto fixed top-[60px] left-0 bottom-[60px] bg-white text-black transition-transform duration-300 flex flex-col ${
@@ -98,20 +114,20 @@ export default function MobileCategoriesDrawer() {
         <div className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {categories.map((category) => (
-              <div key={category.name} className="space-y-2">
+              <div key={category.title} className="space-y-2">
                 <Link
-                  href={`/category/${category.name.toLowerCase().replace(/\s+/g, "-")}`}
+                  href={`/category/${category?.title?.toLowerCase().replace(/\s+/g, "-")}`}
                   className="flex items-center text-2xl font-semibold hover:text-gray-600"
                 >
                   <span className="mr-2">{category.icon}</span>
-                  {category.name}
+                  {category.title}
                 </Link>
                 <div className="ml-6 space-y-1">
-                  {category.subcategories.map((sub) => (
+                  {category?.subcategories?.map((sub) => (
                     <Link
                       key={sub}
-                      href={`/category/${category.name
-                        .toLowerCase()
+                      href={`/category/${category?.title
+                        ?.toLowerCase()
                         .replace(/\s+/g, "-")}/${sub
                         .toLowerCase()
                         .replace(/\s+/g, "-")}`}

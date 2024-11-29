@@ -1,13 +1,14 @@
 // scripts/seedCategories.ts
-import { createClient } from "@sanity/client";
+// import { client } from "./sanity/lib/client";
+import { createClient } from "next-sanity";
 import dotenv from "dotenv";
 
 dotenv.config({ path: ".env.local" });
 
 const client = createClient({
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
-  dataset: process.env.SANITY_STUDIO_DATASET!,
-  token: process.env.SANITY_API_TOKEN!,
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID,
+  dataset: process.env.SANITY_STUDIO_DATASET,
+  token: process.env.SANITY_API_TOKEN,
   useCdn: false,
   apiVersion: "2024-03-01",
 });
@@ -15,7 +16,7 @@ const client = createClient({
 const categories = [
   {
     name: "Headphones",
-    iconName: "headphones",
+    icon: "headphones",
     subcategories: [
       "Over-Ear",
       "In-Ear",
@@ -24,7 +25,32 @@ const categories = [
       "Noise-Cancelling",
     ],
   },
-  // ... other categories
+  {
+    name: "Studio Equipment",
+    icon: "microphone",
+    subcategories: [
+      "Microphones",
+      "Audio Interfaces",
+      "Studio Monitors",
+      "Recording Bundles",
+    ],
+  },
+  {
+    name: "Accessories",
+    icon: "toolbox",
+    subcategories: [
+      "Cables",
+      "Cases",
+      "Stands",
+      "Adapters",
+      "Replacement Parts",
+    ],
+  },
+  {
+    name: "Hi-Fi Audio",
+    icon: "music",
+    subcategories: ["Amplifiers", "DACs", "Speakers", "Turntables"],
+  },
 ];
 
 async function seedCategories() {
@@ -37,7 +63,7 @@ async function seedCategories() {
           _type: "slug",
           current: category.name.toLowerCase().replace(/\s+/g, "-"),
         },
-        icon: category.iconName,
+        icon: category.icon,
         description: `${category.name} category`,
         subcategories: category.subcategories,
       };
