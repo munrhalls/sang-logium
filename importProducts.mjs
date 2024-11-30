@@ -39,20 +39,9 @@ async function uploadImage(url) {
   };
 }
 
-interface SpanBlock {
-  _type: "span";
-  text: string | null;
-}
-
-interface Block {
-  _type: "block";
-  style: string;
-  children: SpanBlock[];
-}
-
 // Function to convert HTML to Portable Text
-function processBlocks(paragraphs: HTMLElement[]): Block[] {
-  const blocks: Block[] = [];
+function processBlocks(paragraphs) {
+  const blocks = [];
 
   paragraphs.forEach((element) => {
     blocks.push({
@@ -70,6 +59,17 @@ function processBlocks(paragraphs: HTMLElement[]): Block[] {
   return blocks;
 }
 
+async function fetchCategories() {
+  const query = '*[_type == "category"]';
+  return await client.fetch(query);
+}
+
+async function findCategory(name: string) {
+  const query = '*[_type == "category" && lower(name) == $name][0]';
+  return await client.fetch(query, { name: name.toLowerCase() });
+}
+
+
 async function importProducts() {
   for (const product of products) {
     try {
@@ -83,19 +83,15 @@ async function importProducts() {
       };
 
       // Upload the first image
-      let image: {
-        _type: string;
-        asset: { _type: string; _ref: string };
-      } | null = null;
+      let image = null;
+
       if (product.images && product.images.length > 0) {
         image = await uploadImage(product.images[0]);
       }
 
       // Convert description HTML to Portable Text
       const dom = new JSDOM(product.description);
-      const paragraphs = Array.from(
-        dom.window.document.body.children
-      ) as HTMLElement[];
+      const paragraphs = Array.from(dom.window.document.body.children);
       const description = processBlocks(paragraphs);
 
       // Parse price to number
@@ -106,6 +102,7 @@ async function importProducts() {
       const categories = []; // Add category references if available
 
       // Create the product document
+      // Create the product document
       const doc = {
         _type: "product",
         name: name,
@@ -114,7 +111,18 @@ async function importProducts() {
         description: description,
         price: price,
         stock: stock,
-        categories: categories,
+        // Single category reference
+        category: {
+          _type: "reference",
+          _ref: "some-category-id", // Need to create/fetch category first
+        },
+        // Subcategory object with reference
+        subcategory: {
+          ref: {
+            _type: "reference",
+            _ref: "some-subcategory-id", // Need to create/fetch subcategory first
+          },
+        },
       };
 
       // Create the document in Sanity

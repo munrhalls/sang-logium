@@ -1,7 +1,6 @@
 import getProductsByCategory from "@/sanity/lib/products/getProductsByCategory";
 import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import ProductsView from "@/components/ProductsView";
-import { Category } from "@/sanity.types";
 
 export default async function CategoryPage({
   params,

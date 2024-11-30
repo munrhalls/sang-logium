@@ -13,8 +13,6 @@ export default async function Home() {
   const products = await getAllProducts();
   const categories = await getAllCategories();
 
-  console.log(categories);
-
   return (
     <div>
       <DesktopCategoriesNav categories={categories} />

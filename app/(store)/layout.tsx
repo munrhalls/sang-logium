@@ -4,9 +4,6 @@ import "./../globals.css";
 import Header from "@/components/Header";
 import { SanityLive } from "@/sanity/lib/live";
 import MobileFooter from "@/components/MobileFooter";
-import MobileSearchDrawer from "@/components/ui/mobile-search-drawer";
-import MobileCategoriesDrawer from "@/components/ui/mobile-categories-drawer";
-import DesktopCategoriesNav from "@/components/DesktopCategoriesNav";
 
 export const metadata: Metadata = {
   title: "Create Next App",

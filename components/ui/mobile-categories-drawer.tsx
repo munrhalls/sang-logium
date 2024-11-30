@@ -12,7 +12,6 @@ import {
   FaHeadphones,
   FaMicrophone,
   FaMusic,
-  FaChevronDown,
   FaRegCircle,
 } from "react-icons/fa";
 
