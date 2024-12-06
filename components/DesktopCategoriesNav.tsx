@@ -104,9 +104,9 @@ export default function DesktopCategoriesNav({
                       <Link
                         key={`${category._id}-${i}-${sub.name}`}
                         href={`/category/${category?.name?.toLowerCase()}/${sub?.name?.toLowerCase()}`}
-                        className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                        className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
                       >
-                        {/* <FaRegCircle className="inline-block mr-2 " /> */}
+                        <FaRegCircle className="mr-2" />
                         <span className="text-xl"> {sub?.name}</span>
                       </Link>
                     ))}
