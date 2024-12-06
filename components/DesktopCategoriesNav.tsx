@@ -113,7 +113,7 @@ export default function DesktopCategoriesNav({
                     {category?.children?.map((sub, i) => (
                       <Link
                         key={`${category._id}-${i}-${sub.name}`}
-                        href={`/category/${category?.title?.toLowerCase()}/${sub?.name?.toLowerCase()}`}
+                        href={`/category/${category?.name?.toLowerCase()}/${sub?.name?.toLowerCase()}`}
                         className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
                       >
                         {sub?.name}
