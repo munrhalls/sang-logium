@@ -89,10 +89,7 @@ export default function DesktopCategoriesNav({
                 }`}
               >
                 {category.icon && (
-                  <span className="mr-1">
-                    {" "}
-                    {getCategoryIcon(category.icon)}
-                  </span>
+                  <span className="mr-1">{getCategoryIcon(category.icon)}</span>
                 )}
                 <span>{category.name}</span>
 

@@ -1,19 +1,14 @@
 "use client";
 
+import { Category } from "@/sanity.types";
 import { useStore } from "../../store";
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
 
-import { Category } from "@/sanity.types";
 import { flatToTree } from "@/lib/flatToTree";
-import { FaTimes } from "react-icons/fa";
-import {
-  FaHeadphones,
-  FaMicrophone,
-  FaMusic,
-  FaRegCircle,
-} from "react-icons/fa";
+import { FaRegCircle, FaTimes } from "react-icons/fa";
+import { getCategoryIcon } from "@/lib/getCategoryIcon";
 
 export default function MobileCategoriesDrawer({
   categories,
@@ -51,17 +46,6 @@ export default function MobileCategoriesDrawer({
 
   const categoriesTree = flatToTree(categories);
 
-  const getIcon = (title: string | undefined) => {
-    switch (title) {
-      case "headphones":
-        return <FaHeadphones />;
-      case "microphone":
-        return <FaMicrophone />;
-      default:
-        return <FaMusic />;
-    }
-  };
-
   return (
     <div
       className={`z-50 pointer-events-auto fixed top-[60px] left-0 bottom-[60px] bg-white text-black transition-transform duration-300 flex flex-col ${
@@ -91,18 +75,22 @@ export default function MobileCategoriesDrawer({
             {categoriesTree.map((category) => (
               <div key={category.name} className="space-y-2">
                 <Link
-                  href={`/category/${category?.title?.toLowerCase().replace(/\s+/g, "-")}`}
+                  href={`/category/${category?.name?.toLowerCase().replace(/\s+/g, "-")}`}
                   className="flex items-center text-2xl font-semibold hover:text-gray-600"
                 >
-                  <span className="mr-3">{getIcon(category.icon)}</span>
+                  {category.icon && (
+                    <span className="mr-3">
+                      {getCategoryIcon(category.icon)}
+                    </span>
+                  )}
                   <span>{category.name}</span>
                 </Link>
 
                 <div className="ml-6 space-y-1">
-                  {category?.subcategories?.map((sub) => (
+                  {category?.children?.map((sub) => (
                     <Link
                       key={category._id + sub.name}
-                      href={`/category/${category?.title
+                      href={`/category/${category?.name
                         ?.toLowerCase()
                         .replace(/\s+/g, "-")}/${sub?.name
                         ?.toLowerCase()
