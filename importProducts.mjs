@@ -1,7 +1,7 @@
 import { createClient } from "@sanity/client";
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
-import products from "../../../sang-logium-data/product.json" assert { type: "json" };
+import products from "../sang-logium-data/productData.json" assert { type: "json" };
 import dotenv from "dotenv";
 
 dotenv.config({ path: ".env.local" });
@@ -59,19 +59,9 @@ function processBlocks(paragraphs) {
   return blocks;
 }
 
-async function fetchCategories() {
-  const query = '*[_type == "category"]';
-  return await client.fetch(query);
-}
-
-async function findCategory(name: string) {
-  const query = '*[_type == "category" && lower(name) == $name][0]';
-  return await client.fetch(query, { name: name.toLowerCase() });
-}
-
-
 async function importProducts() {
   for (const product of products) {
+    console.log(product);
     try {
       // Map and transform data
       const name = product.title || "Unnamed Product";

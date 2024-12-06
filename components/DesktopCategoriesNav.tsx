@@ -4,13 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 
 import { Category } from "@/sanity.types";
-
-import {
-  FaHeadphones,
-  FaMicrophone,
-  FaMusic,
-  FaChevronDown,
-} from "react-icons/fa";
+import { flatToTree } from "@/lib/flatToTree";
+import { FaHeadphones, FaMicrophone, FaChevronDown } from "react-icons/fa";
 // const categories = [
 //   {
 //     name: "Headphones",
@@ -60,16 +55,20 @@ export default function DesktopCategoriesNav({
     undefined
   );
 
+  console.log("Categories:", categories);
+
   if (!categories || categories.length === 0) {
     return (
       <div className="hidden lg:flex w-full bg-gray-900 items-center justify-center ">
         <p className="text-xl text-white">
           Oops! It appears we have a slight connection issue...could not load
-          categories. please refresh page.
+          categories. Please try refreshing page.
         </p>
       </div>
     );
   }
+
+  const categoriesTree = flatToTree(categories);
 
   const getIcon = (title: string | undefined) => {
     switch (title) {
@@ -78,7 +77,7 @@ export default function DesktopCategoriesNav({
       case "microphone":
         return <FaMicrophone />;
       default:
-        return <FaMusic />;
+        return null;
     }
   };
   console.log("Category structure:", JSON.stringify(categories, null, 2));
@@ -87,29 +86,31 @@ export default function DesktopCategoriesNav({
     <nav className="hidden lg:block w-full bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
         <ul className="flex justify-center items-center h-12">
-          {categories.map((category) => (
+          {categoriesTree.map((category) => (
             <li
               key={category._id}
               className="relative"
-              onMouseEnter={() => setActiveCategory(category.title)}
+              onMouseEnter={() => setActiveCategory(category.name)}
               onMouseLeave={() => setActiveCategory(undefined)}
             >
               <button
                 className={`flex items-center px-4 h-12 text-white hover:text-yellow-400 transition-colors ${
-                  activeCategory === category.title ? "text-yellow-400" : ""
+                  activeCategory === category.name ? "text-yellow-400" : ""
                 }`}
               >
-                <span className="mr-1"> {getIcon(category.icon)}</span>
-                <span>{category.title}</span>
+                {category.icon && (
+                  <span className="mr-1"> {getIcon(category.icon)}</span>
+                )}
+                <span>{category.name}</span>
 
                 <FaChevronDown className="ml-1 w-3 h-3" />
               </button>
 
               {/* Dropdown */}
-              {activeCategory === category.title && (
+              {activeCategory === category.name && (
                 <div className="absolute top-12 left-0 w-48 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-700 ease-in-out transform opacity-100 scale-100">
                   <div className="py-2">
-                    {category?.subcategories?.map((sub, i) => (
+                    {category?.children?.map((sub, i) => (
                       <Link
                         key={`${category._id}-${i}-${sub.name}`}
                         href={`/category/${category?.title?.toLowerCase()}/${sub?.name?.toLowerCase()}`}
