@@ -5,7 +5,7 @@ import Link from "next/link";
 import { getCategoryIcon } from "@/lib/getCategoryIcon";
 import { Category } from "@/sanity.types";
 import { flatToTree } from "@/lib/flatToTree";
-import { FaHeadphones, FaMicrophone, FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaRegCircle } from "react-icons/fa";
 // const categories = [
 //   {
 //     name: "Headphones",
@@ -70,8 +70,6 @@ export default function DesktopCategoriesNav({
 
   const categoriesTree = flatToTree(categories);
 
-  console.log("Category structure:", JSON.stringify(categories, null, 2));
-
   return (
     <nav className="hidden lg:block w-full bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
@@ -84,16 +82,18 @@ export default function DesktopCategoriesNav({
               onMouseLeave={() => setActiveCategory(undefined)}
             >
               <button
-                className={`flex items-center px-4 h-12 text-white hover:text-yellow-400 transition-colors ${
+                className={`flex items-center px-4 h-12  text-white hover:text-yellow-400 transition-colors ${
                   activeCategory === category.name ? "text-yellow-400" : ""
                 }`}
               >
                 {category.icon && (
-                  <span className="mr-1">{getCategoryIcon(category.icon)}</span>
+                  <span className="mr-1 text-md">
+                    {getCategoryIcon(category.icon)}
+                  </span>
                 )}
-                <span>{category.name}</span>
+                <span className="text-2xl">{category.name}</span>
 
-                <FaChevronDown className="ml-1 w-3 h-3" />
+                <FaChevronDown className="ml-2 text-xl w-3 h-3" />
               </button>
 
               {/* Dropdown */}
@@ -106,7 +106,8 @@ export default function DesktopCategoriesNav({
                         href={`/category/${category?.name?.toLowerCase()}/${sub?.name?.toLowerCase()}`}
                         className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
                       >
-                        {sub?.name}
+                        {/* <FaRegCircle className="inline-block mr-2 " /> */}
+                        <span className="text-xl"> {sub?.name}</span>
                       </Link>
                     ))}
                   </div>

@@ -76,7 +76,7 @@ export default function MobileCategoriesDrawer({
               <div key={category.name} className="space-y-2">
                 <Link
                   href={`/category/${category?.name?.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="flex items-center text-2xl font-semibold hover:text-gray-600"
+                  className="flex items-center text-3xl font-semibold hover:text-gray-600"
                 >
                   {category.icon && (
                     <span className="mr-3">
@@ -95,7 +95,7 @@ export default function MobileCategoriesDrawer({
                         .replace(/\s+/g, "-")}/${sub?.name
                         ?.toLowerCase()
                         .replace(/\s+/g, "-")}`}
-                      className="flex items-center text-xl text-gray-600 hover:text-black"
+                      className="mt-2 flex items-center text-2xl text-gray-600 hover:text-black"
                     >
                       <FaRegCircle className="mr-2 w-2 h-2" />
                       {sub?.name}
