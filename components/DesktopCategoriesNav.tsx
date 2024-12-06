@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 import Link from "next/link";
-
+import { getCategoryIcon } from "@/lib/getCategoryIcon";
 import { Category } from "@/sanity.types";
 import { flatToTree } from "@/lib/flatToTree";
 import { FaHeadphones, FaMicrophone, FaChevronDown } from "react-icons/fa";
@@ -70,16 +70,6 @@ export default function DesktopCategoriesNav({
 
   const categoriesTree = flatToTree(categories);
 
-  const getIcon = (title: string | undefined) => {
-    switch (title) {
-      case "headphones":
-        return <FaHeadphones />;
-      case "microphone":
-        return <FaMicrophone />;
-      default:
-        return null;
-    }
-  };
   console.log("Category structure:", JSON.stringify(categories, null, 2));
 
   return (
@@ -99,7 +89,10 @@ export default function DesktopCategoriesNav({
                 }`}
               >
                 {category.icon && (
-                  <span className="mr-1"> {getIcon(category.icon)}</span>
+                  <span className="mr-1">
+                    {" "}
+                    {getCategoryIcon(category.icon)}
+                  </span>
                 )}
                 <span>{category.name}</span>
 

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { Category } from "@/sanity.types";
-
+import { flatToTree } from "@/lib/flatToTree";
 import { FaTimes } from "react-icons/fa";
 import {
   FaHeadphones,
@@ -49,6 +49,8 @@ export default function MobileCategoriesDrawer({
     );
   }
 
+  const categoriesTree = flatToTree(categories);
+
   const getIcon = (title: string | undefined) => {
     switch (title) {
       case "headphones":
@@ -86,14 +88,14 @@ export default function MobileCategoriesDrawer({
       <div className="flex-1 overflow-y-auto scroll-smooth">
         <div className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {categories.map((category) => (
-              <div key={category.title} className="space-y-2">
+            {categoriesTree.map((category) => (
+              <div key={category.name} className="space-y-2">
                 <Link
                   href={`/category/${category?.title?.toLowerCase().replace(/\s+/g, "-")}`}
                   className="flex items-center text-2xl font-semibold hover:text-gray-600"
                 >
                   <span className="mr-3">{getIcon(category.icon)}</span>
-                  <span>{category.title}</span>
+                  <span>{category.name}</span>
                 </Link>
 
                 <div className="ml-6 space-y-1">
