@@ -28,6 +28,7 @@
     "framer-motion": "^11.11.17",
     "jsdom": "^25.0.1",
     "lucide-react": "^0.456.0",
+    "nanoid": "^5.0.9",
     "next": "15.0.3",
     "next-sanity": "^9.8.13",
     "node-fetch": "^3.3.2",

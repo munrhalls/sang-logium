@@ -1,0 +1,68 @@
+[
+  {
+    "_type": "category",
+    "_id": "studio-equipment",
+    "name": "Studio Equipment",
+    "icon": "microphone",
+    "slug": {
+      "_type": "slug",
+      "current": "studio-equipment-eEkHTJ"
+    }
+  },
+  {
+    "_type": "category",
+    "_id": "category-microphones-ZhIK-H",
+    "name": "Microphones",
+    "icon": "microphone",
+    "slug": {
+      "_type": "slug",
+      "current": "microphones-PM1X4E"
+    },
+    "parentCategory": {
+      "_type": "reference",
+      "_ref": "studio-equipment"
+    }
+  },
+  {
+    "_type": "category",
+    "_id": "category-audio-interfaces-U3mIBt",
+    "name": "Audio Interfaces",
+    "icon": "microphone",
+    "slug": {
+      "_type": "slug",
+      "current": "audio-interfaces-8MxUdZ"
+    },
+    "parentCategory": {
+      "_type": "reference",
+      "_ref": "studio-equipment"
+    }
+  },
+  {
+    "_type": "category",
+    "_id": "category-studio-monitors-_Cdsy-",
+    "name": "Studio Monitors",
+    "icon": "microphone",
+    "slug": {
+      "_type": "slug",
+      "current": "studio-monitors-JZ1w5C"
+    },
+    "parentCategory": {
+      "_type": "reference",
+      "_ref": "studio-equipment"
+    }
+  },
+  {
+    "_type": "category",
+    "_id": "category-recording-bundles-rs1EKJ",
+    "name": "Recording Bundles",
+    "icon": "microphone",
+    "slug": {
+      "_type": "slug",
+      "current": "recording-bundles-obPPYz"
+    },
+    "parentCategory": {
+      "_type": "reference",
+      "_ref": "studio-equipment"
+    }
+  }
+]
