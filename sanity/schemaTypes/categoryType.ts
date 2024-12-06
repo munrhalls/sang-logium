@@ -30,19 +30,28 @@ export const categoryType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "parentCategory",
-      title: "Parent Category",
-      type: "reference",
-      to: [{ type: "category" }],
-      validation: (Rule) =>
-        Rule.custom((value, context) => {
-          if (!context?.document) return true;
-          if (value && value._ref === context.document._id) {
-            return "Cannot reference itself as parent";
-          }
-          return true;
-        }),
+      name: "metadata",
+      title: "Metadata",
+      type: "object",
+      fields: [
+        { name: "path", title: "Path", type: "string" }, // e.g., "parent/child/subchild"
+        { name: "depth", title: "Depth", type: "number" }, // e.g., 1 = top-level, 2 = subcategory
+      ],
     }),
+    // defineField({
+    //   name: "parentCategory",
+    //   title: "Parent Category",
+    //   type: "reference",
+    //   to: [{ type: "category" }],
+    //   validation: (Rule) =>
+    //     Rule.custom((value, context) => {
+    //       if (!context?.document) return true;
+    //       if (value && value._ref === context.document._id) {
+    //         return "Cannot reference itself as parent";
+    //       }
+    //       return true;
+    //     }),
+    // }),
   ],
   preview: {
     select: {

@@ -3,6 +3,10 @@ import path from "path";
 import { nanoid } from "nanoid";
 import { fileURLToPath } from "url";
 
+// this is a bit hard-coded for now
+// but can change top level category and subcategories as needed
+// and it will work
+
 // Get the directory path in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
