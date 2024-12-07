@@ -60,7 +60,7 @@ export default function MobileCategoriesDrawer({
 
   return (
     <div
-      className={`z-50 pointer-events-auto fixed top-[60px] left-0 bottom-[60px] bg-white text-black transition-transform duration-300 flex flex-col ${
+      className={`z-50 pointer-events-auto fixed top-[60px] left-0 bottom-16 bg-white text-black transition-transform duration-300 flex flex-col ${
         isCategoriesDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
       style={{ width: "90%" }}
@@ -88,7 +88,7 @@ export default function MobileCategoriesDrawer({
               <div key={category.name} className="space-y-2">
                 <Link
                   href={`/category/${category?.name?.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="flex items-center text-3xl font-semibold hover:text-gray-600"
+                  className="flex items-center text-2xl font-semibold hover:text-gray-600"
                 >
                   {category.icon && (
                     <span className="mr-3">
@@ -104,18 +104,42 @@ export default function MobileCategoriesDrawer({
 
                 <div className="ml-6 space-y-1">
                   {category?.children?.map((sub) => (
-                    <Link
-                      key={category._id + sub.name}
-                      href={`/category/${category?.name
-                        ?.toLowerCase()
-                        .replace(/\s+/g, "-")}/${sub?.name
-                        ?.toLowerCase()
-                        .replace(/\s+/g, "-")}`}
-                      className="mt-2 flex items-center text-2xl text-gray-600 hover:text-black"
-                    >
-                      <FaRegCircle className="mr-2 w-2 h-2" />
-                      {sub?.name}
-                    </Link>
+                    <div key={category._id + sub.name}>
+                      <Link
+                        href={`/category/${category?.name
+                          ?.toLowerCase()
+                          .replace(/\s+/g, "-")}/${sub?.name
+                          ?.toLowerCase()
+                          .replace(/\s+/g, "-")}`}
+                        className="mt-2 flex items-center text-gray-600 hover:text-black"
+                      >
+                        <FaRegCircle className="mr-2 w-2 h-2" />
+                        <span className="text-lg">{sub?.name}</span>
+                      </Link>
+                      {sub.children && (
+                        <ul className="pl-3 py-2 backdrop-brightness-95 rounded">
+                          {sub.children.map((child) => (
+                            <li
+                              key={`${category?.name?.toLowerCase()}-${sub?.name?.toLowerCase()}-${child?.name?.toLowerCase()}`}
+                            >
+                              <Link
+                                href={`/category/${category?.name
+                                  ?.toLowerCase()
+                                  .replace(/\s+/g, "-")}/${sub?.name
+                                  ?.toLowerCase()
+                                  .replace(/\s+/g, "-")}/${child?.name
+                                  ?.toLowerCase()
+                                  .replace(/\s+/g, "-")}`}
+                                className="flex justify-start items-center px-4 py-2  text-gray-800 hover:bg-gray-100"
+                              >
+                                <FaRegCircle className="mr-2" />
+                                <span className="text-md">{child.name}</span>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
                   ))}
                 </div>
               </div>
