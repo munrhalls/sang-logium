@@ -91,8 +91,9 @@ export const productType = defineType({
           name: "spec",
           type: "object",
           fields: [
-            { name: "key", type: "string", title: "Specification Name" },
+            { name: "title", type: "string", title: "Specification Title" },
             { name: "value", type: "string", title: "Value" },
+            { name: "information", type: "string", title: "Information" },
           ],
         }),
       ],

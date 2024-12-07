@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
-import _ from "lodash";
 import { fileURLToPath } from "url";
+import { v4 as uuidv4 } from "uuid"; // Import UUID library
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,6 +13,39 @@ const inputFilePath = path.join(
 const outputFilePath = path.join(__dirname, "./sanityProducts.json");
 
 const transformProduct = (product) => {
+  // Convert description to blockContent format with unique keys
+  const description = [
+    {
+      _type: "block",
+      _key: uuidv4(), // Add unique key for the block
+      children: [
+        {
+          _type: "span",
+          _key: uuidv4(), // Add unique key for the span
+          text: product.description,
+        },
+      ],
+    },
+  ];
+
+  // Transform specifications to match the new schema
+  const specifications = product.specifications.map((spec) => ({
+    _type: "spec",
+    _key: uuidv4(), // Add unique key for each specification item
+    title: spec.title,
+    value: spec.value,
+    information: spec.information,
+  }));
+
+  // Transform overviewFields to match the new schema
+  const overviewFields = product.overviewFields.map((field) => ({
+    _type: "spec",
+    _key: uuidv4(), // Add unique key for each overview field
+    title: field.title,
+    value: field.value,
+    information: field.information,
+  }));
+
   return {
     _type: "product",
     name: product.title,
@@ -21,7 +54,7 @@ const transformProduct = (product) => {
       current: product.slug,
     },
     brand: product.brand,
-    description: product.description,
+    description: description,
     price: parseFloat(product.price.replace("$", "")),
     sku: product.sku,
     stock: product.stock,
@@ -34,16 +67,15 @@ const transformProduct = (product) => {
     },
     gallery: product.galleryUrls.map((url) => ({
       _type: "image",
+      _key: uuidv4(), // Add unique key for each gallery item
       asset: {
         _type: "reference",
         _ref: url,
       },
     })),
-    specifications: _.map(product.specifications, (value, key) => ({
-      _type: "spec",
-      key: key,
-      value: value,
-    })),
+    specifications: specifications,
+    overviewFields: overviewFields,
+    categoryPath: product.categoryPath,
   };
 };
 
