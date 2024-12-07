@@ -38,6 +38,12 @@ export const productType = defineType({
       },
     }),
     defineField({
+      name: "gallery",
+      type: "array",
+      title: "Image Gallery",
+      of: [{ type: "image" }],
+    }),
+    defineField({
       name: "description",
       title: "Description",
       type: "blockContent",

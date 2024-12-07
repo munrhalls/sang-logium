@@ -67,7 +67,6 @@ export default function DesktopCategoriesNav({
   }
 
   const categoriesTree = flatToTree(categories);
-  console.log("Categories Tree:", categoriesTree);
   const CATEGORY_ORDER = [
     "Headphones",
     "Hi-Fi Audio",

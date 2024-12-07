@@ -1,0 +1,101 @@
+[
+  {
+    "_type": "product",
+    "name": "Focal Clear Headphones",
+    "slug": {
+      "_type": "slug",
+      "current": "focal-clear-headphones"
+    },
+    "brand": "Focal",
+    "description": "Our Take: The Focal Clear will bring you 5% short of Utopia. Meaning the Focal Clear is about 95% of its bigger brother, the Focal Utopia. The Clear has some of the best detail, resolution and dynamics in its price range however if you are looking for a little more low-end we recommend looking elsewhere as the Clear does have a brighter sound signature.\nHeadphones.com has partnered with Focal to secure exclusive rights to Focal's last manufacturing run of the Focal Clear. The Focal Clear is now discontinued and only available for $890 (SAVE $600!) from Headphones.com! As it is the last manufacturing run and a Final Sale item, the Focal Clear is final sale and cannot be returned. However, the Clear is fully covered under Focal's manufacturer warranty.",
+    "price": 65,
+    "sku": "SKU-269963",
+    "stock": 25,
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_type": "reference",
+        "_ref": "https://headphones.com/cdn/shop/products/72b00a38-3ee9-40db-9211-d4687f2866b2.png?v=1707787325&width=1946"
+      }
+    },
+    "gallery": [
+      {
+        "_type": "image",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://headphones.com/cdn/shop/products/72b00a38-3ee9-40db-9211-d4687f2866b2.png?v=1707787325&width=1946"
+        }
+      },
+      {
+        "_type": "image",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://headphones.com/cdn/shop/products/Focal_Clear_1_1024x1024.jpg?v=1707787327&width=1946"
+        }
+      },
+      {
+        "_type": "image",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://headphones.com/cdn/shop/products/Focal_Clear_1024x1024.jpg?v=1707787330&width=1946"
+        }
+      },
+      {
+        "_type": "image",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://headphones.com/cdn/shop/files/Clear2_f4f37514-2760-4dfa-9c54-6d464f3c3da3.jpg?v=1694204434&width=1946"
+        }
+      },
+      {
+        "_type": "image",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://headphones.com/cdn/shop/files/FocalClear.jpg?v=1694204428&width=1946"
+        }
+      }
+    ],
+    "specifications": [
+      {
+        "_type": "spec",
+        "key": "Headphone Design",
+        "value": "Over-Ear, Open Back"
+      },
+      {
+        "_type": "spec",
+        "key": "Impedance",
+        "value": "55 ohms"
+      },
+      {
+        "_type": "spec",
+        "key": "Sensitivity",
+        "value": "104dB SPL / 1mW @ 1kHz"
+      },
+      {
+        "_type": "spec",
+        "key": "Total Harmonic Distortion (THD)",
+        "value": "0,25% @ 1kHz / 100dB SPL"
+      },
+      {
+        "_type": "spec",
+        "key": "Frequency Response",
+        "value": "5Hz - 28kHz"
+      },
+      {
+        "_type": "spec",
+        "key": "Driver Materials & Size",
+        "value": "1.6\" (40mm) Aluminum/Magnesium 'M'-shape dome"
+      },
+      {
+        "_type": "spec",
+        "key": "Headphone Weight",
+        "value": "450 grams"
+      },
+      {
+        "_type": "spec",
+        "key": "Warranty",
+        "value": "3 years manufacturer's warranty"
+      }
+    ]
+  }
+]
