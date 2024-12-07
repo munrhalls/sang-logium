@@ -46,6 +46,18 @@ export default function MobileCategoriesDrawer({
 
   const categoriesTree = flatToTree(categories);
 
+  const CATEGORY_ORDER = [
+    "Headphones",
+    "On Sale",
+    "Hi-Fi Audio",
+    "Studio Equipment",
+    "Accessories",
+  ];
+
+  const orderedCategoriesTree = categoriesTree.sort(
+    (a, b) => CATEGORY_ORDER.indexOf(a.name!) - CATEGORY_ORDER.indexOf(b.name!)
+  );
+
   return (
     <div
       className={`z-50 pointer-events-auto fixed top-[60px] left-0 bottom-[60px] bg-white text-black transition-transform duration-300 flex flex-col ${
@@ -66,13 +78,13 @@ export default function MobileCategoriesDrawer({
           </button>
         </div>
       </div>
-      <h1 className="text-4xl text-center my-4 ml-4">Categories</h1>
+      <h1 className="text-4xl text-center my-4 ml-4 mb-8">Categories</h1>
 
       {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto scroll-smooth">
         <div className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {categoriesTree.map((category) => (
+            {orderedCategoriesTree.map((category) => (
               <div key={category.name} className="space-y-2">
                 <Link
                   href={`/category/${category?.name?.toLowerCase().replace(/\s+/g, "-")}`}
@@ -83,7 +95,11 @@ export default function MobileCategoriesDrawer({
                       {getCategoryIcon(category.icon)}
                     </span>
                   )}
-                  <span>{category.name}</span>
+                  <span
+                    className={`${category.name === "On Sale" ? "text-orange-500" : ""}`}
+                  >
+                    {category.name}
+                  </span>
                 </Link>
 
                 <div className="ml-6 space-y-1">
