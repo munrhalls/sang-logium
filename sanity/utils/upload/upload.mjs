@@ -32,19 +32,16 @@ const transformProduct = async (product) => {
   );
 
   // Convert description to blockContent format with unique keys
-  const description = [
-    {
-      _type: "block",
-      _key: uuidv4(), // Add unique key for the block
-      children: [
-        {
-          _type: "span",
-          _key: uuidv4(), // Add unique key for the span
-          text: product.description,
-        },
-      ],
-    },
-  ];
+  const description = product.description.map((block) => ({
+    _type: "block",
+    _key: uuidv4(), // Add unique key for the block
+    style: block.style,
+    children: block.children.map((child) => ({
+      _type: "span",
+      _key: uuidv4(), // Add unique key for the span
+      text: child.text,
+    })),
+  }));
 
   // Transform specifications to match the new schema
   const specifications = product.specifications.map((spec) => ({
@@ -73,7 +70,7 @@ const transformProduct = async (product) => {
     },
     brand: product.brand,
     description: description,
-    price: product.price ? parseFloat(product.price.replace("$", "")) : null,
+    price: product.price,
     sku: product.sku,
     stock: product.stock,
     image: {

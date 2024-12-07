@@ -10,19 +10,32 @@
     "description": [
       {
         "_type": "block",
-        "_key": "efb0229a-f085-4943-8649-91e7b1f0bf4f",
+        "_key": "d2e50acf-b25f-461d-9134-2658dc79d743",
+        "style": "normal",
         "children": [
           {
             "_type": "span",
-            "_key": "c34766e9-1952-4a26-b830-4f1c8c91d600",
-            "text": "Our Take: The Focal Clear will bring you 5% short of Utopia. Meaning the Focal Clear is about 95% of its bigger brother, the Focal Utopia. The Clear has some of the best detail, resolution and dynamics in its price range however if you are looking for a little more low-end we recommend looking elsewhere as the Clear does have a brighter sound signature.\nHeadphones.com has partnered with Focal to secure exclusive rights to Focal's last manufacturing run of the Focal Clear. The Focal Clear is now discontinued and only available for $890 (SAVE $600!) from Headphones.com! As it is the last manufacturing run and a Final Sale item, the Focal Clear is final sale and cannot be returned. However, the Clear is fully covered under Focal's manufacturer warranty."
+            "_key": "af037dbd-d943-4a9d-9d63-7a7517a33d6b",
+            "text": "Our Take: The Focal Clear will bring you 5% short of Utopia. Meaning the Focal Clear is about 95% of its bigger brother, the Focal Utopia. The Clear has some of the best detail, resolution and dynamics in its price range however if you are looking for a little more low-end we recommend looking elsewhere as the Clear does have a brighter sound signature."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "_key": "e0c77cc0-d3e1-41fb-b9d0-e34d92b87179",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "_key": "71a6dfbe-2c97-4b54-b4a4-31c62b707da1",
+            "text": "Headphones.com has partnered with Focal to secure exclusive rights to Focal's last manufacturing run of the Focal Clear. The Focal Clear is now discontinued and only available for $890 (SAVE $600!) from Headphones.com! As it is the last manufacturing run and a Final Sale item, the Focal Clear is final sale and cannot be returned. However, the Clear is fully covered under Focal's manufacturer warranty."
           }
         ]
       }
     ],
-    "price": null,
-    "sku": "SKU-808755",
-    "stock": 84,
+    "price": 65,
+    "sku": "SKU-362429",
+    "stock": 3,
     "image": {
       "_type": "image",
       "asset": {
@@ -33,7 +46,7 @@
     "gallery": [
       {
         "_type": "image",
-        "_key": "b69e235d-9eaf-430b-b41b-7b10f6077e6b",
+        "_key": "4b2873b9-8dc3-4c8d-bbdf-b3e6f26af5eb",
         "asset": {
           "_type": "reference",
           "_ref": "https://headphones.com/cdn/shop/products/72b00a38-3ee9-40db-9211-d4687f2866b2.png?v=1707787325&width=1946"
@@ -41,7 +54,7 @@
       },
       {
         "_type": "image",
-        "_key": "6e47d644-1ab1-4166-85bd-2da0985adda2",
+        "_key": "728bf835-c1db-4b8f-9708-4d3210bb5ca4",
         "asset": {
           "_type": "reference",
           "_ref": "https://headphones.com/cdn/shop/products/Focal_Clear_1_1024x1024.jpg?v=1707787327&width=1946"
@@ -49,7 +62,7 @@
       },
       {
         "_type": "image",
-        "_key": "51fce71f-42d2-4f46-86ab-29c582046269",
+        "_key": "36af2e9e-7a8c-4c67-af36-c49d98ab8d96",
         "asset": {
           "_type": "reference",
           "_ref": "https://headphones.com/cdn/shop/products/Focal_Clear_1024x1024.jpg?v=1707787330&width=1946"
@@ -57,7 +70,7 @@
       },
       {
         "_type": "image",
-        "_key": "0b2f4b62-4de8-4ae8-b11e-c2a3235f4a95",
+        "_key": "13c84ee6-9f88-4e2c-b91c-535f89b39ae6",
         "asset": {
           "_type": "reference",
           "_ref": "https://headphones.com/cdn/shop/files/Clear2_f4f37514-2760-4dfa-9c54-6d464f3c3da3.jpg?v=1694204434&width=1946"
@@ -65,7 +78,7 @@
       },
       {
         "_type": "image",
-        "_key": "1fcd1eae-9b96-4b73-977c-5a8f0dd06786",
+        "_key": "afd545a9-23b9-48f0-aa4a-c73b8f6221d6",
         "asset": {
           "_type": "reference",
           "_ref": "https://headphones.com/cdn/shop/files/FocalClear.jpg?v=1694204428&width=1946"
@@ -75,56 +88,56 @@
     "specifications": [
       {
         "_type": "spec",
-        "_key": "23c5bb03-56eb-4d69-99ab-b32c60a957ca",
+        "_key": "9023ab23-ff1c-402d-80b3-22cf801c0117",
         "title": "Headphone Design",
         "value": "Over-Ear, Open Back",
         "information": null
       },
       {
         "_type": "spec",
-        "_key": "7e6a8ad3-9c94-430d-8fee-305661b6d095",
+        "_key": "03a82532-4e55-43af-9e0f-10e4f6e21de0",
         "title": "Impedance",
         "value": "55 ohms",
         "information": "Usually between 8-600 ohm. Most consumer headphones have 32 ohm impedance. High impedance requires more power to run and requires external amplifiers to amplify the power to the required levels."
       },
       {
         "_type": "spec",
-        "_key": "a7d57eed-bb49-458b-b0cb-28528618b6fd",
+        "_key": "5e494999-50b6-40c7-8d3c-3e02dfdb87f7",
         "title": "Sensitivity",
         "value": "104dB SPL / 1mW @ 1kHz",
         "information": "Headphone sensitivity measures how loud a pair of headphones will be at a given signal strength. Headphones with higher sensitivity ratings will produce louder sounds than headphones with lower sensitivity ratings. It is measured in dB SPL (decibels of sound pressure level) per unit of power (typically 1 milliWatt) or sometimes unit of voltage (typically 1 Volt) from the source at a frequency of 1 kHz."
       },
       {
         "_type": "spec",
-        "_key": "ed4f7280-bc80-43b4-af84-9176312b5a97",
+        "_key": "daf6d996-a1d4-4aaa-8a05-dcf4cec3b91e",
         "title": "Total Harmonic Distortion (THD)",
         "value": "0,25% @ 1kHz / 100dB SPL",
         "information": "When driving headphones at high volumes, it is possible for the diaphragm (the ‘speaker’ inside the headphones) to be unable to move fast enough. This leads to distortion, manifesting itself as crackling, popping or the alteration of musical notes. Most headphones will fall below 1% THD."
       },
       {
         "_type": "spec",
-        "_key": "b88891dc-4ab6-4817-a8d3-333307228a78",
+        "_key": "5d06bcba-e558-4e91-be6d-ef0a7a772b10",
         "title": "Frequency Response",
         "value": "5Hz - 28kHz",
         "information": "Headphone frequency response refers to the frequency-specific sensitivity of the output. Frequency responses show the range that headphones are capable of reproducing—a graph shows which frequencies are accentuated over others. The ideal range covers the audible sound range of 20 Hz – 20 kHz."
       },
       {
         "_type": "spec",
-        "_key": "c78226ba-9157-4645-8906-af1d9034f9b7",
+        "_key": "98f5d9b3-0420-4cd1-a103-971110053246",
         "title": "Driver Materials & Size",
         "value": "1.6\" (40mm) Aluminum/Magnesium 'M'-shape dome",
         "information": null
       },
       {
         "_type": "spec",
-        "_key": "7aa4809f-6130-4fc7-85f4-a8812ad04b4b",
+        "_key": "29f54fea-345d-4bf6-bc62-e858b3ae8c77",
         "title": "Headphone Weight",
         "value": "450 grams",
         "information": null
       },
       {
         "_type": "spec",
-        "_key": "b215d30a-bcb8-4f60-ba74-76096223da35",
+        "_key": "98ae10ca-9f67-4520-9306-eb6e4f124b0e",
         "title": "Warranty",
         "value": "3 years manufacturer's warranty",
         "information": "Warranty differs from manufacturer to manufacturer. Warranty covers factory defects but most manufacturers do not cover drops, water damage, driver damage, mistreatment of the product, etc.. It is always best to look at the manufacturer's website for the most up to date warranty information."
@@ -133,28 +146,28 @@
     "overviewFields": [
       {
         "_type": "overviewField",
-        "_key": "de0dfb4f-f58b-486a-9ab7-18d0db9ae2ae",
+        "_key": "9dcd7f01-7b2f-424f-ae0b-c327047b4a43",
         "title": "Cup style\n                        \n                          \n\n\n\n    \n\n    More information\n\n    Open-back headphone designs are often higher-performance but have poor noise isolation and leak sound. Closed-back designs provide better noise isolation and leak less sound.",
         "value": "Open-Back",
         "information": "Open-back headphone designs are often higher-performance but have poor noise isolation and leak sound. Closed-back designs provide better noise isolation and leak less sound."
       },
       {
         "_type": "overviewField",
-        "_key": "c48bbb0b-4ab8-4d4a-aea6-29e3d32d1ac4",
+        "_key": "3c8ace8d-fd10-4c0f-8d3b-89501acc7cc7",
         "title": "Wearing style\n                        \n                          \n\n\n\n    \n\n    More information\n\n    Over-ear headphones sit over your ear and surround your ear with a ring of padding. On-ear headphones are padded but rest on top of your ear. In-ear monitors are worn inside your ear canal.",
         "value": "Over-ear",
         "information": "Over-ear headphones sit over your ear and surround your ear with a ring of padding. On-ear headphones are padded but rest on top of your ear. In-ear monitors are worn inside your ear canal."
       },
       {
         "_type": "overviewField",
-        "_key": "84698d7e-9960-4904-812d-3a7779532549",
+        "_key": "cc2118cc-4ef7-4d3d-83cd-9bcf1bcd6f77",
         "title": "Driver type\n                        \n                          \n\n\n\n    \n\n    More information\n\n    Speakers and headphones use a device called a 'driver' to create sound. Different types of drivers have different strengths and weaknesses, but can all produce great sound. Common varieties include dynamic, planar magnetic, and electrostatic.",
         "value": "Dynamic",
         "information": "Speakers and headphones use a device called a 'driver' to create sound. Different types of drivers have different strengths and weaknesses, but can all produce great sound. Common varieties include dynamic, planar magnetic, and electrostatic."
       },
       {
         "_type": "overviewField",
-        "_key": "6194cb76-c564-416b-b765-6ee661f5efc9",
+        "_key": "36b73f90-b0fa-45db-9ff0-2f60c67b13ab",
         "title": "Connectivity\n                        \n                          \n\n\n\n    \n\n    More information\n\n    Connectivity refers to the method in which the headphones connect to the audio source. Headphones can be either wired or wireless.",
         "value": "Wired",
         "information": "Connectivity refers to the method in which the headphones connect to the audio source. Headphones can be either wired or wireless."
