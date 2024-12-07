@@ -27,11 +27,13 @@ export default async function ProductPage({
         >
           <ProductPageGallery product={product} />
         </div>
+
         {isOutOfStock && (
           <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <span className="text-white font-bold text-lg">Out of stock</span>
           </div>
         )}
+
         <div className="flex flex-col justify-between">
           <div>
             <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
