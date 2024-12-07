@@ -163,22 +163,17 @@ export type Product = {
     _type: "image";
     _key: string;
   }>;
+  sku?: string;
   price?: number;
-  category?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "category";
-  };
-  subcategory?: {
-    ref?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "category";
-    };
-  };
   stock?: number;
+  categoryPath?: string;
+  tags?: Array<string>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _type: "spec";
+    _key: string;
+  }>;
 };
 
 export type Category = {
@@ -362,22 +357,17 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
+  sku?: string;
   price?: number;
-  category?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "category";
-  };
-  subcategory?: {
-    ref?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "category";
-    };
-  };
   stock?: number;
+  categoryPath?: string;
+  tags?: Array<string>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _type: "spec";
+    _key: string;
+  }>;
 }>;
 
 // Source: ./sanity/lib/products/getProductBySlug.ts
@@ -432,22 +422,17 @@ export type PRODUCT_BY_ID_QUERYResult = {
     _type: "image";
     _key: string;
   }>;
+  sku?: string;
   price?: number;
-  category?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "category";
-  };
-  subcategory?: {
-    ref?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "category";
-    };
-  };
   stock?: number;
+  categoryPath?: string;
+  tags?: Array<string>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _type: "spec";
+    _key: string;
+  }>;
 } | null;
 
 // Source: ./sanity/lib/products/searchProductsByName.ts
@@ -502,22 +487,17 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
+  sku?: string;
   price?: number;
-  category?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "category";
-  };
-  subcategory?: {
-    ref?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "category";
-    };
-  };
   stock?: number;
+  categoryPath?: string;
+  tags?: Array<string>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _type: "spec";
+    _key: string;
+  }>;
 }>;
 
 // Source: ./sanity/lib/sales/getSalesByType.ts

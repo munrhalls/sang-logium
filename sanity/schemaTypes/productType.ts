@@ -24,6 +24,12 @@ export const productType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "brand",
+      title: "Brand",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "image",
       title: "Product Image",
       type: "image",
@@ -37,37 +43,53 @@ export const productType = defineType({
       type: "blockContent",
     }),
     defineField({
+      name: "sku",
+      title: "SKU",
+      type: "string",
+      description: "Stock Keeping Unit - Unique identifier for the product",
+      validation: (Rule) => Rule.required().min(3),
+    }),
+    defineField({
       name: "price",
       title: "Price",
       type: "number",
       validation: (Rule) => Rule.min(0),
     }),
     defineField({
-      name: "category",
-      title: "Category",
-      type: "reference",
-      to: { type: "category" },
-      weak: true,
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "subcategory",
-      type: "object",
-      fields: [
-        {
-          name: "ref",
-          type: "reference",
-          to: [{ type: "category" }],
-          weak: true,
-        },
-      ],
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: "stock",
       title: "Stock",
       type: "number",
       validation: (Rule) => Rule.min(0),
+    }),
+    defineField({
+      name: "categoryPath",
+      title: "Category Path",
+      type: "string",
+      description:
+        "The metadata.path of the category this product belongs to (e.g., 'hi-fi-audio/amplifiers')",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "tags",
+      title: "Tags",
+      type: "array",
+      of: [{ type: "string" }],
+      description: "Keywords or tags for search and filtering",
+    }),
+    defineField({
+      name: "specifications",
+      title: "Specifications",
+      type: "array",
+      of: [
+        defineField({
+          name: "spec",
+          type: "object",
+          fields: [
+            { name: "key", type: "string", title: "Specification Name" },
+            { name: "value", type: "string", title: "Value" },
+          ],
+        }),
+      ],
     }),
   ],
   preview: {
@@ -78,8 +100,7 @@ export const productType = defineType({
     },
     prepare(select) {
       return {
-        title: select.title,
-        price: `$${select.price}`,
+        title: `${select.title} - $${select.price}`,
         media: select.media,
       };
     },
