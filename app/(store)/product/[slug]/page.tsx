@@ -1,16 +1,14 @@
 import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
 import { notFound } from "next/navigation";
-import Image from "next/image";
-import imageUrl from "@/lib/imageUrl";
 import { PortableText } from "next-sanity";
 import ProductPageGallery from "./ProductPageGallery";
 
 export default async function ProductPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) {
-  const { slug } = await params;
+  const { slug } = params;
   const product = await getProductBySlug(slug);
   console.log(product);
   if (!product) {
@@ -45,6 +43,40 @@ export default async function ProductPage({
                 <PortableText value={product.description} />
               )}
             </div>
+            {product.overviewFields && product.overviewFields.length > 0 && (
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold mb-4">Overview</h2>
+                <ul className="list-disc list-inside">
+                  {product.overviewFields.map((field, index) => (
+                    <li key={index}>
+                      <strong>{field.title}:</strong> {field.value}
+                      {field.information && (
+                        <p className="text-sm text-gray-600">
+                          {field.information}
+                        </p>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {product.specifications && product.specifications.length > 0 && (
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold mb-4">Specifications</h2>
+                <ul className="list-disc list-inside">
+                  {product.specifications.map((spec, index) => (
+                    <li key={index}>
+                      <strong>{spec.title}:</strong> {spec.value}
+                      {spec.information && (
+                        <p className="text-sm text-gray-600">
+                          {spec.information}
+                        </p>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>
