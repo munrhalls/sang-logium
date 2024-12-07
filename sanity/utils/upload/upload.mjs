@@ -26,19 +26,6 @@ const uploadImage = async (url) => {
 const transformProduct = async (product) => {
   console.log(`Transforming product: ${product.name}`);
 
-  if (!product.image || !product.image.asset || !product.image.asset._ref) {
-    console.error(
-      `Product image URL is missing or invalid for product: ${product.name}`
-    );
-    throw new Error("Product image URL is missing or invalid");
-  }
-  if (!product.gallery || !Array.isArray(product.gallery)) {
-    console.error(
-      `Product gallery URLs are missing or invalid for product: ${product.name}`
-    );
-    throw new Error("Product gallery URLs are missing or invalid");
-  }
-
   const imageId = await uploadImage(product.image.asset._ref);
   const galleryIds = await Promise.all(
     product.gallery.map((img) => uploadImage(img.asset._ref))
@@ -59,6 +46,24 @@ const transformProduct = async (product) => {
     },
   ];
 
+  // Transform specifications to match the new schema
+  const specifications = product.specifications.map((spec) => ({
+    _type: "spec",
+    _key: uuidv4(), // Add unique key for each specification item
+    title: spec.title,
+    value: spec.value,
+    information: spec.information,
+  }));
+
+  // Transform overviewFields to match the new schema
+  const overviewFields = product.overviewFields.map((field) => ({
+    _type: "spec",
+    _key: uuidv4(), // Add unique key for each overview field
+    title: field.title,
+    value: field.value,
+    information: field.information,
+  }));
+
   return {
     _type: "product",
     name: product.name,
@@ -68,7 +73,7 @@ const transformProduct = async (product) => {
     },
     brand: product.brand,
     description: description,
-    price: product.price,
+    price: product.price ? parseFloat(product.price.replace("$", "")) : null,
     sku: product.sku,
     stock: product.stock,
     image: {
@@ -86,12 +91,9 @@ const transformProduct = async (product) => {
         _ref: id,
       },
     })),
-    specifications: product.specifications.map(({ key, value }) => ({
-      _type: "spec",
-      _key: uuidv4(), // Add unique key for each specification item
-      key: key,
-      value: value,
-    })),
+    specifications: specifications,
+    overviewFields: overviewFields,
+    categoryPath: product.categoryPath,
   };
 };
 

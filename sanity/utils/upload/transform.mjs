@@ -39,7 +39,7 @@ const transformProduct = (product) => {
 
   // Transform overviewFields to match the new schema
   const overviewFields = product.overviewFields.map((field) => ({
-    _type: "spec",
+    _type: "overviewField",
     _key: uuidv4(), // Add unique key for each overview field
     title: field.title,
     value: field.value,
@@ -55,7 +55,7 @@ const transformProduct = (product) => {
     },
     brand: product.brand,
     description: description,
-    price: parseFloat(product.price.replace("$", "")),
+    price: product.price ? parseFloat(product.price.replace("$", "")) : null,
     sku: product.sku,
     stock: product.stock,
     image: {

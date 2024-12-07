@@ -83,6 +83,22 @@ export const productType = defineType({
       description: "Keywords or tags for search and filtering",
     }),
     defineField({
+      name: "overviewFields",
+      title: "Overview Fields",
+      type: "array",
+      of: [
+        defineField({
+          name: "overviewField",
+          type: "object",
+          fields: [
+            { name: "title", type: "string", title: "Title" },
+            { name: "value", type: "string", title: "Value" },
+            { name: "information", type: "string", title: "Information" },
+          ],
+        }),
+      ],
+    }),
+    defineField({
       name: "specifications",
       title: "Specifications",
       type: "array",
