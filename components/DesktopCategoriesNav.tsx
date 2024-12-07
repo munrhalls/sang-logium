@@ -72,7 +72,7 @@ export default function DesktopCategoriesNav({
 
               {/* Dropdown */}
               {activeCategory === category.name && (
-                <div className="absolute top-12 left-0 w-72 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-700 ease-in-out transform opacity-100 scale-100">
+                <div className="absolute z-50 md:top-12 xl:top-16 left-0 w-72 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-700 ease-in-out transform opacity-100 scale-100">
                   <div className="py-2">
                     {category?.children?.map((sub, i) => (
                       <div key={`${category._id}-${i}-${sub.name}`}>
