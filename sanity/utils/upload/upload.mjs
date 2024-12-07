@@ -57,7 +57,7 @@ const transformProduct = async (product) => {
 
   // Transform overviewFields to match the new schema
   const overviewFields = product.overviewFields.map((field) => ({
-    _type: "spec",
+    _type: "overviewField",
     _key: uuidv4(), // Add unique key for each overview field
     title: field.title,
     value: field.value,
