@@ -4,6 +4,8 @@ import { nanoid } from "nanoid";
 import { fileURLToPath } from "url";
 import client from "./getClient.mjs";
 
+// TODO FOR IT TO WORK: 1. FILL PARENT/[CHILDREN] /// 2. CHOOSE ICON FOR PARENT AND CHILDREN
+
 // Get the directory path in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,7 +43,7 @@ async function generateCategoryDocuments(parentName, childrenNames) {
       _type: "category",
       _id: `category-${parentSlug}`,
       name: parentName,
-      icon: "microphone", // Update as needed
+      icon: "wave", // TODO: ICON HERE
       slug: createSlug(parentName),
       metadata: {
         path: parentPath,
@@ -58,7 +60,7 @@ async function generateCategoryDocuments(parentName, childrenNames) {
       _type: "category",
       _id: `category-${childSlug}`,
       name,
-      icon: "microphone", // Update as needed
+      icon: "wave", // TODO: ICON HERE
       slug: createSlug(name),
       metadata: {
         path: childPath,
@@ -75,10 +77,16 @@ async function generateCategoryDocuments(parentName, childrenNames) {
   return allCategories;
 }
 
-// Generate and write to file
+// Generate and write to file / INPUT PARENT CATEGORY NAME AND CHILDREN CATEGORIES; REMEMBER TO CHOOSE ICON ABOVE
 (async () => {
-  const parentName = "Hi-Fi Audio";
-  const childrenNames = ["Amplifiers", "DACs", "Speakers", "Turntables"]; // Example
+  const parentName = "Accessories";
+  const childrenNames = [
+    "Cables",
+    "Cases",
+    "Stands",
+    "Adapters",
+    "Replacement Parts",
+  ];
 
   const categoryDocuments = await generateCategoryDocuments(
     parentName,

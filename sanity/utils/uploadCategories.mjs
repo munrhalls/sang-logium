@@ -1,4 +1,5 @@
-import categoryDocuments from "./generateCategories.mjs";
+import categoryDocuments from "./categories.json" assert { type: "json" };
+
 import readline from "readline";
 import client from "./getClient.mjs";
 
@@ -11,6 +12,7 @@ const rl = readline.createInterface({
 // Log categories and prompt for confirmation
 async function confirmUpload() {
   console.log("Categories to be uploaded:");
+  categoryDocuments.sort((a, b) => a.metadata.depth - b.metadata.depth);
   categoryDocuments.forEach((doc, index) => {
     console.log(`${index + 1}. ${doc.name} (${doc._id})`);
     console.log(`   Path: ${doc.metadata?.path}`);
@@ -25,29 +27,24 @@ async function confirmUpload() {
 }
 
 // Add metadata field
-function computeMetadata(categories) {
-  const map = {};
+async function computeMetadata(categories) {
+  const parent = categories.find((cat) => cat.metadata?.depth === 1); // Identify parent
+  if (!parent) {
+    throw new Error("Parent category with depth 1 not found.");
+  }
 
-  // Create a map for quick lookup
+  const parentPath = parent.metadata.path;
+  const parentDepth = parent.metadata.depth;
+
+  // Update child categories
   categories.forEach((cat) => {
-    map[cat._id] = cat.slug.current;
-  });
-
-  // Add path and depth to each document
-  categories.forEach((cat) => {
-    const parentSlug = cat.parentCategory?._ref
-      ? map[cat.parentCategory._ref]
-      : null;
-    const path = parentSlug
-      ? `${parentSlug}/${cat.slug.current}`
-      : cat.slug.current;
-    const depth = path.split("/").length;
-
-    // Add metadata
-    cat.metadata = { path, depth };
-
-    // Remove parentCategory as it's no longer needed
-    delete cat.parentCategory;
+    if (cat._id !== parent._id) {
+      // Skip parent
+      cat.metadata = {
+        path: `${parentPath}/${cat.slug.current}`,
+        depth: parentDepth + 1,
+      };
+    }
   });
 
   return categories;
@@ -55,7 +52,7 @@ function computeMetadata(categories) {
 
 // Batch create categories
 async function uploadCategories() {
-  const updatedCategories = computeMetadata(categoryDocuments);
+  const updatedCategories = await computeMetadata(categoryDocuments);
   const shouldProceed = await confirmUpload();
 
   if (!shouldProceed) {

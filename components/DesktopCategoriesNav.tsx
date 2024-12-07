@@ -68,12 +68,23 @@ export default function DesktopCategoriesNav({
 
   const categoriesTree = flatToTree(categories);
   console.log("Categories Tree:", categoriesTree);
+  const CATEGORY_ORDER = [
+    "Headphones",
+    "Hi-Fi Audio",
+    "Studio Equipment",
+    "Accessories",
+    "On Sale",
+  ];
+
+  const orderedCategoriesTree = categoriesTree.sort(
+    (a, b) => CATEGORY_ORDER.indexOf(a.name!) - CATEGORY_ORDER.indexOf(b.name!)
+  );
 
   return (
     <nav className="hidden lg:block w-full bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
         <ul className="flex justify-center items-center h-12">
-          {categoriesTree.map((category) => (
+          {orderedCategoriesTree.map((category) => (
             <li
               key={category._id}
               className="relative"
@@ -90,7 +101,11 @@ export default function DesktopCategoriesNav({
                     {getCategoryIcon(category.icon)}
                   </span>
                 )}
-                <span className="text-2xl">{category.name}</span>
+                <span
+                  className={`text-2xl ${category.name === "On Sale" ? "text-orange-500" : ""}`}
+                >
+                  {category.name}
+                </span>
 
                 <FaChevronDown className="ml-2 text-xl w-3 h-3" />
               </button>
