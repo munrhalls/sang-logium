@@ -122,6 +122,7 @@ export type Product = {
   _rev: string;
   name?: string;
   slug?: Slug;
+  brand?: string;
   image?: {
     asset?: {
       _ref: string;
@@ -133,6 +134,18 @@ export type Product = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -168,9 +181,17 @@ export type Product = {
   stock?: number;
   categoryPath?: string;
   tags?: Array<string>;
-  specifications?: Array<{
-    key?: string;
+  overviewFields?: Array<{
+    title?: string;
     value?: string;
+    information?: string;
+    _type: "overviewField";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
     _type: "spec";
     _key: string;
   }>;
@@ -316,6 +337,7 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   _rev: string;
   name?: string;
   slug?: Slug;
+  brand?: string;
   image?: {
     asset?: {
       _ref: string;
@@ -327,6 +349,18 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
     crop?: SanityImageCrop;
     _type: "image";
   };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -362,9 +396,17 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   stock?: number;
   categoryPath?: string;
   tags?: Array<string>;
-  specifications?: Array<{
-    key?: string;
+  overviewFields?: Array<{
+    title?: string;
     value?: string;
+    information?: string;
+    _type: "overviewField";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
     _type: "spec";
     _key: string;
   }>;
@@ -381,6 +423,7 @@ export type PRODUCT_BY_ID_QUERYResult = {
   _rev: string;
   name?: string;
   slug?: Slug;
+  brand?: string;
   image?: {
     asset?: {
       _ref: string;
@@ -392,6 +435,18 @@ export type PRODUCT_BY_ID_QUERYResult = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -427,9 +482,17 @@ export type PRODUCT_BY_ID_QUERYResult = {
   stock?: number;
   categoryPath?: string;
   tags?: Array<string>;
-  specifications?: Array<{
-    key?: string;
+  overviewFields?: Array<{
+    title?: string;
     value?: string;
+    information?: string;
+    _type: "overviewField";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
     _type: "spec";
     _key: string;
   }>;
@@ -446,6 +509,7 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
   _rev: string;
   name?: string;
   slug?: Slug;
+  brand?: string;
   image?: {
     asset?: {
       _ref: string;
@@ -457,6 +521,18 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
     crop?: SanityImageCrop;
     _type: "image";
   };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -492,9 +568,17 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
   stock?: number;
   categoryPath?: string;
   tags?: Array<string>;
-  specifications?: Array<{
-    key?: string;
+  overviewFields?: Array<{
+    title?: string;
     value?: string;
+    information?: string;
+    _type: "overviewField";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
     _type: "spec";
     _key: string;
   }>;
