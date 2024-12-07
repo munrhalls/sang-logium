@@ -1123,33 +1123,26 @@
         },
         "optional": true
       },
-      "parentCategory": {
+      "metadata": {
         "type": "objectAttribute",
         "value": {
           "type": "object",
           "attributes": {
-            "_ref": {
+            "path": {
               "type": "objectAttribute",
               "value": {
                 "type": "string"
-              }
+              },
+              "optional": true
             },
-            "_type": {
+            "depth": {
               "type": "objectAttribute",
               "value": {
-                "type": "string",
-                "value": "reference"
-              }
-            },
-            "_weak": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "boolean"
+                "type": "number"
               },
               "optional": true
             }
-          },
-          "dereferencesTo": "category"
+          }
         },
         "optional": true
       }

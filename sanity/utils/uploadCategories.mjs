@@ -2,8 +2,6 @@ import categoryDocuments from "./generateCategories.mjs";
 import readline from "readline";
 import client from "./getClient.mjs";
 
-// Sanity client configuration
-
 // Create readline interface
 const rl = readline.createInterface({
   input: process.stdin,
@@ -15,9 +13,7 @@ async function confirmUpload() {
   console.log("Categories to be uploaded:");
   categoryDocuments.forEach((doc, index) => {
     console.log(`${index + 1}. ${doc.name} (${doc._id})`);
-    if (doc.parentCategory) {
-      console.log(`   Parent: ${doc.parentCategory._ref}`);
-    }
+    console.log(`   Path: ${doc.metadata?.path}`);
   });
 
   return new Promise((resolve) => {
@@ -28,8 +24,38 @@ async function confirmUpload() {
   });
 }
 
+// Add metadata field
+function computeMetadata(categories) {
+  const map = {};
+
+  // Create a map for quick lookup
+  categories.forEach((cat) => {
+    map[cat._id] = cat.slug.current;
+  });
+
+  // Add path and depth to each document
+  categories.forEach((cat) => {
+    const parentSlug = cat.parentCategory?._ref
+      ? map[cat.parentCategory._ref]
+      : null;
+    const path = parentSlug
+      ? `${parentSlug}/${cat.slug.current}`
+      : cat.slug.current;
+    const depth = path.split("/").length;
+
+    // Add metadata
+    cat.metadata = { path, depth };
+
+    // Remove parentCategory as it's no longer needed
+    delete cat.parentCategory;
+  });
+
+  return categories;
+}
+
 // Batch create categories
 async function uploadCategories() {
+  const updatedCategories = computeMetadata(categoryDocuments);
   const shouldProceed = await confirmUpload();
 
   if (!shouldProceed) {
@@ -38,7 +64,7 @@ async function uploadCategories() {
   }
 
   try {
-    const transactions = categoryDocuments.map((doc) => client.create(doc));
+    const transactions = updatedCategories.map((doc) => client.create(doc));
 
     const results = await Promise.all(transactions);
     console.log("Categories uploaded successfully:", results);

@@ -190,11 +190,9 @@ export type Category = {
   name?: string;
   icon?: string;
   slug?: Slug;
-  parentCategory?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "category";
+  metadata?: {
+    path?: string;
+    depth?: number;
   };
 };
 
@@ -306,11 +304,9 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   name?: string;
   icon?: string;
   slug?: Slug;
-  parentCategory?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "category";
+  metadata?: {
+    path?: string;
+    depth?: number;
   };
 }>;
 
@@ -382,15 +378,6 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
     };
   };
   stock?: number;
-}>;
-
-// Source: ./sanity/lib/products/getCategoriesTree.ts
-// Variable: GET_CATEGORIES_TREE
-// Query: *[_type == "category"] {      title,      slug,      "subcategories": *[_type == "subcategory" && references(^._id)] {        title,        slug      }    }
-export type GET_CATEGORIES_TREEResult = Array<{
-  title: null;
-  slug: Slug | null;
-  subcategories: Array<never>;
 }>;
 
 // Source: ./sanity/lib/products/getProductBySlug.ts
@@ -557,7 +544,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n          *[\n              _type == \"category\"\n          ] | order(name asc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
-    "\n    *[_type == \"category\"] {\n      title,\n      slug,\n      \"subcategories\": *[_type == \"subcategory\" && references(^._id)] {\n        title,\n        slug\n      }\n    }\n  ": GET_CATEGORIES_TREEResult;
     "\n            *[\n                _type == 'product'\n                && slug.current == $slug\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
     "*[\n        _type == \"product\"\n        && name match $searchParam\n    ] | order(name asc)": SEARCH_FOR_PRODUCTS_QUERYResult;
     "\n          *[\n              _type == \"sale\"\n              && isActive == true\n              && couponCode == $couponCode\n          ] | order(validFrom desc)[0]\n      ": ACTIVE_SALE_BY_COUPON_QUERYResult;

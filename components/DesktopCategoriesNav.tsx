@@ -55,8 +55,6 @@ export default function DesktopCategoriesNav({
     undefined
   );
 
-  console.log("Categories:", categories);
-
   if (!categories || categories.length === 0) {
     return (
       <div className="hidden lg:flex w-full bg-gray-900 items-center justify-center ">
@@ -69,6 +67,7 @@ export default function DesktopCategoriesNav({
   }
 
   const categoriesTree = flatToTree(categories);
+  console.log("Categories Tree:", categoriesTree);
 
   return (
     <nav className="hidden lg:block w-full bg-gray-900">
