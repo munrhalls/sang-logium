@@ -51,7 +51,8 @@ export default function DesktopCategoriesNav({
               onMouseEnter={() => setActiveCategory(category.name)}
               onMouseLeave={() => setActiveCategory(undefined)}
             >
-              <button
+              <Link
+                href={`/category/${category.name}`}
                 className={`flex items-center px-4 md:h-12 xl:h-16 text-white hover:text-yellow-400 transition-colors ${
                   activeCategory === category.name ? "text-yellow-400" : ""
                 }`}
@@ -68,7 +69,7 @@ export default function DesktopCategoriesNav({
                 </span>
 
                 <FaChevronDown className="ml-2 text-xl w-3 h-3" />
-              </button>
+              </Link>
 
               {/* Dropdown */}
               {activeCategory === category.name && (
@@ -84,7 +85,7 @@ export default function DesktopCategoriesNav({
                           <span className="text-xl"> {sub?.name}</span>
                         </Link>
                         {sub.children && (
-                          <ul className="pl-6 backdrop-brightness-90">
+                          <ul className="pl-6 my-2 backdrop-brightness-90">
                             {sub.children.map((child) => (
                               <li
                                 key={`${category?.name?.toLowerCase()}-${sub?.name?.toLowerCase()}-${child?.name?.toLowerCase()}`}
