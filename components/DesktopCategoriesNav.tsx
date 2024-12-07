@@ -6,45 +6,6 @@ import { getCategoryIcon } from "@/lib/getCategoryIcon";
 import { Category } from "@/sanity.types";
 import { flatToTree } from "@/lib/flatToTree";
 import { FaChevronDown, FaRegCircle } from "react-icons/fa";
-// const categories = [
-//   {
-//     name: "Headphones",
-//     icon: <FaHeadphones />,
-//     subcategories: [
-//       "Over-Ear",
-//       "In-Ear",
-//       "On-Ear",
-//       "Wireless",
-//       "Noise-Cancelling",
-//     ],
-//   },
-//   {
-//     name: "Studio Equipment",
-//     icon: <FaMicrophone />,
-//     subcategories: [
-//       "Microphones",
-//       "Audio Interfaces",
-//       "Studio Monitors",
-//       "Recording Bundles",
-//     ],
-//   },
-//   {
-//     name: "Accessories",
-//     icon: <FaToolbox />,
-//     subcategories: [
-//       "Cables",
-//       "Cases",
-//       "Stands",
-//       "Adapters",
-//       "Replacement Parts",
-//     ],
-//   },
-//   {
-//     name: "Hi-Fi Audio",
-//     icon: <FaMusic />,
-//     subcategories: ["Amplifiers", "DACs", "Speakers", "Turntables"],
-//   },
-// ];
 
 export default function DesktopCategoriesNav({
   categories,
@@ -82,7 +43,7 @@ export default function DesktopCategoriesNav({
   return (
     <nav className="hidden lg:block w-full bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
-        <ul className="flex justify-center items-center h-12">
+        <ul className="flex justify-center items-center md:h-12 xl:h-16">
           {orderedCategoriesTree.map((category) => (
             <li
               key={category._id}
@@ -91,7 +52,7 @@ export default function DesktopCategoriesNav({
               onMouseLeave={() => setActiveCategory(undefined)}
             >
               <button
-                className={`flex items-center px-4 h-12  text-white hover:text-yellow-400 transition-colors ${
+                className={`flex items-center px-4 md:h-12 xl:h-16 text-white hover:text-yellow-400 transition-colors ${
                   activeCategory === category.name ? "text-yellow-400" : ""
                 }`}
               >
@@ -101,7 +62,7 @@ export default function DesktopCategoriesNav({
                   </span>
                 )}
                 <span
-                  className={`text-2xl ${category.name === "On Sale" ? "text-orange-500" : ""}`}
+                  className={`md:text-1xl xl:text-2xl ${category.name === "On Sale" ? "text-orange-500" : ""}`}
                 >
                   {category.name}
                 </span>
@@ -111,7 +72,7 @@ export default function DesktopCategoriesNav({
 
               {/* Dropdown */}
               {activeCategory === category.name && (
-                <div className="absolute top-12 left-0 w-48 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-700 ease-in-out transform opacity-100 scale-100">
+                <div className="absolute top-12 left-0 w-72 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-700 ease-in-out transform opacity-100 scale-100">
                   <div className="py-2">
                     {category?.children?.map((sub, i) => (
                       <div key={`${category._id}-${i}-${sub.name}`}>

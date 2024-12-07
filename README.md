@@ -34,3 +34,43 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+// const categories = [
+// {
+// name: "Headphones",
+// icon: <FaHeadphones />,
+// subcategories: [
+// "Over-Ear",
+// "In-Ear",
+// "On-Ear",
+// "Wireless",
+// "Noise-Cancelling",
+// ],
+// },
+// {
+// name: "Studio Equipment",
+// icon: <FaMicrophone />,
+// subcategories: [
+// "Microphones",
+// "Audio Interfaces",
+// "Studio Monitors",
+// "Recording Bundles",
+// ],
+// },
+// {
+// name: "Accessories",
+// icon: <FaToolbox />,
+// subcategories: [
+// "Cables",
+// "Cases",
+// "Stands",
+// "Adapters",
+// "Replacement Parts",
+// ],
+// },
+// {
+// name: "Hi-Fi Audio",
+// icon: <FaMusic />,
+// subcategories: ["Amplifiers", "DACs", "Speakers", "Turntables"],
+// },
+// ];
