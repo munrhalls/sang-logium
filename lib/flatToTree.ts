@@ -44,5 +44,6 @@ export const flatToTree = (categories: Category[]): CategoryTree[] => {
       map[parentPath].children.push(map[path]);
     }
   });
+  console.log(roots);
   return roots;
 };

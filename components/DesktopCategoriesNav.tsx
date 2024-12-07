@@ -114,14 +114,33 @@ export default function DesktopCategoriesNav({
                 <div className="absolute top-12 left-0 w-48 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-700 ease-in-out transform opacity-100 scale-100">
                   <div className="py-2">
                     {category?.children?.map((sub, i) => (
-                      <Link
-                        key={`${category._id}-${i}-${sub.name}`}
-                        href={`/category/${category?.name?.toLowerCase()}/${sub?.name?.toLowerCase()}`}
-                        className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
-                      >
-                        <FaRegCircle className="mr-2" />
-                        <span className="text-xl"> {sub?.name}</span>
-                      </Link>
+                      <div key={`${category._id}-${i}-${sub.name}`}>
+                        <Link
+                          href={`/category/${category?.name?.toLowerCase()}/${sub?.name?.toLowerCase()}`}
+                          className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
+                        >
+                          <FaRegCircle className="mr-2" />
+                          <span className="text-xl"> {sub?.name}</span>
+                        </Link>
+                        {sub.children && (
+                          <ul className="pl-6 backdrop-brightness-90">
+                            {sub.children.map((child) => (
+                              <li
+                                key={`${category?.name?.toLowerCase()}-${sub?.name?.toLowerCase()}-${child?.name?.toLowerCase()}`}
+                              >
+                                <Link
+                                  href={`/category/${category?.name?.toLowerCase()}/${sub?.name?.toLowerCase()}/${child?.name?.toLowerCase()}`}
+                                  className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
+                                >
+                                  <FaRegCircle className="mr-2" />
+
+                                  <span className="text-xl">{child.name}</span>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
                     ))}
                   </div>
                 </div>
