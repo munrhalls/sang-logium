@@ -13,6 +13,20 @@ export const salesType = defineType({
       title: "Sale Title",
     }),
     defineField({
+      name: "subtitle",
+      type: "string",
+      title: "Sale Subtitle",
+    }),
+    defineField({
+      type: "slug",
+      name: "slug",
+      options: {
+        source: "title",
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "description",
       type: "text",
       title: "Sale Description",
@@ -45,6 +59,25 @@ export const salesType = defineType({
       description: "Toggle to activate/deactivate the sale",
       initialValue: true,
     }),
+    defineField({
+      name: "image",
+      title: "Background Image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: "ctaText",
+      title: "CTA Text",
+      type: "string",
+    }),
+    defineField({
+      name: "ctaLink",
+      title: "CTA Link",
+      type: "url",
+      initialValue: "/category/sales",
+    }),
   ],
   preview: {
     select: {
@@ -52,14 +85,16 @@ export const salesType = defineType({
       discountAmount: "discountAmount",
       couponCode: "couponCode",
       isActive: "isActive",
+      backgroundImage: "backgroundImage",
     },
     prepare(selection) {
-      const { title, discountAmount, couponCode, isActive } = selection;
-
+      const { title, discountAmount, couponCode, isActive, backgroundImage } =
+        selection;
       const status = isActive ? "Active" : "Inactive";
       return {
-        title,
-        subtitle: `${discountAmount}% off - Code: ${couponCode} - ${status}`,
+        title: `${title} (${status})`,
+        subtitle: `Discount: ${discountAmount}% - Code: ${couponCode}`,
+        media: backgroundImage,
       };
     },
   },

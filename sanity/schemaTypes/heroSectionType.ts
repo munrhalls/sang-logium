@@ -39,12 +39,26 @@ export const heroSectionType = defineType({
       name: "ctaLink",
       title: "CTA Link",
       type: "url",
+      initialValue: "/category/sales",
     }),
   ],
   preview: {
     select: {
       title: "title",
+      subtitle: "subtitle",
       media: "backgroundImage",
+      promotionPercentage: "promotionPercentage",
+      ctaText: "ctaText",
+      ctaLink: "ctaLink",
+    },
+    prepare(selection) {
+      const { title, subtitle, media, promotionPercentage, ctaText, ctaLink } =
+        selection;
+      return {
+        title: `${title} ${promotionPercentage ? `(${promotionPercentage}%)` : ""}`,
+        subtitle: `${subtitle ? subtitle + " - " : ""}${ctaText ? ctaText + " (" + ctaLink + ")" : ""}`,
+        media: media,
+      };
     },
   },
 });

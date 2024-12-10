@@ -18,7 +18,6 @@ export const flatToTree = (categories: Category[]): CategoryTree[] => {
   });
 
   categories.forEach((cat) => {
-    // console.log("cat", cat.name);
     const { path } = cat.metadata || {};
     if (!path) {
       console.error("Category missing path", cat);
@@ -36,7 +35,6 @@ export const flatToTree = (categories: Category[]): CategoryTree[] => {
       children: [],
     } as CategoryTree;
 
-    // console.log("map", map);
     // Assign as child to parent or root
     if (depth === 1) {
       roots.push(map[path]);
@@ -44,6 +42,5 @@ export const flatToTree = (categories: Category[]): CategoryTree[] => {
       map[parentPath].children.push(map[path]);
     }
   });
-  console.log(roots);
   return roots;
 };
