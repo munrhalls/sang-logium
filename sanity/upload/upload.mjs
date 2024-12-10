@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import client from "../getClient.mjs";
+import client from "../utils/getClient.mjs";
 import axios from "axios";
 import { fileURLToPath } from "url";
 import { v4 as uuidv4 } from "uuid"; // Import UUID library
@@ -14,13 +14,21 @@ const uploadImage = async (url) => {
   if (!url || typeof url !== "string") {
     throw new Error("Invalid URL");
   }
-  console.log(`Uploading image from URL: ${url}`);
+  console.log(`Uploading image from URL`);
+  // ${url}
   const response = await axios.get(url, { responseType: "arraybuffer" });
   const buffer = Buffer.from(response.data, "binary");
   const asset = await client.assets.upload("image", buffer, {
     filename: path.basename(url),
   });
   return asset._id;
+};
+
+const checkDuplicateProduct = async (slug) => {
+  const query = `*[_type == "product" && slug.current == $slug][0]`;
+  const params = { slug };
+  const existingProduct = await client.fetch(query, params);
+  return !!existingProduct;
 };
 
 const transformProduct = async (product) => {
@@ -94,22 +102,43 @@ const transformProduct = async (product) => {
   };
 };
 
-fs.readFile(inputFilePath, "utf8", async (err, data) => {
-  if (err) {
-    console.error("Error reading the input file:", err);
-    return;
-  }
-
-  const products = JSON.parse(data);
-
-  try {
-    for (const product of products) {
-      const transformedProduct = await transformProduct(product);
-      const response = await client.create(transformedProduct);
-      console.log("Product created:", response);
+const upload = async () => {
+  fs.readFile(inputFilePath, "utf8", async (err, data) => {
+    if (err) {
+      console.error("Error reading the input file:", err);
+      return;
     }
-    console.log("All products have been uploaded successfully.");
-  } catch (error) {
-    console.error("Error uploading products:", error);
-  }
-});
+
+    const products = JSON.parse(data);
+    let productsAdded = 0;
+    let productsSkipped = 0;
+
+    try {
+      for (const product of products) {
+        if (!product.slug || !product.slug.current) {
+          console.error(`Product is missing slug: ${product.name}`);
+          continue;
+        }
+
+        const isDuplicate = await checkDuplicateProduct(product.slug.current);
+        if (isDuplicate) {
+          console.log(`Skipping duplicate product: ${product.slug.current}`);
+          productsSkipped++;
+          continue;
+        }
+
+        const transformedProduct = await transformProduct(product);
+        const response = await client.create(transformedProduct);
+        console.log("Product created:", response);
+        productsAdded++;
+      }
+      console.log(`All products have been uploaded successfully.`);
+      console.log(`Products added: ${productsAdded}`);
+      console.log(`Products skipped: ${productsSkipped}`);
+    } catch (error) {
+      console.error("Error uploading products:", error);
+    }
+  });
+};
+
+upload();

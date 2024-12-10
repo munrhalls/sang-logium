@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 import { v4 as uuidv4 } from "uuid"; // Import UUID library
@@ -8,11 +8,12 @@ const __dirname = path.dirname(__filename);
 
 const inputFilePath = path.join(
   __dirname,
-  "../../../../sang-logium-data/products.json"
+  "../../../sang-logium-data/products.json"
 );
 const outputFilePath = path.join(__dirname, "./sanityProducts.json");
 
 const transformProduct = (product) => {
+  console.log(`Transforming product: ${product.title} ...`);
   // Convert description to blockContent format with unique keys
   const description = product.description.map((block) => ({
     _type: "block",
@@ -80,26 +81,34 @@ const transformProducts = (products) => {
   return products.map(transformProduct);
 };
 
-fs.readFile(inputFilePath, "utf8", (err, data) => {
-  if (err) {
-    console.error("Error reading the input file:", err);
-    return;
-  }
-
-  const products = JSON.parse(data);
-  const sanityProducts = transformProducts(products);
-
-  fs.writeFile(
-    outputFilePath,
-    JSON.stringify(sanityProducts, null, 2),
-    "utf8",
-    (err) => {
-      if (err) {
-        console.error("Error writing the output file:", err);
-        return;
+const transform = async () => {
+  try {
+    console.log(`Deleting existing file at: ${outputFilePath}`);
+    // Delete existing sanityProducts.json file if it exists
+    await fs.unlink(outputFilePath).catch((err) => {
+      if (err.code !== "ENOENT") {
+        throw err;
       }
+    });
 
-      console.log("Sanity products JSON file has been created successfully.");
-    }
-  );
-});
+    console.log("Reading input file and transforming products...");
+    // Read input file and transform products
+    const data = await fs.readFile(inputFilePath, "utf8");
+    const products = JSON.parse(data);
+    const sanityProducts = transformProducts(products);
+
+    console.log(`Writing transformed products to: ${outputFilePath}`);
+    // Write transformed products to sanityProducts.json
+    await fs.writeFile(
+      outputFilePath,
+      JSON.stringify(sanityProducts, null, 2),
+      "utf8"
+    );
+
+    console.log("Sanity products JSON file has been created successfully.");
+  } catch (err) {
+    console.error("Error during transformation:", err);
+  }
+};
+
+transform();
