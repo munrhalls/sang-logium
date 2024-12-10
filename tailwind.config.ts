@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         garamond: ["Garamond", "serif"],
         iceland: ["Iceland", "sans-serif"],
+        gruppo: ["Gruppo", "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",
