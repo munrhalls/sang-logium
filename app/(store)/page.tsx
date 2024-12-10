@@ -35,7 +35,7 @@ export default async function SalesCarousel() {
       {/* This wrapper ensures consistent positioning */}
       <div className="absolute inset-0 flex justify-end">
         {/* Content container with padding */}
-        <div className="p-2 pt-6 md:p-8 top-0 right-0 w-3/5 h-3/5 ">
+        <div className="p-[2%] pt-[10%] md:p-8 top-0 right-0 w-3/5 h-3/5 bg-slate-200">
           <h1 className="xs:text-3xl text-3xl text-white">
             Christmas <span style={{ color: "#CF8226" }}>GIFTS!</span>
           </h1>
