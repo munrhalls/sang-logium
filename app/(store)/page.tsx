@@ -24,7 +24,7 @@ export default async function SalesCarousel() {
 
   const headerHeight = 90;
   const navbarHeight = 64;
-  const offsetTop = `${headerHeight + navbarHeight}px`;
+  const offsetTopXL = `${headerHeight + navbarHeight}px`;
 
   const carouselHeight = `calc(100vh - ${headerHeight + navbarHeight}px)`;
 
@@ -48,13 +48,13 @@ export default async function SalesCarousel() {
 
   const textOverlay = christmasSale ? (
     <div className="absolute left-0 top-0 right-[50%] bottom-0 flex flex-col justify-around items-center p-8  font-black  text-white">
-      <h1 className="text-xl md:text-4xl xl:text-8xl leading-loose">
+      <h1 className="text-xl md:text-3xl xl:text-5xl leading-loose">
         Christmas <span style={{ color: "#CF8226" }}>GIFTS!</span>
       </h1>
-      <p className="ml-4 md:text-2xl xl:text-5xl xl:mb-4 leading-loose">
+      <p className="ml-4 md:text-2xl xl:text-3xl xl:mt-8 leading-loose">
         <span style={{ color: "#CF8226" }}>ALL</span> WIRELESS HEADPHONES {""}
       </p>
-      <p className="md:text-2xl xl:text-9xl">
+      <p className="md:text-2xl xl:text-6xl xl:mt-8">
         <span style={{ color: "#CF8226" }}>-25%! </span>
       </p>
       {cta}
@@ -78,14 +78,14 @@ export default async function SalesCarousel() {
   return (
     <main style={{ height: `${carouselHeight}` }}>
       <div className="h-full grid grid-cols-4 grid-rows-1 ">
-        <div className="col-span-3 col-start-1 bg-slate-300">
+        <div className="col-span-4 xl:col-span-3 col-start-1 bg-slate-300">
           <div className="relative h-full w-full overflow-hidden font-oswald">
             {christmasSaleSlide}
           </div>
         </div>
-        <div className="col-start-4 col-span-1  bg-slate-800">asd</div>
+        <div className="xl:col-start-4 xl:col-span-1 hidden"></div>
       </div>
-      <div style={{ height: "1500px" }}>asda</div>
+      {/* <div style={{ height: "1500px" }}>asda</div> */}
     </main>
   );
 }
