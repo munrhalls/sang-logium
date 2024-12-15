@@ -14,6 +14,11 @@ export default {
         iceland: ["Iceland", "sans-serif"],
         gruppo: ["Gruppo", "sans-serif"],
       },
+      extend: {
+        screens: {
+          "2xs": "375px",
+        },
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

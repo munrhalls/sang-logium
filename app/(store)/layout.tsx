@@ -25,7 +25,7 @@ export default async function RootLayout({
     <ClerkProvider dynamic>
       <html lang="en">
         <body>
-          <main>
+          <div>
             <Header />
             <DesktopCategoriesNav categories={categories} />
 
@@ -33,7 +33,7 @@ export default async function RootLayout({
             <MobileCategoriesDrawer categories={categories} />
             <MobileSearchDrawer />
             <MobileFooter />
-          </main>
+          </div>
 
           <SanityLive />
         </body>

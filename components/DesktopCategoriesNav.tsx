@@ -41,7 +41,7 @@ export default function DesktopCategoriesNav({
   );
 
   return (
-    <nav className="hidden lg:block w-full bg-gray-900">
+    <nav className="hidden lg:block z-50 lg:sticky top-[60px] lg:top-[90px] h-[60px] w-full bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
         <ul className="flex justify-center items-center md:h-12 xl:h-16">
           {orderedCategoriesTree.map((category) => (
