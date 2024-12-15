@@ -10,9 +10,17 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        garamond: ["Garamond", "serif"],
-        iceland: ["Iceland", "sans-serif"],
         gruppo: ["Gruppo", "sans-serif"],
+        montserrat: ["Montserrat", "sans-serif"],
+        playfair: ["Playfair Display", "serif"],
+        raleway: ["Raleway", "sans-serif"],
+        lora: ["Lora", "serif"],
+        poppins: ["Poppins", "sans-serif"],
+        oswald: ["Oswald", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
+        merriweather: ["Merriweather", "serif"],
+        bebas: ["Bebas Neue", "sans-serif"],
+        lobster: ["Lobster", "cursive"],
       },
       extend: {
         screens: {

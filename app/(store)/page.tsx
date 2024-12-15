@@ -38,22 +38,21 @@ export default async function SalesCarousel() {
       className="mt-8 flex flex-col justify-center items-center h-32 w-32 xl:h-80 xl:w-80"
     >
       <Link
-        className=" text-white xs:text-xs sm:text-xl xl:text-5xl font-bold text-center mt-2 block"
+        className=" text-white xs:text-xs sm:text-xl xl:text-5xl font-black text-center mt-2 block"
         href={`categories/sale/${christmasSale.slug.current}`}
       >
-        VIEW NOW
+        SEE NOW
       </Link>
-      <div className="block"></div>
     </div>
   ) : null;
 
   const textOverlay = christmasSale ? (
-    <div className="absolute left-0 top-0 right-[50%] bottom-0 flex flex-col justify-around items-center p-8 text-white">
-      <h1 className="text-xl md:text-4xl xl:text-9xl">
+    <div className="absolute left-0 top-0 right-[50%] bottom-0 flex flex-col justify-around items-center p-8  font-black  text-white">
+      <h1 className="text-xl md:text-4xl xl:text-8xl leading-loose">
         Christmas <span style={{ color: "#CF8226" }}>GIFTS!</span>
       </h1>
-      <p className="ml-4 md:text-2xl xl:text-6xl xl:mb-4">
-        <span style={{ color: "#CF8226" }}>ALL</span> wired headphones {""}
+      <p className="ml-4 md:text-2xl xl:text-5xl xl:mb-4 leading-loose">
+        <span style={{ color: "#CF8226" }}>ALL</span> WIRELESS HEADPHONES {""}
       </p>
       <p className="md:text-2xl xl:text-9xl">
         <span style={{ color: "#CF8226" }}>-25%! </span>
@@ -72,7 +71,7 @@ export default async function SalesCarousel() {
         alt="Christmas Sale"
         priority
       />
-      <div> {textOverlay}</div>
+      {textOverlay}
     </div>
   ) : null;
 
@@ -80,7 +79,7 @@ export default async function SalesCarousel() {
     <main style={{ height: `${carouselHeight}` }}>
       <div className="h-full grid grid-cols-4 grid-rows-1 ">
         <div className="col-span-3 col-start-1 bg-slate-300">
-          <div className="relative h-full w-full overflow-hidden">
+          <div className="relative h-full w-full overflow-hidden font-oswald">
             {christmasSaleSlide}
           </div>
         </div>
