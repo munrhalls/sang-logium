@@ -32,13 +32,12 @@ export default async function SalesCarousel() {
     <div
       style={{
         backgroundColor: "#CF8226",
-        borderRadius: "50%",
         border: "1px solid #fff",
       }}
-      className="mt-8 flex flex-col justify-center items-center h-32 w-32 xl:h-80 xl:w-80"
+      className="mt-auto rounded-sm md:rounded-full flex flex-col justify-center items-center h-12 md:h-32 w-32 xl:h-80 xl:w-80"
     >
       <Link
-        className=" text-white xs:text-xs sm:text-xl xl:text-5xl font-black text-center mt-2 block"
+        className=" text-white xs:text-xs sm:text-xl xl:text-5xl font-black text-center md:mt-2 block"
         href={`categories/sale/${christmasSale.slug.current}`}
       >
         SEE NOW
@@ -47,14 +46,14 @@ export default async function SalesCarousel() {
   ) : null;
 
   const textOverlay = christmasSale ? (
-    <div className="absolute left-0 top-0 right-[50%] bottom-0 flex flex-col justify-around items-center p-8  font-black  text-white">
-      <h1 className="text-xl md:text-3xl xl:text-5xl leading-loose">
+    <div className="absolute left-0 top-0 md:right-[50%] bottom-0 flex flex-col justify-start md:justify-around items-start md:items-center p-2 md:p-8  font-black  text-white">
+      <h1 className="text-md md:text-3xl xl:text-5xl leading-loose">
         Christmas <span style={{ color: "#CF8226" }}>GIFTS!</span>
       </h1>
-      <p className="ml-4 md:text-2xl xl:text-3xl xl:mt-8 leading-loose">
+      <p className="md:ml-4 text-xs md:text-2xl xl:text-3xl xl:mt-8 leading-loose">
         <span style={{ color: "#CF8226" }}>ALL</span> WIRELESS HEADPHONES {""}
       </p>
-      <p className="md:text-2xl xl:text-6xl xl:mt-8">
+      <p className="text-md md:text-2xl xl:text-6xl xl:mt-8">
         <span style={{ color: "#CF8226" }}>-25%! </span>
       </p>
       {cta}
@@ -67,7 +66,7 @@ export default async function SalesCarousel() {
         src={imageUrl(christmasSale.image).url()}
         fill
         sizes="100vw"
-        className="object-cover object-[50%_15%]"
+        className="object-cover object-[90%_50%] md:object-[50%_50%]"
         alt="Christmas Sale"
         priority
       />
@@ -76,9 +75,9 @@ export default async function SalesCarousel() {
   ) : null;
 
   return (
-    <main style={{ height: `${carouselHeight}` }}>
-      <div className="h-full grid grid-cols-4 grid-rows-1 ">
-        <div className="col-span-4 xl:col-span-3 col-start-1 bg-slate-300">
+    <div className="h-full">
+      <div className="grid grid-cols-4 grid-rows-1 ">
+        <div className="col-span-4 xl2:col-span-3 col-start-1 bg-slate-300">
           <div className="relative h-full w-full overflow-hidden font-oswald">
             {christmasSaleSlide}
           </div>
@@ -86,6 +85,6 @@ export default async function SalesCarousel() {
         <div className="xl:col-start-4 xl:col-span-1 hidden"></div>
       </div>
       {/* <div style={{ height: "1500px" }}>asda</div> */}
-    </main>
+    </div>
   );
 }

@@ -9,6 +9,8 @@ body {
 
 @layer base {
   :root {
+    --header-height-desktop: 90px;
+    --header-height-mobile: 52px;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -69,5 +71,20 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.hero-section {
+  height: calc(
+    100vh - var(--header-height-mobile) - var(--desktop-categories-nav-height)
+  );
+}
+
+@media (min-width: 1024px) {
+  .hero-section {
+    height: calc(
+      100vh - var(--header-height-desktop) -
+        var(--desktop-categories-nav-height)
+    );
   }
 }

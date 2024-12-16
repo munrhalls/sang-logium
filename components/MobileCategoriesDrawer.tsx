@@ -60,7 +60,7 @@ export default function MobileCategoriesDrawer({
 
   return (
     <div
-      className={`z-50 pointer-events-auto fixed top-[60px] left-0 bottom-16 bg-white text-black transition-transform duration-300 flex flex-col ${
+      className={`z-50 h-full pointer-events-auto  bg-white text-black transition-transform duration-300 flex flex-col ${
         isCategoriesDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
       style={{ width: "90%" }}

@@ -25,17 +25,20 @@ export default async function RootLayout({
     <ClerkProvider dynamic>
       <html lang="en">
         <body>
-          <div>
+          <div className="h-screen lg:h-auto flex flex-col">
             <Header />
             <DesktopCategoriesNav categories={categories} />
 
-            {children}
-            <MobileCategoriesDrawer categories={categories} />
-            <MobileSearchDrawer />
-            <MobileFooter />
-          </div>
+            <main>
+              {children}
+              <MobileCategoriesDrawer categories={categories} />
+              <MobileSearchDrawer />
+            </main>
 
-          <SanityLive />
+            <MobileFooter />
+
+            <SanityLive />
+          </div>
         </body>
       </html>
     </ClerkProvider>

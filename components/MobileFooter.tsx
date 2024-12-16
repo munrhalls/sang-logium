@@ -34,7 +34,7 @@ export default function MobileFooter() {
   );
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around items-center h-16 lg:hidden">
+    <footer className="h-16 fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around items-center">
       <button
         className={`flex flex-col items-center transition-transform duration-150 ${
           isCategoriesDrawerOpen
@@ -101,6 +101,6 @@ export default function MobileFooter() {
           )}
         </div>
       </ClerkLoaded>
-    </div>
+    </footer>
   );
 }
