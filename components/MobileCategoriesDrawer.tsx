@@ -60,7 +60,7 @@ export default function MobileCategoriesDrawer({
 
   return (
     <div
-      className={`overflow-y-auto z-50 pointer-events-auto  bg-white text-black transition-transform duration-300 flex flex-col ${
+      className={`overflow-y-auto z-50 pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 flex flex-col ${
         isCategoriesDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
       style={{
