@@ -60,10 +60,14 @@ export default function MobileCategoriesDrawer({
 
   return (
     <div
-      className={`overflow-hidden z-50 pointer-events-auto  bg-white text-black transition-transform duration-300 flex flex-col ${
+      className={`overflow-y-auto z-50 pointer-events-auto  bg-white text-black transition-transform duration-300 flex flex-col ${
         isCategoriesDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
-      style={{ marginTop: "var(header-height)", width: "90%" }}
+      style={{
+        marginTop: "var(header-height)",
+        height: "calc(100vh - var(--header-height) - var(--footer-height))",
+        width: "90%",
+      }}
     >
       {/* Fixed header */}
       <div className="sticky top-0 bg-white z-10">
