@@ -11,6 +11,7 @@ body {
   :root {
     --header-height-desktop: 90px;
     --header-height-mobile: 52px;
+    --footer-height-mobile: 64px;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;

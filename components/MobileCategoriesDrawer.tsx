@@ -60,10 +60,13 @@ export default function MobileCategoriesDrawer({
 
   return (
     <div
-      className={`z-50 h-full pointer-events-auto  bg-white text-black transition-transform duration-300 flex flex-col ${
+      className={`z-50 pointer-events-auto  bg-white text-black transition-transform duration-300 flex flex-col ${
         isCategoriesDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
-      style={{ width: "90%" }}
+      style={{
+        width: "90%",
+        height: `calc(100vh - var(--header-height-mobile) - var(--desktop-categories-nav-height))`,
+      }}
     >
       {/* Fixed header */}
       <div className="p-4 border-b border-gray-200">

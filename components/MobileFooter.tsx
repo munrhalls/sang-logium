@@ -34,7 +34,10 @@ export default function MobileFooter() {
   );
 
   return (
-    <footer className="h-16 fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around items-center">
+    <footer
+      style={{ height: "var(--footer-height-mobile)" }}
+      className="fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around items-center"
+    >
       <button
         className={`flex flex-col items-center transition-transform duration-150 ${
           isCategoriesDrawerOpen
