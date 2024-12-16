@@ -36,7 +36,7 @@ export default function MobileFooter() {
   return (
     <footer
       style={{ height: "var(--footer-height)" }}
-      className="fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around items-center"
+      className="lg:hidden fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around items-center"
     >
       <button
         className={`flex flex-col items-center transition-transform duration-150 ${
