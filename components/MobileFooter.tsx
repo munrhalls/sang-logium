@@ -35,7 +35,7 @@ export default function MobileFooter() {
 
   return (
     <footer
-      style={{ height: "var(--footer-height-mobile)" }}
+      style={{ height: "var(--footer-height)" }}
       className="fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around items-center"
     >
       <button

@@ -25,7 +25,7 @@ export default async function RootLayout({
     <ClerkProvider dynamic>
       <html lang="en">
         <body>
-          <div className="h-screen lg:h-auto flex flex-col">
+          <div id="wrapper">
             <Header />
             <DesktopCategoriesNav categories={categories} />
 

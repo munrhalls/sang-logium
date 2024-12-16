@@ -9,9 +9,8 @@ body {
 
 @layer base {
   :root {
-    --header-height-desktop: 90px;
-    --header-height-mobile: 52px;
-    --footer-height-mobile: 64px;
+    --header-height: 64px;
+    --footer-height: 64px;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -75,17 +74,27 @@ body {
   }
 }
 
+#wrapper {
+  padding-top: var(--header-height);
+  padding-bottom: var(--footer-height);
+}
+
 .hero-section {
   height: calc(
-    100vh - var(--header-height-mobile) - var(--desktop-categories-nav-height)
+    100vh - var(--header-height) - var(--desktop-categories-nav-height)
   );
 }
 
 @media (min-width: 1024px) {
-  .hero-section {
-    height: calc(
-      100vh - var(--header-height-desktop) -
-        var(--desktop-categories-nav-height)
+  :root {
+    --header-height: 90px;
+    --footer-height: 52px;
+    --categories-nav-height: 52px;
+  }
+
+  #wrapper {
+    padding-top: calc(
+      var(--header-height) + var(--desktop-categories-nav-height)
     );
   }
 }

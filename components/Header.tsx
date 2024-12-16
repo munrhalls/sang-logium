@@ -22,7 +22,10 @@ function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 lg:px-10 xl:px-16 2xl:px-24 h-[60px] lg:h-[90px] flex justify-center lg:justify-between items-center bg-black">
+    <header
+      style={{ height: "var(--header-height)" }}
+      className="fixed top-0 left-0 right-0 z-50 lg:px-10 xl:px-16 2xl:px-24  flex justify-center lg:justify-between items-center bg-black"
+    >
       {/* Logo */}
       <Link href="/">
         <Image

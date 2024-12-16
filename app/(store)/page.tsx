@@ -75,7 +75,7 @@ export default async function SalesCarousel() {
   ) : null;
 
   return (
-    <div className="h-full">
+    <div className="relative h-full">
       <div className="grid grid-cols-4 grid-rows-1 ">
         <div className="col-span-4 xl2:col-span-3 col-start-1 bg-slate-300">
           <div className="relative h-full w-full overflow-hidden font-oswald">
