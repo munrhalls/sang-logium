@@ -22,12 +22,6 @@ export default async function SalesCarousel() {
     (sale) => sale?.slug?.current === "christmas-gifts"
   );
 
-  const headerHeight = 90;
-  const navbarHeight = 64;
-  const offsetTopXL = `${headerHeight + navbarHeight}px`;
-
-  const carouselHeight = `calc(100vh - ${headerHeight + navbarHeight}px)`;
-
   const cta = christmasSale?.slug ? (
     <div
       style={{

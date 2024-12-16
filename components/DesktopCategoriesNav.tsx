@@ -41,19 +41,26 @@ export default function DesktopCategoriesNav({
   );
 
   return (
-    <nav className="hidden lg:block z-50 lg:sticky top-[60px] lg:top-[90px] h-[60px] w-full bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4">
-        <ul className="flex justify-center items-center md:h-12 xl:h-16">
+    <nav
+      className="hidden lg:flex items-center justify-center z-50 w-full bg-gray-900 "
+      style={{
+        position: "fixed",
+        top: "var(--header-height)",
+        height: "var(--categories-nav-height)",
+      }}
+    >
+      <div className="h-full max-w-7xl mx-auto px-4">
+        <ul className="h-full flex justify-center items-center">
           {orderedCategoriesTree.map((category) => (
             <li
               key={category._id}
-              className="relative"
+              className="h-full relative"
               onMouseEnter={() => setActiveCategory(category.name)}
               onMouseLeave={() => setActiveCategory(undefined)}
             >
               <Link
                 href={`/category/${category.name}`}
-                className={`flex items-center px-4 md:h-12 xl:h-16 text-white hover:text-yellow-400 transition-colors ${
+                className={`h-full flex items-center px-4 text-white hover:text-yellow-400 transition-colors ${
                   activeCategory === category.name ? "text-yellow-400" : ""
                 }`}
               >
@@ -73,7 +80,7 @@ export default function DesktopCategoriesNav({
 
               {/* Dropdown */}
               {activeCategory === category.name && (
-                <div className="absolute z-50 md:top-12 xl:top-16 left-0 w-72 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-700 ease-in-out transform opacity-100 scale-100">
+                <div className="absolute z-50 left-0 w-72 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-700 ease-in-out transform opacity-100 scale-100">
                   <div className="py-2">
                     {category?.children?.map((sub, i) => (
                       <div key={`${category._id}-${i}-${sub.name}`}>
