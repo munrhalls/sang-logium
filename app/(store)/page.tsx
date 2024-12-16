@@ -14,10 +14,9 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 
-export default async function SalesCarousel() {
+export default async function Page() {
   const sales = await getAllSales();
   console.log("Sales", sales[0]);
-
   const christmasSale = sales.find(
     (sale) => sale?.slug?.current === "christmas-gifts"
   );
@@ -55,7 +54,7 @@ export default async function SalesCarousel() {
   ) : null;
 
   const christmasSaleSlide = christmasSale?.image ? (
-    <div className={`absolute inset-0 rounded`}>
+    <div className={`absolute inset-0 rounded z-40`}>
       <Image
         src={imageUrl(christmasSale.image).url()}
         fill
@@ -68,17 +67,16 @@ export default async function SalesCarousel() {
     </div>
   ) : null;
 
+  console.log("Christmas Sale Slide", christmasSaleSlide);
+
   return (
-    <div className="relative h-full">
-      <div className="grid grid-cols-4 grid-rows-1 ">
-        <div className="col-span-4 xl:col-span-3 col-start-1 bg-slate-300">
-          <div className="relative h-full w-full overflow-hidden font-oswald">
-            {christmasSaleSlide}
-          </div>
+    <div className="h-full grid grid-cols-4 grid-rows-1 ">
+      <div className="col-span-4 xl:col-span-3 col-start-1 bg-slate-300">
+        <div className="relative h-full w-full overflow-auto font-oswald">
+          {christmasSaleSlide}
         </div>
-        <div className="xl:col-start-4 xl:col-span-1 hidden"></div>
       </div>
-      <div style={{ height: "1500px" }} className="bg-slate-700"></div>
+      <div className="xl:col-start-4 xl:col-span-1 hidden"></div>
     </div>
   );
 }

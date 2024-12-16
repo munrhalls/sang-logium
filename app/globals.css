@@ -11,6 +11,7 @@ body {
   :root {
     --header-height: 64px;
     --footer-height: 64px;
+    --categories-nav-height: 0px;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -69,6 +70,12 @@ body {
   * {
     @apply border-border;
   }
+
+  html,
+  body {
+    @apply h-full;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -79,12 +86,6 @@ body {
   padding-bottom: var(--footer-height);
 }
 
-.hero-section {
-  height: calc(
-    100vh - var(--header-height) - var(--desktop-categories-nav-height)
-  );
-}
-
 @media (min-width: 1024px) {
   :root {
     --header-height: 90px;
@@ -93,8 +94,8 @@ body {
   }
 
   #wrapper {
-    padding-top: calc(
-      var(--header-height) + var(--desktop-categories-nav-height)
-    );
+    min-height: 100vh;
+    padding-top: calc(var(--header-height) + var(--categories-nav-height));
+    padding-bottom: 0;
   }
 }

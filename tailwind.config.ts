@@ -1,4 +1,6 @@
 import type { Config } from "tailwindcss";
+import animatePlugin from "tailwindcss-animate";
+import typographyPlugin from "@tailwindcss/typography";
 
 export default {
   darkMode: ["class"],
@@ -22,10 +24,8 @@ export default {
         bebas: ["Bebas Neue", "sans-serif"],
         lobster: ["Lobster", "cursive"],
       },
-      extend: {
-        screens: {
-          "2xs": "375px",
-        },
+      screens: {
+        "2xs": "375px",
       },
       colors: {
         background: "hsl(var(--background))",
@@ -76,5 +76,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [animatePlugin, typographyPlugin],
 } satisfies Config;
