@@ -10,9 +10,15 @@ export interface UIState {
 export const useStore = create<UIState>((set) => ({
   isSearchDrawerOpen: false,
   toggleSearchDrawer: () =>
-    set((state) => ({ isSearchDrawerOpen: !state.isSearchDrawerOpen })),
+    set((state) => ({
+      isSearchDrawerOpen: !state.isSearchDrawerOpen,
+      isCategoriesDrawerOpen: false,
+    })),
 
   isCategoriesDrawerOpen: false,
   toggleCategoriesDrawer: () =>
-    set((state) => ({ isCategoriesDrawerOpen: !state.isCategoriesDrawerOpen })),
+    set((state) => ({
+      isCategoriesDrawerOpen: !state.isCategoriesDrawerOpen,
+      isSearchDrawerOpen: false,
+    })),
 }));

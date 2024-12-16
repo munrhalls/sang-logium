@@ -70,7 +70,7 @@ export default function MobileCategoriesDrawer({
       }}
     >
       {/* Fixed header */}
-      <div className="sticky top-0 bg-white z-10">
+      <div className="sticky top-0  z-10">
         <div className="p-2 border-b border-gray-200">
           <div className="flex justify-end items-center">
             <button
@@ -85,6 +85,7 @@ export default function MobileCategoriesDrawer({
         </div>
         <h1 className="text-3xl text-center my-2 ml-4">Categories</h1>
       </div>
+
       {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto scroll-smooth pb-6">
         <div className="p-4">
