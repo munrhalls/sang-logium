@@ -25,7 +25,8 @@ export default {
         lobster: ["Lobster", "cursive"],
       },
       screens: {
-        "2xs": "375px",
+        "2xs": "450px",
+        "3xl": "1920px",
       },
       colors: {
         background: "hsl(var(--background))",

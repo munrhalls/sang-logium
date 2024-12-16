@@ -89,7 +89,7 @@ body {
 @media (min-width: 1024px) {
   :root {
     --header-height: 90px;
-    --footer-height: 90px;
+    --footer-height: 0px;
     --categories-nav-height: 60px;
   }
 
