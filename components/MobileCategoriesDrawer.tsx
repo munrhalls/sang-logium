@@ -71,19 +71,19 @@ export default function MobileCategoriesDrawer({
     >
       {/* Fixed header */}
       <div className="sticky top-0 bg-white z-10">
-        <div className="p-4 border-b border-gray-200">
+        <div className="p-2 border-b border-gray-200">
           <div className="flex justify-end items-center">
             <button
               onClick={toggleCategoriesDrawer}
               className="flex gap-1 items-center justify-center text-black"
             >
-              <span>Close</span>
+              <span>CLOSE</span>
 
-              <FaTimes size={10} />
+              <FaTimes size={14} />
             </button>
           </div>
         </div>
-        <h1 className="text-3xl text-center my-4 ml-4 mb-4">Categories</h1>
+        <h1 className="text-3xl text-center my-2 ml-4">Categories</h1>
       </div>
       {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto scroll-smooth pb-6">
