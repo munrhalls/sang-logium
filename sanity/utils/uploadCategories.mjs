@@ -1,4 +1,4 @@
-import categoryDocuments from "./categories.json" assert { type: "json" };
+import categoryDocuments from "./categories.json" with { type: "json" };
 
 import readline from "readline";
 import client from "./getClient.mjs";

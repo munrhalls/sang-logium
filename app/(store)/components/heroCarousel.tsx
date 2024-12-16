@@ -1,13 +1,13 @@
-import { getAllSales } from "@/sanity/lib/sales/getAllSales";
 import Image from "next/image";
 import imageUrl from "@/lib/imageUrl";
-
+import { Sale } from "@/sanity.types";
 import Link from "next/link";
 
-export default async function HeroCarousel({ sales }) {
+export default async function HeroCarousel({ sales }: { sales: Sale[] }) {
   //   const sales = await getAllSales();
 
   console.log("Sales", sales[0]);
+
   const christmasSale = sales.find(
     (sale) => sale?.slug?.current === "christmas-gifts"
   );
