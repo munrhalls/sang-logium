@@ -29,7 +29,7 @@ export default async function RootLayout({
             <Header />
             <DesktopCategoriesNav categories={categories} />
 
-            <main>
+            <main className="min-h-full">
               {children}
               <MobileCategoriesDrawer categories={categories} />
               <MobileSearchDrawer />

@@ -27,7 +27,7 @@ export default async function Page() {
         backgroundColor: "#CF8226",
         border: "1px solid #fff",
       }}
-      className="mt-auto rounded-sm md:rounded-full flex flex-col justify-center items-center h-12 md:h-32 w-32 xl:h-80 xl:w-80"
+      className=" mt-auto  rounded-sm flex flex-col justify-center items-center h-12 w-32"
     >
       <Link
         className=" text-white xs:text-xs sm:text-xl xl:text-5xl font-black text-center md:mt-2 block"
@@ -38,17 +38,28 @@ export default async function Page() {
     </div>
   ) : null;
 
+  const title = (
+    <h1 className="text-xl">
+      Christmas <span style={{ color: "#CF8226" }}>GIFTS!</span>
+    </h1>
+  );
+  const subtitle = (
+    <p className="mt-2 text-xs pr-[50%]">
+      <span style={{ color: "#CF8226" }}>ALL</span> WIRELESS HEADPHONES {""}
+    </p>
+  );
+
+  const percentOff = (
+    <p className="mt-2 text-2xl">
+      <span style={{ color: "#CF8226" }}>-25%! </span>
+    </p>
+  );
+  //TODO
   const textOverlay = christmasSale ? (
-    <div className="absolute left-0 top-0 md:right-[50%] bottom-0 flex flex-col justify-start md:justify-around items-start md:items-center p-2 md:p-8  font-black  text-white">
-      <h1 className="text-md md:text-3xl xl:text-5xl leading-loose">
-        Christmas <span style={{ color: "#CF8226" }}>GIFTS!</span>
-      </h1>
-      <p className="md:ml-4 text-xs md:text-2xl xl:text-3xl xl:mt-8 leading-loose">
-        <span style={{ color: "#CF8226" }}>ALL</span> WIRELESS HEADPHONES {""}
-      </p>
-      <p className="text-md md:text-2xl xl:text-6xl xl:mt-8">
-        <span style={{ color: "#CF8226" }}>-25%! </span>
-      </p>
+    <div className="p-4 absolute inset-0 right-[20%] flex flex-col justify-start font-black  text-white scale-[1.0] 2xs:inset-[10%] 2xs:right-[35%] 2xs:scale-[1.2] sm:inset-[20%] sm:scale-[1.5] md:scale-[0.8] lg:scale-100">
+      {title}
+      {subtitle}
+      {percentOff}
       {cta}
     </div>
   ) : null;
@@ -59,7 +70,7 @@ export default async function Page() {
         src={imageUrl(christmasSale.image).url()}
         fill
         sizes="100vw"
-        className="object-cover object-[90%_50%] md:object-[50%_50%]"
+        className="object-cover object-[70%_100%] md:object-[50%_50%]"
         alt="Christmas Sale"
         priority
       />
@@ -70,7 +81,12 @@ export default async function Page() {
   console.log("Christmas Sale Slide", christmasSaleSlide);
 
   return (
-    <div className="h-full grid grid-cols-4 grid-rows-1 ">
+    <div
+      style={{
+        height: `calc(100vh - var(--header-height) - var(--categories-nav-height))`,
+      }}
+      className="grid grid-cols-4 grid-rows-1 bg-blue-300"
+    >
       <div className="col-span-4 xl:col-span-3 col-start-1 bg-slate-300">
         <div className="relative h-full w-full overflow-auto font-oswald">
           {christmasSaleSlide}
