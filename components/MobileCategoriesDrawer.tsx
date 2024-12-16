@@ -65,7 +65,7 @@ export default function MobileCategoriesDrawer({
       }`}
       style={{
         width: "90%",
-        height: `calc(100vh - var(--header-height-mobile) - var(--desktop-categories-nav-height))`,
+        height: `calc(100vh - var(--header-height-mobile) - var(--desktop-footer-height))`,
       }}
     >
       {/* Fixed header */}
