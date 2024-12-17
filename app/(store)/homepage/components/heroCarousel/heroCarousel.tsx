@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import imageUrl from "@/lib/imageUrl";
 import { Sale } from "@/sanity.types";
@@ -9,7 +12,14 @@ import ChevronLeft from "../../../../../public/icons/ChevronLeft.svg";
 import ChevronRight from "../../../../../public/icons/ChevronRight.svg";
 
 export default function HeroCarousel({ sales }: { sales: Sale[] }) {
-  console.log("Sales 1, 2", sales[0].slug, sales[1]?.slug);
+  const [currentSlideI, setCurrentSlideI] = useState(1);
+
+  const slideLeft = () => {
+    setCurrentSlideI((prev) => (prev === 0 ? 2 : prev - 1));
+  };
+  const slideRight = () => {
+    setCurrentSlideI((prev) => (prev === 2 ? 0 : prev + 1));
+  };
 
   const christmasSale = sales.find(
     (sale) => sale?.slug?.current === "christmas-gifts"
@@ -60,19 +70,25 @@ export default function HeroCarousel({ sales }: { sales: Sale[] }) {
   ) : null;
 
   const btnSlideLeft = (
-    <button className="z-50 text-white text-3xl absolute left-0 top-0 bottom-0">
+    <button
+      onClick={slideLeft}
+      className="z-50 text-white text-3xl absolute left-0 top-0 bottom-0"
+    >
       <Image src={ChevronLeft} alt="Chevron Left" />
     </button>
   );
 
   const btnSlideRight = (
-    <button className="z-50 text-white text-3xl absolute top-0 bottom-0 right-0">
+    <button
+      onClick={slideRight}
+      className="z-50 text-white text-3xl absolute top-0 bottom-0 right-0"
+    >
       <Image src={ChevronRight} alt="Chevron Right" />
     </button>
   );
 
   const christmasSaleSlide = christmasSale?.image ? (
-    <div className={`absolute inset-0 rounded z-40`}>
+    <div className={`absolute inset-0 rounded z-40 translate-x-[0%]`}>
       {/* // TODO - heroSlider */}
       <Image
         src={imageUrl(christmasSale.image).url()}
@@ -86,12 +102,39 @@ export default function HeroCarousel({ sales }: { sales: Sale[] }) {
     </div>
   ) : null;
 
+  const slide2 = (
+    <div className="z-40 bg-black absolute inset-0 text-white text-7xl flex justify-center items-center">
+      2
+    </div>
+  );
+  const slide3 = (
+    <div className="bg-zinc-700 absolute inset-0 text-white text-7xl flex justify-center items-center">
+      3
+    </div>
+  );
+
+  const slidesArr = [christmasSaleSlide, slide2, slide3];
+
   return (
     <div className="relative h-full w-full overflow-auto font-oswald">
-      {" "}
-      {christmasSaleSlide}
-      {christmasSaleSlide}
-      {christmasSaleSlide}
+      {slidesArr.map((slide, i) => {
+        return (
+          <div
+            key={i}
+            className="absolute top-0 bottom-0"
+            style={{
+              height: "100%",
+              width: "100%",
+              left: `${i * 100}%`,
+              right: `${(i + 1) * 100}%`,
+              transform: `translateX(-${currentSlideI * 100}%)`,
+            }}
+          >
+            {slide}
+          </div>
+        );
+      })}
+
       {/* //TODO - heroControls */}
       {btnSlideLeft}
       {btnSlideRight}
