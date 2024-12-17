@@ -1,10 +1,12 @@
-import { getAllSales } from "@/sanity/lib/sales/getAllSales";
+import { getSaleFeaturedProductsByDiscount } from "@/sanity/lib/sales/getSaleFeaturedProductsByDiscount";
 import HeroCarousel from "./homepage/components/heroCarousel/heroCarousel";
 
 // Define a new type with only the necessary properties
 
 export default async function Page() {
-  const sales = await getAllSales();
+  const sales10 = await getSaleFeaturedProductsByDiscount(10);
+  const sales15 = await getSaleFeaturedProductsByDiscount(15);
+  const sales20 = await getSaleFeaturedProductsByDiscount(20);
 
   return (
     <div
