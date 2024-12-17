@@ -3,10 +3,12 @@ import imageUrl from "@/lib/imageUrl";
 import { Sale } from "@/sanity.types";
 import Link from "next/link";
 import TextOverlay from "./textOverlay";
+import Logo from "../../../../../public/icons/Logo.svg";
+import Ellipse from "../../../../../public/icons/Ellipse.svg";
+import ChevronLeft from "../../../../../public/icons/ChevronLeft.svg";
+import ChevronRight from "../../../../../public/icons/ChevronRight.svg";
 
 export default function HeroCarousel({ sales }: { sales: Sale[] }) {
-  //   const sales = await getAllSales();
-
   console.log("Sales 1, 2", sales[0].slug, sales[1]?.slug);
 
   const christmasSale = sales.find(
@@ -57,6 +59,18 @@ export default function HeroCarousel({ sales }: { sales: Sale[] }) {
     </div>
   ) : null;
 
+  const btnSlideLeft = (
+    <button className="text-white text-3xl absolute left-0 top-0 bottom-0">
+      <Image src={ChevronLeft} alt="Chevron Left" />
+    </button>
+  );
+
+  const btnSlideRight = (
+    <button className="text-white text-3xl absolute top-0 bottom-0 right-0">
+      <Image src={ChevronRight} alt="Chevron Right" />
+    </button>
+  );
+
   const christmasSaleSlide = christmasSale?.image ? (
     <div className={`absolute inset-0 rounded z-40`}>
       <Image
@@ -68,8 +82,21 @@ export default function HeroCarousel({ sales }: { sales: Sale[] }) {
         priority
       />
       {textOverlay}
+      {btnSlideLeft}
+      {btnSlideRight}
+      <div className="absolute left-0 right-0 bottom-6 flex justify-center items-center gap-2">
+        <Image src={Logo} alt="Logo" />
+        <Image src={Ellipse} alt="Ellipse" />
+        <Image src={Ellipse} alt="Ellipse" />
+        <Image src={Ellipse} alt="Ellipse" />
+        <Image src={Ellipse} alt="Ellipse" />
+      </div>
     </div>
   ) : null;
 
-  return christmasSaleSlide;
+  return (
+    <div className="relative h-full w-full overflow-auto font-oswald">
+      {christmasSaleSlide}
+    </div>
+  );
 }

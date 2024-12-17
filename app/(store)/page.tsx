@@ -14,9 +14,7 @@ export default async function Page() {
       className="grid grid-cols-4 grid-rows-1 bg-blue-300"
     >
       <div className="col-span-4 col-start-1 bg-slate-300">
-        <div className="relative h-full w-full overflow-auto font-oswald">
-          <HeroCarousel sales={sales} />
-        </div>
+        <HeroCarousel sales={sales} />
       </div>
     </div>
   );
