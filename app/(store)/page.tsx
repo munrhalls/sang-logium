@@ -1,5 +1,5 @@
 import { getAllSales } from "@/sanity/lib/sales/getAllSales";
-import HeroCarousel from "./components/heroCarousel";
+import HeroCarousel from "./homepage/components/heroCarousel/heroCarousel";
 
 // Define a new type with only the necessary properties
 
