@@ -12,13 +12,14 @@ import ChevronLeft from "../../../../../public/icons/ChevronLeft.svg";
 import ChevronRight from "../../../../../public/icons/ChevronRight.svg";
 
 export default function HeroCarousel({ sales }: { sales: Sale[] }) {
-  const [currentSlideI, setCurrentSlideI] = useState(1);
+  const [index, setIndex] = useState(0);
 
-  const slideLeft = () => {
-    setCurrentSlideI((prev) => (prev === 0 ? 2 : prev - 1));
-  };
-  const slideRight = () => {
-    setCurrentSlideI((prev) => (prev === 2 ? 0 : prev + 1));
+  const handleSlide = (direction: "left" | "right") => {
+    const newIndex =
+      direction === "left"
+        ? (index - 1 + slidesArr.length) % slidesArr.length
+        : (index + 1) % slidesArr.length;
+    setIndex(newIndex);
   };
 
   const christmasSale = sales.find(
@@ -71,7 +72,7 @@ export default function HeroCarousel({ sales }: { sales: Sale[] }) {
 
   const btnSlideLeft = (
     <button
-      onClick={slideLeft}
+      onClick={() => handleSlide("left")}
       className="z-50 text-white text-3xl absolute left-0 top-0 bottom-0"
     >
       <Image src={ChevronLeft} alt="Chevron Left" />
@@ -80,7 +81,7 @@ export default function HeroCarousel({ sales }: { sales: Sale[] }) {
 
   const btnSlideRight = (
     <button
-      onClick={slideRight}
+      onClick={() => handleSlide("right")}
       className="z-50 text-white text-3xl absolute top-0 bottom-0 right-0"
     >
       <Image src={ChevronRight} alt="Chevron Right" />
@@ -121,13 +122,13 @@ export default function HeroCarousel({ sales }: { sales: Sale[] }) {
         return (
           <div
             key={i}
-            className="absolute top-0 bottom-0 transition-transform duration-300 ease-in-out"
+            className="absolute top-0 bottom-0 transition-transform duration-300 ease-out will-change-transform"
             style={{
               height: "100%",
               width: "100%",
               left: `${i * 100}%`,
               right: `${(i + 1) * 100}%`,
-              transform: `translateX(-${currentSlideI * 100}%)`,
+              transform: `translateX(-${index * 100}%)`,
             }}
           >
             {slide}
@@ -138,15 +139,15 @@ export default function HeroCarousel({ sales }: { sales: Sale[] }) {
       {/* //TODO - heroControls */}
       {btnSlideLeft}
       {btnSlideRight}
-      <div className="z-50 absolute left-0 right-0 bottom-6 flex justify-center items-center gap-2">
+      <div className="z-50 absolute left-0 right-0 bottom-6 flex flex-shrink-0 justify-center items-center gap-2">
         {slidesArr.map((_, i) => {
           return (
             <Image
               key={i}
-              src={currentSlideI === i ? Logo : Ellipse}
-              alt={currentSlideI === i ? "Logo" : "Ellipse"}
-              className={`transition-all duration-300 ${currentSlideI === i ? "cursor-default h-6 w-6" : "cursor-pointer h-4 w-4"}`}
-              onClick={() => setCurrentSlideI(i)}
+              src={index === i ? Logo : Ellipse}
+              alt={index === i ? "Logo" : "Ellipse"}
+              className={`transition-all duration-300 ${index === i ? "cursor-default h-6 w-6" : "cursor-pointer h-4 w-4"}`}
+              onClick={() => setIndex(i)}
             />
           );
         })}
