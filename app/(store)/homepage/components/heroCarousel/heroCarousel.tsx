@@ -121,7 +121,7 @@ export default function HeroCarousel({ sales }: { sales: Sale[] }) {
         return (
           <div
             key={i}
-            className="absolute top-0 bottom-0"
+            className="absolute top-0 bottom-0 transition-transform duration-300 ease-in-out"
             style={{
               height: "100%",
               width: "100%",
@@ -139,19 +139,13 @@ export default function HeroCarousel({ sales }: { sales: Sale[] }) {
       {btnSlideLeft}
       {btnSlideRight}
       <div className="z-50 absolute left-0 right-0 bottom-6 flex justify-center items-center gap-2">
-        {/* <Image src={Logo} alt="Logo" />
-        <Image src={Ellipse} alt="Ellipse" />
-        <Image src={Ellipse} alt="Ellipse" />
-        <Image src={Ellipse} alt="Ellipse" />
-        <Image src={Ellipse} alt="Ellipse" /> */}
-
         {slidesArr.map((_, i) => {
           return (
             <Image
               key={i}
               src={currentSlideI === i ? Logo : Ellipse}
               alt={currentSlideI === i ? "Logo" : "Ellipse"}
-              className={`${currentSlideI === i ? "cursor-default h-6 w-6" : "cursor-pointer h-4 w-4"}`}
+              className={`transition-all duration-300 ${currentSlideI === i ? "cursor-default h-6 w-6" : "cursor-pointer h-4 w-4"}`}
               onClick={() => setCurrentSlideI(i)}
             />
           );
