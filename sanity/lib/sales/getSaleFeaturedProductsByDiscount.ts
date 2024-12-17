@@ -1,20 +1,22 @@
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../live";
 
-export const getHeroProductsByDiscount = async (discountPercentage: number) => {
+export const getSaleFeaturedProductsByDiscount = async (
+  discountAmount: number
+) => {
   const query = defineQuery(`
-      *[_type == "sale" && isActive == true && discountPercentage == $discountPercentage][0] {
-        "heroProducts": featuredProducts[]-> {
+      *[_type == "sale" && isActive == true && discountAmount == $discountAmount][0] {
+        "featuredProducts": featuredProducts[]-> {
           _id,
           name,
           price,
-          "salePrice": price * (1 - ^.discountPercentage/100)
+          image
         }
       }
     `);
 
   return sanityFetch({
     query,
-    params: { discountPercentage },
+    params: { discountAmount },
   });
 };
