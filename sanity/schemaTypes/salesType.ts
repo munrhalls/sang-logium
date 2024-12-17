@@ -13,11 +13,6 @@ export const salesType = defineType({
       title: "Sale Title",
     }),
     defineField({
-      name: "subtitle",
-      type: "string",
-      title: "Sale Subtitle",
-    }),
-    defineField({
       type: "slug",
       name: "slug",
       options: {
@@ -27,9 +22,18 @@ export const salesType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "description",
-      type: "text",
-      title: "Sale Description",
+      name: "products",
+      type: "array",
+      title: "Products on Sale",
+      of: [{ type: "reference", to: [{ type: "product" }] }],
+    }),
+    defineField({
+      name: "featuredProducts",
+      type: "array",
+      title: "Featured in Hero",
+      of: [{ type: "reference", to: [{ type: "product" }] }],
+      description: "Products to highlight in the hero section",
+      validation: (Rule) => Rule.max(4),
     }),
     defineField({
       name: "discountAmount",
@@ -38,9 +42,15 @@ export const salesType = defineType({
       description: "Amount off in percentage or fixed value",
     }),
     defineField({
+      name: "couponBased",
+      type: "boolean",
+      title: "Coupon Based",
+    }),
+    defineField({
       name: "couponCode",
       type: "string",
       title: "Coupon Code",
+      hidden: ({ parent }) => !parent?.couponBased,
     }),
     defineField({
       name: "validFrom",
@@ -66,11 +76,6 @@ export const salesType = defineType({
       options: {
         hotspot: true,
       },
-    }),
-    defineField({
-      name: "ctaText",
-      title: "CTA Text",
-      type: "string",
     }),
     defineField({
       name: "ctaLink",
