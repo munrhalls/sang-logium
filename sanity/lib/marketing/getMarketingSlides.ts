@@ -5,7 +5,7 @@ export const getMarketingSlides = async (name: string) => {
   const GET_MARKETING_SLIDES_BY_NAME_QUERY =
     defineQuery(`*[_type == "marketingSlide"] {
     slides[] {
-      backgroundImage,
+      "backgroundImage": backgroundImage.asset->url,
       content[] {
         _type == 'reference' => @-> {
           _type == "product" => {

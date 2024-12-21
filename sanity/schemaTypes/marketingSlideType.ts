@@ -5,7 +5,14 @@ export const marketingSlideType = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "name",
+      title: "Marketing Slides",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "slides",
+      title: "Marketing slides",
       type: "array",
       of: [
         {
