@@ -326,7 +326,7 @@
     }
   },
   {
-    "name": "marketingSlide",
+    "name": "marketingItem",
     "type": "document",
     "attributes": {
       "_id": {
@@ -339,7 +339,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "string",
-          "value": "marketingSlide"
+          "value": "marketingItem"
         }
       },
       "_createdAt": {

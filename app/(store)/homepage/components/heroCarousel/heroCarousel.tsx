@@ -1,6 +1,6 @@
 "use client";
 
-import { MarketingSlide } from "@/sanity.types";
+import { MarketingItem } from "@/sanity.types";
 import Slide from "./slide";
 
 import { useState } from "react";
@@ -13,15 +13,18 @@ import Logo from "../../../../../public/icons/Logo.svg";
 import Ellipse from "../../../../../public/icons/Ellipse.svg";
 import ChevronLeft from "../../../../../public/icons/ChevronLeft.svg";
 import ChevronRight from "../../../../../public/icons/ChevronRight.svg";
+type Slides = MarketingItem["slides"];
 
-export default function HeroCarousel({ slides }: { slide: MarketingSlide[] }) {
+export default function HeroCarousel({ slides }: { slides: Slides }) {
   const [index, setIndex] = useState(0);
+
+  if (!slides) return null;
 
   const handleSlide = (direction: "left" | "right") => {
     const newIndex =
       direction === "left"
-        ? (index - 1 + slidesArr.length) % slidesArr.length
-        : (index + 1) % slidesArr.length;
+        ? (index - 1 + slides.length) % slides.length
+        : (index + 1) % slides.length;
     setIndex(newIndex);
   };
 
@@ -157,12 +160,10 @@ export default function HeroCarousel({ slides }: { slide: MarketingSlide[] }) {
   //   </div>
   // );
 
-  const slidesArr = [1, 2, 3];
-
   return (
     <div className="relative h-full w-full overflow-hidden font-oswald">
       {/* TODO - hero slide refactor */}
-      {slidesArr.map((slide, i) => {
+      {slides.map((slide: MarketingSlide, i: number) => {
         return (
           <div
             key={i}
@@ -175,7 +176,7 @@ export default function HeroCarousel({ slides }: { slide: MarketingSlide[] }) {
               transform: `translateX(-${index * 100}%)`,
             }}
           >
-            <Slide />
+            <Slide slide={slide} />
           </div>
         );
       })}
@@ -184,7 +185,7 @@ export default function HeroCarousel({ slides }: { slide: MarketingSlide[] }) {
       {btnSlideLeft}
       {btnSlideRight}
       <div className="z-50 absolute left-0 right-0 bottom-1 flex flex-shrink-0 justify-center items-center gap-2">
-        {slidesArr.map((_, i) => {
+        {slides.map((_: never, i: number) => {
           return (
             <Image
               key={i}

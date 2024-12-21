@@ -1,12 +1,12 @@
 import { defineType, defineField } from "sanity";
 
-export const marketingSlideType = defineType({
-  name: "marketingSlide",
+export const marketingItemType = defineType({
+  name: "marketingItem",
   type: "document",
   fields: [
     defineField({
       name: "name",
-      title: "Marketing Slides",
+      title: "Marketing Item Title",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
