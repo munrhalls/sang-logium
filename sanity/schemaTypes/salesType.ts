@@ -22,35 +22,16 @@ export const salesType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "discountAmount",
+      type: "number",
+      title: "Discount Percentage",
+      validation: (Rule) => Rule.min(0).max(100),
+    }),
+    defineField({
       name: "products",
       type: "array",
       title: "Products on Sale",
       of: [{ type: "reference", to: [{ type: "product" }] }],
-    }),
-    defineField({
-      name: "featuredProducts",
-      type: "array",
-      title: "Featured in Hero",
-      of: [{ type: "reference", to: [{ type: "product" }] }],
-      description: "Products to highlight in the hero section",
-      validation: (Rule) => Rule.max(4),
-    }),
-    defineField({
-      name: "discountAmount",
-      type: "number",
-      title: "Discount Amount",
-      description: "Amount off in percentage or fixed value",
-    }),
-    defineField({
-      name: "couponBased",
-      type: "boolean",
-      title: "Coupon Based",
-    }),
-    defineField({
-      name: "couponCode",
-      type: "string",
-      title: "Coupon Code",
-      hidden: ({ parent }) => !parent?.couponBased,
     }),
     defineField({
       name: "validFrom",
@@ -66,40 +47,21 @@ export const salesType = defineType({
       name: "isActive",
       type: "boolean",
       title: "Is Active",
-      description: "Toggle to activate/deactivate the sale",
       initialValue: true,
-    }),
-    defineField({
-      name: "image",
-      title: "Background Image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-    }),
-    defineField({
-      name: "ctaLink",
-      title: "CTA Link",
-      type: "url",
-      initialValue: "/category/sales",
     }),
   ],
   preview: {
     select: {
       title: "title",
       discountAmount: "discountAmount",
-      couponCode: "couponCode",
       isActive: "isActive",
-      backgroundImage: "backgroundImage",
     },
     prepare(selection) {
-      const { title, discountAmount, couponCode, isActive, backgroundImage } =
-        selection;
+      const { title, discountAmount, isActive } = selection;
       const status = isActive ? "Active" : "Inactive";
       return {
         title: `${title} (${status})`,
-        subtitle: `Discount: ${discountAmount}% - Code: ${couponCode}`,
-        media: backgroundImage,
+        subtitle: `${discountAmount}% off`,
       };
     },
   },

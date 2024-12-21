@@ -68,28 +68,95 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type HeroSection = {
+export type MarketingSlide = {
   _id: string;
-  _type: "heroSection";
+  _type: "marketingSlide";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  subtitle?: string;
-  backgroundImage?: {
-    asset?: {
+  slides?: Array<{
+    backgroundImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    content?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  promotionPercentage?: number;
-  ctaText?: string;
-  ctaLink?: string;
+      [internalGroqTypeReferenceTo]?: "product";
+    } | {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sale";
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }>;
+    textOverlay?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+      listItem?: "bullet";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+      _key: string;
+    }>;
+    _key: string;
+  }>;
 };
 
 export type Sale = {
@@ -99,27 +166,18 @@ export type Sale = {
   _updatedAt: string;
   _rev: string;
   title?: string;
-  subtitle?: string;
   slug?: Slug;
-  description?: string;
   discountAmount?: number;
-  couponCode?: string;
+  products?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "product";
+  }>;
   validFrom?: string;
   validUntil?: string;
   isActive?: boolean;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  ctaText?: string;
-  ctaLink?: string;
 };
 
 export type Order = {
@@ -345,8 +403,32 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | HeroSection | Sale | Order | Product | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | MarketingSlide | Sale | Order | Product | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./sanity/lib/sales/getSalesByType.ts
+// Variable: ACTIVE_SALE_BY_COUPON_QUERY
+// Query: *[              _type == "sale"              && isActive == true              && couponCode == $couponCode          ] | order(validFrom desc)[0]
+export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
+  _id: string;
+  _type: "sale";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  discountAmount?: number;
+  products?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "product";
+  }>;
+  validFrom?: string;
+  validUntil?: string;
+  isActive?: boolean;
+} | null;
+
 // Source: ./sanity/lib/products/getAllCategories.ts
 // Variable: ALL_CATEGORIES_QUERY
 // Query: *[              _type == "category"          ] | order(name asc)
@@ -623,76 +705,14 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
   }>;
 }>;
 
-// Source: ./sanity/lib/sales/getAllSales.ts
-// Variable: GET_ALL_SALES
-// Query: *[_type == "sale"] {    _id,    title,    subtitle,    slug,    discountAmount,    couponCode,    validFrom,    validUntil,    isActive,    image,    ctaText,    ctaLink,  }
-export type GET_ALL_SALESResult = Array<{
-  _id: string;
-  title: string | null;
-  subtitle: string | null;
-  slug: Slug | null;
-  discountAmount: number | null;
-  couponCode: string | null;
-  validFrom: string | null;
-  validUntil: string | null;
-  isActive: boolean | null;
-  image: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-  ctaText: string | null;
-  ctaLink: string | null;
-}>;
-
-// Source: ./sanity/lib/sales/getSalesByType.ts
-// Variable: ACTIVE_SALE_BY_COUPON_QUERY
-// Query: *[              _type == "sale"              && isActive == true              && couponCode == $couponCode          ] | order(validFrom desc)[0]
-export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
-  _id: string;
-  _type: "sale";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  subtitle?: string;
-  slug?: Slug;
-  description?: string;
-  discountAmount?: number;
-  couponCode?: string;
-  validFrom?: string;
-  validUntil?: string;
-  isActive?: boolean;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  ctaText?: string;
-  ctaLink?: string;
-} | null;
-
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "\n          *[\n              _type == \"sale\"\n              && isActive == true\n              && couponCode == $couponCode\n          ] | order(validFrom desc)[0]\n      ": ACTIVE_SALE_BY_COUPON_QUERYResult;
     "\n          *[\n              _type == \"category\"\n          ] | order(name asc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && slug.current == $slug\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
     "*[\n        _type == \"product\"\n        && name match $searchParam\n    ] | order(name asc)": SEARCH_FOR_PRODUCTS_QUERYResult;
-    "*[_type == \"sale\"] {\n    _id,\n    title,\n    subtitle,\n    slug,\n    discountAmount,\n    couponCode,\n    validFrom,\n    validUntil,\n    isActive,\n    image,\n    ctaText,\n    ctaLink,\n  }": GET_ALL_SALESResult;
-    "\n          *[\n              _type == \"sale\"\n              && isActive == true\n              && couponCode == $couponCode\n          ] | order(validFrom desc)[0]\n      ": ACTIVE_SALE_BY_COUPON_QUERYResult;
   }
 }
