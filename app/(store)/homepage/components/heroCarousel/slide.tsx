@@ -1,11 +1,7 @@
 import Image from "next/image";
 import imageUrl from "@/lib/imageUrl";
 
-type SlideInput = {
-  backgroundImage?: unknown;
-};
-
-export default function Slide({ slide }: { slide: SlideInput }) {
+export default function Slide({ slide }) {
   if (!slide?.backgroundImage) return null;
 
   return (

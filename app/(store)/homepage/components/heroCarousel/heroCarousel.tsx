@@ -1,7 +1,6 @@
 "use client";
 
-import { MarketingItem } from "@/sanity.types";
-import Slide from "./slide";
+import { commercial } from "@/sanity.types";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -13,7 +12,9 @@ import Logo from "../../../../../public/icons/Logo.svg";
 import Ellipse from "../../../../../public/icons/Ellipse.svg";
 import ChevronLeft from "../../../../../public/icons/ChevronLeft.svg";
 import ChevronRight from "../../../../../public/icons/ChevronRight.svg";
-type Slides = MarketingItem["slides"];
+import Slide from "./slide";
+
+type Slides = commercial["slides"];
 
 export default function HeroCarousel({ slides }: { slides: Slides }) {
   const [index, setIndex] = useState(0);
@@ -163,7 +164,7 @@ export default function HeroCarousel({ slides }: { slides: Slides }) {
   return (
     <div className="relative h-full w-full overflow-hidden font-oswald">
       {/* TODO - hero slide refactor */}
-      {slides.map((slide: MarketingSlide, i: number) => {
+      {slides.map((slide, i: number) => {
         return (
           <div
             key={i}
@@ -185,7 +186,7 @@ export default function HeroCarousel({ slides }: { slides: Slides }) {
       {btnSlideLeft}
       {btnSlideRight}
       <div className="z-50 absolute left-0 right-0 bottom-1 flex flex-shrink-0 justify-center items-center gap-2">
-        {slides.map((_: never, i: number) => {
+        {slides.map((_, i) => {
           return (
             <Image
               key={i}

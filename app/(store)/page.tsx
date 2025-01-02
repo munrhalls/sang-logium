@@ -1,10 +1,11 @@
-import { getMarketingItem } from "@/sanity/lib/marketing/getMarketingItem";
+import { getcommercial } from "@/sanity/lib/commercials/getCommercialsBySection";
 import HeroCarousel from "./homepage/components/heroCarousel/heroCarousel";
+import { commercial } from "@/sanity.types";
 
 export default async function Page() {
-  const marketingItem = await getMarketingItem("Homepage Hero Carousel");
+  const commercial: commercial = await getcommercial("Homepage Hero Carousel");
 
-  const heroSlides = marketingItem?.slides;
+  const heroSlides = commercial?.slides;
 
   console.log(heroSlides, "heroSlides");
 
@@ -16,7 +17,7 @@ export default async function Page() {
       className="grid grid-cols-4 grid-rows-1 bg-blue-300"
     >
       <div className="col-span-4 col-start-1 bg-slate-300">
-        {heroSlides && <HeroCarousel slides={heroSlides} />}
+        {heroSlides?.length && <HeroCarousel slides={heroSlides} />}
       </div>
     </div>
   );
