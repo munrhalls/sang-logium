@@ -1,6 +1,7 @@
 import { Commercial } from "@/sanity.types";
 import Image from "next/image";
 import imageUrl from "@/lib/imageUrl";
+import TextOverlay from "./textOverlay";
 
 interface BaseSlideProps {
   slide: Commercial;
@@ -35,6 +36,7 @@ export default function BaseSlide({
           alt={slide.title || "Sale"}
           priority
         />
+        <TextOverlay text={slide.text} />
       </div>
     </div>
   );
