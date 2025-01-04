@@ -755,7 +755,7 @@
         },
         "optional": true
       },
-      "discountAmount": {
+      "discount": {
         "type": "objectAttribute",
         "value": {
           "type": "number"

@@ -22,7 +22,7 @@ export const saleType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "discountAmount",
+      name: "discount",
       type: "number",
       title: "Discount Percentage",
       validation: (Rule) => Rule.min(0).max(100),
@@ -53,15 +53,15 @@ export const saleType = defineType({
   preview: {
     select: {
       title: "title",
-      discountAmount: "discountAmount",
+      discount: "discount",
       isActive: "isActive",
     },
     prepare(selection) {
-      const { title, discountAmount, isActive } = selection;
+      const { title, discount, isActive } = selection;
       const status = isActive ? "Active" : "Inactive";
       return {
         title: `${title} (${status})`,
-        subtitle: `${discountAmount}% off`,
+        subtitle: `${discount}% off`,
       };
     },
   },

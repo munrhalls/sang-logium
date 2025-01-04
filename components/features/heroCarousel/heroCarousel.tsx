@@ -1,6 +1,6 @@
 "use client";
 
-import { commercial } from "@/sanity.types";
+import { Commercial } from "@/sanity.types";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -8,10 +8,10 @@ import imageUrl from "@/lib/imageUrl";
 import { Sale } from "@/sanity.types";
 import Link from "next/link";
 import TextOverlay from "./textOverlay";
-import Logo from "../../../../../public/icons/Logo.svg";
-import Ellipse from "../../../../../public/icons/Ellipse.svg";
-import ChevronLeft from "../../../../../public/icons/ChevronLeft.svg";
-import ChevronRight from "../../../../../public/icons/ChevronRight.svg";
+import Logo from "../../../public/icons/Logo.svg";
+// import Ellipse from "../../../../../public/icons/Ellipse.svg";
+// import ChevronLeft from "../../../public/icons/ChevronLeft.svg";
+// import ChevronRight from "../../../../../public/icons/ChevronRight.svg";
 import Slide from "./slide";
 
 type Slides = commercial["slides"];

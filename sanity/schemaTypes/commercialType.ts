@@ -33,17 +33,9 @@ export const commercialType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "text",
-      type: "array",
-      of: [
-        {
-          type: "block",
-          marks: {
-            decorators: [{ title: "Sale", value: "saleHighlight" }],
-          },
-        },
-      ],
-      validation: (Rule) => Rule.required(),
+      name: "sale",
+      type: "reference",
+      to: [{ type: "sale" }],
     }),
     defineField({
       name: "products",

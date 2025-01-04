@@ -128,7 +128,7 @@ export type Sale = {
   _rev: string;
   title?: string;
   slug?: Slug;
-  discountAmount?: number;
+  discount?: number;
   products?: Array<{
     _ref: string;
     _type: "reference";
@@ -366,10 +366,10 @@ export type SanityImageMetadata = {
 
 export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Commercial | Sale | Order | Product | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./sanity/lib/commercials/getCommercialsBySection.ts
-// Variable: GET_COMMERCIALS_BY_SECTION_QUERY
-// Query: *[_type == "commercial" && section == $section] {    title,    "image": image.asset->url,    text,    sale->,     "products": products[]-> {      title,      price,      "image": image.asset->url,      slug    }   }
-export type GET_COMMERCIALS_BY_SECTION_QUERYResult = Array<{
+// Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
+// Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
+// Query: *[_type == "commercial" && feature == $feature] {      title,      "image": image.asset->url,      text,      "discount": sale->discount,       "products": products[]-> {        title,        price,        "image": image.asset->url,        slug      }     }
+export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
   title: string | null;
   image: string | null;
   text: Array<{
@@ -390,26 +390,7 @@ export type GET_COMMERCIALS_BY_SECTION_QUERYResult = Array<{
     _type: "block";
     _key: string;
   }> | null;
-  sale: {
-    _id: string;
-    _type: "sale";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    title?: string;
-    slug?: Slug;
-    discountAmount?: number;
-    products?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "product";
-    }>;
-    validFrom?: string;
-    validUntil?: string;
-    isActive?: boolean;
-  } | null;
+  discount: number | null;
   products: Array<{
     title: null;
     price: number | null;
@@ -705,7 +686,7 @@ export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
   _rev: string;
   title?: string;
   slug?: Slug;
-  discountAmount?: number;
+  discount?: number;
   products?: Array<{
     _ref: string;
     _type: "reference";
@@ -722,7 +703,7 @@ export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"commercial\" && section == $section] {\n    title,\n    \"image\": image.asset->url,\n    text,\n    sale->,\n     \"products\": products[]-> {\n      title,\n      price,\n      \"image\": image.asset->url,\n      slug\n    }\n   }": GET_COMMERCIALS_BY_SECTION_QUERYResult;
+    "*[_type == \"commercial\" && feature == $feature] {\n      title,\n      \"image\": image.asset->url,\n      text,\n      \"discount\": sale->discount,\n       \"products\": products[]-> {\n        title,\n        price,\n        \"image\": image.asset->url,\n        slug\n      }\n     }": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
     "\n          *[\n              _type == \"category\"\n          ] | order(name asc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && slug.current == $slug\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
