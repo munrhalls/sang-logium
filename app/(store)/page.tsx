@@ -16,7 +16,7 @@ export default async function Page() {
     >
       <div className="col-span-4 col-start-1 bg-slate-300">
         {/* {heroSlides?.length && <HeroCarousel slides={heroSlides} />} */}
-        {commercials?.length && <BaseCarousel />}
+        {commercials?.length && <BaseCarousel slides={commercials} />}
       </div>
     </div>
   );
