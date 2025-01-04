@@ -40,6 +40,7 @@
     "react-icons": "^5.3.0",
     "sang-logium": "file:",
     "sanity": "^3.68.3",
+    "sanity-plugin-simpler-color-input": "^3.0.0",
     "styled-components": "^6.1.13",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",

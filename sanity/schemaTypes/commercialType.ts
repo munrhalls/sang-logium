@@ -29,16 +29,32 @@ export const commercialType = defineType({
     defineField({
       name: "text",
       type: "array",
-      of: [{ type: "block" }],
+      of: [
+        {
+          type: "block",
+          marks: {
+            annotations: [
+              {
+                type: "textColor",
+              },
+              {
+                type: "highlightColor",
+              },
+            ],
+          },
+        },
+      ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "sale",
+      title: "Reference to sale advertised by the commercial",
       type: "reference",
       to: [{ type: "sale" }],
     }),
     defineField({
       name: "products",
+      title: "Products featured in commercial (optional)",
       type: "array",
       of: [
         {
