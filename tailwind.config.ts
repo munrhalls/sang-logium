@@ -26,6 +26,7 @@ export default {
       },
       screens: {
         "2xs": "450px",
+        "2xl": "1600px",
         "3xl": "1920px",
       },
       colors: {
