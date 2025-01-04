@@ -19,36 +19,38 @@ export default function TextOverlay({ text }: TextOverlayProps) {
   const components = {
     block: {
       h1: ({ children }: any) => (
-        <h1 className="text-xl font-bold">{children}</h1>
+        <h1 className="text-white text-2xl 2xs:text-3xl md:text-4xl xl:text-6xl font-bold">
+          {children}
+        </h1>
       ),
       h2: ({ children }: any) => (
-        <h2 className="text-xl font-bold">{children}</h2>
-      ),
-      normal: ({ children }: any) => (
-        <p className="text-xl font-bold">{children}</p>
+        <h2 className="text-white text-lg 2xs:text-2xl md:text-3xl xl:text-4xl font-bold">
+          {children}
+        </h2>
       ),
     },
     marks: {
-      textColor: ({ children, markKey, value }: any) => {
-        console.log("Mark props:", { children, markKey, value });
-        return <span style={{ color: value.value }}>{children}</span>;
-      },
+      textColor: ({ children, value }: any) => (
+        <span style={{ color: value.value }}>{children}</span>
+      ),
     },
   };
 
   return (
-    <div className="absolute inset-0 z-50 flex flex-col justify-center items-start p-8">
-      <div className="p-4 absolute inset-0 right-[20%] flex flex-col justify-start font-black text-white scale-[1.0] 2xs:inset-[10%] 2xs:right-[30%] 2xs:scale-[1.2] sm:inset-[20%] sm:scale-[1.5] md:inset-[25%] md:scale-[1.8] lg:inset-[30%] lg:scale-[2.0] xl:inset-[32.5%] xl:scale-[2.5] 2xl:inset-[35%] 2xl:scale-[2.75] 3xl:inset-[37.5%] 3xl:scale-[3.5]">
-        <div className="w-fit bg-black/40 p-6 rounded-lg">
+    <div className="absolute inset-0 flex items-center">
+      <div className="w-[75%] md:w-[70%] lg:w-[70%] mx-auto flex justify-center">
+        <div className="bg-black/40 2xs:w-[80%] md:w-[80%] p-4 md:p-6 md:py-12 xl:py-20 rounded-lg text-center space-y-2 md:space-y-4 lg:space-y-10">
           <PortableText value={text} components={components} />
+          <div className="flex justify-center">
+            <Link
+              href="/categories/sale/january-gifts"
+              className="inline-block mt-6 md:mt-8 lg:mt-10 px-6 py-2 md:px-12 md:py-6 lg:px-14 lg:py-8 xl:px-20  text-white text-xl 2xs:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold rounded-lg"
+              style={{ backgroundColor: buttonColor }}
+            >
+              SEE NOW
+            </Link>
+          </div>
         </div>
-        <Link
-          href="/categories/sale/january-gifts"
-          className="mt-8 mr-auto px-8 py-2 text-white text-center font-black rounded-lg transition-all"
-          style={{ backgroundColor: buttonColor }}
-        >
-          SEE NOW
-        </Link>
       </div>
     </div>
   );
