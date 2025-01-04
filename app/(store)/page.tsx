@@ -1,5 +1,5 @@
 import { getcommercial } from "@/sanity/lib/commercials/getCommercialsBySection";
-import HeroCarousel from "./homepage/components/heroCarousel/heroCarousel";
+import HeroCarousel from "../../components/sections/heroCarousel/heroCarousel";
 import { commercial } from "@/sanity.types";
 
 export default async function Page() {

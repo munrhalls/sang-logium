@@ -75,7 +75,7 @@ export type Commercial = {
   _updatedAt: string;
   _rev: string;
   title?: string;
-  section?: "hero" | "category" | "campaign";
+  feature?: "hero" | "category" | "campaign";
   image?: {
     asset?: {
       _ref: string;

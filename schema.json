@@ -367,7 +367,7 @@
         },
         "optional": true
       },
-      "section": {
+      "feature": {
         "type": "objectAttribute",
         "value": {
           "type": "union",
