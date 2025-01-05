@@ -24,9 +24,14 @@ const BaseCarousel = ({
     setIndex(newIndex);
   };
 
+  const visibleCommercials = commercials.slice(
+    Math.max(0, index - 1),
+    Math.min(commercials.length, index + 2)
+  );
+
   return (
     <div className="relative h-full w-full overflow-hidden font-oswald">
-      {commercials.map((commercial, i) => (
+      {visibleCommercials.map((commercial, i) => (
         <BaseSlide
           key={i}
           commercial={commercial}

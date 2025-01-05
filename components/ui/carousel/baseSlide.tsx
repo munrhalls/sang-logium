@@ -33,11 +33,12 @@ const BaseSlide = ({
           src={imageUrl(commercial.image).url()}
           fill
           sizes="100vw"
-          className="object-cover object-[50%_0%] md:object-[30%_40%]"
+          className="object-cover object-[15%_0%] md:object-[30%_40%]"
           alt={commercial.title || "Sale"}
           priority
         />
-        <TextOverlay text={commercial.text} />
+        {/* <TextOverlay text={commercial.text} /> */}
+
         {products && <ProductsGrid products={products} />}
       </div>
     </div>
