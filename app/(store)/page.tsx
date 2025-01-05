@@ -4,8 +4,6 @@ import BaseCarousel from "@/components/ui/carousel/baseCarousel";
 export default async function Page() {
   const commercials = await getCommercialsByFeature("hero");
 
-  console.log(commercials, "commercials");
-
   return (
     <div
       style={{

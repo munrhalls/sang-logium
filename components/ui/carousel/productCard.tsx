@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import PriceLineCross from "../../../public/icons/PriceLineCross.svg";
-
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
+import ProductContent from "./productContent";
 
 const ProductCard = ({
   product,
@@ -12,9 +11,6 @@ const ProductCard = ({
   >[0];
 }) => {
   if (!product) return null;
-
-  const discountPrice =
-    product.price - product.price * (product.discount / 100);
 
   return (
     <Link
@@ -34,12 +30,12 @@ const ProductCard = ({
           </div>
 
           {/* Content container */}
-          <div className="z-50 max-w-[175px] flex flex-col justify-start items-start">
+          <ProductContent product={product} />
+          {/* <div className="z-50 max-w-[175px] flex flex-col justify-start items-start">
             <p className="text-xs font-extralight text-white mb-2">
               {product.name}
             </p>
 
-            {/* Prices container */}
             <div className="mt-2 relative left-0 right-0 text-white text-center">
               <span className="absolute left-0 top-[-6px] text-sm text-gray-200 font-normal">
                 {product.price.toFixed(2)}$
@@ -53,7 +49,7 @@ const ProductCard = ({
                 {discountPrice.toFixed(2)}$
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </Link>

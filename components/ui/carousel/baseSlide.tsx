@@ -38,9 +38,11 @@ const BaseSlide = ({
           priority
         />
 
-        {!products && <TextOverlay text={commercial.text} />}
-
-        {products && <ProductsGrid products={products} />}
+        {products ? (
+          <ProductsGrid products={products} />
+        ) : (
+          <TextOverlay text={commercial.text} />
+        )}
       </div>
     </div>
   );
