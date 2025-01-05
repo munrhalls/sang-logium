@@ -217,7 +217,11 @@ export type Product = {
       href?: string;
       _type: "link";
       _key: string;
-    }>;
+    } | {
+      _key: string;
+    } & TextColor | {
+      _key: string;
+    } & HighlightColor>;
     level?: number;
     _type: "block";
     _key: string;
@@ -289,7 +293,11 @@ export type BlockContent = Array<{
     href?: string;
     _type: "link";
     _key: string;
-  }>;
+  } | {
+    _key: string;
+  } & TextColor | {
+    _key: string;
+  } & HighlightColor>;
   level?: number;
   _type: "block";
   _key: string;
@@ -386,7 +394,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
 // Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
-// Query: *[_type == "commercial" && feature == $feature] {      title,      "image": image.asset->url,      text,      "discount": sale->discount,       "products": sale->products[]-> {        title,        price,        "image": image.asset->url,        slug      }     }
+// Query: *[_type == "commercial" && feature == $feature] {      title,      "image": image.asset->url,      text,      "discount": sale->discount,       "products": sale->products[]-> {        _id,        title,        price,        "image": image.asset->url,        slug      }     }
 export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
   title: string | null;
   image: string | null;
@@ -410,6 +418,7 @@ export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
   }> | null;
   discount: number | null;
   products: Array<{
+    _id: string;
     title: null;
     price: number | null;
     image: string | null;
@@ -480,6 +489,10 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
     listItem?: "bullet";
     markDefs?: Array<{
+      _key: string;
+    } & HighlightColor | {
+      _key: string;
+    } & TextColor | {
       href?: string;
       _type: "link";
       _key: string;
@@ -566,6 +579,10 @@ export type PRODUCT_BY_ID_QUERYResult = {
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
     listItem?: "bullet";
     markDefs?: Array<{
+      _key: string;
+    } & HighlightColor | {
+      _key: string;
+    } & TextColor | {
       href?: string;
       _type: "link";
       _key: string;
@@ -652,6 +669,10 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
     listItem?: "bullet";
     markDefs?: Array<{
+      _key: string;
+    } & HighlightColor | {
+      _key: string;
+    } & TextColor | {
       href?: string;
       _type: "link";
       _key: string;
@@ -721,7 +742,7 @@ export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"commercial\" && feature == $feature] {\n      title,\n      \"image\": image.asset->url,\n      text,\n      \"discount\": sale->discount,\n       \"products\": sale->products[]-> {\n        title,\n        price,\n        \"image\": image.asset->url,\n        slug\n      }\n     }": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    "*[_type == \"commercial\" && feature == $feature] {\n      title,\n      \"image\": image.asset->url,\n      text,\n      \"discount\": sale->discount,\n       \"products\": sale->products[]-> {\n        _id,\n        title,\n        price,\n        \"image\": image.asset->url,\n        slug\n      }\n     }": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
     "\n          *[\n              _type == \"category\"\n          ] | order(name asc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && slug.current == $slug\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
