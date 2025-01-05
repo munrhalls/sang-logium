@@ -38,15 +38,15 @@ const ProductCard = ({
 
             {/* Prices container */}
             <div className="flex justify-center items-center gap-4 sm:flex-row sm:justify-between text-white mt-auto">
-              <span className="relative text-sm">
-                {product.price.toFixed(2)}$
+              <span className="relative text-sm text-gray-400">
+                {product.price.toFixed(2)}&nbsp;$
                 <Image
-                  className="z-50 absolute inset-0 w-[80%]"
+                  className="z-50 absolute top-[-2px] left-0 right-0 h-[125%]"
                   src={PriceLineCross}
                   alt={"crossed"}
                 />
               </span>
-              <span className="text-md">{discountPrice.toFixed(2)}$</span>
+              <span className="text-md">{discountPrice.toFixed(2)}&nbsp;$</span>
             </div>
           </div>
         </div>
