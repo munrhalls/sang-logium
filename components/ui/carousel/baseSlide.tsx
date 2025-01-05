@@ -1,23 +1,21 @@
-import { Commercial } from "@/sanity.types";
 import Image from "next/image";
 import imageUrl from "@/lib/imageUrl";
 import TextOverlay from "./textOverlay";
 import ProductsGrid from "./productsGrid";
+import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
-interface BaseSlideProps {
-  slide: Commercial;
-  index: number;
-  currentIndex: number;
-}
-
-export default function BaseSlide({
-  slide,
+const BaseSlide = ({
+  commercial,
   index,
   currentIndex,
-}: BaseSlideProps) {
-  if (!slide.image) return null;
+}: {
+  commercial: GET_COMMERCIALS_BY_FEATURE_QUERYResult[0];
+  index: number;
+  currentIndex: number;
+}) => {
+  if (!commercial.image) return null;
 
-  const products = slide.products;
+  const products = commercial.products;
 
   return (
     <div
@@ -32,16 +30,17 @@ export default function BaseSlide({
     >
       <div className="absolute inset-0 rounded z-40">
         <Image
-          src={imageUrl(slide.image).url()}
+          src={imageUrl(commercial.image).url()}
           fill
           sizes="100vw"
           className="object-cover object-[50%_0%] md:object-[30%_40%]"
-          alt={slide.title || "Sale"}
+          alt={commercial.title || "Sale"}
           priority
         />
-        <TextOverlay text={slide.text} />
+        <TextOverlay text={commercial.text} />
         {products && <ProductsGrid products={products} />}
       </div>
     </div>
   );
-}
+};
+export default BaseSlide;

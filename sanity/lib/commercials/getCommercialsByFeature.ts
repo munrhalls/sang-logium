@@ -4,17 +4,18 @@ import { sanityFetch } from "../live";
 export const getCommercialsByFeature = async (feature: string) => {
   const GET_COMMERCIALS_BY_FEATURE_QUERY =
     defineQuery(`*[_type == "commercial" && feature == $feature] {
-    title,
-    "image": image.asset->url,
-    text,
-    "discount": sale->discount,
-    "products": products[]-> {
-      name,
-      price,
+      title,
       "image": image.asset->url,
-      "slug": slug.current
-    }
-   }`);
+      text,
+      "products": products[]-> {
+        _id,
+        name,
+        price,
+        "image": image.asset->url,
+        "slug": slug.current,
+        "discount": ^.sale->discount
+      }
+     }`);
 
   try {
     const commercials = await sanityFetch({

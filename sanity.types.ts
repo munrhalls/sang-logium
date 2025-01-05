@@ -394,7 +394,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
 // Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
-// Query: *[_type == "commercial" && feature == $feature] {      title,      "image": image.asset->url,      text,      "discount": sale->discount,       "products": sale->products[]-> {        _id,        title,        price,        "image": image.asset->url,        slug      }     }
+// Query: *[_type == "commercial" && feature == $feature] {      title,      "image": image.asset->url,      text,      "products": products[]-> {        _id,        name,        price,        "image": image.asset->url,        "slug": slug.current,        "discount": ^.sale->discount      }     }
 export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
   title: string | null;
   image: string | null;
@@ -416,15 +416,39 @@ export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
     _type: "block";
     _key: string;
   }> | null;
-  discount: number | null;
   products: Array<{
     _id: string;
-    title: null;
+    name: string | null;
     price: number | null;
     image: string | null;
-    slug: Slug | null;
+    slug: string | null;
+    discount: number | null;
   }> | null;
 }>;
+
+// Source: ./sanity/lib/sales/getSalesByType.ts
+// Variable: ACTIVE_SALE_BY_COUPON_QUERY
+// Query: *[              _type == "sale"              && isActive == true              && couponCode == $couponCode          ] | order(validFrom desc)[0]
+export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
+  _id: string;
+  _type: "sale";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  discount?: number;
+  products?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "product";
+  }>;
+  validFrom?: string;
+  validUntil?: string;
+  isActive?: boolean;
+} | null;
 
 // Source: ./sanity/lib/products/getAllCategories.ts
 // Variable: ALL_CATEGORIES_QUERY
@@ -714,39 +738,15 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
   }>;
 }>;
 
-// Source: ./sanity/lib/sales/getSalesByType.ts
-// Variable: ACTIVE_SALE_BY_COUPON_QUERY
-// Query: *[              _type == "sale"              && isActive == true              && couponCode == $couponCode          ] | order(validFrom desc)[0]
-export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
-  _id: string;
-  _type: "sale";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  discount?: number;
-  products?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "product";
-  }>;
-  validFrom?: string;
-  validUntil?: string;
-  isActive?: boolean;
-} | null;
-
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"commercial\" && feature == $feature] {\n      title,\n      \"image\": image.asset->url,\n      text,\n      \"discount\": sale->discount,\n       \"products\": sale->products[]-> {\n        _id,\n        title,\n        price,\n        \"image\": image.asset->url,\n        slug\n      }\n     }": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    "*[_type == \"commercial\" && feature == $feature] {\n      title,\n      \"image\": image.asset->url,\n      text,\n      \"products\": products[]-> {\n        _id,\n        name,\n        price,\n        \"image\": image.asset->url,\n        \"slug\": slug.current,\n        \"discount\": ^.sale->discount\n      }\n     }": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    "\n          *[\n              _type == \"sale\"\n              && isActive == true\n              && couponCode == $couponCode\n          ] | order(validFrom desc)[0]\n      ": ACTIVE_SALE_BY_COUPON_QUERYResult;
     "\n          *[\n              _type == \"category\"\n          ] | order(name asc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && slug.current == $slug\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
     "*[\n        _type == \"product\"\n        && name match $searchParam\n    ] | order(name asc)": SEARCH_FOR_PRODUCTS_QUERYResult;
-    "\n          *[\n              _type == \"sale\"\n              && isActive == true\n              && couponCode == $couponCode\n          ] | order(validFrom desc)[0]\n      ": ACTIVE_SALE_BY_COUPON_QUERYResult;
   }
 }

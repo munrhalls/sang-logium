@@ -1,22 +1,21 @@
 import Image from "next/image";
 import Logo from "../../../public/icons/Logo.svg";
 import Ellipse from "../../../public/icons/Ellipse.svg";
-import { Commercial } from "@/sanity.types";
-
+import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 interface CarouselDotsProps {
-  slides: Commercial[];
+  commercials: GET_COMMERCIALS_BY_FEATURE_QUERYResult;
   currentIndex: number;
   onDotClick: (index: number) => void;
 }
 
 export default function CarouselDots({
-  slides,
+  commercials,
   currentIndex,
   onDotClick,
 }: CarouselDotsProps) {
   return (
     <div className="z-50 absolute left-0 right-0 bottom-1 flex flex-shrink-0 justify-center items-center gap-2">
-      {slides.map((_, i) => (
+      {commercials.map((_, i) => (
         <Image
           key={i}
           src={currentIndex === i ? Logo : Ellipse}

@@ -2,41 +2,47 @@
 
 import React from "react";
 import { useState } from "react";
-import { Commercial } from "@/sanity.types";
-
 import BaseSlide from "./baseSlide";
 import CarouselDots from "./baseDots";
 import BaseControls from "./baseControls";
+import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "../../../sanity.types";
 
-interface CarouselProps {
-  slides: Commercial[];
-}
-
-export default function BaseCarousel({ slides }: CarouselProps) {
+const BaseCarousel = ({
+  commercials,
+}: {
+  commercials: GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+}) => {
   const [index, setIndex] = useState(0);
 
-  if (!slides) return null;
+  if (!commercials) return null;
 
   const handleSlide = (direction: "left" | "right") => {
     const newIndex =
       direction === "left"
-        ? (index - 1 + slides.length) % slides.length
-        : (index + 1) % slides.length;
+        ? (index - 1 + commercials.length) % commercials.length
+        : (index + 1) % commercials.length;
     setIndex(newIndex);
   };
 
   return (
     <div className="relative h-full w-full overflow-hidden font-oswald">
-      {slides.map((slide, i) => (
-        <BaseSlide key={i} slide={slide} index={i} currentIndex={index} />
+      {commercials.map((commercial, i) => (
+        <BaseSlide
+          key={i}
+          commercial={commercial}
+          index={i}
+          currentIndex={index}
+        />
       ))}
 
       <BaseControls onSlide={handleSlide} />
       <CarouselDots
-        slides={slides}
+        commercials={commercials}
         currentIndex={index}
         onDotClick={setIndex}
       />
     </div>
   );
-}
+};
+
+export default BaseCarousel;

@@ -1,9 +1,10 @@
 import { PortableText } from "@portabletext/react";
-import { Commercial } from "@/sanity.types";
+import { PortableTextComponents } from "@portabletext/react";
+
 import Link from "next/link";
-import ProductsGrid from "./productsGrid";
+import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 interface TextOverlayProps {
-  text: Commercial["text"];
+  text: GET_COMMERCIALS_BY_FEATURE_QUERYResult[0]["text"];
 }
 
 export default function TextOverlay({ text }: TextOverlayProps) {
@@ -16,21 +17,21 @@ export default function TextOverlay({ text }: TextOverlayProps) {
   );
   const buttonColor = firstColorMark?.value || "#CF8226";
 
-  const components = {
+  const components: PortableTextComponents = {
     block: {
-      h1: ({ children }: any) => (
+      h1: ({ children }) => (
         <h1 className="text-white text-2xl 2xs:text-3xl md:text-4xl xl:text-6xl font-bold">
           {children}
         </h1>
       ),
-      h2: ({ children }: any) => (
+      h2: ({ children }) => (
         <h2 className="text-white text-lg 2xs:text-2xl md:text-3xl xl:text-4xl font-bold">
           {children}
         </h2>
       ),
     },
     marks: {
-      textColor: ({ children, value }: any) => (
+      textColor: ({ children, value }) => (
         <span style={{ color: value.value }}>{children}</span>
       ),
     },
@@ -41,9 +42,7 @@ export default function TextOverlay({ text }: TextOverlayProps) {
       <div className="w-[75%] md:w-[70%] lg:w-[70%] mx-auto flex justify-center">
         <div className="bg-black/30 my-10 2xs:w-[80%] md:w-[80%] p-4 md:p-6 md:py-12 2xl:py-32 rounded-lg text-center space-y-2 md:space-y-4 lg:space-y-8">
           <PortableText value={text} components={components} />
-          {products && (
-            <ProductsGrid products={products} accentColor={buttonColor} />
-          )}
+
           <div className="flex justify-center">
             <Link
               href="/categories/sale/january-gifts"
