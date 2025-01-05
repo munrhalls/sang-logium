@@ -60,6 +60,14 @@ export default {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        promotion: {
+          DEFAULT: "#CF8226",
+          foreground: "#CF8226",
+        },
+        lightpromotion: {
+          DEFAULT: "rgb(255 158 43)",
+          foreground: "rgb(255 158 43)",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

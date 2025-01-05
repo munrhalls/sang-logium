@@ -28,7 +28,7 @@ const BaseSlide = ({
         transform: `translateX(-${currentIndex * 100}%)`,
       }}
     >
-      <div className="absolute inset-0 rounded z-40">
+      <div className="absolute inset-0 rounded z-30">
         <Image
           src={imageUrl(commercial.image).url()}
           fill
@@ -37,7 +37,8 @@ const BaseSlide = ({
           alt={commercial.title || "Sale"}
           priority
         />
-        {/* <TextOverlay text={commercial.text} /> */}
+
+        {!products && <TextOverlay text={commercial.text} />}
 
         {products && <ProductsGrid products={products} />}
       </div>
