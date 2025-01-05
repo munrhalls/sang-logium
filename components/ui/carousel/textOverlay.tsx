@@ -8,8 +8,6 @@ interface TextOverlayProps {
 }
 
 export default function TextOverlay({ text }: TextOverlayProps) {
-  console.log("Text data:", JSON.stringify(text, null, 2));
-
   if (!text) return null;
 
   const firstColorMark = text[0]?.markDefs?.find(

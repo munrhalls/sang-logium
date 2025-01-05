@@ -12,13 +12,21 @@ export default function BaseControls({ onSlide }: BaseControlsProps) {
         onClick={() => onSlide("left")}
         className="z-50 text-white text-3xl absolute left-0 top-0 bottom-0"
       >
-        <Image src={ChevronLeft} alt="Chevron Left" />
+        <Image
+          className="md:w-16 lg:w-24"
+          src={ChevronLeft}
+          alt="Chevron Left"
+        />
       </button>
       <button
         onClick={() => onSlide("right")}
         className="z-50 text-white text-3xl absolute top-0 bottom-0 right-0"
       >
-        <Image src={ChevronRight} alt="Chevron Right" />
+        <Image
+          className="md:w-16 lg:w-24"
+          src={ChevronRight}
+          alt="Chevron Right"
+        />
       </button>
     </>
   );

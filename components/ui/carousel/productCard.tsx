@@ -13,12 +13,13 @@ const ProductCard = ({
   if (!product) return null;
 
   return (
-    <div className="flex justify-center items-center">
-      <Link href={`/product/${product.slug}`}>
-        <ProductImage product={product} />
-        <ProductContent product={product} />
-      </Link>
-    </div>
+    <Link
+      href={`/product/${product.slug}`}
+      className="flex-1 h-full flex justify-start items-stretch z-40 sm:flex-col"
+    >
+      <ProductImage product={product} />
+      <ProductContent product={product} />
+    </Link>
   );
 };
 export default ProductCard;

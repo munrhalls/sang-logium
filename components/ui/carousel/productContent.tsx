@@ -3,32 +3,35 @@ import Image from "next/image";
 import PriceLineCross from "../../../public/icons/PriceLineCross.svg";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
-export default function ProductContent({
+const ProductContent = ({
   product,
 }: {
   product: NonNullable<
     GET_COMMERCIALS_BY_FEATURE_QUERYResult[0]["products"]
   >[0];
-}) {
-  const discountPrice =
-    product.price - product.price * (product.discount / 100);
+}) => {
+  const discountPrice = product.price * (1 - product.discount / 100);
 
   return (
-    <div className="">
-      <p className="">{product.name}</p>
+    <div className="flex-1 flex flex-col justify-start items-start flex-wrap gap-2 text-white text-xs 2xs:text-sm font-black font-oswald sm:block sm:max-h-28 sm:relative sm:mt-2">
+      <p className="xl:text-lg">{product.name}</p>
 
-      {/* Prices container */}
-      <div className="">
-        <span>
+      <div className="relative md:absolute md:bottom-0 md:mt-4 lg:mt-8 xl:mt-12">
+        <span className="text-gray-300 font-black lg:text-xl xl:text-xl">
           {product.price.toFixed(2)}$
           <Image
-            className="z-50 absolute top-[-2px] left-0 right-0 h-[125%]"
             src={PriceLineCross}
-            alt={"crossed"}
+            width={40}
+            height={4}
+            alt=""
+            className="absolute inset-x-0 top-1/2 -translate-y-1/2"
           />
         </span>
-        <span>{discountPrice.toFixed(2)}$</span>
+        <span className="mt-2 absolute left-12 font-black text-lightpromotion text-lg sm:text-xl sm:mt-4 md:text-2xl lg:text-2xl xl:text-2xl">
+          {discountPrice.toFixed(2)}$
+        </span>
       </div>
     </div>
   );
-}
+};
+export default ProductContent;

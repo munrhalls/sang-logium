@@ -9,7 +9,7 @@ const ProductImage = ({
   >[0];
 }) => {
   return (
-    <div className="w-16 h-16 sm:w-32 sm:h-32 aspect-square relative">
+    <div className="mr-4 w-20 h-20 2xs:w-24 2xs:h-24 sm:w-32 sm:h-32  md:w-32 md:h-32 lg:w-60 lg:h-60 xl:w-60 xl:h-60 aspect-square relative">
       <Image
         src={product.image}
         alt={product.name || "Product image"}
