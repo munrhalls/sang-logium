@@ -2,6 +2,7 @@ import { Commercial } from "@/sanity.types";
 import Image from "next/image";
 import imageUrl from "@/lib/imageUrl";
 import TextOverlay from "./textOverlay";
+import ProductsGrid from "./productsGrid";
 
 interface BaseSlideProps {
   slide: Commercial;
@@ -15,6 +16,8 @@ export default function BaseSlide({
   currentIndex,
 }: BaseSlideProps) {
   if (!slide.image) return null;
+
+  const products = slide.products;
 
   return (
     <div
@@ -32,11 +35,12 @@ export default function BaseSlide({
           src={imageUrl(slide.image).url()}
           fill
           sizes="100vw"
-          className="object-cover object-[90%_0%] md:object-[30%_40%]"
+          className="object-cover object-[50%_0%] md:object-[30%_40%]"
           alt={slide.title || "Sale"}
           priority
         />
         <TextOverlay text={slide.text} />
+        {products && <ProductsGrid products={products} />}
       </div>
     </div>
   );

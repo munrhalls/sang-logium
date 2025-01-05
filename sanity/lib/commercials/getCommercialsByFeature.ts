@@ -9,6 +9,7 @@ export const getCommercialsByFeature = async (feature: string) => {
       text,
       "discount": sale->discount,
        "products": sale->products[]-> {
+        _id,
         title,
         price,
         "image": image.asset->url,

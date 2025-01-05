@@ -1,7 +1,7 @@
 import { PortableText } from "@portabletext/react";
 import { Commercial } from "@/sanity.types";
 import Link from "next/link";
-
+import ProductsGrid from "./productsGrid";
 interface TextOverlayProps {
   text: Commercial["text"];
 }
@@ -41,6 +41,9 @@ export default function TextOverlay({ text }: TextOverlayProps) {
       <div className="w-[75%] md:w-[70%] lg:w-[70%] mx-auto flex justify-center">
         <div className="bg-black/30 my-10 2xs:w-[80%] md:w-[80%] p-4 md:p-6 md:py-12 2xl:py-32 rounded-lg text-center space-y-2 md:space-y-4 lg:space-y-8">
           <PortableText value={text} components={components} />
+          {products && (
+            <ProductsGrid products={products} accentColor={buttonColor} />
+          )}
           <div className="flex justify-center">
             <Link
               href="/categories/sale/january-gifts"
