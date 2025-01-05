@@ -9,17 +9,15 @@ const ProductsGrid = ({
   if (!products) return null;
 
   return (
-    <div className="mt-4 px-16 container-type-[inline-size] h-[100%] flex flex-col justify-center items-center">
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))]  z-40">
-        {products.map((product, index) => (
-          <div
-            key={product._id}
-            className={`${index > 1 ? "hidden 2xs:block " : ""}`}
-          >
-            <ProductCard product={product} />
-          </div>
-        ))}
-      </div>
+    <div className="flex flex-col sm:flex-row max-w-[275px]">
+      {products.map((product, index) => (
+        <div
+          key={product._id}
+          className={`${index > 1 ? "hidden" : ""} 2xs:block`}
+        >
+          <ProductCard product={product} />
+        </div>
+      ))}
     </div>
   );
 };

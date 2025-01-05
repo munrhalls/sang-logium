@@ -14,12 +14,12 @@ export default function ProductContent({
     product.price - product.price * (product.discount / 100);
 
   return (
-    <div className="z-50 max-w-[175px] flex flex-col justify-start items-start">
-      <p className="text-xs font-extralight text-white mb-2">{product.name}</p>
+    <div className="">
+      <p className="">{product.name}</p>
 
       {/* Prices container */}
-      <div className="mt-2 relative left-0 right-0 text-white text-center">
-        <span className="absolute left-0 top-[-6px] text-sm text-gray-200 font-normal">
+      <div className="">
+        <span>
           {product.price.toFixed(2)}$
           <Image
             className="z-50 absolute top-[-2px] left-0 right-0 h-[125%]"
@@ -27,9 +27,7 @@ export default function ProductContent({
             alt={"crossed"}
           />
         </span>
-        <span className="absolute left-8 text-xl text-lightpromotion font-black">
-          {discountPrice.toFixed(2)}$
-        </span>
+        <span>{discountPrice.toFixed(2)}$</span>
       </div>
     </div>
   );
