@@ -9,11 +9,11 @@ export const getCommercialsByFeature = async (feature: string) => {
       text,
       "products": products[]-> {
         _id,
-        name,
-        price,
-        "image": image.asset->url,
-        "slug": slug.current,
-        "discount": ^.sale->discount
+        "name": coalesce(name, ""),
+        "price": coalesce(price, 0),
+        "image": coalesce(image.asset->url, ""),
+        "slug": coalesce(slug.current, ""),
+        "discount": coalesce(^.sale->discount, 0)
       }
      }`);
 
