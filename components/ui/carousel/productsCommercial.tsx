@@ -27,7 +27,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         </div>
       </div>
 
-      <div className="grid text-xs 2xs:text-lg xl:text-2xl px-2 md:px-4 lg:px-6">
+      <div className="grid items-center text-xs 2xs:text-lg xl:text-2xl px-2 md:px-4 md:pb-8 lg:px-6">
         <span className="block text-white truncate sm:text-wrap">
           {product.name}
         </span>
