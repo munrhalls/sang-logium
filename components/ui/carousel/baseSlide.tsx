@@ -3,6 +3,7 @@ import imageUrl from "@/lib/imageUrl";
 import TextOverlay from "./textOverlay";
 import ProductsGrid from "./productsGrid";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
+import ProductsCommercials from "./productCommercials";
 
 const BaseSlide = ({
   commercial,
@@ -28,7 +29,7 @@ const BaseSlide = ({
         transform: `translateX(-${currentIndex * 100}%)`,
       }}
     >
-      <div className="absolute inset-0 rounded z-30">
+      <div className="relative h-full w-full rounded z-20">
         <Image
           src={imageUrl(commercial.image).url()}
           fill
@@ -37,12 +38,13 @@ const BaseSlide = ({
           alt={commercial.title || "Sale"}
           priority
         />
-
-        {products ? (
-          <ProductsGrid products={products} />
-        ) : (
-          <TextOverlay text={commercial.text} />
-        )}
+        <div className="p-8 md:p-12 h-full w-full">
+          {products ? (
+            <ProductsCommercials products={products} />
+          ) : (
+            <TextOverlay text={commercial.text} />
+          )}
+        </div>
       </div>
     </div>
   );
