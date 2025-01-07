@@ -5,7 +5,7 @@ import ChevronRight from "../../../public/icons/ChevronRight.svg";
 interface BaseControlsProps {
   onSlide: (direction: "left" | "right") => void;
 }
-export default function BaseControls({ onSlide }: BaseControlsProps) {
+export default function Controls({ onSlide }: BaseControlsProps) {
   return (
     <>
       <button

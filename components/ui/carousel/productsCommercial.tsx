@@ -44,7 +44,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   );
 };
 
-export const ProductsCommercials = ({ products }: { products: Product[] }) => {
+export const ProductsCommercial = ({ products }: { products: Product[] }) => {
   if (!products?.length) return null;
 
   return (
@@ -59,4 +59,4 @@ export const ProductsCommercials = ({ products }: { products: Product[] }) => {
   );
 };
 
-export default ProductsCommercials;
+export default ProductsCommercial;

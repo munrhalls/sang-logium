@@ -7,7 +7,7 @@ interface TextOverlayProps {
   text: GET_COMMERCIALS_BY_FEATURE_QUERYResult[0]["text"];
 }
 
-export default function TextOverlay({ text }: TextOverlayProps) {
+export default function TextCommercial({ text }: TextOverlayProps) {
   if (!text) return null;
 
   const firstColorMark = text[0]?.markDefs?.find(

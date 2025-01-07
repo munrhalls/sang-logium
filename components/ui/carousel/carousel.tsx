@@ -2,12 +2,12 @@
 
 import React from "react";
 import { useState } from "react";
-import BaseSlide from "./baseSlide";
-import CarouselDots from "./baseDots";
-import BaseControls from "./baseControls";
+import BaseSlide from "./slide";
+import Dots from "./dots";
+import BaseControls from "./controls";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "../../../sanity.types";
 
-const BaseCarousel = ({
+const Carousel = ({
   commercials,
 }: {
   commercials: GET_COMMERCIALS_BY_FEATURE_QUERYResult;
@@ -36,7 +36,7 @@ const BaseCarousel = ({
       ))}
 
       <BaseControls onSlide={handleSlide} />
-      <CarouselDots
+      <Dots
         commercials={commercials}
         currentIndex={index}
         onDotClick={setIndex}
@@ -45,4 +45,4 @@ const BaseCarousel = ({
   );
 };
 
-export default BaseCarousel;
+export default Carousel;

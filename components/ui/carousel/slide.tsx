@@ -1,10 +1,10 @@
 import Image from "next/image";
 import imageUrl from "@/lib/imageUrl";
-import TextOverlay from "./textOverlay";
+import TextOverlay from "./textCommercial";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
-import ProductsCommercials from "./productCommercials";
+import ProductsCommercial from "./productsCommercial";
 
-const BaseSlide = ({
+const Slide = ({
   commercial,
   index,
   currentIndex,
@@ -39,7 +39,7 @@ const BaseSlide = ({
         />
         <div className="h-full w-full">
           {products ? (
-            <ProductsCommercials products={products} />
+            <ProductsCommercial products={products} />
           ) : (
             <TextOverlay text={commercial.text} />
           )}
@@ -48,4 +48,4 @@ const BaseSlide = ({
     </div>
   );
 };
-export default BaseSlide;
+export default Slide;

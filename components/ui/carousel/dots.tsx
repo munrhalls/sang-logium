@@ -2,13 +2,14 @@ import Image from "next/image";
 import Logo from "../../../public/icons/Logo.svg";
 import Ellipse from "../../../public/icons/Ellipse.svg";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
+
 interface CarouselDotsProps {
   commercials: GET_COMMERCIALS_BY_FEATURE_QUERYResult;
   currentIndex: number;
   onDotClick: (index: number) => void;
 }
 
-export default function CarouselDots({
+export default function Dots({
   commercials,
   currentIndex,
   onDotClick,
