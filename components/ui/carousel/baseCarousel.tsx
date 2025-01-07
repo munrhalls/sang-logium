@@ -25,7 +25,7 @@ const BaseCarousel = ({
   };
 
   return (
-    <div className="relative h-full w-full overflow-hidden font-oswald">
+    <div className="relative h-full w-full overflow-hidden">
       {commercials.map((commercial, i) => (
         <BaseSlide
           key={i}

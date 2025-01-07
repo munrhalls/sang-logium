@@ -20,7 +20,7 @@ const BaseSlide = ({
 
   return (
     <div
-      className="absolute top-0 bottom-0 transition-transform duration-450 ease-in-out will-change-transform"
+      className="z-10 absolute top-0 bottom-0 transition-transform duration-450 ease-in-out will-change-transform"
       style={{
         height: "100%",
         width: "100%",
@@ -29,7 +29,7 @@ const BaseSlide = ({
         transform: `translateX(-${currentIndex * 100}%)`,
       }}
     >
-      <div className="relative h-full w-full rounded z-20">
+      <div className="relative h-full w-full">
         <Image
           src={imageUrl(commercial.image).url()}
           fill
@@ -38,7 +38,7 @@ const BaseSlide = ({
           alt={commercial.title || "Sale"}
           priority
         />
-        <div className="p-8 md:p-12 h-full w-full">
+        <div className="h-full w-full">
           {products ? (
             <ProductsCommercials products={products} />
           ) : (
