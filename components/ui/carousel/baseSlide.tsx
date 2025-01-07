@@ -1,7 +1,6 @@
 import Image from "next/image";
 import imageUrl from "@/lib/imageUrl";
 import TextOverlay from "./textOverlay";
-import ProductsGrid from "./productsGrid";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 import ProductsCommercials from "./productCommercials";
 

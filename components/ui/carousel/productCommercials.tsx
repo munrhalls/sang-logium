@@ -50,7 +50,7 @@ export const ProductsCommercials = ({ products }: { products: Product[] }) => {
   return (
     <div
       className="z-30 relative h-full w-full grid grid-rows-3 place-content-center gap-2 pb-8 pt-4 px-12
-    sm:px-20 sm:grid-rows-[1fr_4fr_1fr] sm:grid-cols-3 sm:gap-6 lg:max-w-[80%] lg:mx-auto lg:gap-16 xl:gap-24"
+    sm:px-20 sm:grid-rows-[1fr_4fr_1fr] sm:grid-cols-3 sm:gap-6 lg:max-w-[80%] lg:mx-auto lg:gap-16 xl:gap-24 "
     >
       {products.map((product) => (
         <ProductCard key={product._id} product={product} />
