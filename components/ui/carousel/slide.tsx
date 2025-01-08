@@ -41,7 +41,7 @@ const Slide = ({
           sizes="100vw"
           alt={commercial.title || "Sale"}
         />
-        <div className="h-full w-full pt-4 pb-8 px-12 md:px-32 md:pb-20 md:pt-8 max-w-[1500px] mx-auto">
+        <div className="h-full w-full sm:pt-4 sm:pb-8 sm:px-12 md:px-32 md:pb-20 md:pt-8 max-w-[1500px] mx-auto">
           {products ? (
             <ProductsCommercial products={products} />
           ) : (
