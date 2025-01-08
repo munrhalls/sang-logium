@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 interface TextOverlayProps {
-  text: GET_COMMERCIALS_BY_FEATURE_QUERYResult[0]["text"];
+  text: GET_COMMERCIALS_BY_FEATURE_QUERYResult[0];
 }
 
 const components: PortableTextComponents = {
@@ -16,7 +16,8 @@ const components: PortableTextComponents = {
   },
 };
 
-export default function TextCommercial({ text }: TextOverlayProps) {
+export default function TextCommercial({ commercial }: TextOverlayProps) {
+  const { text, slug } = commercial;
   const buttonColor = useMemo(() => {
     const firstColorMark = text?.[0]?.markDefs?.find(
       (mark) => mark._type === "textColor"
@@ -32,7 +33,7 @@ export default function TextCommercial({ text }: TextOverlayProps) {
         <PortableText value={text} components={components} />
 
         <Link
-          href="/categories/sale/january-gifts"
+          href={`/sale/${slug}`}
           prefetch={true}
           className="inline-block font-black rounded-lg tracking-wide text-sm text-white py-1 px-3 2xs:text-lg 2xs:py-2 2xs:px-6 lg:text-2xl lg:px-8 lg:py-4 "
           style={{ backgroundColor: buttonColor }}

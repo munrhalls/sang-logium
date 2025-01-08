@@ -45,7 +45,7 @@ const Slide = ({
           {products ? (
             <ProductsCommercial products={products} />
           ) : (
-            <TextCommercial text={commercial.text} />
+            <TextCommercial commercial={commercial} />
           )}
         </div>
       </div>
