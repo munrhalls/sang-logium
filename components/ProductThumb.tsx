@@ -1,46 +1,29 @@
-import { Product } from "@/sanity.types";
 import Link from "next/link";
-import Image from "next/image";
-import { thumbnailImageUrl } from "../lib/imageUrl";
+import { Product } from "@/sanity.types";
+interface ProductThumbProps {
+  product: Product;
+  saleDiscount?: number;
+}
 
-const ProductThumb = ({ product }: { product: Product }) => {
-  console.log({
-    "📥 Incoming Props": product,
-    "🛣️ Current Route": window.location.pathname,
-    "🎯 Expected Data": "What you think should be here",
-  });
-
+const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
   const isOutOfStock = product.stock != null && product.stock <= 0;
+
+  const originalPrice = product.price ?? 0;
+  const salePrice =
+    saleDiscount && originalPrice
+      ? originalPrice - originalPrice * (saleDiscount / 100)
+      : originalPrice;
+
+  const showPrice = product.price !== undefined;
 
   return (
     <Link
       href={`/product/${product.slug?.current}`}
-      className={`group flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-alll duration-200 overflow-hidden
+      className={`group flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden
           ${isOutOfStock ? "opacity-50" : ""}`}
     >
-      <div className="relative aspect-square w-full h-full overflow-hidden">
-        {product.image && (
-          <Image
-            className="object-contain transition-transform duration-300 group-hover:scale-105"
-            src={thumbnailImageUrl(product.image).url()}
-            alt={product.name || "Product image"}
-            loading="lazy"
-            height={400}
-            width={400}
-            quality={85}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        )}
-        {isOutOfStock && (
-          <div className="absolute inset-0 flex items-center justify-ceter bg-black bg-opacity-50">
-            <span className="text-white font-bold text-lg">Out of stock</span>
-          </div>
-        )}
-        PRODUCT
-      </div>
-
       <div className="p-4">
-        <h2 className="text-lg font-senibold text-gray-800 truncate">
+        <h2 className="text-lg font-semibold text-gray-800 truncate">
           {product.name}
         </h2>
 
@@ -53,9 +36,19 @@ const ProductThumb = ({ product }: { product: Product }) => {
             )
             .join(" ") || "No description available"}
         </p>
-        <p className="mt-2 text-lg font-bold text-gray-900">
-          ${product.price?.toFixed(2)}
-        </p>
+
+        {showPrice && (
+          <div className="mt-2 flex items-center gap-2">
+            <p className="text-lg font-bold text-gray-900">
+              ${salePrice.toFixed(2)}
+            </p>
+            {saleDiscount && (
+              <p className="text-sm text-gray-500 line-through">
+                ${originalPrice.toFixed(2)}
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </Link>
   );
