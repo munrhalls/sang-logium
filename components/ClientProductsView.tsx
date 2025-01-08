@@ -1,3 +1,5 @@
+"use client";
+
 import { ALL_PRODUCTS_QUERYResult } from "@/sanity.types";
 import ProductsGrid from "./ProductsGrid";
 import { useInView } from "react-intersection-observer";
@@ -15,22 +17,26 @@ const ProductsSkeleton = () => (
   </div>
 );
 
-interface ProductViewProps {
-  products: ALL_PRODUCTS_QUERYResult;
+interface ClientProductViewProps {
+  initialProducts: ALL_PRODUCTS_QUERYResult;
+  allProducts: ALL_PRODUCTS_QUERYResult;
 }
 
-export const ProductsView = ({ products }: ProductViewProps) => {
-  const [visibleProducts, setVisibleProducts] = useState(products.slice(0, 20));
+export default function ClientProductsView({
+  initialProducts,
+  allProducts,
+}: ClientProductViewProps) {
+  const [visibleProducts, setVisibleProducts] = useState(initialProducts);
   const { ref, inView } = useInView();
 
   useEffect(() => {
     if (inView) {
       setVisibleProducts((prev) => {
-        const nextBatch = products.slice(prev.length, prev.length + 20);
+        const nextBatch = allProducts.slice(prev.length, prev.length + 20);
         return nextBatch.length > 0 ? [...prev, ...nextBatch] : prev;
       });
     }
-  }, [inView, products]);
+  }, [inView, allProducts]);
 
   return (
     <Suspense fallback={<ProductsSkeleton />}>
@@ -44,6 +50,4 @@ export const ProductsView = ({ products }: ProductViewProps) => {
       </div>
     </Suspense>
   );
-};
-
-export default ProductsView;
+}
