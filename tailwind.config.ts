@@ -12,17 +12,18 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        gruppo: ["Gruppo", "sans-serif"],
-        montserrat: ["Montserrat", "sans-serif"],
-        playfair: ["Playfair Display", "serif"],
-        raleway: ["Raleway", "sans-serif"],
-        lora: ["Lora", "serif"],
-        poppins: ["Poppins", "sans-serif"],
+        // gruppo: ["Gruppo", "sans-serif"],
+        iceland: ["Iceland", "sans-serif"],
         oswald: ["Oswald", "sans-serif"],
-        roboto: ["Roboto", "sans-serif"],
-        merriweather: ["Merriweather", "serif"],
-        bebas: ["Bebas Neue", "sans-serif"],
-        lobster: ["Lobster", "cursive"],
+        // montserrat: ["Montserrat", "sans-serif"],
+        // playfair: ["Playfair Display", "serif"],
+        // raleway: ["Raleway", "sans-serif"],
+        // lora: ["Lora", "serif"],
+        // poppins: ["Poppins", "sans-serif"],
+        // roboto: ["Roboto", "sans-serif"],
+        // merriweather: ["Merriweather", "serif"],
+        // bebas: ["Bebas Neue", "sans-serif"],
+        // lobster: ["Lobster", "cursive"],
       },
       screens: {
         "2xs": "450px",

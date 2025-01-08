@@ -4,8 +4,8 @@ import { useMemo } from "react";
 
 import Link from "next/link";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
-interface TextOverlayProps {
-  text: GET_COMMERCIALS_BY_FEATURE_QUERYResult[0];
+interface TextCommercialProps {
+  commercial: GET_COMMERCIALS_BY_FEATURE_QUERYResult[0];
 }
 
 const components: PortableTextComponents = {
@@ -16,7 +16,7 @@ const components: PortableTextComponents = {
   },
 };
 
-export default function TextCommercial({ commercial }: TextOverlayProps) {
+export default function TextCommercial({ commercial }: TextCommercialProps) {
   const { text, slug } = commercial;
   const buttonColor = useMemo(() => {
     const firstColorMark = text?.[0]?.markDefs?.find(

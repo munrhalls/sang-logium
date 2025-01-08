@@ -1,4 +1,12 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
+import { authMiddleware } from "@clerk/nextjs";
+
+export const authMiddleware = authMiddleware({
+  // Only protect specific routes
+  publicRoutes: ["/", "/product(.*)", "/category(.*)", "/sale(.*)"],
+  // Avoid unnecessary redirects
+  ignoredRoutes: ["/api(.*)", "/_next(.*)"],
+});
 
 export default clerkMiddleware();
 

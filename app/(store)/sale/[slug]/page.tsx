@@ -1,6 +1,9 @@
 // app/sale/[slug]/page.tsx
-import { getSaleBySlug } from "@/sanity/lib/sales/getSaleBySlug";
-import { ProductCard } from "@/components/ProductCard";
+import {
+  getSaleBySlug,
+  getAllActiveSales,
+} from "@/sanity/lib/sales/getSaleBySlug";
+import ProductThumb from "@/components/ProductThumb";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -47,7 +50,7 @@ export default async function SalePage({ params: { slug } }: Props) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {sale.products?.map((product) => (
-          <ProductCard
+          <ProductThumb
             key={product._id}
             product={product}
             saleDiscount={sale.discount}

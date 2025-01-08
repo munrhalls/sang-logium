@@ -25,7 +25,6 @@ export async function getSaleBySlug(slug: string) {
   );
 }
 
-// And for static paths
 export async function getAllActiveSales() {
   return client.fetch(
     groq`*[_type == "sale" && isActive == true]{

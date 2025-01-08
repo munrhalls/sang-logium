@@ -7,6 +7,7 @@ import DesktopCategoriesNav from "@/components/DesktopCategoriesNav";
 import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import CategorySkeleton from "@/components/DesktopCategoriesSkeleton";
 import MobileComponents from "@/components/ui/mobile/MobileComponents";
+import { Inter } from "next/font/google";
 
 import { Suspense } from "react";
 
@@ -14,6 +15,14 @@ export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
   description: "The best audio gear in the world",
 };
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  // Specify variable to reduce font bundle
+  variable: "--font-inter",
+});
 
 export default async function RootLayout({
   children,

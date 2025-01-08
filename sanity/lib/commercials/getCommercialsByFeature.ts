@@ -6,6 +6,7 @@ export const getCommercialsByFeature = async (feature: string) => {
     defineQuery(`*[_type == "commercial" && feature == $feature] {
       title,
       "image": image.asset->url,
+      slug,
       text,
       "products": products[]-> {
         _id,

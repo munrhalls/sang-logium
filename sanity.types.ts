@@ -394,10 +394,11 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
 // Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
-// Query: *[_type == "commercial" && feature == $feature] {      title,      "image": image.asset->url,      text,      "products": products[]-> {        _id,        "name": coalesce(name, ""),        "price": coalesce(price, 0),        "image": coalesce(image.asset->url, ""),        "slug": coalesce(slug.current, ""),        "discount": coalesce(^.sale->discount, 0)      }     }
+// Query: *[_type == "commercial" && feature == $feature] {      title,      "image": image.asset->url,      slug,      text,      "products": products[]-> {        _id,        "name": coalesce(name, ""),        "price": coalesce(price, 0),        "image": coalesce(image.asset->url, ""),        "slug": coalesce(slug.current, ""),        "discount": coalesce(^.sale->discount, 0)      }     }
 export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
   title: string | null;
   image: string | null;
+  slug: null;
   text: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -742,7 +743,7 @@ export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"commercial\" && feature == $feature] {\n      title,\n      \"image\": image.asset->url,\n      text,\n      \"products\": products[]-> {\n        _id,\n        \"name\": coalesce(name, \"\"),\n        \"price\": coalesce(price, 0),\n        \"image\": coalesce(image.asset->url, \"\"),\n        \"slug\": coalesce(slug.current, \"\"),\n        \"discount\": coalesce(^.sale->discount, 0)\n      }\n     }": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    "*[_type == \"commercial\" && feature == $feature] {\n      title,\n      \"image\": image.asset->url,\n      slug,\n      text,\n      \"products\": products[]-> {\n        _id,\n        \"name\": coalesce(name, \"\"),\n        \"price\": coalesce(price, 0),\n        \"image\": coalesce(image.asset->url, \"\"),\n        \"slug\": coalesce(slug.current, \"\"),\n        \"discount\": coalesce(^.sale->discount, 0)\n      }\n     }": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
     "\n          *[\n              _type == \"category\"\n          ] | order(name asc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && slug.current == $slug\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
