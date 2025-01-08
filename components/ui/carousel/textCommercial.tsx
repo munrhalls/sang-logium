@@ -1,5 +1,6 @@
 import { PortableText } from "@portabletext/react";
 import { PortableTextComponents } from "@portabletext/react";
+import { useMemo } from "react";
 
 import Link from "next/link";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
@@ -7,21 +8,23 @@ interface TextOverlayProps {
   text: GET_COMMERCIALS_BY_FEATURE_QUERYResult[0]["text"];
 }
 
+const components: PortableTextComponents = {
+  marks: {
+    textColor: ({ children, value }) => (
+      <span style={{ color: value.value }}>{children}</span>
+    ),
+  },
+};
+
 export default function TextCommercial({ text }: TextOverlayProps) {
+  const buttonColor = useMemo(() => {
+    const firstColorMark = text?.[0]?.markDefs?.find(
+      (mark) => mark._type === "textColor"
+    );
+    return firstColorMark?.value || "#CF8226";
+  }, [text]);
+
   if (!text) return null;
-
-  const firstColorMark = text[0]?.markDefs?.find(
-    (mark) => mark._type === "textColor"
-  );
-  const buttonColor = firstColorMark?.value || "#CF8226";
-
-  const components: PortableTextComponents = {
-    marks: {
-      textColor: ({ children, value }) => (
-        <span style={{ color: value.value }}>{children}</span>
-      ),
-    },
-  };
 
   return (
     <div className="relative h-full w-full py-4 px-10 md:p-16 lg:p-24 grid place-content-center">

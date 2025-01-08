@@ -1,7 +1,6 @@
 import Image from "next/image";
 import ChevronLeft from "../../../public/icons/ChevronLeft.svg";
 import ChevronRight from "../../../public/icons/ChevronRight.svg";
-import { imageUrl } from "@/lib/imageUrl";
 interface BaseControlsProps {
   onSlide: (direction: "left" | "right") => void;
 }

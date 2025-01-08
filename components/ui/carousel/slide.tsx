@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { heroImageUrl } from "@/lib/imageUrl";
-import TextOverlay from "./textCommercial";
+import TextCommercial from "./textCommercial";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 import ProductsCommercial from "./productsCommercial";
 
@@ -35,6 +35,7 @@ const Slide = ({
           height={1080}
           className="w-full h-auto"
           priority={index === 0}
+          loading={index === 0 ? "eager" : "lazy"}
           quality={85}
           sizes="100vw"
           alt={commercial.title || "Sale"}
@@ -43,7 +44,7 @@ const Slide = ({
           {products ? (
             <ProductsCommercial products={products} />
           ) : (
-            <TextOverlay text={commercial.text} />
+            <TextCommercial text={commercial.text} />
           )}
         </div>
       </div>
