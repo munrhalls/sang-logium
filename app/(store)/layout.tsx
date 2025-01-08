@@ -5,26 +5,9 @@ import Header from "@/components/Header";
 import { SanityLive } from "@/sanity/lib/live";
 import DesktopCategoriesNav from "@/components/DesktopCategoriesNav";
 import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
-import dynamic from "next/dynamic";
 import CategorySkeleton from "@/components/DesktopCategoriesSkeleton";
-const MobileCategoriesDrawer = dynamic(
-  () => import("@/components/MobileCategoriesDrawer"),
-  {
-    loading: () => null,
-    ssr: false,
-  }
-);
-const MobileSearchDrawer = dynamic(
-  () => import("@/components/MobileSearchDrawer"),
-  {
-    loading: () => null,
-    ssr: false,
-  }
-);
+import MobileComponents from "@/components/ui/mobile/MobileComponents";
 
-const MobileFooter = dynamic(() => import("@/components/MobileFooter"), {
-  loading: () => null,
-});
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -50,10 +33,8 @@ export default async function RootLayout({
             </Suspense>
             <main className="min-h-full">
               {children}
-              <MobileCategoriesDrawer categories={categories} />
-              <MobileSearchDrawer />
+              <MobileComponents categories={categories} />
             </main>
-            <MobileFooter />
             <SanityLive />
           </div>
         </ClerkProvider>
