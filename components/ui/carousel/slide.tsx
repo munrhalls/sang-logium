@@ -1,5 +1,5 @@
 import Image from "next/image";
-import heroImageUrl from "@/lib/imageUrl";
+import { heroImageUrl } from "@/lib/imageUrl";
 import TextOverlay from "./textCommercial";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 import ProductsCommercial from "./productsCommercial";

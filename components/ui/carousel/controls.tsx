@@ -15,8 +15,10 @@ export default function Controls({ onSlide }: BaseControlsProps) {
         <Image
           loading="lazy"
           quality={85}
+          width={48}
+          height={48}
           className="md:w-16 lg:w-24 xl:w-32"
-          src={imageUrl(ChevronLeft).url()}
+          src={ChevronLeft}
           alt="Chevron Left"
         />
       </button>
@@ -27,8 +29,10 @@ export default function Controls({ onSlide }: BaseControlsProps) {
         <Image
           loading="lazy"
           quality={85}
+          width={48}
+          height={48}
           className="md:w-16 lg:w-24 xl:w-32"
-          src={imageUrl(ChevronRight).url()}
+          src={ChevronRight}
           alt="Chevron Right"
         />
       </button>

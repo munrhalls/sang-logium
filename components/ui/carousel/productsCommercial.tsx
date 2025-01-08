@@ -1,6 +1,7 @@
 // products.tsx
 import Image from "next/image";
 import Link from "next/link";
+import { imageUrl } from "@/lib/imageUrl";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 import { ArrowRight } from "lucide-react";
 type Product = NonNullable<
@@ -18,10 +19,13 @@ const ProductCard = ({ product }: { product: Product }) => {
     >
       <div className="relative h-full w-full rounded-xl">
         <Image
-          src={product.image}
+          loading="lazy"
+          src={imageUrl(product.image).url()}
           alt={product.name}
-          fill
-          className="object-contain aspect-square rounded-xl"
+          height={80}
+          width={80}
+          quality={90}
+          className="absolute inset-0 object-contain aspect-square rounded-xl"
         />
       </div>
 
