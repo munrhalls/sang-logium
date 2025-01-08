@@ -16,13 +16,13 @@ export const metadata: Metadata = {
   description: "The best audio gear in the world",
 };
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-  // Specify variable to reduce font bundle
-  variable: "--font-inter",
-});
+// const inter = Inter({
+//   subsets: ["latin"],
+//   display: "swap",
+//   preload: true,
+//   // Specify variable to reduce font bundle
+//   variable: "--font-inter",
+// });
 
 export default async function RootLayout({
   children,
@@ -34,7 +34,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ClerkProvider dynamic>
+        <ClerkProvider
+          appearance={{
+            elements: {
+              rootBox: "w-full",
+              card: "rounded-lg",
+            },
+          }}
+          dynamic
+        >
           <div id="wrapper">
             <Header />
             <Suspense fallback={<CategorySkeleton />}>
