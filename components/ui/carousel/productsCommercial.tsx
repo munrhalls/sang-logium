@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
-
+import { ArrowRight } from "lucide-react";
 type Product = NonNullable<
   GET_COMMERCIALS_BY_FEATURE_QUERYResult[0]["products"]
 >[0];
@@ -14,31 +14,35 @@ const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="grid grid-cols-[1fr_3fr] gap-6 bg-black/40 rounded-lg h-full sm:grid-cols-1 sm:row-start-2 sm:grid-rows-2"
+      className="p-1 pl-2 md:pt-4 bg-black/40 rounded-lg place-items-center md:items-center gap-4 grid grid-cols-[3rem_2fr_1.5rem] 2xs:grid-cols-[1fr_3fr_1.5rem] md:grid-cols-1 md:grid-rows-[1fr_1fr_1.5rem] "
     >
-      <div className="relative w-full h-full rounded-lg">
-        <div className="absolute inset-0 ">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            className="object-contain aspect-square bg-black"
-          />
-        </div>
+      <div className="relative h-full w-full rounded-xl">
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          className="object-contain aspect-square rounded-xl"
+        />
       </div>
 
-      <div className="grid items-center text-xs 2xs:text-lg xl:text-2xl px-2 md:px-4 md:pb-8 lg:px-6">
-        <span className="block text-white truncate sm:text-wrap">
+      <div className="grid md:gap-2 lg:px-8 md:h-full w-full font-oswald text-white md:text-center text-xs 2xs:text-lg md:text-sm md:font-black lg:text-lg justify-start">
+        <span className="truncate md:text-wrap flex items-center">
           {product.name}
         </span>
-        <div className="flex sm:justify-center">
-          <span className="inline-block  text-gray-300 line-through">
-            ${product.price.toFixed(2)}
-          </span>
-          <span className="inline-block mt-1 text-lightpromotion font-bold">
+
+        <div className="flex font-black lg:justify-center lg:items-center">
+          <span className="text-gray-400">${product.price.toFixed(2)}</span>
+          <span className="text-lightpromotion text-xs 2xs:text-lg md:text-xl lg:text-2xl mt-1">
             ${discountPrice.toFixed(2)}
           </span>
         </div>
+      </div>
+
+      <ArrowRight className="text-promotion md:hidden"></ArrowRight>
+      <div>
+        <span className="text-lightpromotion hidden md:inline-block text-xl mb-4">
+          SEE NOW
+        </span>
       </div>
     </Link>
   );
@@ -48,10 +52,7 @@ export const ProductsCommercial = ({ products }: { products: Product[] }) => {
   if (!products?.length) return null;
 
   return (
-    <div
-      className="z-30 relative h-full w-full grid grid-rows-3 place-content-center gap-2 pb-8 pt-4 px-12
-    sm:px-20 sm:grid-rows-[1fr_4fr_1fr] sm:grid-cols-3 sm:gap-6 lg:max-w-[80%] lg:mx-auto lg:gap-16 xl:gap-24 "
-    >
+    <div className="z-30 relative h-full w-full  gap-2 md:gap-6 lg:gap-16 xl:gap-20 grid grid-rows-3 md:grid-rows-1 md:grid-cols-3">
       {products.map((product) => (
         <ProductCard key={product._id} product={product} />
       ))}
