@@ -3,7 +3,10 @@ import dynamic from "next/dynamic";
 import { useUser } from "@clerk/nextjs";
 
 const AuthenticatedView = dynamic(
-  () => import("./AuthenticatedView").then((mod) => mod.default),
+  () =>
+    import("./AuthenticatedView").then((mod) => ({
+      default: mod.AuthenticatedView,
+    })),
   {
     ssr: false,
     loading: () => (
@@ -13,7 +16,10 @@ const AuthenticatedView = dynamic(
 );
 
 const UnauthenticatedView = dynamic(
-  () => import("./UnauthenticatedView").then((mod) => mod.default),
+  () =>
+    import("./UnauthenticatedView").then((mod) => ({
+      default: mod.UnauthenticatedView,
+    })),
   {
     ssr: false,
     loading: () => (
@@ -24,6 +30,5 @@ const UnauthenticatedView = dynamic(
 
 export default function AuthContent() {
   const { user } = useUser();
-
   return user ? <AuthenticatedView /> : <UnauthenticatedView />;
 }
