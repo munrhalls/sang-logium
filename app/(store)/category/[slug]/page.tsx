@@ -1,6 +1,5 @@
 import getProductsByCategory from "@/sanity/lib/products/getProductsByCategory";
-import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
-import ProductsView from "@/components/ProductsView";
+import ServerProductsView from "@/components/ServerProductsView";
 
 export default async function CategoryPage({
   params,
@@ -9,7 +8,6 @@ export default async function CategoryPage({
 }) {
   const { slug } = await params;
 
-  const categories = await getAllCategories();
   const products = await getProductsByCategory(slug);
 
   return (
@@ -22,7 +20,7 @@ export default async function CategoryPage({
             .join(" ")}
           Collection
         </h1>
-        <ProductsView products={products} categories={categories} />
+        <ServerProductsView products={products} />
       </div>
     </div>
   );
