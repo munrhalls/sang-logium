@@ -16,13 +16,12 @@ export const metadata: Metadata = {
   description: "The best audio gear in the world",
 };
 
-// const inter = Inter({
-//   subsets: ["latin"],
-//   display: "swap",
-//   preload: true,
-//   // Specify variable to reduce font bundle
-//   variable: "--font-inter",
-// });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  variable: "--font-inter",
+});
 
 export default async function RootLayout({
   children,
@@ -32,8 +31,8 @@ export default async function RootLayout({
   const categories = await getAllCategories();
 
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={inter.className}>
+      <body className={`${inter.variable} font-sans`}>
         <ClerkProvider
           appearance={{
             elements: {

@@ -9,6 +9,7 @@ body {
 
 @layer base {
   :root {
+    --font-inter: Inter, system-ui, sans-serif;
     --header-height: 64px;
     --footer-height: 64px;
     --categories-nav-height: 0px;
