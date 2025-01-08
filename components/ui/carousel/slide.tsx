@@ -1,5 +1,5 @@
 import Image from "next/image";
-import imageUrl from "@/lib/imageUrl";
+import heroImageUrl from "@/lib/imageUrl";
 import TextOverlay from "./textCommercial";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 import ProductsCommercial from "./productsCommercial";
@@ -30,12 +30,14 @@ const Slide = ({
     >
       <div className="relative h-full w-full">
         <Image
-          src={imageUrl(commercial.image).url()}
-          fill
+          src={heroImageUrl(commercial.image).url()}
+          width={1920}
+          height={1080}
+          className="w-full h-auto"
+          priority={index === 0}
+          quality={85}
           sizes="100vw"
-          className="object-cover object-[15%_0%] md:object-[30%_40%]"
           alt={commercial.title || "Sale"}
-          priority
         />
         <div className="h-full w-full pt-4 pb-8 px-12 md:px-32 md:pb-20 md:pt-8 max-w-[1500px] mx-auto">
           {products ? (

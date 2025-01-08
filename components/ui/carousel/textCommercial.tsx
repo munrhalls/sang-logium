@@ -30,6 +30,7 @@ export default function TextCommercial({ text }: TextOverlayProps) {
 
         <Link
           href="/categories/sale/january-gifts"
+          prefetch={true}
           className="inline-block font-black rounded-lg tracking-wide text-sm text-white py-1 px-3 2xs:text-lg 2xs:py-2 2xs:px-6 lg:text-2xl lg:px-8 lg:py-4 "
           style={{ backgroundColor: buttonColor }}
         >
