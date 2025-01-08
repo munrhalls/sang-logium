@@ -33,7 +33,8 @@ const Slide = ({
           src={heroImageUrl(commercial.image).url()}
           width={1920}
           height={1080}
-          className="w-full h-auto"
+          style={{ objectPosition: "0% 40%" }}
+          className="absolute inset-0 w-full h-full object-cover"
           priority={index === 0}
           loading={index === 0 ? "eager" : "lazy"}
           quality={85}

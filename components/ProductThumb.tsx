@@ -1,7 +1,7 @@
 import { Product } from "@/sanity.types";
 import Link from "next/link";
 import Image from "next/image";
-import imageUrl from "../lib/imageUrl";
+import { thumbnailImageUrl } from "../lib/imageUrl";
 
 const ProductThumb = ({ product }: { product: Product }) => {
   console.log({
@@ -22,10 +22,12 @@ const ProductThumb = ({ product }: { product: Product }) => {
         {product.image && (
           <Image
             className="object-contain transition-transform duration-300 group-hover:scale-105"
-            src={imageUrl(product.image).url()}
+            src={thumbnailImageUrl(product.image).url()}
             alt={product.name || "Product image"}
             loading="lazy"
-            fill
+            height={400}
+            width={400}
+            quality={85}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         )}
