@@ -1,9 +1,9 @@
-import { client } from "../client";
-import groq from "groq";
+import { defineQuery } from "next-sanity";
+import { sanityFetch } from "../live";
 
-export async function getSaleBySlug(slug: string) {
-  return client.fetch(
-    groq`*[_type == "sale" && slug.current == $slug][0]{
+export const getSaleBySlug = async (slug: string) => {
+  const GET_SALE_BY_SLUG_QUERY = defineQuery(`
+    *[_type == "sale" && slug.current == $slug][0] {
       _id,
       title,
       "slug": slug.current,
@@ -11,24 +11,26 @@ export async function getSaleBySlug(slug: string) {
       validFrom,
       validUntil,
       isActive,
-      "products": products[]->{
+      "products": products[]-> {
         _id,
         name,
         "slug": slug.current,
         price,
         description,
-        "mainImage": images[0].asset->url,
+        "image": images[0].asset->url,
         "category": category->name
       }
-    }`,
-    { slug }
-  );
-}
+    }
+  `);
 
-export async function getAllActiveSales() {
-  return client.fetch(
-    groq`*[_type == "sale" && isActive == true]{
-      "slug": slug.current
-    }`
-  );
-}
+  try {
+    const sale = await sanityFetch({
+      query: GET_SALE_BY_SLUG_QUERY,
+      params: { slug },
+    });
+    return sale.data || [];
+  } catch (err) {
+    console.error("Error fetching sale: ", err);
+    return null;
+  }
+};
