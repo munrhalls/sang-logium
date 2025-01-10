@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import imageUrl from "@/lib/imageUrl";
+import { imageUrl } from "@/lib/imageUrl";
 import { useState } from "react";
 import { Product } from "@/sanity.types";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";

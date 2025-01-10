@@ -1,17 +1,14 @@
-import {
-  getSaleBySlug,
-  getAllActiveSales,
-} from "@/sanity/lib/sales/getSaleBySlug";
+import { getSaleBySlug } from "@/sanity/lib/sales/getSaleBySlug";
+import { getAllActiveSales } from "@/sanity/lib/sales/getAllActiveSales";
 import ProductThumb from "@/components/ProductThumb";
 import { notFound } from "next/navigation";
-import { Sale, Product } from "@/sanity.types";
-import { GET_SALE_BY_SLUG_QUERYResult } from "@/sanity.types";
+
 interface Props {
   params: { slug: string };
 }
 
 export default async function SalePage({ params: { slug } }: Props) {
-  const sale: GET_SALE_BY_SLUG_QUERYResult[0] = await getSaleBySlug(slug);
+  const sale = await getSaleBySlug(slug);
 
   if (!sale) {
     notFound();
@@ -48,7 +45,7 @@ export default async function SalePage({ params: { slug } }: Props) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {sale.products?.map((product: Product) => (
+        {sale.products?.map((product) => (
           <ProductThumb
             key={product._id}
             product={product}
@@ -60,11 +57,10 @@ export default async function SalePage({ params: { slug } }: Props) {
   );
 }
 
-// Add static paths generation
 export async function generateStaticParams() {
   const sales = await getAllActiveSales();
 
-  return sales.map((sale: Sale) => ({
-    slug: sale.slug.current || "",
+  return sales.map((sale) => ({
+    slug: sale.slug || "",
   }));
 }

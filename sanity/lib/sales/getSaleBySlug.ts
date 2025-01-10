@@ -28,7 +28,7 @@ export const getSaleBySlug = async (slug: string) => {
       query: GET_SALE_BY_SLUG_QUERY,
       params: { slug },
     });
-    return sale.data || [];
+    return sale.data || null;
   } catch (err) {
     console.error("Error fetching sale: ", err);
     return null;
