@@ -1,6 +1,5 @@
 "use client";
 
-import { Product } from "@/sanity.types";
 import { AnimatePresence, motion } from "framer-motion";
 import ProductThumb from "./ProductThumb";
 

@@ -13,6 +13,18 @@ export const saleType = defineType({
       title: "Sale Title",
     }),
     defineField({
+      name: "category",
+      title: "Category",
+      type: "reference",
+      to: [{ type: "category" }],
+    }),
+    defineField({
+      name: "products",
+      type: "array",
+      title: "Products on Sale",
+      of: [{ type: "reference", to: [{ type: "product" }] }],
+    }),
+    defineField({
       type: "slug",
       name: "slug",
       options: {
@@ -25,23 +37,20 @@ export const saleType = defineType({
       name: "discount",
       type: "number",
       title: "Discount Percentage",
-      validation: (Rule) => Rule.min(0).max(100),
+      validation: (Rule) => Rule.required().min(0).max(100),
     }),
-    defineField({
-      name: "products",
-      type: "array",
-      title: "Products on Sale",
-      of: [{ type: "reference", to: [{ type: "product" }] }],
-    }),
+
     defineField({
       name: "validFrom",
       type: "datetime",
       title: "Valid From",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "validUntil",
       type: "datetime",
       title: "Valid Until",
+      validation: (Rule) => Rule.required().min(Rule.valueOfField("validFrom")),
     }),
     defineField({
       name: "isActive",
