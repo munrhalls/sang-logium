@@ -7,7 +7,7 @@ import DesktopCategoriesNav from "@/components/ui/desktop/DesktopCategoriesNav";
 import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import CategorySkeleton from "@/components/ui/desktop/DesktopCategoriesSkeleton";
 import MobileComponents from "@/components/ui/mobile/MobileComponents";
-import { Inter } from "next/font/google";
+import { Iceland } from "next/font/google";
 
 import { Suspense } from "react";
 
@@ -16,11 +16,12 @@ export const metadata: Metadata = {
   description: "The best audio gear in the world",
 };
 
-const inter = Inter({
+const iceland = Iceland({
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
   preload: true,
-  variable: "--font-inter",
+  variable: "--font-iceland",
 });
 
 export default async function RootLayout({
@@ -31,8 +32,8 @@ export default async function RootLayout({
   const categories = await getAllCategories();
 
   return (
-    <html lang="en" className={inter.className}>
-      <body className={`${inter.variable} font-sans`}>
+    <html lang="en" className={iceland.className}>
+      <body className={`${iceland.variable} font-sans`}>
         <ClerkProvider
           appearance={{
             elements: {

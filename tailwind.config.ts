@@ -15,7 +15,7 @@ export default {
         // gruppo: ["Gruppo", "sans-serif"],
         iceland: ["Iceland", "sans-serif"],
         oswald: ["Oswald", "sans-serif"],
-        sans: ["var(--font-inter)"],
+        sans: ["var(--font-iceland)"],
         // montserrat: ["Montserrat", "sans-serif"],
         // playfair: ["Playfair Display", "serif"],
         // raleway: ["Raleway", "sans-serif"],
