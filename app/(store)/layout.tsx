@@ -1,11 +1,11 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import "./../globals.css";
-import Header from "@/components/Header";
+import Header from "@/components/ui/Header";
 import { SanityLive } from "@/sanity/lib/live";
-import DesktopCategoriesNav from "@/components/DesktopCategoriesNav";
+import DesktopCategoriesNav from "@/components/ui/desktop/DesktopCategoriesNav";
 import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
-import CategorySkeleton from "@/components/DesktopCategoriesSkeleton";
+import CategorySkeleton from "@/components/ui/desktop/DesktopCategoriesSkeleton";
 import MobileComponents from "@/components/ui/mobile/MobileComponents";
 import { Inter } from "next/font/google";
 

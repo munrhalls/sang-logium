@@ -12,7 +12,7 @@ export default async function Page() {
       className="grid grid-cols-4 grid-rows-1 bg-blue-300"
     >
       <div className="col-span-4 col-start-1 bg-slate-300">
-        {heroCommercials?.length && <Carousel commercials={heroCommercials} />}
+        {heroCommercials && <Carousel commercials={heroCommercials} />}
       </div>
     </div>
   );

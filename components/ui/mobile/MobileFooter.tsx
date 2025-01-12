@@ -1,10 +1,10 @@
 "use client";
 
 import { FaBars, FaSearch, FaShoppingBag, FaUser, FaKey } from "react-icons/fa";
-import { useStore } from "../store";
+import { useStore } from "../../../store";
 import { ClerkLoaded } from "@clerk/nextjs";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
-import { UIState } from "../store";
+import { UIState } from "../../../store";
 
 export default function MobileFooter() {
   const { user } = useUser();

@@ -1,7 +1,7 @@
 "use client";
 
 import { Category } from "@/sanity.types";
-import { useStore } from "../store";
+import { useStore } from "../../../store";
 import { useEffect, useState } from "react";
 
 import Link from "next/link";

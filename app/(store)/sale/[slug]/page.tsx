@@ -1,14 +1,14 @@
-import { getSaleBySlug } from "@/sanity/lib/sales/getSaleBySlug";
+import { getSaleById } from "@/sanity/lib/sales/getSaleById";
 import { getAllActiveSales } from "@/sanity/lib/sales/getAllActiveSales";
-import ProductThumb from "@/components/ProductThumb";
+import ProductThumb from "@/components/features/products/ProductThumb";
 import { notFound } from "next/navigation";
 
 interface Props {
-  params: { slug: string };
+  params: { id: string };
 }
 
-export default async function SalePage({ params: { slug } }: Props) {
-  const sale = await getSaleBySlug(slug);
+export default async function SalePage({ params: { id } }: Props) {
+  const sale = await getSaleById(id);
 
   if (!sale) {
     notFound();

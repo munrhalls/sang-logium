@@ -2,16 +2,16 @@
 
 import React from "react";
 import { useState } from "react";
-import BaseSlide from "./slide";
+import Slide from "./slide";
 import Dots from "./dots";
-import BaseControls from "./controls";
-import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "../../../sanity.types";
+import Controls from "./controls";
+import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
-const Carousel = ({
-  commercials,
-}: {
+type CarouselProps = {
   commercials: GET_COMMERCIALS_BY_FEATURE_QUERYResult;
-}) => {
+};
+
+const Carousel = ({ commercials }: CarouselProps) => {
   const [index, setIndex] = useState(0);
 
   if (!commercials) return null;
@@ -27,15 +27,10 @@ const Carousel = ({
   return (
     <div className="relative h-full w-full overflow-hidden">
       {commercials.map((commercial, i) => (
-        <BaseSlide
-          key={i}
-          commercial={commercial}
-          index={i}
-          currentIndex={index}
-        />
+        <Slide key={i} commercial={commercial} index={i} currentIndex={index} />
       ))}
 
-      <BaseControls onSlide={handleSlide} />
+      <Controls onSlide={handleSlide} />
       <Dots
         commercials={commercials}
         currentIndex={index}

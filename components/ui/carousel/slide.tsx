@@ -1,21 +1,20 @@
 import Image from "next/image";
 import { heroImageUrl } from "@/lib/imageUrl";
 import TextCommercial from "./textCommercial";
-import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 import ProductsCommercial from "./productsCommercial";
+import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
-const Slide = ({
-  commercial,
-  index,
-  currentIndex,
-}: {
-  commercial: GET_COMMERCIALS_BY_FEATURE_QUERYResult[0];
+type SlideProps = {
+  commercial: GET_COMMERCIALS_BY_FEATURE_QUERYResult[number];
   index: number;
   currentIndex: number;
-}) => {
-  if (!commercial.image) return null;
+};
 
-  const products = commercial.products;
+const Slide = ({ commercial, index, currentIndex }: SlideProps) => {
+  const { image, sale, products, text } = commercial;
+
+  if (!image || !sale) return null;
+  const saleId = sale?._id;
 
   return (
     <div
@@ -30,7 +29,7 @@ const Slide = ({
     >
       <div className="relative h-full w-full">
         <Image
-          src={heroImageUrl(commercial.image).url()}
+          src={heroImageUrl(image).url()}
           width={1920}
           height={1080}
           style={{ objectPosition: "0% 40%" }}
@@ -45,7 +44,7 @@ const Slide = ({
           {products ? (
             <ProductsCommercial products={products} />
           ) : (
-            <TextCommercial commercial={commercial} />
+            <TextCommercial text={text} saleId={saleId} />
           )}
         </div>
       </div>

@@ -4,22 +4,19 @@ import dynamic from "next/dynamic";
 import { Category } from "@/sanity.types";
 
 const MobileCategoriesDrawer = dynamic(
-  () => import("@/components/MobileCategoriesDrawer"),
+  () => import("./MobileCategoriesDrawer"),
   {
     loading: () => null,
     ssr: false,
   }
 );
 
-const MobileSearchDrawer = dynamic(
-  () => import("@/components/MobileSearchDrawer"),
-  {
-    loading: () => null,
-    ssr: false,
-  }
-);
+const MobileSearchDrawer = dynamic(() => import("./MobileSearchDrawer"), {
+  loading: () => null,
+  ssr: false,
+});
 
-const MobileFooter = dynamic(() => import("@/components/MobileFooter"), {
+const MobileFooter = dynamic(() => import("./MobileFooter"), {
   loading: () => null,
 });
 

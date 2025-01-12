@@ -1,5 +1,5 @@
 import getProductsByCategory from "@/sanity/lib/products/getProductsByCategory";
-import ServerProductsView from "@/components/ServerProductsView";
+import ServerProductsView from "@/components/features/products/ServerProductsView";
 
 export default async function CategoryPage({
   params,

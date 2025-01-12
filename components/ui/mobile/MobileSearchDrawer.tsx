@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore } from "../store";
+import { useStore } from "../../../store";
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 

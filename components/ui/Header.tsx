@@ -4,7 +4,7 @@ import { ClerkLoaded } from "@clerk/nextjs";
 // import { ClerkLoaded, SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
 import Link from "next/link";
-import logo from "../public/logo.svg";
+import logo from "../../public/logo.svg";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
@@ -19,7 +19,7 @@ const AuthContent = dynamic(
     ssr: false,
   }
 );
-const SearchForm = dynamic(() => import("./ui/SearchForm"), {
+const SearchForm = dynamic(() => import("./SearchForm"), {
   loading: () => (
     <div className="h-[32px] w-full max-w-72 lg:max-w-96 xl:max-w-xl 2xl:max-w-2xl hidden lg:flex items-center bg-gray-800 animate-pulse" />
   ),
