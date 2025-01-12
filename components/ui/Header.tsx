@@ -37,8 +37,8 @@ function Header() {
           alt="Sang Logium Logo"
           className="h-[52px] lg:h-[60px]"
           priority
-          width={150}
-          height={60}
+          width={260}
+          height={100}
         />
       </Link>
 
