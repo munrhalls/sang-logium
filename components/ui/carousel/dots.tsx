@@ -15,7 +15,7 @@ export default function Dots({
   onDotClick,
 }: CarouselDotsProps) {
   return (
-    <div className="z-50 absolute left-0 right-0 bottom-1 flex flex-shrink-0 justify-center items-center gap-2 xl:mb-4">
+    <div className="z-40 border-b border-white  bg-black py-2 sm:py-0 sm:bg-transparent absolute left-0 right-0 bottom-0 flex flex-shrink-0 justify-center items-center gap-2 xl:mb-4">
       {commercials.map((_, i) => (
         <Image
           loading="lazy"

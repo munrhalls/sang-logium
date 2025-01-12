@@ -31,8 +31,8 @@ export default function TextCommercial({ text, saleId }: TextCommercialProps) {
   if (!text) return null;
 
   return (
-    <div className="relative h-full w-full py-4 px-10 md:p-16 lg:p-24 grid place-content-center">
-      <div className="bg-black/30 inline px-2 py-4 space-y-3 rounded-lg font-oswald text-center text-white font-black text-xs 2xs:space-y-6 2xs:text-2xl 2xs:px-12 2xs:py-12 lg:text-3xl">
+    <div className="relative h-full w-full grid place-content-center">
+      <div className="bg-black/30 inline space-y-3 rounded-lg font-oswald text-center text-white font-black text-md 2xs:space-y-6 2xs:text-2xl 2xs:px-12 2xs:py-12 lg:text-3xl">
         <PortableText value={text} components={components} />
         <Link
           href={`/sale/${saleId}`}
