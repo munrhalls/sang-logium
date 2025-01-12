@@ -9,28 +9,28 @@ export default function Controls({ onSlide }: BaseControlsProps) {
     <>
       <button
         onClick={() => onSlide("left")}
-        className="z-50 bg-black/20 text-white text-3xl absolute left-0  bottom-1"
+        className="z-50  text-white text-3xl absolute left-0  bottom-1 lg:bottom-12 lg:top-0"
       >
         <Image
           loading="lazy"
           quality={75}
           width={48}
           height={48}
-          className="w-9 md:w-16 lg:w-24 xl:w-32"
+          className="w-9 sm:w-12 lg:w-16 xl:w-24 2xl:w-32 ml-2 sm:ml-4 xl:ml-6 2xl:ml-20 backdrop-brightness-50 rounded-full"
           src={ChevronLeft}
           alt="Chevron Left"
         />
       </button>
       <button
         onClick={() => onSlide("right")}
-        className="z-50 bg-black/20 text-white text-3xl absolute bottom-1 right-0"
+        className="z-50  text-white text-3xl absolute bottom-1 lg:bottom-12 right-0 lg:top-0"
       >
         <Image
           loading="lazy"
           quality={75}
           width={48}
           height={48}
-          className="w-9 md:w-16 lg:w-24 xl:w-32"
+          className="w-9 sm:w-12 lg:w-16 xl:w-24 2xl:w-32 ml:r-2 sm:mr-4 xl:mr-6 backdrop-brightness-50 rounded-full"
           src={ChevronRight}
           alt="Chevron Right"
         />

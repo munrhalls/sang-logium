@@ -15,7 +15,7 @@ export default function Dots({
   onDotClick,
 }: CarouselDotsProps) {
   return (
-    <div className="z-40 border-b border-white  bg-black py-2 sm:py-0 sm:bg-transparent absolute left-0 right-0 bottom-0 flex flex-shrink-0 justify-center items-center gap-2 xl:mb-4">
+    <div className="z-40 border-b border-white lg:border-b-0 lg:border-transparent bg-black py-2 sm:py-0 sm:bg-transparent absolute left-0 right-0 bottom-0 flex flex-shrink-0 justify-center items-center gap-2 lg:gap-3 xl:gap-4 xl:mb-4">
       {commercials.map((_, i) => (
         <Image
           loading="lazy"
@@ -25,7 +25,7 @@ export default function Dots({
           height={48}
           width={48}
           alt={"Icon"}
-          className={`transition-all duration-450 ${currentIndex === i ? "cursor-default h-6 w-6 xl:h-12 xl:w-12 " : "cursor-pointer h-4 w-4"}`}
+          className={`transition-all duration-450 ${currentIndex === i ? "cursor-default h-6 w-6 sm:h-8 sm:w-8 lg:h-12 lg:w-12 xl:h-12 xl:w-12 sm:mb-2" : "cursor-pointer h-4 w-4 sm:h-6 sm:w-6 lg:h-8 lg:w-8 sm:mb-2"}`}
           onClick={() => onDotClick(i)}
         />
       ))}
