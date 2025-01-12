@@ -1,7 +1,8 @@
-import { PortableText, PortableTextBlock } from "@portabletext/react";
+import { PortableText } from "@portabletext/react";
 import { PortableTextComponents } from "@portabletext/react";
 import Link from "next/link";
 import { useMemo } from "react";
+import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
 const components: PortableTextComponents = {
   marks: {
@@ -11,8 +12,12 @@ const components: PortableTextComponents = {
   },
 };
 
+type CommercialText = NonNullable<
+  GET_COMMERCIALS_BY_FEATURE_QUERYResult[number]["text"]
+>;
+
 interface TextCommercialProps {
-  text: PortableTextBlock[];
+  text: CommercialText;
   saleId: string;
 }
 

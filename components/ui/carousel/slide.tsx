@@ -16,6 +16,16 @@ const Slide = ({ commercial, index, currentIndex }: SlideProps) => {
   if (!image || !sale) return null;
   const saleId = sale?._id;
 
+  const commercialContent = () => {
+    if (products?.length) {
+      return <ProductsCommercial products={products} />;
+    }
+    if (text) {
+      return <TextCommercial text={text} saleId={saleId} />;
+    }
+    return null;
+  };
+
   return (
     <div
       className="z-10 absolute top-0 bottom-0 transition-transform duration-450 ease-in-out will-change-transform"
@@ -41,11 +51,7 @@ const Slide = ({ commercial, index, currentIndex }: SlideProps) => {
           alt={commercial.title || "Sale"}
         />
         <div className="h-full w-full sm:pt-4 sm:pb-8 sm:px-12 md:px-32 md:pb-20 md:pt-8 max-w-[1500px] mx-auto">
-          {products ? (
-            <ProductsCommercial products={products} />
-          ) : (
-            <TextCommercial text={text} saleId={saleId} />
-          )}
+          {commercialContent()}
         </div>
       </div>
     </div>
