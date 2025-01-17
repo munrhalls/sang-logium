@@ -399,8 +399,9 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
 // Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
-// Query: *[_type == "commercial" && feature == $feature] {  title,  "image": image.asset->url,  text,  "products": products[]-> {    _id,    name,    price,    "image": image.asset->url,    "slug": slug.current,    discount  },  sale-> {    _id  }}
+// Query: *[_type == "commercial" && feature == $feature] {    _id,  title,  "image": image.asset->url,  text,  "products": products[]-> {    _id,    name,    price,    "image": image.asset->url,  },  sale-> {    discount,    _id  }}
 export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
+  _id: string;
   title: string | null;
   image: string | null;
   text: Array<{
@@ -426,10 +427,9 @@ export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
     name: string | null;
     price: number | null;
     image: string | null;
-    slug: string | null;
-    discount: null;
   }> | null;
   sale: {
+    discount: number | null;
     _id: string;
   } | null;
 }>;
@@ -772,7 +772,7 @@ export type SALE_BY_ID_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"commercial\" && feature == $feature] {\n  title,\n  \"image\": image.asset->url,\n  text,\n  \"products\": products[]-> {\n    _id,\n    name,\n    price,\n    \"image\": image.asset->url,\n    \"slug\": slug.current,\n    discount\n  },\n  sale-> {\n    _id\n  }\n}": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    "*[_type == \"commercial\" && feature == $feature] {\n    _id,\n  title,\n  \"image\": image.asset->url,\n  text,\n  \"products\": products[]-> {\n    _id,\n    name,\n    price,\n    \"image\": image.asset->url,\n  },\n  sale-> {\n    discount,\n    _id\n  }\n}": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
     "\n          *[\n              _type == \"category\"\n          ] | order(name desc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && slug.current == $slug\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;

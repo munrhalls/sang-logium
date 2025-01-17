@@ -19,7 +19,7 @@ export default function Dots({
       {commercials.map((_, i) => (
         <Image
           loading="lazy"
-          quality={85}
+          quality={60}
           key={i}
           src={currentIndex === i ? Logo : Ellipse}
           height={48}

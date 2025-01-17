@@ -47,10 +47,9 @@ export const commercialType = defineType({
     }),
     defineField({
       name: "sale",
-      title: "Reference to sale advertised by the commercial",
+      title: "Reference to sale advertised by the commercial (optional)",
       type: "reference",
       to: [{ type: "sale" }],
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "products",

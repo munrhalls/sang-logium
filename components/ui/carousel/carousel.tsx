@@ -8,13 +8,11 @@ import Controls from "./controls";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
 type CarouselProps = {
-  commercials: GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+  commercials: NonNullable<GET_COMMERCIALS_BY_FEATURE_QUERYResult>;
 };
 
 const Carousel = ({ commercials }: CarouselProps) => {
   const [index, setIndex] = useState(0);
-
-  if (!commercials) return null;
 
   const handleSlide = (direction: "left" | "right") => {
     const newIndex =
@@ -26,10 +24,22 @@ const Carousel = ({ commercials }: CarouselProps) => {
 
   return (
     <div className="relative h-full w-full overflow-hidden">
-      {commercials.map((commercial, i) => (
-        <Slide key={i} commercial={commercial} index={i} currentIndex={index} />
-      ))}
-
+      <div
+        className=" h-full transform ease-out duration-300 will-change-transform"
+        style={{ transform: `translateX(-${index * 100}%)` }}
+      >
+        {commercials.map(
+          (commercial, i) =>
+            Math.abs(i - index) <= 1 && (
+              <Slide
+                key={commercial._id}
+                commercial={commercial}
+                index={i}
+                currentIndex={index}
+              />
+            )
+        )}
+      </div>
       <Controls onSlide={handleSlide} />
       <Dots
         commercials={commercials}

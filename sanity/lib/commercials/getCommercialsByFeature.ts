@@ -3,6 +3,7 @@ import { sanityFetch } from "../live";
 
 const GET_COMMERCIALS_BY_FEATURE_QUERY =
   defineQuery(`*[_type == "commercial" && feature == $feature] {
+    _id,
   title,
   "image": image.asset->url,
   text,
@@ -11,10 +12,9 @@ const GET_COMMERCIALS_BY_FEATURE_QUERY =
     name,
     price,
     "image": image.asset->url,
-    "slug": slug.current,
-    discount
   },
   sale-> {
+    discount,
     _id
   }
 }`);

@@ -30,7 +30,6 @@ export const saleType = defineType({
       title: "Discount Percentage",
       validation: (Rule) => Rule.required().min(0).max(100),
     }),
-
     defineField({
       name: "validFrom",
       type: "datetime",
