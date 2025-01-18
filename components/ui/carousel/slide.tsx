@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { heroImageUrl } from "@/lib/imageUrl";
+import { imageUrl } from "@/lib/imageUrl";
 import TextCommercial from "./textCommercial";
 import ProductsCommercial from "./productsCommercial";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
@@ -39,12 +39,12 @@ const Slide = ({ commercial, index, currentIndex }: SlideProps) => {
     >
       <div className="relative h-full w-full">
         <Image
-          src={heroImageUrl(image).url()}
+          src={imageUrl(image).url()}
           width={1920}
           height={1080}
           style={{ objectPosition: "0% 40%" }}
           className="absolute inset-0 w-full h-full object-cover"
-          quality={75}
+          quality={60}
           sizes="100vw"
           alt={commercial.title || "Sale"}
         />

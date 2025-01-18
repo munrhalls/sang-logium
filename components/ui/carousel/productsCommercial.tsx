@@ -57,13 +57,13 @@ const ProductCard = ({ product, discount }: CardProps) => {
         <Image
           loading="lazy"
           decoding="async"
-          quality={75}
+          quality={50}
           sizes="(max-width: 768px) 33vw, 25vw"
           src={imageUrl(product.image).url()}
           alt={product.name}
           height={80}
           width={80}
-          className="absolute inset-0 object-contain aspect-square rounded-xl"
+          className="w-full absolute inset-0 object-contain aspect-square rounded-xl"
         />
       </div>
 

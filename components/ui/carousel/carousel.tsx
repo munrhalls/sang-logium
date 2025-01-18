@@ -1,3 +1,6 @@
+// pass only number instead of all commercials to dots
+//
+
 "use client";
 
 import React from "react";
@@ -25,7 +28,7 @@ const Carousel = ({ commercials }: CarouselProps) => {
   return (
     <div className="relative h-full w-full overflow-hidden">
       <div
-        className=" h-full transform ease-out duration-300 will-change-transform"
+        className=" h-full transform duration-300"
         style={{ transform: `translateX(-${index * 100}%)` }}
       >
         {commercials.map(
@@ -42,7 +45,7 @@ const Carousel = ({ commercials }: CarouselProps) => {
       </div>
       <Controls onSlide={handleSlide} />
       <Dots
-        commercials={commercials}
+        numberOfDots={commercials.length}
         currentIndex={index}
         onDotClick={setIndex}
       />
