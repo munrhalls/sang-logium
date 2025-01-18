@@ -1,4 +1,8 @@
-import { defineType, defineField } from "sanity";
+import {
+  defineField,
+  defineType,
+  defineArrayMember,
+} from "@sanity-typed/types";
 
 export const commercialType = defineType({
   name: "commercial",
@@ -30,19 +34,19 @@ export const commercialType = defineType({
       name: "text",
       type: "array",
       of: [
-        {
+        defineArrayMember({
           type: "block",
           marks: {
             annotations: [
-              {
+              defineArrayMember({
                 type: "textColor",
-              },
-              {
+              }),
+              defineArrayMember({
                 type: "highlightColor",
-              },
+              }),
             ],
           },
-        },
+        }),
       ],
     }),
     defineField({
@@ -56,10 +60,10 @@ export const commercialType = defineType({
       title: "Products featured in commercial (optional)",
       type: "array",
       of: [
-        {
+        defineArrayMember({
           type: "reference",
           to: [{ type: "product" }],
-        },
+        }),
       ],
     }),
   ],

@@ -9,20 +9,15 @@ type Product = NonNullable<
 import { memo, useMemo } from "react";
 
 type CardProps = {
-  product: Product;
+  product: NonNullable<Product>;
   discount: number | null;
 };
 
 const ProductCard = ({ product, discount }: CardProps) => {
   const discountPrice = useMemo(
-    () => (discount ? product.price || 0 * (1 - discount / 100) : null),
+    () => ((discount ?? 100) / 100) * (product?.price ?? 1),
     [product.price, discount]
   );
-
-  if (!product || !product?.price || !product?.image || !product?.name) {
-    console.error("Product is missing required fields");
-    return null;
-  }
 
   const priceDisplay = () => {
     if (!product?.price) {

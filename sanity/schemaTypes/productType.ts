@@ -1,4 +1,8 @@
-import { defineType, defineField } from "sanity";
+import {
+  defineType,
+  defineField,
+  defineArrayMember,
+} from "@sanity-typed/types";
 import { TrolleyIcon } from "@sanity/icons";
 
 export const productType = defineType({
@@ -42,7 +46,7 @@ export const productType = defineType({
       name: "gallery",
       type: "array",
       title: "Image Gallery",
-      of: [{ type: "image" }],
+      of: [defineArrayMember({ type: "image" })],
     }),
     defineField({
       name: "description",
@@ -81,7 +85,7 @@ export const productType = defineType({
       name: "tags",
       title: "Tags",
       type: "array",
-      of: [{ type: "string" }],
+      of: [defineArrayMember({ type: "string" })],
       description: "Keywords or tags for search and filtering",
     }),
     defineField({
@@ -93,9 +97,21 @@ export const productType = defineType({
           name: "overviewField",
           type: "object",
           fields: [
-            { name: "title", type: "string", title: "Title" },
-            { name: "value", type: "string", title: "Value" },
-            { name: "information", type: "string", title: "Information" },
+            defineArrayMember({
+              name: "title",
+              type: "string",
+              title: "Title",
+            }),
+            defineArrayMember({
+              name: "value",
+              type: "string",
+              title: "Value",
+            }),
+            defineArrayMember({
+              name: "information",
+              type: "string",
+              title: "Information",
+            }),
           ],
         }),
       ],
@@ -105,13 +121,25 @@ export const productType = defineType({
       title: "Specifications",
       type: "array",
       of: [
-        defineField({
+        defineArrayMember({
           name: "spec",
           type: "object",
           fields: [
-            { name: "title", type: "string", title: "Specification Title" },
-            { name: "value", type: "string", title: "Value" },
-            { name: "information", type: "string", title: "Information" },
+            defineArrayMember({
+              name: "title",
+              type: "string",
+              title: "Specification Title",
+            }),
+            defineArrayMember({
+              name: "value",
+              type: "string",
+              title: "Value",
+            }),
+            defineArrayMember({
+              name: "information",
+              type: "string",
+              title: "Information",
+            }),
           ],
         }),
       ],

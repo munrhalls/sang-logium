@@ -1,6 +1,3 @@
-// pass only number instead of all commercials to dots
-//
-
 "use client";
 
 import React from "react";
@@ -45,7 +42,7 @@ const Carousel = ({ commercials }: CarouselProps) => {
       </div>
       <Controls onSlide={handleSlide} />
       <Dots
-        numberOfDots={commercials.length}
+        keys={commercials.map((c) => c._id + "dots")}
         currentIndex={index}
         onDotClick={setIndex}
       />

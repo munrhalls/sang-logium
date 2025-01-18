@@ -2,6 +2,18 @@ import type { NextConfig } from "next";
 import { RuleSetRule } from "webpack";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    turbo: {
+      treeShaking: true,
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
+  },
+
   webpack: (config, { dev, isServer }) => {
     config.optimization.splitChunks = {
       chunks: "all",

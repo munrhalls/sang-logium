@@ -1,4 +1,4 @@
-import { defineType, defineArrayMember } from "sanity";
+import { defineType, defineArrayMember } from "@sanity-typed/types";
 import { ImageIcon } from "@sanity/icons";
 
 /**

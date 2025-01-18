@@ -4,8 +4,7 @@ import { ClerkLoaded } from "@clerk/nextjs";
 // import { ClerkLoaded, SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
 import Link from "next/link";
-import logo from "../../public/logo.svg";
-import Image from "next/image";
+import Logo from "@/public/Logo.svg";
 import dynamic from "next/dynamic";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 // import { UserIcon, KeyIcon } from "@heroicons/react/24/outline";
@@ -32,14 +31,15 @@ function Header() {
       className="fixed top-0 left-0 right-0 z-50 lg:px-10 xl:px-16 2xl:px-24 flex justify-center lg:justify-between items-center bg-black"
     >
       <Link href="/">
-        <Image
+        <Logo />
+        {/* <Image
           src={logo}
           alt="Sang Logium Logo"
           className="h-[52px] lg:h-[60px]"
           priority
           width={260}
           height={100}
-        />
+        /> */}
       </Link>
 
       <SearchForm />

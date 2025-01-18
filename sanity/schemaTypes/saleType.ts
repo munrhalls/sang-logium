@@ -1,4 +1,8 @@
-import { defineType, defineField } from "sanity";
+import {
+  defineType,
+  defineField,
+  defineArrayMember,
+} from "@sanity-typed/types";
 import { TagIcon } from "@sanity/icons";
 
 export const saleType = defineType({
@@ -22,7 +26,7 @@ export const saleType = defineType({
       name: "products",
       type: "array",
       title: "Products on Sale",
-      of: [{ type: "reference", to: [{ type: "product" }] }],
+      of: [defineArrayMember({ type: "reference", to: [{ type: "product" }] })],
     }),
     defineField({
       name: "discount",
