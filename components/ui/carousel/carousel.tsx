@@ -7,11 +7,11 @@ import Dots from "./dots";
 import Controls from "./controls";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
-type CarouselProps = {
+type PropsType = {
   commercials: NonNullable<GET_COMMERCIALS_BY_FEATURE_QUERYResult>;
 };
 
-const Carousel = ({ commercials }: CarouselProps) => {
+const Carousel = ({ commercials }: PropsType) => {
   const [index, setIndex] = useState(0);
 
   const handleSlide = (direction: "left" | "right") => {

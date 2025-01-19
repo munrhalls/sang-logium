@@ -1,19 +1,20 @@
 "use client";
 
-import { defineConfig } from "@sanity-typed/types";
 import { visionTool } from "@sanity/vision";
 import { structureTool } from "sanity/structure";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
 import { simplerColorInput } from "sanity-plugin-simpler-color-input";
-import { InferSchemaValues } from "@sanity-typed/types";
+import { defineConfig } from "sanity";
 
 const sanityConfig = defineConfig({
   basePath: "/studio",
   projectId,
   dataset,
-  ...schema,
+  schema: {
+    types: [...schema.types],
+  },
   plugins: [
     structureTool({ structure }),
     visionTool({ defaultApiVersion: apiVersion }),
@@ -34,4 +35,3 @@ const sanityConfig = defineConfig({
 });
 
 export default sanityConfig;
-export type SanityValues = InferSchemaValues<typeof sanityConfig>;

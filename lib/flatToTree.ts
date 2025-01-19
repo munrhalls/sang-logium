@@ -1,5 +1,3 @@
-import { Category } from "@/sanity.types";
-
 interface CategoryTree {
   _id: string;
   name: string;
@@ -7,7 +5,7 @@ interface CategoryTree {
   children: CategoryTree[];
 }
 
-export const flatToTree = (categories: Category[]): CategoryTree[] => {
+export const flatToTree = (categories): CategoryTree[] => {
   const map: Record<string, CategoryTree> = {};
   const roots: CategoryTree[] = [];
 

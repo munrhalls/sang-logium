@@ -3,29 +3,18 @@ import { useState } from "react";
 
 import Link from "next/link";
 import { getCategoryIcon } from "@/lib/getCategoryIcon";
-import { Category } from "@/sanity.types";
 import { flatToTree } from "@/lib/flatToTree";
 import { FaChevronDown, FaRegCircle } from "react-icons/fa";
+import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 
-export default function DesktopCategoriesNav({
-  categories,
-}: {
-  categories: Category[];
-}) {
+type PropsType = {
+  categories: ALL_CATEGORIES_QUERYResult;
+};
+
+export default function DesktopCategoriesNav({ categories }: PropsType) {
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
     undefined
   );
-
-  if (!categories || categories.length === 0) {
-    return (
-      <div className="hidden lg:flex w-full bg-gray-900 items-center justify-center ">
-        <p className="text-xl text-white">
-          Oops! It appears we have a slight connection issue...could not load
-          categories. Please try refreshing page.
-        </p>
-      </div>
-    );
-  }
 
   const categoriesTree = flatToTree(categories);
   const CATEGORY_ORDER = [

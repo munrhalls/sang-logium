@@ -1,8 +1,4 @@
-import {
-  defineType,
-  defineField,
-  defineArrayMember,
-} from "@sanity-typed/types";
+import { defineType, defineField, defineArrayMember } from "sanity";
 import { TrolleyIcon } from "@sanity/icons";
 
 export const productType = defineType({

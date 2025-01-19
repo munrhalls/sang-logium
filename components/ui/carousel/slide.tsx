@@ -14,6 +14,13 @@ type SlideProps = {
 
 const Slide = ({ commercial, index, currentIndex }: SlideProps) => {
   const { image, sale, products, text } = commercial;
+  const productsVerified =
+    products?.length &&
+    products?.filter((product) => {
+      return Boolean(
+        product?._id && product?.name && product?.price && product?.image
+      );
+    });
 
   const buttonColor = useMemo(() => {
     if (!text) return "#CF8226";
@@ -52,12 +59,15 @@ const Slide = ({ commercial, index, currentIndex }: SlideProps) => {
           <div className="relative h-full w-full">
             <div className=" bg-black/30 grid align-items-center justify-items-center gap-1 px-4 space-y-3 rounded-lg font-oswald text-center text-white text-md 2xs:space-y-6 text-xs 2xs:text-2xl 2xs:px-12 2xs:py-12 lg:text-3xl">
               {text && text.length > 0 && <TextCommercial text={text} />}
-              {products && products.length && (
-                <ProductsCommercial products={products} discount={discount} />
+              {productsVerified && (
+                <ProductsCommercial
+                  products={productsVerified}
+                  discount={discount}
+                />
               )}
-
+              {/*  linkUrlTo @sanity */}
               <Link
-                href={`/sale/${saleId}`}
+                href={`${commercial.ctaUrlLink}`}
                 prefetch={true}
                 className="inline-block rounded-lg tracking-wide text-sm text-white py-2 px-3 2xs:text-lg 2xs:py-2 2xs:px-6 lg:text-2xl lg:px-8 lg:py-4 "
                 style={{ backgroundColor: `${buttonColor}` }}

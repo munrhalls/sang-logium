@@ -1,6 +1,6 @@
 // categoryType.ts
 import { TagIcon } from "@sanity/icons";
-import { defineField, defineType } from "@sanity-typed/types";
+import { defineField, defineType } from "sanity";
 
 export const categoryType = defineType({
   name: "category",

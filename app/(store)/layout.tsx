@@ -1,15 +1,8 @@
-import { ClerkProvider } from "@clerk/nextjs";
-import type { Metadata } from "next";
 import "./../globals.css";
-import Header from "@/components/ui/Header";
-import { SanityLive } from "@/sanity/lib/live";
-import DesktopCategoriesNav from "@/components/ui/desktop/DesktopCategoriesNav";
-import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
-import CategorySkeleton from "@/components/ui/desktop/DesktopCategoriesSkeleton";
-import MobileComponents from "@/components/ui/mobile/MobileComponents";
+import type { Metadata } from "next";
 import { Iceland } from "next/font/google";
-
-import { Suspense } from "react";
+import { ClerkProvider } from "@clerk/nextjs";
+import { SanityLive } from "@/sanity/lib/live";
 
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
@@ -29,8 +22,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const categories = await getAllCategories();
-
   return (
     <html lang="en" className={iceland.className}>
       <body className={`${iceland.variable} font-sans`}>
@@ -44,14 +35,8 @@ export default async function RootLayout({
           dynamic
         >
           <div id="wrapper">
-            <Header />
-            <Suspense fallback={<CategorySkeleton />}>
-              <DesktopCategoriesNav categories={categories} />
-            </Suspense>
-            <main className="min-h-full">
-              {children}
-              <MobileComponents categories={categories} />
-            </main>
+            {children}
+
             <SanityLive />
           </div>
         </ClerkProvider>

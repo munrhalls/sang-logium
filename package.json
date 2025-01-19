@@ -19,7 +19,6 @@
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.0",
-    "@sanity-typed/types": "^7.0.1",
     "@sanity/icons": "^3.4.0",
     "@sanity/image-url": "^1.1.0",
     "@sanity/types": "^3.69.0",

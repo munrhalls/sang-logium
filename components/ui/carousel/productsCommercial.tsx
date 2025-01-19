@@ -3,45 +3,44 @@ import Image from "next/image";
 import Link from "next/link";
 import { imageUrl } from "@/lib/imageUrl";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
-type Product = NonNullable<
-  GET_COMMERCIALS_BY_FEATURE_QUERYResult[0]["products"]
->[0];
 import { memo, useMemo } from "react";
 
-type CardProps = {
-  product: NonNullable<Product>;
-  discount: number | null;
+type ProductProps = NonNullable<
+  GET_COMMERCIALS_BY_FEATURE_QUERYResult[0]["products"]
+>[0];
+
+type ProductVerifiedProps = {
+  _id: string;
+  name: string;
+  price: number;
+  image: string;
 };
 
-const ProductCard = ({ product, discount }: CardProps) => {
+const Price = (price: number) => {
+  return (
+    <span className="text-lightpromotion text-xs 2xs:text-lg md:text-xl lg:text-2xl mt-1">
+      ${price.toFixed(2)}
+    </span>
+  );
+};
+
+const DiscountPrice = (price: number, discount: number) => {
   const discountPrice = useMemo(
-    () => ((discount ?? 100) / 100) * (product?.price ?? 1),
-    [product.price, discount]
+    () => (discount / 100) * price,
+    [price, discount]
   );
 
-  const priceDisplay = () => {
-    if (!product?.price) {
-      return null;
-    }
+  return (
+    <>
+      <span className="text-gray-400">${price.toFixed(2)}</span>
+      <span className="text-lightpromotion text-xs 2xs:text-lg md:text-xl lg:text-2xl mt-1">
+        ${discountPrice?.toFixed(2)}
+      </span>
+    </>
+  );
+};
 
-    if (!discount) {
-      return (
-        <span className="text-lightpromotion text-xs 2xs:text-lg md:text-xl lg:text-2xl mt-1">
-          ${product.price.toFixed(2)}
-        </span>
-      );
-    }
-
-    return (
-      <>
-        <span className="text-gray-400">${product.price.toFixed(2)}</span>
-        <span className="text-lightpromotion text-xs 2xs:text-lg md:text-xl lg:text-2xl mt-1">
-          ${discountPrice?.toFixed(2)}
-        </span>
-      </>
-    );
-  };
-
+const ProductCard = ({ product, discount }: ProductCardProps) => {
   return (
     <Link
       href={`/product/${product._id}`}
@@ -68,7 +67,11 @@ const ProductCard = ({ product, discount }: CardProps) => {
         </span>
 
         <div className="flex font-black lg:justify-center lg:items-center">
-          {priceDisplay()}
+          {discount ? (
+            <DiscountPrice price={product.price} discount={discount} />
+          ) : (
+            <Price price={product.price} />
+          )}
         </div>
       </div>
     </Link>
@@ -76,7 +79,7 @@ const ProductCard = ({ product, discount }: CardProps) => {
 };
 
 type ProductsProps = {
-  products: Product[];
+  products: ProductProps[];
   discount: number | null;
 };
 
