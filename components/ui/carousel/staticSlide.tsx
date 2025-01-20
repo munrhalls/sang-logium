@@ -1,9 +1,7 @@
-"use client";
-
 import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
-import TextCommercial from "./textCommercial";
-import ProductsCommercial from "./productsCommercial";
+import TextCommercial from "./staticTextCommercial";
+import ProductsCommercial from "./staticProductsCommercial";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -11,7 +9,7 @@ import { useMemo } from "react";
 type SlideProps = {
   commercial: GET_COMMERCIALS_BY_FEATURE_QUERYResult[number];
   index: number;
-  currentIndex: number;
+  // currentIndex: number;
 };
 
 type ProductsVerified = {
@@ -21,7 +19,7 @@ type ProductsVerified = {
   image: string;
 };
 
-const Slide = ({ commercial, index, currentIndex }: SlideProps) => {
+const Slide = ({ commercial, index }: SlideProps) => {
   const { image, sale, products, text } = commercial;
 
   const productsVerified = useMemo(() => {
@@ -49,7 +47,7 @@ const Slide = ({ commercial, index, currentIndex }: SlideProps) => {
       style={{
         width: "100%",
         transform: `translateX(${index * 100}%)`,
-        zIndex: currentIndex === index ? 2 : 1,
+        // zIndex: currentIndex === index ? 2 : 1,
       }}
     >
       <div className="relative h-full w-full">

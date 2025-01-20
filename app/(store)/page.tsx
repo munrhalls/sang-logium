@@ -4,10 +4,18 @@ import Header from "@/components/ui/Header";
 import DesktopCategoriesNav from "@/components/ui/desktop/DesktopCategoriesNav";
 import MobileComponents from "@/components/ui/mobile/MobileComponents";
 import Carousel from "@/components/ui/carousel/carousel";
+import Slide from "@/components/ui/carousel/staticSlide";
 
 export default async function Page() {
   const heroCommercials = await getCommercialsByFeature("hero");
   const categories = await getAllCategories();
+
+  const prebuiltSlides = heroCommercials.map((commercial, index) => (
+    <Slide key={commercial._id} commercial={commercial} index={index} />
+  ));
+  const heroCommercialsKeys = heroCommercials.map(
+    (commercial) => commercial._id
+  );
 
   return (
     <div>
@@ -23,7 +31,10 @@ export default async function Page() {
           className="grid grid-cols-4 grid-rows-1 bg-blue-300"
         >
           <div className="col-span-4 col-start-1 bg-slate-300">
-            {heroCommercials && <Carousel commercials={heroCommercials} />}
+            <Carousel
+              prebuiltSlides={prebuiltSlides}
+              keys={heroCommercialsKeys}
+            />
           </div>
         </div>
         <MobileComponents categories={categories} />

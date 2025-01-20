@@ -1,4 +1,4 @@
-import { ProductProps, ProductCard } from "./productCard";
+import { ProductProps, ProductCard } from "./staticProductCard";
 
 type ProductsProps = {
   products: ProductProps[];
