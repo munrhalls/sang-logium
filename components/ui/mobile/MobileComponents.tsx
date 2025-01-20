@@ -18,6 +18,7 @@ const MobileSearchDrawer = dynamic(() => import("./MobileSearchDrawer"), {
 
 const MobileFooter = dynamic(() => import("./MobileFooter"), {
   loading: () => null,
+  ssr: false,
 });
 
 export default function MobileComponents({
