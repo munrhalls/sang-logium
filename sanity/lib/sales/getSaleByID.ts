@@ -32,9 +32,9 @@ export const getSaleById = async (saleId: string) => {
       },
     });
 
-    return sale.data || null;
+    return sale.data || [];
   } catch (err) {
     console.error("Fetching sale by ID failed: ", err);
-    return null;
+    return [];
   }
 };

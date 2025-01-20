@@ -1,5 +1,5 @@
 import getProductsByCategory from "@/sanity/lib/products/getProductsByCategory";
-import ServerProductsView from "@/components/features/products/ServerProductsView";
+import ProductsGrid from "@/components/features/products/ProductsGrid";
 
 export default async function CategoryPage({
   params,
@@ -20,7 +20,7 @@ export default async function CategoryPage({
             .join(" ")}
           Collection
         </h1>
-        <ServerProductsView products={products} />
+        <ProductsGrid products={products} />
       </div>
     </div>
   );

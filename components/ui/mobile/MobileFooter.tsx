@@ -3,24 +3,26 @@
 import { FaBars, FaSearch, FaShoppingBag, FaUser, FaKey } from "react-icons/fa";
 import { useStore } from "../../../store";
 import { ClerkLoaded } from "@clerk/nextjs";
-import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
+// import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { UIState } from "../../../store";
+import AuthContent from "@/components/features/auth/AuthContent";
 
 export default function MobileFooter() {
-  const { user } = useUser();
+  // const { user } = useUser();
 
-  const createClerkPasskey = async () => {
-    try {
-      const response = await user?.createPasskey();
-      console.log(response);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const createClerkPasskey = async () => {
+  //   try {
+  //     const response = await user?.createPasskey();
+  //     console.log(response);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   const toggleCategoriesDrawer = useStore(
     (state: UIState) => state.toggleCategoriesDrawer
   );
+
   const isCategoriesDrawerOpen = useStore(
     (state: UIState) => state.isCategoriesDrawerOpen
   );
@@ -68,7 +70,7 @@ export default function MobileFooter() {
         <FaUser size={24} />
         <span className="text-xs mt-1">Account</span>
       </button> */}
-      <ClerkLoaded>
+      {/* `<ClerkLoaded>
         <div>
           {user ? (
             <div className="mt-2 flex flex-col justify-center">
@@ -103,6 +105,10 @@ export default function MobileFooter() {
             </div>
           )}
         </div>
+      </ClerkLoaded>` */}
+
+      <ClerkLoaded>
+        <AuthContent />
       </ClerkLoaded>
     </footer>
   );

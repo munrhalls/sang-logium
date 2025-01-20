@@ -1,7 +1,7 @@
 "use client";
 
+import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 import dynamic from "next/dynamic";
-import { Category } from "@/sanity.types";
 
 const MobileCategoriesDrawer = dynamic(
   () => import("./MobileCategoriesDrawer"),
@@ -20,13 +20,11 @@ const MobileFooter = dynamic(() => import("./MobileFooter"), {
   loading: () => null,
 });
 
-interface MobileComponentsProps {
-  categories: Category[];
-}
-
 export default function MobileComponents({
   categories,
-}: MobileComponentsProps) {
+}: {
+  categories: ALL_CATEGORIES_QUERYResult;
+}) {
   return (
     <>
       <MobileCategoriesDrawer categories={categories} />
