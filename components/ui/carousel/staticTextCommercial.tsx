@@ -23,5 +23,9 @@ interface TextCommercialProps {
 export default function TextCommercial({ text }: TextCommercialProps) {
   if (!text) return null;
 
-  return <PortableText value={text} components={components} />;
+  return (
+    <div className="z-40">
+      <PortableText value={text} components={components} />
+    </div>
+  );
 }
