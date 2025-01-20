@@ -34,7 +34,7 @@ const Carousel = ({
       <Dots
         keys={keys.map((item) => item + "dots")}
         currentIndex={index}
-        onDotClick={setIndex}
+        onDotClick={(dotNum) => setIndex(dotNum)}
       />
     </div>
   );

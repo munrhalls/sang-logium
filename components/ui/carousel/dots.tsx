@@ -15,11 +15,11 @@ export default function Dots({
   console.log("DOTS", currentIndex);
   return (
     <div className="z-40 border-b border-white lg:border-b-0 lg:border-transparent bg-black py-2 sm:py-0 sm:bg-transparent absolute left-0 right-0 bottom-0 flex flex-shrink-0 justify-center items-center gap-2 lg:gap-3 xl:gap-4 xl:mb-4">
-      {Array.from({ length: keys.length }).map((_, i) => {
+      {keys.map((key, i) => {
         return currentIndex === i ? (
-          <Logo key={keys[i]} />
+          <Logo key={key} />
         ) : (
-          <Ellipse key={keys[i]} onClick={() => onDotClick} />
+          <Ellipse key={key} onClick={() => onDotClick(i)} />
         );
       })}
     </div>
