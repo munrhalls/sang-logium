@@ -9,7 +9,6 @@ import { useMemo } from "react";
 type SlideProps = {
   commercial: GET_COMMERCIALS_BY_FEATURE_QUERYResult[number];
   index: number;
-  // currentIndex: number;
 };
 
 type ProductsVerified = {
@@ -47,7 +46,6 @@ const Slide = ({ commercial, index }: SlideProps) => {
       style={{
         width: "100%",
         transform: `translateX(${index * 100}%)`,
-        // zIndex: currentIndex === index ? 2 : 1,
       }}
     >
       <div className="relative h-full w-full">
@@ -73,7 +71,6 @@ const Slide = ({ commercial, index }: SlideProps) => {
                 />
               )}
               <Link
-                // TODO link url
                 href="asdasaxzc"
                 prefetch={true}
                 className="inline-block rounded-lg tracking-wide text-sm text-white py-2 px-3 2xs:text-lg 2xs:py-2 2xs:px-6 lg:text-2xl lg:px-8 lg:py-4 "

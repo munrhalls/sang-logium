@@ -10,6 +10,9 @@ export default async function Page() {
   const heroCommercials = await getCommercialsByFeature("hero");
   const categories = await getAllCategories();
 
+  // TODO OVERALL TASK: make the prebuiltCategories
+  // IMPORTANT - do as minimal of changes as possible, it's only about shifting architecture to prebuild categories
+
   const prebuiltSlides = heroCommercials.map((commercial, index) => (
     <Slide key={commercial._id} commercial={commercial} index={index} />
   ));
