@@ -10,7 +10,7 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 // import { UserIcon, KeyIcon } from "@heroicons/react/24/outline";
 
 const AuthContent = dynamic(
-  () => import("@/components/features/auth/AuthContent"),
+  () => import("@/app/components/features/auth/AuthContent"),
   {
     loading: () => (
       <div className="w-[26px] h-[26px] mx-auto bg-gray-800 rounded-full animate-pulse" />
@@ -18,11 +18,14 @@ const AuthContent = dynamic(
     ssr: false,
   }
 );
-const SearchForm = dynamic(() => import("./SearchForm"), {
-  loading: () => (
-    <div className="h-[32px] w-full max-w-72 lg:max-w-96 xl:max-w-xl 2xl:max-w-2xl hidden lg:flex items-center bg-gray-800 animate-pulse" />
-  ),
-});
+const SearchForm = dynamic(
+  () => import("@/app/components/features/search/SearchForm"),
+  {
+    loading: () => (
+      <div className="h-[32px] w-full max-w-72 lg:max-w-96 xl:max-w-xl 2xl:max-w-2xl hidden lg:flex items-center bg-gray-800 animate-pulse" />
+    ),
+  }
+);
 
 function Header() {
   return (

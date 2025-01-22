@@ -22,19 +22,21 @@ const Carousel = ({
   };
 
   return (
-    <div className="relative h-full w-full overflow-hidden">
+    <div className="relative h-full w-full overflow-hidden grid-rows-[1fr_2rem]">
       <div
-        className=" h-full transform duration-300"
+        className="h-full transform duration-300"
         style={{ transform: `translateX(-${index * 100}%)` }}
       >
         {prebuiltSlides}
       </div>
-      <Controls onSlide={handleSlide} />
-      <Dots
-        keys={keys.map((item) => item + "dots")}
-        currentIndex={index}
-        onDotClick={(dotNum) => setIndex(dotNum)}
-      />
+      <div className="bg-purple-900 z-50 grid grid-cols-3">
+        <Controls onSlide={handleSlide} />
+        <Dots
+          keys={keys.map((item) => item + "dots")}
+          currentIndex={index}
+          onDotClick={(dotNum) => setIndex(dotNum)}
+        />
+      </div>
     </div>
   );
 };

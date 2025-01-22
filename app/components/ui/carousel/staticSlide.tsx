@@ -37,7 +37,7 @@ const Slide = ({ commercial, index }: SlideProps) => {
         transform: `translateX(${index * 100}%)`,
       }}
     >
-      <div className="relative h-full w-full md:grid md:place-content-center">
+      <div className="relative h-full w-full md:grid md:place-content-center pb-[24px]">
         <Image
           src={imageUrl(image).url()}
           width={1920}
@@ -49,7 +49,7 @@ const Slide = ({ commercial, index }: SlideProps) => {
           alt={commercial.title || "Sale"}
         />
 
-        <div className="grid md:grid-cols-[1fr_10fr_1fr] md:place-content-center md:[grid-template-areas:'empty_content_empty'] px-3 py-3">
+        <div className="h-full grid md:grid-cols-[1fr_10fr_1fr] md:place-content-center md:[grid-template-areas:'empty_content_empty'] px-3 py-3">
           <div className="z-30 md:[grid-area:content]">
             {variant === "text" ? (
               <TextCommercial text={text} />
