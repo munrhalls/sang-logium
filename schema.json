@@ -388,6 +388,23 @@
         },
         "optional": true
       },
+      "variant": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "text"
+            },
+            {
+              "type": "string",
+              "value": "products"
+            }
+          ]
+        },
+        "optional": true
+      },
       "image": {
         "type": "objectAttribute",
         "value": {

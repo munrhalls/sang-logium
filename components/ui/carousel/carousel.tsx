@@ -30,7 +30,6 @@ const Carousel = ({
         {prebuiltSlides}
       </div>
       <Controls onSlide={handleSlide} />
-      {/* cliking on controls does nothing */}
       <Dots
         keys={keys.map((item) => item + "dots")}
         currentIndex={index}

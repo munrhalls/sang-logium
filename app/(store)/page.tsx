@@ -31,9 +31,9 @@ export default async function Page() {
           style={{
             height: `calc(100vh - var(--header-height) - var(--categories-nav-height) - var(--footer-height))`,
           }}
-          className="grid grid-cols-4 grid-rows-1 bg-blue-300"
+          className="grid grid-cols-4 grid-rows-1 "
         >
-          <div className="col-span-4 col-start-1 bg-slate-300">
+          <div className="col-span-4 col-start-1 ">
             <Carousel
               prebuiltSlides={prebuiltSlides}
               keys={heroCommercialsKeys}

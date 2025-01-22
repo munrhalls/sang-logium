@@ -12,7 +12,6 @@ export default function Dots({
   currentIndex,
   onDotClick,
 }: CarouselDotsProps) {
-  console.log("DOTS", currentIndex);
   return (
     <div className="z-40 border-b border-white lg:border-b-0 lg:border-transparent bg-black py-2 sm:py-0 sm:bg-transparent absolute left-0 right-0 bottom-0 flex flex-shrink-0 justify-center items-center gap-2 lg:gap-3 xl:gap-4 xl:mb-4">
       {keys.map((key, i) => {

@@ -22,6 +22,16 @@ export const commercialType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "variant",
+      type: "string",
+      options: {
+        list: [
+          { title: "Text", value: "text" },
+          { title: "Products", value: "products" },
+        ],
+      },
+    }),
+    defineField({
       name: "image",
       type: "image",
       validation: (Rule) => Rule.required(),

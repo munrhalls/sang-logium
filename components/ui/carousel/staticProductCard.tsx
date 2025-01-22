@@ -5,10 +5,10 @@ import { imageUrl } from "@/lib/imageUrl";
 const Price = ({ price }: { price: number }) => {
   return (
     <div>
-      <span className="text-white text-xs 2xs:text-lg md:text-xl lg:text-2xl mt-1">
+      <span className="text-white font-black text-xs 2xs:text-lg md:text-xl lg:text-2xl ">
         ONLY
       </span>
-      <span className="ml-1 text-lightpromotion text-md 2xs:text-lg md:text-xl lg:text-2xl mb-2">
+      <span className="ml-1 text-lightpromotion font-black text-md 2xs:text-lg md:text-xl lg:text-2xl ">
         ${price.toFixed(2)}
       </span>
     </div>
@@ -27,7 +27,7 @@ const DiscountPrice = ({
   return (
     <>
       <span className="text-gray-400">${price.toFixed(2)}</span>
-      <span className="text-lightpromotion text-xs 2xs:text-lg md:text-xl lg:text-2xl mt-1">
+      <span className="text-lightpromotion font-black text-xs 2xs:text-lg md:text-xl lg:text-2xl mt-1">
         ${discountPrice?.toFixed(2)}
       </span>
     </>
@@ -48,7 +48,7 @@ type Props = {
 
 export const ProductCard = ({ product, discount }: Props) => {
   return (
-    <div className="bg-black/40 border border-blue-700 font-oswald grid grid-cols-[2fr_3fr] md:grid-cols-[8rem_1fr] lg:grid-cols-[12rem_1fr]">
+    <div className="bg-black/40 rounded-sm font-oswald grid grid-cols-[2fr_3fr] 2xs:place-content-center md:grid-cols-1 md:gap-2 ">
       <Link href={`/product/${product._id}`} className=" text-white ">
         <Image
           loading="lazy"
@@ -59,11 +59,11 @@ export const ProductCard = ({ product, discount }: Props) => {
           alt={product.name}
           height={80}
           width={80}
-          className="rounded-sm md:w-full"
+          className="rounded-sm md:w-full ]"
         />
       </Link>
 
-      <span className="text-white md:text-xl">{product.name}</span>
+      <span className="text-white font-black text-sm ">{product.name}</span>
 
       <div className="flex">
         {discount ? (

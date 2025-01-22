@@ -3,7 +3,6 @@ import { imageUrl } from "@/lib/imageUrl";
 import TextCommercial from "./staticTextCommercial";
 import ProductsCommercial from "./staticProductsCommercial";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
-import Link from "next/link";
 
 type SlideProps = {
   commercial: GET_COMMERCIALS_BY_FEATURE_QUERYResult[number];
@@ -18,25 +17,18 @@ type ProductVerified = {
 };
 
 const Slide = ({ commercial, index }: SlideProps) => {
-  const { image, sale, products, text } = commercial;
+  const { variant, products, text, image, sale } = commercial;
 
   const productsVerified = products?.filter(
     (product): product is ProductVerified =>
       Boolean(product?.name && product?.price && product?.image)
   );
 
-  const buttonColor = () => {
-    if (!text) return "#CF8226";
-    const firstColorMark = text[0]?.markDefs?.find(
-      (mark) => mark._type === "textColor"
-    );
-    return firstColorMark?.value || "#CF8226";
-  };
-
   if (!image) return null;
 
   const discount = sale?.discount || null;
-
+  {
+  }
   return (
     <div
       className="z-10 absolute top-0 bottom-0"
@@ -45,7 +37,7 @@ const Slide = ({ commercial, index }: SlideProps) => {
         transform: `translateX(${index * 100}%)`,
       }}
     >
-      <div className="relative h-full w-full">
+      <div className="relative h-full w-full md:grid md:place-content-center">
         <Image
           src={imageUrl(image).url()}
           width={1920}
@@ -56,23 +48,20 @@ const Slide = ({ commercial, index }: SlideProps) => {
           sizes="100vw"
           alt={commercial.title || "Sale"}
         />
-        <div className="grid md:grid-cols-[1fr_10fr_1fr] md:align-content-center">
-          {text && text.length > 0 && <TextCommercial text={text} />}
 
-          {productsVerified && (
-            <ProductsCommercial
-              products={productsVerified}
-              discount={discount}
-            />
-          )}
-          <Link
-            href="asdasaxzc"
-            prefetch={true}
-            className=""
-            style={{ backgroundColor: `${buttonColor}` }}
-          >
-            SEE MORE
-          </Link>
+        <div className="grid md:grid-cols-[1fr_10fr_1fr] md:place-content-center md:[grid-template-areas:'empty_content_empty'] px-3 py-3">
+          <div className="z-30 md:[grid-area:content]">
+            {variant === "text" ? (
+              <TextCommercial text={text} />
+            ) : (
+              productsVerified && (
+                <ProductsCommercial
+                  products={productsVerified}
+                  discount={discount}
+                />
+              )
+            )}
+          </div>
         </div>
       </div>
     </div>
