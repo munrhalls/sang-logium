@@ -26,7 +26,7 @@ const Carousel = ({
   return (
     <div className="h-full w-full grid grid-rows-[1fr_2rem]">
       <div
-        className=" overflow-hidden bg-slate-500 transform duration-300"
+        className="relative  overflow-hidden bg-slate-500 transform duration-300"
         style={{ transform: `translateX(-${index * 100}%)` }}
       >
         {prebuiltSlides}
@@ -35,7 +35,7 @@ const Carousel = ({
         {/* <Controls onSlide={handleSlide} /> */}
         <button
           onClick={() => handleSlide("left")}
-          className="max-h-full z-50  col-start-1 grid place-content-center text-white text-3xl "
+          className=" inline h-full z-50 col-start-1 place-content-center text-white text-3xl "
         >
           <ChevronLeft />
         </button>
@@ -44,12 +44,12 @@ const Carousel = ({
           currentIndex={index}
           onDotClick={(dotNum) => setIndex(dotNum)}
         />
-        <button
+        {/* <button
           onClick={() => handleSlide("right")}
           className="max-h-full z-50 text-center col-start-3 grid place-content-center  text-white text-3xl lg:top-0"
         >
           <ChevronRight />
-        </button>
+        </button> */}
       </div>
     </div>
   );
