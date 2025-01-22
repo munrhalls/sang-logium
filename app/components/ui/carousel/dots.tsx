@@ -13,7 +13,7 @@ export default function Dots({
   onDotClick,
 }: CarouselDotsProps) {
   return (
-    <div className="col-start-2 col-span-1 z-40 border-b border-white lg:border-b-0 lg:border-transparent bg-black py-2 sm:py-0 sm:bg-transparent flex flex-shrink-0 justify-center items-center gap-2 lg:gap-3 xl:gap-4 xl:mb-4">
+    <div className="max-h-full text-white text-center z-50  py-2 sm:py-0 sm:bg-transparent flex flex-shrink-0 justify-center items-center gap-2 lg:gap-3 xl:gap-4 xl:mb-4">
       {keys.map((key, i) => {
         return currentIndex === i ? (
           <Logo key={key} />

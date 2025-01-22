@@ -60,18 +60,11 @@ export default function MobileCategoriesDrawer({
 
   return (
     <div
-      className={`overflow-y-auto z-50 pointer-events-auto fixed top-0 left-0 bg-slate-50 text-black transition-transform duration-300 flex flex-col ${
+      className={`overflow-y-auto z-50 pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 flex flex-col ${
         isCategoriesDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
-      style={{
-        position: "fixed",
-        marginTop: "var(--header-height)",
-        height: "calc(100vh - var(--header-height) - var(--footer-height))",
-        width: "90%",
-      }}
     >
-      {/* Fixed header */}
-      <div className="sticky top-0  z-10">
+      <div className="">
         <div className="p-2 border-b border-gray-200">
           <div className="flex justify-end items-center">
             <button

@@ -37,10 +37,12 @@ export default async function RootLayout({
           }}
           dynamic
         >
-          <div id="wrapper" className="grid grid-rows-[auto,1fr,auto]">
+          <div
+            id="wrapper"
+            className="grid grid-rows-[auto_1fr] min-h-[100dvh]"
+          >
             <Header />
             {children}
-            {/* <MobileComponents /> */}
             <SanityLive />
           </div>
         </ClerkProvider>

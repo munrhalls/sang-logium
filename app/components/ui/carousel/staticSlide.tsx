@@ -37,7 +37,7 @@ const Slide = ({ commercial, index }: SlideProps) => {
         transform: `translateX(${index * 100}%)`,
       }}
     >
-      <div className="relative h-full w-full md:grid md:place-content-center pb-[24px]">
+      <div className="relative h-full w-full md:grid md:place-content-center">
         <Image
           src={imageUrl(image).url()}
           width={1920}

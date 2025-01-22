@@ -8,14 +8,14 @@ export default function Controls({ onSlide }: BaseControlsProps) {
     <>
       <button
         onClick={() => onSlide("left")}
-        className="z-50 col-start-1 text-white text-3xl absolute left-0 bottom-1 lg:bottom-12 lg:top-0"
+        className="max-h-full z-50 col-start-1 text-white text-3xl "
       >
         <ChevronLeft />
       </button>
 
       <button
         onClick={() => onSlide("right")}
-        className="z-50 col-start-3  text-white text-3xl absolute bottom-1 lg:bottom-12 right-0 lg:top-0"
+        className="max-h-full z-50 col-start-3  text-white text-3xl lg:top-0"
       >
         <ChevronRight />
       </button>

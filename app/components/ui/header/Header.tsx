@@ -29,10 +29,7 @@ const SearchForm = dynamic(
 
 function Header() {
   return (
-    <header
-      style={{ height: "var(--header-height)" }}
-      className="fixed top-0 left-0 right-0 z-50 lg:px-10 xl:px-16 2xl:px-24 flex justify-center lg:justify-between items-center bg-black"
-    >
+    <header className="lg:px-10 xl:px-16 2xl:px-24 flex justify-center lg:justify-between items-center bg-black">
       <Link href="/">
         <Logo />
         {/* <Image

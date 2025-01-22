@@ -21,15 +21,9 @@ export default function MobileSearchDrawer() {
 
   return (
     <div
-      className={`z-50 pointer-events-auto fixed top-0 left-0 bg-slate-50 text-black transition-transform duration-300 ${
+      className={`z-50 pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 ${
         isSearchDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
-      style={{
-        marginTop: "var(--header-height)",
-        // marginBottom: "var(--footer-height)",
-        height: "calc(100vh - var(--header-height) - var(--footer-height))",
-        width: "90%",
-      }}
     >
       <div className="p-4">
         <div className="p-2 border-b border-gray-200">

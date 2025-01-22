@@ -30,14 +30,7 @@ export default function DesktopCategoriesNav({ categories }: PropsType) {
   );
 
   return (
-    <nav
-      className="hidden lg:flex items-center justify-center z-50 w-full bg-gray-900 "
-      style={{
-        position: "fixed",
-        top: "var(--header-height)",
-        height: "var(--categories-nav-height)",
-      }}
-    >
+    <nav className="hidden lg:flex items-center justify-center z-50 w-full bg-gray-900 ">
       <div className="h-full max-w-7xl mx-auto px-4">
         <ul className="h-full flex justify-center items-center">
           {orderedCategoriesTree.map((category) => (
