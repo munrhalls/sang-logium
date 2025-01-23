@@ -33,15 +33,23 @@ export default async function RootLayout({
           appearance={{
             elements: {
               rootBox: "w-full",
-              card: "rounded-lg",
+              card: "rounded-sm",
             },
           }}
           dynamic
         >
-          <div id="wrapper debug-screens">
+          <div
+            id="wrappe debug-screens"
+            className="h-full grid grid-rows-[auto_1fr]"
+          >
             <Header />
-            <div className="min-h-0 grid grid-rows-[auto_1fr] h-[100dvh] bg-green-700">
+            <div className="h-full min-h-0 bg-green-700 overflow-y-auto">
               {/* {children} */}
+              <div className="bg-indigo-900 h-full grid grid-rows-[1fr_2rem]">
+                <div className="bg-yellow-900 h-full"></div>
+                <div className="bg-black h-full"></div>
+              </div>
+              <div className="bg-pink-900 h-full"></div>
             </div>
 
             <SanityLive />
