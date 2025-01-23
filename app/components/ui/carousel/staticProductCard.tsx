@@ -34,7 +34,7 @@ const DiscountPrice = ({
   discount: number;
   priceColor: string;
 }) => {
-  const discountPrice = (discount / 100) * price;
+  const discountPrice = price - (discount / 100) * price;
 
   return (
     <>
