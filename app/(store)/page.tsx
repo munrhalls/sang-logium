@@ -17,29 +17,13 @@ export default async function Page() {
   );
 
   return (
-    <main className="min-h-0 overflow-y-auto">
-      <div className="bg-indigo-700 h-full grid grid-rows-[1fr_auto]">
-        <div className="h-full grid">
-          <div className={`/* products container */ z-40 h-full grid gap-3`}>
-            <div className="bg-blue-700 h-full grid grid-cols-[33%_2fr]">
-              <div className="bg-black h-full w-full "></div>
-              <div className="bg-pink-700 h-full w-full "></div>
-            </div>
-            <div className="bg-blue-700 grid grid-cols-[33%_2fr]">
-              <div className="bg-black h-full w-full "></div>
-              <div className="bg-pink-700 h-full w-full "></div>
-            </div>
-            <div className="bg-blue-700 grid grid-cols-[33%_2fr]">
-              <div className="bg-black h-full w-full "></div>
-              <div className="bg-pink-700 h-full w-full "></div>
-            </div>
-          </div>
-        </div>
-        {/* <Carousel prebuiltSlides={prebuiltSlides} keys={heroCommercialsKeys} /> */}
-      </div>
-      <div className="bg-orange-700 h-full"></div>
-      <div className="bg-green-700 h-full"></div>
-      <div className="bg-yellow-700 h-full"></div>
+    <main className="h-full">
+      <Carousel prebuiltSlides={prebuiltSlides} keys={heroCommercialsKeys} />
+      <MobileFooter />
+      <div className="h-full bg-orange-800 text-white">qweqwqew</div>
+      <div className="h-full bg-purple-800 text-white">qweqwqew</div>
+      <div className="h-full bg-teal-800 text-white">qweqwqew</div>
+      <div className="h-full bg-emerald-700 text-white">qweqwqew</div>
     </main>
   );
 }
