@@ -68,12 +68,9 @@ export default async function RootLayout({
                             {/* a product card*/}
                             <div className="h-full bg-green-400 grid place-content-center">
                               {/* prod image cell */}
-                              <div className="h-full bg-black text-white">
+                              <div className="h-full grid  bg-black text-white">
                                 {/* prod img */}
-                                <Link
-                                  href="/"
-                                  className="h-full grid place-content-center text-white"
-                                >
+                                <Link href="/" className="h-full text-white">
                                   <Image
                                     loading="lazy"
                                     decoding="async"
