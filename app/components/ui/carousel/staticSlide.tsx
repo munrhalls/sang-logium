@@ -32,7 +32,7 @@ const Slide = ({ commercial, index }: SlideProps) => {
 
   return (
     <div
-      className="/* slide */ z-50 relative h-full w-full md:grid md:place-content-center"
+      className="/* slide */ z-50 relative h-full "
       style={{
         flex: "0 0 100%",
       }}
@@ -48,20 +48,17 @@ const Slide = ({ commercial, index }: SlideProps) => {
         alt={commercial.title || "Sale"}
       />
 
-      <div className="h-full grid md:grid-cols-[1fr_10fr_1fr] md:place-content-center md:[grid-template-areas:'empty_content_empty'] px-3 py-3">
-        <div className="z-30 md:[grid-area:content]">
-          {variant === "text" && text ? (
-            <TextCommercial text={text} />
-          ) : (
-            productsVerified && (
-              <ProductsCommercial
-                products={productsVerified}
-                discount={discount}
-              />
-            )
-          )}
-        </div>
-      </div>
+      {/* {variant === "text" && text ? (
+          <TextCommercial text={text} />
+        ) : (
+          productsVerified && (
+            <ProductsCommercial
+              products={productsVerified}
+              discount={discount}
+            />
+          )
+        )} */}
+      {/* </div> */}
     </div>
   );
 };

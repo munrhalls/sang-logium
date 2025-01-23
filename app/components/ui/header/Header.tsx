@@ -8,6 +8,7 @@ import Logo from "@/public/Logo.svg";
 import dynamic from "next/dynamic";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 // import { UserIcon, KeyIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 
 const AuthContent = dynamic(
   () => import("@/app/components/features/auth/AuthContent"),
@@ -29,17 +30,9 @@ const SearchForm = dynamic(
 
 function Header() {
   return (
-    <header className="lg:px-10 xl:px-16 2xl:px-24 flex justify-center lg:justify-between items-center bg-black">
-      <Link href="/">
-        <Logo />
-        {/* <Image
-          src={logo}
-          alt="Sang Logium Logo"
-          className="h-[52px] lg:h-[60px]"
-          priority
-          width={260}
-          height={100}
-        /> */}
+    <header className=" bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_2fr_1fr] h-[3rem]">
+      <Link href="/" className="grid place-content-center">
+        <Logo width={124} height={48} />
       </Link>
 
       <SearchForm />
