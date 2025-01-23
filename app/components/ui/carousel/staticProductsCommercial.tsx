@@ -7,7 +7,7 @@ type ProductsProps = {
 
 function ProductsCommercial({ products, discount }: ProductsProps) {
   return (
-    <div className="h-full w-full grid gap-4">
+    <div className="h-full w-full grid p-4 gap-3">
       {products.map((product) => (
         <ProductCard key={product._id} product={product} discount={discount} />
       ))}

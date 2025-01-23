@@ -48,10 +48,10 @@ type Props = {
 
 export const ProductCard = ({ product, discount }: Props) => {
   return (
-    <div className="/* PRODUCT CARD */ h-full grid grid-cols-[33%_2fr] bg-black/40 text-white rounded-sm font-oswald">
+    <div className="/* PRODUCT CARD */ h-full min-h-0 grid gap-2 grid-cols-[1fr_3fr] bg-black/40 text-white rounded-sm font-oswald">
       <Link
         href={`/product/${product._id}`}
-        className=" text-white h-full grid place-content-start"
+        className=" text-white relative aspect-square w-[clamp(60px,70%,100px)] place-self-center"
       >
         <Image
           loading="lazy"
@@ -60,18 +60,18 @@ export const ProductCard = ({ product, discount }: Props) => {
           sizes="(max-width: 768px) 36vw, 25vw"
           src={imageUrl(product.image).url()}
           alt={product.name}
-          height={48}
-          width={48}
-          className="z-40 object-contain rounded-sm"
+          height={60}
+          width={60}
+          className="z-40 h-full w-full absolute inset-0 aspect-square object-cover rounded-sm"
         />
       </Link>
 
-      <div className="z-40">
-        <span className="z-40 text-white truncate font-bold text-xs md:text-md">
+      <div className="z-40 min-w-0 max-w-full flex flex-col justify-center items-start">
+        <span className="z-40 max-w-full text-white truncate font-bold text-xs md:text-md">
           {product.name}
         </span>
 
-        <div className="z-40 flex row-start-1 col-start-2">
+        <div className="z-40 flex ">
           {discount ? (
             <DiscountPrice price={product.price} discount={discount} />
           ) : (
