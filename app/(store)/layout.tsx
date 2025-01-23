@@ -4,6 +4,7 @@ import { Iceland } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { SanityLive } from "@/sanity/lib/live";
 import Header from "@/app/components/ui/header/Header";
+import Footer from "@/app/components/ui/footer/Footer";
 // import { Footer } from "@/components/ui/Footer";
 // import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
 
@@ -38,11 +39,12 @@ export default async function RootLayout({
           dynamic
         >
           <div
-            id="wrapper"
-            className="grid grid-rows-[auto_1fr] min-h-[100dvh]"
+            id="wrapper debug-screens"
+            className="min-h-0 grid grid-rows-[auto_1fr] h-[100dvh]"
           >
             <Header />
             {children}
+            <Footer />
             <SanityLive />
           </div>
         </ClerkProvider>

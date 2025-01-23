@@ -29,41 +29,37 @@ const Slide = ({ commercial, index }: SlideProps) => {
   if (!image) return null;
 
   const discount = sale?.discount || null;
-  {
-  }
+
   return (
     <div
-      className="z-30 absolute top-0 bottom-0"
+      className="/* slide */ z-50 relative h-full w-full md:grid md:place-content-center"
       style={{
-        width: "100%",
-        transform: `translateX(${index * 100}%)`,
+        flex: "0 0 100%",
       }}
     >
-      <div className="relative h-full w-full md:grid md:place-content-center">
-        <Image
-          src={imageUrl(image).url()}
-          width={1920}
-          height={1080}
-          style={{ objectPosition: "80% 0%" }}
-          className="absolute inset-0 w-full h-full object-cover"
-          quality={85}
-          sizes="100vw"
-          alt={commercial.title || "Sale"}
-        />
+      <Image
+        src={imageUrl(image).url()}
+        width={1920}
+        height={1080}
+        style={{ objectPosition: "80% 0%" }}
+        className="absolute inset-0 w-full h-full object-cover"
+        quality={85}
+        sizes="100vw"
+        alt={commercial.title || "Sale"}
+      />
 
-        <div className="h-full grid md:grid-cols-[1fr_10fr_1fr] md:place-content-center md:[grid-template-areas:'empty_content_empty'] px-3 py-3">
-          <div className="z-30 md:[grid-area:content]">
-            {variant === "text" && text ? (
-              <TextCommercial text={text} />
-            ) : (
-              productsVerified && (
-                <ProductsCommercial
-                  products={productsVerified}
-                  discount={discount}
-                />
-              )
-            )}
-          </div>
+      <div className="h-full grid md:grid-cols-[1fr_10fr_1fr] md:place-content-center md:[grid-template-areas:'empty_content_empty'] px-3 py-3">
+        <div className="z-30 md:[grid-area:content]">
+          {variant === "text" && text ? (
+            <TextCommercial text={text} />
+          ) : (
+            productsVerified && (
+              <ProductsCommercial
+                products={productsVerified}
+                discount={discount}
+              />
+            )
+          )}
         </div>
       </div>
     </div>

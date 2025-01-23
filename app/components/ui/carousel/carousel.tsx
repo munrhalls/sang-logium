@@ -3,10 +3,9 @@
 import React from "react";
 import { useState } from "react";
 import Dots from "./dots";
-// import Controls from "./controls";
-// import ChevronLeft from "@/public/icons/ChevronLeft.svg";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
+import Controls from "./controls";
 
 const Carousel = ({
   prebuiltSlides,
@@ -17,6 +16,7 @@ const Carousel = ({
 }) => {
   const [index, setIndex] = useState(0);
   console.log(index);
+
   const count = keys.length;
   const handleSlide = (direction: "left" | "right") => {
     const newIndex =
@@ -25,12 +25,14 @@ const Carousel = ({
   };
 
   return (
-    <div className="h-full w-full grid grid-rows-[1fr_2rem]">
-      <div
-        className="relative overflow-hidden bg-slate-500 transform duration-300"
-        style={{ transform: `translateX(-${index * 100}%)` }}
-      >
-        {prebuiltSlides}
+    <div className="/* carousel */ h-full grid grid-rows-[1fr_2rem]">
+      <div className="relative h-full w-full z-30 overflow-hidden">
+        <div
+          className="h-full flex transform duration-300"
+          style={{ transform: `translateX(-${index * 100}%)` }}
+        >
+          {prebuiltSlides}
+        </div>
       </div>
       <div className="z-50 bg-black grid grid-cols-3 h-[2rem]">
         <button

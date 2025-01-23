@@ -48,8 +48,13 @@ type Props = {
 
 export const ProductCard = ({ product, discount }: Props) => {
   return (
-    <div className="bg-black/40 h-full rounded-sm font-oswald grid grid-rows-[2rem_1fr] grid-cols-[2fr_3fr] 2xs:place-content-center md:grid-cols-1 md:gap-2 ">
-      <Link
+    <div className="/* product card */ bg-black/40 rounded-sm font-oswald grid">
+      <div className="bg-blue-700 grid grid-cols-[1fr_2fr]">
+        <div className="bg-black"></div>
+        <div className="bg-pink-700"></div>
+      </div>
+
+      {/* <Link
         href={`/product/${product._id}`}
         className=" text-white grid place-content-start"
       >
@@ -76,7 +81,7 @@ export const ProductCard = ({ product, discount }: Props) => {
         ) : (
           <Price price={product.price} />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
