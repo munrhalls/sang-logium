@@ -35,7 +35,7 @@ function Header() {
 
       <SearchForm />
 
-      <div className="hidden lg:grid place-content-center grid-flow-col space-x-4">
+      <div className="hidden lg:grid place-content-center grid-flow-col gap-8">
         <Link href="/basket" className=" text-white grid place-content-center">
           <div className="grid place-content-center">
             <ShoppingCartIcon height={24} width={24} className=" text-white" />
