@@ -66,11 +66,14 @@ export default async function RootLayout({
                           {/* products commercial */}
                           <div className="h-full bg-pink-700 grid grid-cols-[33%_2fr] ">
                             {/* a product card*/}
-                            <div className="h-full bg-green-400 grid place-content-center">
+                            <div className="h-full bg-green-400 grid ">
                               {/* prod image cell */}
                               <div className="h-full grid  bg-black text-white">
                                 {/* prod img */}
-                                <Link href="/" className="h-full text-white">
+                                <Link
+                                  href="/"
+                                  className="h-full text-white grid items-center justify-items-end bg-blue-500"
+                                >
                                   <Image
                                     loading="lazy"
                                     decoding="async"
@@ -82,7 +85,7 @@ export default async function RootLayout({
                                     alt={""}
                                     height={80}
                                     width={80}
-                                    className="h-full block rounded-sm"
+                                    className=" aspect-square block rounded-sm"
                                   />
                                 </Link>
                               </div>
