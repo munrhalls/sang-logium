@@ -13,7 +13,7 @@ function SearchForm() {
         type="text"
         name="query"
         placeholder="Search products..."
-        className="ml-3 w-full text-xl bg-transparent border-b border-white text-white placeholder-white focus:outline-none"
+        className="ml-3 w-full text-xl bg-transparent border-b border-white text-white placeholder-orange-400 focus:outline-none"
       />
     </form>
   );
