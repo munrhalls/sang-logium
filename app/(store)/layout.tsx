@@ -70,14 +70,35 @@ export default async function RootLayout({
                               {/* prod image cell */}
                               <div className="h-full bg-black text-white">
                                 {/* prod img */}
-                                img
+                                <Link
+                                  href="/"
+                                  className="h-full grid place-content-center text-white"
+                                >
+                                  <Image
+                                    loading="lazy"
+                                    decoding="async"
+                                    quality={100}
+                                    sizes="(max-width: 768px) 36vw, 25vw"
+                                    // src="/api/placeholder/80/80"
+                                    src={logo}
+                                    // alt={product.name}
+                                    alt={""}
+                                    height={80}
+                                    width={80}
+                                    className="h-full block rounded-sm"
+                                  />
+                                </Link>
                               </div>
                             </div>
                             <div className="h-full bg-orange-400 grid place-content-center">
                               {/* prod text cell */}
                               <div className="h-full bg-pink-800">
                                 {/* prod text */}
-                                txt
+                                <h1>
+                                  Some product name KSC BULTHAMA R NAN X-5000
+                                  V20 OHS TECEZ
+                                </h1>
+                                <p>Price 324 32352</p>
                               </div>
                             </div>
                           </div>
