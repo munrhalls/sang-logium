@@ -22,10 +22,14 @@ function ProductsCommercial({
   const components: PortableTextComponents = {
     block: {
       h1: ({ children }) => (
-        <h1 className="text-2xl font-black text-center">{children}</h1>
+        <h1 className="text-2xl lg:text-3xl font-black text-center">
+          {children}
+        </h1>
       ),
       h2: ({ children }) => (
-        <h2 className="text-xl font-bold text-center">{children}</h2>
+        <h2 className="text-xl lg:text-2xl font-bold text-center">
+          {children}
+        </h2>
       ),
       normal: ({ children }) => <p className="text-xl">{children}</p>,
     },
@@ -51,6 +55,7 @@ function ProductsCommercial({
             key={product._id}
             product={product}
             discount={discount}
+            priceColor={buttonColor}
           />
         ))}
       </div>
