@@ -1,6 +1,6 @@
 "use client";
 
-import { FaBars, FaSearch, FaShoppingBag, FaUser, FaKey } from "react-icons/fa";
+import { FaBars, FaSearch, FaShoppingBag } from "react-icons/fa";
 import { useStore } from "../../../../store";
 import { ClerkLoaded } from "@clerk/nextjs";
 // import { SignInButton, UserButton, useUser } from "@clerk/nextjs";

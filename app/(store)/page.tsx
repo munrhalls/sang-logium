@@ -1,12 +1,11 @@
-import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import Carousel from "@/app/components/ui/carousel/carousel";
 import Slide from "@/app/components/ui/carousel/staticSlide";
-import MobileFooter from "@/app/components/ui/footer/MobileFooter";
+// import MobileFooter from "@/app/components/ui/footer/MobileFooter";
 
 export default async function Page() {
   const heroCommercials = await getCommercialsByFeature("hero");
-  const categories = await getAllCategories();
+  // const categories = await getAllCategories();
 
   const prebuiltSlides = heroCommercials
     .sort((a, b) => (a?.displayOrder ?? 0) - (b?.displayOrder ?? 0))
