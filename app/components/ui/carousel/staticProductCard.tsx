@@ -73,7 +73,7 @@ export const ProductCard = ({ product, discount, priceColor }: Props) => {
     <div className="/* PRODUCT CARD */ z-30 h-full min-h-0 grid gap-2 grid-cols-[1fr_3fr] md:grid-col-[2fr_3fr] bg-black/40 text-white rounded-sm font-oswald">
       <Link
         href={`/product/${product._id}`}
-        className=" text-white relative aspect-square w-[clamp(60px,50%,100px)] md:w-[clamp(60px,50%,200px)] place-self-center"
+        className=" text-white relative aspect-square w-[clamp(60px,50%,100px)] md:w-[clamp(60px,50%,140px)] place-self-center"
       >
         <Image
           loading="lazy"
