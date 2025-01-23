@@ -24,12 +24,22 @@ const SearchForm = dynamic(
 
 function Header() {
   return (
-    <header className=" bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_4fr] h-[4rem]">
+    <header className="bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_4fr] h-[4rem]">
       <Link href="/" className="grid place-content-center">
-        <Logo width={180} height={60} />
+        <Logo
+          height={60}
+          width={180}
+          // className="w-full h-full"
+          // viewBox="0 0 180 60"
+          // preserveAspectRatio="xMidYMid meet"
+          // aria-label="Site logo"
+          // role="img"
+        />
       </Link>
 
-      <SearchForm />
+      <div className="hidden lg:grid lg:place-content-center">
+        <SearchForm />
+      </div>
 
       <div className="hidden lg:grid place-content-center grid-flow-col gap-8">
         <Link href="/basket" className=" text-white">

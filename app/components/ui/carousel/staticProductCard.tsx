@@ -62,7 +62,7 @@ export const ProductCard = ({ product, discount }: Props) => {
           decoding="async"
           quality={100}
           sizes="(max-width: 768px) 36vw, 25vw"
-          src={imageUrl(product.image).url()}
+  src="/api/placeholder/80/80"
           alt={product.name}
           height={80}
           width={80}

@@ -8,6 +8,9 @@ import MobileFooter from "@/app/components/ui/footer/MobileFooter";
 // import { Footer } from "@/components/ui/Footer";
 // import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
 
+import Image from "next/image";
+import Link from "next/link";
+import logo from "@/public/logo.png";
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
   description: "The best audio gear in the world",
@@ -27,8 +30,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={iceland.className}>
-      <body className={`${iceland.variable} font-sans`}>
+    <html lang="en" className={`${iceland.className} w-full}`}>
+      <body className={`${iceland.variable} font-sans w-full`}>
         <ClerkProvider
           appearance={{
             elements: {
@@ -39,18 +42,26 @@ export default async function RootLayout({
           dynamic
         >
           <div
-            id="wrappe debug-screens"
+            id="wrapper debug-screens"
             className="h-full grid grid-rows-[auto_1fr]"
           >
             <Header />
-            <div className="h-full min-h-0 bg-green-700 overflow-y-auto">
+            <div className="h-full min-h-0 min-w-0 overflow-y-auto grid grid-rows-[1fr_auto]">
               {/* {children} */}
-              <div className="bg-indigo-900 h-full grid grid-rows-[1fr_2rem_auto]">
-                <div className="bg-yellow-900 h-full"></div>
-                <div className="bg-black"></div>
-                <MobileFooter />
+
+              {/* this is its own thing in cell 1fr: carousel grid with 1fr, 2rem at bottom*/}
+              <div className="h-full border-black border-4 grid grid-rows-[1fr_2rem]">
+                {/* and now, this is its own thing inside carousel: slider track fitting the 1fr cell, dots fitting 2rem cell */}
+                <div className="h-full border-purple-800 bg-purple-800">
+                  {/* slider track */}
+                </div>
+                <div className="h-full border-gray-800 bg-black text-white">
+                  {/* dots */}
+                  dots
+                </div>
               </div>
-              <div className="bg-pink-900 h-full"></div>
+              {/* and then, this is its own thing in cell auto: footer */}
+              <MobileFooter />
             </div>
 
             <SanityLive />
@@ -59,4 +70,25 @@ export default async function RootLayout({
       </body>
     </html>
   );
+}
+
+{
+  /* <Link
+                          href="/"
+                          className="h-full grid place-content-center text-white"
+                        >
+                          <Image
+                            loading="lazy"
+                            decoding="async"
+                            quality={100}
+                            sizes="(max-width: 768px) 36vw, 25vw"
+                            // src="/api/placeholder/80/80"
+                            src={logo}
+                            // alt={product.name}
+                            alt={""}
+                            height={80}
+                            width={80}
+                            className="h-full block rounded-sm"
+                          />
+                        </Link> */
 }
