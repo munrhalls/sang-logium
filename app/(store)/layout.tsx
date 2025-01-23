@@ -51,12 +51,53 @@ export default async function RootLayout({
 
               {/* this is its own thing in cell 1fr: carousel grid with 1fr, 2rem at bottom*/}
               <div className="h-full border-black border-4 grid grid-rows-[1fr_2rem]">
-                {/* and now, this is its own thing inside carousel: slider track fitting the 1fr cell, dots fitting 2rem cell */}
+                {/* and now, this is its own thing inside carousel: carousel container, setting the 1fr cell, and 2rem cell */}
                 <div className="h-full border-purple-800 bg-purple-800">
-                  {/* slider track */}
+                  {/* slider track in the 1fr cell*/}
+                  <div className="relative h-full w-full z-30 overflow-hidden">
+                    {/* slides container inside slider track */}
+                    <div className="h-full bg-blue-800 flex">
+                      {/* actual slides */}
+                      <div className="/* slide */ z-50 relative h-full w-full bg-teal-500">
+                        {/* a slide */}
+                        {/* first - image inset 0 absolute, fills entire container above */}
+                        {/* second - text or products commercial */}
+                        <div className="h-full w-full grid gap-4 border-3 border-yellow-500">
+                          {/* products commercial */}
+                          <div className="h-full bg-pink-700 grid grid-cols-[33%_2fr]">
+                            {/* a product card*/}
+                            <div className="h-full bg-green-400">
+                              {/* prod image cell */}
+                            </div>
+                            <div className="h-full bg-orange-400">
+                              {/* prod text cell */}
+                            </div>
+                          </div>
+                          <div className="h-full bg-pink-700 grid grid-cols-[33%_2fr]">
+                            {/* a product card*/}
+                            <div className="h-full bg-green-400">
+                              {/* prod image cell */}
+                            </div>
+                            <div className="h-full bg-orange-400">
+                              {/* prod text cell */}
+                            </div>
+                          </div>
+                          <div className="h-full bg-pink-700 grid grid-cols-[33%_2fr]">
+                            {/* a product card*/}
+                            <div className="h-full bg-green-400">
+                              {/* prod image cell */}
+                            </div>
+                            <div className="h-full bg-orange-400">
+                              {/* prod text cell */}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="h-full border-gray-800 bg-black text-white">
-                  {/* dots */}
+                  {/* dots in the 2rem cell */}
                   dots
                 </div>
               </div>
