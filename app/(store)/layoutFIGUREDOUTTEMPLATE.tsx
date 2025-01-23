@@ -62,57 +62,33 @@ export default async function RootLayout({
                         {/* a slide */}
                         {/* first - image inset 0 absolute, fills entire container above */}
                         {/* second - text or products commercial */}
-                        <div className="h-full w-full grid  gap-4 border-3 border-yellow-500">
+                        <div className="h-full w-full grid gap-4 border-3 border-yellow-500">
                           {/* products commercial */}
-                          <div className="h-full bg-pink-700 grid grid-cols-[33%_2fr] ">
+                          <div className="h-full bg-pink-700 grid grid-cols-[33%_2fr]">
                             {/* a product card*/}
-                            <div className="h-full bg-green-400 grid place-content-center">
+                            <div className="h-full bg-green-400">
                               {/* prod image cell */}
-                              <div className="h-full bg-black text-white">
-                                {/* prod img */}
-                                img
-                              </div>
                             </div>
-                            <div className="h-full bg-orange-400 grid place-content-center">
+                            <div className="h-full bg-orange-400">
                               {/* prod text cell */}
-                              <div className="h-full bg-pink-800">
-                                {/* prod text */}
-                                txt
-                              </div>
                             </div>
                           </div>
-                          <div className="h-full bg-pink-700 grid grid-cols-[33%_2fr] ">
+                          <div className="h-full bg-pink-700 grid grid-cols-[33%_2fr]">
                             {/* a product card*/}
-                            <div className="h-full bg-green-400 grid place-content-center">
+                            <div className="h-full bg-green-400">
                               {/* prod image cell */}
-                              <div className="h-full bg-black text-white">
-                                {/* prod img */}
-                                img
-                              </div>
                             </div>
-                            <div className="h-full bg-orange-400 grid place-content-center">
+                            <div className="h-full bg-orange-400">
                               {/* prod text cell */}
-                              <div className="h-full bg-pink-800">
-                                {/* prod text */}
-                                txt
-                              </div>
                             </div>
                           </div>
-                          <div className="h-full bg-pink-700 grid grid-cols-[33%_2fr] ">
+                          <div className="h-full bg-pink-700 grid grid-cols-[33%_2fr]">
                             {/* a product card*/}
-                            <div className="h-full bg-green-400 grid place-content-center">
+                            <div className="h-full bg-green-400">
                               {/* prod image cell */}
-                              <div className="h-full bg-black text-white">
-                                {/* prod img */}
-                                img
-                              </div>
                             </div>
-                            <div className="h-full bg-orange-400 grid place-content-center">
+                            <div className="h-full bg-orange-400">
                               {/* prod text cell */}
-                              <div className="h-full bg-pink-800">
-                                {/* prod text */}
-                                txt
-                              </div>
                             </div>
                           </div>
                         </div>
