@@ -4,8 +4,9 @@ import React from "react";
 import { useState } from "react";
 import Dots from "./dots";
 // import Controls from "./controls";
-import ChevronLeft from "@/public/icons/ChevronLeft.svg";
-import ChevronRight from "@/public/icons/ChevronRight.svg";
+// import ChevronLeft from "@/public/icons/ChevronLeft.svg";
+import { ChevronRight } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 
 const Carousel = ({
   prebuiltSlides,
@@ -26,30 +27,27 @@ const Carousel = ({
   return (
     <div className="h-full w-full grid grid-rows-[1fr_2rem]">
       <div
-        className="relative  overflow-hidden bg-slate-500 transform duration-300"
+        className="relative overflow-hidden bg-slate-500 transform duration-300"
         style={{ transform: `translateX(-${index * 100}%)` }}
       >
         {prebuiltSlides}
       </div>
-      <div className="z-50 bg-black grid grid-cols-3">
-        {/* <Controls onSlide={handleSlide} /> */}
-        <button
-          onClick={() => handleSlide("left")}
-          className=" inline h-full z-50 col-start-1 place-content-center text-white text-3xl "
-        >
+      <div className="z-50 bg-black grid grid-cols-3 h-[2rem]">
+        <button className="flex items-center justify-center h-full w-full text-white">
           <ChevronLeft />
         </button>
+
         <Dots
           keys={keys.map((item) => item + "dots")}
           currentIndex={index}
           onDotClick={(dotNum) => setIndex(dotNum)}
         />
-        {/* <button
+        <button
           onClick={() => handleSlide("right")}
-          className="max-h-full z-50 text-center col-start-3 grid place-content-center  text-white text-3xl lg:top-0"
+          className="flex items-center justify-center h-full w-full text-white"
         >
           <ChevronRight />
-        </button> */}
+        </button>
       </div>
     </div>
   );
