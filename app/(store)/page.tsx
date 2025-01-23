@@ -17,9 +17,8 @@ export default async function Page() {
   );
 
   return (
-    <main className="h-full">
+    <main className="h-full bg-blue-800">
       <Carousel prebuiltSlides={prebuiltSlides} keys={heroCommercialsKeys} />
-      <MobileFooter />
       <div className="h-full bg-orange-800 text-white">qweqwqew</div>
       <div className="h-full bg-purple-800 text-white">qweqwqew</div>
       <div className="h-full bg-teal-800 text-white">qweqwqew</div>

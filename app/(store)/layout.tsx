@@ -43,15 +43,11 @@ export default async function RootLayout({
         >
           <div
             id="wrapper debug-screens"
-            className="h-full grid grid-rows-[auto_1fr]"
+            className="h-full grid grid-rows-[auto_1fr_auto]"
           >
             <Header />
-            <div className="h-full min-h-0 min-w-0 overflow-y-auto grid grid-rows-[1fr_auto]">
-              {children}
-
-              {/* and then, this is its own thing in cell auto: footer */}
-              <MobileFooter />
-            </div>
+            <div className="h-full min-h-0 overflow-y-auto">{children}</div>
+            <MobileFooter />
 
             <SanityLive />
           </div>
