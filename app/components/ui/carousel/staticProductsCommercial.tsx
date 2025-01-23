@@ -21,8 +21,12 @@ function ProductsCommercial({
 
   const components: PortableTextComponents = {
     block: {
-      h1: ({ children }) => <h1 className="text-2xl font-black">{children}</h1>,
-      h2: ({ children }) => <h2 className="text-xl font-bold">{children}</h2>,
+      h1: ({ children }) => (
+        <h1 className="text-2xl font-black text-center">{children}</h1>
+      ),
+      h2: ({ children }) => (
+        <h2 className="text-xl font-bold text-center">{children}</h2>
+      ),
       normal: ({ children }) => <p className="text-xl">{children}</p>,
     },
     marks: {
@@ -50,11 +54,11 @@ function ProductsCommercial({
           />
         ))}
       </div>
-      <div className="z-30 h-full bg-green text-white">
+      <div className="z-30 h-full bg-green text-white grid place-items-center">
         <Link
-          href="asdasaxzc"
+          href="TODO"
           prefetch={true}
-          className="z-20 h-full block max-w-[10rem] text-center text-xl text-white font-black px-6 py-2 rounded-sm mt-4 md:mt-12"
+          className="z-20 h-full block max-w-[10rem] text-center text-xl text-white font-black px-6 py-2 rounded-sm "
           style={{ backgroundColor: `${buttonColor}` }}
         >
           SEE MORE
