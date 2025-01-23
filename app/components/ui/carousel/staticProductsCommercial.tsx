@@ -2,19 +2,19 @@ import { ProductProps, ProductCard } from "./staticProductCard";
 import Link from "next/link";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
-type CommercialText = NonNullable<
-  GET_COMMERCIALS_BY_FEATURE_QUERYResult[number]["text"]
->;
+type CommercialText = GET_COMMERCIALS_BY_FEATURE_QUERYResult[number]["text"];
 
-type ProductsProps = {
+function ProductsCommercial({
+  products,
+  discount,
+  text,
+}: {
   products: ProductProps[];
   discount: number | null;
   text: CommercialText;
-};
-
-function ProductsCommercial({ products, discount, text }: ProductsProps) {
+}) {
   const buttonColor =
-    text[0]?.markDefs?.find((mark) => mark._type === "textColor")?.value ||
+    text?.[0]?.markDefs?.find((mark) => mark._type === "textColor")?.value ||
     "#CF8226";
 
   return (
