@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { imageUrl } from "@/lib/imageUrl";
-import  from "@/public/line.svg";
+import PriceLineCross from "@/public/icons/PriceLineCross.svg";
 
 const Price = ({
   price,
@@ -38,13 +38,16 @@ const DiscountPrice = ({
 
   return (
     <>
-      <span className="text-gray-400 relative">$
-        <Line />
-        {price.toFixed(2)}</span>
+      <span className="text-gray-400 relative block">
+        $
+        <div className="z-40 absolute inset-0 h-full w-full">
+          <PriceLineCross />
+        </div>
+        {price.toFixed(2)}
+      </span>
       <span
         className="ml-1 pt-2 font-bold sm:font-black text-md sm:text-lg md:text-xl"
         style={{ color: priceColor }}
-
       >
         ${discountPrice?.toFixed(2)}
       </span>

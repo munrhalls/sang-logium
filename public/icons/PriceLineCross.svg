@@ -1,3 +1,10 @@
-<svg width="128" height="80" viewBox="0 0 128 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-<line x1="3.12256" y1="74.871" x2="124.561" y2="4.75877" stroke="#FC3B02" stroke-width="10"/>
-</svg>
+    <svg viewBox="0 0 24 10" >
+      <line
+        x1="0"
+        y1="8"
+        x2="28"
+        y2="2"
+        stroke="rgb(252, 9, 9, 100)"
+        strokeWidth="1"
+      />
+    </svg>
