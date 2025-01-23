@@ -45,9 +45,10 @@ export default async function RootLayout({
             <Header />
             <div className="h-full min-h-0 bg-green-700 overflow-y-auto">
               {/* {children} */}
-              <div className="bg-indigo-900 h-full grid grid-rows-[1fr_2rem]">
+              <div className="bg-indigo-900 h-full grid grid-rows-[1fr_2rem_auto]">
                 <div className="bg-yellow-900 h-full"></div>
                 <div className="bg-black h-full"></div>
+                <MobileFooter />
               </div>
               <div className="bg-pink-900 h-full"></div>
             </div>
