@@ -81,40 +81,6 @@ export default async function RootLayout({
                               </div>
                             </div>
                           </div>
-                          <div className="h-full bg-pink-700 grid grid-cols-[33%_2fr] ">
-                            {/* a product card*/}
-                            <div className="h-full bg-green-400 grid place-content-center">
-                              {/* prod image cell */}
-                              <div className="h-full bg-black text-white">
-                                {/* prod img */}
-                                img
-                              </div>
-                            </div>
-                            <div className="h-full bg-orange-400 grid place-content-center">
-                              {/* prod text cell */}
-                              <div className="h-full bg-pink-800">
-                                {/* prod text */}
-                                txt
-                              </div>
-                            </div>
-                          </div>
-                          <div className="h-full bg-pink-700 grid grid-cols-[33%_2fr] ">
-                            {/* a product card*/}
-                            <div className="h-full bg-green-400 grid place-content-center">
-                              {/* prod image cell */}
-                              <div className="h-full bg-black text-white">
-                                {/* prod img */}
-                                img
-                              </div>
-                            </div>
-                            <div className="h-full bg-orange-400 grid place-content-center">
-                              {/* prod text cell */}
-                              <div className="h-full bg-pink-800">
-                                {/* prod text */}
-                                txt
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
