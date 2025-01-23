@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { imageUrl } from "@/lib/imageUrl";
+import  from "@/public/line.svg";
 
 const Price = ({
   price,
@@ -11,7 +12,7 @@ const Price = ({
 }) => {
   return (
     <div>
-      <span className="text-white font-bold sm:font-black text-xs sm:text-lg md:text-xl  ">
+      <span className="telinext-white font-bold sm:font-black text-xs sm:text-lg md:text-xl  ">
         ONLY
       </span>
       <span
@@ -37,10 +38,13 @@ const DiscountPrice = ({
 
   return (
     <>
-      <span className="text-gray-400">${price.toFixed(2)}</span>
+      <span className="text-gray-400 relative">$
+        <Line />
+        {price.toFixed(2)}</span>
       <span
-        className="text-lightpromotion font-bold sm:font-black text-xs sm:text-lg md:text-xl  mt-1"
+        className="ml-1 pt-2 font-bold sm:font-black text-md sm:text-lg md:text-xl"
         style={{ color: priceColor }}
+
       >
         ${discountPrice?.toFixed(2)}
       </span>
@@ -66,7 +70,7 @@ export const ProductCard = ({ product, discount, priceColor }: Props) => {
     <div className="/* PRODUCT CARD */ z-30 h-full min-h-0 grid gap-2 grid-cols-[1fr_3fr] md:grid-col-[2fr_3fr] bg-black/40 text-white rounded-sm font-oswald">
       <Link
         href={`/product/${product._id}`}
-        className=" text-white relative aspect-square w-[clamp(60px,70%,100px)] md:w-[clamp(60px,50%,200px)] place-self-center"
+        className=" text-white relative aspect-square w-[clamp(60px,50%,100px)] md:w-[clamp(60px,50%,200px)] place-self-center"
       >
         <Image
           loading="lazy"
