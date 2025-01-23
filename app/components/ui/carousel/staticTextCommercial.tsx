@@ -17,13 +17,9 @@ export default function TextCommercial({ text }: TextCommercialProps) {
 
   const components: PortableTextComponents = {
     block: {
-      h1: ({ children }) => (
-        <h1 className="text-4xl font-black mb-2">{children}</h1>
-      ),
-      h2: ({ children }) => (
-        <h2 className="text-2xl font-bold mb-2">{children}</h2>
-      ),
-      normal: ({ children }) => <p className="text-xl mb-2">{children}</p>,
+      h1: ({ children }) => <h1 className="text-2xl font-black">{children}</h1>,
+      h2: ({ children }) => <h2 className="text-xl font-bold">{children}</h2>,
+      normal: ({ children }) => <p className="text-xl">{children}</p>,
     },
     marks: {
       textColor: ({ value, children }) => (
@@ -33,12 +29,14 @@ export default function TextCommercial({ text }: TextCommercialProps) {
   };
 
   return (
-    <div className="z-40 bg-black/40 p-4 grid md:p-8 md:space-x-4 md:space-y-3 rounded-sm text-white">
-      <PortableText value={text} components={components} />;
+    <div className="/* TEXT COMMERCIAL */ bg-black/40 text-white grid ">
+      <div className="z-20">
+        <PortableText value={text} components={components} />;
+      </div>
       <Link
         href="asdasaxzc"
         prefetch={true}
-        className="inline max-w-[10rem] text-center text-xl text-white font-black px-6 py-2 rounded-sm mt-4 md:mt-12"
+        className="z-20 h-full block max-w-[10rem] text-center text-xl text-white font-black px-6 py-2 rounded-sm mt-4 md:mt-12"
         style={{ backgroundColor: `${buttonColor}` }}
       >
         SEE MORE

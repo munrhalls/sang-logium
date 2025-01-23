@@ -32,7 +32,7 @@ const Slide = ({ commercial, index }: SlideProps) => {
 
   return (
     <div
-      className="/* slide */ z-50 relative h-full "
+      className="/* slide */ z-20 relative h-full w-full"
       style={{
         flex: "0 0 100%",
       }}
@@ -48,17 +48,13 @@ const Slide = ({ commercial, index }: SlideProps) => {
         alt={commercial.title || "Sale"}
       />
 
-      {/* {variant === "text" && text ? (
-          <TextCommercial text={text} />
-        ) : (
-          productsVerified && (
-            <ProductsCommercial
-              products={productsVerified}
-              discount={discount}
-            />
-          )
-        )} */}
-      {/* </div> */}
+      {variant === "text" && text ? (
+        <TextCommercial text={text} />
+      ) : (
+        productsVerified && (
+          <ProductsCommercial products={productsVerified} discount={discount} />
+        )
+      )}
     </div>
   );
 };

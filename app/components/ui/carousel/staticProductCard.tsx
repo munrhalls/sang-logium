@@ -48,39 +48,37 @@ type Props = {
 
 export const ProductCard = ({ product, discount }: Props) => {
   return (
-    <div className="/* product card */ h-full z-40 bg-black/40 text-white rounded-sm font-oswald grid">
-      <div className="bg-blue-700 grid grid-cols-[33%_2fr]">
-        <div className="bg-black h-full w-full "></div>
-        <div className="bg-pink-700 h-full w-full "></div>
-      </div>
-      {/* <Link
+    <div className="/* PRODUCT CARD */ h-full grid grid-cols-[33%_2fr] bg-black/40 text-white rounded-sm font-oswald">
+      <Link
         href={`/product/${product._id}`}
-        className=" text-white grid place-content-start"
+        className=" text-white h-full grid place-content-start"
       >
         <Image
           loading="lazy"
           decoding="async"
           quality={100}
           sizes="(max-width: 768px) 36vw, 25vw"
-  src="/api/placeholder/80/80"
+          src={imageUrl(product.image).url()}
           alt={product.name}
-          height={80}
-          width={80}
-          className="object-contain rounded-sm md:w-full"
+          height={48}
+          width={48}
+          className="z-40 object-contain rounded-sm"
         />
       </Link>
 
-      <span className="text-white truncate font-bold text-xs md:text-md">
-        {product.name}
-      </span>
+      <div className="z-40">
+        <span className="z-40 text-white truncate font-bold text-xs md:text-md">
+          {product.name}
+        </span>
 
-      <div className="flex row-start-2 col-start-2">
-        {discount ? (
-          <DiscountPrice price={product.price} discount={discount} />
-        ) : (
-          <Price price={product.price} />
-        )}
-      </div> */}
+        <div className="z-40 flex row-start-1 col-start-2">
+          {discount ? (
+            <DiscountPrice price={product.price} discount={discount} />
+          ) : (
+            <Price price={product.price} />
+          )}
+        </div>
+      </div>
     </div>
   );
 };

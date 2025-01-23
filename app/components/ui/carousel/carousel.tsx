@@ -5,7 +5,6 @@ import { useState } from "react";
 import Dots from "./dots";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
-import Controls from "./controls";
 
 const Carousel = ({
   prebuiltSlides,
