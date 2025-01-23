@@ -3,11 +3,13 @@ import { UserIcon } from "@heroicons/react/24/outline";
 
 export function UnauthenticatedView() {
   return (
-    <div className="flex flex-col justify-center items-center space-x-2 text-white">
-      <UserIcon className="w-[24px] h-[24px] text-white" />
+    <div className="grid place-content-center  text-white">
+      <div className="grid place-content-center">
+        <UserIcon className="w-[24px] h-[24px] text-white" />
+      </div>
       <SignInButton mode="modal">
-        <button className="pt-[1px]">
-          <span className="text-white text-xl">Sign in</span>
+        <button className="grid place-content-center">
+          <span className="text-white">Sign in</span>
         </button>
       </SignInButton>
     </div>

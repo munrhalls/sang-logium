@@ -14,7 +14,7 @@ const AuthContent = dynamic(
   () => import("@/app/components/features/auth/AuthContent"),
   {
     loading: () => (
-      <div className="w-[26px] h-[26px] mx-auto bg-gray-800 rounded-full animate-pulse" />
+      <div className="w-[24px] h-[24px] mx-auto bg-gray-800 rounded-full animate-pulse" />
     ),
     ssr: false,
   }
@@ -22,28 +22,25 @@ const AuthContent = dynamic(
 const SearchForm = dynamic(
   () => import("@/app/components/features/search/SearchForm"),
   {
-    loading: () => (
-      <div className="h-[32px] w-full max-w-72 lg:max-w-96 xl:max-w-xl 2xl:max-w-2xl hidden lg:flex items-center bg-gray-800 animate-pulse" />
-    ),
+    loading: () => <div className="animate-pulse" />,
   }
 );
 
 function Header() {
   return (
-    <header className=" bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_2fr_1fr] h-[3rem]">
+    <header className=" bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_3fr_1fr] h-[4rem]">
       <Link href="/" className="grid place-content-center">
-        <Logo width={124} height={48} />
+        <Logo width={180} height={60} />
       </Link>
 
       <SearchForm />
 
-      <div className="max-w-48 hidden lg:grid grid-cols-2 gap-2 items-center justify-evenly">
-        <Link
-          href="/basket"
-          className="flex flex-col justify-center items-center space-x-2 text-white"
-        >
-          <ShoppingCartIcon className="w-[26px] h-[26px] text-white" />
-          <span className="text-xl">Basket</span>
+      <div className="hidden lg:grid place-content-center grid-flow-col space-x-4">
+        <Link href="/basket" className=" text-white grid place-content-center">
+          <div className="grid place-content-center">
+            <ShoppingCartIcon height={24} width={24} className=" text-white" />
+          </div>
+          <span className="">Basket</span>
         </Link>
 
         <ClerkLoaded>

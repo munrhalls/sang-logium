@@ -10,7 +10,7 @@ const AuthenticatedView = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-[28px] h-[28px] bg-gray-800 rounded-full animate-pulse" />
+      <div className="w-[24px] h-[24px] bg-gray-800 rounded-full animate-pulse" />
     ),
   }
 );

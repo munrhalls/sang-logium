@@ -28,8 +28,8 @@ export function AuthenticatedView() {
   }
 
   return (
-    <div className="mt-2 flex flex-col justify-center">
-      <div className="mb-1 flex justify-center items-center">
+    <div className="grid place-content-center">
+      <div className="grid place-content-center">
         <UserButton />
         {user.passwordEnabled === false && (
           <div className="ml-2 flex items-center justify-center">
