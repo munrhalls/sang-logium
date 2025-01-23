@@ -52,7 +52,11 @@ const Slide = ({ commercial, index }: SlideProps) => {
         <TextCommercial text={text} />
       ) : (
         productsVerified && (
-          <ProductsCommercial products={productsVerified} discount={discount} />
+          <ProductsCommercial
+            products={productsVerified}
+            discount={discount}
+            text={text}
+          />
         )
       )}
     </div>
