@@ -33,7 +33,10 @@ const Carousel = ({
         {prebuiltSlides}
       </div>
       <div className="z-50 bg-black grid grid-cols-3 h-[2rem]">
-        <button className="flex items-center justify-center h-full w-full text-white">
+        <button
+          onClick={() => handleSlide("left")}
+          className="flex items-center justify-center h-full w-full text-white"
+        >
           <ChevronLeft />
         </button>
 

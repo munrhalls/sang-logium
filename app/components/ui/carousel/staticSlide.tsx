@@ -24,6 +24,8 @@ const Slide = ({ commercial, index }: SlideProps) => {
       Boolean(product?.name && product?.price && product?.image)
   );
 
+  console.log(index);
+
   if (!image) return null;
 
   const discount = sale?.discount || null;
@@ -31,7 +33,7 @@ const Slide = ({ commercial, index }: SlideProps) => {
   }
   return (
     <div
-      className="z-10 absolute top-0 bottom-0"
+      className="z-30 absolute top-0 bottom-0"
       style={{
         width: "100%",
         transform: `translateX(${index * 100}%)`,
@@ -51,7 +53,7 @@ const Slide = ({ commercial, index }: SlideProps) => {
 
         <div className="h-full grid md:grid-cols-[1fr_10fr_1fr] md:place-content-center md:[grid-template-areas:'empty_content_empty'] px-3 py-3">
           <div className="z-30 md:[grid-area:content]">
-            {variant === "text" ? (
+            {variant === "text" && text ? (
               <TextCommercial text={text} />
             ) : (
               productsVerified && (
