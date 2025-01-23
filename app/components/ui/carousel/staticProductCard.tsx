@@ -48,10 +48,10 @@ type Props = {
 
 export const ProductCard = ({ product, discount }: Props) => {
   return (
-    <div className="/* PRODUCT CARD */ h-full min-h-0 grid gap-2 grid-cols-[1fr_3fr] bg-black/40 text-white rounded-sm font-oswald">
+    <div className="/* PRODUCT CARD */ h-full min-h-0 grid gap-2 grid-cols-[1fr_3fr] md:grid-col-[2fr_3fr] bg-black/40 text-white rounded-sm font-oswald">
       <Link
         href={`/product/${product._id}`}
-        className=" text-white relative aspect-square w-[clamp(60px,70%,100px)] place-self-center"
+        className=" text-white relative aspect-square w-[clamp(60px,70%,100px)] md:w-[clamp(60px,60%,200px)] place-self-center"
       >
         <Image
           loading="lazy"
@@ -67,7 +67,7 @@ export const ProductCard = ({ product, discount }: Props) => {
       </Link>
 
       <div className="z-40 min-w-0 max-w-full flex flex-col justify-center items-start">
-        <span className="z-40 max-w-full text-white truncate font-bold text-xs md:text-md">
+        <span className="z-40 max-w-full text-white truncate font-bold text-xs md:text-xl md:mb-4 lg:text-2xl xl:text-4xl">
           {product.name}
         </span>
 
