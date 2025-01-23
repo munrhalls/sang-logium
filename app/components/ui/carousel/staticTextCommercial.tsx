@@ -19,12 +19,14 @@ export default function TextCommercial({ text }: TextCommercialProps) {
   const components: PortableTextComponents = {
     block: {
       h1: ({ children }) => (
-        <h1 className="text-2xl lg:text-3xl font-black">{children}</h1>
+        <h1 className="text-2xl lg:text-5xl font-black">{children}</h1>
       ),
       h2: ({ children }) => (
-        <h2 className="text-xl lg:text-2xl font-bold">{children}</h2>
+        <h2 className="text-xl lg:text-3xl font-bold">{children}</h2>
       ),
-      normal: ({ children }) => <p className="text-xl">{children}</p>,
+      normal: ({ children }) => (
+        <p className="text-xl lg:text-3xl">{children}</p>
+      ),
     },
     marks: {
       textColor: ({ value, children }) => (
@@ -35,7 +37,7 @@ export default function TextCommercial({ text }: TextCommercialProps) {
 
   return (
     <div className="/* TEXT COMMERCIAL */ h-full  z-30 text-white grid place-content-center">
-      <div className="z-20 bg-black/40 grid place-items-center p-12  space-y-1 md:space-y-4 rounded-sm">
+      <div className="z-20 bg-black/40 grid place-items-center p-12  space-y-2 md:space-y-4 lg:space-y-6 rounded-sm">
         <PortableText value={text} components={components} />;
       </div>
       <div className="z-20 grid place-items-center">

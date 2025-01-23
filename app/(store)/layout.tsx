@@ -6,7 +6,7 @@ import { SanityLive } from "@/sanity/lib/live";
 import Header from "@/app/components/ui/header/Header";
 import MobileFooter from "@/app/components/ui/footer/MobileFooter";
 // import { Footer } from "@/components/ui/Footer";
-// import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
+import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
 
 import Image from "next/image";
 import Link from "next/link";
