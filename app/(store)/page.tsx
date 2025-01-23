@@ -8,9 +8,11 @@ export default async function Page() {
   const heroCommercials = await getCommercialsByFeature("hero");
   const categories = await getAllCategories();
 
-  const prebuiltSlides = heroCommercials.map((commercial, index) => (
-    <Slide key={commercial._id} commercial={commercial} index={index} />
-  ));
+  const prebuiltSlides = heroCommercials
+    .sort((a, b) => (a?.displayOrder ?? 0) - (b?.displayOrder ?? 0))
+    .map((commercial, index) => (
+      <Slide key={commercial._id} commercial={commercial} index={index} />
+    ));
 
   const heroCommercialsKeys = heroCommercials.map(
     (commercial) => commercial._id

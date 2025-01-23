@@ -7,6 +7,7 @@ const GET_COMMERCIALS_BY_FEATURE_QUERY =
   title,
   "image": image.asset->url,
   variant,
+  displayOrder,
   text,
   "products": products[]-> {
     _id,

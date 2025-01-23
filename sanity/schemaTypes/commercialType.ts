@@ -32,6 +32,12 @@ export const commercialType = defineType({
       },
     }),
     defineField({
+      name: "displayOrder",
+      type: "number",
+      initialValue: 0,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "image",
       type: "image",
       validation: (Rule) => Rule.required(),
@@ -60,6 +66,11 @@ export const commercialType = defineType({
       title: "Reference to sale advertised by the commercial (optional)",
       type: "reference",
       to: [{ type: "sale" }],
+    }),
+    defineField({
+      name: "ctaLink",
+      title: "What URL the commercial links to (optional)",
+      type: "string",
     }),
     defineField({
       name: "products",
