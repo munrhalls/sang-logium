@@ -3,12 +3,12 @@ import { notFound } from "next/navigation";
 import { PortableText } from "next-sanity";
 import ProductPageGallery from "./ProductPageGallery";
 
-export default async function ProductPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { slug } = params;
+type Params = Promise<{ slug: string }>;
+
+export default async function ProductPage(props: { params: Params }) {
+  const params = await props.params;
+  const slug = params.slug;
+
   const product = await getProductBySlug(slug);
   if (!product) {
     return notFound();
