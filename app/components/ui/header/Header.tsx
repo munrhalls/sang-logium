@@ -2,7 +2,7 @@
 
 import { ClerkLoaded } from "@clerk/nextjs";
 import Link from "next/link";
-import Logo from "@/public/Logo.svg";
+// import Logo from "@/public/Logo.svg";
 import dynamic from "next/dynamic";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
@@ -26,15 +26,10 @@ function Header() {
   return (
     <header className="bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_4fr] h-[4rem]">
       <Link href="/" className="grid place-content-center">
-        <Logo
+        {/* <Logo
           height={60}
           width={180}
-          // className="w-full h-full"
-          // viewBox="0 0 180 60"
-          // preserveAspectRatio="xMidYMid meet"
-          // aria-label="Site logo"
-          // role="img"
-        />
+        /> */}
       </Link>
 
       <div className="hidden lg:grid lg:place-content-center">
