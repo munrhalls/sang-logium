@@ -1,4 +1,4 @@
-import logo from "@/public/icons/logo.svg";
+import logo from "@/public/logo.svg";
 import Ellipse from "@/public/icons/Ellipse.svg";
 import Image from "next/image";
 

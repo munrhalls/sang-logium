@@ -5,7 +5,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import logo from "/public/logo.svg";
+import logo from "@/public/logo.svg";
 
 const AuthContent = dynamic(
   () => import("@/app/components/features/auth/AuthContent"),
