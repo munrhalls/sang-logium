@@ -5,12 +5,24 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { SanityLive } from "@/sanity/lib/live";
 import Header from "@/app/components/ui/header/Header";
 import MobileFooter from "@/app/components/ui/footer/MobileFooter";
+
 // import { Footer } from "@/components/ui/Footer";
 // import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
 
 // import Image from "next/image";
 // import Link from "next/link";
 // import logo from "@/public/logo.png";
+import * as Sentry from "@sentry/nextjs";
+
+Sentry.init({
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  // Enable performance monitoring
+  tracesSampleRate: 1.0,
+  // Recommended for production
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
+});
+
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
   description: "The best audio gear in the world",

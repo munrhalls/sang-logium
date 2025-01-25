@@ -23,6 +23,7 @@
     "@sanity/image-url": "^1.1.0",
     "@sanity/types": "^3.69.0",
     "@sanity/vision": "^3.64.1",
+    "@sentry/nextjs": "^8.51.0",
     "@svgr/plugin-jsx": "^8.1.0",
     "@types/webpack": "^5.28.5",
     "axios": "^1.7.9",
