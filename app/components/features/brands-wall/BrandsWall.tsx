@@ -6,8 +6,8 @@ export default async function BrandsWall() {
   console.log(Object.keys(Brands).map((brand) => brand));
   console.log(Brands);
   return (
-    <div className="h-full grid grid-cols-[1fr_5fr_1fr] ">
-      <div className="h-full col-start-2 col-end-3 flex justify-center items-center gap-4 gradient">
+    <div className="h-full grid grid-cols-[1fr_5fr_1fr]">
+      <div className="h-full pt-8 pb-4 col-start-2 col-end-3 flex justify-center items-center gap-4 gradient">
         <Image src={globe} alt="Logo" width={48} height={48} unoptimized />
         <h1 className="text-black text-4xl">World`s best audio</h1>
       </div>
