@@ -1,5 +1,6 @@
-// import Logo from "@/public/icons/Logo.svg";
-// import Ellipse from "@/public/icons/Ellipse.svg";
+import Logo from "@/public/icons/Logo.svg";
+import Ellipse from "@/public/icons/Ellipse.svg";
+import Image from "next/image";
 
 interface CarouselDotsProps {
   keys: string[];
@@ -7,23 +8,38 @@ interface CarouselDotsProps {
   onDotClick: (index: number) => void;
 }
 
-export default function Dots(
-  {
-    // keys,
-    // currentIndex,
-    // onDotClick,
-  }: CarouselDotsProps
-) {
+export default function Dots({
+  keys,
+  currentIndex,
+  onDotClick,
+}: CarouselDotsProps) {
   return (
     <div className="h-full text-white text-center z-50  sm:bg-transparent flex flex-shrink-0 justify-center items-center gap-2 lg:gap-3 xl:gap-4 xl:mb-4 cursor-pointer">
-      return <div>dots</div>
-      {/* {keys.map((key, i) => {
+      {keys.map((key, i) => {
         return currentIndex === i ? (
-          <Logo key={key} />
+          <Image
+            loading="lazy"
+            key={key}
+            src={Logo}
+            height={16}
+            width={16}
+            alt={"Icon"}
+            unoptimized
+            onClick={() => onDotClick(i)}
+          />
         ) : (
-          <Ellipse key={key} onClick={() => onDotClick(i)} />
+          <Image
+            loading="lazy"
+            key={key}
+            src={Ellipse}
+            height={16}
+            width={16}
+            alt={"Icon"}
+            unoptimized
+            onClick={() => onDotClick(i)}
+          />
         );
-      })} */}
+      })}
     </div>
   );
 }
