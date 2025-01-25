@@ -2,6 +2,9 @@ import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercials
 import Carousel from "@/app/components/ui/carousel/carousel";
 import Slide from "@/app/components/ui/carousel/staticSlide";
 import BrandsWall from "../components/features/brands-wall/BrandsWall";
+import ExtremeQuality from "../components/features/extreme-quality/ExtremeQuality";
+import Bestsellers from "../components/features/bestsellers/Bestsellers";
+import MonthMvp from "../components/features/month-mvp/MonthMvp";
 // import MobileFooter from "@/app/components/ui/footer/MobileFooter";
 
 export default async function Page() {
@@ -24,9 +27,15 @@ export default async function Page() {
       <div className="">
         <BrandsWall />
       </div>
-      <div className="h-full bg-purple-800 text-white">qweqwqew</div>
-      <div className="h-full bg-teal-800 text-white">qweqwqew</div>
-      <div className="h-full bg-emerald-700 text-white">qweqwqew</div>
+      <div className="h-full bg-purple-800 ">
+        <ExtremeQuality />
+      </div>
+      <div className="h-full bg-teal-800 ">
+        <Bestsellers />
+      </div>
+      <div className="h-full bg-emerald-700 ">
+        <MonthMvp />
+      </div>
     </main>
   );
 }

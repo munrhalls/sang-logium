@@ -2,10 +2,10 @@
 
 import { ClerkLoaded } from "@clerk/nextjs";
 import Link from "next/link";
-import Logo from "@/public/Logo.svg";
 import dynamic from "next/dynamic";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import logo from "/public/logo.svg";
 
 const AuthContent = dynamic(
   () => import("@/app/components/features/auth/AuthContent"),
@@ -27,7 +27,7 @@ function Header() {
   return (
     <header className="bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_4fr] h-[4rem]">
       <Link href="/" className="grid place-content-center">
-        <Image src={Logo} alt="Logo" width={180} height={60} unoptimized />
+        <Image src={logo} alt="Logo" width={180} height={60} unoptimized />
       </Link>
 
       <div className="hidden lg:grid lg:place-content-center">
