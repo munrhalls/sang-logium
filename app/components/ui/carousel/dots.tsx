@@ -1,4 +1,4 @@
-import logo from "@/public/logo.svg";
+import Logo from "@/public/icons/Logo.svg";
 import Ellipse from "@/public/icons/Ellipse.svg";
 import Image from "next/image";
 
@@ -20,7 +20,7 @@ export default function Dots({
           <Image
             loading="lazy"
             key={key}
-            src={logo}
+            src={Logo}
             height={22}
             width={22}
             alt={"Icon"}
