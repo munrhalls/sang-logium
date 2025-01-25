@@ -93,21 +93,21 @@ export const productType = defineType({
           name: "overviewField",
           type: "object",
           fields: [
-            defineArrayMember({
+            {
               name: "title",
               type: "string",
               title: "Title",
-            }),
-            defineArrayMember({
+            },
+            {
               name: "value",
               type: "string",
               title: "Value",
-            }),
-            defineArrayMember({
+            },
+            {
               name: "information",
               type: "string",
               title: "Information",
-            }),
+            },
           ],
         }),
       ],
@@ -121,21 +121,21 @@ export const productType = defineType({
           name: "spec",
           type: "object",
           fields: [
-            defineArrayMember({
+            {
               name: "title",
               type: "string",
               title: "Specification Title",
-            }),
-            defineArrayMember({
+            },
+            {
               name: "value",
               type: "string",
               title: "Value",
-            }),
-            defineArrayMember({
+            },
+            {
               name: "information",
               type: "string",
               title: "Information",
-            }),
+            },
           ],
         }),
       ],

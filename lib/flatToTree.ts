@@ -1,3 +1,4 @@
+import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 interface CategoryTree {
   _id: string;
   name: string;
@@ -5,7 +6,9 @@ interface CategoryTree {
   children: CategoryTree[];
 }
 
-export const flatToTree = (categories): CategoryTree[] => {
+export const flatToTree = (
+  categories: ALL_CATEGORIES_QUERYResult
+): CategoryTree[] => {
   const map: Record<string, CategoryTree> = {};
   const roots: CategoryTree[] = [];
 
