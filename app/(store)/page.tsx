@@ -19,9 +19,9 @@ export default async function Page() {
   );
 
   return (
-    <main className="h-full bg-blue-800">
+    <main className="h-full ">
       <Carousel prebuiltSlides={prebuiltSlides} keys={heroCommercialsKeys} />
-      <div className="h-full text-white">
+      <div className="">
         <BrandsWall />
       </div>
       <div className="h-full bg-purple-800 text-white">qweqwqew</div>
