@@ -27,13 +27,13 @@ export default async function Page() {
       <div className="">
         <BrandsWall />
       </div>
-      <div className="h-full bg-purple-800 ">
+      <div className="min-h-full bg-purple-800 ">
         <ExtremeQuality />
       </div>
-      <div className="h-full bg-teal-800 ">
+      <div className="min-h-full bg-teal-800 ">
         <Bestsellers />
       </div>
-      <div className="h-full bg-emerald-700 ">
+      <div className="min-h-full bg-emerald-700 ">
         <MonthMvp />
       </div>
     </main>

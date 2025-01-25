@@ -9,7 +9,7 @@ export default async function Bestsellers() {
         <Image src={LogoOrbit} alt="Logo" width={80} height={80} unoptimized />
         <h1 className="text-black text-4xl">Bestsellers</h1>
       </div>
-      <div className="h-full">
+      <div className="h-full col-start-2 col-end-3">
         <div>product bestseller</div>
         <div>product bestseller</div>
         <div>product bestseller</div>
