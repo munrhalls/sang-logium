@@ -2,7 +2,7 @@
 
 import { ClerkLoaded } from "@clerk/nextjs";
 import Link from "next/link";
-import Logo from "./../../../../public/Logo.svg";
+import Logo from "@/public/Logo.svg";
 import dynamic from "next/dynamic";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
