@@ -1,6 +1,7 @@
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import Carousel from "@/app/components/ui/carousel/carousel";
 import Slide from "@/app/components/ui/carousel/staticSlide";
+import BrandsWall from "../components/features/brands-wall/BrandsWall";
 // import MobileFooter from "@/app/components/ui/footer/MobileFooter";
 
 export default async function Page() {
@@ -20,7 +21,9 @@ export default async function Page() {
   return (
     <main className="h-full bg-blue-800">
       <Carousel prebuiltSlides={prebuiltSlides} keys={heroCommercialsKeys} />
-      <div className="h-full bg-orange-800 text-white">qweqwqew</div>
+      <div className="h-full text-white">
+        <BrandsWall />
+      </div>
       <div className="h-full bg-purple-800 text-white">qweqwqew</div>
       <div className="h-full bg-teal-800 text-white">qweqwqew</div>
       <div className="h-full bg-emerald-700 text-white">qweqwqew</div>
