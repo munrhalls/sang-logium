@@ -1,5 +1,4 @@
 import Image from "next/image";
-import * as Brands from "@/public/brands";
 import LogoOrbit from "@/public/logo-orbit.svg";
 
 export default async function Bestsellers() {
