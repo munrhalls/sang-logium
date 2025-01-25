@@ -1,14 +1,29 @@
 import { searchProductsByName } from "@/sanity/lib/products/searchProductsByName";
 import ProductsGrid from "@/app/components/features/products/ProductsGrid";
 
-async function SearchPage({
+export default async function Page({
   searchParams,
 }: {
-  searchParams: {
-    query: string;
-  };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { query } = await searchParams;
+  const params = await searchParams;
+  const query = params.query;
+
+  if (!query) {
+    return (
+      <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-4">
+        <div className="bg-white p-8 rounded-lg shadow-md w-ful max-w-4xl">
+          <h1 className="text-3xl font-bold mb-6 text-center">
+            No products found
+          </h1>
+          <p className="text-gray text-center">
+            Try searching with different keywords
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   const products = await searchProductsByName(query);
 
   if (!products.length) {
@@ -37,5 +52,3 @@ async function SearchPage({
     </div>
   );
 }
-
-export default SearchPage;
