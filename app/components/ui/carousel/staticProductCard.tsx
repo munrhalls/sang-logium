@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { imageUrl } from "@/lib/imageUrl";
-import PriceLineCross from "@/public/icons/PriceLineCross.svg";
+// import PriceLineCross from "@/public/icons/PriceLineCross.svg";
 
 const Price = ({
   price,
@@ -41,7 +41,7 @@ const DiscountPrice = ({
       <span className="text-gray-400 relative block">
         $
         <div className="z-40 absolute inset-0 h-full w-full">
-          <PriceLineCross />
+          {/* <PriceLineCross /> */}
         </div>
         {price.toFixed(2)}
       </span>
