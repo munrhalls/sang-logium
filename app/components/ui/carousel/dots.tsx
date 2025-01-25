@@ -21,8 +21,8 @@ export default function Dots({
             loading="lazy"
             key={key}
             src={Logo}
-            height={16}
-            width={16}
+            height={22}
+            width={22}
             alt={"Icon"}
             unoptimized
             onClick={() => onDotClick(i)}
