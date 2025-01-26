@@ -1,8 +1,8 @@
 "use client";
 
-import { visionTool } from "@sanity/vision";
+// import { visionTool } from "@sanity/vision";
 import { structureTool } from "sanity/structure";
-import { apiVersion, dataset, projectId } from "./sanity/env";
+import { dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
 import { simplerColorInput } from "sanity-plugin-simpler-color-input";
@@ -17,7 +17,7 @@ const sanityConfig = defineConfig({
   },
   plugins: [
     structureTool({ structure }),
-    visionTool({ defaultApiVersion: apiVersion }),
+    // visionTool({ defaultApiVersion: apiVersion }),
     simplerColorInput({
       defaultColorFormat: "rgba",
       defaultColorList: [
