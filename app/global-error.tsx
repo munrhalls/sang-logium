@@ -8,9 +8,7 @@ export default function GlobalError({
 }: {
   error: Error & { digest?: string };
 }) {
-  useEffect(() => {
-    // Sentry.captureException(error);
-  }, [error]);
+  useEffect(() => {}, [error]);
 
   return (
     <html>
