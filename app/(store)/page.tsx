@@ -8,28 +8,34 @@ import MonthMvp from "../components/features/month-mvp/MonthMvp";
 // import MobileFooter from "@/app/components/ui/footer/MobileFooter";
 
 export default async function Page() {
-  // const heroCommercials = await getCommercialsByFeature("hero");
+  const heroCommercials = await getCommercialsByFeature("hero");
   // const categories = await getAllCategories();
 
-  // const prebuiltSlides = heroCommercials
-  //   .sort((a, b) => (a?.displayOrder ?? 0) - (b?.displayOrder ?? 0))
-  //   .map((commercial, index) => (
-  //     <Slide key={commercial._id} commercial={commercial} index={index} />
-  //   ));
+  const prebuiltSlides = heroCommercials
+    .sort((a, b) => (a?.displayOrder ?? 0) - (b?.displayOrder ?? 0))
+    .map((commercial, index) => (
+      <Slide key={commercial._id} commercial={commercial} index={index} />
+    ));
 
-  // const heroCommercialsKeys = heroCommercials.map(
-  //   (commercial) => commercial._id
-  // );
+  const heroCommercialsKeys = heroCommercials.map(
+    (commercial) => commercial._id
+  );
 
   return (
     <main className="h-full ">
-      {/* <Carousel prebuiltSlides={prebuiltSlides} keys={heroCommercialsKeys} /> */}
-      <div className="">{/* <BrandsWall /> */}</div>
-      <div className="min-h-full bg-purple-800 ">
-        {/* <ExtremeQuality /> */}
+      <Carousel prebuiltSlides={prebuiltSlides} keys={heroCommercialsKeys} />
+      <div className="">
+        <BrandsWall />
       </div>
-      <div className="min-h-full bg-teal-800 ">{/* <Bestsellers /> */}</div>
-      <div className="min-h-full bg-emerald-700 ">{/* <MonthMvp /> */}</div>
+      <div className="min-h-full bg-purple-800 ">
+        <ExtremeQuality />
+      </div>
+      <div className="min-h-full bg-teal-800 ">
+        <Bestsellers />
+      </div>
+      <div className="min-h-full bg-emerald-700 ">
+        <MonthMvp />
+      </div>
     </main>
   );
 }

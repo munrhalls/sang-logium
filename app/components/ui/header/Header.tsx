@@ -20,6 +20,7 @@ const SearchForm = dynamic(
   () => import("@/app/components/features/search/SearchForm"),
   {
     loading: () => <div className="animate-pulse" />,
+    ssr: false,
   }
 );
 
