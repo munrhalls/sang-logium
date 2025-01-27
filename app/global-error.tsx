@@ -1,27 +1,24 @@
 "use client";
 
-import NextError from "next/error";
-import { useEffect } from "react";
-
 export default function GlobalError({
   error,
+  reset,
 }: {
   error: Error & { digest?: string };
+  reset: () => void;
 }) {
-  useEffect(() => {
-    console.error("Error occurred:", error);
-    console.error("Error digest:", error.digest);
-  }, [error]);
-
   return (
     <html>
       <body>
         <div className="flex min-h-screen flex-col items-center justify-center p-4">
-          <h1 className="text-2xl font-bold mb-4">Something went wrong!</h1>
-          {error.digest && (
-            <p className="text-gray-600 mb-4">Error: {error.digest}</p>
+          <h2>Something went wrong!</h2>
+          {process.env.NODE_ENV === "development" && (
+            <div>
+              <p>Error Details: {error.message}</p>
+              <p>Digest: {error.digest}</p>
+            </div>
           )}
-          <NextError statusCode={500} />
+          <button onClick={reset}>Try again</button>
         </div>
       </body>
     </html>
