@@ -34,7 +34,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${iceland.className} w-full}`}>
       <body className={`${iceland.variable} font-sans w-full`}>
-        {/* <ClerkProvider
+        <ClerkProvider
           appearance={{
             elements: {
               rootBox: "w-full",
@@ -42,18 +42,18 @@ export default async function RootLayout({
             },
           }}
           dynamic
-        > */}
-        <div
-          id="wrapper debug-screens"
-          className="h-full grid grid-rows-[auto_1fr_auto]"
         >
-          <Header />
-          <div className="h-full min-h-0 overflow-y-auto">{children}</div>
-          <MobileFooter />
+          <div
+            id="wrapper debug-screens"
+            className="h-full grid grid-rows-[auto_1fr_auto]"
+          >
+            <Header />
+            <div className="h-full min-h-0 overflow-y-auto">{children}</div>
+            <MobileFooter />
 
-          <SanityLive />
-        </div>
-        {/* </ClerkProvider> */}
+            <SanityLive />
+          </div>
+        </ClerkProvider>
       </body>
     </html>
   );

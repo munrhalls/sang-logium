@@ -7,15 +7,15 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import logo from "@/public/logo.svg";
 
-const AuthContent = dynamic(
-  () => import("@/app/components/features/auth/AuthContent"),
-  {
-    loading: () => (
-      <div className="w-[24px] h-[24px] mx-auto bg-gray-800 rounded-full animate-pulse" />
-    ),
-    ssr: false,
-  }
-);
+// const AuthContent = dynamic(
+//   () => import("@/app/components/features/auth/AuthContent"),
+//   {
+//     loading: () => (
+//       <div className="w-[24px] h-[24px] mx-auto bg-gray-800 rounded-full animate-pulse" />
+//     ),
+//     ssr: false,
+//   }
+// );
 const SearchForm = dynamic(
   () => import("@/app/components/features/search/SearchForm"),
   {
