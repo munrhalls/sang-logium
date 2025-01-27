@@ -8,10 +8,10 @@ export default function GlobalError({
   reset: () => void;
 }) {
   return (
-    <html>
-      <body>
-        <div className="flex min-h-screen flex-col items-center justify-center p-4">
-          <h2>Something went wrong!</h2>
+    <html className="h-full font-mono">
+      <body className="h-full">
+        <div className="flex h-full flex-col items-center justify-center p-4">
+          <h2>Server encountered unexpected error</h2>
           {process.env.NODE_ENV === "development" && (
             <div>
               <p>Error Details: {error.message}</p>
