@@ -14,6 +14,7 @@ export default async function BrandsWall() {
           return (
             <div key={brand} className="grid place-content-center">
               <Image
+                loading="lazy"
                 src={image.src}
                 alt={brand}
                 width={image.width}
