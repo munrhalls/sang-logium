@@ -1,10 +1,10 @@
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import Carousel from "@/app/components/ui/carousel/carousel";
 import Slide from "@/app/components/ui/carousel/staticSlide";
-// import BrandsWall from "../components/features/brands-wall/BrandsWall";
-// import ExtremeQuality from "../components/features/extreme-quality/ExtremeQuality";
-// import Bestsellers from "../components/features/bestsellers/Bestsellers";
-// import MonthMvp from "../components/features/month-mvp/MonthMvp";
+import BrandsWall from "../components/features/brands-wall/BrandsWall";
+import ExtremeQuality from "../components/features/extreme-quality/ExtremeQuality";
+import Bestsellers from "../components/features/bestsellers/Bestsellers";
+import MonthMvp from "../components/features/month-mvp/MonthMvp";
 // import MobileFooter from "@/app/components/ui/footer/MobileFooter";
 
 export default async function Page() {
@@ -24,12 +24,18 @@ export default async function Page() {
   return (
     <main className="h-full ">
       <Carousel prebuiltSlides={prebuiltSlides} keys={heroCommercialsKeys} />
-      <div className="">{/* <BrandsWall /> */}</div>
-      <div className="min-h-full bg-purple-800 ">
-        {/* <ExtremeQuality /> */}
+      <div className="">
+        <BrandsWall />
       </div>
-      <div className="min-h-full bg-teal-800 ">{/* <Bestsellers /> */}</div>
-      <div className="min-h-full bg-emerald-700 ">{/* <MonthMvp /> */}</div>
+      <div className="min-h-full bg-purple-800 ">
+        <ExtremeQuality />
+      </div>
+      <div className="min-h-full bg-teal-800 ">
+        <Bestsellers />
+      </div>
+      <div className="min-h-full bg-emerald-700 ">
+        <MonthMvp />
+      </div>
     </main>
   );
 }
