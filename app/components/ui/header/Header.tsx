@@ -1,6 +1,6 @@
 "use client";
 
-import { ClerkLoaded } from "@clerk/nextjs";
+// import { ClerkLoaded } from "@clerk/nextjs";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
@@ -43,9 +43,9 @@ function Header() {
           <span>Basket</span>
         </Link>
 
-        <ClerkLoaded>
+        {/* <ClerkLoaded>
           <AuthContent />
-        </ClerkLoaded>
+        </ClerkLoaded> */}
       </div>
     </header>
   );
