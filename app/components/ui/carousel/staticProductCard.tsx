@@ -16,7 +16,7 @@ const Price = ({
         only
       </span>
       <span
-        className="ml-1 font-bold sm:font-black text-xs sm:text-lg md:text-xl"
+        className="ml-1 font-bold sm:font-black text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl"
         style={{ color: priceColor }}
       >
         ${price.toFixed(2)}
@@ -38,14 +38,14 @@ const DiscountPrice = ({
 
   return (
     <div className="mx-2 grid grid-rows-[0.1rem_1fr]">
-      <span className="text-gray-400 text-xs block">
+      <span className="text-gray-400 text-xs md:text-md lg:text-lg lg:pb-2  block">
         ${price.toFixed(2)}
         {/* <div className="z-40 absolute inset-0 h-full w-full "> */}
         {/* <PriceLineCross /> */}
         {/* </div> */}
       </span>
       <span
-        className="ml-2 pt-2 font-bold text-xs md:text-xl block"
+        className="ml-2 pt-2 font-bold text-xs md:text-xl lg:font-black  lg:text-2xl xl:text-3xl block"
         style={{ color: priceColor }}
       >
         ${discountPrice?.toFixed(2)}
@@ -70,7 +70,7 @@ type Props = {
 export const ProductCard = ({ product, discount, priceColor }: Props) => {
   return (
     <div className="z-30 h-full w-full  max-h-[225px] max-w-[250px] lg:max-h-[350px] lg:max-w-[350px] xl:max-h-[400px] xl:max-w-[400px] bg-white rounded-sm grid grid-rows-[1fr_2fr_1fr]">
-      <span className="z-40 font-black w-full text-black text-center text-xs sm:text-md lg:text-lg xl:text-xl grid">
+      <span className="z-40 font-black w-full text-black text-center text-xs sm:py-2 md:py-3 lg:py-4 sm:text-md lg:text-lg xl:text-xl grid">
         {product.brand}
       </span>
       <div className="h-full w-full relative mx-auto">
