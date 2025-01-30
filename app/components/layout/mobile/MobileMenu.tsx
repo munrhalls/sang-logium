@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, Search, ShoppingBag, User } from "lucide-react";
 
-const MobileFooter = () => {
+const MobileMenu = () => {
   return (
     <div className=" bg-black text-white border-t border-white lg:hidden">
       <div className="h-16 flex justify-around items-center px-4">
@@ -29,4 +29,4 @@ const MobileFooter = () => {
   );
 };
 
-export default MobileFooter;
+export default MobileMenu;

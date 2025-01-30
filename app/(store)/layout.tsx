@@ -3,10 +3,9 @@ import type { Metadata } from "next";
 import { Iceland } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { SanityLive } from "@/sanity/lib/live";
-import Header from "@/app/components/ui/header/Header";
-import MobileFooter from "@/app/components/ui/footer/MobileFooter";
-
-// import { Footer } from "@/components/ui/Footer";
+import Header from "@/app/components/layout/header/Header";
+import MobileMenu from "@/app/components/layout/mobile/MobileMenu";
+import Footer from "@/app/components/layout/footer/Footer";
 // import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
 
 // import Image from "next/image";
@@ -46,8 +45,7 @@ export default async function RootLayout({
           <div id="wrapper" className="h-full grid grid-rows-[auto_1fr_auto]">
             <Header />
             <div className="h-full min-h-0 overflow-y-auto">{children}</div>
-            <MobileFooter />
-
+            <MobileMenu />
             <SanityLive />
           </div>
         </ClerkProvider>
