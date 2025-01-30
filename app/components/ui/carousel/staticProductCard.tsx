@@ -11,12 +11,12 @@ const Price = ({
   priceColor: string;
 }) => {
   return (
-    <div>
-      <span className="telinext-white font-bold sm:font-black text-xs sm:text-lg md:text-xl">
-        ONLY
+    <div className="h-full grid">
+      <span className="text-xs font-extralight text-slate-700 sm:font-black sm:text-lg md:text-xl">
+        only
       </span>
       <span
-        className="ml-1 font-bold sm:font-black text-md sm:text-lg md:text-xl"
+        className="ml-1 font-bold sm:font-black text-xs sm:text-lg md:text-xl"
         style={{ color: priceColor }}
       >
         ${price.toFixed(2)}
@@ -37,16 +37,15 @@ const DiscountPrice = ({
   const discountPrice = price - (discount / 100) * price;
 
   return (
-    <div className="grid grid-rows-[0.25rem_1rem]">
-      <span className="text-gray-400 relative block">
-        $
-        <div className="z-40 absolute inset-0 h-full w-full text-xs">
-          {/* <PriceLineCross /> */}
-        </div>
-        {price.toFixed(2)}
+    <div className="mx-2 grid grid-rows-[0.1rem_1fr]">
+      <span className="text-gray-400 text-xs block">
+        ${price.toFixed(2)}
+        {/* <div className="z-40 absolute inset-0 h-full w-full "> */}
+        {/* <PriceLineCross /> */}
+        {/* </div> */}
       </span>
       <span
-        className="ml-2 pt-2 font-black text-lg md:text-xl"
+        className="ml-2 pt-2 font-bold text-xs md:text-xl block"
         style={{ color: priceColor }}
       >
         ${discountPrice?.toFixed(2)}
@@ -70,11 +69,11 @@ type Props = {
 
 export const ProductCard = ({ product, discount, priceColor }: Props) => {
   return (
-    <div className="/*ProductCard*/ z-30 bg-white h-full min-h-0 grid-rows-[auto_1fr_auto] gap-2  text-black rounded-sm font-oswald  ">
-      <span className="z-40 inline-block w-full text-black text-center">
+    <div className="z-30 h-full w-full  max-h-[225px] max-w-[250px] lg:max-h-[350px] lg:max-w-[350px] xl:max-h-[400px] xl:max-w-[400px] bg-white rounded-sm grid grid-rows-[1fr_2fr_1fr]">
+      <span className="z-40 font-black w-full text-black text-center text-xs sm:text-md lg:text-lg xl:text-xl grid">
         {product.brand}
       </span>
-      <div className="grid place-content-center">
+      <div className="h-full w-full relative mx-auto">
         <Image
           loading="lazy"
           decoding="async"
@@ -82,9 +81,9 @@ export const ProductCard = ({ product, discount, priceColor }: Props) => {
           sizes="(max-width: 768px) 36vw, 25vw"
           src={imageUrl(product.image).url()}
           alt={product.brand}
-          height={40}
-          width={40}
-          className="z-40 aspect-square object-contain rounded-sm w-14"
+          height={60}
+          width={60}
+          className="z-40 h-full w-full absolute inset-0 aspect-square object-contain rounded-sm"
         />
       </div>
       <div className="z-40 grid place-content-center">
@@ -98,8 +97,12 @@ export const ProductCard = ({ product, discount, priceColor }: Props) => {
           <Price price={product.price} priceColor={priceColor} />
         )}
       </div>
+    </div>
+  );
+};
 
-      {/* <Link
+{
+  /* <Link
         href={`/product/${product._id}`}
         className=" text-black relative aspect-square w-[clamp(4px,50%,50px)] md:w-[clamp(16px,50%,140px)] place-self-center"
       >
@@ -132,7 +135,5 @@ export const ProductCard = ({ product, discount, priceColor }: Props) => {
             )}
           </div>
         </div>
-      </Link> */}
-    </div>
-  );
-};
+      </Link> */
+}
