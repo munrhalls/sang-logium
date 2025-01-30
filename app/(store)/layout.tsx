@@ -5,7 +5,6 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { SanityLive } from "@/sanity/lib/live";
 import Header from "@/app/components/layout/header/Header";
 import MobileMenu from "@/app/components/layout/mobile/MobileMenu";
-import Footer from "@/app/components/layout/footer/Footer";
 // import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
 
 // import Image from "next/image";
