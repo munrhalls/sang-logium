@@ -11,7 +11,7 @@ type SlideProps = {
 
 type ProductVerified = {
   _id: string;
-  name: string;
+  brand: string;
   price: number;
   image: string;
 };
@@ -21,7 +21,7 @@ const Slide = ({ commercial, index }: SlideProps) => {
 
   const productsVerified = products?.filter(
     (product): product is ProductVerified =>
-      Boolean(product?.name && product?.price && product?.image)
+      Boolean(product?.brand && product?.price && product?.image)
   );
 
   console.log(index);

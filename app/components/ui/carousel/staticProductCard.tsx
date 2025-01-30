@@ -57,7 +57,7 @@ const DiscountPrice = ({
 
 export type ProductProps = {
   _id: string;
-  name: string;
+  brand: string;
   price: number;
   image: string;
 };
