@@ -50,18 +50,14 @@ function ProductsCommercial({
         )}
       </div>
       <div className="h-full grid grid-flow-col grid-auto-cols-fr">
-        {/* {products.map((product) => (
+        {products.map((product) => (
           <ProductCard
             key={product._id}
             product={product}
             discount={discount}
             priceColor={buttonColor}
           />
-        ))} */}
-        <div className="z-20 h-full bg-pink-600 border border-black"></div>
-        <div className="z-20 h-full bg-pink-600 border border-black"></div>
-
-        <div className="z-20 h-full bg-pink-600 border border-black"></div>
+        ))}
       </div>
       <div className="z-30 h-full min-h-0  text-white grid place-items-center">
         <Link
