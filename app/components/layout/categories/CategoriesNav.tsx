@@ -15,7 +15,7 @@ export default function CategoriesNav({
     undefined
   );
   return (
-    <nav className="hidden lg:flex items-center justify-center z-50 w-full bg-gray-900 ">
+    <nav className="hidden lg:flex items-center justify-center z-50 w-full bg-gray-900">
       <div className="h-full max-w-7xl mx-auto px-4">
         <ul className="h-full flex justify-center items-center">
           {categories.map((category) => (
@@ -27,7 +27,7 @@ export default function CategoriesNav({
             >
               <Link
                 href={`/category/${category.name}`}
-                className={`h-full flex items-center px-4 text-white hover:text-yellow-400 transition-colors ${
+                className={`h-full flex items-center py-2 px-4 text-white hover:text-yellow-400 transition-colors ${
                   activeCategory === category.name ? "text-yellow-400" : ""
                 }`}
               >
@@ -37,7 +37,7 @@ export default function CategoriesNav({
                   </span>
                 )}
                 <span
-                  className={`md:text-1xl xl:text-2xl ${category.name === "On Sale" ? "text-orange-500" : ""}`}
+                  className={`md:text-lg xl:text-lg ${category.name === "On Sale" ? "text-orange-500" : ""}`}
                 >
                   {category.name}
                 </span>

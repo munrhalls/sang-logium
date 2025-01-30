@@ -4,8 +4,9 @@ import { Iceland } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { SanityLive } from "@/sanity/lib/live";
 import Header from "@/app/components/layout/header/Header";
-import CategoriesList from "../components/layout/categories/CategoriesList";
+// import CategoriesList from "../components/layout/categories/CategoriesDrawerList(TemporarilyOff)";
 import MobileMenu from "@/app/components/layout/mobile/MobileMenu";
+import CategoriesWrapper from "../components/layout/categories/CategoriesWrapper";
 // import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
 
 // import Image from "next/image";
@@ -44,7 +45,7 @@ export default async function RootLayout({
         >
           <div id="wrapper" className="h-full grid grid-rows-[auto_1fr_auto]">
             <Header />
-            <CategoriesList />
+            <CategoriesWrapper />
             <div className="h-full min-h-0 overflow-y-auto">{children}</div>
             <MobileMenu />
             <SanityLive />
