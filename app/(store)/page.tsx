@@ -6,6 +6,7 @@ import ExtremeQuality from "../components/features/extreme-quality/ExtremeQualit
 import Bestsellers from "../components/features/bestsellers/Bestsellers";
 import MonthMvp from "../components/features/month-mvp/MonthMvp";
 // import MobileFooter from "@/app/components/ui/footer/MobileFooter";
+import { Suspense } from "react";
 
 export default async function Page() {
   const heroCommercials = await getCommercialsByFeature("hero");
@@ -24,9 +25,13 @@ export default async function Page() {
   return (
     <main className="h-full ">
       <Carousel prebuiltSlides={prebuiltSlides} keys={heroCommercialsKeys} />
-      <div className="">
+      <Suspense
+        fallback={
+          <div className="h-full grid place-content-center">Loading...</div>
+        }
+      >
         <BrandsWall />
-      </div>
+      </Suspense>
       <div className="min-h-full bg-purple-800 ">
         <ExtremeQuality />
       </div>

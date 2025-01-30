@@ -27,8 +27,11 @@ const Carousel = ({
     <div className="/* carousel */ h-full grid grid-rows-[1fr_2rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
         <div
-          className="h-full flex transform duration-300"
-          style={{ transform: `translateX(-${index * 100}%)` }}
+          className="h-full flex transform duration-300 will-change-transform"
+          style={{
+            transform: `translateX(-${index * 100}%)`,
+            backfaceVisibility: "hidden",
+          }}
         >
           {prebuiltSlides}
         </div>
