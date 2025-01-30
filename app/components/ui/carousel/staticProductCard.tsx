@@ -70,10 +70,10 @@ type Props = {
 
 export const ProductCard = ({ product, discount, priceColor }: Props) => {
   return (
-    <div className="/* PRODUCT CARD */ z-30 h-full min-h-0 grid gap-2 grid-cols-[1fr_3fr] md:grid-col-[2fr_3fr] bg-black/40 text-white rounded-sm font-oswald">
+    <div className="/* PRODUCT CARD */ z-30 h-full min-h-0 grid gap-2 grid-cols-[1fr_3fr] md:grid-col-[2fr_3fr] bg-white/85  text-black rounded-sm font-oswald">
       <Link
         href={`/product/${product._id}`}
-        className=" text-white relative aspect-square w-[clamp(60px,50%,100px)] md:w-[clamp(60px,50%,140px)] place-self-center"
+        className=" text-black relative aspect-square w-[clamp(60px,50%,100px)] md:w-[clamp(60px,50%,140px)] place-self-center"
       >
         <Image
           loading="lazy"
@@ -89,7 +89,7 @@ export const ProductCard = ({ product, discount, priceColor }: Props) => {
       </Link>
 
       <div className="z-40 min-w-0 max-w-full flex flex-col justify-center items-start">
-        <span className="z-40 max-w-full text-white truncate font-bold text-xs md:text-lg md:mb-4 xl:text-2xl">
+        <span className="z-40 max-w-full text-black truncate font-bold text-xs md:text-lg md:mb-4 xl:text-2xl">
           {product.name}
         </span>
 

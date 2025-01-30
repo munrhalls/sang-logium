@@ -1,4 +1,4 @@
-import akg from "./akg.svg";
+import akg from "./akg.png";
 // import audeze from "./audeze.svg";
 import audioTechnica from "./audio-technica.svg";
 import beyerdynamic from "./beyerdynamic.svg";

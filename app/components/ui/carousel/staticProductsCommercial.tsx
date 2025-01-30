@@ -41,8 +41,8 @@ function ProductsCommercial({
   };
 
   return (
-    <div className="z-30 h-full w-full grid grid-rows-[auto_1fr_3rem] p-4 gap-3 lg:auto-cols-fr">
-      <div className="h-full bg-green bg-black/40 text-white grid ">
+    <div className="z-30  h-full w-full grid grid-rows-[auto_1fr_3rem] p-4 gap-3 lg:auto-cols-fr">
+      <div className="h-full   text-white grid ">
         {text && (
           <div className="z-20">
             <PortableText value={text} components={components} />
@@ -59,10 +59,10 @@ function ProductsCommercial({
           />
         ))}
       </div>
-      <div className="z-30 h-full min-h-0 bg-green text-white grid place-items-center">
+      <div className="z-30 h-full min-h-0  text-white grid place-items-center">
         <Link
           href="TODO"
-          prefetch={true}
+          // prefetch={true}
           className="z-20 h-full min-h-0 block max-w-[10rem] text-center text-white font-black px-6 py-2 lg:py-2 rounded-sm text-lg lg:text-xl "
           style={{ backgroundColor: `${buttonColor}` }}
         >

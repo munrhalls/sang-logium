@@ -42,7 +42,7 @@ export default function TextCommercial({ text }: TextCommercialProps) {
       </div>
       <div className="z-20 grid place-items-center">
         <Link
-          href="asdasaxzc"
+          href="/"
           // prefetch={true}
           className="z-20 block max-w-[10rem] text-center text-xl text-white font-black px-6 py-2 rounded-sm mt-4 md:mt-12"
           style={{ backgroundColor: `${buttonColor}` }}

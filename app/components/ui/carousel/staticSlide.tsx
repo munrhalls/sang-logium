@@ -39,11 +39,12 @@ const Slide = ({ commercial, index }: SlideProps) => {
     >
       <Image
         src={imageUrl(image).url()}
-        width={1920}
-        height={1080}
+        loading={index === 0 ? "eager" : "lazy"}
+        width={1280}
+        height={720}
         style={{ objectPosition: "80% 0%" }}
         className="absolute inset-0 w-full h-full object-cover"
-        quality={85}
+        quality={80}
         sizes="100vw"
         alt={commercial.title || "Sale"}
       />
