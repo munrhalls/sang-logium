@@ -21,8 +21,8 @@ export const metadata: Metadata = {
 const iceland = Iceland({
   weight: "400",
   subsets: ["latin"],
-  display: "swap",
-  preload: true,
+  display: "optional",
+  preload: false,
   variable: "--font-iceland",
 });
 
@@ -43,10 +43,7 @@ export default async function RootLayout({
           }}
           dynamic
         >
-          <div
-            id="wrapper debug-screens"
-            className="h-full grid grid-rows-[auto_1fr_auto]"
-          >
+          <div id="wrapper" className="h-full grid grid-rows-[auto_1fr_auto]">
             <Header />
             <div className="h-full min-h-0 overflow-y-auto">{children}</div>
             <MobileFooter />
