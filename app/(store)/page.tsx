@@ -7,12 +7,14 @@ import FeaturedProducts from "../components/features/featured-products/FeaturedP
 import MainCategories from "../components/features/main-categories/MainCategories";
 import { Suspense } from "react";
 import Footer from "@/app/components/layout/footer/Footer";
+import HeroCommercials from "../components/features/hero-commercials/HeroCommercials";
 
 export default async function Page() {
   // const categories = await getAllCategories();
 
   return (
     <main className="h-full ">
+      <HeroCommercials />
       <Suspense
         fallback={
           <div className="h-full grid place-content-center">Loading...</div>

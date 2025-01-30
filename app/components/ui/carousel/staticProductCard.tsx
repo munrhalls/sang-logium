@@ -71,7 +71,7 @@ export const ProductCard = ({ product, discount, priceColor }: Props) => {
   return (
     <Link
       href={`/product/${product._id}`}
-      className="z-30 h-full w-full  max-h-[225px] max-w-[250px] lg:max-h-[350px] lg:max-w-[350px] xl:max-h-[400px] xl:max-w-[400px] bg-white rounded-sm grid grid-rows-[1fr_2fr_1fr]"
+      className="z-30 h-full w-full  max-h-[175px] max-w-[200px] lg:max-h-[350px] lg:max-w-[350px] xl:max-h-[400px] xl:max-w-[400px] bg-white rounded-sm grid grid-rows-[1fr_2fr_1fr]"
     >
       <span className="z-40 font-black w-full text-black text-center text-xs sm:py-2 md:py-3 lg:py-4 sm:text-md lg:text-lg xl:text-xl grid">
         {product.brand}
