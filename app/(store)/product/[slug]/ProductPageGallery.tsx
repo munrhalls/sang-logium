@@ -43,6 +43,7 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
               <div key={index} className="relative">
                 <Image
                   src={imgUrl}
+                  loading="lazy"
                   alt={`Thumbnail ${index + 1}`}
                   width={50}
                   height={50}

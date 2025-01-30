@@ -39,6 +39,7 @@ const Slide = ({ commercial, index }: SlideProps) => {
     >
       <Image
         src={imageUrl(image).url()}
+        priority={index === 0}
         loading={index === 0 ? "eager" : "lazy"}
         width={1280}
         height={720}

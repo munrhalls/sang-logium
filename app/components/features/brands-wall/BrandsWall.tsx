@@ -17,8 +17,12 @@ export default async function BrandsWall() {
                 loading="lazy"
                 src={image.src}
                 alt={brand}
-                width={image.width}
-                height={image.height}
+                // width={image.width}
+                // height={image.height}
+                quality={70}
+                sizes="150px"
+                width={150}
+                height={50}
                 unoptimized
                 className="max-h-full max-w-full object-contain"
               />
