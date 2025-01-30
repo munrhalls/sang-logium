@@ -41,7 +41,7 @@ function ProductsCommercial({
   };
 
   return (
-    <div className="z-30  h-full w-full grid grid-rows-[auto_1fr_3rem] p-4 gap-3 lg:auto-cols-fr">
+    <div className="z-30  h-full w-full grid grid-rows-[auto_1fr_2rem] md:grid-rows-[auto_1fr_3rem] p-4 gap-3 lg:auto-cols-fr">
       <div className="h-full   text-white grid ">
         {text && (
           <div className="z-20">
@@ -49,21 +49,25 @@ function ProductsCommercial({
           </div>
         )}
       </div>
-      <div className="h-full grid">
-        {products.map((product) => (
+      <div className="h-full grid grid-flow-col grid-auto-cols-fr">
+        {/* {products.map((product) => (
           <ProductCard
             key={product._id}
             product={product}
             discount={discount}
             priceColor={buttonColor}
           />
-        ))}
+        ))} */}
+        <div className="z-20 h-full bg-pink-600 border border-black"></div>
+        <div className="z-20 h-full bg-pink-600 border border-black"></div>
+
+        <div className="z-20 h-full bg-pink-600 border border-black"></div>
       </div>
       <div className="z-30 h-full min-h-0  text-white grid place-items-center">
         <Link
           href="TODO"
           // prefetch={true}
-          className="z-20 h-full min-h-0 block max-w-[10rem] text-center text-white font-black px-6 py-2 lg:py-2 rounded-sm text-lg lg:text-xl "
+          className="z-20 grid place-content-centerh-full min-h-0  max-w-[8rem] text-center text-white py-1 font-black px-6 lg:py-2 rounded-sm text-sm lg:text-xl "
           style={{ backgroundColor: `${buttonColor}` }}
         >
           SEE MORE

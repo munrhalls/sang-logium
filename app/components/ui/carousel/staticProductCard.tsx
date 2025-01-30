@@ -12,7 +12,7 @@ const Price = ({
 }) => {
   return (
     <div>
-      <span className="telinext-white font-bold sm:font-black text-xs sm:text-lg md:text-xl  ">
+      <span className="telinext-white font-bold sm:font-black text-xs sm:text-lg md:text-xl">
         ONLY
       </span>
       <span
@@ -70,11 +70,15 @@ type Props = {
 
 export const ProductCard = ({ product, discount, priceColor }: Props) => {
   return (
-    <div className="/* PRODUCT CARD */ z-30 h-full min-h-0 grid gap-2 grid-cols-[1fr_3fr] md:grid-col-[2fr_3fr] bg-white/90  text-black rounded-sm font-oswald">
+    <div className="/* PRODUCT CARD */ z-30 h-full min-h-0 grid gap-2 bg-white text-black rounded-sm font-oswald">
       <Link
         href={`/product/${product._id}`}
-        className=" text-black relative aspect-square w-[clamp(60px,50%,100px)] md:w-[clamp(60px,50%,140px)] place-self-center"
+        className=" text-black relative aspect-square w-[clamp(4px,50%,50px)] md:w-[clamp(16px,50%,140px)] place-self-center"
       >
+        <span className="z-40 max-w-full text-black truncate font-bold text-xs md:text-lg md:mb-4 xl:text-2xl">
+          {product.brand}
+        </span>
+
         <Image
           loading="lazy"
           decoding="async"
@@ -82,16 +86,12 @@ export const ProductCard = ({ product, discount, priceColor }: Props) => {
           sizes="(max-width: 768px) 36vw, 25vw"
           src={imageUrl(product.image).url()}
           alt={product.brand}
-          height={60}
-          width={60}
+          height={40}
+          width={40}
           className="z-40 h-full w-full absolute inset-0 aspect-square object-cover rounded-sm"
         />
 
         <div className="z-40 min-w-0 max-w-full flex flex-col justify-center items-start">
-          <span className="z-40 max-w-full text-black truncate font-bold text-xs md:text-lg md:mb-4 xl:text-2xl">
-            {product.brand}
-          </span>
-
           <div className="z-40 flex">
             {discount ? (
               <DiscountPrice
