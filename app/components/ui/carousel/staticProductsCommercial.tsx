@@ -49,7 +49,7 @@ function ProductsCommercial({
           </div>
         )}
       </div>
-      <div className="h-full grid grid-flow-col grid-auto-cols-fr">
+      <div className="h-full w-full grid grid-flow-col grid-auto-cols-fr">
         {products.map((product) => (
           <ProductCard
             key={product._id}
