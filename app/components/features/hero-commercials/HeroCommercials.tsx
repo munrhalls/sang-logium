@@ -1,6 +1,6 @@
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import Carousel from "../../ui/carousel/carousel";
-import Slide from "../../ui/carousel/staticSlide";
+import Slide from "../../ui/carousel/slide";
 
 export default async function HeroCommercials() {
   const heroCommercials = await getCommercialsByFeature("hero");

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
-import TextCommercial from "./staticTextCommercial";
-import ProductsCommercial from "./staticProductsCommercial";
+import TextCommercial from "../commercials/textCommercial";
+import ProductsCommercial from "../commercials/productCommercial";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
 type SlideProps = {
@@ -23,8 +23,6 @@ const Slide = ({ commercial, index }: SlideProps) => {
     (product): product is ProductVerified =>
       Boolean(product?.brand && product?.price && product?.image)
   );
-
-  console.log(index);
 
   if (!image) return null;
 

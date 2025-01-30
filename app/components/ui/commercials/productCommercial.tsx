@@ -1,6 +1,6 @@
 import { PortableText } from "@portabletext/react";
 import { PortableTextComponents } from "@portabletext/react";
-import { ProductProps, ProductCard } from "./staticProductCard";
+import { ProductProps, ProductCard } from "./productCard";
 import Link from "next/link";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
