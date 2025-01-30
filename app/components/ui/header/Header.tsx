@@ -28,7 +28,14 @@ function Header() {
   return (
     <header className="bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_4fr] h-[4rem]">
       <Link href="/" className="grid place-content-center">
-        <Image src={logo} alt="Logo" width={180} height={60} unoptimized />
+        <Image
+          src={logo}
+          alt="Logo"
+          height={60}
+          width={180}
+          unoptimized
+          priority
+        />
       </Link>
 
       <div className="hidden lg:grid lg:place-content-center">
