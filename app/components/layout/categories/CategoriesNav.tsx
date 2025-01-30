@@ -1,39 +1,24 @@
 "use client";
-import { useState } from "react";
 
 import Link from "next/link";
 import { getCategoryIcon } from "@/lib/getCategoryIcon";
-import { flatToTree } from "@/lib/flatToTree";
+import { CategoryTree } from "@/lib/flatToTree";
 import { FaChevronDown, FaRegCircle } from "react-icons/fa";
-import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+import { useState } from "react";
 
-type PropsType = {
-  categories: ALL_CATEGORIES_QUERYResult;
-};
-
-export default function DesktopCategoriesNav({ categories }: PropsType) {
+export default function CategoriesNav({
+  categories,
+}: {
+  categories: CategoryTree[];
+}) {
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
     undefined
   );
-
-  const categoriesTree = flatToTree(categories);
-  const CATEGORY_ORDER = [
-    "Headphones",
-    "Hi-Fi Audio",
-    "Studio Equipment",
-    "Accessories",
-    "On Sale",
-  ];
-
-  const orderedCategoriesTree = categoriesTree.sort(
-    (a, b) => CATEGORY_ORDER.indexOf(a.name!) - CATEGORY_ORDER.indexOf(b.name!)
-  );
-
   return (
     <nav className="hidden lg:flex items-center justify-center z-50 w-full bg-gray-900 ">
       <div className="h-full max-w-7xl mx-auto px-4">
         <ul className="h-full flex justify-center items-center">
-          {orderedCategoriesTree.map((category) => (
+          {categories.map((category) => (
             <li
               key={category._id}
               className="h-full relative"

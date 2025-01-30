@@ -1,5 +1,5 @@
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
-interface CategoryTree {
+export interface CategoryTree {
   _id: string;
   name: string;
   icon: string | null;
