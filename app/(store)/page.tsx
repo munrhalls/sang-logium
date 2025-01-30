@@ -5,7 +5,6 @@ import MonthProduct from "../components/features/month-product/MonthProduct";
 import NewestRelease from "../components/features/newest-release/NewestRelease";
 import FeaturedProducts from "../components/features/featured-products/FeaturedProducts";
 import MainCategories from "../components/features/main-categories/MainCategories";
-import { Suspense } from "react";
 import Footer from "@/app/components/layout/footer/Footer";
 import HeroCommercials from "../components/features/hero-commercials/HeroCommercials";
 
