@@ -1,14 +1,11 @@
 import { flatToTree } from "@/lib/flatToTree";
-import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import Link from "next/link";
 import { getCategoryIcon } from "@/lib/getCategoryIcon";
 import { FaRegCircle } from "react-icons/fa";
 
-export default function CategoriesList({
-  categories,
-}: {
-  categories: ALL_CATEGORIES_QUERYResult;
-}) {
+export default async function CategoriesList() {
+  const categories = await getAllCategories();
   const categoriesTree = flatToTree(categories);
   const CATEGORY_ORDER = [
     "Headphones",
