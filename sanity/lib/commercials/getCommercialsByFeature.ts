@@ -11,7 +11,7 @@ const GET_COMMERCIALS_BY_FEATURE_QUERY =
   text,
   "products": products[]-> {
     _id,
-    name,
+    brand,
     price,
     "image": image.asset->url,
   },
