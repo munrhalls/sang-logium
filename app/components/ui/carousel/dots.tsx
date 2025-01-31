@@ -28,6 +28,7 @@ export default function Dots({
             alt={"Icon"}
             unoptimized
             onClick={() => onDotClick(i)}
+            className="cursor-pointer"
           />
         ) : (
           <Image
@@ -39,6 +40,7 @@ export default function Dots({
             alt={"Icon"}
             unoptimized
             onClick={() => onDotClick(i)}
+            className="cursor-pointer"
           />
         );
       })}

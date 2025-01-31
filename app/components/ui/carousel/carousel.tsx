@@ -15,6 +15,13 @@ const Carousel = ({
   keys: string[];
 }) => {
   const [index, setIndex] = useState(0);
+  const handleSetIndex = (newIndex: number) => {
+    if (viewportSize && sizesIndexOffsets[viewportSize] + newIndex >= count) {
+      return;
+    }
+
+    setIndex(newIndex);
+  };
 
   const viewportSize = responsive
     ? window.matchMedia("(min-width: 1280px)").matches
@@ -36,17 +43,28 @@ const Carousel = ({
         lg: 25,
         xl: 20,
       }
-    : null;
+    : 100;
+
+  const sizesIndexOffsets = {
+    xs: 0,
+    sm: 1,
+    md: 2,
+    lg: 3,
+    xl: 4,
+  };
 
   const slideBy =
-    responsive && sizes && viewportSize ? sizes[viewportSize] : 100;
+    responsive && viewportSize
+      ? (sizes as { [key: string]: number })[viewportSize]
+      : 100;
 
   const count = keys.length;
 
   const handleSlide = (direction: "left" | "right") => {
     const newIndex =
       direction === "left" ? (index - 1 + count) % count : (index + 1) % count;
-    setIndex(newIndex);
+
+    handleSetIndex(newIndex);
   };
 
   return (
@@ -80,7 +98,7 @@ const Carousel = ({
         <Dots
           keys={keys.map((item) => item + "dots")}
           currentIndex={index}
-          onDotClick={(dotNum) => setIndex(dotNum)}
+          onDotClick={(dotNum) => handleSetIndex(dotNum)}
         />
 
         <button
