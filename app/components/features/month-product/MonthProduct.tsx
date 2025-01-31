@@ -46,10 +46,10 @@ export default function MonthProduct() {
   return (
     <div className="h-full w-full bg-orange-500 grid grid-rows-[1fr_4fr]">
       <SegmentTitle title="MVP of the month!" />
-      <div className="h-full w-full bg-orange-500 grid grid-rows-[2rem_1fr]">
-        <div className="font-black text-xl grid place-content-start grid-rows-[2rem_1fr] ">
+      <div className="h-full w-full bg-orange-500 grid grid-rows-[5rem_1fr] md:grid-cols-[1fr_2fr] gap-1">
+        <div className="h-full font-black text-xl grid md:place-content-start grid-rows-[2rem_3rem] ">
           <div className="text-white text-center">Time left</div>
-          <div className="grid grid-cols-[3rem_3rem_3rem] gap-1">
+          <div className="grid place-content-center grid-cols-[3rem_3rem_3rem] gap-1">
             <div className="text-center">
               <div>{timeLeft.days}:</div>
               <div className="text-sm">days</div>
@@ -64,6 +64,7 @@ export default function MonthProduct() {
             </div>
           </div>
         </div>
+        <div className="bg-green-700 h-full grid">asdasda</div>
       </div>
     </div>
   );
