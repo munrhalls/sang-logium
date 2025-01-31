@@ -44,10 +44,10 @@ export default function MonthProduct() {
   }, []);
 
   return (
-    <div className="h-full w-full bg-orange-500 grid grid-rows-[1fr_4fr]">
+    <div className="h-full w-full bg-orange-500 grid grid-rows-[5rem_4fr]">
       <SegmentTitle title="MVP of the month!" />
-      <div className="h-full w-full bg-orange-500 grid grid-rows-[5rem_1fr] md:grid-cols-[1fr_2fr] gap-1">
-        <div className="h-full font-black text-xl grid md:place-content-start grid-rows-[2rem_3rem] ">
+      <div className="h-full w-full bg-orange-500 grid grid-rows-[5rem_1fr] md:grid-rows-1 md:grid-cols-[1fr_2fr] gap-1">
+        <div className="h-full font-black text-xl grid  grid-rows-[2rem_3rem] md:place-content-center md:mb-4">
           <div className="text-white text-center">Time left</div>
           <div className="grid place-content-center grid-cols-[3rem_3rem_3rem] gap-1">
             <div className="text-center">
