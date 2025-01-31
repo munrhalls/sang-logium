@@ -12,18 +12,20 @@ export default async function Page() {
   // const categories = await getAllCategories();
 
   return (
-    <main className="h-full ">
+    <main className="h-full">
       <HeroCommercials />
 
-      <BrandsWall />
+      <div className="h-full max-w-[1400px] mx-auto">
+        <BrandsWall />
 
-      <Bestsellers />
-      <MonthProduct />
-      <ExtremeQuality />
-      <NewestRelease />
-      <FeaturedProducts />
-      <MainCategories />
-      <Footer />
+        <Bestsellers />
+        <MonthProduct />
+        <ExtremeQuality />
+        <NewestRelease />
+        <FeaturedProducts />
+        <MainCategories />
+        <Footer />
+      </div>
     </main>
   );
 }
