@@ -4,19 +4,19 @@ import Carousel from "../../ui/carousel/carousel";
 import Slide from "../../ui/carousel/slide";
 
 export default async function Bestsellers() {
-  const bestSellerCommercials = Array.from({ length: 10 }).map(
+  const prebuiltCommercials = Array.from({ length: 10 }).map(
     (_, index: number) => <div key={index}>product bestseller {index}</div>
   );
 
-  const prebuiltSlides = bestSellerCommercials
-    .sort((a, b) => (a?.displayOrder ?? 0) - (b?.displayOrder ?? 0))
-    .map((commercial, index) => (
-      <Slide key={commercial._id} commercial={commercial} index={index} />
-    ));
+  // const prebuiltCommercials = bestSellerCommercials
+  //   .sort((a, b) => (a?.displayOrder ?? 0) - (b?.displayOrder ?? 0))
+  //   .map((commercial, index) => (
+  //     <Slide key={commercial._id} commercial={commercial} index={index} />
+  //   ));
 
-  const bestSellerCommercialsKeys = bestSellerCommercials.map(
-    (commercial) => commercial._id
-  );
+  // const bestSellerCommercialsKeys = bestSellerCommercials.map(
+  //   (commercial) => commercial._id
+  // );
 
   return (
     <div className="h-full grid grid-cols-[1fr_5fr_1fr]">
@@ -25,7 +25,7 @@ export default async function Bestsellers() {
         <h1 className="text-black text-4xl">Bestsellers</h1>
       </div>
       <div className="h-full grid-cols-[2fr_3fr]">
-        <Carousel slides={prebuiltSlides} keys={bestSellerCommercialsKeys} />
+        {/* <Carousel slides={prebuiltSlides} keys={bestSellerCommercialsKeys} /> */}
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ export default async function HeroCommercials() {
       keys.push(commercial._id);
       return (
         <HeroCommercialItem
-          key={commercial._id + "_heroCommercials"}
+          key={commercial._id + "_HeroCommercialItem"}
           commercial={commercial}
           index={index}
         />
@@ -23,18 +23,9 @@ export default async function HeroCommercials() {
 
   const prebuiltSlides = prebuiltCommercials.map(
     (prebuiltCommercial, index) => (
-      <Slide
-        key={keys[index] + "_heroSlide"}
-        prebuiltItem={prebuiltCommercial}
-      />
+      <Slide key={keys[index] + "_Slide"} prebuiltItem={prebuiltCommercial} />
     )
   );
 
-  const heroCommercialsKeys = heroCommercials.map(
-    (commercial) => commercial._id
-  );
-
-  return (
-    <Carousel prebuiltSlides={prebuiltSlides} keys={heroCommercialsKeys} />
-  );
+  return <Carousel prebuiltSlides={prebuiltSlides} keys={keys} />;
 }
