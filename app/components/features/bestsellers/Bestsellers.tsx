@@ -1,6 +1,5 @@
-import Image from "next/image";
-import LogoOrbit from "@/public/logo-orbit.svg";
 import Carousel from "../../ui/carousel/carousel";
+import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 
 export default async function Bestsellers() {
   const keys: string[] = [];
@@ -24,10 +23,7 @@ export default async function Bestsellers() {
 
   return (
     <div className="w-full bg-teal-800 grid grid-rows-[1fr_4fr]">
-      <div className="flex items-center justify-center gap-1">
-        <Image src={LogoOrbit} alt="Logo" width={60} height={60} unoptimized />
-        <h1 className="text-black font-black text-3xl">Bestsellers</h1>
-      </div>
+      <SegmentTitle title="Bestsellers" />
       <div className="h-full min-h-[400px] w-full bg-teal-800">
         <Carousel
           prebuiltSlides={prebuiltCommercials}
