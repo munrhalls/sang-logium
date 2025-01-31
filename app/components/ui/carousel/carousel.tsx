@@ -14,7 +14,6 @@ const Carousel = ({
   keys: string[];
 }) => {
   const [index, setIndex] = useState(0);
-  console.log(index);
 
   const count = keys.length;
 
@@ -28,7 +27,7 @@ const Carousel = ({
     <div className="/* carousel */ h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
         <div
-          className="h-full flex transform duration-300 will-change-transform"
+          className={`h-full w-full flex transform duration-300 will-change-transform`}
           style={{
             transform: `translateX(-${index * 100}%)`,
             backfaceVisibility: "hidden",
