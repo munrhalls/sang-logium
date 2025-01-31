@@ -26,7 +26,6 @@ export default async function HeroCommercials() {
       <Slide
         key={keys[index] + "_heroSlide"}
         prebuiltItem={prebuiltCommercial}
-        index={index}
       />
     )
   );
