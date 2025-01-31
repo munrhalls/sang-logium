@@ -5,6 +5,12 @@ import Slide from "../../ui/carousel/slide";
 export default async function HeroCommercials() {
   const heroCommercials = await getCommercialsByFeature("hero");
 
+  const prebuiltCommercials = heroCommercials
+    .sort((a, b) => (a?.displayOrder ?? 0) - (b?.displayOrder ?? 0))
+    .map((commercial, index) => (
+      <Slide key={commercial._id} commercial={commercial} index={index} />
+    ));
+
   const prebuiltSlides = heroCommercials
     .sort((a, b) => (a?.displayOrder ?? 0) - (b?.displayOrder ?? 0))
     .map((commercial, index) => (
