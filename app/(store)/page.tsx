@@ -7,7 +7,7 @@ import FeaturedProducts from "../components/features/featured-products/FeaturedP
 import MainCategories from "../components/features/main-categories/MainCategories";
 import Footer from "@/app/components/layout/footer/Footer";
 import HeroCommercials from "../components/features/hero-commercials/HeroCommercials";
-
+import { Suspense } from "react";
 export default async function Page() {
   // const categories = await getAllCategories();
 
@@ -19,8 +19,10 @@ export default async function Page() {
         <BrandsWall />
 
         <Bestsellers />
-        <MonthProduct />
         <ExtremeQuality />
+        <Suspense fallback={<div>Loading...</div>}>
+          <MonthProduct />
+        </Suspense>
         <NewestRelease />
         <FeaturedProducts />
         <MainCategories />
