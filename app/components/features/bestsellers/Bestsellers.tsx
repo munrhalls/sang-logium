@@ -9,8 +9,8 @@ export default async function Bestsellers() {
       keys.push(`bestseller_${index}`);
       return (
         <div
-          key={index}
-          className="h-full relative flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.33%] bg-purple-700 border border-black"
+          key={index + "_Bestsellers"}
+          className="h-full w-full relative bg-purple-700 border border-black"
         >
           {index}
         </div>
@@ -24,7 +24,12 @@ export default async function Bestsellers() {
         <Image src={LogoOrbit} alt="Logo" width={60} height={60} unoptimized />
         <h1 className="text-black font-black text-3xl">Bestsellers</h1>
       </div>
-      <Carousel prebuiltSlides={prebuiltCommercials} keys={keys} />;
+      <Carousel
+        prebuiltSlides={prebuiltCommercials}
+        keys={keys}
+        responsive={true}
+      />
+      ;
     </div>
   );
 }
