@@ -16,7 +16,9 @@ export default function Dots({
   const [height, width] = numberOfDots > 10 ? [8, 8] : [16, 16];
 
   return (
-    <div className=" z-40  h-full text-white text-center sm:bg-transparent flex flex-shrink-0 justify-center items-center gap-2 lg:gap-3 xl:gap-4 xl:mb-4 cursor-pointer">
+    <div
+      className={` z-40 h-full truncate text-white text-center sm:bg-transparent flex flex-shrink-0 justify-center items-center ${numberOfDots > 10 ? "gap-[0.25rem]" : "gap-2"}  lg:gap-3 xl:gap-4 xl:mb-4 cursor-pointer`}
+    >
       {keys.map((key, i) => {
         return currentIndex === i ? (
           <Image

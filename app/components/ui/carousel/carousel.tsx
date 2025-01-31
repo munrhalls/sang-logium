@@ -68,7 +68,7 @@ const Carousel = ({
   };
 
   return (
-    <div className="/*carousel*/ isolate h-full grid grid-rows-[1fr_3rem]">
+    <div className="/*carousel*/ isolate relative h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
         <div
           className="h-full w-full flex transition-transform duration-300"
