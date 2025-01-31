@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Dots from "./dots";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
@@ -11,43 +11,45 @@ const Carousel = ({
   keys,
 }: {
   prebuiltSlides: JSX.Element[] | JSX.Element;
-  multiplePerScreen?: boolean;
   keys: string[];
 }) => {
   const [index, setIndex] = useState(0);
+  const [slideWidth, setSlideWidth] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setSlideWidth(entry.contentRect.width);
+      }
+    });
+
+    resizeObserver.observe(containerRef.current);
+    return () => resizeObserver.disconnect();
+  }, []);
 
   const count = keys.length;
 
-  const handleSlide = (direction: "left" | "right") => {
+  const handleSlide = (e: React.MouseEvent, direction: "left" | "right") => {
+    e.preventDefault();
+    e.stopPropagation();
     const newIndex =
       direction === "left" ? (index - 1 + count) % count : (index + 1) % count;
     setIndex(newIndex);
   };
 
   return (
-    <div className="/*carousel*/ h-full grid grid-rows-[1fr_3rem]">
-      <div className="relative h-full w-full z-30 overflow-hidden">
-        <style>{`
-        :root {
-          --slide-width: 100%;
-        }
-        @media (min-width: 640px) {
-          :root {
-            --slide-width: 50%;
-          }
-        }
-        @media (min-width: 768px) {
-          :root {
-            --slide-width: 33.333%;
-          }
-        }
-      `}</style>
-
+    <div className="/*carousel*/ isolate h-full grid grid-rows-[1fr_3rem]">
+      <div
+        className="relative h-full w-full z-30 overflow-hidden"
+        ref={containerRef}
+      >
         <div
-          className={`relative h-full w-full flex transform duration-300 will-change-transform`}
+          className="h-full w-full flex transition-transform duration-300"
           style={{
-            transform: `translateX(-${index * 100}%)`,
-            backfaceVisibility: "hidden",
+            transform: `translateX(-${index * slideWidth}px)`,
           }}
         >
           {prebuiltSlides}
@@ -55,8 +57,9 @@ const Carousel = ({
       </div>
       <div className="z-50 h-full w-full bg-black grid grid-cols-[1fr_3fr_1fr]">
         <button
-          onClick={() => handleSlide("left")}
-          className="z-50 focus:outline-none bg-black pl-2 md:pl-6 flex items-center justify-center h-full w-full text-white"
+          type="button"
+          onClick={(e) => handleSlide(e, "left")}
+          className="z-50 relative  focus:outline-none bg-black pl-2 md:pl-6 flex items-center justify-center h-full w-full text-white"
         >
           <ChevronLeft />
         </button>
@@ -68,8 +71,9 @@ const Carousel = ({
         />
 
         <button
-          onClick={() => handleSlide("right")}
-          className="z-50 focus:outline-none bg-black pr-2 md:pr-6 flex items-center justify-center h-full w-full text-white"
+          type="button"
+          onClick={(e) => handleSlide(e, "right")}
+          className="z-50 relative  focus:outline-none bg-black pr-2 md:pr-6 flex items-center justify-center h-full w-full text-white"
         >
           <ChevronRight />
         </button>

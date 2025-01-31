@@ -10,7 +10,7 @@ export default async function Bestsellers() {
       return (
         <div
           key={index}
-          className="h-full relative flex-[0_0_100%] bg-purple-700 border border-black"
+          className="h-full relative flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.33%] bg-purple-700 border border-black"
         >
           {index}
         </div>
