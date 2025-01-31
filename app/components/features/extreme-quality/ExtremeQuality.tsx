@@ -1,17 +1,35 @@
-import Image from "next/image";
-import LogoOrbit from "@/public/logo-orbit.svg";
+import Carousel from "../../ui/carousel/carousel";
+import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 
 export default async function ExtremeQuality() {
+  const keys: string[] = [];
+  const prebuiltCommercials = Array.from({ length: 3 }).map(
+    (_, index: number) => {
+      keys.push(`bestseller_${index}`);
+      return (
+        <div
+          key={index + "_Bestsellers"}
+          className="h-full w-full p-4 grid place-items-center relative bg-purple-700 border border-black"
+        >
+          <div className="h-full w-full max-w-[300px] bg-orange-700 grid grid-rows-[auto_2fr_auto]">
+            <div className="">brand {index}</div>
+            <div className="h-full bg-teal-700">image</div>
+            <div>price</div>
+          </div>
+        </div>
+      );
+    }
+  );
+
   return (
-    <div className="h-full grid grid-cols-[1fr_5fr_1fr]">
-      <div className="h-full pt-8 pb-4 col-start-2 col-end-3 flex justify-center items-center gap-4 gradient">
-        <Image src={LogoOrbit} alt="Logo" width={80} height={80} unoptimized />
-        <h1 className="text-black text-4xl">Extreme Quality Series</h1>
-      </div>
-      <div className="h-full">
-        <div>extreme quality slide 1</div>
-        <div>extreme quality slide 1</div>
-        <div>extreme quality slide 1</div>
+    <div className="w-full bg-indigo-800 grid grid-rows-[1fr_4fr]">
+      <SegmentTitle title="Extreme Quality Series" />
+      <div className="h-full min-h-[400px] w-full bg-teal-800">
+        <Carousel
+          prebuiltSlides={prebuiltCommercials}
+          keys={keys}
+          responsive={true}
+        />
       </div>
     </div>
   );
