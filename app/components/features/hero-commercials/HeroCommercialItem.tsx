@@ -29,7 +29,7 @@ const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
   const discount = sale?.discount || null;
 
   return (
-    <>
+    <div className="h-full relative flex-[0_0_100%]">
       <Image
         src={imageUrl(image).url()}
         priority={index === 0}
@@ -53,7 +53,7 @@ const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
           />
         )
       )}
-    </>
+    </div>
   );
 };
 export default HeroCommercialItem;

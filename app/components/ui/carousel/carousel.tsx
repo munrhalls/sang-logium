@@ -10,7 +10,8 @@ const Carousel = ({
   prebuiltSlides,
   keys,
 }: {
-  prebuiltSlides: JSX.Element[];
+  prebuiltSlides: JSX.Element[] | JSX.Element;
+  multiplePerScreen?: boolean;
   keys: string[];
 }) => {
   const [index, setIndex] = useState(0);
@@ -24,10 +25,26 @@ const Carousel = ({
   };
 
   return (
-    <div className="/* carousel */ h-full grid grid-rows-[1fr_3rem]">
+    <div className="/*carousel*/ h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
+        <style>{`
+        :root {
+          --slide-width: 100%;
+        }
+        @media (min-width: 640px) {
+          :root {
+            --slide-width: 50%;
+          }
+        }
+        @media (min-width: 768px) {
+          :root {
+            --slide-width: 33.333%;
+          }
+        }
+      `}</style>
+
         <div
-          className={`h-full w-full flex transform duration-300 will-change-transform`}
+          className={`relative h-full w-full flex transform duration-300 will-change-transform`}
           style={{
             transform: `translateX(-${index * 100}%)`,
             backfaceVisibility: "hidden",
