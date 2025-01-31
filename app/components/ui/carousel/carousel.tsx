@@ -17,6 +17,7 @@ const Carousel = ({
   console.log(index);
 
   const count = keys.length;
+
   const handleSlide = (direction: "left" | "right") => {
     const newIndex =
       direction === "left" ? (index - 1 + count) % count : (index + 1) % count;
@@ -36,10 +37,10 @@ const Carousel = ({
           {prebuiltSlides}
         </div>
       </div>
-      <div className="z-50 h-[2rem] w-full bg-black grid grid-cols-3 ">
+      <div className="z-50 h-[2rem] w-full bg-black grid grid-cols-[auto_1fr_auto]">
         <button
           onClick={() => handleSlide("left")}
-          className="flex items-center justify-center h-full w-full text-white"
+          className="z-50 bg-black ml-2 flex items-center justify-center h-full w-full text-white"
         >
           <ChevronLeft />
         </button>
@@ -49,9 +50,10 @@ const Carousel = ({
           currentIndex={index}
           onDotClick={(dotNum) => setIndex(dotNum)}
         />
+
         <button
           onClick={() => handleSlide("right")}
-          className="flex items-center justify-center h-full w-full text-white"
+          className="z-50 bg-black mr-2 flex items-center justify-center h-full w-full text-white"
         >
           <ChevronRight />
         </button>

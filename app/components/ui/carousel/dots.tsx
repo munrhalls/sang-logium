@@ -1,7 +1,6 @@
 import Logo from "@/public/icons/Logo.svg";
 import Ellipse from "@/public/icons/Ellipse.svg";
 import Image from "next/image";
-
 interface CarouselDotsProps {
   keys: string[];
   currentIndex: number;
@@ -13,16 +12,19 @@ export default function Dots({
   currentIndex,
   onDotClick,
 }: CarouselDotsProps) {
+  const numberOfDots = keys.length;
+  const [height, width] = numberOfDots > 10 ? [8, 8] : [16, 16];
+
   return (
-    <div className="h-full text-white text-center z-50  sm:bg-transparent flex flex-shrink-0 justify-center items-center gap-2 lg:gap-3 xl:gap-4 xl:mb-4 cursor-pointer">
+    <div className=" z-40  h-full text-white text-center sm:bg-transparent flex flex-shrink-0 justify-center items-center gap-2 lg:gap-3 xl:gap-4 xl:mb-4 cursor-pointer">
       {keys.map((key, i) => {
         return currentIndex === i ? (
           <Image
             loading="lazy"
             key={key}
             src={Logo}
-            height={22}
-            width={22}
+            height={height + 8}
+            width={width + 8}
             alt={"Icon"}
             unoptimized
             onClick={() => onDotClick(i)}
@@ -32,8 +34,8 @@ export default function Dots({
             loading="lazy"
             key={key}
             src={Ellipse}
-            height={16}
-            width={16}
+            height={height}
+            width={width}
             alt={"Icon"}
             unoptimized
             onClick={() => onDotClick(i)}
