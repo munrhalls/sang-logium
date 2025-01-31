@@ -2,6 +2,7 @@ import Image from "next/image";
 import LogoOrbit from "@/public/logo-orbit.svg";
 import Carousel from "../../ui/carousel/carousel";
 import Slide from "../../ui/carousel/slide";
+import Link from "next/link";
 
 export default async function Bestsellers() {
   const keys: string[] = [];
@@ -10,7 +11,7 @@ export default async function Bestsellers() {
       keys.push(`bestseller_${index}`);
       return (
         <div key={index} className="h-full grid bg-purple-700">
-          product bestseller {index}
+          <Link href="/"></Link>
         </div>
       );
     }

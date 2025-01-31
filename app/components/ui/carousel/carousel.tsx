@@ -25,7 +25,7 @@ const Carousel = ({
   };
 
   return (
-    <div className="/* carousel */ h-full grid grid-rows-[1fr_2rem]">
+    <div className="/* carousel */ h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
         <div
           className="h-full flex transform duration-300 will-change-transform"
@@ -37,10 +37,10 @@ const Carousel = ({
           {prebuiltSlides}
         </div>
       </div>
-      <div className="z-50 h-[2rem] w-full bg-black grid grid-cols-[auto_1fr_auto]">
+      <div className="z-50 h-full w-full bg-black grid grid-cols-[1fr_3fr_1fr]">
         <button
           onClick={() => handleSlide("left")}
-          className="z-50 bg-black ml-2 flex items-center justify-center h-full w-full text-white"
+          className="z-50 focus:outline-none bg-black pl-2 md:pl-6 flex items-center justify-center h-full w-full text-white"
         >
           <ChevronLeft />
         </button>
@@ -53,7 +53,7 @@ const Carousel = ({
 
         <button
           onClick={() => handleSlide("right")}
-          className="z-50 bg-black mr-2 flex items-center justify-center h-full w-full text-white"
+          className="z-50 focus:outline-none bg-black pr-2 md:pr-6 flex items-center justify-center h-full w-full text-white"
         >
           <ChevronRight />
         </button>
