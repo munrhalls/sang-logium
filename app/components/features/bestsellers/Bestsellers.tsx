@@ -23,16 +23,18 @@ export default async function Bestsellers() {
   );
 
   return (
-    <div className="h-full max-h-[400px]">
-      <div className="pt-8 pb-4 col-start-2 col-end-3 flex justify-center items-center gap-4 gradient">
+    <div className="w-full bg-teal-800 grid place-content-center">
+      <div className="flex items-center justify-center gap-1">
         <Image src={LogoOrbit} alt="Logo" width={60} height={60} unoptimized />
         <h1 className="text-black font-black text-3xl">Bestsellers</h1>
       </div>
-      <Carousel
-        prebuiltSlides={prebuiltCommercials}
-        keys={keys}
-        responsive={true}
-      />
+      <div className="h-[400px] w-full bg-teal-800">
+        <Carousel
+          prebuiltSlides={prebuiltCommercials}
+          keys={keys}
+          responsive={true}
+        />
+      </div>
       ;
     </div>
   );

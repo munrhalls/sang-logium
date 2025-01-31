@@ -3,12 +3,12 @@ import LogoOrbit from "@/public/logo-orbit.svg";
 
 export default async function MonthProduct() {
   return (
-    <div className="h-full grid grid-cols-[1fr_5fr_1fr]">
-      <div className="h-full pt-8 pb-4 col-start-2 col-end-3 flex justify-center items-center gap-4 gradient">
-        <Image src={LogoOrbit} alt="Logo" width={80} height={80} unoptimized />
-        <h1 className="text-black text-4xl">Month`s Product</h1>
+    <div className="h-full w-full bg-indigo-800 grid">
+      <div className="h-full grid grid-cols-[1fr_4fr] place-items-center">
+        <Image src={LogoOrbit} alt="Logo" width={60} height={60} unoptimized />
+        <h1 className="text-black font-black text-3xl">MVP of the month</h1>
       </div>
-      <div className="h-full grid-cols-[2fr_3fr]">
+      <div className="h-full w-full bg-indigo-800 grid">
         <div>time, months mvp product + graphic, description</div>
         <div>image</div>
       </div>
