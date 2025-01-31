@@ -10,9 +10,13 @@ export default async function Bestsellers() {
       return (
         <div
           key={index + "_Bestsellers"}
-          className="h-full w-full relative bg-purple-700 border border-black"
+          className="h-full w-full p-4 grid relative bg-purple-700 border border-black"
         >
-          {index}
+          <div className="h-full bg-orange-700 grid grid-rows-[auto_2fr_auto]">
+            <div className="">brand {index}</div>
+            <div className="h-full bg-teal-700">image</div>
+            <div>price</div>
+          </div>
         </div>
       );
     }
