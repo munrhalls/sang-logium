@@ -1,5 +1,5 @@
-import Image from "next/image";
-import LogoOrbit from "@/public/logo-orbit.svg";
+// import Image from "next/image";
+// import LogoOrbit from "@/public/logo-orbit.svg";
 import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 export default function NewestRelease() {
   const image = { width: 400, height: 300, title: "Square (1:1)" };
