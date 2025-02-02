@@ -1,5 +1,5 @@
-import Logo from "@/public/icons/Logo.svg";
-import Ellipse from "@/public/icons/Ellipse.svg";
+import LogoBlack from "@/public/icons/LogoBlack.svg";
+import EllipseBlack from "@/public/icons/EllipseBlack.svg";
 import Image from "next/image";
 import { Fragment } from "react";
 interface CarouselDotsProps {
@@ -25,7 +25,7 @@ export default function MultiDots({
           <Fragment key={key + "_dot"}>
             <Image
               loading="lazy"
-              src={Logo}
+              src={LogoBlack}
               height={height + 8}
               width={width + 8}
               alt={"Icon"}
@@ -35,7 +35,7 @@ export default function MultiDots({
             />
             <Image
               loading="lazy"
-              src={Ellipse}
+              src={EllipseBlack}
               height={height}
               width={width}
               alt={"Icon"}
