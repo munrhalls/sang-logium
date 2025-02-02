@@ -16,47 +16,8 @@ const CarouselMultiSlide = ({
 }) => {
   const [index, setIndex] = useState(0);
   const handleSetIndex = (newIndex: number) => {
-    if (viewportSize && sizesIndexOffsets[viewportSize] + newIndex >= count) {
-      return;
-    }
-
     setIndex(newIndex);
   };
-
-  const viewportSize = responsive
-    ? window.matchMedia("(min-width: 1280px)").matches
-      ? "xl"
-      : window.matchMedia("(min-width: 1024px)").matches
-        ? "lg"
-        : window.matchMedia("(min-width: 768px)").matches
-          ? "md"
-          : window.matchMedia("(min-width: 640px)").matches
-            ? "sm"
-            : "xs"
-    : null;
-
-  const sizes = viewportSize
-    ? {
-        xs: 100,
-        sm: 50,
-        md: 33.3333,
-        lg: 25,
-        xl: 20,
-      }
-    : 100;
-
-  const sizesIndexOffsets = {
-    xs: 0,
-    sm: 1,
-    md: 2,
-    lg: 3,
-    xl: 4,
-  };
-
-  const slideBy =
-    responsive && viewportSize
-      ? (sizes as { [key: string]: number })[viewportSize]
-      : 100;
 
   const count = keys.length;
 
@@ -71,9 +32,9 @@ const CarouselMultiSlide = ({
     <div className="/*carousel*/ isolate relative h-full grid grid-rows-[1fr_3rem] px-[48px]">
       <div className="relative h-full w-full z-30 overflow-hidden ">
         <div
-          className="h-full w-full flex transition-transform duration-300"
+          className="carousel-multislide-track h-full w-full flex transition-transform duration-300"
           style={{
-            transform: `translate3d(-${index * slideBy}%, 0, 0)`,
+            transform: `translateX(calc(-${index} * var(--slide-width)))`,
           }}
         >
           {prebuiltSlides.map((slide, index) => (
