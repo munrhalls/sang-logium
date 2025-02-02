@@ -1,5 +1,5 @@
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
-import CarouselSingleSlide from "../../ui/carousel/carouselSingleSlide";
+import CarouselSingleSlide from "../../ui/carousel-single-slide/carouselSingleSlide";
 import HeroCommercialItem from "./HeroCommercialItem";
 
 export default async function HeroCommercials() {

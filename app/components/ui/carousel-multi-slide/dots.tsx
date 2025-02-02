@@ -1,10 +1,12 @@
 import Logo from "@/public/icons/Logo.svg";
 import Ellipse from "@/public/icons/Ellipse.svg";
 import Image from "next/image";
+import { Fragment } from "react";
 interface CarouselDotsProps {
   keys: string[];
   currentIndex: number;
   onDotClick: (index: number) => void;
+  multiSlide?: boolean;
 }
 
 export default function Dots({
@@ -14,7 +16,6 @@ export default function Dots({
 }: CarouselDotsProps) {
   const numberOfDots = keys.length;
   const [height, width] = numberOfDots > 10 ? [8, 8] : [16, 16];
-  const w = true;
 
   return (
     <div
@@ -22,30 +23,28 @@ export default function Dots({
     >
       {keys.map((key, i) => {
         return (
-          <>
+          <Fragment key={key + "_dot"}>
             <Image
               loading="lazy"
-              key={key}
               src={Logo}
               height={height + 8}
               width={width + 8}
               alt={"Icon"}
               unoptimized
               onClick={() => onDotClick(i)}
-              className={` ${currentIndex === i ? "" : "hidden"}`}
+              className={`dot-logo ${currentIndex === i ? "dot-logo-selected" : ""}`}
             />
             <Image
               loading="lazy"
-              key={key}
               src={Ellipse}
               height={height}
               width={width}
               alt={"Icon"}
               unoptimized
               onClick={() => onDotClick(i)}
-              className={`cursor-pointer ${currentIndex === i ? "hidden" : ""}`}
+              className={`cursor-pointer dot-empty`}
             />
-          </>
+          </Fragment>
         );
       })}
     </div>

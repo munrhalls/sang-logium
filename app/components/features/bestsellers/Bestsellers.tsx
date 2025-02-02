@@ -1,4 +1,4 @@
-import CarouselMultiSlide from "../../ui/carousel/carouselMultiSlide";
+import CarouselMultiSlide from "../../ui/carousel-multi-slide/carouselMultiSlide";
 import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 
 export default async function Bestsellers() {
