@@ -1,16 +1,43 @@
-import Image from "next/image";
-import LogoOrbit from "@/public/logo-orbit.svg";
+import CarouselMultiSlide from "../../ui/carousel-multi-slide/carouselMultiSlide";
+import SegmentTitle from "../../ui/segment-title/SegmentTitle";
+// import Image from "next/image";
 
-export default function FeaturedProducts() {
+export default async function FeaturedProducts() {
+  const keys: string[] = [];
+  const image = { width: 300, height: 300, title: "Square (1:1)" };
+
+  const prebuiltCommercials = Array.from({ length: 15 }).map(
+    (_, index: number) => {
+      keys.push(`bestseller_${index}`);
+      return (
+        <div
+          key={index + "_Bestsellers"}
+          className="h-full w-full p-4 grid place-items-center relative "
+        >
+          <div className="h-full w-full max-w-[300px]  grid grid-rows-[auto_2fr_auto] border border-black">
+            <div className="">brand {index}</div>
+            <div className="h-full ">
+              <img
+                src={`https://picsum.photos/${image.width}/${image.height}`}
+                height={image.height}
+                width={image.width}
+                alt={image.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>name</div>
+            <div>price</div>
+          </div>
+        </div>
+      );
+    }
+  );
+
   return (
-    <div className="h-full grid grid-cols-[1fr_5fr_1fr]">
-      <div className="h-full pt-8 pb-4 col-start-2 col-end-3 flex justify-center items-center gap-4 gradient">
-        <Image src={LogoOrbit} alt="Logo" width={80} height={80} unoptimized />
-        <h1 className="text-black text-4xl">Featured products</h1>
-      </div>
-      <div className="h-full grid-cols-[2fr_3fr]">
-        <div>time, months mvp product + graphic, description</div>
-        <div>image</div>
+    <div className="w-full  grid grid-rows-[1fr_4fr]">
+      <SegmentTitle title="Featured Products" />
+      <div className="h-full min-h-[400px] w-full ">
+        <CarouselMultiSlide prebuiltSlides={prebuiltCommercials} keys={keys} />
       </div>
     </div>
   );
