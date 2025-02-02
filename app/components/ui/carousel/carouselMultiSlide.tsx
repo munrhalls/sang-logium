@@ -68,8 +68,8 @@ const CarouselMultiSlide = ({
   };
 
   return (
-    <div className="/*carousel*/ isolate relative h-full grid grid-rows-[1fr_3rem]">
-      <div className="relative h-full w-full z-30 overflow-hidden">
+    <div className="/*carousel*/ isolate relative h-full grid grid-rows-[1fr_3rem] px-[48px]">
+      <div className="relative h-full w-full z-30 overflow-hidden ">
         <div
           className="h-full w-full flex transition-transform duration-300"
           style={{
@@ -89,14 +89,14 @@ const CarouselMultiSlide = ({
       <button
         type="button"
         onClick={() => handleSlide("left")}
-        className="z-50 absolute top-1/2 left-0 focus:outline-none pl-2 md:pl-6 flex items-center justify-center text-black"
+        className="z-50 absolute top-[40%] left-0 focus:outline-none pl-2 md:pl-6 flex items-center justify-center text-black"
       >
         <ChevronLeft />
       </button>
       <button
         type="button"
         onClick={() => handleSlide("right")}
-        className="z-50 absolute top-1/2 right-0 focus:outline-none  pr-2 md:pr-6 flex items-center justify-center text-black"
+        className="z-50 absolute top-[40%] right-0 focus:outline-none  pr-2 md:pr-6 flex items-center justify-center text-black"
       >
         <ChevronRight />
       </button>
