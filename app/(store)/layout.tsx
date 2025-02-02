@@ -41,7 +41,6 @@ export default async function RootLayout({
               card: "rounded-sm",
             },
           }}
-          dynamic
         >
           <div id="wrapper" className="h-full grid grid-rows-[auto_1fr_auto]">
             <Header />
