@@ -77,26 +77,33 @@ body {
     min-height: 100%;
   }
 }
-
 @layer components {
   .carousel-multislide-track {
     --slide-width: 100%;
   }
+
+  .carousel-multislide-slide {
+    flex: 0 0 var(--slide-width);
+  }
+
   @screen sm {
     .carousel-multislide-track {
       --slide-width: 50%;
     }
   }
+
   @screen md {
     .carousel-multislide-track {
       --slide-width: 33.3334%;
     }
   }
+
   @screen lg {
     .carousel-multislide-track {
       --slide-width: 25%;
     }
   }
+
   @screen xl {
     .carousel-multislide-track {
       --slide-width: 20%;

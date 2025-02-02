@@ -7,11 +7,9 @@ import { ChevronLeft } from "lucide-react";
 
 const CarouselMultiSlide = ({
   prebuiltSlides,
-  responsive = false,
   keys,
 }: {
   prebuiltSlides: JSX.Element[];
-  responsive?: boolean;
   keys: string[];
 }) => {
   const [index, setIndex] = useState(0);
@@ -29,7 +27,7 @@ const CarouselMultiSlide = ({
   };
 
   return (
-    <div className="/*carousel*/ isolate relative h-full grid grid-rows-[1fr_3rem] px-[48px]">
+    <div className="isolate relative h-full grid grid-rows-[1fr_3rem] px-[48px]">
       <div className="relative h-full w-full z-30 overflow-hidden ">
         <div
           className="carousel-multislide-track h-full w-full flex transition-transform duration-300"
@@ -39,7 +37,7 @@ const CarouselMultiSlide = ({
         >
           {prebuiltSlides.map((slide, index) => (
             <div
-              className={`flex-[0_0_100%] ${responsive ? "sm:flex-[0_0_50%] md:flex-[0_0_33.3334%] lg:flex-[0_0_25%] xl:flex-[0_0_20%]" : ""}`}
+              className="carousel-multislide-slide"
               key={keys[index] + "_prebuiltSlides"}
             >
               {slide}
