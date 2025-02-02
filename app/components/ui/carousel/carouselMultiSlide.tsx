@@ -89,16 +89,16 @@ const CarouselMultiSlide = ({
       <button
         type="button"
         onClick={() => handleSlide("left")}
-        className="z-50 absolute top-[40%] left-0 focus:outline-none pl-2 md:pl-6 flex items-center justify-center text-black"
+        className="z-50 absolute top-[40%] left-0  focus:outline-none flex items-center justify-center text-black"
       >
-        <ChevronLeft />
+        <ChevronLeft size={48} />
       </button>
       <button
         type="button"
         onClick={() => handleSlide("right")}
-        className="z-50 absolute top-[40%] right-0 focus:outline-none  pr-2 md:pr-6 flex items-center justify-center text-black"
+        className="z-50 absolute top-[40%] right-0  focus:outline-none flex items-center justify-center text-black"
       >
-        <ChevronRight />
+        <ChevronRight size={48} />
       </button>
       <div className="z-50 h-full w-full bg-slate-600">
         <Dots
