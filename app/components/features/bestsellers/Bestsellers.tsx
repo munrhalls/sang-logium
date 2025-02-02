@@ -1,4 +1,4 @@
-import Carousel from "../../ui/carousel/carousel";
+import CarouselMultiSlide from "../../ui/carousel/carouselMultiSlide";
 import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 
 export default async function Bestsellers() {
@@ -25,7 +25,7 @@ export default async function Bestsellers() {
     <div className="w-full bg-teal-800 grid grid-rows-[1fr_4fr]">
       <SegmentTitle title="Bestsellers" />
       <div className="h-full min-h-[400px] w-full bg-teal-800">
-        <Carousel
+        <CarouselMultiSlide
           prebuiltSlides={prebuiltCommercials}
           keys={keys}
           responsive={true}

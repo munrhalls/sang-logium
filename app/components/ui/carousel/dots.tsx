@@ -17,7 +17,7 @@ export default function Dots({
 
   return (
     <div
-      className={` z-40 h-full truncate text-white text-center sm:bg-transparent flex flex-shrink-0 justify-center items-center ${numberOfDots > 10 ? "gap-[0.25rem]" : "gap-2"}  lg:gap-3 xl:gap-4 xl:mb-4 cursor-pointer`}
+      className={` z-40 h-full truncate text-white text-center sm:bg-transparent flex flex-shrink-0 justify-center items-center ${numberOfDots > 10 ? "gap-[0.25rem]" : "gap-2"} lg:gap-3 xl:gap-4 xl:mb-4 cursor-pointer`}
     >
       {keys.map((key, i) => {
         return currentIndex === i ? (
@@ -48,21 +48,4 @@ export default function Dots({
       })}
     </div>
   );
-}
-
-{
-  /* {Array.from({ length: numberOfDots }).map((_, i) => (
-
-        <Image
-          loading="lazy"
-          quality={50}
-          key={i}
-          src={currentIndex === i ? Logo : Ellipse}
-          height={32}
-          width={32}
-          alt={"Icon"}
-          className={`${currentIndex === i ? "cursor-default h-6 w-6 sm:h-8 sm:w-8 lg:h-12 lg:w-12 xl:h-12 xl:w-12 sm:mb-2" : "cursor-pointer h-4 w-4 sm:h-6 sm:w-6 lg:h-8 lg:w-8 sm:mb-2"}`}
-          onClick={() => onDotClick(i)}
-        />
-      ))} */
 }

@@ -5,7 +5,7 @@ import Dots from "./dots";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
 
-const Carousel = ({
+const CarouselMultiSlide = ({
   prebuiltSlides,
   responsive = false,
   keys,
@@ -86,31 +86,29 @@ const Carousel = ({
           ))}
         </div>
       </div>
-      <div className="z-50 h-full w-full bg-black grid grid-cols-[1fr_3fr_1fr]">
-        <button
-          type="button"
-          onClick={() => handleSlide("left")}
-          className="z-50 relative  focus:outline-none bg-black pl-2 md:pl-6 flex items-center justify-center h-full w-full text-white"
-        >
-          <ChevronLeft />
-        </button>
-
+      <button
+        type="button"
+        onClick={() => handleSlide("left")}
+        className="z-50 absolute top-1/2 left-0 focus:outline-none pl-2 md:pl-6 flex items-center justify-center text-black"
+      >
+        <ChevronLeft />
+      </button>
+      <button
+        type="button"
+        onClick={() => handleSlide("right")}
+        className="z-50 absolute top-1/2 right-0 focus:outline-none  pr-2 md:pr-6 flex items-center justify-center text-black"
+      >
+        <ChevronRight />
+      </button>
+      <div className="z-50 h-full w-full bg-slate-600">
         <Dots
           keys={keys.map((item) => item + "dots")}
           currentIndex={index}
           onDotClick={(dotNum) => handleSetIndex(dotNum)}
         />
-
-        <button
-          type="button"
-          onClick={() => handleSlide("right")}
-          className="z-50 relative  focus:outline-none bg-black pr-2 md:pr-6 flex items-center justify-center h-full w-full text-white"
-        >
-          <ChevronRight />
-        </button>
       </div>
     </div>
   );
 };
 
-export default Carousel;
+export default CarouselMultiSlide;

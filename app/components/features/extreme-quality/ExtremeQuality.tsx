@@ -1,4 +1,4 @@
-import Carousel from "../../ui/carousel/carousel";
+import Carousel from "../../ui/carousel/carouselSingleSlide";
 import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 
 export default async function ExtremeQuality() {

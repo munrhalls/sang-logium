@@ -65,7 +65,9 @@ export default function MonthProduct() {
           </div>
         </div>
         <div className="bg-green-700 h-full p-8 grid">
-          <div className="bg-white h-full">product</div>
+          <div className="bg-white h-full grid place-content-center rounded-xl">
+            <span>product</span>
+          </div>
         </div>
       </div>
     </div>
