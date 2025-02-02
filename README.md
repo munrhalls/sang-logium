@@ -25,7 +25,11 @@ Type safety pattern:
 
 - I'm using typegen from sanity -> all types are auto-generated for schemas AND for groq queries -> I use groq queries on frontend for type checks
 
-  This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Development experience pattern:
+
+- I'm deploying to production very frequently, often many times per day, which realizes fast iteration cycles and fast feedback
+
+- This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
