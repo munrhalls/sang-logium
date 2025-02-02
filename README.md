@@ -1,4 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+LIVE: https://sang-logium.com
+
+E-commerce retail store selling audio gear. Fictional (albeit with full functionality, including payments) project intended for my web development portfolio, for the purpose of showcasing my skills.
+
+Tech stack:
+
+- next.js 15+ (App router)
+- react (19+)
+- typescript (both for sanity, using typegen and frontend app)
+- sanity CMS for backend
+- GROQ for communication CMS-FRONTEND
+- tailwind
+
+Project structure:
+
+- pages constructed from /features and /layout
+  -- /features constructed from /components
+  --- components constructed from individual re-usable entities such as carousel, product card, text or product commercial etc.
+
+Fetch pattern:
+
+- sanity schema -> sanity documents via localhost /studio -> sanity library of groq queries -> frontend react server component using a groq query from sanity library -> prebuilding everything that can be prebuilt -> feeding prebuilt components to client components as props (where it makes sense)
+
+Type safety pattern:
+
+- I'm using typegen from sanity -> all types are auto-generated for schemas AND for groq queries -> I use groq queries on frontend for type checks
+
+  This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
