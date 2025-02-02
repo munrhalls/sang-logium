@@ -31,7 +31,7 @@ export default function MultiDots({
               alt={"Icon"}
               unoptimized
               onClick={() => onDotClick(i)}
-              className={`text-blue-800 dot-logo ${currentIndex === i ? "dot-logo-selected" : ""}`}
+              className={`dot-logo ${currentIndex === i ? "dot-logo-selected" : ""}`}
             />
             <Image
               loading="lazy"
