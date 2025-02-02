@@ -12,7 +12,7 @@ export default async function Bestsellers() {
       return (
         <div
           key={index + "_Bestsellers"}
-          className="h-full w-full p-4 grid place-items-center relative  border border-black"
+          className="h-full w-full p-4 grid place-items-center relative border border-black"
         >
           <div className="h-full w-full max-w-[300px]  grid grid-rows-[auto_2fr_auto]">
             <div className="">brand {index}</div>
