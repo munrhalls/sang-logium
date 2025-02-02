@@ -59,7 +59,7 @@ const CarouselMultiSlide = ({
       >
         <ChevronRight size={48} />
       </button>
-      <div className="z-50 h-full w-full bg-slate-600">
+      <div className="z-50 h-full w-full ">
         <MultiDots
           keys={keys.map((item) => item + "dots")}
           currentIndex={index}
