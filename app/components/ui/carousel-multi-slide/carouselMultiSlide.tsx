@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Dots from "../carousel-multi-slide/dots";
+import MultiDots from "./multiDots";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
 
@@ -60,11 +60,10 @@ const CarouselMultiSlide = ({
         <ChevronRight size={48} />
       </button>
       <div className="z-50 h-full w-full bg-slate-600">
-        <Dots
+        <MultiDots
           keys={keys.map((item) => item + "dots")}
           currentIndex={index}
           onDotClick={(dotNum) => handleSetIndex(dotNum)}
-          multiSlide={true}
         />
       </div>
     </div>

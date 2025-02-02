@@ -6,10 +6,9 @@ interface CarouselDotsProps {
   keys: string[];
   currentIndex: number;
   onDotClick: (index: number) => void;
-  multiSlide?: boolean;
 }
 
-export default function Dots({
+export default function MultiDots({
   keys,
   currentIndex,
   onDotClick,
