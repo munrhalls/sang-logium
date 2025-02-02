@@ -28,6 +28,8 @@ Type safety pattern:
 Development experience pattern:
 
 - I'm deploying to production very frequently, often many times per day, which realizes fast iteration cycles and fast feedback
+- All the assets, logo, imagery etc. were designed by me and calibrated on figma - however, I don't develop a full-fledged design for the web app, instead, I develop enough of a design to gain full clarity on what should fit how into the whole - then I build it straight into the app
+- I am experimental but I try to build things in layers: e.g., first build the ideas and eliminate risks of doomed endeavors, then scaffold the frontend layout with empty contents, then fill it with mock contents, then actually develop backend schema types, type relationships, fetch pattern integrations and then populate backend with real data
 
 - This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
