@@ -12,11 +12,11 @@ export default async function Bestsellers() {
       return (
         <div
           key={index + "_Bestsellers"}
-          className="h-full w-full p-4 grid place-items-center relative bg-purple-700 border border-black"
+          className="h-full w-full p-4 grid place-items-center relative  border border-black"
         >
-          <div className="h-full w-full max-w-[300px] bg-orange-700 grid grid-rows-[auto_2fr_auto]">
+          <div className="h-full w-full max-w-[300px]  grid grid-rows-[auto_2fr_auto]">
             <div className="">brand {index}</div>
-            <div className="h-full bg-teal-700">
+            <div className="h-full ">
               <img
                 src={`https://picsum.photos/${image.width}/${image.height}`}
                 height={image.height}
