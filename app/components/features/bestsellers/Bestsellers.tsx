@@ -12,9 +12,9 @@ export default async function Bestsellers() {
       return (
         <div
           key={index + "_Bestsellers"}
-          className="h-full w-full p-4 grid place-items-center relative border border-black"
+          className="h-full w-full p-4 grid place-items-center relative "
         >
-          <div className="h-full w-full max-w-[300px]  grid grid-rows-[auto_2fr_auto]">
+          <div className="h-full w-full max-w-[300px]  grid grid-rows-[auto_2fr_auto] border border-black">
             <div className="">brand {index}</div>
             <div className="h-full ">
               <img
@@ -25,6 +25,7 @@ export default async function Bestsellers() {
                 className="w-full h-full object-cover"
               />
             </div>
+            <div>name</div>
             <div>price</div>
           </div>
         </div>

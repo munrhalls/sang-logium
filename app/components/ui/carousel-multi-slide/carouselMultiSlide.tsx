@@ -30,7 +30,7 @@ const CarouselMultiSlide = ({
     <div className="isolate relative h-full grid grid-rows-[1fr_3rem] px-[48px]">
       <div className="relative h-full w-full z-30 overflow-hidden ">
         <div
-          className="carousel-multislide-track h-full w-full flex gap-2 transition-transform duration-300"
+          className="carousel-multislide-track h-full w-full flex transition-transform duration-300"
           style={{
             transform: `translateX(calc(-${index} * var(--slide-width)))`,
           }}
