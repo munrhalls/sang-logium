@@ -8,11 +8,13 @@ import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercials
 import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
 import Link from "next/link";
+import { BlockContent } from "@/sanity.types";
 
 type Product = {
   _id: string;
   name: string;
   brand: string;
+  description: BlockContent;
   price: number;
   image: string;
 };
@@ -24,6 +26,7 @@ function isProduct(item: unknown): item is Product {
     typeof (item as Product)._id === "string" &&
     typeof (item as Product).name === "string" &&
     typeof (item as Product).brand === "string" &&
+    typeof (item as Product).description === "object" &&
     typeof (item as Product).price === "number" &&
     typeof (item as Product).image === "string"
   );
