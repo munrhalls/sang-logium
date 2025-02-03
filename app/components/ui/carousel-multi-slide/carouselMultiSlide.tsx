@@ -48,14 +48,14 @@ const CarouselMultiSlide = ({
       <button
         type="button"
         onClick={() => handleSlide("left")}
-        className="z-50 absolute top-[40%] left-0  focus:outline-none flex items-center justify-center text-black"
+        className="z-50 absolute top-[40%] left-0  focus:outline-none flex items-center justify-center text-black hover:text-orange-500 transition-colors duration-300"
       >
         <ChevronLeft size={48} />
       </button>
       <button
         type="button"
         onClick={() => handleSlide("right")}
-        className="z-50 absolute top-[40%] right-0  focus:outline-none flex items-center justify-center text-black"
+        className="z-50 absolute top-[40%] right-0  focus:outline-none flex items-center justify-center text-black hover:text-orange-500 transition-colors duration-300"
       >
         <ChevronRight size={48} />
       </button>

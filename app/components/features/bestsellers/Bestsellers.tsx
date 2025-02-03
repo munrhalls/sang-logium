@@ -7,6 +7,7 @@ import ProductName from "../../ui/commercials/minor/productName";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
+import Link from "next/link";
 
 type Product = {
   _id: string;
@@ -16,13 +17,15 @@ type Product = {
   image: string;
 };
 
-function isProduct(item: any): item is Product {
+function isProduct(item: unknown): item is Product {
   return (
-    typeof item?._id === "string" &&
-    typeof item?.name === "string" &&
-    typeof item?.brand === "string" &&
-    typeof item?.price === "number" &&
-    typeof item?.image === "string"
+    typeof item === "object" &&
+    item !== null &&
+    typeof (item as Product)._id === "string" &&
+    typeof (item as Product).name === "string" &&
+    typeof (item as Product).brand === "string" &&
+    typeof (item as Product).price === "number" &&
+    typeof (item as Product).image === "string"
   );
 }
 
@@ -38,9 +41,12 @@ export default async function Bestsellers() {
     return (
       <div
         key={bestseller._id + "_bestseller"}
-        className="h-full w-full p-4 grid place-items-center relative "
+        className="h-full w-full p-4 grid place-items-center relative group"
       >
-        <div className="h-full w-full max-w-[300px] grid grid-rows-[auto_2fr_auto] border border-black">
+        <Link
+          className="h-full w-full max-w-[300px] grid grid-rows-[auto_2fr_auto] border border-black group-hover:border-[1px] group-hover:border-orange-500"
+          href={`/product/${bestseller._id}`}
+        >
           <BrandTitle brand={bestseller.brand} />
           <div className="h-full w-full">
             <Image
@@ -53,7 +59,7 @@ export default async function Bestsellers() {
           </div>
           <ProductName name={bestseller.name} />
           <Price price={bestseller.price} priceColor="rgb(242 132 0)" />
-        </div>
+        </Link>
       </div>
     );
   });
