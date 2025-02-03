@@ -2,6 +2,7 @@
 import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 import { useEffect } from "react";
 import { useState } from "react";
+// import { ProductCard } from "../../ui/commercials/productCard";
 
 export default function MonthProduct() {
   const [timeLeft, setTimeLeft] = useState({
@@ -44,11 +45,11 @@ export default function MonthProduct() {
   }, []);
 
   return (
-    <div className="h-full w-full  grid grid-rows-[5rem_4fr]">
+    <div className="h-full w-full  grid grid-rows-[5rem_4fr] bg-slate-300">
       <SegmentTitle title="MVP of the month!" />
-      <div className="h-full w-full  grid grid-rows-[5rem_1fr] md:grid-rows-1 md:grid-cols-[1fr_2fr] gap-1">
+      <div className="h-full w-full grid grid-rows-[5rem_1fr] md:grid-rows-1 md:grid-cols-[1fr_2fr] gap-1">
         <div className="h-full font-black text-xl grid  grid-rows-[2rem_3rem] md:place-content-center md:mb-4">
-          <div className="text-white text-center">Time left</div>
+          <div className="text-black text-center">Time left</div>
           <div className="grid place-content-center grid-cols-[3rem_3rem_3rem] gap-1">
             <div className="text-center">
               <div>{timeLeft.days}:</div>
@@ -64,9 +65,9 @@ export default function MonthProduct() {
             </div>
           </div>
         </div>
-        <div className="bg-green-300 h-full p-8 grid">
+        <div className=" h-full p-8 grid">
           <div className="bg-white h-full grid place-content-center rounded-xl">
-            <span>product</span>
+            {/* <ProductCard /> */}
           </div>
         </div>
       </div>
