@@ -30,7 +30,7 @@ export default function Footer() {
           1
         </div> */}
 
-        <div className="h-full grid justify-center content-start gap-4">
+        <div className="h-full grid content-start gap-4">
           <ColTitle title="PURCHASES" />
           <ul className="grid gap-2 justify-center">
             <li>
@@ -50,7 +50,7 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-        <div className="h-full grid justify-center content-start gap-4">
+        <div className="h-full grid content-start gap-4">
           <ColTitle title="SUPPORT" />
           <ul className="grid gap-2 justify-center">
             <li>
@@ -65,7 +65,7 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-        <div className="h-full grid justify-center content-start gap-4">
+        <div className="h-full grid content-start gap-4">
           <ColTitle title="ABOUT US" />
           <ul className="grid gap-2 justify-center">
             <li>
@@ -85,9 +85,9 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-        <div className="md:col-start-1 md:col-span-3 grid justify-center gap-4">
+        <div className=" md:grid-rows-[4rem_1fr] md:col-start-1 md:col-span-3  grid justify-center gap-1">
           <ColTitle title="FIND US" />
-          <ul className="grid grid-rows-2 grid-cols-2 justify-center md:grid-rows-1 md:grid-flow-col gap-12">
+          <ul className="grid grid-rows-2 md:grid-rows-1 grid-cols-2 justify-center md:grid-flow-col gap-12">
             <li>
               <FaTwitter size={32} />
             </li>
@@ -106,7 +106,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="h-full md:row-start-1 md:row-span-2 md:col-start-6 md:col-span-1 grid justify-center md:justify-content-start gap-4">
+        <div className="h-full content-start md:row-start-1 md:row-span-2 md:col-start-4 md:col-span-1 grid justify-center md:justify-content-start gap-4">
           <ColTitle title="BEST BRANDS" />
           <ul className="grid gap-2 justify-center">
             {[
