@@ -49,7 +49,7 @@ export default async function FeaturedProducts() {
 
   return (
     <div className="w-full  grid grid-rows-[1fr_4fr]">
-      <SegmentTitle title="Featured Products" />
+      <SegmentTitle title="Featured Collection" />
       <div className="h-full min-h-[400px] w-full ">
         <CarouselMultiSlide prebuiltSlides={prebuiltCommercials} keys={keys} />
       </div>

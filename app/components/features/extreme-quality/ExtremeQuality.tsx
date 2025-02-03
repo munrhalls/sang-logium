@@ -65,7 +65,7 @@ export default async function ExtremeQuality() {
           </div>
         </div>
         <div className="h-full w-full grid place-content-center ">
-          <p>{eqproduct.name}</p>
+          <h1 className="font-bold text-xl">{eqproduct.name}</h1>
           <PortableText value={eqproduct.description} />
         </div>
       </div>
@@ -73,7 +73,7 @@ export default async function ExtremeQuality() {
   });
 
   return (
-    <div className="w-full grid grid-rows-[1fr_5fr]">
+    <div className="w-full grid grid-rows-[8rem_5fr]">
       <SegmentTitle title="Extreme Quality Series" />
       <div className="h-full min-h-[800px] w-full">
         <Carousel prebuiltSlides={prebuiltCommercials} keys={keys} />
