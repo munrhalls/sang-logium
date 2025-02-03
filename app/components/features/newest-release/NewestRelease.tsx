@@ -7,7 +7,7 @@ export default function NewestRelease() {
     <div className="h-full grid grid-rows-[1fr_4fr]">
       <SegmentTitle title="Newest Release" />
       <div className="h-full grid-cols-[2fr_3fr]">
-        <div className="relative h-full ">
+        <div className="relative h-full w-full">
           <img
             src={`https://picsum.photos/${image.width}/${image.height}`}
             height={image.height}

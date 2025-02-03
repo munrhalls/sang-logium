@@ -1,5 +1,10 @@
 import CarouselMultiSlide from "../../ui/carousel-multi-slide/carouselMultiSlide";
 import SegmentTitle from "../../ui/segment-title/SegmentTitle";
+
+// import Image from "next/image";
+import Price from "../../ui/commercials/minor/price";
+import BrandTitle from "../../ui/commercials/minor/brandTitle";
+import ProductName from "../../ui/commercials/minor/productName";
 // import Image from "next/image";
 
 export default async function FeaturedProducts() {
@@ -8,14 +13,14 @@ export default async function FeaturedProducts() {
 
   const prebuiltCommercials = Array.from({ length: 15 }).map(
     (_, index: number) => {
-      keys.push(`bestseller_${index}`);
+      keys.push(`featured ${index}`);
       return (
         <div
-          key={index + "_Bestsellers"}
+          key={index + "_Featured"}
           className="h-full w-full p-4 grid place-items-center relative "
         >
           <div className="h-full w-full max-w-[300px]  grid grid-rows-[auto_2fr_auto] border border-black">
-            <div className="">brand {index}</div>
+            <BrandTitle brand="Sennheiser" />
             <div className="h-full ">
               <img
                 src={`https://picsum.photos/${image.width}/${image.height}`}
@@ -25,8 +30,17 @@ export default async function FeaturedProducts() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div>name</div>
-            <div>price</div>
+            {/* <ProductImage
+              src={`https://picsum.photos/${image.width}/${image.height}`}
+              brand={"Sennheiser"}
+            /> */}
+
+            <ProductName
+              name={
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquamomnis voluptatum eaque sed cumque repudiandae qui! ObcaecatiKV-3000."
+              }
+            />
+            <Price price={159.99} priceColor={"blue"} />
           </div>
         </div>
       );
