@@ -4,6 +4,7 @@ import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 import Price from "../../ui/commercials/minor/price";
 import BrandTitle from "../../ui/commercials/minor/brandTitle";
 import ProductName from "../../ui/commercials/minor/productName";
+// import ProductImage from "../../ui/commercials/minor/productImage";
 export default async function Bestsellers() {
   const keys: string[] = [];
   const image = { width: 300, height: 300, title: "Square (1:1)" };
@@ -27,6 +28,10 @@ export default async function Bestsellers() {
                 className="w-full h-full object-cover"
               />
             </div>
+            {/* <ProductImage
+              src={`https://picsum.photos/${image.width}/${image.height}`}
+              brand={"Sennheiser"}
+            /> */}
 
             <ProductName
               name={

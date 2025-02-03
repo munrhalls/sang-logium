@@ -6,7 +6,7 @@ const Price = function ({
   priceColor: string;
 }) {
   return (
-    <div className="h-full grid">
+    <div className="h-full grid text-center">
       <span className="text-xs font-extralight text-slate-700 sm:font-black sm:text-lg md:text-xl">
         only
       </span>
