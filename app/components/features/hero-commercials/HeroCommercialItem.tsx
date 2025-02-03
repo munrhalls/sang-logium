@@ -12,6 +12,7 @@ type SlideProps = {
 type ProductVerified = {
   _id: string;
   brand: string;
+  name: string;
   price: number;
   image: string;
 };
