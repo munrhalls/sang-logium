@@ -73,7 +73,7 @@ export default async function ExtremeQuality() {
   });
 
   return (
-    <div className="w-full  grid grid-rows-[1fr_4fr]">
+    <div className="w-full grid grid-rows-[1fr_5fr]">
       <SegmentTitle title="Extreme Quality Series" />
       <div className="h-full min-h-[800px] w-full">
         <Carousel prebuiltSlides={prebuiltCommercials} keys={keys} />
