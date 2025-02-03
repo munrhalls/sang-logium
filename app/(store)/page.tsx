@@ -15,8 +15,8 @@ export default async function Page() {
     <main className="h-full">
       <HeroCommercials />
 
-      <div className="grid grid-cols-[1fr_5fr_1fr] mx-auto">
-        <div className="col-start-2 col-end-3  max-w-[1400px]">
+      <div className="grid grid-cols-[auto_5fr_auto] md:grid-cols-[1fr_5fr_1fr] mx-auto">
+        <div className="col-start-2 col-end-3 max-w-[1400px]">
           <BrandsWall />
           <Bestsellers />
         </div>

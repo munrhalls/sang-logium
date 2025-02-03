@@ -17,9 +17,9 @@ export default async function Bestsellers() {
           key={index + "_Bestsellers"}
           className="h-full w-full p-4 grid place-items-center relative "
         >
-          <div className="h-full w-full max-w-[300px]  grid grid-rows-[auto_2fr_auto] border border-black">
+          <div className="h-full w-full max-w-[300px] grid grid-rows-[auto_2fr_auto] border border-black">
             <BrandTitle brand="Sennheiser" />
-            <div className="h-full ">
+            <div className="h-full w-full">
               <img
                 src={`https://picsum.photos/${image.width}/${image.height}`}
                 height={image.height}

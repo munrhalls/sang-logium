@@ -4,7 +4,7 @@ import * as Brands from "@/public/brands";
 
 export default async function BrandsWall() {
   return (
-    <div className="grid grid-cols-[1fr_7fr_1fr] sm:grid-cols-[1fr_5fr_1fr]">
+    <div className="w-full grid grid-cols-[1fr_7fr_1fr] sm:grid-cols-[1fr_5fr_1fr]">
       <div className="h-full pt-8 pb-4 col-start-2 col-end-3 flex justify-center items-center gap-4 gradient">
         <Image src={LogoOrbit} alt="Logo" width={60} height={60} unoptimized />
         <h1 className="text-black font-black text-3xl">
