@@ -1,9 +1,9 @@
-import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import { PortableText } from "@portabletext/react";
 import { PortableTextComponents } from "@portabletext/react";
 import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
+import Link from "next/link";
 
 export default async function NewestRelease() {
   const [commercial] = await getCommercialsByFeature("newest-release");
@@ -54,12 +54,20 @@ export default async function NewestRelease() {
           quality={90}
           className="z-50 absolute inset-0 w-full h-full object-cover rounded-sm"
         />
-        {/* <h2 className="row-start-3 row-span-1 text-white text-2xl font-black text-center mb-2">
-          {product.name}
-        </h2> */}
       </div>
       <div className="row-start-3 md:row-start-2 md:col-start-2 md:col-span-1 grid place-content-center gap-3 text-blue-950">
         <PortableText value={text} components={components} />;
+        <Link
+          href={`/product/${product._id}`}
+          className="grid place-content-center"
+        >
+          <button
+            className="bg-blue-950 text-white px-4 py-2 rounded-sm"
+            type="button"
+          >
+            SEE MORE
+          </button>
+        </Link>
       </div>
       <div className="grid md:grid-cols-[1fr_1fr]"></div>
     </div>
