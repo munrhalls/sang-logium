@@ -34,7 +34,7 @@ export default async function Page() {
         <div className="col-start-1 col-end-4">
           <MainCategories />
         </div>
-        <div className="min-h-[400px] md:min-h-[800px] col-start-1 col-end-4">
+        <div className="min-h-[400px] md:min-h-[800px] col-start-1 col-span-3 ">
           <Footer />
         </div>
       </div>

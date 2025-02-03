@@ -18,19 +18,10 @@ const ColTitle = function ({ title }: { title: string }) {
 
 export default function Footer() {
   return (
-    <footer className="h-full bg-black grid grid-rows-[4rem_1fr_1fr]  text-white px-4 pt-8 pb-16">
+    <footer className=" bg-black grid grid-rows-[4rem_1fr]  text-white px-4 pt-8 pb-8">
       <SegmentTitle title="Sang Logium" white={true} />
-      <div className="h-full w-full max-w-[600px] md:max-w-[1400px] mx-auto grid md:grid-cols-4 gap-6 justify-content-center py-8">
-        {/* <div className="bg-blue-700">1</div>
-        <div className="bg-blue-700">1</div>
-        <div className="md:row-start-2 bg-orange-700">1</div>
-
-        <div className="bg-blue-700">1</div>
-        <div className="bg-purple-700 h-full md:col-start-4 md:col-span-1 md:row-start-1 md:row-span-2">
-          1
-        </div> */}
-
-        <div className="h-full grid content-start gap-4">
+      <div className=" w-full max-w-[600px] md:max-w-[1400px] mx-auto grid md:grid-cols-4 gap-6 justify-content-center py-8">
+        <div className=" grid content-start gap-4">
           <ColTitle title="PURCHASES" />
           <ul className="grid gap-2 justify-center">
             <li>
@@ -50,7 +41,7 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-        <div className="h-full grid content-start gap-4">
+        <div className=" grid content-start gap-4">
           <ColTitle title="SUPPORT" />
           <ul className="grid gap-2 justify-center">
             <li>
@@ -65,7 +56,7 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-        <div className="h-full grid content-start gap-4">
+        <div className=" grid content-start gap-4">
           <ColTitle title="ABOUT US" />
           <ul className="grid gap-2 justify-center">
             <li>
@@ -106,7 +97,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="h-full content-start md:row-start-1 md:row-span-2 md:col-start-4 md:col-span-1 grid justify-center md:justify-content-start gap-4">
+        <div className=" content-start md:row-start-1 md:row-span-2 md:col-start-4 md:col-span-1 grid justify-center md:justify-content-start gap-4">
           <ColTitle title="BEST BRANDS" />
           <ul className="grid gap-2 justify-center">
             {[
