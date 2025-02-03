@@ -45,12 +45,12 @@ export default function MonthProduct() {
   }, []);
 
   return (
-    <div className="min-h-[400px] w-full  grid grid-rows-[5rem_4fr] bg-slate-300">
-      <SegmentTitle title="MVP of the month!" />
+    <div className="min-h-[800px] w-full  grid grid-rows-[5rem_4fr] bg-black">
+      <SegmentTitle title="MVP of the month!" white={true} />
       <div className="h-full w-full grid grid-rows-[5rem_1fr] md:grid-rows-1 md:grid-cols-[1fr_2fr] gap-1">
         <div className="h-full font-black text-xl grid  grid-rows-[2rem_3rem] md:place-content-center md:mb-4">
-          <div className="text-black text-center">Time left</div>
-          <div className="grid place-content-center grid-cols-[3rem_3rem_3rem] gap-1">
+          <div className="text-white text-center">Time left</div>
+          <div className="grid place-content-center grid-cols-[3rem_3rem_3rem] gap-1 text-white">
             <div className="text-center">
               <div>{timeLeft.days}:</div>
               <div className="text-sm">days</div>
