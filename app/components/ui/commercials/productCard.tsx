@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { imageUrl } from "@/lib/imageUrl";
 // import PriceLineCross from "@/public/icons/PriceLineCross.svg";
-import DiscountPrice from "./discountPrice";
-import Price from "./price";
-import BrandTitle from "./brandTitle";
+import DiscountPrice from "./minor/discountPrice";
+import Price from "./minor/price";
+import BrandTitle from "./minor/brandTitle";
 
 export type ProductProps = {
   _id: string;

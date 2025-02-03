@@ -1,9 +1,9 @@
 import CarouselMultiSlide from "../../ui/carousel-multi-slide/carouselMultiSlide";
 import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 // import Image from "next/image";
-import Price from "../../ui/commercials/price";
-import BrandTitle from "../../ui/commercials/brandTitle";
-import ProductName from "../../ui/commercials/productName";
+import Price from "../../ui/commercials/minor/price";
+import BrandTitle from "../../ui/commercials/minor/brandTitle";
+import ProductName from "../../ui/commercials/minor/productName";
 export default async function Bestsellers() {
   const keys: string[] = [];
   const image = { width: 300, height: 300, title: "Square (1:1)" };
