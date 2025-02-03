@@ -40,22 +40,20 @@ export default async function NewestRelease() {
   };
 
   return (
-    <div
-      className="min-h-[800px] grid place-content-center grid-rows-[4rem_2fr_1fr] md:grid-cols-[1fr_1fr]
-    bg-gradient-to-b from-blue-950/95 via-gray-950/100 to-black"
-    >
-      <div className="row-start-2 row-span-2 md:col-start-1 md:col-span-1 relative h-full w-full">
-        <Image
-          src={imageUrl(image).url()}
-          loading="lazy"
-          height={1080}
-          width={720}
-          alt={""}
-          quality={90}
-          className="z-50 absolute inset-0 w-full h-full object-cover rounded-sm"
-        />
-      </div>
-      <div className="row-start-3 md:row-start-2 md:col-start-2 md:col-span-1 grid place-content-center gap-3 text-blue-950">
+    <div className="grid py-24 lg:pb-40 lg:pt-60 md:grid-cols-2 xl:grid-cols-[1fr_3fr_3fr_1fr] bg-gradient-to-b from-blue-950/95 via-gray-950/100 to-black">
+      {/* <div className="bg-blue-700"></div>
+      <div className="bg-purple-700"></div> */}
+      <Image
+        src={imageUrl(image).url()}
+        loading="lazy"
+        height={1280}
+        width={720}
+        alt={""}
+        quality={95}
+        className="z-50 mb-12 mx-auto max-w-[400px] md:max-w-[450px] lg:max-w-[600px] xl:max-w-[700px] lg:col-start-2 lg:col-span-1 object-cover rounded-lg "
+      />
+
+      <div className="h-full w-full grid md:place-content-center xl:justify-center gap-1 md:gap-2 lg:col-start-3 lg:col-span-1 text-blue-950">
         <PortableText value={text} components={components} />;
         <Link
           href={`/product/${product._id}`}
@@ -69,7 +67,6 @@ export default async function NewestRelease() {
           </button>
         </Link>
       </div>
-      <div className="grid md:grid-cols-[1fr_1fr]"></div>
     </div>
   );
 }
