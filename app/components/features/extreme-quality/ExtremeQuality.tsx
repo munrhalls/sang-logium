@@ -1,7 +1,7 @@
 import Carousel from "../../ui/carousel-single-slide/carouselSingleSlide";
 import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 import BrandTitle from "../../ui/commercials/minor/brandTitle";
-import Price from "../../ui/commercials/minor/price";
+import Link from "next/link";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
@@ -64,9 +64,20 @@ export default async function ExtremeQuality() {
             </span>
           </div>
         </div>
-        <div className="h-full w-full grid place-content-center ">
+        <div className="h-full w-full grid place-content-center gap-3">
           <h1 className="font-bold text-xl">{eqproduct.name}</h1>
           <PortableText value={eqproduct.description} />
+          <Link
+            href={`/product/${eqproduct._id}`}
+            className="grid place-content-center mt-3"
+          >
+            <button
+              type="button"
+              className="bg-black  text-white px-4 py-2 rounded-sm transition-all duration-300 ease-out hover:text-black hover:bg-white hover:border-black hover:shadow-black/50"
+            >
+              SEE MORE
+            </button>
+          </Link>
         </div>
       </div>
     );
