@@ -45,7 +45,7 @@ export default async function ExtremeQuality() {
         key={eqproduct._id + "_eqproduct"}
         className="h-full p-4 grid md:grid-cols-[5fr_2fr] relative border border-black"
       >
-        <div className="h-full w-full  grid grid-rows-[4rem_2fr_auto]">
+        <div className="h-full w-full grid grid-rows-[4rem_2fr]">
           <BrandTitle brand={eqproduct.brand} />
           <div className="h-full">
             <Image
@@ -58,9 +58,13 @@ export default async function ExtremeQuality() {
               className="w-full h-full object-cover rounded-sm"
             />
           </div>
-          <Price price={eqproduct.price} priceColor={"blue"} />
+          <div className="my-2 grid place-content-center">
+            <span className="ml-1 font-black sm:font-black text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
+              ${eqproduct.price.toFixed(2)}
+            </span>
+          </div>
         </div>
-        <div className="h-full w-full grid place-content-center">
+        <div className="h-full w-full grid place-content-center ">
           <p>{eqproduct.name}</p>
           <PortableText value={eqproduct.description} />
         </div>
