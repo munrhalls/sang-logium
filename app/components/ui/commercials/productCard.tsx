@@ -5,6 +5,7 @@ import { imageUrl } from "@/lib/imageUrl";
 import DiscountPrice from "./minor/discountPrice";
 import Price from "./minor/price";
 import BrandTitle from "./minor/brandTitle";
+import ProductImage from "./minor/productImage";
 
 export type ProductProps = {
   _id: string;
@@ -26,7 +27,7 @@ export const ProductCard = ({ product, discount, priceColor }: Props) => {
       className="z-30 h-full w-full  max-h-[175px] max-w-[200px] lg:max-h-[350px] lg:max-w-[350px] xl:max-h-[400px] xl:max-w-[400px] bg-white rounded-sm grid grid-rows-[1fr_2fr_1fr]"
     >
       <BrandTitle brand={product.brand} />
-      <div className="h-full w-full relative mx-auto">
+      {/* <div className="h-full w-full relative mx-auto">
         <Image
           loading="lazy"
           decoding="async"
@@ -38,7 +39,8 @@ export const ProductCard = ({ product, discount, priceColor }: Props) => {
           width={60}
           className="z-40 h-full w-full absolute inset-0 aspect-square object-contain rounded-sm"
         />
-      </div>
+      </div> */}
+      <ProductImage src={product.image} brand={product.brand} />
       <div className="z-40 grid place-content-center">
         {discount ? (
           <DiscountPrice
