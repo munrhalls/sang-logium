@@ -57,10 +57,13 @@ export default async function NewestRelease() {
         <PortableText value={text} components={components} />;
         <Link
           href={`/product/${product._id}`}
-          className="grid place-content-center"
+          className="grid place-content-center group"
         >
           <button
-            className="bg-blue-950 text-white px-4 py-2 rounded-sm"
+            className="bg-blue-950 text-white  px-4 py-2 rounded-sm transition-all duration-300 ease-out
+        hover:bg-blue-900 hover:border-blue-700
+        hover:shadow-xl hover:shadow-blue-950/50
+        hover:drop-shadow-xl"
             type="button"
           >
             SEE MORE
