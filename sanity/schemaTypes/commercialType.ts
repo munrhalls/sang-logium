@@ -15,8 +15,12 @@ export const commercialType = defineType({
       options: {
         list: [
           { title: "Hero", value: "hero" },
-          { title: "Category Banner", value: "category" },
-          { title: "Campaign", value: "campaign" },
+          { title: "Bestsellers", value: "bestsellers" },
+          { title: "ExtremeQuality", value: "extreme-quality" },
+          { title: "MVPMonth", value: "mvp-month" },
+          { title: "Newest Release", value: "newest-release" },
+          { title: "Featured Products", value: "featured-products" },
+          { title: "Main Categories", value: "main-categories" },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -40,7 +44,6 @@ export const commercialType = defineType({
     defineField({
       name: "image",
       type: "image",
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "text",

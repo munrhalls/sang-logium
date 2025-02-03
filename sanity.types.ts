@@ -75,7 +75,7 @@ export type Commercial = {
   _updatedAt: string;
   _rev: string;
   title?: string;
-  feature?: "hero" | "category" | "campaign";
+  feature?: "hero" | "bestsellers" | "extreme-quality" | "mvp-month" | "newest-release" | "featured-products" | "main-categories";
   variant?: "text" | "products";
   displayOrder?: number;
   image?: {
@@ -402,7 +402,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
 // Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
-// Query: *[_type == "commercial" && feature == $feature] {    _id,  title,  "image": image.asset->url,  variant,  displayOrder,  text,  "products": products[]-> {    _id,    brand,    price,    "image": image.asset->url,  },  sale-> {    discount,    _id  }}
+// Query: *[_type == "commercial" && feature == $feature] {    _id,  title,  "image": image.asset->url,  variant,  displayOrder,  text,  "products": products[]-> {    _id,    brand,    name,    price,    "image": image.asset->url,  },  sale-> {    discount,    _id  }}
 export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
   _id: string;
   title: string | null;
@@ -430,6 +430,7 @@ export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
   products: Array<{
     _id: string;
     brand: string | null;
+    name: string | null;
     price: number | null;
     image: string | null;
   }> | null;
@@ -777,7 +778,7 @@ export type SALE_BY_ID_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"commercial\" && feature == $feature] {\n    _id,\n  title,\n  \"image\": image.asset->url,\n  variant,\n  displayOrder,\n  text,\n  \"products\": products[]-> {\n    _id,\n    brand,\n    price,\n    \"image\": image.asset->url,\n  },\n  sale-> {\n    discount,\n    _id\n  }\n}": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    "*[_type == \"commercial\" && feature == $feature] {\n    _id,\n  title,\n  \"image\": image.asset->url,\n  variant,\n  displayOrder,\n  text,\n  \"products\": products[]-> {\n    _id,\n    brand,\n    name,\n    price,\n    \"image\": image.asset->url,\n  },\n  sale-> {\n    discount,\n    _id\n  }\n}": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
     "\n          *[\n              _type == \"category\"\n          ] | order(name desc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && slug.current == $slug\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;

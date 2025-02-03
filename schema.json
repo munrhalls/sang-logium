@@ -378,11 +378,27 @@
             },
             {
               "type": "string",
-              "value": "category"
+              "value": "bestsellers"
             },
             {
               "type": "string",
-              "value": "campaign"
+              "value": "extreme-quality"
+            },
+            {
+              "type": "string",
+              "value": "mvp-month"
+            },
+            {
+              "type": "string",
+              "value": "newest-release"
+            },
+            {
+              "type": "string",
+              "value": "featured-products"
+            },
+            {
+              "type": "string",
+              "value": "main-categories"
             }
           ]
         },
