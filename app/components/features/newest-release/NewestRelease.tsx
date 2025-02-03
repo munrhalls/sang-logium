@@ -46,21 +46,21 @@ export default async function NewestRelease() {
       <Image
         src={imageUrl(image).url()}
         loading="lazy"
-        height={1280}
-        width={720}
+        height={980}
+        width={1280}
         alt={""}
         quality={95}
-        className="z-50 mb-12 mx-auto max-w-[400px] md:max-w-[450px] lg:max-w-[600px] xl:max-w-[700px] lg:col-start-2 lg:col-span-1 object-cover rounded-lg "
+        className="z-50 mb-12 mx-auto max-w-[300px] sm:max-w-[400px] md:max-w-[450px] lg:max-w-[600px] xl:max-w-[850px] xl:max-h-[800px] lg:col-start-1 xl:col-start-2 lg:col-span-1  object-cover rounded-lg "
       />
 
-      <div className="h-full w-full grid md:place-content-center xl:justify-center gap-1 md:gap-2 lg:col-start-3 lg:col-span-1 text-blue-950">
+      <div className="h-full w-full grid md:place-content-center xl:justify-center gap-1 md:gap-2 lg:col-start-2 xl:col-start-3 lg:col-span-2 xl:col-span-1 text-blue-950">
         <PortableText value={text} components={components} />;
         <Link
           href={`/product/${product._id}`}
           className="grid place-content-center group"
         >
           <button
-            className="bg-blue-950 text-white  px-4 py-2 rounded-sm transition-all duration-300 ease-out
+            className="bg-blue-950 text-white px-4 py-2 rounded-sm transition-all duration-300 ease-out
         hover:bg-blue-900 hover:border-blue-700
         hover:shadow-xl hover:shadow-blue-950/50
         hover:drop-shadow-xl"
