@@ -18,7 +18,7 @@ const ColTitle = function ({ title }: { title: string }) {
 
 export default function Footer() {
   return (
-    <footer className="h-full  bg-black grid grid-rows-[4rem_1fr_auto]  text-white pt-8 pb-16">
+    <footer className="h-full  bg-black grid grid-rows-[4rem_1fr_1fr]  text-white pt-8 pb-16">
       <SegmentTitle title="Sang Logium" white={true} />
       <div className="w-full max-w-[1400px] mx-auto grid md:grid-cols-4 gap-12 justify-content-center py-8">
         <div className="h-full grid justify-center content-start gap-4">
@@ -54,6 +54,21 @@ export default function Footer() {
                 FAQ
               </Link>
             </li>
+          </ul>
+        </div>
+        <div className="h-full grid justify-center content-start gap-4">
+          <ColTitle title="ABOUT US" />
+          <ul className="grid gap-2 justify-center">
+            <li>
+              <Link className="text-xl " href="/support/privacy-policy">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link className="text-xl " href="/support/privacy-policy">
+                Terms of Service
+              </Link>
+            </li>
             <li>
               <Link className="text-xl " href="/support/privacy-policy">
                 Privacy Policy
@@ -62,12 +77,39 @@ export default function Footer() {
           </ul>
         </div>
         <div className="h-full grid justify-center content-start gap-4">
-          <ColTitle title="COMMUNITY" />
-          <ul className="grid gap-2 justify-center"> </ul>
-        </div>
-        <div className="h-full grid justify-center content-start gap-4">
           <ColTitle title="BEST BRANDS" />
-          <ul className="grid gap-2 justify-center"> </ul>
+          <ul className="grid gap-2 justify-center">
+            <li>
+              <Link className="text-xl " href="/brands/sennheiser">
+                Sennheiser
+              </Link>
+            </li>
+            <li>
+              <Link className="text-xl " href="/brands/sony">
+                Sony
+              </Link>
+            </li>
+            <li>
+              <Link className="text-xl " href="/brands/bose">
+                Bose
+              </Link>
+            </li>
+            <li>
+              <Link className="text-xl " href="/brands/akg">
+                AKG
+              </Link>
+            </li>
+            <li>
+              <Link className="text-xl " href="/brands/audiotechnica">
+                Audio-Technica
+              </Link>
+            </li>
+            <li>
+              <Link className="text-xl " href="/brands/philips">
+                Philips
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
       <div className="grid justify-center gap-4">
