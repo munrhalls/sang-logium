@@ -45,7 +45,7 @@ export default function MonthProduct() {
   }, []);
 
   return (
-    <div className="h-full w-full  grid grid-rows-[5rem_4fr] bg-slate-300">
+    <div className="min-h-[400px] w-full  grid grid-rows-[5rem_4fr] bg-slate-300">
       <SegmentTitle title="MVP of the month!" />
       <div className="h-full w-full grid grid-rows-[5rem_1fr] md:grid-rows-1 md:grid-cols-[1fr_2fr] gap-1">
         <div className="h-full font-black text-xl grid  grid-rows-[2rem_3rem] md:place-content-center md:mb-4">

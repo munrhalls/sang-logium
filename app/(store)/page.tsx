@@ -15,16 +15,28 @@ export default async function Page() {
     <main className="h-full">
       <HeroCommercials />
 
-      <div className="h-full max-w-[1400px] mx-auto">
-        <BrandsWall />
+      <div className="grid grid-cols-[1fr_5fr_1fr] mx-auto">
+        <div className="col-start-2 col-end-3  max-w-[1400px]">
+          <BrandsWall />
+          <Bestsellers />
+        </div>
+        <div className="col-start-1 col-end-4">
+          <NewestRelease />
+        </div>
+        <div className="col-start-2 col-end-3 max-w-[1400px]">
+          <ExtremeQuality />
+          <FeaturedProducts />
+        </div>
 
-        <Bestsellers />
-        <MonthProduct />
-        <ExtremeQuality />
-        <NewestRelease />
-        <FeaturedProducts />
-        <MainCategories />
-        <Footer />
+        <div className="col-start-1 col-end-4">
+          <MonthProduct />
+        </div>
+        <div className="col-start-1 col-end-4">
+          <MainCategories />
+        </div>
+        <div className="min-h-[400px] md:min-h-[800px] col-start-1 col-end-4">
+          <Footer />
+        </div>
       </div>
     </main>
   );

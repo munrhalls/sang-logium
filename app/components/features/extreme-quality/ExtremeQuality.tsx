@@ -13,7 +13,7 @@ export default async function ExtremeQuality() {
       return (
         <div
           key={index + "_Bestsellers"}
-          className="h-full w-full p-4 grid place-items-center relative  border border-black bg-slate-400"
+          className="p-4 grid relative  border border-black bg-slate-400"
         >
           <div className="h-full w-full max-w-[300px]  grid grid-rows-[auto_2fr_auto]">
             <BrandTitle brand={"Sony"} />
