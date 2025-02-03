@@ -2,41 +2,76 @@ import Carousel from "../../ui/carousel-single-slide/carouselSingleSlide";
 import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 import BrandTitle from "../../ui/commercials/minor/brandTitle";
 import Price from "../../ui/commercials/minor/price";
+import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
+import Image from "next/image";
+import { imageUrl } from "@/lib/imageUrl";
+import { BlockContent } from "@/sanity.types";
+import { PortableText } from "@portabletext/react";
+
+type Product = {
+  _id: string;
+  name: string;
+  brand: string;
+  description: BlockContent;
+  price: number;
+  image: string;
+};
+
+function isProduct(item: unknown): item is Product {
+  return (
+    typeof item === "object" &&
+    item !== null &&
+    typeof (item as Product)._id === "string" &&
+    typeof (item as Product).name === "string" &&
+    typeof (item as Product).brand === "string" &&
+    typeof (item as Product).description === "object" &&
+    typeof (item as Product).price === "number" &&
+    typeof (item as Product).image === "string"
+  );
+}
 
 export default async function ExtremeQuality() {
-  const keys: string[] = [];
-  const image = { width: 500, height: 500, title: "Square (1:1)" };
+  const [commercial] = await getCommercialsByFeature("extreme-quality");
+  if (!commercial || !commercial.products) return null;
 
-  const prebuiltCommercials = Array.from({ length: 3 }).map(
-    (_, index: number) => {
-      keys.push(`bestseller_${index}`);
-      return (
-        <div
-          key={index + "_Bestsellers"}
-          className="p-4 grid relative  border border-black bg-slate-400"
-        >
-          <div className="h-full w-full max-w-[300px]  grid grid-rows-[auto_2fr_auto]">
-            <BrandTitle brand={"Sony"} />
-            <div className="h-full ">
-              <img
-                src={`https://picsum.photos/${image.width}/${image.height}`}
-                height={image.height}
-                width={image.width}
-                alt={image.title}
-                className="w-full h-full object-cover rounded-sm"
-              />
-            </div>
-            <Price price={2599.99} priceColor={"blue"} />
+  const eqproducts = commercial?.products;
+  const verified = eqproducts?.filter(isProduct);
+  const keys: string[] =
+    verified?.map((eqproduct) => eqproduct._id + "_eqcarousel") || [];
+
+  const prebuiltCommercials = verified?.map((eqproduct) => {
+    return (
+      <div
+        key={eqproduct._id + "_eqproduct"}
+        className="h-full p-4 grid md:grid-cols-[5fr_2fr] relative border border-black"
+      >
+        <div className="h-full w-full  grid grid-rows-[4rem_2fr_auto]">
+          <BrandTitle brand={eqproduct.brand} />
+          <div className="h-full">
+            <Image
+              loading="lazy"
+              src={imageUrl(eqproduct.image).url()}
+              quality={95}
+              height={400}
+              width={400}
+              alt={"eqproduct.brand"}
+              className="w-full h-full object-cover rounded-sm"
+            />
           </div>
+          <Price price={eqproduct.price} priceColor={"blue"} />
         </div>
-      );
-    }
-  );
+        <div className="h-full w-full grid place-content-center">
+          <p>{eqproduct.name}</p>
+          <PortableText value={eqproduct.description} />
+        </div>
+      </div>
+    );
+  });
 
   return (
     <div className="w-full  grid grid-rows-[1fr_4fr]">
       <SegmentTitle title="Extreme Quality Series" />
-      <div className="h-full min-h-[400px] w-full">
+      <div className="h-full min-h-[800px] w-full">
         <Carousel prebuiltSlides={prebuiltCommercials} keys={keys} />
       </div>
     </div>

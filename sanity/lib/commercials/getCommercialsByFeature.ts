@@ -13,6 +13,7 @@ const GET_COMMERCIALS_BY_FEATURE_QUERY =
     _id,
     brand,
     name,
+    description,
     price,
     "image": image.asset->url,
   },
