@@ -2,57 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { imageUrl } from "@/lib/imageUrl";
 // import PriceLineCross from "@/public/icons/PriceLineCross.svg";
-
-const Price = ({
-  price,
-  priceColor,
-}: {
-  price: number;
-  priceColor: string;
-}) => {
-  return (
-    <div className="h-full grid">
-      <span className="text-xs font-extralight text-slate-700 sm:font-black sm:text-lg md:text-xl">
-        only
-      </span>
-      <span
-        className="ml-1 font-bold sm:font-black text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl"
-        style={{ color: priceColor }}
-      >
-        ${price.toFixed(2)}
-      </span>
-    </div>
-  );
-};
-
-const DiscountPrice = ({
-  price,
-  discount,
-  priceColor,
-}: {
-  price: number;
-  discount: number;
-  priceColor: string;
-}) => {
-  const discountPrice = price - (discount / 100) * price;
-
-  return (
-    <div className="mx-2 grid grid-rows-[0.1rem_1fr]">
-      <span className="text-gray-400 text-xs md:text-md lg:text-lg lg:pb-2  block">
-        ${price.toFixed(2)}
-        {/* <div className="z-40 absolute inset-0 h-full w-full "> */}
-        {/* <PriceLineCross /> */}
-        {/* </div> */}
-      </span>
-      <span
-        className="ml-2 pt-2 font-bold text-xs md:text-xl lg:font-black  lg:text-2xl xl:text-3xl block"
-        style={{ color: priceColor }}
-      >
-        ${discountPrice?.toFixed(2)}
-      </span>
-    </div>
-  );
-};
+import DiscountPrice from "./discountPrice";
+import Price from "./price";
+import BrandTitle from "./brandTitle";
 
 export type ProductProps = {
   _id: string;
@@ -73,9 +25,7 @@ export const ProductCard = ({ product, discount, priceColor }: Props) => {
       href={`/product/${product._id}`}
       className="z-30 h-full w-full  max-h-[175px] max-w-[200px] lg:max-h-[350px] lg:max-w-[350px] xl:max-h-[400px] xl:max-w-[400px] bg-white rounded-sm grid grid-rows-[1fr_2fr_1fr]"
     >
-      <span className="z-40 font-black w-full text-black text-center text-xs sm:py-2 md:py-3 lg:py-4 sm:text-md lg:text-lg xl:text-xl grid">
-        {product.brand}
-      </span>
+      <BrandTitle brand={product.brand} />
       <div className="h-full w-full relative mx-auto">
         <Image
           loading="lazy"

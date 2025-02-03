@@ -1,7 +1,9 @@
 import CarouselMultiSlide from "../../ui/carousel-multi-slide/carouselMultiSlide";
 import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 // import Image from "next/image";
-
+import Price from "../../ui/commercials/price";
+import BrandTitle from "../../ui/commercials/brandTitle";
+import ProductName from "../../ui/commercials/productName";
 export default async function Bestsellers() {
   const keys: string[] = [];
   const image = { width: 300, height: 300, title: "Square (1:1)" };
@@ -15,7 +17,7 @@ export default async function Bestsellers() {
           className="h-full w-full p-4 grid place-items-center relative "
         >
           <div className="h-full w-full max-w-[300px]  grid grid-rows-[auto_2fr_auto] border border-black">
-            <div className="">brand {index}</div>
+            <BrandTitle brand="Sennheiser" />
             <div className="h-full ">
               <img
                 src={`https://picsum.photos/${image.width}/${image.height}`}
@@ -25,8 +27,13 @@ export default async function Bestsellers() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div>name</div>
-            <div>price</div>
+
+            <ProductName
+              name={
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquamomnis voluptatum eaque sed cumque repudiandae qui! ObcaecatiKV-3000."
+              }
+            />
+            <Price price={159.99} priceColor={"blue"} />
           </div>
         </div>
       );
