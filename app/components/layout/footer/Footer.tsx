@@ -18,9 +18,18 @@ const ColTitle = function ({ title }: { title: string }) {
 
 export default function Footer() {
   return (
-    <footer className="h-full  bg-black grid grid-rows-[4rem_1fr_1fr]  text-white pt-8 pb-16">
+    <footer className="h-full bg-black grid grid-rows-[4rem_1fr_1fr]  text-white px-4 pt-8 pb-16">
       <SegmentTitle title="Sang Logium" white={true} />
-      <div className="w-full max-w-[1400px] mx-auto grid md:grid-cols-4 gap-12 justify-content-center py-8">
+      <div className="h-full w-full max-w-[600px] md:max-w-[1400px] mx-auto grid md:grid-cols-4 gap-6 justify-content-center py-8">
+        {/* <div className="bg-blue-700">1</div>
+        <div className="bg-blue-700">1</div>
+        <div className="md:row-start-2 bg-orange-700">1</div>
+
+        <div className="bg-blue-700">1</div>
+        <div className="bg-purple-700 h-full md:col-start-4 md:col-span-1 md:row-start-1 md:row-span-2">
+          1
+        </div> */}
+
         <div className="h-full grid justify-center content-start gap-4">
           <ColTitle title="PURCHASES" />
           <ul className="grid gap-2 justify-center">
@@ -76,61 +85,61 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-        <div className="h-full grid justify-center content-start gap-4">
-          <ColTitle title="BEST BRANDS" />
-          <ul className="grid gap-2 justify-center">
+        <div className="md:col-start-1 md:col-span-3 grid justify-center gap-4">
+          <ColTitle title="FIND US" />
+          <ul className="grid grid-rows-2 grid-cols-2 justify-center md:grid-rows-1 md:grid-flow-col gap-12">
             <li>
-              <Link className="text-xl " href="/brands/sennheiser">
-                Sennheiser
-              </Link>
+              <FaTwitter size={32} />
             </li>
             <li>
-              <Link className="text-xl " href="/brands/sony">
-                Sony
-              </Link>
+              <FaFacebook size={32} />
             </li>
             <li>
-              <Link className="text-xl " href="/brands/bose">
-                Bose
-              </Link>
+              <FaInstagram size={32} />
             </li>
             <li>
-              <Link className="text-xl " href="/brands/akg">
-                AKG
-              </Link>
+              <FaPinterest size={32} />
             </li>
             <li>
-              <Link className="text-xl " href="/brands/audiotechnica">
-                Audio-Technica
-              </Link>
-            </li>
-            <li>
-              <Link className="text-xl " href="/brands/philips">
-                Philips
-              </Link>
+              <FaYoutube size={32} />
             </li>
           </ul>
         </div>
-      </div>
-      <div className="grid justify-center gap-4">
-        <ColTitle title="FIND US" />
-        <ul className="grid grid-rows-2 md:grid-rows-1  grid-flow-col gap-12">
-          <li>
-            <FaTwitter size={32} />
-          </li>
-          <li>
-            <FaFacebook size={32} />
-          </li>
-          <li>
-            <FaInstagram size={32} />
-          </li>
-          <li>
-            <FaPinterest size={32} />
-          </li>
-          <li>
-            <FaYoutube size={32} />
-          </li>
-        </ul>
+
+        <div className="h-full md:row-start-1 md:row-span-2 md:col-start-6 md:col-span-1 grid justify-center md:justify-content-start gap-4">
+          <ColTitle title="BEST BRANDS" />
+          <ul className="grid gap-2 justify-center">
+            {[
+              { name: "Sennheiser" },
+              { name: "Sony" },
+              { name: "Bose" },
+              { name: "AKG" },
+              { name: "Audio-Technica" },
+              { name: "Beyerdynamic" },
+              { name: "DPA" },
+              { name: "Dynaudio" },
+              { name: "Focal" },
+              { name: "Genelec" },
+              { name: "JBL" },
+              { name: "Klipsch" },
+              { name: "Mackie" },
+              { name: "Pioneer" },
+              { name: "Presonus" },
+              { name: "Roland" },
+              { name: "Shure" },
+              { name: "Universal Audio" },
+            ].map((brand) => (
+              <li key={brand.name} className="text-center">
+                <Link
+                  className="text-xl grid place-content-center"
+                  href={`/brands/${brand.name.toLowerCase().replace(" ", "-")}`}
+                >
+                  <span>{brand.name}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </footer>
   );
