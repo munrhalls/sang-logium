@@ -36,6 +36,7 @@ export default async function Bestsellers() {
   const [commercial] = await getCommercialsByFeature("bestsellers");
   const bestsellers = commercial.products;
   const verified = bestsellers?.filter(isProduct);
+  verified?.sort((a, b) => b.price - a.price);
 
   const keys: string[] =
     verified?.map((bestseller) => bestseller._id + "_carousel") || [];
