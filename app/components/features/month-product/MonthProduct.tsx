@@ -45,10 +45,10 @@ const TimeStamp = function () {
   });
 
   return (
-    <div className="h-full font-black text-xl grid place-content-center grid-rows-[2rem_3rem]">
-      <div className="text-white text-center">Time left</div>
+    <div className="h-full font-black text-xl grid place-content-center lg:justify-start grid-rows-[2rem_3rem] lg:col-start-2">
+      <div className="text-white text-center lg:text-start">Time left</div>
       <div className="grid place-content-center grid-cols-[3rem_3rem_3rem] gap-1 text-white">
-        <div className="text-center">
+        <div className="text-center lg:text-start">
           <div>{timeLeft.days}:</div>
           <div className="text-sm">days</div>
         </div>
@@ -67,7 +67,7 @@ const TimeStamp = function () {
 
 const Title = function () {
   return (
-    <div className="p-4 grid gap-2">
+    <div className="p-4 lg:p-0 grid gap-2 lg:col-start-2">
       <div className="flex gap-2">
         <Image
           src={LogoOrbitWhite}
@@ -85,7 +85,7 @@ const Title = function () {
 
 const CTA = function () {
   return (
-    <div className="h-full grid content-center items-center">
+    <div className="h-full grid content-center items-center lg:col-start-2 max-w-40">
       <button className="bg-white text-black font-bold p-2 rounded-lg">
         Shop now
       </button>
@@ -95,17 +95,17 @@ const CTA = function () {
 
 export default function MonthProduct() {
   return (
-    <div className="h-[800px] bg-black grid md:grid-cols-2">
-      <div className="bg-orange-700 md:row-start-5 md:col-start-1 md:col-span-1">
+    <div className="h-[800px] lg:h-[500px] bg-black grid md:grid-cols-2 lg:grid-cols-[2fr_3fr] lg:grid-rows-3 lg:gap-1">
+      <div className="bg-orange-700 md:row-start-5 md:col-start-1 md:col-span-1 lg:col-start-1 lg:row-start-1 lg:row-span-1 lg:grid lg:grid-cols-[1fr_3fr_1fr] xl:grid-cols-[1fr_2fr_1fr]">
         <TimeStamp />
       </div>
-      <div className="bg-green-700 grid content-center justify-start 2xs:justify-center text-white row-start-4 md:row-start-4 md:col-start-1 md:col-span-2">
+      <div className="bg-green-700 grid content-center justify-start 2xs:justify-center text-white row-start-4 md:row-start-4 md:col-start-1 md:col-span-2 lg:col-start-1 lg:col-span-1 lg:row-start-2 lg:grid lg:grid-cols-[1fr_3fr_1fr] xl:grid-cols-[1fr_2fr_1fr]">
         <Title />
       </div>
-      <div className="bg-yellow-700  row-start-5 grid place-content-center md:col-start-2 md:col-span-1">
+      <div className="bg-yellow-700  row-start-5 grid place-content-center md:col-start-2 md:col-span-1 lg:col-start-1 lg:row-start-3 lg:justify-start lg:grid lg:grid-cols-[1fr_3fr_1fr] xl:grid-cols-[1fr_2fr_1fr]">
         <CTA />
       </div>
-      <div className="bg-blue-950 grid p-12 md:col-start-1 md:col-span-2">
+      <div className="bg-blue-950 grid p-12 lg:py-6 md:col-start-1 md:col-span-2 lg:col-start-2 lg:row-span-3">
         <div className="bg-white rounded-xl min-h-[300px]"></div>
       </div>
     </div>
