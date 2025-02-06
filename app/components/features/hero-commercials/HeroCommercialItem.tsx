@@ -4,6 +4,12 @@ import TextCommercial from "@/app/components/ui/commercials/textCommercial";
 import ProductsCommercial from "@/app/components/ui/commercials/productCommercial";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
+type ProductDescription = NonNullable<
+  NonNullable<
+    GET_COMMERCIALS_BY_FEATURE_QUERYResult[0]["products"]
+  >[0]["description"]
+>;
+
 type SlideProps = {
   commercial: GET_COMMERCIALS_BY_FEATURE_QUERYResult[number];
   index: number;
@@ -13,6 +19,7 @@ type ProductVerified = {
   _id: string;
   brand: string;
   name: string;
+  description: ProductDescription;
   price: number;
   image: string;
 };
@@ -22,7 +29,12 @@ const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
 
   const productsVerified = products?.filter(
     (product): product is ProductVerified =>
-      Boolean(product?.brand && product?.price && product?.image)
+      Boolean(
+        product?.brand &&
+          product?.price &&
+          product?.image &&
+          product?.description
+      )
   );
 
   if (!image) return null;

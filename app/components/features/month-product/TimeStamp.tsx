@@ -35,7 +35,7 @@ const TimeStamp = function ({ validUntil }: { validUntil: string }) {
     const timer = setInterval(calculateTimeLeft, 60000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [validUntil]);
 
   const [timeLeft, setTimeLeft] = useState({
     days: "00",
