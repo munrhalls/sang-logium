@@ -45,18 +45,18 @@ const TimeStamp = function () {
   });
 
   return (
-    <div className="h-full font-black text-xl grid place-content-center lg:justify-start grid-rows-[2rem_3rem] lg:col-start-2">
-      <div className="text-white text-center lg:text-start">Time left</div>
-      <div className="grid place-content-center grid-cols-[3rem_3rem_3rem] gap-1 text-white">
-        <div className="text-center lg:text-start">
+    <div className="h-full font-black text-xl">
+      <div className="grid place-content-center md:place-content-start grid-cols-[3rem_3rem_3rem] gap-1 text-white">
+        <div className="text-white col-start-1 col-span-3">Time left</div>
+        <div className="text-start">
           <div>{timeLeft.days}:</div>
           <div className="text-sm">days</div>
         </div>
-        <div className="text-center">
+        <div className="text-start">
           <div>{timeLeft.hours}:</div>
           <div className="text-sm">hours</div>
         </div>
-        <div className="text-center">
+        <div className="text-start">
           <div>{timeLeft.minutes}</div>
           <div className="text-sm">minutes</div>
         </div>
@@ -67,7 +67,7 @@ const TimeStamp = function () {
 
 const Title = function () {
   return (
-    <div className="p-4 lg:p-0 grid gap-2 lg:col-start-2">
+    <div className="lg:p-0">
       <div className="flex gap-2">
         <Image
           src={LogoOrbitWhite}
@@ -76,16 +76,18 @@ const Title = function () {
           width={24}
           loading="lazy"
         />
-        <h1 className="text-2xl">Product of the month</h1>
+        <h1 className="text-2xl sm:text-3xl">Product of the month</h1>
       </div>
-      <p>Produkt Dnia Smartfon APPLE iPhone 13 128GB Północ MLPF3PM/A</p>
+      <p className="lg:max-w-[400px]">
+        Produkt Dnia Smartfon APPLE iPhone 13 128GB&nbsp;Północ&nbsp;MLPF3PM/A
+      </p>
     </div>
   );
 };
 
 const CTA = function () {
   return (
-    <div className="h-full grid content-center items-center lg:col-start-2 max-w-40">
+    <div className="h-full max-w-40">
       <button className="bg-white text-black font-bold p-2 rounded-lg">
         Shop now
       </button>
@@ -95,17 +97,17 @@ const CTA = function () {
 
 export default function MonthProduct() {
   return (
-    <div className="h-[800px] lg:h-[500px] bg-black grid md:grid-cols-2 lg:grid-cols-[2fr_3fr] lg:grid-rows-3 lg:gap-1">
-      <div className="bg-orange-700 md:row-start-5 md:col-start-1 md:col-span-1 lg:col-start-1 lg:row-start-1 lg:row-span-1 lg:grid lg:grid-cols-[1fr_3fr_1fr] xl:grid-cols-[1fr_2fr_1fr]">
+    <div className="h-[800px] py-8 md:h-[600px] lg:h-[500px] bg-black grid md:grid-cols-4 lg:p-12 lg:grid-cols-8 lg:grid-rows-3 lg:gap-1">
+      <div className="md:col-start-2 md:col-span-1 md:grid md:justify-start md:row-start-3 lg:col-start-2 lg:row-start-1 lg:row-span-1">
         <TimeStamp />
       </div>
-      <div className="bg-green-700 grid content-center justify-start 2xs:justify-center text-white row-start-4 md:row-start-4 md:col-start-1 md:col-span-2 lg:col-start-1 lg:col-span-1 lg:row-start-2 lg:grid lg:grid-cols-[1fr_3fr_1fr] xl:grid-cols-[1fr_2fr_1fr]">
+      <div className=" grid p-6 content-center justify-start 2xs:justify-center text-white row-start-3 md:p-0 md:row-start-2 md:col-start-2 md:col-span-2 md:grid md:justify-start lg:content-start lg:p-0 lg:col-start-2 lg:col-span-3 lg:row-start-2">
         <Title />
       </div>
-      <div className="bg-yellow-700  row-start-5 grid place-content-center md:col-start-2 md:col-span-1 lg:col-start-1 lg:row-start-3 lg:justify-start lg:grid lg:grid-cols-[1fr_3fr_1fr] xl:grid-cols-[1fr_2fr_1fr]">
+      <div className="grid place-content-center  l row-start-4 md:row-start-3 md:col-start-3 md:col-span-1 md:grid md:place-content-center lg:col-start-2  lg:row-start-3 lg:justify-start ">
         <CTA />
       </div>
-      <div className="bg-blue-950 grid p-12 lg:py-6 md:col-start-1 md:col-span-2 lg:col-start-2 lg:row-span-3">
+      <div className="grid p-6  lg:py-6 md:p-0 md:col-start-1 md:col-span-4 lg:col-start-5 lg:row-start-1 lg:row-span-3 xl:col-start-4 xl:col-span-4">
         <div className="bg-white rounded-xl min-h-[300px]"></div>
       </div>
     </div>
