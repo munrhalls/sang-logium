@@ -1,3 +1,6 @@
+import Image from "next/image";
+import PriceLineCross from "@/public/icons/PriceLineCross.svg";
+
 const DiscountPrice = function ({
   price,
   discount,
@@ -11,11 +14,18 @@ const DiscountPrice = function ({
 
   return (
     <div className="mx-2 grid grid-rows-[0.1rem_1fr]">
-      <span className="text-gray-400 text-xs md:text-md lg:text-lg lg:pb-2  block">
+      <span className="text-gray-400 text-xs md:text-md lg:text-lg lg:pb-2  relative flex justify-center items-center">
         ${price.toFixed(2)}
-        {/* <div className="z-40 absolute inset-0 h-full w-full "> */}
-        {/* <PriceLineCross /> */}
-        {/* </div> */}
+        <div className="z-40 absolute inset-0 h-full w-full flex justify-center items-center lg:pb-2">
+          <Image
+            loading="lazy"
+            src={PriceLineCross}
+            alt="Price line cross"
+            height={32}
+            width={54}
+            unoptimized
+          />
+        </div>
       </span>
       <span
         className="ml-2 pt-2 font-bold text-xs md:text-xl lg:font-black  lg:text-2xl xl:text-3xl block"
