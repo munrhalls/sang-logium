@@ -2,7 +2,43 @@ import LogoOrbitWhite from "@/public/logo-orbit-white.svg";
 import Image from "next/image";
 import TimeStamp from "./TimeStamp";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
+import PriceLineCross from "@/public/icons/PriceLineCross.svg";
 
+const DiscountPrice = function ({
+  price,
+  discount,
+  priceColor,
+}: {
+  price: number;
+  discount: number;
+  priceColor: string;
+}) {
+  const discountPrice = price - (discount / 100) * price;
+
+  return (
+    <div className="2xs:row-start-3 md:row-start-2 mx-2 grid grid-cols-5 2xs:grid-rows-2 md:grid-rows-1">
+      <span className="col-start-1 col-span-2 sm:col-start-2 relative text-gray-400 text-md 2xs:row-start-1 md:text-md lg:text-lg lg:pb-2 flex justify-center items-center">
+        ${price.toFixed(2)}
+        <div className="z-40 absolute inset-0 h-full w-full flex justify-center items-center">
+          <Image
+            loading="lazy"
+            src={PriceLineCross}
+            alt="Price line cross"
+            height={32}
+            width={80}
+            unoptimized
+          />
+        </div>
+      </span>
+      <span
+        className="col-start-3 ml-2 font-bold text-2xl 2xs:row-start-2 2xs:col-start-1 2xs:col-span-4 md:text-xl lg:font-black  lg:text-2xl xl:text-3xl block"
+        style={{ color: priceColor }}
+      >
+        ${discountPrice?.toFixed(2)}
+      </span>
+    </div>
+  );
+};
 const Title = function ({ name }: { name: string }) {
   return (
     <div className="lg:p-0">
@@ -53,12 +89,6 @@ export default async function MonthProduct() {
       </div>
       <div className=" md:col-start-1 md:col-span-4 lg:col-start-5 lg:row-start-1 lg:row-span-3 xl:col-start-4 xl:col-span-5 p-6  lg:py-6 md:p-6 lg:max-w-[1000px] 2xl:max-w-[800px]">
         <div className="bg-white rounded-xl grid grid-rows-3 2xs:grid-cols-8 min-h-[350px]">
-          {/* <div className="bg-purple-950 row-start-1 row-span-2 min-h-[300px] max-h-[350px] 2xs:row-start-1 2xs:row-span-3 2xs:col-start-2 2xs:col-span-4 2xs:gap-1">
-            1
-          </div>
-          <div className="bg-teal-950 row-start-3 2xs:row-start-1 2xs:row-span-3 2xs:col-start-6 2xs:col-span-3 grid place-content-center">
-            2
-          </div> */}
           {image && name && (
             <Image
               loading="lazy"
@@ -72,10 +102,18 @@ export default async function MonthProduct() {
               className="object-contain aspect-square row-start-1 row-span-2 min-h-[300px] max-h-[350px] 2xs:row-start-1 2xs:row-span-3 2xs:col-start-2 2xs:col-span-4 2xs:gap-1"
             />
           )}
-          <div className="p-4 text-black row-start-3 2xs:row-start-1 2xs:row-span-3 2xs:col-start-6 2xs:col-span-3 md:col-start-5 lg:col-start-6 grid place-content-center">
-            <h2 className="text-xl font-bold">{name}</h2>
-            <p className="text-sm">Price: {price}</p>
-            <p className="text-sm">Discount: {discount}</p>
+          <div className="p-4 text-black row-start-3 2xs:row-start-1 2xs:row-span-3 2xs:col-start-6 2xs:col-span-3 md:col-start-5 lg:col-start-6 grid place-items-center 2xs:grid-rows-5 md:grid-rows-2">
+            <h2 className="text-xl font-bold mb-4 2xs:mb-1 2xs:row-start-2 md:row-start-1">
+              {name}
+            </h2>
+
+            {price && discount && (
+              <DiscountPrice
+                price={price}
+                discount={discount}
+                priceColor="#f21212"
+              />
+            )}
           </div>
         </div>
       </div>
