@@ -51,7 +51,7 @@ const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
         height={720}
         style={{ objectPosition: "80% 0%" }}
         className="absolute inset-0 w-full h-full object-cover"
-        quality={80}
+        quality={95}
         sizes="100vw"
         alt={commercial.title || "Sale"}
       />
