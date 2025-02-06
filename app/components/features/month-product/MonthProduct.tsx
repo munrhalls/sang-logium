@@ -68,17 +68,17 @@ const TimeStamp = function () {
 const Title = function () {
   return (
     <div className="lg:p-0">
-      <div className="flex gap-2">
+      <div className="flex gap-1">
         <Image
           src={LogoOrbitWhite}
           alt="Logo"
-          height={24}
-          width={24}
+          height={32}
+          width={32}
           loading="lazy"
         />
         <h1 className="text-2xl sm:text-3xl">Product of the month</h1>
       </div>
-      <p className="lg:max-w-[400px]">
+      <p className="mt-1 lg:max-w-[400px]">
         Produkt Dnia Smartfon APPLE iPhone 13 128GB&nbsp;Północ&nbsp;MLPF3PM/A
       </p>
     </div>
