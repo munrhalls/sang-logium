@@ -43,7 +43,7 @@ export default async function MonthProduct() {
   return (
     <div className="h-[800px] py-8 md:h-[600px] lg:h-[500px] bg-black grid md:grid-cols-4 lg:p-12 lg:grid-cols-8 lg:grid-rows-3 lg:gap-1">
       <div className="md:col-start-2 md:col-span-1 md:grid md:justify-start md:row-start-3 lg:col-start-2 lg:row-start-1 lg:row-span-1">
-        <TimeStamp />
+        {validUntil && <TimeStamp validUntil={validUntil} />}
       </div>
       <div className=" grid p-6 content-center justify-start 2xs:justify-center text-white row-start-3 md:p-0 md:row-start-2 md:col-start-2 md:col-span-2 md:grid md:justify-start lg:content-start lg:p-0 lg:col-start-2 lg:col-span-3 lg:row-start-2">
         {name && <Title name={name} />}
@@ -52,7 +52,23 @@ export default async function MonthProduct() {
         <CTA />
       </div>
       <div className="grid p-6  lg:py-6 md:p-0 md:col-start-1 md:col-span-4 lg:col-start-5 lg:row-start-1 lg:row-span-3 xl:col-start-4 xl:col-span-4">
-        <div className="bg-white rounded-xl min-h-[300px]"></div>
+        <div className="bg-white rounded-xl min-h-[300px]">
+          <Image
+            loading="lazy"
+            src={image}
+            alt={name}
+            width={400}
+            height={400}
+            objectFit="contain"
+            sizes="(max-width: 300px) 75vw, 400px"
+            className="object-contain aspect-square"
+          />
+          <div className="p-4">
+            <h2 className="text-xl font-bold">{name}</h2>
+            <p className="text-sm">Price: {price}</p>
+            <p className="text-sm">Discount: {discount}</p>
+          </div>
+        </div>
       </div>
     </div>
   );

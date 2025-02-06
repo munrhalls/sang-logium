@@ -3,12 +3,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-const TimeStamp = function () {
+const TimeStamp = function ({ validUntil }: { validUntil: string }) {
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-      lastDay.setHours(23, 59, 59, 999);
+      const end = new Date(validUntil);
+      const lastDay = end;
 
       const total = lastDay.getTime() - now.getTime();
 
