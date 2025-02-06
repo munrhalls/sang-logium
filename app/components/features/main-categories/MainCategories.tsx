@@ -1,6 +1,3 @@
-// import Image from "next/image";
-// import LogoOrbit from "@/public/logo-orbit.svg";
-import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import { imageUrl } from "@/lib/imageUrl";
 import Image from "next/image";
@@ -11,8 +8,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export default async function MainCategories() {
-  // const image = { width: 400, height: 300, title: "Square (1:1)" };
-
   const commercials = await getCommercialsByFeature("main-categories");
   if (!commercials || !commercials.length) return null;
 
