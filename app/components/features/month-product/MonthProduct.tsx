@@ -51,19 +51,28 @@ export default async function MonthProduct() {
       <div className="grid place-content-center  l row-start-4 md:row-start-3 md:col-start-3 md:col-span-1 md:grid md:place-content-center lg:col-start-2  lg:row-start-3 lg:justify-start ">
         <CTA />
       </div>
-      <div className="grid p-6  lg:py-6 md:p-0 md:col-start-1 md:col-span-4 lg:col-start-5 lg:row-start-1 lg:row-span-3 xl:col-start-4 xl:col-span-4">
-        <div className="bg-white rounded-xl min-h-[300px]">
-          <Image
-            loading="lazy"
-            src={image}
-            alt={name}
-            width={400}
-            height={400}
-            objectFit="contain"
-            sizes="(max-width: 300px) 75vw, 400px"
-            className="object-contain aspect-square"
-          />
-          <div className="p-4">
+      <div className=" md:col-start-1 md:col-span-4 lg:col-start-5 lg:row-start-1 lg:row-span-3 xl:col-start-4 xl:col-span-5 p-6  lg:py-6 md:p-6 lg:max-w-[1000px] 2xl:max-w-[800px]">
+        <div className="bg-white rounded-xl grid grid-rows-3 2xs:grid-cols-8 min-h-[350px]">
+          {/* <div className="bg-purple-950 row-start-1 row-span-2 min-h-[300px] max-h-[350px] 2xs:row-start-1 2xs:row-span-3 2xs:col-start-2 2xs:col-span-4 2xs:gap-1">
+            1
+          </div>
+          <div className="bg-teal-950 row-start-3 2xs:row-start-1 2xs:row-span-3 2xs:col-start-6 2xs:col-span-3 grid place-content-center">
+            2
+          </div> */}
+          {image && name && (
+            <Image
+              loading="lazy"
+              src={image}
+              alt={name}
+              width={300}
+              height={300}
+              quality={90}
+              objectFit="contain"
+              sizes="(max-width: 300px) 75vw, 350px"
+              className="object-contain aspect-square row-start-1 row-span-2 min-h-[300px] max-h-[350px] 2xs:row-start-1 2xs:row-span-3 2xs:col-start-2 2xs:col-span-4 2xs:gap-1"
+            />
+          )}
+          <div className="p-4 text-black row-start-3 2xs:row-start-1 2xs:row-span-3 2xs:col-start-6 2xs:col-span-3 md:col-start-5 lg:col-start-6 grid place-content-center">
             <h2 className="text-xl font-bold">{name}</h2>
             <p className="text-sm">Price: {price}</p>
             <p className="text-sm">Discount: {discount}</p>
