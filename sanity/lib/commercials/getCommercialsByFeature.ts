@@ -19,6 +19,7 @@ const GET_COMMERCIALS_BY_FEATURE_QUERY =
   },
   sale-> {
     discount,
+    validUntil,
     _id
   }
 }`);
