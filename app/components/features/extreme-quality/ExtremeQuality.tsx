@@ -43,11 +43,11 @@ export default async function ExtremeQuality() {
     return (
       <div
         key={eqproduct._id + "_eqproduct"}
-        className="h-full p-4 grid md:grid-cols-[5fr_2fr] relative border border-black"
+        className=" p-4 grid md:grid-cols-[5fr_2fr] relative border border-black"
       >
-        <div className="h-full w-full grid grid-rows-[4rem_2fr]">
+        <div className=" w-full grid place-items-center grid-rows-[4rem_2fr] ">
           <BrandTitle brand={eqproduct.brand} />
-          <div className="h-full">
+          <div className=" max-w-[600px] max-h-[600px]">
             <Image
               loading="lazy"
               src={imageUrl(eqproduct.image).url()}
