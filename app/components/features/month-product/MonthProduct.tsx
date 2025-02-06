@@ -3,6 +3,7 @@ import Image from "next/image";
 import TimeStamp from "./TimeStamp";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import PriceLineCross from "@/public/icons/PriceLineCross.svg";
+import Link from "next/link";
 
 const DiscountPrice = function ({
   price,
@@ -57,23 +58,24 @@ const Title = function ({ name }: { name: string }) {
   );
 };
 
-const CTA = function () {
+const CTA = function ({ id }: { id: string }) {
   return (
-    <div className="h-full max-w-40">
+    <Link href={`/products/${id}`} className="h-full max-w-40">
       <button className="bg-white text-black font-bold p-2 rounded-lg">
         Shop now
       </button>
-    </div>
+    </Link>
   );
 };
 
 export default async function MonthProduct() {
   const [commercial] = await getCommercialsByFeature("mvp-month");
   const { products, sale } = commercial;
-  console.log(commercial, " ...PROD MONTH");
+  console.dir(commercial, " ...PROD MONTH");
   const product = products && products[0];
   if (!product) return null;
-  const { name, image, price } = product;
+  const { _id, name, image, price } = product;
+  if (!sale) return null;
   const { discount, validUntil } = sale;
 
   return (
@@ -85,7 +87,7 @@ export default async function MonthProduct() {
         {name && <Title name={name} />}
       </div>
       <div className="grid place-content-center  l row-start-4 md:row-start-3 md:col-start-3 md:col-span-1 md:grid md:place-content-center lg:col-start-2  lg:row-start-3 lg:justify-start ">
-        <CTA />
+        <CTA id={_id} />
       </div>
       <div className=" md:col-start-1 md:col-span-4 lg:col-start-5 lg:row-start-1 lg:row-span-3 xl:col-start-4 xl:col-span-5 p-6  lg:py-6 md:p-6 lg:max-w-[1000px] 2xl:max-w-[800px]">
         <div className="bg-white rounded-xl grid grid-rows-3 2xs:grid-cols-8 min-h-[350px]">
