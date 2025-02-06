@@ -19,13 +19,13 @@ const DiscountPrice = function ({
     <div className="2xs:row-start-3 md:row-start-2 mx-2 grid grid-cols-5 2xs:grid-rows-2 md:grid-rows-1">
       <span className="col-start-1 col-span-2 sm:col-start-2 relative text-gray-400 text-md 2xs:row-start-1 md:text-md lg:text-lg lg:pb-2 flex justify-center items-center">
         ${price.toFixed(2)}
-        <div className="z-40 absolute inset-0 h-full w-full flex justify-center items-center">
+        <div className="z-40 absolute inset-0 h-full w-full flex justify-center items-center lg:pb-2">
           <Image
             loading="lazy"
             src={PriceLineCross}
             alt="Price line cross"
             height={32}
-            width={80}
+            width={54}
             unoptimized
           />
         </div>
