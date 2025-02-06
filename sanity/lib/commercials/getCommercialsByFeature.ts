@@ -9,6 +9,7 @@ const GET_COMMERCIALS_BY_FEATURE_QUERY =
   variant,
   displayOrder,
   text,
+  ctaLink,
   "products": products[]-> {
     _id,
     brand,

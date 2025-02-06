@@ -402,7 +402,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
 // Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
-// Query: *[_type == "commercial" && feature == $feature] {    _id,  title,  "image": image.asset->url,  variant,  displayOrder,  text,  "products": products[]-> {    _id,    brand,    name,    description,    price,    "image": image.asset->url,  },  sale-> {    discount,    validUntil,    _id  }}
+// Query: *[_type == "commercial" && feature == $feature] {    _id,  title,  "image": image.asset->url,  variant,  displayOrder,  text,  ctaLink,  "products": products[]-> {    _id,    brand,    name,    description,    price,    "image": image.asset->url,  },  sale-> {    discount,    validUntil,    _id  }}
 export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
   _id: string;
   title: string | null;
@@ -427,6 +427,7 @@ export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
     _type: "block";
     _key: string;
   }> | null;
+  ctaLink: string | null;
   products: Array<{
     _id: string;
     brand: string | null;
@@ -472,6 +473,52 @@ export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
     discount: number | null;
     validUntil: string | null;
     _id: string;
+  } | null;
+}>;
+
+// Source: ./sanity/lib/sales/getAllActiveSales.ts
+// Variable: GET_ACTIVE_SALES_QUERY
+// Query: *[_type == "sale" && isActive == true] {        _id,        title,        "slug": slug.current,        discount,        validFrom,        validUntil,        isActive      }
+export type GET_ACTIVE_SALES_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: null;
+  discount: number | null;
+  validFrom: string | null;
+  validUntil: string | null;
+  isActive: boolean | null;
+}>;
+
+// Source: ./sanity/lib/sales/getSaleById.ts
+// Variable: SALE_BY_ID_QUERY
+// Query: *[_type == "sale" && _id == $saleId]{      name,      "slug": slug.current,      validFrom,      validUntil,      isActive,      description,      "image": image.asset->url,      category->{        name,        "slug": slug.current,        "products": *[_type=='product' && categoryPath == ^.metadata.path]{          name,          "slug": slug.current,          image,          defaultPrice        }      }    }
+export type SALE_BY_ID_QUERYResult = Array<{
+  name: null;
+  slug: null;
+  validFrom: string | null;
+  validUntil: string | null;
+  isActive: boolean | null;
+  description: null;
+  image: null;
+  category: {
+    name: string | null;
+    slug: string | null;
+    products: Array<{
+      name: string | null;
+      slug: string | null;
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      defaultPrice: null;
+    }>;
   } | null;
 }>;
 
@@ -763,62 +810,16 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
   }>;
 }>;
 
-// Source: ./sanity/lib/sales/getAllActiveSales.ts
-// Variable: GET_ACTIVE_SALES_QUERY
-// Query: *[_type == "sale" && isActive == true] {        _id,        title,        "slug": slug.current,        discount,        validFrom,        validUntil,        isActive      }
-export type GET_ACTIVE_SALES_QUERYResult = Array<{
-  _id: string;
-  title: string | null;
-  slug: null;
-  discount: number | null;
-  validFrom: string | null;
-  validUntil: string | null;
-  isActive: boolean | null;
-}>;
-
-// Source: ./sanity/lib/sales/getSaleById.ts
-// Variable: SALE_BY_ID_QUERY
-// Query: *[_type == "sale" && _id == $saleId]{      name,      "slug": slug.current,      validFrom,      validUntil,      isActive,      description,      "image": image.asset->url,      category->{        name,        "slug": slug.current,        "products": *[_type=='product' && categoryPath == ^.metadata.path]{          name,          "slug": slug.current,          image,          defaultPrice        }      }    }
-export type SALE_BY_ID_QUERYResult = Array<{
-  name: null;
-  slug: null;
-  validFrom: string | null;
-  validUntil: string | null;
-  isActive: boolean | null;
-  description: null;
-  image: null;
-  category: {
-    name: string | null;
-    slug: string | null;
-    products: Array<{
-      name: string | null;
-      slug: string | null;
-      image: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-      } | null;
-      defaultPrice: null;
-    }>;
-  } | null;
-}>;
-
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"commercial\" && feature == $feature] {\n    _id,\n  title,\n  \"image\": image.asset->url,\n  variant,\n  displayOrder,\n  text,\n  \"products\": products[]-> {\n    _id,\n    brand,\n    name,\n    description,\n    price,\n    \"image\": image.asset->url,\n  },\n  sale-> {\n    discount,\n    validUntil,\n    _id\n  }\n}": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    "*[_type == \"commercial\" && feature == $feature] {\n    _id,\n  title,\n  \"image\": image.asset->url,\n  variant,\n  displayOrder,\n  text,\n  ctaLink,\n  \"products\": products[]-> {\n    _id,\n    brand,\n    name,\n    description,\n    price,\n    \"image\": image.asset->url,\n  },\n  sale-> {\n    discount,\n    validUntil,\n    _id\n  }\n}": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    "\n      *[_type == \"sale\" && isActive == true] {\n        _id,\n        title,\n        \"slug\": slug.current,\n        discount,\n        validFrom,\n        validUntil,\n        isActive\n      }\n    ": GET_ACTIVE_SALES_QUERYResult;
+    "\n    *[_type == \"sale\" && _id == $saleId]{\n      name,\n      \"slug\": slug.current,\n      validFrom,\n      validUntil,\n      isActive,\n      description,\n      \"image\": image.asset->url,\n      category->{\n        name,\n        \"slug\": slug.current,\n        \"products\": *[_type=='product' && categoryPath == ^.metadata.path]{\n          name,\n          \"slug\": slug.current,\n          image,\n          defaultPrice\n        }\n      }\n    }\n  ": SALE_BY_ID_QUERYResult;
     "\n          *[\n              _type == \"category\"\n          ] | order(name desc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && slug.current == $slug\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
     "*[\n        _type == \"product\"\n        && name match $searchParam\n    ] | order(name asc)": SEARCH_FOR_PRODUCTS_QUERYResult;
-    "\n      *[_type == \"sale\" && isActive == true] {\n        _id,\n        title,\n        \"slug\": slug.current,\n        discount,\n        validFrom,\n        validUntil,\n        isActive\n      }\n    ": GET_ACTIVE_SALES_QUERYResult;
-    "\n    *[_type == \"sale\" && _id == $saleId]{\n      name,\n      \"slug\": slug.current,\n      validFrom,\n      validUntil,\n      isActive,\n      description,\n      \"image\": image.asset->url,\n      category->{\n        name,\n        \"slug\": slug.current,\n        \"products\": *[_type=='product' && categoryPath == ^.metadata.path]{\n          name,\n          \"slug\": slug.current,\n          image,\n          defaultPrice\n        }\n      }\n    }\n  ": SALE_BY_ID_QUERYResult;
   }
 }
