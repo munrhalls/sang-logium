@@ -43,7 +43,7 @@ export default async function MainCategories() {
     block: {
       h1: ({ children }) => (
         <h1
-          className={`z-50 text-7xl font-black tracking-wider text-white p-3 pt-4 rounded-xl}`}
+          className={` z-50 text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-black tracking-wider text-white p-3 pt-4 rounded-xl`}
         >
           {children}
         </h1>
@@ -63,44 +63,41 @@ export default async function MainCategories() {
   };
 
   return (
-    <div className="min-h-[800px] grid grid-rows-[1fr_4fr]">
-      <SegmentTitle title="Main Categories" />
-      <div className="h-full grid-cols-[2fr_3fr]">
-        <div className="relative h-full grid grid-rows-3 md:grid-rows-1 md:grid-cols-3">
-          {verified &&
-            verified.map((commercial, index) => (
+    <div className="relative h-full grid grid-rows-3 place-items-center lg:grid-rows-1 lg:grid-cols-3 bg-black">
+      {verified &&
+        verified.map((commercial, index) => (
+          <div
+            key={commercial._id + "_mainCategory"}
+            className="z-30 relative h-full min-h-[350px] max-w-[400px] max-h-[300px] lg:min-h-[375px] xl:min-h-[450px] lg:max-w-[600px] w-full grid place-content-center bg-black "
+          >
+            <Link
+              href={commercial.ctaLink}
+              className="h-full w-full z-50  grid place-content-center rounded-xl"
+            >
               <div
-                key={commercial._id + "_mainCategory"}
-                className="z-30 relative h-full min-h-[350px] w-full grid place-content-center "
+                className={`z-50 ${index < 2 ? "bg-black/30" : ""} rounded-xl p-4 `}
               >
-                <Link
-                  href={commercial.ctaLink}
-                  className=" h-full w-full z-50  grid place-content-center    rounded-xl"
-                >
-                  <PortableText
-                    value={commercial.text}
-                    components={components}
-                  />
-                  <div className="z-20 w-full text-center text-xl text-white font-black px-6 py-2 rounded-sm mt-4 md:mt-12 grid place-content-center cursor-pointer">
-                    <ArrowRight size={96} />
-                  </div>
-                </Link>
-                <Image
-                  src={imageUrl(commercial.image).url()}
-                  priority={index === 0}
-                  loading={index === 0 ? "eager" : "lazy"}
-                  width={1280}
-                  height={720}
-                  style={{ objectPosition: "50% 25%" }}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  quality={85}
-                  sizes="100vw"
-                  alt={commercial.title || "Sale"}
-                />
+                <PortableText value={commercial.text} components={components} />
               </div>
-            ))}
-        </div>
-      </div>
+              <div
+                className={`z-20 w-full text-center text-xl text-white font-black px-6  rounded-sm  grid place-content-center cursor-pointer ${index < 2 ? "py-2 mt-4" : "mb-8 text-2xl"}`}
+              >
+                <ArrowRight size={64} />
+              </div>
+            </Link>
+            <Image
+              src={imageUrl(commercial.image).url()}
+              priority={index === 0}
+              loading={index === 0 ? "eager" : "lazy"}
+              fill
+              // style={{ objectPosition: "50% 25%" }}
+              className="absolute inset-0 w-full h-full aspect-square"
+              quality={85}
+              sizes="100vw"
+              alt={commercial.title || "Sale"}
+            />
+          </div>
+        ))}
     </div>
   );
 }
