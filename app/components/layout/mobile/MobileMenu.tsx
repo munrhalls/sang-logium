@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Menu, Search, ShoppingBag, User } from "lucide-react";
+import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useStore } from "@/store";
 // import MobileCategoriesDrawer from "./MobileCategoriesDrawer";
 
@@ -10,6 +10,8 @@ const MobileMenu = () => {
   const toggleCategoriesDrawer = useStore(
     (state) => state.toggleCategoriesDrawer
   );
+  const isSearchDrawerOpen = useStore((state) => state.isSearchDrawerOpen);
+  const toggleSearchDrawer = useStore((state) => state.toggleSearchDrawer);
 
   return (
     <>
@@ -19,17 +21,28 @@ const MobileMenu = () => {
             className="flex flex-col items-center"
             onClick={toggleCategoriesDrawer}
           >
-            <Menu className="h-6 w-6" />
             {isCategoriesOpen ? (
-              <span className="text-xs mt-1">X</span>
+              <X size={24} />
             ) : (
-              <span className="text-xs mt-1">Menu</span>
+              <>
+                <Menu className="h-6 w-6" />
+                <span className="text-xs mt-1">Menu</span>
+              </>
             )}
           </button>
 
-          <button className="flex flex-col items-center">
-            <Search className="h-6 w-6" />
-            <span className="text-xs mt-1">Search</span>
+          <button
+            className="flex flex-col items-center"
+            onClick={toggleSearchDrawer}
+          >
+            {isSearchDrawerOpen ? (
+              <X size={24} />
+            ) : (
+              <>
+                <Search className="h-6 w-6" />
+                <span className="text-xs mt-1">Search</span>
+              </>
+            )}
           </button>
 
           <button className="flex flex-col items-center">

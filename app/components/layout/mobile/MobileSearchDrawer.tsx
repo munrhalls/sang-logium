@@ -21,7 +21,7 @@ export default function MobileSearchDrawer() {
 
   return (
     <div
-      className={`z-50 pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 ${
+      className={`z-50 absolute inset-0 overflow-hidden h-full w-full pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 ${
         isSearchDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >

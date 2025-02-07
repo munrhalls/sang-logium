@@ -5,7 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { SanityLive } from "@/sanity/lib/live";
 import Header from "@/app/components/layout/header/Header";
 // import CategoriesList from "../components/layout/categories/CategoriesDrawerList(TemporarilyOff)";
-import MobileWrapper from "@/app/components/layout/mobile/MobileWrapper";
+import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWrapper";
 import CategoriesWrapper from "../components/layout/categories/CategoriesWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 // import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
@@ -50,7 +50,7 @@ export default async function RootLayout({
             <Header />
             <CategoriesWrapper />
             <div className="h-full min-h-0 overflow-hidden relative">
-              <MobileWrapper />
+              <MobileDrawersWrapper />
               <div className="h-full min-h-0 overflow-y-auto relative">
                 {children}
               </div>

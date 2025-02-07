@@ -7,11 +7,8 @@ import FeaturedProducts from "../components/features/featured-products/FeaturedP
 import MainCategories from "../components/features/main-categories/MainCategories";
 import Footer from "@/app/components/layout/footer/Footer";
 import HeroCommercials from "../components/features/hero-commercials/HeroCommercials";
-import MobileWrapper from "@/app/components/layout/mobile/MobileWrapper";
 
 export default async function Page() {
-  // const categories = await getAllCategories();
-
   return (
     <main className="h-full relative">
       <HeroCommercials />

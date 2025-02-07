@@ -67,7 +67,7 @@ export default function MobileCategoriesDrawer({
         isCategoriesDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="">
+      <div>
         <div className="p-2 border-b border-gray-200">
           <div className="flex justify-end items-center">
             <button
