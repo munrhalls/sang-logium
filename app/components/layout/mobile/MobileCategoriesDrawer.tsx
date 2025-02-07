@@ -37,8 +37,9 @@ export default function MobileCategoriesDrawer({
     return (
       <div className="hidden lg:flex w-full bg-gray-900 items-center justify-center ">
         <p className="text-xl text-white">
-          Oops! It appears we have a slight connection issue...could not load
-          categories. please refresh page.
+          Connection issue. Could not load categories. Please refresh page. If
+          that does not work - we are working on solving that issue as soon as
+          possible. Please try again later.
         </p>
       </div>
     );
