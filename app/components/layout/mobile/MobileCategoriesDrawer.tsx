@@ -3,7 +3,7 @@
 import { useStore } from "../../../../store";
 import { CategoryTree } from "@/lib/flatToTree";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 import { FaRegCircle, FaTimes } from "react-icons/fa";
 import { getCategoryIcon } from "@/lib/getCategoryIcon";
 
@@ -18,6 +18,14 @@ export default function MobileCategoriesDrawer({
   const toggleCategoriesDrawer = useStore(
     (state) => state.toggleCategoriesDrawer
   );
+  const router = useRouter();
+
+  const handleClick = (path: string) => {
+    router.push(path);
+    toggleCategoriesDrawer();
+  };
+
+  const toPath = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
 
   return (
     <div
@@ -48,7 +56,10 @@ export default function MobileCategoriesDrawer({
             {categories.map((category) => (
               <div key={category.name} className="space-y-2">
                 <Link
-                  href={`/category/${category?.name?.toLowerCase().replace(/\s+/g, "-")}`}
+                  href={`/category/${toPath(category.name)}`}
+                  onClick={() =>
+                    handleClick(`/category/${toPath(category.name)}`)
+                  }
                   className="flex items-center text-2xl font-semibold hover:text-gray-600"
                 >
                   {category.icon && (
@@ -67,11 +78,12 @@ export default function MobileCategoriesDrawer({
                   {category?.children?.map((sub) => (
                     <div key={category._id + sub.name}>
                       <Link
-                        href={`/category/${category?.name
-                          ?.toLowerCase()
-                          .replace(/\s+/g, "-")}/${sub?.name
-                          ?.toLowerCase()
-                          .replace(/\s+/g, "-")}`}
+                        href={`/category/${toPath(category.name)}/${toPath(sub.name)}`}
+                        onClick={() =>
+                          handleClick(
+                            `/category/${toPath(category.name)}/${toPath(sub.name)}`
+                          )
+                        }
                         className="mt-2 flex items-center text-gray-600 hover:text-black"
                       >
                         <FaRegCircle className="mr-2 w-2 h-2" />
@@ -84,13 +96,12 @@ export default function MobileCategoriesDrawer({
                               key={`${category?.name?.toLowerCase()}-${sub?.name?.toLowerCase()}-${child?.name?.toLowerCase()}`}
                             >
                               <Link
-                                href={`/category/${category?.name
-                                  ?.toLowerCase()
-                                  .replace(/\s+/g, "-")}/${sub?.name
-                                  ?.toLowerCase()
-                                  .replace(/\s+/g, "-")}/${child?.name
-                                  ?.toLowerCase()
-                                  .replace(/\s+/g, "-")}`}
+                                href={`/category/${toPath(category.name)}/${toPath(sub.name)}/${toPath(child.name)}`}
+                                onClick={() =>
+                                  handleClick(
+                                    `/category/${toPath(category.name)}/${toPath(sub.name)}/${toPath(child.name)}`
+                                  )
+                                }
                                 className="flex justify-start items-center px-4 py-2  text-gray-800 hover:bg-gray-100"
                               >
                                 <FaRegCircle className="mr-2" />
