@@ -1,6 +1,7 @@
 import Image from "next/image";
 import LogoOrbit from "@/public/logo-orbit.svg";
 import * as Brands from "@/public/brands";
+import Link from "next/link";
 
 export default async function BrandsWall() {
   return (
@@ -14,7 +15,11 @@ export default async function BrandsWall() {
       <div className="h-full col-start-2 col-end-3 grid grid-cols-2 2xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-12">
         {Object.entries(Brands).map(([brand, image]) => {
           return (
-            <div key={brand} className="grid place-content-center">
+            <Link
+              href={`/brands/${brand}`}
+              key={brand}
+              className="grid place-content-center"
+            >
               <Image
                 loading="lazy"
                 src={image.src}
@@ -26,7 +31,7 @@ export default async function BrandsWall() {
                 unoptimized
                 className="max-h-full max-w-full object-contain"
               />
-            </div>
+            </Link>
           );
         })}
       </div>
