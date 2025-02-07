@@ -1,10 +1,13 @@
+import getProductsByExhibitionSlug from "@/sanity/lib/products/getProductsByExhibitionSlug";
+
 export default async function ExhibitionPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const slug = (await params).slug;
-  // const products = await getProductsByCategory(slug);
+  const products = await getProductsByExhibitionSlug(slug);
+  console.dir(products);
 
   return (
     <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-4">

@@ -7,7 +7,7 @@ export default async function SalePage({
 }) {
   const slug = (await params).slug;
   const products = await getProductsBySaleSlug(slug);
-  console.log(products.map((product) => product.name));
+  console.dir(products);
 
   return (
     <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-4">
