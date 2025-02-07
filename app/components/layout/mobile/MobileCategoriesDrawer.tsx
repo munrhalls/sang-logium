@@ -107,7 +107,10 @@ export default function MobileCategoriesDrawer({
 
                 <div className="ml-6 space-y-1">
                   {category?.children?.map((sub) => (
-                    <div key={category._id + sub.name}>
+                    <div
+                      key={category._id + sub.name}
+                      onClick={toggleCategoriesDrawer}
+                    >
                       <Link
                         href={`/category/${category?.name
                           ?.toLowerCase()
@@ -123,6 +126,7 @@ export default function MobileCategoriesDrawer({
                         <ul className="pl-3 py-2 backdrop-brightness-95 rounded">
                           {sub.children.map((child) => (
                             <li
+                              onClick={toggleCategoriesDrawer}
                               key={`${category?.name?.toLowerCase()}-${sub?.name?.toLowerCase()}-${child?.name?.toLowerCase()}`}
                             >
                               <Link
