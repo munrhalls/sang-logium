@@ -3,7 +3,6 @@
 import React from "react";
 import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useStore } from "@/store";
-// import MobileCategoriesDrawer from "./MobileCategoriesDrawer";
 
 const MobileMenu = () => {
   const isCategoriesOpen = useStore((state) => state.isCategoriesDrawerOpen);

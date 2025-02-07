@@ -130,6 +130,7 @@ export type Sale = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  slug?: Slug;
   category?: {
     _ref: string;
     _type: "reference";
@@ -482,7 +483,7 @@ export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
 export type GET_ACTIVE_SALES_QUERYResult = Array<{
   _id: string;
   title: string | null;
-  slug: null;
+  slug: string | null;
   discount: number | null;
   validFrom: string | null;
   validUntil: string | null;
@@ -494,7 +495,7 @@ export type GET_ACTIVE_SALES_QUERYResult = Array<{
 // Query: *[_type == "sale" && _id == $saleId]{      name,      "slug": slug.current,      validFrom,      validUntil,      isActive,      description,      "image": image.asset->url,      category->{        name,        "slug": slug.current,        "products": *[_type=='product' && categoryPath == ^.metadata.path]{          name,          "slug": slug.current,          image,          defaultPrice        }      }    }
 export type SALE_BY_ID_QUERYResult = Array<{
   name: null;
-  slug: null;
+  slug: string | null;
   validFrom: string | null;
   validUntil: string | null;
   isActive: boolean | null;

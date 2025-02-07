@@ -40,6 +40,7 @@ const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
   if (!image) return null;
 
   const discount = sale?.discount || null;
+  const ctaLink = commercial.ctaLink || null;
 
   return (
     <div className="h-full relative flex-[0_0_100%]">
@@ -56,7 +57,7 @@ const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
         alt={commercial.title || "Sale"}
       />
       {variant === "text" && text ? (
-        <TextCommercial text={text} />
+        <TextCommercial text={text} ctaLink={ctaLink} />
       ) : (
         productsVerified && (
           <ProductsCommercial

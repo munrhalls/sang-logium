@@ -9,9 +9,15 @@ type CommercialText = NonNullable<
 
 interface TextCommercialProps {
   text: CommercialText;
+  ctaLink: string | null;
 }
 
-export default function TextCommercial({ text }: TextCommercialProps) {
+export default function TextCommercial({ text, ctaLink }: TextCommercialProps) {
+  if (ctaLink === null) {
+    console.error("Text commercial must have cta link set!");
+    return;
+  }
+
   const buttonColor =
     text[0]?.markDefs?.find((mark) => mark._type === "textColor")?.value ||
     "#CF8226";
@@ -42,8 +48,7 @@ export default function TextCommercial({ text }: TextCommercialProps) {
       </div>
       <div className="z-20 grid place-items-center">
         <Link
-          href="/"
-          // prefetch={true}
+          href={ctaLink}
           className="z-20 block max-w-[10rem] text-center text-xl text-white font-black px-6 py-2 rounded-sm mt-4 md:mt-12"
           style={{ backgroundColor: `${buttonColor}` }}
         >

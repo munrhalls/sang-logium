@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/category/:slug*",
-        destination: "/categories/:slug*",
+        destination: "/category/:slug*",
         permanent: true,
       },
     ];

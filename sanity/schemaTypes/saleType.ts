@@ -13,6 +13,16 @@ export const saleType = defineType({
       title: "Sale Title",
     }),
     defineField({
+      name: "slug",
+      type: "slug",
+      title: "Slug",
+      options: {
+        source: "name",
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "category",
       title: "Category",
       type: "reference",
