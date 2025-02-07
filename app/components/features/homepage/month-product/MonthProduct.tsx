@@ -60,7 +60,7 @@ const Title = function ({ name }: { name: string }) {
 
 const CTA = function ({ id }: { id: string }) {
   return (
-    <Link href={`/products/${id}`} className="h-full max-w-40">
+    <Link href={`/product/${id}`} className="h-full max-w-40">
       <button className="bg-white text-black font-bold p-2 rounded-lg">
         Shop now
       </button>
