@@ -4,6 +4,7 @@ export default async function BrandPage({
   params: Promise<{ slug: string }>;
 }) {
   const slug = (await params).slug;
+  console.log("BRAND SLUG:", slug);
   // const products = await getProductsByCategory(slug);
 
   return (
