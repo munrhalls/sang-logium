@@ -1,5 +1,5 @@
 import getProductsByCategoryPath from "@/sanity/lib/products/getProductsByCategoryPath";
-import ProductsGrid from "@/app/components/features/products/ProductsGrid";
+// import ProductsGrid from "@/app/components/features/products/ProductsGrid";
 
 export default async function CategoryPage({
   params,
@@ -8,8 +8,10 @@ export default async function CategoryPage({
 }) {
   const slugs = (await params).slug;
   const path = slugs.join("/");
-  console.log(path);
-  // const products = await getProductsByCategoryPath(path);
+
+  const products = await getProductsByCategoryPath(path);
+
+  console.log(products, " ... products");
   return (
     <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-4">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
