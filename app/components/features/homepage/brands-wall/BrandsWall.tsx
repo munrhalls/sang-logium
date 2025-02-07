@@ -16,7 +16,7 @@ export default async function BrandsWall() {
         {Object.entries(Brands).map(([brand, image]) => {
           return (
             <Link
-              href={`/brands/${brand}`}
+              href={`/brand/${brand}`}
               key={brand}
               className="grid place-content-center"
             >
