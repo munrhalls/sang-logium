@@ -35,7 +35,9 @@ export default function MobileCategoriesDrawer({
 
   if (!categories || categories.length === 0) {
     return (
-      <div className="hidden lg:flex w-full bg-gray-900 items-center justify-center ">
+      <div
+        className={`${isCategoriesDrawerOpen ? "absolute" : "hidden"} h-full w-full overflow-hidden inset-0 lg:flex bg-gray-900 items-center justify-center `}
+      >
         <p className="text-xl text-white">
           Connection issue. Could not load categories. Please refresh page. If
           that does not work - we are working on solving that issue as soon as
@@ -61,7 +63,7 @@ export default function MobileCategoriesDrawer({
 
   return (
     <div
-      className={`overflow-y-auto z-50 pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 flex flex-col ${
+      className={`absolute inset-0 overflow-hidden h-full w-full z-50 pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 flex flex-col ${
         isCategoriesDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
