@@ -1,5 +1,5 @@
 import getProductsByCategory from "@/sanity/lib/products/getProductsByCategory";
-import ProductsGrid from "@/app/components/features/products/ProductsGrid";
+import ProductsGrid from "@/app/components/features/homepage/products/ProductsGrid";
 
 export default async function CategoryPage({
   params,

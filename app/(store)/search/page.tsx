@@ -1,5 +1,5 @@
 import { searchProductsByName } from "@/sanity/lib/products/searchProductsByName";
-import ProductsGrid from "@/app/components/features/products/ProductsGrid";
+import ProductsGrid from "@/app/components/features/homepage/products/ProductsGrid";
 
 export default async function Page({
   searchParams,

@@ -17,7 +17,7 @@ import logo from "@/public/logo.svg";
 //   }
 // );
 const SearchForm = dynamic(
-  () => import("@/app/components/features/search/SearchForm"),
+  () => import("@/app/components/features/homepage/search/SearchForm"),
   {
     loading: () => <div className="animate-pulse" />,
     ssr: false,

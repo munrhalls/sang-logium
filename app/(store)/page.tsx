@@ -1,12 +1,12 @@
-import BrandsWall from "../components/features/brands-wall/BrandsWall";
-import ExtremeQuality from "../components/features/extreme-quality/ExtremeQuality";
-import Bestsellers from "../components/features/bestsellers/Bestsellers";
-import MonthProduct from "../components/features/month-product/MonthProduct";
-import NewestRelease from "../components/features/newest-release/NewestRelease";
-import FeaturedProducts from "../components/features/featured-products/FeaturedProducts";
-import MainCategories from "../components/features/main-categories/MainCategories";
+import BrandsWall from "../components/features/homepage/brands-wall/BrandsWall";
+import ExtremeQuality from "../components/features/homepage/extreme-quality/ExtremeQuality";
+import Bestsellers from "../components/features/homepage/bestsellers/Bestsellers";
+import MonthProduct from "../components/features/homepage/month-product/MonthProduct";
+import NewestRelease from "../components/features/homepage/newest-release/NewestRelease";
+import FeaturedProducts from "../components/features/homepage/featured-products/FeaturedProducts";
+import MainCategories from "../components/features/homepage/main-categories/MainCategories";
 import Footer from "@/app/components/layout/footer/Footer";
-import HeroCommercials from "../components/features/hero-commercials/HeroCommercials";
+import HeroCommercials from "../components/features/homepage/hero-commercials/HeroCommercials";
 
 export default async function Page() {
   return (

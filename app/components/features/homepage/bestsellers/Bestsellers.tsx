@@ -1,9 +1,9 @@
-import CarouselMultiSlide from "../../ui/carousel-multi-slide/carouselMultiSlide";
-import SegmentTitle from "../../ui/segment-title/SegmentTitle";
+import CarouselMultiSlide from "../../../ui/carousel-multi-slide/carouselMultiSlide";
+import SegmentTitle from "../../../ui/segment-title/SegmentTitle";
 // import Image from "next/image";
-import Price from "../../ui/commercials/minor/price";
-import BrandTitle from "../../ui/commercials/minor/brandTitle";
-import ProductName from "../../ui/commercials/minor/productName";
+import Price from "../../../ui/commercials/minor/price";
+import BrandTitle from "../../../ui/commercials/minor/brandTitle";
+import ProductName from "../../../ui/commercials/minor/productName";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
