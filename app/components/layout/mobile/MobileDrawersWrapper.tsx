@@ -1,13 +1,10 @@
-import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
-import MobileCategoriesDrawer from "./MobileCategoriesDrawer";
+import MobileCategoriesDrawerWrapper from "./MobileCategoriesDrawerWrapper";
 import MobileSearchDrawer from "./MobileSearchDrawer";
 
 export default async function MobileDrawersWrapper() {
-  const categories = await getAllCategories();
-
   return (
     <>
-      <MobileCategoriesDrawer categories={categories} />
+      <MobileCategoriesDrawerWrapper />
       <MobileSearchDrawer />
     </>
   );

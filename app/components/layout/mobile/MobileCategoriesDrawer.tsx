@@ -1,19 +1,17 @@
 "use client";
 
-import { Category } from "@/sanity.types";
 import { useStore } from "../../../../store";
 import { useEffect, useState } from "react";
-
+import { CategoryTree } from "@/lib/flatToTree";
 import Link from "next/link";
 
-import { flatToTree } from "@/lib/flatToTree";
 import { FaRegCircle, FaTimes } from "react-icons/fa";
 import { getCategoryIcon } from "@/lib/getCategoryIcon";
 
 export default function MobileCategoriesDrawer({
   categories,
 }: {
-  categories: Category[];
+  categories: CategoryTree[];
 }) {
   const isCategoriesDrawerOpen = useStore(
     (state) => state.isCategoriesDrawerOpen
@@ -46,21 +44,6 @@ export default function MobileCategoriesDrawer({
       </div>
     );
   }
-
-  const categoriesTree = flatToTree(categories);
-
-  const CATEGORY_ORDER = [
-    "Headphones",
-    "On Sale",
-    "Hi-Fi Audio",
-    "Studio Equipment",
-    "Accessories",
-  ];
-
-  const orderedCategoriesTree = categoriesTree.sort(
-    (a, b) => CATEGORY_ORDER.indexOf(a.name!) - CATEGORY_ORDER.indexOf(b.name!)
-  );
-
   return (
     <div
       className={`absolute inset-0 overflow-hidden h-full w-full z-50 pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 flex flex-col ${
@@ -87,7 +70,7 @@ export default function MobileCategoriesDrawer({
       <div className="flex-1 overflow-y-auto scroll-smooth pb-6">
         <div className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {orderedCategoriesTree.map((category) => (
+            {categories.map((category) => (
               <div key={category.name} className="space-y-2">
                 <Link
                   href={`/category/${category?.name?.toLowerCase().replace(/\s+/g, "-")}`}
