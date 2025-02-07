@@ -1,8 +1,8 @@
 import "./../globals.css";
 import type { Metadata } from "next";
 import { Iceland } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
-import { SanityLive } from "@/sanity/lib/live";
+// import { ClerkProvider } from "@clerk/nextjs";
+// import { SanityLive } from "@/sanity/lib/live";
 import Header from "@/app/components/layout/header/Header";
 import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWrapper";
 import CategoriesWrapper from "../components/layout/categoryMenu/CategoriesWrapper";
@@ -34,32 +34,21 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${iceland.className} w-full}`}>
       <body className={`${iceland.variable} font-sans w-full`}>
-        <ClerkProvider
-          appearance={{
-            elements: {
-              rootBox: "w-full",
-              card: "rounded-sm",
-            },
-          }}
-          clerkJSVariant="headless"
-          touchSession={false}
+        <div
+          id="wrapper"
+          className="h-full grid grid-rows-[auto_1fr_auto] relative"
         >
-          <div
-            id="wrapper"
-            className="h-full grid grid-rows-[auto_1fr_auto] relative"
-          >
-            <Header />
-            <CategoriesWrapper />
-            <div className="h-full min-h-0 overflow-hidden relative">
-              <MobileDrawersWrapper />
-              <div className="h-full min-h-0 overflow-y-auto relative">
-                {children}
-              </div>
+          <Header />
+          <CategoriesWrapper />
+          <div className="h-full min-h-0 overflow-hidden relative">
+            <MobileDrawersWrapper />
+            <div className="h-full min-h-0 overflow-y-auto relative">
+              {children}
             </div>
-            <MobileMenu />
-            <SanityLive />
           </div>
-        </ClerkProvider>
+          <MobileMenu />
+          {/* <SanityLive /> */}
+        </div>
       </body>
     </html>
   );
