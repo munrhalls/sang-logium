@@ -1,14 +1,14 @@
 import getProductsByCategory from "@/sanity/lib/products/getProductsByCategory";
-import ProductsGrid from "@/app/components/features/homepage/products/ProductsGrid";
+import ProductsGrid from "@/app/components/features/products/ProductsGrid";
 
 export default async function CategoryPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-
-  const products = await getProductsByCategory(slug);
+  const slug = (await params).slug;
+  console.log(slug, "category page");
+  // const products = await getProductsByCategory(slug);
 
   return (
     <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-4">
@@ -20,7 +20,7 @@ export default async function CategoryPage({
             .join(" ")}
           Collection
         </h1>
-        <ProductsGrid products={products} />
+        {/* <ProductsGrid products={products} /> */}
       </div>
     </div>
   );

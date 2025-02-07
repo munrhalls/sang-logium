@@ -15,15 +15,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/category/:slug*",
-        destination: "/category/:slug*",
-        permanent: true,
-      },
-    ];
-  },
+
   poweredByHeader: false,
   compress: true,
 };
