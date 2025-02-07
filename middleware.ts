@@ -10,14 +10,17 @@
 // };
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
-export default clerkMiddleware();
+export const middleware = clerkMiddleware();
 
 export const config = {
   matcher: [
-    // Exclude static files and API routes that don't need auth
-    "/((?!_next/static|_next/image|favicon.ico).*)",
-    // Include specific routes that need auth
+    // Only check auth for protected routes
     "/account/:path*",
     "/dashboard/:path*",
+    // Exclude static assets and public routes
+    "/((?!_next/static|_next/image|favicon.ico|api/sanity|products|category|sale).*)",
   ],
 };
+
+// Default export for wider compatibility
+export default middleware;

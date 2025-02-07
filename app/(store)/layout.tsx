@@ -41,9 +41,8 @@ export default async function RootLayout({
               card: "rounded-sm",
             },
           }}
-          signInMode="modal" // Prevents full page redirects for sign-in
-          signUpMode="modal" // Prevents full page redirects for sign-up
-          authMode="ephemeral" // Reduces token exchange redirects
+          clerkJSVariant="headless"
+          touchSession={false}
         >
           <div
             id="wrapper"
