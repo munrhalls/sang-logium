@@ -13,7 +13,7 @@ export const getProductById = async (id: string) => {
     const product = await sanityFetch({
       query: PRODUCT_BY_ID_QUERY,
       params: {
-        id,
+        $id: id,
       },
     });
     return product.data || null;
