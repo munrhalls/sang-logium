@@ -1,7 +1,11 @@
 export const authConfig = {
-  signInUrl: "/sign-in",
-  signUpUrl: "/sign-up",
+  debug: false,
+  latencyTimeout: 0,
+  signInMode: "modal",
   afterSignInUrl: "/",
-  afterSignUpUrl: "/",
-  publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+  isSatellite: false,
+  signUpMode: "modal",
+  beforeSignInUrl: "/",
+  // Disable unnecessary features
+  socialProviderStrategies: {},
 };

@@ -35,8 +35,15 @@ export default async function RootLayout({
     <html lang="en" className={`${iceland.className} w-full}`}>
       <body className={`${iceland.variable} font-sans w-full`}>
         <ClerkProvider
-          appearance={{ elements: { rootBox: "w-full", card: "rounded-sm" } }}
-          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+          appearance={{
+            elements: {
+              rootBox: "w-full",
+              card: "rounded-sm",
+            },
+          }}
+          signInMode="modal" // Prevents full page redirects for sign-in
+          signUpMode="modal" // Prevents full page redirects for sign-up
+          authMode="ephemeral" // Reduces token exchange redirects
         >
           <div
             id="wrapper"
