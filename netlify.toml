@@ -9,8 +9,3 @@
   NEXT_USE_NETLIFY_EDGE = "true"
   NPM_FLAGS = "--legacy-peer-deps"
 
-  [[redirects]]
-  from = "www.sang-logium.com/*"
-  to = "https://sang-logium.com/:splat"
-  status = 301
-  force = true
