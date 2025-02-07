@@ -1,15 +1,16 @@
-import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
+import { getProductById } from "@/sanity/lib/products/getProductById";
 import { notFound } from "next/navigation";
 import { PortableText } from "next-sanity";
 import ProductPageGallery from "./ProductPageGallery";
 
-type Params = Promise<{ slug: string }>;
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const id = (await params).id;
+  const product = await getProductById(id);
 
-export default async function ProductPage(props: { params: Params }) {
-  const params = await props.params;
-  const slug = params.slug;
-
-  const product = await getProductBySlug(slug);
   if (!product) {
     return notFound();
   }
