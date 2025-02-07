@@ -64,6 +64,7 @@ const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
             products={productsVerified}
             discount={discount}
             text={text}
+            ctaLink={ctaLink}
           />
         )
       )}

@@ -10,10 +10,12 @@ function ProductsCommercial({
   products,
   discount,
   text,
+  ctaLink,
 }: {
   products: ProductProps[];
   discount: number | null;
   text: CommercialText;
+  ctaLink: string | null;
 }) {
   const buttonColor =
     text?.[0]?.markDefs?.find((mark) => mark._type === "textColor")?.value ||
@@ -61,16 +63,18 @@ function ProductsCommercial({
         ))}
       </div>
 
-      <div className="z-30 h-full min-h-0  text-white grid  place-items-center md:py-4 lg:py-6 xl:py-10">
-        <Link
-          href="TODO"
-          // prefetch={true}
-          className="z-20 grid place-content-centerh-full min-h-0  max-w-[10rem] text-center text-white py-1 font-black px-6 lg:py-2 rounded-sm text-sm lg:text-xl "
-          style={{ backgroundColor: `${buttonColor}` }}
-        >
-          SEE MORE
-        </Link>
-      </div>
+      {ctaLink && (
+        <div className="z-30 h-full min-h-0  text-white grid  place-items-center md:py-4 lg:py-6 xl:py-10">
+          <Link
+            href={ctaLink}
+            // prefetch={true}
+            className="z-20 grid place-content-centerh-full min-h-0  max-w-[10rem] text-center text-white py-1 font-black px-6 lg:py-2 rounded-sm text-sm lg:text-xl "
+            style={{ backgroundColor: `${buttonColor}` }}
+          >
+            SEE MORE
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
