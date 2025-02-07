@@ -35,12 +35,8 @@ export default async function RootLayout({
     <html lang="en" className={`${iceland.className} w-full}`}>
       <body className={`${iceland.variable} font-sans w-full`}>
         <ClerkProvider
-          appearance={{
-            elements: {
-              rootBox: "w-full",
-              card: "rounded-sm",
-            },
-          }}
+          appearance={{ elements: { rootBox: "w-full", card: "rounded-sm" } }}
+          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
         >
           <div
             id="wrapper"
