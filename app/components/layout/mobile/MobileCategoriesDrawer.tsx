@@ -1,7 +1,6 @@
 "use client";
 
 import { useStore } from "../../../../store";
-import { useEffect, useState } from "react";
 import { CategoryTree } from "@/lib/flatToTree";
 import Link from "next/link";
 
@@ -20,30 +19,6 @@ export default function MobileCategoriesDrawer({
     (state) => state.toggleCategoriesDrawer
   );
 
-  const [isMounted, setIsMounted] = useState(false);
-
-  // for hydration
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
-
-  if (!categories || categories.length === 0) {
-    return (
-      <div
-        className={`${isCategoriesDrawerOpen ? "absolute" : "hidden"} h-full w-full overflow-hidden inset-0 lg:flex bg-gray-900 items-center justify-center `}
-      >
-        <p className="text-xl text-white">
-          Connection issue. Could not load categories. Please refresh page. If
-          that does not work - we are working on solving that issue as soon as
-          possible. Please try again later.
-        </p>
-      </div>
-    );
-  }
   return (
     <div
       className={`absolute inset-0 overflow-hidden h-full w-full z-50 pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 flex flex-col ${
@@ -90,10 +65,7 @@ export default function MobileCategoriesDrawer({
 
                 <div className="ml-6 space-y-1">
                   {category?.children?.map((sub) => (
-                    <div
-                      key={category._id + sub.name}
-                      onClick={toggleCategoriesDrawer}
-                    >
+                    <div key={category._id + sub.name}>
                       <Link
                         href={`/category/${category?.name
                           ?.toLowerCase()
@@ -109,7 +81,6 @@ export default function MobileCategoriesDrawer({
                         <ul className="pl-3 py-2 backdrop-brightness-95 rounded">
                           {sub.children.map((child) => (
                             <li
-                              onClick={toggleCategoriesDrawer}
                               key={`${category?.name?.toLowerCase()}-${sub?.name?.toLowerCase()}-${child?.name?.toLowerCase()}`}
                             >
                               <Link
