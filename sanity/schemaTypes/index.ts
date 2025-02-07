@@ -3,6 +3,7 @@ import { categoryType } from "./categoryType";
 import { productType } from "./productType";
 import { orderType } from "./orderType";
 import { saleType } from "./saleType";
+import { exhibitionType } from "./exhibitionType";
 import { commercialType } from "./commercialType";
 
 export const schema = {
@@ -12,6 +13,7 @@ export const schema = {
     productType,
     orderType,
     saleType,
+    exhibitionType,
     commercialType,
   ],
 };

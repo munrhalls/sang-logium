@@ -1,7 +1,7 @@
 import { defineType, defineField, defineArrayMember } from "sanity";
 import { TagIcon } from "@sanity/icons";
 
-export const saleType = defineType({
+export const exhibitionType = defineType({
   name: "exhibition",
   title: "Exhibition",
   type: "document",
