@@ -41,7 +41,7 @@ export default async function MobileCategoriesDrawerWrapper() {
       {orderedCategoriesTree.map((category) => (
         <div key={`${category._id}`} className="space-y-2">
           <Link
-            href={`/category/${category.path}`}
+            href={`/products/${category.path}`}
             className="flex items-center text-2xl font-semibold hover:text-gray-600"
           >
             {category.icon && (
@@ -58,7 +58,7 @@ export default async function MobileCategoriesDrawerWrapper() {
             {category?.children?.map((sub) => (
               <div key={`${sub._id}`}>
                 <Link
-                  href={`/category/${sub.path}`}
+                  href={`/products/${sub.path}`}
                   className="mt-2 flex items-center text-gray-600 hover:text-black"
                 >
                   <FaRegCircle className="mr-2 w-2 h-2" />
@@ -69,7 +69,7 @@ export default async function MobileCategoriesDrawerWrapper() {
                     {sub.children.map((child) => (
                       <li key={`${child._id}`}>
                         <Link
-                          href={`/category/${child.path}`}
+                          href={`/products/${child.path}`}
                           className="flex justify-start items-center px-4 py-2  text-gray-800 hover:bg-gray-100"
                         >
                           <FaRegCircle className="mr-2" />

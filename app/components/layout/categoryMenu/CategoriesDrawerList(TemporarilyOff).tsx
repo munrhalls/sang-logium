@@ -12,7 +12,7 @@
 //           {orderedCategoriesTree.map((category) => (
 //             <div key={category.name} className="space-y-2">
 //               <Link
-//                 href={`/category/${category?.name?.toLowerCase().replace(/\s+/g, "-")}`}
+//                 href={`/products/${category?.name?.toLowerCase().replace(/\s+/g, "-")}`}
 //                 className="flex items-center text-2xl font-semibold hover:text-gray-600"
 //               >
 //                 {category.icon && (
@@ -29,7 +29,7 @@
 //                 {category?.children?.map((sub) => (
 //                   <div key={category._id + sub.name}>
 //                     <Link
-//                       href={`/category/${category?.name
+//                       href={`/products/${category?.name
 //                         ?.toLowerCase()
 //                         .replace(/\s+/g, "-")}/${sub?.name
 //                         ?.toLowerCase()
@@ -46,7 +46,7 @@
 //                             key={`${category?.name?.toLowerCase()}-${sub?.name?.toLowerCase()}-${child?.name?.toLowerCase()}`}
 //                           >
 //                             <Link
-//                               href={`/category/${category?.name
+//                               href={`/products/${category?.name
 //                                 ?.toLowerCase()
 //                                 .replace(/\s+/g, "-")}/${sub?.name
 //                                 ?.toLowerCase()

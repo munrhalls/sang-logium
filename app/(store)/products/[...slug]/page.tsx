@@ -4,6 +4,7 @@ import FilterSortBtns from "@/app/components/ui/buttons/FilterSortBtns";
 import CategoryBreadcrumbs from "@/app/components/ui/breadcrumbs/CategoryBreadcrumbs";
 import CategoryTitleIcon from "@/app/components/ui/icons/CategoryTitleIcon";
 import AppliedFilters from "@/app/components/ui/tag-elements/AppliedFilters";
+import ProductsFilterSortDrawersWrapper from "@/app/components/ui/drawers/ProductsFilterSortDrawersWrapper";
 
 export default async function CategoryPage({
   params,
@@ -24,22 +25,19 @@ export default async function CategoryPage({
       <div className="bg-slate-900 text-white">
         <FilterSortBtns />
       </div>
-      <CategoryBreadcrumbs slugs={slugs} />
-      <div className="flex justify-center items-center">
-        <CategoryTitleIcon category={rootCategory} />
-
-        <h1 className="text-4xl font-bold mb-6 text-center">
-          {leafCategory}
-          {/* {slugs.map((slug) =>
-            slug
-              .split("-")
-              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-              .join(" ")
-          )}
-          Collection */}
-        </h1>
-        <AppliedFilters />
-        {/* <ProductsGrid products={products} /> */}
+      <div className="relative">
+        <div className="absolute inset-0 overflow-hidden">
+          <ProductsFilterSortDrawersWrapper />
+        </div>
+        <CategoryBreadcrumbs slugs={slugs} />
+        <div className="flex justify-center items-center">
+          <CategoryTitleIcon category={rootCategory} />
+          <h1 className="text-4xl font-bold mb-6 text-center">
+            {leafCategory}
+          </h1>
+          <AppliedFilters />
+          {/* <ProductsGrid products={products} /> */}
+        </div>
       </div>
     </div>
   );

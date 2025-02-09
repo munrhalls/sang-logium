@@ -26,7 +26,7 @@ export default function CategoriesNav({
               onMouseLeave={() => setActiveCategory(undefined)}
             >
               <Link
-                href={`/category/${category?.name?.toLowerCase().replace(/\s+/g, "-")}`}
+                href={`/products/${category?.name?.toLowerCase().replace(/\s+/g, "-")}`}
                 className={`h-full flex items-center py-2 px-4 text-white hover:text-yellow-400 transition-colors ${
                   activeCategory === category.name ? "text-yellow-400" : ""
                 }`}
@@ -52,7 +52,7 @@ export default function CategoriesNav({
                     {category?.children?.map((sub, i) => (
                       <div key={`${category._id}-${i}-${sub.name}`}>
                         <Link
-                          href={`/category/${category?.name?.toLowerCase().replace(/\s+/g, "-")}/${sub?.name?.toLowerCase().replace(/\s+/g, "-")}`}
+                          href={`/products/${category?.name?.toLowerCase().replace(/\s+/g, "-")}/${sub?.name?.toLowerCase().replace(/\s+/g, "-")}`}
                           className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
                         >
                           <FaRegCircle className="mr-2" />
@@ -65,7 +65,7 @@ export default function CategoriesNav({
                                 key={`${category?.name?.toLowerCase().replace(/\s+/g, "-")}-${sub?.name?.toLowerCase().replace(/\s+/g, "-")}-${child?.name?.toLowerCase().replace(/\s+/g, "-")}`}
                               >
                                 <Link
-                                  href={`/category/${category?.name?.toLowerCase().replace(/\s+/g, "-")}/${sub?.name?.toLowerCase().replace(/\s+/g, "-")}/${child?.name?.toLowerCase().replace(/\s+/g, "-")}`}
+                                  href={`/products/${category?.name?.toLowerCase().replace(/\s+/g, "-")}/${sub?.name?.toLowerCase().replace(/\s+/g, "-")}/${child?.name?.toLowerCase().replace(/\s+/g, "-")}`}
                                   className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
                                 >
                                   <FaRegCircle className="mr-2" />
