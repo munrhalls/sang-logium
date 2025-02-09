@@ -4,6 +4,7 @@ import MobileCategoriesDrawer from "./MobileCategoriesDrawer";
 
 export default async function MobileCategoriesDrawerWrapper() {
   const categories = await getAllCategories();
+  console.log("^from sanity");
 
   if (!categories || categories.length === 0) {
     return (
@@ -20,6 +21,7 @@ export default async function MobileCategoriesDrawerWrapper() {
   }
 
   const categoriesTree = flatToTree(categories);
+
   const CATEGORY_ORDER = [
     "Headphones",
     "Hi-Fi Audio",

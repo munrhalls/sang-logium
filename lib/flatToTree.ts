@@ -1,15 +1,16 @@
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
-export interface CategoryTree {
+export type CategoryTree = {
   _id: string;
   name: string;
   icon: string | null;
+  path: string;
   children: CategoryTree[];
-}
+};
 
 export const flatToTree = (
   categories: ALL_CATEGORIES_QUERYResult
 ): CategoryTree[] => {
-  const map: Record<string, CategoryTree> = {};
+  const categoriesTree: Record<string, CategoryTree> = {};
   const roots: CategoryTree[] = [];
 
   categories.sort((a, b) => {
@@ -18,10 +19,10 @@ export const flatToTree = (
     return a.metadata.depth - b.metadata.depth;
   });
 
-  categories.forEach((cat) => {
-    const { path } = cat.metadata || {};
+  categories.forEach((category) => {
+    const { path } = category.metadata || {};
     if (!path) {
-      console.error("Category missing path", cat);
+      console.error("Category missing path", category);
       return;
     }
     const parts = path.split("/");
@@ -29,18 +30,19 @@ export const flatToTree = (
     const parentPath = parts.slice(0, -1).join("/");
 
     // Initialize map entry
-    map[path] = {
-      _id: cat._id,
-      name: cat.name || "",
-      icon: cat.icon || null,
+    categoriesTree[path] = {
+      _id: category._id,
+      name: category.name || "",
+      path: path,
+      icon: category.icon || null,
       children: [],
     } as CategoryTree;
 
     // Assign as child to parent or root
     if (depth === 1) {
-      roots.push(map[path]);
-    } else if (map[parentPath]) {
-      map[parentPath].children.push(map[path]);
+      roots.push(categoriesTree[path]);
+    } else if (categoriesTree[parentPath]) {
+      categoriesTree[parentPath].children.push(categoriesTree[path]);
     }
   });
   return roots;

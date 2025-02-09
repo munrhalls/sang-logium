@@ -25,8 +25,6 @@ export default function MobileCategoriesDrawer({
     toggleCategoriesDrawer();
   };
 
-  const toPath = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
-
   return (
     <div
       className={`absolute inset-0 overflow-hidden h-full w-full z-50 pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 flex flex-col ${
@@ -54,12 +52,10 @@ export default function MobileCategoriesDrawer({
         <div className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {categories.map((category) => (
-              <div key={category.name} className="space-y-2">
+              <div key={`${category._id}`} className="space-y-2">
                 <Link
-                  href={`/category/${toPath(category.name)}`}
-                  onClick={() =>
-                    handleClick(`/category/${toPath(category.name)}`)
-                  }
+                  href={`/category/${category.path}`}
+                  onClick={() => handleClick(`/category/${category.path}`)}
                   className="flex items-center text-2xl font-semibold hover:text-gray-600"
                 >
                   {category.icon && (
@@ -76,13 +72,11 @@ export default function MobileCategoriesDrawer({
 
                 <div className="ml-6 space-y-1">
                   {category?.children?.map((sub) => (
-                    <div key={category._id + sub.name}>
+                    <div key={`${sub._id}`}>
                       <Link
-                        href={`/category/${toPath(category.name)}/${toPath(sub.name)}`}
+                        href={`/category/${category.path}`}
                         onClick={() =>
-                          handleClick(
-                            `/category/${toPath(category.name)}/${toPath(sub.name)}`
-                          )
+                          handleClick(`/category/${category.path}`)
                         }
                         className="mt-2 flex items-center text-gray-600 hover:text-black"
                       >
@@ -92,15 +86,11 @@ export default function MobileCategoriesDrawer({
                       {sub.children && (
                         <ul className="pl-3 py-2 backdrop-brightness-95 rounded">
                           {sub.children.map((child) => (
-                            <li
-                              key={`${category?.name?.toLowerCase()}-${sub?.name?.toLowerCase()}-${child?.name?.toLowerCase()}`}
-                            >
+                            <li key={`${child._id}`}>
                               <Link
-                                href={`/category/${toPath(category.name)}/${toPath(sub.name)}/${toPath(child.name)}`}
+                                href={`/category/${category.path}`}
                                 onClick={() =>
-                                  handleClick(
-                                    `/category/${toPath(category.name)}/${toPath(sub.name)}/${toPath(child.name)}`
-                                  )
+                                  handleClick(`/category/${category.path}`)
                                 }
                                 className="flex justify-start items-center px-4 py-2  text-gray-800 hover:bg-gray-100"
                               >
