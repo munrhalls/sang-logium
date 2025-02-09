@@ -5,11 +5,12 @@ import { CategoryTree } from "@/lib/flatToTree";
 import Link from "next/link";
 import { FaRegCircle, FaTimes } from "react-icons/fa";
 import { getCategoryIcon } from "@/lib/getCategoryIcon";
+import { ReactElement } from "react";
 
 export default function MobileCategoriesDrawer({
-  categories,
+  categoriesTreeUI,
 }: {
-  categories: CategoryTree[];
+  categoriesTreeUI: ReactElement;
 }) {
   const isCategoriesDrawerOpen = useStore(
     (state) => state.isCategoriesDrawerOpen
@@ -43,7 +44,7 @@ export default function MobileCategoriesDrawer({
         </div>
         <h1 className="text-3xl text-center my-2 ml-4">Categories</h1>
       </div>
-
+      ``
       {/* Scrollable content */}
       <div
         className="flex-1 overflow-y-auto scroll-smooth pb-6"
@@ -51,7 +52,7 @@ export default function MobileCategoriesDrawer({
       >
         <div className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {categories.map((category) => (
+            {/* {categories.map((category) => (
               <div key={`${category._id}`} className="space-y-2">
                 <Link
                   href={`/category/${category.path}`}
@@ -98,7 +99,8 @@ export default function MobileCategoriesDrawer({
                   ))}
                 </div>
               </div>
-            ))}
+            ))} */}
+            {categoriesTreeUI}
           </div>
           <p className="mt-8 flex justify-center items-center text-gray-500">
             End.
