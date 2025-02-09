@@ -4,7 +4,6 @@ import MobileCategoriesDrawer from "./MobileCategoriesDrawer";
 
 export default async function MobileCategoriesDrawerWrapper() {
   const categories = await getAllCategories();
-  console.log("^from sanity");
 
   if (!categories || categories.length === 0) {
     return (
@@ -34,5 +33,7 @@ export default async function MobileCategoriesDrawerWrapper() {
     (a, b) => CATEGORY_ORDER.indexOf(a.name!) - CATEGORY_ORDER.indexOf(b.name!)
   );
 
+  console.dir(orderedCategoriesTree, { depth: null });
+  console.log(orderedCategoriesTree, "^orderedCategoriesTree");
   return <MobileCategoriesDrawer categories={orderedCategoriesTree} />;
 }

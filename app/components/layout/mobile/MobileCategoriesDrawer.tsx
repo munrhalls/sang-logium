@@ -3,7 +3,6 @@
 import { useStore } from "../../../../store";
 import { CategoryTree } from "@/lib/flatToTree";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { FaRegCircle, FaTimes } from "react-icons/fa";
 import { getCategoryIcon } from "@/lib/getCategoryIcon";
 
@@ -18,10 +17,8 @@ export default function MobileCategoriesDrawer({
   const toggleCategoriesDrawer = useStore(
     (state) => state.toggleCategoriesDrawer
   );
-  const router = useRouter();
 
-  const handleClick = (path: string) => {
-    router.push(path);
+  const handleClick = () => {
     toggleCategoriesDrawer();
   };
 
@@ -48,14 +45,16 @@ export default function MobileCategoriesDrawer({
       </div>
 
       {/* Scrollable content */}
-      <div className="flex-1 overflow-y-auto scroll-smooth pb-6">
+      <div
+        className="flex-1 overflow-y-auto scroll-smooth pb-6"
+        onClick={handleClick}
+      >
         <div className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {categories.map((category) => (
               <div key={`${category._id}`} className="space-y-2">
                 <Link
                   href={`/category/${category.path}`}
-                  onClick={() => handleClick(`/category/${category.path}`)}
                   className="flex items-center text-2xl font-semibold hover:text-gray-600"
                 >
                   {category.icon && (
@@ -74,10 +73,7 @@ export default function MobileCategoriesDrawer({
                   {category?.children?.map((sub) => (
                     <div key={`${sub._id}`}>
                       <Link
-                        href={`/category/${category.path}`}
-                        onClick={() =>
-                          handleClick(`/category/${category.path}`)
-                        }
+                        href={`/category/${sub.path}`}
                         className="mt-2 flex items-center text-gray-600 hover:text-black"
                       >
                         <FaRegCircle className="mr-2 w-2 h-2" />
@@ -88,10 +84,7 @@ export default function MobileCategoriesDrawer({
                           {sub.children.map((child) => (
                             <li key={`${child._id}`}>
                               <Link
-                                href={`/category/${category.path}`}
-                                onClick={() =>
-                                  handleClick(`/category/${category.path}`)
-                                }
+                                href={`/category/${child.path}`}
                                 className="flex justify-start items-center px-4 py-2  text-gray-800 hover:bg-gray-100"
                               >
                                 <FaRegCircle className="mr-2" />
