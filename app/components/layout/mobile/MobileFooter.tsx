@@ -2,10 +2,10 @@
 
 import { FaBars, FaSearch, FaShoppingBag } from "react-icons/fa";
 import { useStore } from "../../../../store";
-import { ClerkLoaded } from "@clerk/nextjs";
+// import { ClerkLoaded } from "@clerk/nextjs";
 // import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { UIState } from "../../../../store";
-import AuthContent from "@/app/components/features/auth/AuthContent";
+// import AuthContent from "@/app/components/features/auth/AuthContent";
 
 export default function MobileFooter() {
   // const { user } = useUser();
@@ -67,9 +67,9 @@ export default function MobileFooter() {
         <span className="text-xs mt-1">Basket</span>
       </button>
 
-      <ClerkLoaded>
+      {/* <ClerkLoaded>
         <AuthContent />
-      </ClerkLoaded>
+      </ClerkLoaded> */}
     </footer>
   );
 }
