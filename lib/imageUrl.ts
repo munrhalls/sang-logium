@@ -6,7 +6,7 @@ import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 const builder = imageUrlBuilder(client);
 
 export const imageUrl = (source: SanityImageSource) => {
-  return builder.image(source).auto("format").quality(85).fit("max"); // Maintains aspect ratio
+  return builder.image(source).auto("format").quality(85).fit("max");
 };
 
 export const heroImageUrl = (source: SanityImageSource) => {

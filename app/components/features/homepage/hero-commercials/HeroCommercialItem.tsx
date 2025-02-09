@@ -39,6 +39,12 @@ const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
 
   if (!image) return null;
 
+  const blurUrl = imageUrl(image)
+    .width(10) // Tiny width
+    .blur(5) // Apply blur
+    .quality(20) // Low quality is fine for blur
+    .url();
+
   const discount = sale?.discount || null;
   const ctaLink = commercial.ctaLink || null;
 
@@ -47,13 +53,15 @@ const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
       <Image
         src={imageUrl(image).url()}
         priority={index === 0}
-        loading={index === 0 ? "eager" : "lazy"}
-        width={1280}
-        height={720}
+        fetchPriority="high"
+        // width={1280}
+        // height={720}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1280px"
         style={{ objectPosition: "80% 0%" }}
         className="absolute inset-0 w-full h-full object-cover"
         quality={95}
-        sizes="100vw"
+        placeholder="blur"
+        blurDataURL={blurUrl}
         alt={commercial.title || "Sale"}
       />
       {variant === "text" && text ? (
