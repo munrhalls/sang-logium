@@ -1,11 +1,8 @@
 "use client";
 
 import { useStore } from "../../../../store";
-import { CategoryTree } from "@/lib/flatToTree";
-import Link from "next/link";
-import { FaRegCircle, FaTimes } from "react-icons/fa";
-import { getCategoryIcon } from "@/lib/getCategoryIcon";
 import { ReactElement } from "react";
+import { FaTimes } from "react-icons/fa";
 
 export default function MobileCategoriesDrawer({
   categoriesTreeUI,
