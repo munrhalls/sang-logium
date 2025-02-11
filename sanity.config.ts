@@ -1,14 +1,12 @@
 "use client";
 
-import { visionTool } from "@sanity/vision";
 import { structureTool } from "sanity/structure";
 import { dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
 import { simplerColorInput } from "sanity-plugin-simpler-color-input";
-import { defineConfig, isDev } from "sanity";
-
-const devOnlyPlugins = [visionTool()];
+import { visionTool } from "@sanity/vision";
+import { defineConfig } from "sanity";
 
 const sanityConfig = defineConfig({
   basePath: "/studio",
@@ -32,7 +30,7 @@ const sanityConfig = defineConfig({
       ],
       enableSearch: true,
     }),
-    ...(isDev ? devOnlyPlugins : []),
+    visionTool(),
   ],
 });
 
