@@ -6,7 +6,9 @@ import { dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
 import { simplerColorInput } from "sanity-plugin-simpler-color-input";
-import { defineConfig } from "sanity";
+import { defineConfig, isDev } from "sanity";
+
+const devOnlyPlugins = [visionTool()];
 
 const sanityConfig = defineConfig({
   basePath: "/studio",
@@ -17,7 +19,6 @@ const sanityConfig = defineConfig({
   },
   plugins: [
     structureTool({ structure }),
-    visionTool({ defaultApiVersion: apiVersion }),
     simplerColorInput({
       defaultColorFormat: "rgba",
       defaultColorList: [
@@ -31,6 +32,7 @@ const sanityConfig = defineConfig({
       ],
       enableSearch: true,
     }),
+    ...(isDev ? devOnlyPlugins : []),
   ],
 });
 
