@@ -10,7 +10,7 @@ export default function ProductsSortDrawer() {
     <div
       className={`absolute inset-y-0 right-0 w-full bg-slate-900 sm:w-96 text-white shadow-xl transform ${
         isProductsSortDrawerOpen ? "translate-x-0" : "translate-x-full"
-      } transition-transform duration-300 ease-in-out z-50`}
+      } transition-transform duration-250 ease-in-out z-50`}
     >
       <div className="h-full flex flex-col">
         <header className="p-4 border-b flex justify-between items-center">
