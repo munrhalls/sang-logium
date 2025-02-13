@@ -29,13 +29,15 @@ export const categoryType = defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+
     defineField({
       name: "metadata",
       title: "Metadata",
       type: "object",
       fields: [
-        { name: "path", title: "Path", type: "string" }, // e.g., "parent/child/subchild"
-        { name: "depth", title: "Depth", type: "number" }, // e.g., 1 = top-level, 2 = subcategory
+        { name: "path", title: "Path", type: "string" },
+        { name: "depth", title: "Depth", type: "number" },
+        { name: "label", type: "boolean" },
       ],
     }),
   ],

@@ -303,6 +303,7 @@ export type Category = {
   metadata?: {
     path?: string;
     depth?: number;
+    label?: boolean;
   };
 };
 
@@ -515,6 +516,7 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   metadata?: {
     path?: string;
     depth?: number;
+    label?: boolean;
   };
 }>;
 
@@ -834,6 +836,13 @@ export type SALE_BY_ID_QUERYResult = Array<{
   } | null;
 }>;
 
+// Source: ./sanity/lib/products/filter-and-sort/getFilters.ts
+// Variable: FILTERS
+// Query: {    "brands": array::unique(*[_type == "product"].brand->name)  }
+export type FILTERSResult = {
+  brands: Array<null>;
+};
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -845,5 +854,6 @@ declare module "@sanity/client" {
     "*[\n        _type == \"product\"\n        && name match $searchParam\n    ] | order(name asc)": SEARCH_FOR_PRODUCTS_QUERYResult;
     "\n      *[_type == \"sale\" && isActive == true] {\n        _id,\n        title,\n        \"slug\": slug.current,\n        discount,\n        validFrom,\n        validUntil,\n        isActive\n      }\n    ": GET_ACTIVE_SALES_QUERYResult;
     "\n    *[_type == \"sale\" && _id == $saleId]{\n      name,\n      \"slug\": slug.current,\n      validFrom,\n      validUntil,\n      isActive,\n      description,\n      \"image\": image.asset->url,\n      category->{\n        name,\n        \"slug\": slug.current,\n        \"products\": *[_type=='product' && categoryPath == ^.metadata.path]{\n          name,\n          \"slug\": slug.current,\n          image,\n          defaultPrice\n        }\n      }\n    }\n  ": SALE_BY_ID_QUERYResult;
+    "{\n    \"brands\": array::unique(*[_type == \"product\"].brand->name)\n  }": FILTERSResult;
   }
 }

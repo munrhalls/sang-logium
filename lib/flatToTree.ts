@@ -4,6 +4,7 @@ export type CategoryTree = {
   name: string;
   icon: string | null;
   path: string;
+  isLabel: boolean;
   children: CategoryTree[];
 };
 
@@ -13,13 +14,20 @@ export const flatToTree = (
   const categoriesTree: Record<string, CategoryTree> = {};
   const roots: CategoryTree[] = [];
 
+  console.log(categories);
+
   categories.sort((a, b) => {
     if (!a.metadata?.depth) return -1;
     if (!b.metadata?.depth) return 1;
-    return a.metadata.depth - b.metadata.depth;
+    if (a.metadata.depth !== b.metadata.depth) {
+      return a.metadata.depth - b.metadata.depth;
+    }
+    return (b.metadata.label ? 1 : 0) - (a.metadata.label ? 1 : 0);
   });
 
-  categories.forEach((category) => {
+  // const handleLabel = (category: ALL_CATEGORIES_QUERYResult[number]) => {};
+
+  const handleCategory = (category: ALL_CATEGORIES_QUERYResult[number]) => {
     const { path } = category.metadata || {};
     if (!path) {
       console.error("Category missing path", category);
@@ -34,6 +42,7 @@ export const flatToTree = (
       _id: category._id,
       name: category.name || "",
       path: path,
+      isLabel: category?.metadata?.label || false,
       icon: category.icon || null,
       children: [],
     } as CategoryTree;
@@ -44,6 +53,10 @@ export const flatToTree = (
     } else if (categoriesTree[parentPath]) {
       categoriesTree[parentPath].children.push(categoriesTree[path]);
     }
+  };
+
+  categories.forEach((category) => {
+    handleCategory(category);
   });
   return roots;
 };

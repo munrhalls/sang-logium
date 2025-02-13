@@ -5,7 +5,7 @@ import { dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
 import { simplerColorInput } from "sanity-plugin-simpler-color-input";
-import { visionTool } from "@sanity/vision";
+// import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 
 const sanityConfig = defineConfig({
@@ -30,7 +30,7 @@ const sanityConfig = defineConfig({
       ],
       enableSearch: true,
     }),
-    visionTool(),
+    // visionTool(),
   ],
 });
 

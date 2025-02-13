@@ -1942,6 +1942,13 @@
                 "type": "number"
               },
               "optional": true
+            },
+            "label": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "boolean"
+              },
+              "optional": true
             }
           }
         },
