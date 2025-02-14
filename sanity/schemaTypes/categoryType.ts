@@ -29,7 +29,6 @@ export const categoryType = defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
-
     defineField({
       name: "metadata",
       title: "Metadata",
@@ -37,7 +36,15 @@ export const categoryType = defineType({
       fields: [
         { name: "path", title: "Path", type: "string" },
         { name: "depth", title: "Depth", type: "number" },
-        { name: "label", type: "boolean" },
+        { name: "group", title: "Group", type: "number" },
+        {
+          name: "label",
+          title: "Label",
+          type: "number",
+          options: {
+            list: [1, 2],
+          },
+        },
       ],
     }),
   ],

@@ -303,7 +303,8 @@ export type Category = {
   metadata?: {
     path?: string;
     depth?: number;
-    label?: boolean;
+    group?: number;
+    label?: 1 | 2;
   };
 };
 
@@ -516,7 +517,8 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   metadata?: {
     path?: string;
     depth?: number;
-    label?: boolean;
+    group?: number;
+    label?: 1 | 2;
   };
 }>;
 

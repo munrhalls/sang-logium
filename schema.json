@@ -1943,10 +1943,27 @@
               },
               "optional": true
             },
+            "group": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "number"
+              },
+              "optional": true
+            },
             "label": {
               "type": "objectAttribute",
               "value": {
-                "type": "boolean"
+                "type": "union",
+                "of": [
+                  {
+                    "type": "number",
+                    "value": 1
+                  },
+                  {
+                    "type": "number",
+                    "value": 2
+                  }
+                ]
               },
               "optional": true
             }
