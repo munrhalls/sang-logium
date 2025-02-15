@@ -51,33 +51,30 @@ export default function CategoriesNav({
                 {activeCategory === category.name && (
                   <div className="absolute z-50 left-0 w-72 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-700 ease-in-out transform opacity-100 scale-100">
                     <div className="py-2">
-                      {category?.groups?.map((group) => {
-                        return (
-                          <>
-                            {group.label && <h1>{group.label}</h1>}
-                            {group.children.map((sub) => {
-                              return (
-                                <div key={`Desktop ${sub.path}`}>
-                                  <Link
-                                    href={`/products/${sub.path}`}
-                                    className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
-                                  >
-                                    <FaRegCircle className="mr-2" />
-                                    <span className="text-xl">
-                                      {" "}
-                                      {sub?.name}
-                                    </span>
-                                  </Link>
-                                  {sub.children && (
+                      {category?.groups?.map((group) => (
+                        <div key={group.label || "untitled"}>
+                          {group.label && <h1>{group.label}</h1>}
+                          {group.children.map((sub) => (
+                            <div key={`Desktop ${sub.path}`}>
+                              <Link
+                                href={`/products/${sub.path}`}
+                                className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
+                              >
+                                <FaRegCircle className="mr-2" />
+                                <span className="text-xl">{sub?.name}</span>
+                              </Link>
+                              {sub.groups &&
+                                sub.groups.map((group) => (
+                                  <div key={group.label || "untitled"}>
+                                    {group.label && <h1>{group.label}</h1>}
                                     <ul className="pl-6 my-2 backdrop-brightness-90">
-                                      {sub.children.map((child) => (
+                                      {group.children.map((child) => (
                                         <li key={`Desktop ${child.path}`}>
                                           <Link
                                             href={`${child.path}`}
                                             className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
                                           >
                                             <FaRegCircle className="mr-2" />
-
                                             <span className="text-xl">
                                               {child.name}
                                             </span>
@@ -85,13 +82,12 @@ export default function CategoriesNav({
                                         </li>
                                       ))}
                                     </ul>
-                                  )}
-                                </div>
-                              );
-                            })}
-                          </>
-                        );
-                      })}
+                                  </div>
+                                ))}
+                            </div>
+                          ))}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}

@@ -4,11 +4,7 @@ export const flatToTree = function (
   list: ALL_CATEGORIES_QUERYResult,
   depth = 1
 ) {
-  const itemsAtDepth = list.filter(
-    (item) =>
-      item?.metadata?.depth === depth &&
-      item.metadata.path?.startsWith("hi-fi-audio")
-  );
+  const itemsAtDepth = list.filter((item) => item?.metadata?.depth === depth);
 
   const trees = itemsAtDepth.map((item) => {
     return transformToTree(item, list);
