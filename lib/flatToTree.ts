@@ -1,114 +1,67 @@
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 
-export type CategoryTree = {
-  _id: string;
-  name: string;
-  icon: string | null;
-  path: string;
-  label: number | null;
-  children: CategoryTree[];
-};
-
-const CATEGORY_ORDER = [
-  "Headphones",
-  "Hi-Fi Audio",
-  "Studio Equipment",
-  "Accessories",
-  "On Sale",
-];
-
-export const flatToTree = (
-  categories: ALL_CATEGORIES_QUERYResult
-): CategoryTree[] => {
-  const categoriesTree: Record<string, CategoryTree> = {};
-  const roots: CategoryTree[] = [];
-
-  const c = categories.filter((category) => category.metadata?.depth === 1);
-
-  c.sort((a, b) => {
-    if (!a.name || !b.name) return 0;
-    return CATEGORY_ORDER.indexOf(a.name) - CATEGORY_ORDER.indexOf(b.name);
-  });
-
-  const path = c[0].metadata?.path;
-  const depth = c[0].metadata?.depth ?? null;
-
-  const subs = categories.filter((c) => {
-    if (!depth || !path) return false;
-    console.log(depth, path);
-    return (
-      c.metadata?.depth === depth + 1 && c.metadata?.path?.startsWith(path)
-    );
-  });
-
-  subs.sort((a, b) => {
-    if (!a.metadata?.group) return -1;
-    if (!b.metadata?.group) return 1;
-    if (!a.metadata?.label) return -1;
-    if (!b.metadata?.label) return 1;
-
-    if (a.metadata.group !== b.metadata.group) {
-      return a.metadata.group - b.metadata.group;
-    }
-
-    return a.metadata.label - b.metadata.label;
-  });
-  console.log(
-    "subs",
-    subs.map((sub) => sub.name)
+export const flatToTree = function (
+  list: ALL_CATEGORIES_QUERYResult,
+  depth = 1
+) {
+  const itemsAtDepth = list.filter(
+    (item) =>
+      item?.metadata?.depth === depth &&
+      item.metadata.path?.startsWith("hi-fi-audio")
   );
 
-  categories.sort((a, b) => {
-    if (!a.metadata?.depth) return -1;
-    if (!b.metadata?.depth) return 1;
-    if (!a.metadata?.group) return -1;
-    if (!b.metadata?.group) return 1;
-    if (!a.metadata?.label) return -1;
-    if (!b.metadata?.label) return 1;
-
-    if (a.metadata.depth !== b.metadata.depth) {
-      return a.metadata.depth - b.metadata.depth;
-    }
-
-    if (a.metadata.group !== b.metadata.group) {
-      return a.metadata.group - b.metadata.group;
-    }
-
-    return a.metadata.label - b.metadata.label;
+  const trees = itemsAtDepth.map((item) => {
+    return transformToTree(item, list);
   });
 
-  // const handleLabel = (category: ALL_CATEGORIES_QUERYResult[number]) => {};
+  return trees;
+};
 
-  const handleCategory = (category: ALL_CATEGORIES_QUERYResult[number]) => {
-    const { path } = category.metadata || {};
-    if (!path) {
-      console.error("Category missing path", category);
-      return;
+const transformToTree = function (item, list) {
+  const depth = item?.metadata?.depth;
+  const path = item?.metadata?.path;
+  if (!item.groups) item.groups = ["empty"];
+
+  const children = list.filter(
+    (child) =>
+      child?.metadata?.path.startsWith(path) &&
+      child?.metadata?.depth === depth + 1
+  );
+
+  const transformedChildren = children.map((child) =>
+    transformToTree(child, list)
+  );
+
+  const filledGroups = item.groups.map((group, index) => {
+    if (index === 0) {
+      const childrenGroup = transformedChildren.filter(
+        (child) => !child?.metadata?.group
+      );
+
+      if (childrenGroup.length) {
+        return {
+          label: null,
+          children: children.filter((child) => !child?.metadata?.group),
+        };
+      } else {
+        return null;
+      }
     }
-    const parts = path.split("/");
-    const depth = parts.length;
-    const parentPath = parts.slice(0, -1).join("/");
 
-    // Initialize map entry
-    categoriesTree[path] = {
-      _id: category._id,
-      name: category.name || "",
-      path: path,
-      label: category?.metadata?.label || null,
-      icon: category.icon || null,
-      children: [],
-    } as CategoryTree;
-
-    // Assign as child to parent or root
-    if (depth === 1) {
-      roots.push(categoriesTree[path]);
-    } else if (categoriesTree[parentPath]) {
-      categoriesTree[parentPath].children.push(categoriesTree[path]);
+    const childrenGroup = transformedChildren.filter(
+      (child) => child?.metadata?.group === group
+    );
+    if (childrenGroup.length) {
+      return {
+        label: group,
+        children: childrenGroup,
+      };
+    } else {
+      return null;
     }
-  };
-
-  categories.forEach((category) => {
-    handleCategory(category);
   });
-  return roots;
+  const filledGroupsOnly = filledGroups.filter((item) => item !== null);
+  item.groups = filledGroupsOnly;
+
+  return item;
 };

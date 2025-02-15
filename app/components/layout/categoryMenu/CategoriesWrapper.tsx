@@ -6,6 +6,8 @@ export default async function CategoriesWrapper() {
   const categories = await getAllCategories();
 
   const categoriesTree = flatToTree(categories);
+  console.log(categoriesTree);
+
   const CATEGORY_ORDER = [
     "Headphones",
     "Hi-Fi Audio",

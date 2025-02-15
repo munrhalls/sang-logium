@@ -71,7 +71,6 @@ const CTA = function ({ id }: { id: string }) {
 export default async function MonthProduct() {
   const [commercial] = await getCommercialsByFeature("mvp-month");
   const { products, sale } = commercial;
-  console.dir(commercial, " ...PROD MONTH");
   const product = products && products[0];
   if (!product) return null;
   const { _id, name, image, price } = product;

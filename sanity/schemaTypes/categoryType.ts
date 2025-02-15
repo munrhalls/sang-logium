@@ -30,21 +30,21 @@ export const categoryType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "groups",
+      title:
+        "Groups for grouping children categories, each group will displayed under group header, e.g. By fit - each child must have the same group attribute to be in a category, ungrouped children will be in an unnamed group with no title",
+      type: "array",
+      of: [{ type: "string" }],
+      initialValue: ["empty"],
+    }),
+    defineField({
       name: "metadata",
       title: "Metadata",
       type: "object",
       fields: [
         { name: "path", title: "Path", type: "string" },
         { name: "depth", title: "Depth", type: "number" },
-        { name: "group", title: "Group", type: "number" },
-        {
-          name: "label",
-          title: "Label",
-          type: "number",
-          options: {
-            list: [1, 2],
-          },
-        },
+        { name: "group", title: "Group", type: "string" },
       ],
     }),
   ],

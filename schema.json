@@ -1924,6 +1924,16 @@
         },
         "optional": true
       },
+      "groups": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "string"
+          }
+        },
+        "optional": true
+      },
       "metadata": {
         "type": "objectAttribute",
         "value": {
@@ -1946,24 +1956,7 @@
             "group": {
               "type": "objectAttribute",
               "value": {
-                "type": "number"
-              },
-              "optional": true
-            },
-            "label": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "union",
-                "of": [
-                  {
-                    "type": "number",
-                    "value": 1
-                  },
-                  {
-                    "type": "number",
-                    "value": 2
-                  }
-                ]
+                "type": "string"
               },
               "optional": true
             }

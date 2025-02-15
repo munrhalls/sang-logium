@@ -300,11 +300,11 @@ export type Category = {
   name?: string;
   icon?: string;
   slug?: Slug;
+  groups?: Array<string>;
   metadata?: {
     path?: string;
     depth?: number;
-    group?: number;
-    label?: 1 | 2;
+    group?: string;
   };
 };
 
@@ -514,11 +514,11 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   name?: string;
   icon?: string;
   slug?: Slug;
+  groups?: Array<string>;
   metadata?: {
     path?: string;
     depth?: number;
-    group?: number;
-    label?: 1 | 2;
+    group?: string;
   };
 }>;
 

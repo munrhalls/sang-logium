@@ -15,8 +15,6 @@ export default function CategoriesNav({
     undefined
   );
 
-  console.log("categories", categories);
-
   return (
     <nav className="hidden lg:flex items-center justify-center z-50 w-full bg-gray-900">
       <div className="h-full max-w-7xl mx-auto px-4">
@@ -53,37 +51,45 @@ export default function CategoriesNav({
                 {activeCategory === category.name && (
                   <div className="absolute z-50 left-0 w-72 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-700 ease-in-out transform opacity-100 scale-100">
                     <div className="py-2">
-                      {category?.children?.map((sub) => {
-                        console.log("sub", sub);
-
+                      {category?.groups?.map((group) => {
                         return (
-                          <div key={`Desktop ${sub.path}`}>
-                            <Link
-                              href={`/products/${sub.path}`}
-                              className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
-                            >
-                              <FaRegCircle className="mr-2" />
-                              <span className="text-xl"> {sub?.name}</span>
-                            </Link>
-                            {sub.children && (
-                              <ul className="pl-6 my-2 backdrop-brightness-90">
-                                {sub.children.map((child) => (
-                                  <li key={`Desktop ${child.path}`}>
-                                    <Link
-                                      href={`${child.path}`}
-                                      className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
-                                    >
-                                      <FaRegCircle className="mr-2" />
+                          <>
+                            {group.label && <h1>{group.label}</h1>}
+                            {group.children.map((sub) => {
+                              return (
+                                <div key={`Desktop ${sub.path}`}>
+                                  <Link
+                                    href={`/products/${sub.path}`}
+                                    className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
+                                  >
+                                    <FaRegCircle className="mr-2" />
+                                    <span className="text-xl">
+                                      {" "}
+                                      {sub?.name}
+                                    </span>
+                                  </Link>
+                                  {sub.children && (
+                                    <ul className="pl-6 my-2 backdrop-brightness-90">
+                                      {sub.children.map((child) => (
+                                        <li key={`Desktop ${child.path}`}>
+                                          <Link
+                                            href={`${child.path}`}
+                                            className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
+                                          >
+                                            <FaRegCircle className="mr-2" />
 
-                                      <span className="text-xl">
-                                        {child.name}
-                                      </span>
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-                          </div>
+                                            <span className="text-xl">
+                                              {child.name}
+                                            </span>
+                                          </Link>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </>
                         );
                       })}
                     </div>
