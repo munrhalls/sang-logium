@@ -11,7 +11,7 @@
     "lint": "next lint",
     "lint-strict": "eslint . --ext ts,tsx --max-warnings 0",
     "seed": "ts-node --esm seedCategories.ts",
-    "typegen": "npx sanity@latest schema extract && npx sanity@latest typegen generate",
+    "typegen": "npx -y sanity@latest schema extract && npx -y  sanity@latest typegen generate",
     "test": "jest",
     "test:watch": "jest --watch"
   },

@@ -24,7 +24,7 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
     >
       <div className="p-4">
         <h2 className="text-lg font-semibold text-gray-800 truncate">
-          {product.name}
+          {product.name} / {product.slug?.current}
         </h2>
 
         <p className="mt-2 text-sm text-gray-600 line-clamp-2">

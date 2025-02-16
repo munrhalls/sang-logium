@@ -1,5 +1,5 @@
 import getProductsByCategoryPath from "@/sanity/lib/products/getProductsByCategoryPath";
-// import ProductsGrid from "@/app/components/features/products/ProductsGrid";
+import ProductsGrid from "@/app/components/features/products-view/ProductsGrid";
 import FilterSortBtns from "@/app/components/ui/buttons/FilterSortBtns";
 import CategoryBreadcrumbs from "@/app/components/ui/breadcrumbs/CategoryBreadcrumbs";
 import CategoryTitleIcon from "@/app/components/ui/icons/CategoryTitleIcon";
@@ -35,9 +35,9 @@ export default async function CategoryPage({
           <h1 className="text-4xl font-bold mb-6 text-center">
             {leafCategory}
           </h1>
-          <AppliedFilters />
-          {/* <ProductsGrid products={products} /> */}
+          {/* <AppliedFilters /> */}
         </div>
+        {/* <ProductsGrid products={products} /> */}
       </div>
     </div>
   );

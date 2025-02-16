@@ -10,7 +10,7 @@ export const categoryType = defineType({
   fields: [
     defineField({
       name: "name",
-      title: "Name",
+      title: "Category Name",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
@@ -20,31 +20,26 @@ export const categoryType = defineType({
       type: "string",
     }),
     defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: {
-        source: "name",
-        maxLength: 96,
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "groups",
-      title:
-        "Groups for grouping children categories, each group will displayed under group header, e.g. By fit - each child must have the same group attribute to be in a category, ungrouped children will be in an unnamed group with no title",
+      name: "subcategories",
+      title: "Subcategories",
       type: "array",
-      of: [{ type: "string" }],
-      initialValue: ["empty"],
-    }),
-    defineField({
-      name: "metadata",
-      title: "Metadata",
-      type: "object",
-      fields: [
-        { name: "path", title: "Path", type: "string" },
-        { name: "depth", title: "Depth", type: "number" },
-        { name: "group", title: "Group", type: "string" },
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "name", type: "string", title: "Name" },
+            {
+              name: "subcategories",
+              type: "array",
+              of: [
+                {
+                  type: "object",
+                  fields: [{ name: "name", type: "string", title: "Name" }],
+                },
+              ],
+            },
+          ],
+        },
       ],
     }),
   ],

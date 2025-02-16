@@ -2,98 +2,91 @@
 
 import Link from "next/link";
 import { getCategoryIcon } from "@/lib/getCategoryIcon";
-import { CategoryTree } from "@/lib/flatToTree";
 import { FaChevronDown, FaRegCircle } from "react-icons/fa";
 import { useState } from "react";
+import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+
+type SubCategory = {
+  name?: string;
+  _key: string;
+  subcategories?: Array<{
+    name?: string;
+    _key: string;
+  }>;
+};
+
+function SubcategoryList({
+  items,
+  baseUrl,
+}: {
+  items: NonNullable<SubCategory[]>;
+  baseUrl: string;
+}) {
+  return (
+    <div className="pl-4">
+      {items.map((sub) => (
+        <div key={sub._key}>
+          <Link
+            href={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}`}
+            className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100"
+          >
+            <FaRegCircle className="mr-2 text-sm" />
+            <span>{sub.name}</span>
+          </Link>
+          {sub.subcategories && (
+            <SubcategoryList
+              items={sub.subcategories}
+              baseUrl={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}`}
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function CategoriesNav({
   categories,
 }: {
-  categories: CategoryTree[];
+  categories: ALL_CATEGORIES_QUERYResult;
 }) {
-  const [activeCategory, setActiveCategory] = useState<string | undefined>(
-    undefined
-  );
+  const [activeCategory, setActiveCategory] = useState<string>();
 
   return (
-    <nav className="hidden lg:flex items-center justify-center z-50 w-full bg-gray-900">
-      <div className="h-full max-w-7xl mx-auto px-4">
-        <ul className="h-full flex justify-center items-center">
-          {categories.map((category) => {
-            return (
-              <li
-                key={category._id}
-                className="h-full relative"
-                onMouseEnter={() => setActiveCategory(category.name)}
-                onMouseLeave={() => setActiveCategory(undefined)}
+    <nav className="hidden lg:flex items-center justify-center bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4">
+        <ul className="flex items-center">
+          {categories.map((category) => (
+            <li
+              key={category._id}
+              className="relative"
+              onMouseEnter={() => setActiveCategory(category.name)}
+              onMouseLeave={() => setActiveCategory(undefined)}
+            >
+              <Link
+                href={`/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`}
+                className={`flex items-center p-4 text-white hover:text-yellow-400 transition-colors
+                  ${activeCategory === category.name ? "text-yellow-400" : ""}`}
               >
-                <Link
-                  href={`/products/${category?.name?.toLowerCase().replace(/\s+/g, "-")}`}
-                  className={`h-full flex items-center py-2 px-4 text-white hover:text-yellow-400 transition-colors ${
-                    activeCategory === category.name ? "text-yellow-400" : ""
-                  }`}
-                >
-                  {category.icon && (
-                    <span className="mr-1 text-md">
-                      {getCategoryIcon(category.icon)}
-                    </span>
-                  )}
-                  <span
-                    className={`md:text-lg xl:text-lg ${category.name === "On Sale" ? "text-orange-500" : ""}`}
-                  >
-                    {category.name}
-                  </span>
-
-                  <FaChevronDown className="ml-2 text-xl w-3 h-3" />
-                </Link>
-
-                {/* Dropdown */}
-                {activeCategory === category.name && (
-                  <div className="absolute z-50 left-0 w-72 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-700 ease-in-out transform opacity-100 scale-100">
-                    <div className="py-2">
-                      {category?.groups?.map((group) => (
-                        <div key={group.label || "untitled"}>
-                          {group.label && <h1>{group.label}</h1>}
-                          {group.children.map((sub) => (
-                            <div key={`Desktop ${sub.path}`}>
-                              <Link
-                                href={`/products/${sub.path}`}
-                                className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
-                              >
-                                <FaRegCircle className="mr-2" />
-                                <span className="text-xl">{sub?.name}</span>
-                              </Link>
-                              {sub.groups &&
-                                sub.groups.map((group) => (
-                                  <div key={group.label || "untitled"}>
-                                    {group.label && <h1>{group.label}</h1>}
-                                    <ul className="pl-6 my-2 backdrop-brightness-90">
-                                      {group.children.map((child) => (
-                                        <li key={`Desktop ${child.path}`}>
-                                          <Link
-                                            href={`${child.path}`}
-                                            className="flex justify-start items-center px-4 py-2 text-xs text-gray-800 hover:bg-gray-100"
-                                          >
-                                            <FaRegCircle className="mr-2" />
-                                            <span className="text-xl">
-                                              {child.name}
-                                            </span>
-                                          </Link>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                ))}
-                            </div>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                {category.icon && (
+                  <span className="mr-2">{getCategoryIcon(category.icon)}</span>
                 )}
-              </li>
-            );
-          })}
+                <span className="text-lg">{category.name}</span>
+                <FaChevronDown className="ml-2 w-3 h-3" />
+              </Link>
+
+              {activeCategory === category.name && category.subcategories && (
+                <div className="absolute z-50 left-0 w-72 bg-white shadow-lg rounded-b-lg">
+                  <div className="py-2">
+                    <SubcategoryList
+                      items={category.subcategories}
+                      baseUrl={`/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`}
+                    />
+                  </div>
+                </div>
+              )}
+            </li>
+          ))}
         </ul>
       </div>
     </nav>

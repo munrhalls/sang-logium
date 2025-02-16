@@ -291,6 +291,12 @@ export type Product = {
   }>;
 };
 
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
+
 export type Category = {
   _id: string;
   _type: "category";
@@ -299,19 +305,14 @@ export type Category = {
   _rev: string;
   name?: string;
   icon?: string;
-  slug?: Slug;
-  groups?: Array<string>;
-  metadata?: {
-    path?: string;
-    depth?: number;
-    group?: string;
-  };
-};
-
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
+  subcategories?: Array<{
+    name?: string;
+    subcategories?: Array<{
+      name?: string;
+      _key: string;
+    }>;
+    _key: string;
+  }>;
 };
 
 export type BlockContent = Array<{
@@ -424,7 +425,7 @@ export type SimplerColor = {
   value?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Commercial | Exhibition | Sale | Order | Product | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | HighlightColor | TextColor | SimplerColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Commercial | Exhibition | Sale | Order | Product | Slug | Category | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | HighlightColor | TextColor | SimplerColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
 // Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
@@ -513,13 +514,14 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   _rev: string;
   name?: string;
   icon?: string;
-  slug?: Slug;
-  groups?: Array<string>;
-  metadata?: {
-    path?: string;
-    depth?: number;
-    group?: string;
-  };
+  subcategories?: Array<{
+    name?: string;
+    subcategories?: Array<{
+      name?: string;
+      _key: string;
+    }>;
+    _key: string;
+  }>;
 }>;
 
 // Source: ./sanity/lib/products/getAllProducts.ts
@@ -818,7 +820,7 @@ export type SALE_BY_ID_QUERYResult = Array<{
   image: null;
   category: {
     name: string | null;
-    slug: string | null;
+    slug: null;
     products: Array<{
       name: string | null;
       slug: string | null;
