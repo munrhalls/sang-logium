@@ -27,6 +27,7 @@ export const categoryType = defineType({
         {
           type: "object",
           fields: [
+            { name: "header", type: "string", title: "Optional Header" },
             { name: "name", type: "string", title: "Name" },
             {
               name: "subcategories",

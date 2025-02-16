@@ -306,6 +306,7 @@ export type Category = {
   name?: string;
   icon?: string;
   subcategories?: Array<{
+    header?: string;
     name?: string;
     subcategories?: Array<{
       name?: string;
@@ -515,6 +516,7 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   name?: string;
   icon?: string;
   subcategories?: Array<{
+    header?: string;
     name?: string;
     subcategories?: Array<{
       name?: string;

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 
 type SubCategory = {
+  header?: string;
   name?: string;
   _key: string;
   subcategories?: Array<{
@@ -26,13 +27,20 @@ function SubcategoryList({
     <div className="pl-4">
       {items.map((sub) => (
         <div key={sub._key}>
-          <Link
-            href={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}`}
-            className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100"
-          >
-            <FaRegCircle className="mr-2 text-sm" />
-            <span>{sub.name}</span>
-          </Link>
+          {sub.header && (
+            <h3 className="px-4 py-2  font-black text-gray-500">
+              {sub.header}
+            </h3>
+          )}
+          {sub.name && (
+            <Link
+              href={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}`}
+              className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100"
+            >
+              <FaRegCircle className="mr-2 text-sm" />
+              <span>{sub.name}</span>
+            </Link>
+          )}
           {sub.subcategories && (
             <SubcategoryList
               items={sub.subcategories}

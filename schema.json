@@ -1953,6 +1953,13 @@
           "of": {
             "type": "object",
             "attributes": {
+              "header": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": true
+              },
               "name": {
                 "type": "objectAttribute",
                 "value": {
