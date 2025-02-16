@@ -26,19 +26,17 @@ export const categoryType = defineType({
       of: [
         {
           type: "object",
+          name: "subcategory",
+          title: "Subcategory",
+          fields: [{ name: "name", type: "string", title: "Name" }],
+        },
+        {
+          type: "object",
+          name: "groupedSubcategory",
+          title: "Grouped Subcategory",
           fields: [
-            { name: "header", type: "string", title: "Optional Header" },
+            { name: "header", type: "string", title: "Group Header" },
             { name: "name", type: "string", title: "Name" },
-            {
-              name: "subcategories",
-              type: "array",
-              of: [
-                {
-                  type: "object",
-                  fields: [{ name: "name", type: "string", title: "Name" }],
-                },
-              ],
-            },
           ],
         },
       ],
