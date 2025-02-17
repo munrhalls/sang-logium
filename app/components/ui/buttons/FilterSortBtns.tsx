@@ -11,7 +11,7 @@ export default function FilterSortBtns() {
   );
 
   return (
-    <div className="grid grid-cols-2">
+    <div className="h-8 grid grid-cols-2 place-content-center">
       <button onClick={toggleProductsFilterDrawer}>Filter</button>
       <button onClick={toggleProductsSortDrawer}>Sort</button>
     </div>

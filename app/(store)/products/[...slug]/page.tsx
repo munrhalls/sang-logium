@@ -21,24 +21,18 @@ export default async function CategoryPage({
   console.log(products, " ... products");
 
   return (
-    <div className=" bg-gray-100">
-      <div className="bg-slate-900 text-white">
+    <div className="h-full isolate relative grid grid-rows-[auto_auto_1fr] ">
+      <div className=" text-white bg-blue-950">
         <FilterSortBtns />
       </div>
-      <div className="relative">
-        <div className="absolute inset-0 overflow-hidden">
-          <ProductsFilterSortDrawersWrapper />
-        </div>
-        <CategoryBreadcrumbs slugs={slugs} />
-        <div className="flex justify-center items-center">
-          <CategoryTitleIcon category={rootCategory} />
-          <h1 className="text-4xl font-bold mb-6 text-center">
-            {leafCategory}
-          </h1>
-          {/* <AppliedFilters /> */}
-        </div>
-        {/* <ProductsGrid products={products} /> */}
+      <ProductsFilterSortDrawersWrapper />
+      <CategoryBreadcrumbs slugs={slugs} />
+      <div className="flex justify-center items-center">
+        <CategoryTitleIcon category={rootCategory} />
+        <h1 className="text-4xl font-bold mb-6 text-center">{leafCategory}</h1>
+        {/* <AppliedFilters /> */}
       </div>
+      {/* <ProductsGrid products={products} /> */}
     </div>
   );
 }

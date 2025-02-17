@@ -36,7 +36,7 @@ export default async function RootLayout({
       <body className={`${iceland.variable} font-sans w-full`}>
         <div
           id="wrapper"
-          className="h-full grid grid-rows-[auto_1fr_auto] relative"
+          className="h-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative"
         >
           <Header />
           <CategoriesWrapper />

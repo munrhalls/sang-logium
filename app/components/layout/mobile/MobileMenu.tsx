@@ -14,8 +14,8 @@ const MobileMenu = () => {
 
   return (
     <>
-      <div className=" bg-black text-white border-t border-white lg:hidden">
-        <div className="h-16 flex justify-around items-center px-4">
+      <div className="h-14 py-2 bg-black text-white border-t border-white lg:hidden">
+        <div className="flex justify-around items-center px-4">
           <button
             className="flex flex-col items-center"
             onClick={toggleCategoriesDrawer}

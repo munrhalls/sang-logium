@@ -61,7 +61,7 @@ export default function CategoriesNav({
   const [activeCategory, setActiveCategory] = useState<string>();
 
   return (
-    <nav className="hidden lg:flex items-center justify-center bg-gray-900">
+    <nav className="hidden h-11 lg:flex items-center justify-center bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
         <ul className="flex items-center">
           {categories.map((category) => (
