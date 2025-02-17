@@ -35,7 +35,7 @@ function SubcategoryList({
           {sub.name && (
             <Link
               href={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}`}
-              className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100"
+              className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-300 hover:text-yellow-600 transition-all duration-100 rounded-md group"
             >
               <FaRegCircle className="mr-2 text-sm" />
               <span>{sub.name}</span>
@@ -73,7 +73,7 @@ export default function CategoriesNav({
             >
               <Link
                 href={`/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`}
-                className={`flex items-center p-4 text-white hover:text-yellow-400 transition-colors
+                className={`flex items-center px-4 text-white hover:text-yellow-600 transition-colors
                   ${activeCategory === category.name ? "text-yellow-400" : ""}`}
               >
                 {category.icon && (
