@@ -273,7 +273,7 @@ export type Product = {
   sku?: string;
   price?: number;
   stock?: number;
-  categoryPath?: string;
+  categoryPath?: Array<string>;
   tags?: Array<string>;
   overviewFields?: Array<{
     title?: string;
@@ -602,7 +602,7 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   sku?: string;
   price?: number;
   stock?: number;
-  categoryPath?: string;
+  categoryPath?: Array<string>;
   tags?: Array<string>;
   overviewFields?: Array<{
     title?: string;
@@ -692,7 +692,7 @@ export type PRODUCT_BY_ID_QUERYResult = {
   sku?: string;
   price?: number;
   stock?: number;
-  categoryPath?: string;
+  categoryPath?: Array<string>;
   tags?: Array<string>;
   overviewFields?: Array<{
     title?: string;
@@ -782,7 +782,7 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
   sku?: string;
   price?: number;
   stock?: number;
-  categoryPath?: string;
+  categoryPath?: Array<string>;
   tags?: Array<string>;
   overviewFields?: Array<{
     title?: string;

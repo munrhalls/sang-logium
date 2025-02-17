@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const inputFilePath = path.join(__dirname, "./sanityProducts.json");
+const inputFilePath = path.join(__dirname, "./updateProducts.json");
 
 const formatUrl = (url) => {
   console.log("URL!!!!!", url);
@@ -42,11 +42,10 @@ const uploadImage = async (url) => {
   }
 };
 
-const checkDuplicateProduct = async (slug) => {
+const getExistingProduct = async (slug) => {
   const query = `*[_type == "product" && slug.current == $slug][0]`;
   const params = { slug };
-  const existingProduct = await client.fetch(query, params);
-  return !!existingProduct;
+  return await client.fetch(query, params);
 };
 
 const transformProduct = async (product) => {
@@ -66,7 +65,7 @@ const transformProduct = async (product) => {
       })
     );
 
-    return {
+    const transformedProduct = {
       _type: "product",
       name: product.name,
       slug: {
@@ -95,12 +94,17 @@ const transformProduct = async (product) => {
       })),
       specifications: product.specifications,
       overviewFields: product.overviewFields,
-      categoryPath: Array.isArray(product.categoryPath)
-        ? product.categoryPath
-        : typeof product.categoryPath === "string"
-          ? [product.categoryPath]
-          : [],
+      categoryPath: product.categoryPath,
     };
+
+    // Get existing product to preserve _id and _rev if it exists
+    const existingProduct = await getExistingProduct(product.slug.current);
+    if (existingProduct) {
+      transformedProduct._id = existingProduct._id;
+      transformedProduct._rev = existingProduct._rev;
+    }
+
+    return transformedProduct;
   } catch (error) {
     console.error(`Error transforming product ${product.name}:`, error.message);
     throw error;
@@ -111,28 +115,29 @@ const upload = async () => {
   try {
     const data = await fs.promises.readFile(inputFilePath, "utf8");
     const products = JSON.parse(data);
-    let productsAdded = 0;
-    let productsSkipped = 0;
+    let productsUpdated = 0;
+    let productsCreated = 0;
 
     for (const product of products) {
       try {
-        console.log("SLUG !!!!!", product.slug.current);
+        console.log("Processing product:", product.slug.current);
         if (!product.slug || !product.slug.current) {
           console.error(`Product is missing slug: ${product.name}`);
           continue;
         }
 
-        const isDuplicate = await checkDuplicateProduct(product.slug.current);
-        if (isDuplicate) {
-          console.log(`Skipping duplicate product: ${product.slug.current}`);
-          productsSkipped++;
-          continue;
-        }
-
         const transformedProduct = await transformProduct(product);
-        const response = await client.create(transformedProduct);
-        console.log("Product created:", response._id);
-        productsAdded++;
+        const existingProduct = await getExistingProduct(product.slug.current);
+
+        if (existingProduct) {
+          console.log(`Updating existing product: ${product.slug.current}`);
+          await client.createOrReplace(transformedProduct);
+          productsUpdated++;
+        } else {
+          console.log(`Creating new product: ${product.slug.current}`);
+          await client.create(transformedProduct);
+          productsCreated++;
+        }
       } catch (error) {
         console.error(
           `Error processing product ${product.name}:`,
@@ -142,8 +147,8 @@ const upload = async () => {
     }
 
     console.log(`Upload completed:`);
-    console.log(`Products added: ${productsAdded}`);
-    console.log(`Products skipped: ${productsSkipped}`);
+    console.log(`Products created: ${productsCreated}`);
+    console.log(`Products updated: ${productsUpdated}`);
   } catch (error) {
     console.error("Error during upload:", error.message);
   }
