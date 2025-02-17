@@ -67,7 +67,6 @@ export default function CategoriesNav({
       <div className="h-full max-w-7xl mx-auto lg:px-1 xl:px-4 lg:flex items-center justify-center">
         <ul className="h-full flex items-center">
           {categories.map((category, index) => {
-            console.log(category.icon, "icon!!!");
             return (
               <li
                 key={category._id}

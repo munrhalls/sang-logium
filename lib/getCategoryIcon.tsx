@@ -1,5 +1,5 @@
 import { FaHeadphones } from "react-icons/fa";
-import { Mic2, Radio, Cable, Headphones, Speaker } from "lucide-react";
+import { Mic2, Radio, Cable, Headset, Speaker } from "lucide-react";
 
 export const getCategoryIcon = (title: string | undefined) => {
   const iconSize = 18;
@@ -12,7 +12,7 @@ export const getCategoryIcon = (title: string | undefined) => {
     case "cable":
       return <Cable size={iconSize} />;
     case "earbuds":
-      return <Headphones size={iconSize} />;
+      return <Headset size={iconSize} />;
     case "speaker":
       return <Speaker size={iconSize} />;
     case "headphones":

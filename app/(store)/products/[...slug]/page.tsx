@@ -31,10 +31,11 @@ export default async function ProductsPage({
       <div className="lg:col-start-3 lg:row-start-2 grid grid-rows-[auto_1fr]">
         <div className="mx-auto grid gap-2 grid-cols-[2rem_auto] place-items-center">
           <CategoryTitleIcon category={rootCategory} />
+
           <h1 className="text-4xl font-bold  text-center">
-            {firstLetterToUpperCase(rootCategory)}
-            {" / "}
-            {firstLetterToUpperCase(leafCategory)}
+            {firstLetterToUpperCase(rootCategory)}{" "}
+            {rootCategory !== leafCategory &&
+              " / " + firstLetterToUpperCase(leafCategory)}
           </h1>
         </div>
 
