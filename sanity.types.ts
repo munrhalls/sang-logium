@@ -305,13 +305,15 @@ export type Category = {
   _rev: string;
   name?: string;
   icon?: string;
+  order?: number;
   subcategories?: Array<{
+    name?: string;
+    _type: "subcategory";
+    _key: string;
+  } | {
     header?: string;
     name?: string;
-    subcategories?: Array<{
-      name?: string;
-      _key: string;
-    }>;
+    _type: "groupedSubcategory";
     _key: string;
   }>;
 };
@@ -515,13 +517,15 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   _rev: string;
   name?: string;
   icon?: string;
+  order?: number;
   subcategories?: Array<{
     header?: string;
     name?: string;
-    subcategories?: Array<{
-      name?: string;
-      _key: string;
-    }>;
+    _type: "groupedSubcategory";
+    _key: string;
+  } | {
+    name?: string;
+    _type: "subcategory";
     _key: string;
   }>;
 }>;

@@ -20,6 +20,11 @@ export const categoryType = defineType({
       type: "string",
     }),
     defineField({
+      name: "order",
+      title: "Order",
+      type: "number",
+    }),
+    defineField({
       name: "subcategories",
       title: "Subcategories",
       type: "array",
