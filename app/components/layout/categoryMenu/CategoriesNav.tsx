@@ -75,11 +75,11 @@ export default function CategoriesNav({
               >
                 <Link
                   href={`/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`}
-                  className={`flex items-center px-4 text-white hover:text-yellow-600 transition-colors
+                  className={`flex justify-around items-center px-4 text-white hover:text-yellow-600 transition-colors
                 ${activeCategory === category.name ? "text-yellow-400" : ""}`}
                 >
                   {category.icon && (
-                    <span className="mr-2">
+                    <span className="mr-2 mb-1">
                       {getCategoryIcon(category.icon)}
                     </span>
                   )}
