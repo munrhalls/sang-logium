@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { Product } from "@/sanity.types";
+import Image from "next/image";
+import { imageUrl } from "@/lib/imageUrl";
+
 interface ProductThumbProps {
   product: Product;
   saleDiscount?: number;
 }
 
 const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
+  if (!product.name || !product.image) return null;
   const isOutOfStock = product.stock != null && product.stock <= 0;
 
   const originalPrice = product.price ?? 0;
@@ -23,8 +27,16 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
           ${isOutOfStock ? "opacity-50" : ""}`}
     >
       <div className="p-4">
-        <h2 className="text-lg font-semibold text-gray-800 truncate">
-          {product.name} / {product.slug?.current}
+        <Image
+          src={imageUrl(product.image).url()}
+          alt={product?.name}
+          height={300}
+          width={300}
+          className="aspect-square rounded-sm"
+        />
+
+        <h2 className="pt-2 text-lg font-semibold text-gray-800 ">
+          {product.name}
         </h2>
 
         <p className="mt-2 text-sm text-gray-600 line-clamp-2">

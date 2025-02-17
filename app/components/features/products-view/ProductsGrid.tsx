@@ -4,7 +4,7 @@ import { ALL_PRODUCTS_QUERYResult } from "@/sanity.types";
 
 const ProductsGrid = ({ products }: { products: ALL_PRODUCTS_QUERYResult }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 bg-slate-200">
       {/* <AnimatePresence>
         {products?.map((product) => (
           <motion.div
@@ -22,7 +22,7 @@ const ProductsGrid = ({ products }: { products: ALL_PRODUCTS_QUERYResult }) => {
       {products?.map((product) => {
         return (
           <div key={product._id}>
-            <ProductThumb product={product} />;
+            <ProductThumb product={product} />
           </div>
         );
       })}

@@ -5,6 +5,7 @@ import CategoryBreadcrumbs from "@/app/components/ui/breadcrumbs/CategoryBreadcr
 import CategoryTitleIcon from "@/app/components/ui/icons/CategoryTitleIcon";
 import AppliedFilters from "@/app/components/ui/tag-elements/AppliedFilters";
 import ProductsFilterSortDrawersWrapper from "@/app/components/ui/drawers/ProductsFilterSortDrawersWrapper";
+import { firstLetterToUpperCase } from "@/lib/utils";
 
 export default async function ProductsPage({
   params,
@@ -26,15 +27,20 @@ export default async function ProductsPage({
         <FilterSortBtns />
       </div>
       <ProductsFilterSortDrawersWrapper />
-      {/* div */}
-      {/* div */}
       <CategoryBreadcrumbs slugs={slugs} />
-      <div className="flex justify-center items-center lg:col-start-3  lg:row-start-2 ">
-        <CategoryTitleIcon category={rootCategory} />
-        <h1 className="text-4xl font-bold mb-6 text-center">{leafCategory}</h1>
+      <div className="lg:col-start-3 lg:row-start-2 grid grid-rows-[auto_1fr]">
+        <div className="mx-auto grid gap-2 grid-cols-[2rem_auto] place-items-center">
+          <CategoryTitleIcon category={rootCategory} />
+          <h1 className="text-4xl font-bold  text-center">
+            {firstLetterToUpperCase(rootCategory)}
+            {" / "}
+            {firstLetterToUpperCase(leafCategory)}
+          </h1>
+        </div>
+
         {/* <AppliedFilters /> */}
+        <ProductsGrid products={products} />
       </div>
-      {/* <ProductsGrid products={products} /> */}
     </div>
   );
 }

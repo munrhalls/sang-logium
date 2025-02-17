@@ -11,5 +11,5 @@ const ROOT_CATEGORY_ICONS: Record<string, LucideIcon> = {
 export default function CategoryTitleIcon({ category }: { category: string }) {
   if (category === "on-sale") return null;
   const Icon = ROOT_CATEGORY_ICONS[category];
-  return Icon ? <Icon className="h-6 w-6" /> : null;
+  return Icon ? <Icon className="h-8 w-8" /> : null;
 }
