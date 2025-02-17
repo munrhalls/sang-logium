@@ -8,9 +8,9 @@ export default function ProductsFilterDrawer() {
 
   return (
     <div
-      className={`absolute inset-y-0 left-0 w-full sm:w-96 bg-slate-900  shadow-xl text-white  transform ${
+      className={`absolute inset-y-0 left-0  w-full sm:w-96 bg-slate-900  shadow-xl text-white  transform ${
         isProductsFilterDrawerOpen ? "translate-x-0" : "-translate-x-full"
-      } transition-transform duration-250 ease-in-out z-50`}
+      } transition-transform duration-250 ease-in-out z-50 lg:static lg:translate-x-0 lg:w-40 lg:h-full lg:row-start-1 lg:row-span-2`}
     >
       <div className="h-full flex flex-col">
         <header className="p-4 border-b flex justify-between items-center">

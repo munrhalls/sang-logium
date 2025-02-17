@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Breadcrumbs({ slugs }: { slugs: string[] }) {
   return (
-    <nav className="flex items-center gap-2 text-sm text-gray-600">
+    <nav className="flex items-center gap-2 text-sm text-gray-600 lg:row-start-1">
       <Link href="/products">Products</Link>
       {slugs.map((slug, index) => (
         <span key={slug}>
