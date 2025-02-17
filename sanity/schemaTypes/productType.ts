@@ -72,9 +72,10 @@ export const productType = defineType({
     defineField({
       name: "categoryPath",
       title: "Category Path",
-      type: "string",
+      type: "array",
+      of: [{ type: "string" }],
       description:
-        "The metadata.path of the category this product belongs to (e.g., 'hi-fi-audio/amplifiers')",
+        "The metadata.paths of the categories this product belongs to (e.g., ['hi-fi-audio/amplifiers', 'electronics/audio'])",
       validation: (Rule) => Rule.required(),
     }),
     defineField({

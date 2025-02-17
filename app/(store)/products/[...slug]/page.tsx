@@ -19,7 +19,7 @@ export default async function ProductsPage({
 
   const products = await getProductsByCategoryPath(path);
 
-  console.log(products, " ... products");
+  console.log(products, " ... products!!!!");
 
   return (
     <div className="h-full isolate relative grid grid-rows-[auto_auto_1fr] lg:grid-rows-[3rem_1fr] lg:grid-cols-[1fr_1fr_10fr]">
