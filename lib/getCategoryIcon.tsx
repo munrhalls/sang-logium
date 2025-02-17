@@ -1,19 +1,21 @@
-import { FaHeadphones, FaMicrophone } from "react-icons/fa";
-import { SiAudioboom } from "react-icons/si";
-import { TbWaveSawTool } from "react-icons/tb";
+import { FaHeadphones } from "react-icons/fa";
+import { Mic2, Radio, Cable, Headphones, Speaker } from "lucide-react";
 
 export const getCategoryIcon = (title: string | undefined) => {
-  switch (title) {
+  switch (title?.toLowerCase()) {
+    case "mic2":
+      return <Mic2 />;
+    case "radio":
+      return <Radio />;
+    case "cable":
+      return <Cable />;
+    case "earbuds":
+      return <Headphones />;
+    case "speaker":
+      return <Speaker />;
     case "headphones":
       return <FaHeadphones />;
-    case "microphone":
-      return <FaMicrophone />;
-    case "audioboom":
-      return <SiAudioboom />;
-    case "wave":
-      return <TbWaveSawTool />;
     default:
       return null;
   }
-  return null;
 };

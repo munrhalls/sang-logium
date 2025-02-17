@@ -64,37 +64,42 @@ export default function CategoriesNav({
     <nav className="hidden h-11 lg:flex items-center justify-center bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
         <ul className="flex items-center">
-          {categories.map((category) => (
-            <li
-              key={category._id}
-              className="relative"
-              onMouseEnter={() => setActiveCategory(category.name)}
-              onMouseLeave={() => setActiveCategory(undefined)}
-            >
-              <Link
-                href={`/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`}
-                className={`flex items-center px-4 text-white hover:text-yellow-600 transition-colors
-                  ${activeCategory === category.name ? "text-yellow-400" : ""}`}
+          {categories.map((category) => {
+            console.log(category.icon, "icon!!!");
+            return (
+              <li
+                key={category._id}
+                className="relative"
+                onMouseEnter={() => setActiveCategory(category.name)}
+                onMouseLeave={() => setActiveCategory(undefined)}
               >
-                {category.icon && (
-                  <span className="mr-2">{getCategoryIcon(category.icon)}</span>
-                )}
-                <span className="text-lg">{category.name}</span>
-                <FaChevronDown className="ml-2 w-3 h-3" />
-              </Link>
+                <Link
+                  href={`/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`}
+                  className={`flex items-center px-4 text-white hover:text-yellow-600 transition-colors
+                ${activeCategory === category.name ? "text-yellow-400" : ""}`}
+                >
+                  {category.icon && (
+                    <span className="mr-2">
+                      {getCategoryIcon(category.icon)}
+                    </span>
+                  )}
+                  <span className="text-lg">{category.name}</span>
+                  <FaChevronDown className="ml-2 w-3 h-3" />
+                </Link>
 
-              {activeCategory === category.name && category.subcategories && (
-                <div className="absolute z-50 left-0 w-72 bg-white shadow-lg rounded-b-lg">
-                  <div className="py-2">
-                    <SubcategoryList
-                      items={category.subcategories}
-                      baseUrl={`/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`}
-                    />
+                {activeCategory === category.name && category.subcategories && (
+                  <div className="absolute z-50 left-0 w-72 bg-white shadow-lg rounded-b-lg">
+                    <div className="py-2">
+                      <SubcategoryList
+                        items={category.subcategories}
+                        baseUrl={`/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`}
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
-            </li>
-          ))}
+                )}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </nav>
