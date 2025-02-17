@@ -35,10 +35,12 @@ function SubcategoryList({
           {sub.name && (
             <Link
               href={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}`}
-              className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-300 hover:text-yellow-600 transition-all duration-100 rounded-md group"
+              className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-300 hover:text-yellow-600 transition-all duration-100 rounded-md group min-w-0"
             >
               <FaRegCircle className="mr-2 text-sm" />
-              <span>{sub.name}</span>
+              <span className="block overflow-hidden whitespace-nowrap">
+                {sub.name}
+              </span>
             </Link>
           )}
           {sub.subcategories && (
@@ -62,28 +64,30 @@ export default function CategoriesNav({
 
   return (
     <nav className="hidden h-11 lg:flex items-center justify-center bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4">
-        <ul className="flex items-center">
-          {categories.map((category) => {
+      <div className="h-full max-w-7xl mx-auto lg:px-1 xl:px-4 lg:flex items-center justify-center">
+        <ul className="h-full flex items-center">
+          {categories.map((category, index) => {
             console.log(category.icon, "icon!!!");
             return (
               <li
                 key={category._id}
-                className="relative"
+                className="relative h-full "
                 onMouseEnter={() => setActiveCategory(category.name)}
                 onMouseLeave={() => setActiveCategory(undefined)}
               >
                 <Link
                   href={`/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`}
-                  className={`flex justify-around items-center px-4 text-white hover:text-yellow-600 transition-colors
-                ${activeCategory === category.name ? "text-yellow-400" : ""}`}
+                  className={`h-full flex justify-around items-center lg:px-1 xl:px-4 text-white hover:text-yellow-600 transition-colors
+                ${activeCategory === category.name ? "text-yellow-400" : ""} ${index === 6 ? "text-orange-600 font-black" : ""}`}
                 >
                   {category.icon && (
-                    <span className="mr-2 mb-1">
+                    <span className="mr-2 ">
                       {getCategoryIcon(category.icon)}
                     </span>
                   )}
-                  <span className="text-lg">{category.name}</span>
+                  <span className="truncate text-sm xl:text-lg">
+                    {category.name}
+                  </span>
                   <FaChevronDown className="ml-2 w-3 h-3" />
                 </Link>
 

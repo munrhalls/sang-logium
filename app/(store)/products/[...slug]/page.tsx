@@ -6,7 +6,7 @@ import CategoryTitleIcon from "@/app/components/ui/icons/CategoryTitleIcon";
 import AppliedFilters from "@/app/components/ui/tag-elements/AppliedFilters";
 import ProductsFilterSortDrawersWrapper from "@/app/components/ui/drawers/ProductsFilterSortDrawersWrapper";
 
-export default async function CategoryPage({
+export default async function ProductsPage({
   params,
 }: {
   params: Promise<{ slug: string[] }>;
@@ -29,7 +29,7 @@ export default async function CategoryPage({
       {/* div */}
       {/* div */}
       <CategoryBreadcrumbs slugs={slugs} />
-      <div className="flex justify-center items-center lg:col-start-3 bg-pink-700 lg:row-start-2 ">
+      <div className="flex justify-center items-center lg:col-start-3  lg:row-start-2 ">
         <CategoryTitleIcon category={rootCategory} />
         <h1 className="text-4xl font-bold mb-6 text-center">{leafCategory}</h1>
         {/* <AppliedFilters /> */}
