@@ -10,15 +10,6 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
   const [currentImage, setCurrentImage] = useState<string>(
     imageUrl(product.image as SanityImageSource).url()
   );
-  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
-
-  const handleMouseEnter = (url: string) => {
-    setHoveredImage(url);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredImage(null);
-  };
 
   const handleClick = (url: string) => {
     setCurrentImage(url);
@@ -28,7 +19,7 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
     <div>
       {product.image && (
         <Image
-          src={hoveredImage || currentImage}
+          src={currentImage}
           alt={product.name ?? "Product image"}
           fill
           className="object-contain transition-transform duration-300 hover:scale-105"
@@ -52,8 +43,6 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
                       ? "border-blue-500"
                       : "border-transparent"
                   }`}
-                  onMouseEnter={() => handleMouseEnter(imgUrl)}
-                  onMouseLeave={handleMouseLeave}
                   onClick={() => handleClick(imgUrl)}
                 />
                 {currentImage === imgUrl && (

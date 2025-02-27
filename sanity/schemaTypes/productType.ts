@@ -14,6 +14,11 @@ export const productType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "description",
+      title: "Description",
+      type: "blockContent",
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
@@ -30,6 +35,25 @@ export const productType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "price",
+      title: "Price",
+      type: "number",
+      validation: (Rule) => Rule.required().min(0),
+    }),
+    defineField({
+      name: "stock",
+      title: "Stock",
+      type: "number",
+      validation: (Rule) => Rule.min(0),
+    }),
+    defineField({
+      name: "sku",
+      title: "SKU",
+      type: "string",
+      description: "Stock Keeping Unit - Unique identifier for the product",
+      validation: (Rule) => Rule.required().min(3),
+    }),
+    defineField({
       name: "image",
       title: "Product Image",
       type: "image",
@@ -43,31 +67,6 @@ export const productType = defineType({
       type: "array",
       title: "Image Gallery",
       of: [defineArrayMember({ type: "image" })],
-    }),
-    defineField({
-      name: "description",
-      title: "Description",
-      type: "blockContent",
-    }),
-    defineField({
-      name: "sku",
-      title: "SKU",
-      type: "string",
-      description: "Stock Keeping Unit - Unique identifier for the product",
-      validation: (Rule) => Rule.required().min(3),
-    }),
-    defineField({
-      name: "price",
-      title: "Price",
-      type: "number",
-      validation: (Rule) => Rule.required().min(0),
-    }),
-
-    defineField({
-      name: "stock",
-      title: "Stock",
-      type: "number",
-      validation: (Rule) => Rule.min(0),
     }),
     defineField({
       name: "categoryPath",

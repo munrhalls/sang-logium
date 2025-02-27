@@ -22,7 +22,7 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
 
   return (
     <Link
-      href={`/product/${product.slug?.current}`}
+      href={`/product/${product._id}`}
       className={`group flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden
           ${isOutOfStock ? "opacity-50" : ""}`}
     >
