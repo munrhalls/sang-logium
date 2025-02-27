@@ -16,38 +16,38 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
   };
 
   return (
-    <div>
+    <div className="max-h-[700px] grid justify-center sm:place-content-center sm:row-start-1 sm:row-span-1 sm:col-start-1 sm:col-span-1">
       {product.image && (
         <Image
           src={currentImage}
           alt={product.name ?? "Product image"}
-          fill
-          className="object-contain transition-transform duration-300 hover:scale-105"
+          loading="lazy"
+          quality="90"
+          height={500}
+          width={500}
+          className="aspect-square"
         />
       )}
 
-      <div className="flex mt-4 space-x-2">
+      <div className="grid grid-flow-col place-content-start gap-2 mt-4">
         {product.gallery &&
           product.gallery.map((img, index) => {
             const imgUrl = imageUrl(img as SanityImageSource).url();
             return (
-              <div key={index} className="relative">
+              <div key={index} className="">
                 <Image
                   src={imgUrl}
                   loading="lazy"
                   alt={`Thumbnail ${index + 1}`}
                   width={50}
                   height={50}
-                  className={`cursor-pointer border-2 ${
+                  className={`aspect-square cursor-pointer border-2 rounded-sm ${
                     currentImage === imgUrl
-                      ? "border-blue-500"
-                      : "border-transparent"
+                      ? "border-slate-950"
+                      : "border-slate-400"
                   }`}
                   onClick={() => handleClick(imgUrl)}
                 />
-                {currentImage === imgUrl && (
-                  <div className="absolute inset-0 border-2 border-blue-500 pointer-events-none"></div>
-                )}
               </div>
             );
           })}
