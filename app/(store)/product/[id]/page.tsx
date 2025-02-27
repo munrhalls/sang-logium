@@ -2,7 +2,7 @@ import { getProductById } from "@/sanity/lib/products/getProductById";
 import { notFound } from "next/navigation";
 import { PortableText } from "next-sanity";
 import ProductPageGallery from "./ProductPageGallery";
-
+import { FaCheckCircle } from "react-icons/fa";
 export default async function ProductPage({
   params,
 }: {
@@ -21,22 +21,38 @@ export default async function ProductPage({
     <div className="grid justify-center p-4 gap-4 sm:grid-cols-2 auto-rows-min">
       <ProductPageGallery product={product} />
 
-      <div>
-        {isOutOfStock && (
-          <div className="">
-            <span className="text-white font-bold text-lg">Out of stock</span>
+      <div className="grid items-center">
+        <div>
+          <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
+          <div className="text-3xl font-semibold mb-4">
+            ${product.price?.toFixed(2)}
           </div>
-        )}
-
-        <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-        <div className="text-xl font-semibold mb-4">
-          ${product.price?.toFixed(2)}
         </div>
-        <div className=" mb-6">
+
+        <div className="mb-6">
           {Array.isArray(product.description) && (
             <PortableText value={product.description} />
           )}
         </div>
+
+        {isOutOfStock ? (
+          <div className="">
+            <span className="text-white font-bold text-lg rounded-sm">
+              Out of stock
+            </span>
+          </div>
+        ) : (
+          <div className="flex items-center gap-1">
+            <span className="text-green-700  font-bold text-xl rounded-sm">
+              In stock & shipping
+            </span>
+            <FaCheckCircle color="green" size={16} />
+          </div>
+        )}
+
+        <button className="align-self-end text-xl bg-blue-950 text-white font-black p-4">
+          ADD TO CART
+        </button>
       </div>
       {product.overviewFields && product.overviewFields.length > 0 && (
         <div className="mb-6">
