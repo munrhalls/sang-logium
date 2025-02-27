@@ -5,6 +5,8 @@ import { imageUrl } from "@/lib/imageUrl";
 import { useState } from "react";
 import { Product } from "@/sanity.types";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
 const ProductPageGallery = ({ product }: { product: Product }) => {
   const [currentImage, setCurrentImage] = useState<string>(

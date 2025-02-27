@@ -56,7 +56,7 @@ export default async function ProductPage({
       </div>
       {product.overviewFields && product.overviewFields.length > 0 && (
         <div className="mb-6">
-          <h2 className="text-2xl font-bold mb-4">Overview</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">Overview</h2>
           <ul className="list-disc list-inside">
             {product.overviewFields.map((field, index) => (
               <li key={index}>
@@ -71,7 +71,9 @@ export default async function ProductPage({
       )}
       {product.specifications && product.specifications.length > 0 && (
         <div className=" mb-6">
-          <h2 className="text-2xl font-bold mb-4">Specifications</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">
+            Specifications
+          </h2>
           <ul className="list-disc list-inside">
             {product.specifications.map((spec, index) => (
               <li key={index}>
