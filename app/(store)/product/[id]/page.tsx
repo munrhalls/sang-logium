@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { PortableText } from "next-sanity";
 import ProductPageGallery from "./ProductPageGallery";
 import { FaCheckCircle } from "react-icons/fa";
-import { FaInfoCircle } from "react-icons/fa";
+// import { FaInfoCircle } from "react-icons/fa";
 import InfoTooltip from "@/app/components/ui/infoTooltip/infoTooltip";
 export default async function ProductPage({
   params,

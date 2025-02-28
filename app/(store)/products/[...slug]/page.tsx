@@ -3,7 +3,7 @@ import ProductsGrid from "@/app/components/features/products-view/ProductsGrid";
 import FilterSortBtns from "@/app/components/ui/buttons/FilterSortBtns";
 import CategoryBreadcrumbs from "@/app/components/ui/breadcrumbs/CategoryBreadcrumbs";
 import CategoryTitleIcon from "@/app/components/ui/icons/CategoryTitleIcon";
-import AppliedFilters from "@/app/components/ui/tag-elements/AppliedFilters";
+// import AppliedFilters from "@/app/components/ui/tag-elements/AppliedFilters";
 import ProductsFilterSortDrawersWrapper from "@/app/components/ui/drawers/ProductsFilterSortDrawersWrapper";
 import { firstLetterToUpperCase } from "@/lib/utils";
 
