@@ -1,12 +1,19 @@
-import { flatToTree } from "@/lib/flatToTree";
 import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import MobileCategoriesDrawer from "./MobileCategoriesDrawer";
 import Link from "next/link";
 import { FaRegCircle } from "react-icons/fa";
 import { getCategoryIcon } from "@/lib/getCategoryIcon";
+import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+
+type SubCategory = {
+  header?: string;
+  name?: string;
+  _key: string;
+  subcategories?: SubCategory[];
+};
 
 export default async function MobileCategoriesDrawerWrapper() {
-  const categories = await getAllCategories();
+  const categories: ALL_CATEGORIES_QUERYResult = await getAllCategories();
 
   if (!categories || categories.length === 0) {
     return (
@@ -22,72 +29,79 @@ export default async function MobileCategoriesDrawerWrapper() {
     );
   }
 
-  const categoriesTree = flatToTree(categories);
+  const sortedCategories = [...categories].sort((a, b) => {
+    if (a?.order === undefined || b?.order === undefined) return 0;
+    return a?.order - b?.order;
+  });
 
-  const CATEGORY_ORDER = [
-    "Headphones",
-    "Hi-Fi Audio",
-    "Studio Equipment",
-    "Accessories",
-    "On Sale",
-  ];
-
-  const orderedCategoriesTree = categoriesTree.sort(
-    (a, b) => CATEGORY_ORDER.indexOf(a.name!) - CATEGORY_ORDER.indexOf(b.name!)
-  );
+  const renderSubcategories = (
+    subcategories: SubCategory[],
+    baseUrl: string
+  ) => {
+    return subcategories.map((sub) => (
+      <div key={sub._key}>
+        {sub.header && (
+          <h3 className="font-bold text-gray-500">{sub.header}</h3>
+        )}
+        {sub.name && (
+          <Link
+            href={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}`}
+            className="mt-2 flex items-center text-gray-600 hover:text-black"
+          >
+            <FaRegCircle className="mr-2 w-2 h-2" />
+            <span className="text-lg">{sub.name}</span>
+          </Link>
+        )}
+        {sub.subcategories && sub.subcategories.length > 0 && (
+          <ul className="pl-3 py-2 backdrop-brightness-95 rounded">
+            {sub.subcategories.map((child: SubCategory) => (
+              <li key={child._key}>
+                <Link
+                  href={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}/${child.name?.toLowerCase().replace(/\s+/g, "-")}`}
+                  className="flex justify-start items-center px-4 py-2 text-gray-800 hover:bg-gray-100"
+                >
+                  <FaRegCircle className="mr-2" />
+                  <span className="text-md">{child.name}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    ));
+  };
 
   const categoriesTreeUI = (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {orderedCategoriesTree.map((category) => (
-        <div key={`${category._id}`} className="space-y-2">
-          <Link
-            href={`/products/${category.path}`}
-            className="flex items-center text-2xl font-semibold hover:text-gray-600"
-          >
-            {category.icon && (
-              <span className="mr-3">{getCategoryIcon(category.icon)}</span>
-            )}
-            <span
-              className={`${category.name === "On Sale" ? "text-orange-500" : ""}`}
-            >
-              {category.name}
-            </span>
-          </Link>
+      {sortedCategories.map((category) => {
+        const categoryPath = `/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`;
 
-          <div className="ml-6 space-y-1">
-            {category?.children?.map((sub) => (
-              <div key={`${sub._id}`}>
-                <Link
-                  href={`/products/${sub.path}`}
-                  className="mt-2 flex items-center text-gray-600 hover:text-black"
-                >
-                  <FaRegCircle className="mr-2 w-2 h-2" />
-                  <span className="text-lg">{sub?.name}</span>
-                </Link>
-                {sub.children && (
-                  <ul className="pl-3 py-2 backdrop-brightness-95 rounded">
-                    {sub.children.map((child) => (
-                      <li key={`${child._id}`}>
-                        <Link
-                          href={`/products/${child.path}`}
-                          className="flex justify-start items-center px-4 py-2  text-gray-800 hover:bg-gray-100"
-                        >
-                          <FaRegCircle className="mr-2" />
-                          <span className="text-md">{child.name}</span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+        return (
+          <div key={category._id} className="space-y-2">
+            <Link
+              href={categoryPath}
+              className="flex items-center text-2xl font-semibold hover:text-gray-600"
+            >
+              {category.icon && (
+                <span className="mr-3">{getCategoryIcon(category.icon)}</span>
+              )}
+              <span
+                className={`${category.name === "On Sale" ? "text-orange-500" : ""}`}
+              >
+                {category.name}
+              </span>
+            </Link>
+
+            {category.subcategories && category.subcategories.length > 0 && (
+              <div className="ml-6 space-y-1">
+                {renderSubcategories(category.subcategories, categoryPath)}
               </div>
-            ))}
+            )}
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 
-  // console.dir(orderedCategoriesTree, { depth: null });
-  // console.log(orderedCategoriesTree, "^orderedCategoriesTree");
   return <MobileCategoriesDrawer categoriesTreeUI={categoriesTreeUI} />;
 }

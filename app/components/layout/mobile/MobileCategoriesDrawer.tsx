@@ -41,14 +41,14 @@ export default function MobileCategoriesDrawer({
         </div>
         <h1 className="text-3xl text-center my-2 ml-4">Categories</h1>
       </div>
-      ``
+
       {/* Scrollable content */}
       <div
         className="flex-1 overflow-y-auto scroll-smooth pb-6"
         onClick={handleClick}
       >
         <div className="p-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-white grid grid-cols-1 md:grid-cols-2 gap-6">
             {categoriesTreeUI}
           </div>
           <p className="mt-8 flex justify-center items-center text-gray-500">
