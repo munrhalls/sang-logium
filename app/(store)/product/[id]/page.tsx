@@ -20,7 +20,7 @@ export default async function ProductPage({
   const isOutOfStock = product.stock != null && product.stock <= 0;
 
   return (
-    <div className="grid justify-center p-4 gap-4 sm:grid-cols-2 auto-rows-min">
+    <div className="mx-auto max-w-[1400px] grid justify-center p-4 gap-4 lg:gap-12 xl:gap-16 sm:grid-cols-2 auto-rows-min">
       <ProductPageGallery product={product} />
 
       <div className="grid items-center">

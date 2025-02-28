@@ -12,9 +12,35 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
   const [currentImage, setCurrentImage] = useState<string>(
     imageUrl(product.image as SanityImageSource).url()
   );
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  const handleClick = (url: string) => {
+  const handleClick = (url: string, index: number) => {
     setCurrentImage(url);
+    setCurrentIndex(index);
+  };
+
+  const handlePrev = () => {
+    if (product.gallery && product.gallery.length > 0) {
+      const newIndex =
+        currentIndex === 0 ? product.gallery.length - 1 : currentIndex - 1;
+      const imgUrl = imageUrl(
+        product.gallery[newIndex] as SanityImageSource
+      ).url();
+      setCurrentImage(imgUrl);
+      setCurrentIndex(newIndex);
+    }
+  };
+
+  const handleNext = () => {
+    if (product.gallery && product.gallery.length > 0) {
+      const newIndex =
+        currentIndex === product.gallery.length - 1 ? 0 : currentIndex + 1;
+      const imgUrl = imageUrl(
+        product.gallery[newIndex] as SanityImageSource
+      ).url();
+      setCurrentImage(imgUrl);
+      setCurrentIndex(newIndex);
+    }
   };
 
   return (
@@ -32,9 +58,16 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
       )}
 
       <div className="grid grid-flow-col place-content-start gap-2 mt-4">
+        {product.gallery && (
+          <FaArrowLeft
+            className="place-self-center cursor-pointer"
+            onClick={handlePrev}
+          />
+        )}
         {product.gallery &&
           product.gallery.map((img, index) => {
             const imgUrl = imageUrl(img as SanityImageSource).url();
+
             return (
               <div key={index} className="">
                 <Image
@@ -48,11 +81,17 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
                       ? "border-slate-950"
                       : "border-slate-400"
                   }`}
-                  onClick={() => handleClick(imgUrl)}
+                  onClick={() => handleClick(imgUrl, index)}
                 />
               </div>
             );
           })}
+        {product.gallery && (
+          <FaArrowRight
+            className="place-self-center cursor-pointer"
+            onClick={handleNext}
+          />
+        )}
       </div>
     </div>
   );
