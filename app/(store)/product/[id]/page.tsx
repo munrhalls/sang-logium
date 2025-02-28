@@ -44,7 +44,7 @@ export default async function ProductPage({
             </span>
           </div>
         ) : (
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 my-2">
             <span className="text-green-700  font-bold text-xl rounded-sm">
               In stock & shipping
             </span>
@@ -52,7 +52,7 @@ export default async function ProductPage({
           </div>
         )}
 
-        <button className="align-self-end text-xl bg-blue-950 text-white font-black p-4">
+        <button className="align-self-end text-xl bg-blue-950 text-yellow-500  font-black p-4 rounded-sm">
           ADD TO CART
         </button>
       </div>
