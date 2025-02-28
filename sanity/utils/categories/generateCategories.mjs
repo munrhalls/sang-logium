@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { nanoid } from "nanoid";
 import { fileURLToPath } from "url";
-import client from "./getClient.mjs";
+import client from "../getClient.mjs";
 
 // TODO FOR IT TO WORK: 1. FILL PARENT/[CHILDREN] /// 2. CHOOSE ICON FOR PARENT AND CHILDREN
 

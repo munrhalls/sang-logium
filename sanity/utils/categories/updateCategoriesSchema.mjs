@@ -1,4 +1,4 @@
-import client from "./getClient.mjs";
+import client from "../getClient.mjs";
 
 const updateCategories = async () => {
   const categories = await client.fetch(`

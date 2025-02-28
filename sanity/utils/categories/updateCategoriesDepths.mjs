@@ -1,4 +1,4 @@
-import client from "./getClient.mjs";
+import client from "../getClient.mjs";
 
 async function fixChildCategories() {
   // Step 1: Fetch parent (Hi-Fi Audio) metadata

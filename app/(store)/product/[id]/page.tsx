@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { PortableText } from "next-sanity";
 import ProductPageGallery from "./ProductPageGallery";
 import { FaCheckCircle } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
+import InfoTooltip from "@/app/components/ui/infoTooltip/infoTooltip";
 export default async function ProductPage({
   params,
 }: {
@@ -62,7 +64,9 @@ export default async function ProductPage({
               <li key={index}>
                 <strong>{field.title}:</strong> {field.value}
                 {field.information && (
-                  <p className="text-sm text-gray-600">{field.information}</p>
+                  <span className="ml-1 mt-1">
+                    <InfoTooltip information={field.information} />
+                  </span>
                 )}
               </li>
             ))}
@@ -79,7 +83,9 @@ export default async function ProductPage({
               <li key={index}>
                 <strong>{spec.title}:</strong> {spec.value}
                 {spec.information && (
-                  <p className="text-sm text-gray-600">{spec.information}</p>
+                  <span className="ml-1 mt-1">
+                    <InfoTooltip information={spec.information} />
+                  </span>
                 )}
               </li>
             ))}

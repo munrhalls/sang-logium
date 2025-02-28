@@ -1,4 +1,4 @@
-import client from "./getClient.mjs";
+import client from "../getClient.mjs";
 
 // Function to update a single product
 async function updateProduct(product) {

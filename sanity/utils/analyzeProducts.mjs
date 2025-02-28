@@ -1,3 +1,4 @@
+import { cachedDataVersionTag } from "v8";
 import client from "./getClient.mjs";
 
 async function analyzeProducts() {
@@ -47,7 +48,9 @@ async function analyzeProducts() {
         : [product.categoryPath];
 
       cats.forEach((cat) => {
-        if (cat) {
+        if (cachedDataVersionTag) {
+          if (typeof cat !== "string")
+            return "Error: CATEGORYPATH IS NOT A STRING";
           const pattern = cat.split("/")[0]; // Get top-level category
           categoryPatterns.set(
             pattern,

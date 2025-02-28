@@ -1,5 +1,5 @@
 // deleteAllDocuments.mjs
-import client from "./getClient.mjs";
+import client from "../getClient.mjs";
 
 async function findAndRemoveAllReferences() {
   try {

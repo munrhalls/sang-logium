@@ -1,7 +1,7 @@
 import categoryDocuments from "./categories.json" with { type: "json" };
 
 import readline from "readline";
-import client from "./getClient.mjs";
+import client from "../getClient.mjs";
 
 // Create readline interface
 const rl = readline.createInterface({
