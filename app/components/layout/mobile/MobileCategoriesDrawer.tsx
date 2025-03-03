@@ -48,9 +48,7 @@ export default function MobileCategoriesDrawer({
         onClick={handleClick}
       >
         <div className="p-4">
-          <div className="bg-white grid grid-cols-1 md:grid-cols-2 gap-6">
-            {categoriesTreeUI}
-          </div>
+          <div className="bg-white grid gap-6">{categoriesTreeUI}</div>
           <p className="mt-8 flex justify-center items-center text-gray-500">
             End.
           </p>

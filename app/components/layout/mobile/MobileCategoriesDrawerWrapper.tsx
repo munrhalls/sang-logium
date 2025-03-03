@@ -72,7 +72,7 @@ export default async function MobileCategoriesDrawerWrapper() {
   };
 
   const categoriesTreeUI = (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid md:grid-cols-2 gap-6">
       {sortedCategories.map((category) => {
         const categoryPath = `/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`;
 
