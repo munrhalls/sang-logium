@@ -38,7 +38,13 @@ export const categoryFiltersType = defineType({
                   title: "Filter Type",
                   type: "string",
                   options: {
-                    list: ["checkbox", "radio", "range", "boolean"],
+                    list: [
+                      "checkbox",
+                      "radio",
+                      "range",
+                      "boolean",
+                      "multiselect",
+                    ],
                   },
                   validation: (rule) => rule.required(),
                 },

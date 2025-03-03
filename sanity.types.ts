@@ -211,31 +211,6 @@ export type Product = {
   _updatedAt: string;
   _rev: string;
   name?: string;
-  slug?: Slug;
-  brand?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  gallery?: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-    _key: string;
-  }>;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -270,9 +245,34 @@ export type Product = {
     _type: "image";
     _key: string;
   }>;
-  sku?: string;
+  slug?: Slug;
+  brand?: string;
   price?: number;
   stock?: number;
+  sku?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
   categoryPath?: Array<string>;
   tags?: Array<string>;
   overviewFields?: Array<{
@@ -295,6 +295,32 @@ export type Slug = {
   _type: "slug";
   current?: string;
   source?: string;
+};
+
+export type CategoryFilters = {
+  _id: string;
+  _type: "categoryFilters";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  filters?: {
+    filterItems?: Array<{
+      name?: string;
+      type?: "checkbox" | "radio" | "range" | "boolean" | "multiselect";
+      defaultValue?: string;
+      options?: Array<string>;
+      min?: number;
+      max?: number;
+      step?: number;
+      _key: string;
+    }>;
+  };
+  categoryMappings?: Array<{
+    path?: string;
+    filters?: Array<string>;
+    _key: string;
+  }>;
 };
 
 export type Category = {
@@ -428,7 +454,7 @@ export type SimplerColor = {
   value?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Commercial | Exhibition | Sale | Order | Product | Slug | Category | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | HighlightColor | TextColor | SimplerColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Commercial | Exhibition | Sale | Order | Product | Slug | CategoryFilters | Category | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | HighlightColor | TextColor | SimplerColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
 // Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
@@ -506,6 +532,29 @@ export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
   } | null;
 }>;
 
+// Source: ./sanity/lib/products/filter-and-sort/getFilters.ts
+// Variable: FILTERS
+// Query: {    "brands": array::unique(*[_type == "product"].brand->name)  }
+export type FILTERSResult = {
+  brands: Array<null>;
+};
+
+// Source: ./sanity/lib/products/filter-and-sort/getFiltersForCategoryPath.ts
+// Variable: FILTERS_BY_CATEGORY_QUERY
+// Query: *[_type == "categoryFilters" && title == $categoryName][0] {      title,      "filters": filters.filterItems[]{        name,        type,        options,        defaultValue,        min,        max,        step      }    }
+export type FILTERS_BY_CATEGORY_QUERYResult = {
+  title: string | null;
+  filters: Array<{
+    name: string | null;
+    type: "boolean" | "checkbox" | "multiselect" | "radio" | "range" | null;
+    options: Array<string> | null;
+    defaultValue: string | null;
+    min: number | null;
+    max: number | null;
+    step: number | null;
+  }> | null;
+} | null;
+
 // Source: ./sanity/lib/products/getAllCategories.ts
 // Variable: ALL_CATEGORIES_QUERY
 // Query: *[              _type == "category"          ] | order(name desc)
@@ -540,31 +589,6 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   name?: string;
-  slug?: Slug;
-  brand?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  gallery?: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-    _key: string;
-  }>;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -599,9 +623,34 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
-  sku?: string;
+  slug?: Slug;
+  brand?: string;
   price?: number;
   stock?: number;
+  sku?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
   categoryPath?: Array<string>;
   tags?: Array<string>;
   overviewFields?: Array<{
@@ -630,31 +679,6 @@ export type PRODUCT_BY_ID_QUERYResult = {
   _updatedAt: string;
   _rev: string;
   name?: string;
-  slug?: Slug;
-  brand?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  gallery?: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-    _key: string;
-  }>;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -689,9 +713,34 @@ export type PRODUCT_BY_ID_QUERYResult = {
     _type: "image";
     _key: string;
   }>;
-  sku?: string;
+  slug?: Slug;
+  brand?: string;
   price?: number;
   stock?: number;
+  sku?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
   categoryPath?: Array<string>;
   tags?: Array<string>;
   overviewFields?: Array<{
@@ -720,31 +769,6 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   name?: string;
-  slug?: Slug;
-  brand?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  gallery?: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-    _key: string;
-  }>;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -779,9 +803,34 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
-  sku?: string;
+  slug?: Slug;
+  brand?: string;
   price?: number;
   stock?: number;
+  sku?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
   categoryPath?: Array<string>;
   tags?: Array<string>;
   overviewFields?: Array<{
@@ -846,24 +895,18 @@ export type SALE_BY_ID_QUERYResult = Array<{
   } | null;
 }>;
 
-// Source: ./sanity/lib/products/filter-and-sort/getFilters.ts
-// Variable: FILTERS
-// Query: {    "brands": array::unique(*[_type == "product"].brand->name)  }
-export type FILTERSResult = {
-  brands: Array<null>;
-};
-
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"commercial\" && feature == $feature] {\n    _id,\n  title,\n  \"image\": image.asset->url,\n  variant,\n  displayOrder,\n  text,\n  ctaLink,\n  \"products\": products[]-> {\n    _id,\n    brand,\n    name,\n    description,\n    price,\n    \"image\": image.asset->url,\n  },\n  sale-> {\n    discount,\n    validUntil,\n    _id\n  }\n}": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    "{\n    \"brands\": array::unique(*[_type == \"product\"].brand->name)\n  }": FILTERSResult;
+    "\n    *[_type == \"categoryFilters\" && title == $categoryName][0] {\n      title,\n      \"filters\": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        step\n      }\n    }\n  ": FILTERS_BY_CATEGORY_QUERYResult;
     "\n          *[\n              _type == \"category\"\n          ] | order(name desc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && _id == $id\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
     "*[\n        _type == \"product\"\n        && name match $searchParam\n    ] | order(name asc)": SEARCH_FOR_PRODUCTS_QUERYResult;
     "\n      *[_type == \"sale\" && isActive == true] {\n        _id,\n        title,\n        \"slug\": slug.current,\n        discount,\n        validFrom,\n        validUntil,\n        isActive\n      }\n    ": GET_ACTIVE_SALES_QUERYResult;
     "\n    *[_type == \"sale\" && _id == $saleId]{\n      name,\n      \"slug\": slug.current,\n      validFrom,\n      validUntil,\n      isActive,\n      description,\n      \"image\": image.asset->url,\n      category->{\n        name,\n        \"slug\": slug.current,\n        \"products\": *[_type=='product' && categoryPath == ^.metadata.path]{\n          name,\n          \"slug\": slug.current,\n          image,\n          defaultPrice\n        }\n      }\n    }\n  ": SALE_BY_ID_QUERYResult;
-    "{\n    \"brands\": array::unique(*[_type == \"product\"].brand->name)\n  }": FILTERSResult;
   }
 }
