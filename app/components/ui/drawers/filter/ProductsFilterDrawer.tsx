@@ -2,6 +2,8 @@
 
 import { useStore } from "@/store";
 import { X } from "lucide-react";
+import Filters from "./Filters";
+// color rgb(29 78 216 / var(--tw-bg-opacity, 1))
 
 export default function ProductsFilterDrawer() {
   const { isProductsFilterDrawerOpen, toggleProductsFilterDrawer } = useStore();
@@ -26,8 +28,7 @@ export default function ProductsFilterDrawer() {
         </header>
 
         <div className="flex-1 overflow-y-auto p-4 text-white">
-          {/* Filter content goes here */}
-          FILTERS
+          <Filters />
         </div>
       </div>
     </div>

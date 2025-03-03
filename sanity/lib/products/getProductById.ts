@@ -2,7 +2,6 @@ import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../live";
 
 export const getProductById = async (id: string) => {
-  console.log("Received ID:", id);
   const PRODUCT_BY_ID_QUERY = defineQuery(`
             *[
                 _type == 'product'
@@ -11,8 +10,6 @@ export const getProductById = async (id: string) => {
         `);
 
   try {
-    console.log("Query params:", { $id: id }); // Add this
-
     const product = await sanityFetch({
       query: PRODUCT_BY_ID_QUERY,
       params: {
