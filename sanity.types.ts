@@ -297,6 +297,28 @@ export type Slug = {
   source?: string;
 };
 
+export type CategorySortables = {
+  _id: string;
+  _type: "categorySortables";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  sortOptions?: Array<{
+    name?: string;
+    displayName?: string;
+    type?: "alphabetic" | "numeric" | "date" | "boolean";
+    field?: string;
+    defaultDirection?: "asc" | "desc";
+    _key: string;
+  }>;
+  categoryMappings?: Array<{
+    path?: string;
+    sortOptions?: Array<string>;
+    _key: string;
+  }>;
+};
+
 export type CategoryFilters = {
   _id: string;
   _type: "categoryFilters";
@@ -454,7 +476,7 @@ export type SimplerColor = {
   value?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Commercial | Exhibition | Sale | Order | Product | Slug | CategoryFilters | Category | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | HighlightColor | TextColor | SimplerColor;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Commercial | Exhibition | Sale | Order | Product | Slug | CategorySortables | CategoryFilters | Category | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | HighlightColor | TextColor | SimplerColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
 // Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
@@ -532,16 +554,16 @@ export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
   } | null;
 }>;
 
-// Source: ./sanity/lib/products/filter-and-sort/getFilters.ts
+// Source: ./sanity/lib/products/filter/getFilters.ts
 // Variable: FILTERS
 // Query: {    "brands": array::unique(*[_type == "product"].brand->name)  }
 export type FILTERSResult = {
   brands: Array<null>;
 };
 
-// Source: ./sanity/lib/products/filter-and-sort/getFiltersForCategoryPath.ts
+// Source: ./sanity/lib/products/filter/getFiltersForCategoryPath.ts
 // Variable: FILTERS_BY_CATEGORY_QUERY
-// Query: *[_type == "categoryFilters" && title == $categoryName][0] {      title,      "filters": filters.filterItems[]{        name,        type,        options,        defaultValue,        min,        max,        step      }    }
+// Query: *[_type == "categoryFilters" && title == $topLevelCategory][0] {      title,      "filters": filters.filterItems[]{        name,        type,        options,        defaultValue,        min,        max,        step      },      "mappings": categoryMappings[path == $cleanPath]    }
 export type FILTERS_BY_CATEGORY_QUERYResult = {
   title: string | null;
   filters: Array<{
@@ -552,6 +574,11 @@ export type FILTERS_BY_CATEGORY_QUERYResult = {
     min: number | null;
     max: number | null;
     step: number | null;
+  }> | null;
+  mappings: Array<{
+    path?: string;
+    filters?: Array<string>;
+    _key: string;
   }> | null;
 } | null;
 
@@ -849,6 +876,25 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
   }>;
 }>;
 
+// Source: ./sanity/lib/products/sort/getSortablesForCategoryPath.ts
+// Variable: SORTABLES_BY_CATEGORY_QUERY
+// Query: *[_type == "categorySortables" && title == $topLevelCategory][0] {      title,      "sortOptions": sortOptions[]{        name,        displayName,        type,        field,        defaultDirection      },      "mappings": categoryMappings[path == $cleanPath]    }
+export type SORTABLES_BY_CATEGORY_QUERYResult = {
+  title: string | null;
+  sortOptions: Array<{
+    name: string | null;
+    displayName: string | null;
+    type: "alphabetic" | "boolean" | "date" | "numeric" | null;
+    field: string | null;
+    defaultDirection: "asc" | "desc" | null;
+  }> | null;
+  mappings: Array<{
+    path?: string;
+    sortOptions?: Array<string>;
+    _key: string;
+  }> | null;
+} | null;
+
 // Source: ./sanity/lib/sales/getAllActiveSales.ts
 // Variable: GET_ACTIVE_SALES_QUERY
 // Query: *[_type == "sale" && isActive == true] {        _id,        title,        "slug": slug.current,        discount,        validFrom,        validUntil,        isActive      }
@@ -901,11 +947,12 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"commercial\" && feature == $feature] {\n    _id,\n  title,\n  \"image\": image.asset->url,\n  variant,\n  displayOrder,\n  text,\n  ctaLink,\n  \"products\": products[]-> {\n    _id,\n    brand,\n    name,\n    description,\n    price,\n    \"image\": image.asset->url,\n  },\n  sale-> {\n    discount,\n    validUntil,\n    _id\n  }\n}": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
     "{\n    \"brands\": array::unique(*[_type == \"product\"].brand->name)\n  }": FILTERSResult;
-    "\n    *[_type == \"categoryFilters\" && title == $categoryName][0] {\n      title,\n      \"filters\": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        step\n      }\n    }\n  ": FILTERS_BY_CATEGORY_QUERYResult;
+    "\n    *[_type == \"categoryFilters\" && title == $topLevelCategory][0] {\n      title,\n      \"filters\": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        step\n      },\n      \"mappings\": categoryMappings[path == $cleanPath]\n    }\n  ": FILTERS_BY_CATEGORY_QUERYResult;
     "\n          *[\n              _type == \"category\"\n          ] | order(name desc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && _id == $id\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
     "*[\n        _type == \"product\"\n        && name match $searchParam\n    ] | order(name asc)": SEARCH_FOR_PRODUCTS_QUERYResult;
+    "\n    *[_type == \"categorySortables\" && title == $topLevelCategory][0] {\n      title,\n      \"sortOptions\": sortOptions[]{\n        name,\n        displayName,\n        type,\n        field,\n        defaultDirection\n      },\n      \"mappings\": categoryMappings[path == $cleanPath]\n    }\n  ": SORTABLES_BY_CATEGORY_QUERYResult;
     "\n      *[_type == \"sale\" && isActive == true] {\n        _id,\n        title,\n        \"slug\": slug.current,\n        discount,\n        validFrom,\n        validUntil,\n        isActive\n      }\n    ": GET_ACTIVE_SALES_QUERYResult;
     "\n    *[_type == \"sale\" && _id == $saleId]{\n      name,\n      \"slug\": slug.current,\n      validFrom,\n      validUntil,\n      isActive,\n      description,\n      \"image\": image.asset->url,\n      category->{\n        name,\n        \"slug\": slug.current,\n        \"products\": *[_type=='product' && categoryPath == ^.metadata.path]{\n          name,\n          \"slug\": slug.current,\n          image,\n          defaultPrice\n        }\n      }\n    }\n  ": SALE_BY_ID_QUERYResult;
   }

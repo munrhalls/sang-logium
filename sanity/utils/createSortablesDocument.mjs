@@ -74,7 +74,7 @@ async function createSortablesDocument(topLevelCategory, dryRun = false) {
     // 5. Create the document
     const sortablesDocument = {
       _type: "categorySortables",
-      title: capitalizeFirstLetter(topLevelCategory), // Only use title, not name
+      title: topLevelCategory, // Only use title, not name
       sortOptions: recommendedSortables.map((sort) => ({
         ...sort,
         _key: `sort_${sort.name}_${Math.random().toString(36).substring(2, 10)}`, // Add unique _key for each sort option
