@@ -26,7 +26,7 @@ export default async function ProductsPage({
       <div className=" text-white bg-blue-950 lg:hidden">
         <FilterSortBtns />
       </div>
-      <ProductsFilterSortDrawersWrapper />
+      {/* <ProductsFilterSortDrawersWrapper /> */}
       <div className="hidden md:grid grid-cols-2 gap-4 row-start-1 col-start-1 row-span-2 w-full h-full bg-blue-800 text-white">
         <div className="p-4 flex flex-col gap-3 text-white">
           <h2 className="text-center text-xl font-black">FILTER BY</h2>
@@ -34,7 +34,7 @@ export default async function ProductsPage({
         </div>
         <div className="p-4 flex flex-col gap-3 text-white">
           <h2 className="text-center text-xl font-black">SORT BY</h2>
-          <Sortables />
+          {/* <Sortables /> */}
         </div>
       </div>
 

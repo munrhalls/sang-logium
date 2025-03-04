@@ -1,16 +1,13 @@
 "use server";
 
 import { getSortablesForCategoryPath } from "@/sanity/lib/products/sort/getSortablesForCategoryPath";
-
+import parseUrlToCategoryPath from "@/lib/parseUrlToCategoryPath";
 export async function getSortablesForCategoryPathAction(path) {
   try {
-    const sortables = await getSortablesForCategoryPath(path);
-    console.log("path: ", path);
+    const parsedPath = parseUrlToCategoryPath(path);
+    console.log(parsedPath, "parsedPath");
+    const sortables = await getSortablesForCategoryPath(parsedPath);
 
-    console.log("getSortablesForCategoryPathAction sortables: ", sortables);
-    console.log("Querying with params:", path);
-    // After fetching data
-    console.log("Raw sortables response:", sortables);
     return sortables;
   } catch (error) {
     console.error("Error:", error);

@@ -1,8 +1,10 @@
 "use client";
-import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState, useCallback, useRef } from "react";
 import { getFiltersForCategoryPathAction } from "@/app/actions/getFiltersForCategoryPathAction";
 import PriceRangeFilter from "./PriceRangeFilter";
+import FilterGroup from "./FilterGroup";
 
 function FiltersSkeleton() {
   return (
@@ -24,216 +26,126 @@ function FiltersSkeleton() {
   );
 }
 
-export default function Filters() {
-  const pathname = usePathname();
-  const [filters, setFilters] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedOptions, setSelectedOptions] = useState({});
+function parseParams(searchParams) {
+  const parsedFilters = {};
 
-  useEffect(() => {
-    setLoading(true);
+  for (const [key, value] of searchParams.entries()) {
+    try {
+      if (
+        (value.startsWith("[") && value.endsWith("]")) ||
+        (value.startsWith("{") && value.endsWith("}"))
+      ) {
+        parsedFilters[key] = JSON.parse(value);
+      } else if (!isNaN(Number(value))) {
+        parsedFilters[key] = Number(value);
+      } else if (value === "true" || value === "false") {
+        parsedFilters[key] = value === "true";
+      } else {
+        parsedFilters[key] = value;
+      }
+    } catch (e) {
+      parsedFilters[key] = value;
+    }
+  }
+
+  return parsedFilters;
+}
+
+export default function FilterManager() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const parsedFilters = parseParams(searchParams);
+
+  const [availableFilters, setAvailableFilters] = useState([]);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const loadedRef = useRef(false);
+
+  if (!loadedRef.current) {
+    loadedRef.current = true;
+
     getFiltersForCategoryPathAction(pathname)
       .then((data) => {
-        console.log("Client received data:", data);
-        setFilters(data || []);
+        setAvailableFilters(data || []);
 
-        // Initialize selected options with default values
-        const initialSelections = {};
+        const defaultValues = {};
+        let needsUpdate = false;
+
         (data || []).forEach((filter) => {
-          if (filter.type === "multiselect") {
-            // For multiselect, initialize with empty array
-            initialSelections[filter.name] = [];
-
-            // Add default value if specified
-            if (filter.defaultValue) {
-              initialSelections[filter.name] = [filter.defaultValue];
-            }
-          } else if (filter.type === "checkbox") {
-            // For checkbox, initialize with an object of option:boolean pairs
-            initialSelections[filter.name] = {};
-            filter.options.forEach((option) => {
-              // Set default to false unless specified
-              initialSelections[filter.name][option] =
-                filter.defaultValue?.[option] || false;
-            });
-          } else if (filter.defaultValue) {
-            initialSelections[filter.name] = filter.defaultValue;
+          if (parsedFilters[filter.name] === undefined && filter.defaultValue) {
+            defaultValues[filter.name] = filter.defaultValue;
+            needsUpdate = true;
           }
         });
-        setSelectedOptions(initialSelections);
-      })
-      .catch((err) => console.error("Client error:", err))
-      .finally(() => setLoading(false));
-  }, [pathname]);
 
-  const handleOptionSelect = (filterName, option, filterType) => {
-    if (filterType === "multiselect") {
-      setSelectedOptions((prev) => {
-        const currentSelections = prev[filterName] || [];
+        if (needsUpdate) {
+          const newParams = new URLSearchParams(searchParams);
 
-        // Toggle selection
-        if (currentSelections.includes(option)) {
-          return {
-            ...prev,
-            [filterName]: currentSelections.filter((item) => item !== option),
-          };
-        } else {
-          return {
-            ...prev,
-            [filterName]: [...currentSelections, option],
-          };
+          Object.entries(defaultValues).forEach(([key, value]) => {
+            if (typeof value === "object") {
+              newParams.set(key, JSON.stringify(value));
+            } else {
+              newParams.set(key, String(value));
+            }
+          });
+
+          router.replace(`${pathname}?${newParams.toString()}`, {
+            scroll: false,
+          });
         }
-      });
-    } else if (filterType === "checkbox") {
-      setSelectedOptions((prev) => {
-        const currentSelections = prev[filterName] || {};
-        return {
-          ...prev,
-          [filterName]: {
-            ...currentSelections,
-            [option]: !currentSelections[option],
-          },
-        };
-      });
-    } else {
-      // For radio buttons
-      setSelectedOptions((prev) => ({
-        ...prev,
-        [filterName]: option,
-      }));
-    }
-  };
+      })
+      .catch((err) => console.error("Error fetching filters:", err))
+      .finally(() => setIsInitialLoading(false));
+  }
 
-  if (loading) return <FiltersSkeleton />;
-  if (!filters.length) return <p>No filters available</p>;
+  const updateUrlParams = useCallback(
+    (filterName, value) => {
+      setIsUpdating(true);
+
+      const params = new URLSearchParams(searchParams);
+
+      if (
+        value === undefined ||
+        value === null ||
+        (Array.isArray(value) && value.length === 0) ||
+        (typeof value === "object" &&
+          !Array.isArray(value) &&
+          Object.values(value).every((v) => !v))
+      ) {
+        params.delete(filterName);
+      } else if (typeof value === "object") {
+        params.set(filterName, JSON.stringify(value));
+      } else {
+        params.set(filterName, String(value));
+      }
+
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+
+      setTimeout(() => setIsUpdating(false), 500);
+    },
+    [pathname, router, searchParams]
+  );
+
+  if (isInitialLoading) return <FiltersSkeleton />;
+  if (!availableFilters.length) return <p>No filters available</p>;
 
   return (
-    <div className="space-y-6">
-      <PriceRangeFilter />
-      {filters.map((filter) => (
-        <div key={filter.name} className="border-b border-gray-800 pb-4">
-          <h3 className="text-lg font-medium mb-3">{filter.name}</h3>
+    <div className="space-y-6 relative">
+      <PriceRangeFilter
+        value={parsedFilters.price || { min: undefined, max: undefined }}
+        onChange={(value) => updateUrlParams("price", value)}
+      />
 
-          {filter.type === "radio" && (
-            <div className="space-y-3">
-              {filter.options
-                .filter((option) => option !== "") // Filter out empty options
-                .map((option) => (
-                  <label
-                    key={option}
-                    className="flex items-center space-x-2 cursor-pointer group"
-                  >
-                    <span className="flex-grow text-sm">{option}</span>
-                    <div
-                      className={`rounded-full relative w-5 h-5 flex items-center justify-center border ${
-                        selectedOptions[filter.name] === option
-                          ? "border-blue-500 bg-[rgb(29,78,216)]"
-                          : "border-gray-400 hover:border-blue-400"
-                      }`}
-                      onClick={() =>
-                        handleOptionSelect(filter.name, option, "radio")
-                      }
-                    >
-                      {selectedOptions[filter.name] === option && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-3.5 w-3.5 text-white"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                  </label>
-                ))}
-            </div>
-          )}
-
-          {filter.type === "multiselect" && (
-            <div className="space-y-3">
-              {filter.options
-                .filter((option) => option !== "") // Filter out empty options
-                .map((option) => (
-                  <label
-                    key={option}
-                    className="flex items-center space-x-2 cursor-pointer group"
-                  >
-                    <span className="flex-grow text-sm">{option}</span>
-                    <div
-                      className={`relative w-5 h-5 flex items-center justify-center border rounded ${
-                        selectedOptions[filter.name]?.includes(option)
-                          ? "border-blue-500 bg-[rgb(29,78,216)]"
-                          : "border-gray-400 hover:border-blue-400"
-                      }`}
-                      onClick={() =>
-                        handleOptionSelect(filter.name, option, "multiselect")
-                      }
-                    >
-                      {selectedOptions[filter.name]?.includes(option) && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-3.5 w-3.5 text-white"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                  </label>
-                ))}
-            </div>
-          )}
-
-          {filter.type === "checkbox" && (
-            <div className="space-y-3">
-              {filter.options
-                .filter((option) => option !== "") // Filter out empty options
-                .map((option) => (
-                  <label
-                    key={option}
-                    className="flex items-center space-x-2 cursor-pointer group"
-                  >
-                    <span className="flex-grow text-sm">{option}</span>
-                    <div
-                      className={`relative w-5 h-5 flex items-center justify-center border rounded ${
-                        selectedOptions[filter.name]?.[option]
-                          ? "border-blue-500 bg-[rgb(29,78,216)]"
-                          : "border-gray-400 hover:border-blue-400"
-                      }`}
-                      onClick={() =>
-                        handleOptionSelect(filter.name, option, "checkbox")
-                      }
-                    >
-                      {selectedOptions[filter.name]?.[option] && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-3.5 w-3.5 text-white"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                  </label>
-                ))}
-            </div>
-          )}
-        </div>
+      {availableFilters.map((filter) => (
+        <FilterGroup
+          key={filter.name}
+          filter={filter}
+          value={parsedFilters[filter.name]}
+          onChange={(value) => updateUrlParams(filter.name, value)}
+        />
       ))}
     </div>
   );
