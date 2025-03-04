@@ -33,7 +33,7 @@ export default async function ProductsPage({
         </div>
         <div className="p-4 flex flex-col gap-3 text-white">
           <h2 className="text-center text-xl font-black">SORT BY</h2>
-          <Filters />
+          {/* <Filters /> */}
         </div>
       </div>
 

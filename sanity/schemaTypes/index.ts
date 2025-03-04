@@ -6,12 +6,14 @@ import { saleType } from "./saleType";
 import { exhibitionType } from "./exhibitionType";
 import { commercialType } from "./commercialType";
 import { categoryFiltersType } from "./categoryFiltersType";
+import { categorySortablesType } from "./categorySortablesType";
 
 export const schema = {
   types: [
     blockContentType,
     categoryType,
     categoryFiltersType,
+    categorySortablesType,
     productType,
     orderType,
     saleType,
