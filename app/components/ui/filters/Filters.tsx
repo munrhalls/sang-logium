@@ -1,6 +1,8 @@
+"use client";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getFiltersForCategoryPathAction } from "@/app/actions/getFiltersForCategoryPathAction";
+import PriceRangeFilter from "./PriceRangeFilter";
 
 function FiltersSkeleton() {
   return (
@@ -88,6 +90,7 @@ export default function Filters() {
 
   return (
     <div className="space-y-6">
+      <PriceRangeFilter />
       {filters.map((filter) => (
         <div key={filter.name} className="border-b border-gray-800 pb-4">
           <h3 className="text-lg font-medium mb-3">{filter.name}</h3>

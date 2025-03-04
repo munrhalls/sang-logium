@@ -2,7 +2,7 @@
 
 import { useStore } from "@/store";
 import { X } from "lucide-react";
-import Filters from "./Filters";
+import Filters from "../../filters/Filters";
 // color rgb(29 78 216 / var(--tw-bg-opacity, 1))
 
 export default function ProductsFilterDrawer() {
@@ -10,7 +10,7 @@ export default function ProductsFilterDrawer() {
 
   return (
     <div
-      className={`absolute inset-y-0 left-0  w-full sm:w-96 bg-blue-950  shadow-xl text-white  transform ${
+      className={`md:hidden absolute inset-y-0 left-0  w-full sm:w-full bg-blue-950  shadow-xl text-white  transform ${
         isProductsFilterDrawerOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform duration-250 ease-in-out z-50 lg:static lg:translate-x-0 lg:w-40 lg:h-full lg:row-start-1 lg:row-span-2`}
     >
