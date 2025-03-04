@@ -2,18 +2,21 @@ import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../../live";
 
 export const getFiltersForCategoryPath = async (categoryPath: string) => {
-  const segments = categoryPath.split("/").filter(Boolean);
-  const categoryName =
-    segments.length > 1 ? segments[segments.length - 1] : segments[0];
+  // Handle full URL paths like "/products/headphones/wired"
+  // Strip any leading paths like "/products/" to get just the category part
+  const cleanPath = categoryPath.replace(/^\/products\//, "");
+
+  // Get the top-level category (first segment)
+  const topLevelCategory = cleanPath.split("/")[0];
 
   console.log(
-    "GROQ FOR FILTERS category name, path:",
-    categoryName,
-    categoryPath
+    "GROQ FOR FILTERS - top level category, clean path:",
+    topLevelCategory,
+    cleanPath
   );
 
   const FILTERS_BY_CATEGORY_QUERY = defineQuery(`
-    *[_type == "categoryFilters" && title == $categoryName][0] {
+    *[_type == "categoryFilters" && title == $topLevelCategory][0] {
       title,
       "filters": filters.filterItems[]{
         name,
@@ -23,7 +26,8 @@ export const getFiltersForCategoryPath = async (categoryPath: string) => {
         min,
         max,
         step
-      }
+      },
+      "mappings": categoryMappings[path == $cleanPath]
     }
   `);
 
@@ -31,11 +35,34 @@ export const getFiltersForCategoryPath = async (categoryPath: string) => {
     const filtersData = await sanityFetch({
       query: FILTERS_BY_CATEGORY_QUERY,
       params: {
-        categoryName,
-        categoryPath,
+        topLevelCategory,
+        cleanPath,
       },
     });
-    return filtersData.data?.filters || [];
+
+    if (!filtersData.data) {
+      console.warn(
+        `No filter document found for category: ${topLevelCategory}`
+      );
+      return [];
+    }
+
+    // Get all available filters
+    const allFilters = filtersData.data.filters || [];
+
+    // Check if we have a specific mapping for this path
+    const specificMapping =
+      filtersData.data.mappings && filtersData.data.mappings[0];
+
+    if (specificMapping) {
+      // Return only the filters that are in the mapping
+      return allFilters.filter((filter) =>
+        specificMapping.filters.includes(filter.name)
+      );
+    }
+
+    // If no specific mapping is found, return all filters (top-level behavior)
+    return allFilters;
   } catch (err) {
     console.error("Error fetching filters for category path:", err);
     return [];
