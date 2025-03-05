@@ -5,50 +5,14 @@ import { useState, useRef, useEffect } from "react";
 import { getSortablesForCategoryPathAction } from "@/app/actions/getSortablesForCategoryPathAction";
 import { useStore } from "@/store";
 import SortablesSkeleton from "./SortablesSkeleton";
-
-const ChevronUp = function () {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-4 w-4 text-white"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M5 15l7-7 7 7"
-      />
-    </svg>
-  );
-};
-
-const ChevronDown = function () {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-4 w-4 text-white"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M19 9l-7 7-7-7"
-      />
-    </svg>
-  );
-};
+import useSWR from "swr";
+import { useCallback } from "react";
+import { ChevronDown, ChevronUp, OptionIcon } from "./CustomIcons";
 
 export default function Sortables() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [sortOptions, setSortOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const { toggleProductsSortDrawer } = useStore();
 
@@ -57,65 +21,74 @@ export default function Sortables() {
 
   const loadedRef = useRef(false);
 
-  useEffect(() => {
-    if (!loadedRef.current) {
-      loadedRef.current = true;
-      setLoading(true);
+  const { data: sortOptions, isLoading } = useSWR(
+    ["sortables", pathname],
+    () => getSortablesForCategoryPathAction(pathname),
+    {
+      revalidateOnFocus: false,
+      onSuccess: (data) => {
+        if (!currentSortName && data?.length > 0) {
+          const defaultSort =
+            data.find((option) => option.isDefault) || data[0];
 
-      getSortablesForCategoryPathAction(pathname)
-        .then((data) => {
-          setSortOptions(data || []);
+          if (defaultSort) {
+            const params = new URLSearchParams(searchParams);
+            params.set("sort", defaultSort.name);
+            params.set("dir", defaultSort.defaultDirection || "asc");
 
-          if (!currentSortName && data?.length > 0) {
-            const defaultSort =
-              data.find((option) => option.isDefault) || data[0];
-
-            if (defaultSort) {
-              const params = new URLSearchParams(searchParams);
-              params.set("sort", defaultSort.name);
-              params.set("dir", defaultSort.defaultDirection || "asc");
-
-              // Use setTimeout to ensure this happens outside of React's render cycle
-              setTimeout(() => {
-                router.push(`${pathname}?${params.toString()}`);
-              }, 0);
-            }
+            // Use setTimeout to ensure this happens outside of React's render cycle
+            setTimeout(() => {
+              router.push(`${pathname}?${params.toString()}`);
+            }, 0);
           }
-        })
-        .catch((err) => console.error("Error loading sort options:", err))
-        .finally(() => setLoading(false));
+        }
+      },
+      onError: (err) => {
+        console.error("Error loading sort options:", err);
+      },
     }
-  }, [pathname, router, searchParams, currentSortName]);
+  );
 
-  const updateSort = (sortName, direction) => {
-    const params = new URLSearchParams(searchParams);
+  const updateSort = useCallback(
+    (sortName, direction) => {
+      const params = new URLSearchParams(searchParams);
 
-    if (sortName) {
-      params.set("sort", sortName);
-      params.set("dir", direction || "asc");
-    } else {
-      params.delete("sort");
-      params.delete("dir");
-    }
+      if (sortName) {
+        params.set("sort", sortName);
+        params.set("dir", direction || "asc");
+      } else {
+        params.delete("sort");
+        params.delete("dir");
+      }
 
-    router.push(`${pathname}?${params.toString()}`);
-  };
+      setTimeout(() => {
+        router.push(`${pathname}?${params.toString()}`);
+      }, 0);
+    },
+    [pathname, router, searchParams]
+  );
 
-  const handleSortSelect = (sortName, direction) => {
-    updateSort(sortName, direction);
+  const handleSortSelect = useCallback(
+    (sortName, direction) => {
+      updateSort(sortName, direction);
 
-    if (window.innerWidth < 768) {
-      toggleProductsSortDrawer();
-    }
-  };
+      if (window.innerWidth < 768) {
+        toggleProductsSortDrawer();
+      }
+    },
+    [updateSort, toggleProductsSortDrawer]
+  );
 
-  const toggleDirection = (sortName, currentDirection) => {
-    const newDirection = currentDirection === "asc" ? "desc" : "asc";
-    updateSort(sortName, newDirection);
-  };
+  const toggleDirection = useCallback(
+    (sortName, currentDirection) => {
+      const newDirection = currentDirection === "asc" ? "desc" : "asc";
+      updateSort(sortName, newDirection);
+    },
+    [updateSort]
+  );
 
-  if (loading) return <SortablesSkeleton />;
-  if (!sortOptions.length) return <p>No sort options available</p>;
+  if (isLoading) return <SortablesSkeleton />;
+  if (!sortOptions?.length) return <p>No sort options available</p>;
 
   return (
     <div className="space-y-6">
@@ -142,20 +115,7 @@ export default function Sortables() {
                     )
                   }
                 >
-                  {currentSortName === option.name && (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-3.5 w-3.5 text-white"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  )}
+                  {currentSortName === option.name && <OptionIcon />}
                 </div>
               </label>
 
