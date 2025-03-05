@@ -7,12 +7,6 @@ import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
 // Debug: Log environment variables to ensure they are loaded correctly
-// console.log("SANITY_STUDIO_PROJECT_ID:", process.env.SANITY_STUDIO_PROJECT_ID);
-// console.log(
-//   "NEXT_PUBLIC_SANITY_DATASET:",
-//   process.env.NEXT_PUBLIC_SANITY_DATASET
-// );
-console.log("SANITY_API_TOKEN:", process.env.SANITY_API_TOKEN);
 
 const client = createClient({
   projectId: process.env.SANITY_STUDIO_PROJECT_ID,
@@ -61,7 +55,6 @@ function processBlocks(paragraphs) {
 
 async function importProducts() {
   for (const product of products) {
-    // console.log(product);
     try {
       // Map and transform data
       const name = product.title || "Unnamed Product";
@@ -117,7 +110,6 @@ async function importProducts() {
 
       // Create the document in Sanity
       await client.create(doc);
-      // console.log(`Imported product: ${name}`);
     } catch (error) {
       // console.error(`Error importing product ${product.title}:`, error.message);
     }

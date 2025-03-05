@@ -143,7 +143,6 @@ addSubcategories().then(() => console.log("Subcategories added successfully"));
 //       };
 
 //       const result = await client.create(doc);
-//       console.log(`Created category: ${result.title}`);
 //     }
 //   } catch (error) {
 //     console.error("Error seeding categories:", error);

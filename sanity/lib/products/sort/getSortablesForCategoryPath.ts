@@ -9,12 +9,6 @@ export const getSortablesForCategoryPath = async (categoryPath: string) => {
   // Get the top-level category (first segment)
   const topLevelCategory = cleanPath.split("/")[0];
 
-  console.log(
-    "GROQ FOR SORTABLES - top level category, clean path:",
-    topLevelCategory,
-    cleanPath
-  );
-
   const SORTABLES_BY_CATEGORY_QUERY = defineQuery(`
     *[_type == "categorySortables" && title == $topLevelCategory][0] {
       title,

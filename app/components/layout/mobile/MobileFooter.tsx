@@ -13,7 +13,6 @@ export default function MobileFooter() {
   // const createClerkPasskey = async () => {
   //   try {
   //     const response = await user?.createPasskey();
-  //     console.log(response);
   //   } catch (err) {
   //     console.error(err);
   //   }

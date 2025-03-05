@@ -9,12 +9,6 @@ export const getFiltersForCategoryPath = async (categoryPath: string) => {
   // Get the top-level category (first segment)
   const topLevelCategory = cleanPath.split("/")[0];
 
-  console.log(
-    "GROQ FOR FILTERS - top level category, clean path:",
-    topLevelCategory,
-    cleanPath
-  );
-
   const FILTERS_BY_CATEGORY_QUERY = defineQuery(`
     *[_type == "categoryFilters" && title == $topLevelCategory][0] {
       title,
