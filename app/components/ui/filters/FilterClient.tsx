@@ -1,19 +1,27 @@
 "use client";
 
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRef, useTransition } from "react";
 import FilterItem from "./FilterItem";
 import parseFilterValue from "./helpers/parseFilterValue";
+import { getProductsByCategoryPathAndFilterSortsAction } from "@/app/actions/getProductsByCategoryPathAndFilterSortsAction";
 
-export default function FiltersClient({ initialFilters, currentFilters }) {
+export default function FiltersClient({
+  initialFilters,
+  currentFilters,
+  category,
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const formRef = useRef(null);
+  const [isPending, startTransition] = useTransition();
 
   if (!Array.isArray(initialFilters) || initialFilters.length === 0) {
     return <div className="filters">No filters available</div>;
   }
 
-  function handleFilterChange(name, value, type) {
+  async function handleFilterChange(name, value, type) {
     const params = new URLSearchParams(searchParams.toString());
 
     if (!value || (Array.isArray(value) && value.length === 0)) {
@@ -25,12 +33,19 @@ export default function FiltersClient({ initialFilters, currentFilters }) {
     }
 
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
+
+    if (formRef.current) {
+      const formData = new FormData(formRef.current);
+      formData.append("categoryPath", category);
+
+      startTransition(async () => {
+        await getProductsByCategoryPathAndFilterSortsAction(formData);
+      });
+    }
   }
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    // Form is already submitted programmatically when filters change
-    // This prevents default form submission when Enter is pressed
   }
 
   function handleReset() {
@@ -40,7 +55,7 @@ export default function FiltersClient({ initialFilters, currentFilters }) {
   return (
     <div className="filters p-4">
       <h3 className="text-lg font-bold mb-4">Filters</h3>
-      <form onSubmit={handleFormSubmit} className="space-y-4">
+      <form ref={formRef} onSubmit={handleFormSubmit} className="space-y-4">
         {initialFilters.map((filter, index) => {
           if (!filter || !filter.name || !filter.type) return null;
 
@@ -65,6 +80,7 @@ export default function FiltersClient({ initialFilters, currentFilters }) {
               type="reset"
               onClick={handleReset}
               className="px-4 py-2 border border-gray-300 rounded"
+              disabled={isPending}
             >
               Clear All
             </button>
