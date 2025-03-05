@@ -29,7 +29,7 @@ export default async function ProductsPage({
   const initialProducts = await getProductsByCategoryPath(path);
   const filterOptions = await getFiltersForCategoryPathAction(path);
   const sortOptions = await getSortablesForCategoryPathAction(path);
-
+  console.log(filterOptions, "filterOptions");
   // return (
   //   <div className="h-full isolate relative grid grid-rows-[auto_auto_1fr] lg:grid-rows-[3rem_1fr] lg:grid-cols-[5fr_12fr]">
   //     <div className=" text-white bg-blue-950 lg:hidden">
@@ -66,13 +66,13 @@ export default async function ProductsPage({
   // );
 
   return (
-    <div className="container">
+    <div className="grid grid-cols-[1fr_3fr] gap-4">
       <CategoryBreadcrumbs categoryParts={categoryParts} />
       <div>
         <CategoryTitleIcon category={rootCategory} />
         <h1></h1>
       </div>
-      <div className="sidebar">
+      <div>
         <FiltersClient
           initialFilters={filterOptions}
           currentFilters={resolvedSearchParams}

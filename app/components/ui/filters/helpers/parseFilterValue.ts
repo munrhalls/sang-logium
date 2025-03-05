@@ -1,11 +1,24 @@
-export default function parseFilterValue(value) {
-  if (!value) return undefined;
+export default function parseFilterValue(paramValue, filterType) {
+  if (paramValue === null || paramValue === undefined) {
+    return null;
+  }
 
   try {
-    // Try to parse as JSON for object values
-    return JSON.parse(value);
-  } catch (e) {
-    // If not valid JSON, return as is
-    return value;
+    switch (filterType) {
+      case "range":
+        return parseInt(paramValue, 10) || 0;
+      case "multiselect":
+        return JSON.parse(paramValue) || [];
+      case "checkbox":
+        return paramValue === "true" || paramValue === true;
+      default:
+        return paramValue;
+    }
+  } catch (error) {
+    console.error(`Error parsing ${filterType} value:`, error);
+    if (filterType === "multiselect") return [];
+    if (filterType === "range") return 0;
+    if (filterType === "checkbox") return false;
+    return null;
   }
 }
