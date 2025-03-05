@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
 import { getSortablesForCategoryPathAction } from "@/app/actions/getSortablesForCategoryPathAction";
 import { useStore } from "@/store";
 import SortablesSkeleton from "./SortablesSkeleton";
@@ -13,13 +12,10 @@ export default function Sortables() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [loading, setLoading] = useState(true);
   const { toggleProductsSortDrawer } = useStore();
 
   const currentSortName = searchParams.get("sort") || "";
   const currentSortDir = searchParams.get("dir") || "asc";
-
-  const loadedRef = useRef(false);
 
   const { data: sortOptions, isLoading } = useSWR(
     ["sortables", pathname],
