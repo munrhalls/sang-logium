@@ -5,140 +5,92 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { getFiltersForCategoryPathAction } from "@/app/actions/getFiltersForCategoryPathAction";
 import PriceRangeFilter from "./PriceRangeFilter";
 import FilterGroup from "./FilterGroup";
-
-function FiltersSkeleton() {
-  return (
-    <div className="space-y-4 animate-pulse">
-      {[1, 2, 3].map((item) => (
-        <div key={item}>
-          <div className="h-5 w-24 bg-gray-700 rounded mb-3"></div>
-          <div className="space-y-2">
-            {[1, 2, 3].map((option) => (
-              <div
-                key={option}
-                className="h-4 w-full bg-gray-700 rounded"
-              ></div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function parseParams(searchParams) {
-  const parsedFilters = {};
-
-  for (const [key, value] of searchParams.entries()) {
-    try {
-      if (
-        (value.startsWith("[") && value.endsWith("]")) ||
-        (value.startsWith("{") && value.endsWith("}"))
-      ) {
-        parsedFilters[key] = JSON.parse(value);
-      } else if (!isNaN(Number(value))) {
-        parsedFilters[key] = Number(value);
-      } else if (value === "true" || value === "false") {
-        parsedFilters[key] = value === "true";
-      } else {
-        parsedFilters[key] = value;
-      }
-    } catch (e) {
-      parsedFilters[key] = value;
-    }
-  }
-
-  return parsedFilters;
-}
+import FiltersSkeleton from "./FiltersSkeleton";
+import parseParamsToFilters from "@/lib/parseParamsToFilters";
+import useSWR from "swr";
+import { useSWRConfig } from "swr";
 
 export default function Filters() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const parsedFilters = parseParamsToFilters(searchParams);
+  const { mutate } = useSWRConfig();
 
-  const parsedFilters = parseParams(searchParams);
+  const { data: availableFilters, isLoading } = useSWR(
+    ["filters", pathname],
+    () => getFiltersForCategoryPathAction(pathname),
+    {
+      revalidateOnFocus: false,
+      onSuccess: (data) => {
+        const defaultValues = {};
+        let needsUpdate = false;
 
-  const [availableFilters, setAvailableFilters] = useState([]);
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
-  const [isUpdating, setIsUpdating] = useState(false);
+        (data || []).forEach((filter) => {
+          if (parsedFilters[filter.name] === undefined && filter.defaultValue) {
+            defaultValues[filter.name] = filter.defaultValue;
+            needsUpdate = true;
+          }
+        });
 
-  const loadedRef = useRef(false);
+        if (needsUpdate) {
+          const newParams = new URLSearchParams(searchParams);
 
-  useEffect(() => {
-    if (!loadedRef.current) {
-      loadedRef.current = true;
-
-      getFiltersForCategoryPathAction(pathname)
-        .then((data) => {
-          setAvailableFilters(data || []);
-
-          const defaultValues = {};
-          let needsUpdate = false;
-
-          (data || []).forEach((filter) => {
-            if (
-              parsedFilters[filter.name] === undefined &&
-              filter.defaultValue
-            ) {
-              defaultValues[filter.name] = filter.defaultValue;
-              needsUpdate = true;
+          Object.entries(defaultValues).forEach(([key, value]) => {
+            if (typeof value === "object") {
+              newParams.set(key, JSON.stringify(value));
+            } else {
+              newParams.set(key, String(value));
             }
           });
 
-          if (needsUpdate) {
-            const newParams = new URLSearchParams(searchParams);
-
-            Object.entries(defaultValues).forEach(([key, value]) => {
-              if (typeof value === "object") {
-                newParams.set(key, JSON.stringify(value));
-              } else {
-                newParams.set(key, String(value));
-              }
-            });
-
-            // Use setTimeout to further ensure this happens outside of React's render cycle
-            setTimeout(() => {
-              router.replace(`${pathname}?${newParams.toString()}`, {
-                scroll: false,
-              });
-            }, 0);
-          }
-        })
-        .catch((err) => console.error("Error fetching filters:", err))
-        .finally(() => setIsInitialLoading(false));
+          router.replace(`${pathname}?${newParams.toString()}`, {
+            scroll: false,
+          });
+        }
+      },
     }
-  }, [pathname, router, searchParams, parsedFilters]);
+  );
 
   const updateUrlParams = useCallback(
     (filterName, value) => {
-      setIsUpdating(true);
+      const updateParams = () => {
+        const params = new URLSearchParams(searchParams);
 
-      const params = new URLSearchParams(searchParams);
+        if (
+          value === undefined ||
+          value === null ||
+          (Array.isArray(value) && value.length === 0) ||
+          (typeof value === "object" &&
+            !Array.isArray(value) &&
+            Object.values(value).every((v) => !v))
+        ) {
+          params.delete(filterName);
+        } else if (typeof value === "object") {
+          params.set(filterName, JSON.stringify(value));
+        } else {
+          params.set(filterName, String(value));
+        }
 
-      if (
-        value === undefined ||
-        value === null ||
-        (Array.isArray(value) && value.length === 0) ||
-        (typeof value === "object" &&
-          !Array.isArray(value) &&
-          Object.values(value).every((v) => !v))
-      ) {
-        params.delete(filterName);
-      } else if (typeof value === "object") {
-        params.set(filterName, JSON.stringify(value));
-      } else {
-        params.set(filterName, String(value));
-      }
+        setTimeout(() => {
+          router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+        }, 0);
+      };
 
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-
-      setTimeout(() => setIsUpdating(false), 500);
+      mutate(["filters", pathname], updateParams, {
+        optimisticData: (currentData) => {
+          return currentData;
+        },
+        rollbackOnError: true,
+        populateCache: false,
+        revalidate: false,
+      });
     },
-    [pathname, router, searchParams]
+    [pathname, router, searchParams, mutate]
   );
 
-  if (isInitialLoading) return <FiltersSkeleton />;
-  if (!availableFilters.length) return <p>No filters available</p>;
+  if (isLoading) return <FiltersSkeleton />;
+  if (!availableFilters?.length) return <p>No filters available</p>;
 
   return (
     <div className="space-y-6 relative">
