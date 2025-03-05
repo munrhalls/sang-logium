@@ -2,7 +2,7 @@
 
 import { useStore } from "@/store";
 import { X } from "lucide-react";
-import Sortables from "../../sortables/Sortables";
+import Sortables from "../../sortables/SortClient";
 
 export default function ProductsSortDrawer() {
   const { isProductsSortDrawerOpen, toggleProductsSortDrawer } = useStore();

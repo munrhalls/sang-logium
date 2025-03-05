@@ -1,13 +1,10 @@
 "use server";
 
 import { getFiltersForCategoryPath } from "@/sanity/lib/products/filter/getFiltersForCategoryPath";
-import parseUrlToCategoryPath from "@/lib/parseUrlToCategoryPath";
 
-export async function getFiltersForCategoryPathAction(path) {
+export async function getFiltersForCategoryPathAction(path: string) {
   try {
-    const parsedPath = parseUrlToCategoryPath(path);
-    console.log(parsedPath, "parsedPath");
-    const filters = await getFiltersForCategoryPath(parsedPath);
+    const filters = await getFiltersForCategoryPath(path);
     return filters;
   } catch (error) {
     console.error("Error:", error);
