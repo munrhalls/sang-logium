@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { getSortablesForCategoryPathAction } from "@/app/actions/getSortablesForCategoryPathAction";
 import { useStore } from "@/store";
 
@@ -23,6 +23,7 @@ const ChevronUp = function () {
     </svg>
   );
 };
+
 const ChevronDown = function () {
   return (
     <svg
@@ -41,6 +42,7 @@ const ChevronDown = function () {
     </svg>
   );
 };
+
 function SortablesSkeleton() {
   return (
     <div className="space-y-4 animate-pulse">
@@ -67,56 +69,60 @@ export default function Sortables() {
   const searchParams = useSearchParams();
   const [sortOptions, setSortOptions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { toggleProductsSortDrawer } = useStore();
 
-  // Get the current sort from URL query parameters instead of relying on store
   const currentSortName = searchParams.get("sort") || "";
   const currentSortDir = searchParams.get("dir") || "asc";
 
-  // Get store for drawer state only - not for sort state
-  const { toggleProductsSortDrawer } = useStore();
-
-  // Create a function to update the URL with sort params
-  const updateSort = useCallback(
-    (sortName, direction) => {
-      const params = new URLSearchParams(searchParams);
-
-      if (sortName) {
-        params.set("sort", sortName);
-        params.set("dir", direction || "asc");
-      } else {
-        params.delete("sort");
-        params.delete("dir");
-      }
-
-      // Update URL with new sort params
-      router.push(`${pathname}?${params.toString()}`);
-    },
-    [pathname, router, searchParams]
-  );
+  const loadedRef = useRef(false);
 
   useEffect(() => {
-    setLoading(true);
-    getSortablesForCategoryPathAction(pathname)
-      .then((data) => {
-        console.log("Client received sort options:", data);
-        setSortOptions(data || []);
+    if (!loadedRef.current) {
+      loadedRef.current = true;
+      setLoading(true);
 
-        // If there's no sort in URL but we have options, set default
-        if (!currentSortName && data?.length > 0) {
-          const defaultSort =
-            data.find((option) => option.isDefault) || data[0];
-          if (defaultSort) {
-            updateSort(defaultSort.name, defaultSort.defaultDirection || "asc");
+      getSortablesForCategoryPathAction(pathname)
+        .then((data) => {
+          setSortOptions(data || []);
+
+          if (!currentSortName && data?.length > 0) {
+            const defaultSort =
+              data.find((option) => option.isDefault) || data[0];
+
+            if (defaultSort) {
+              const params = new URLSearchParams(searchParams);
+              params.set("sort", defaultSort.name);
+              params.set("dir", defaultSort.defaultDirection || "asc");
+
+              // Use setTimeout to ensure this happens outside of React's render cycle
+              setTimeout(() => {
+                router.push(`${pathname}?${params.toString()}`);
+              }, 0);
+            }
           }
-        }
-      })
-      .catch((err) => console.error("Client error loading sort options:", err))
-      .finally(() => setLoading(false));
-  }, [pathname, currentSortName, updateSort]);
+        })
+        .catch((err) => console.error("Error loading sort options:", err))
+        .finally(() => setLoading(false));
+    }
+  }, [pathname, router, searchParams, currentSortName]);
+
+  const updateSort = (sortName, direction) => {
+    const params = new URLSearchParams(searchParams);
+
+    if (sortName) {
+      params.set("sort", sortName);
+      params.set("dir", direction || "asc");
+    } else {
+      params.delete("sort");
+      params.delete("dir");
+    }
+
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   const handleSortSelect = (sortName, direction) => {
     updateSort(sortName, direction);
-    // Optional: close drawer on mobile after selection
+
     if (window.innerWidth < 768) {
       toggleProductsSortDrawer();
     }

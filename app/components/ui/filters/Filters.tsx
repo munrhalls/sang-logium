@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { getFiltersForCategoryPathAction } from "@/app/actions/getFiltersForCategoryPathAction";
 import PriceRangeFilter from "./PriceRangeFilter";
 import FilterGroup from "./FilterGroup";
@@ -51,7 +51,7 @@ function parseParams(searchParams) {
   return parsedFilters;
 }
 
-export default function FilterManager() {
+export default function Filters() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -64,42 +64,50 @@ export default function FilterManager() {
 
   const loadedRef = useRef(false);
 
-  if (!loadedRef.current) {
-    loadedRef.current = true;
+  useEffect(() => {
+    if (!loadedRef.current) {
+      loadedRef.current = true;
 
-    getFiltersForCategoryPathAction(pathname)
-      .then((data) => {
-        setAvailableFilters(data || []);
+      getFiltersForCategoryPathAction(pathname)
+        .then((data) => {
+          setAvailableFilters(data || []);
 
-        const defaultValues = {};
-        let needsUpdate = false;
+          const defaultValues = {};
+          let needsUpdate = false;
 
-        (data || []).forEach((filter) => {
-          if (parsedFilters[filter.name] === undefined && filter.defaultValue) {
-            defaultValues[filter.name] = filter.defaultValue;
-            needsUpdate = true;
-          }
-        });
-
-        if (needsUpdate) {
-          const newParams = new URLSearchParams(searchParams);
-
-          Object.entries(defaultValues).forEach(([key, value]) => {
-            if (typeof value === "object") {
-              newParams.set(key, JSON.stringify(value));
-            } else {
-              newParams.set(key, String(value));
+          (data || []).forEach((filter) => {
+            if (
+              parsedFilters[filter.name] === undefined &&
+              filter.defaultValue
+            ) {
+              defaultValues[filter.name] = filter.defaultValue;
+              needsUpdate = true;
             }
           });
 
-          router.replace(`${pathname}?${newParams.toString()}`, {
-            scroll: false,
-          });
-        }
-      })
-      .catch((err) => console.error("Error fetching filters:", err))
-      .finally(() => setIsInitialLoading(false));
-  }
+          if (needsUpdate) {
+            const newParams = new URLSearchParams(searchParams);
+
+            Object.entries(defaultValues).forEach(([key, value]) => {
+              if (typeof value === "object") {
+                newParams.set(key, JSON.stringify(value));
+              } else {
+                newParams.set(key, String(value));
+              }
+            });
+
+            // Use setTimeout to further ensure this happens outside of React's render cycle
+            setTimeout(() => {
+              router.replace(`${pathname}?${newParams.toString()}`, {
+                scroll: false,
+              });
+            }, 0);
+          }
+        })
+        .catch((err) => console.error("Error fetching filters:", err))
+        .finally(() => setIsInitialLoading(false));
+    }
+  }, [pathname, router, searchParams, parsedFilters]);
 
   const updateUrlParams = useCallback(
     (filterName, value) => {
