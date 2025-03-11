@@ -17,7 +17,10 @@ export default function Filters({ filterOptions }) {
   function handleFilterChange(name, value, type) {
     const params = new URLSearchParams(searchParams.toString());
 
-    if (!value || (Array.isArray(value) && value.length === 0)) {
+    // For checkbox type, if value is false, delete the parameter
+    if (type === "checkbox" && value === false) {
+      params.delete(name);
+    } else if (!value || (Array.isArray(value) && value.length === 0)) {
       params.delete(name);
     } else if (type === "multiselect") {
       params.set(name, JSON.stringify(value));
@@ -55,14 +58,13 @@ export default function Filters({ filterOptions }) {
           const normalizedName = filter.name.toLowerCase();
           const paramValue = searchParams.get(normalizedName);
           const currentValue = parseFilterValue(paramValue, filter.type);
-          // console.dir(paramValue, { depth: 2 });
           return (
             <FilterItem
               key={`${filter.name}-${index}`}
               filter={filter}
               value={currentValue}
               onChange={(value) =>
-                handleFilterChange(filter.name, value, filter.type)
+                handleFilterChange(normalizedName, value, filter.type)
               }
             />
           );
