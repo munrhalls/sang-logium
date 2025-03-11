@@ -51,16 +51,44 @@ const getProductsByCategoryPathAndSelectedFiltersAndSorting = async (
     return field.includes(" ") ? `"${field}"` : field;
   };
 
-  // Handle special case for "in stock" filter
-  const processedFilters = filterObjects.map((filter) => {
+  // Separate overviewField filters and regular filters
+  const overviewFieldFilters: string[] = [];
+  const regularFilters: FilterObject[] = [];
+
+  filterObjects.forEach((filter) => {
+    // Handle "in stock" filter
     if (filter.field.toLowerCase() === "in stock" && filter.value === "true") {
-      return {
+      regularFilters.push({
         field: "stock",
         operator: ">",
         value: 0,
-      };
+      });
+      return;
     }
-    return filter;
+
+    // Check if this is a wearing style or cup style filter
+    const knownOverviewStyles = [
+      "in-ear",
+      "on-ear",
+      "over-ear",
+      "open-back",
+      "closed-back",
+      "design",
+    ];
+    const filterValue =
+      typeof filter.value === "string" ? filter.value : String(filter.value);
+    const filterField = filter.field.toLowerCase();
+
+    if (
+      knownOverviewStyles.includes(filterField.toLowerCase()) ||
+      knownOverviewStyles.includes(filterValue.toLowerCase())
+    ) {
+      // Save this value to be handled specially in the GROQ query
+      overviewFieldFilters.push(filterValue);
+    } else {
+      // Regular filter
+      regularFilters.push(filter);
+    }
   });
 
   // Start with the base filter condition
@@ -69,9 +97,9 @@ const getProductsByCategoryPathAndSelectedFiltersAndSorting = async (
     `(categoryPath match $path + "/*" || categoryPath == $path)`,
   ];
 
-  // Add additional filter conditions
-  if (processedFilters && processedFilters.length > 0) {
-    processedFilters.forEach((filter) => {
+  // Add additional filter conditions for regular filters
+  if (regularFilters.length > 0) {
+    regularFilters.forEach((filter) => {
       const fieldName = formatFieldName(filter.field);
 
       // Always use 'in' operator for arrays
@@ -101,6 +129,19 @@ const getProductsByCategoryPathAndSelectedFiltersAndSorting = async (
     });
   }
 
+  // Add overviewField filters if any exist - using simplified, verified GROQ syntax
+  if (overviewFieldFilters.length > 0) {
+    // Create a condition for each filter value
+    const overviewConditions = overviewFieldFilters.map((value) => {
+      // Escape any double quotes in the value
+      const escapedValue = value.replace(/"/g, '\\"');
+      return `count(overviewFields[value match "${escapedValue}"]) > 0`;
+    });
+
+    // Join conditions with OR operator
+    queryFilters.push(`(${overviewConditions.join(" || ")})`);
+  }
+
   // Combine all filters with AND
   const filterQuery = queryFilters.join(" && ");
 
@@ -114,15 +155,9 @@ const getProductsByCategoryPathAndSelectedFiltersAndSorting = async (
 
   console.log(fullQuery, "fullQuery");
 
-  // Detailed logging to verify "in stock" handling
-  const hasInStockFilter = filterObjects.some(
-    (f) => f.field.toLowerCase() === "in stock" && f.value === "true"
-  );
-  if (hasInStockFilter) {
-    console.log(
-      "Query contains 'in stock' filter, converted to:",
-      `Looking for products where stock > 0 in query: ${fullQuery}`
-    );
+  // Detailed logging
+  if (overviewFieldFilters.length > 0) {
+    console.log("Query contains overviewField filters:", overviewFieldFilters);
   }
 
   const PRODUCTS_QUERY = await defineQuery(fullQuery);
