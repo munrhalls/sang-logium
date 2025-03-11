@@ -2,7 +2,7 @@
 
 import { useStore } from "@/store";
 import { X } from "lucide-react";
-import Filters from "../../filters/FilterClient";
+import Filters from "../../filters/Filters";
 // color rgb(29 78 216 / var(--tw-bg-opacity, 1))
 
 export default function ProductsFilterDrawer() {

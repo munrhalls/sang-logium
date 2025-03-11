@@ -5,16 +5,12 @@ import FilterItem from "./FilterItem";
 import parseFilterValue from "./helpers/parseFilterValue";
 import normalizeFilters from "./helpers/normalizeFilters";
 
-export default function FiltersClient({
-  initialFilters,
-  currentFilters,
-  category,
-}) {
+export default function Filters({ filterOptions }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  if (!Array.isArray(initialFilters) || initialFilters.length === 0) {
+  if (!Array.isArray(filterOptions) || filterOptions.length === 0) {
     return <div className="filters">No filters available</div>;
   }
 
@@ -54,13 +50,12 @@ export default function FiltersClient({
     <div className="filters p-4">
       <h3 className="text-lg font-bold mb-4">Filters</h3>
       <form onSubmit={handleFormSubmit} className="space-y-4">
-        {initialFilters.map((filter, index) => {
+        {filterOptions.map((filter, index) => {
           if (!filter || !filter.name || !filter.type) return null;
-
           const normalizedName = filter.name.toLowerCase();
           const paramValue = searchParams.get(normalizedName);
           const currentValue = parseFilterValue(paramValue, filter.type);
-
+          console.dir(paramValue, { depth: 2 });
           return (
             <FilterItem
               key={`${filter.name}-${index}`}
@@ -73,7 +68,7 @@ export default function FiltersClient({
           );
         })}
 
-        {initialFilters.length > 0 && (
+        {filterOptions.length > 0 && (
           <div className="mt-4">
             <button
               type="reset"

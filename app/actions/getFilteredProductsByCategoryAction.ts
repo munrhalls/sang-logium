@@ -36,7 +36,6 @@ export async function getFilteredProductsByCategoryAction(
   if (searchParams.has("design")) params.design = searchParams.get("design");
   if (searchParams.has("connection"))
     params.connection = searchParams.get("connection");
-  console.log("query", query);
   try {
     const products = await sanityFetch({ query, params });
     return products.data || [];
