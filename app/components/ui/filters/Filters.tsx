@@ -55,7 +55,7 @@ export default function Filters({ filterOptions }) {
           const normalizedName = filter.name.toLowerCase();
           const paramValue = searchParams.get(normalizedName);
           const currentValue = parseFilterValue(paramValue, filter.type);
-          console.dir(paramValue, { depth: 2 });
+          // console.dir(paramValue, { depth: 2 });
           return (
             <FilterItem
               key={`${filter.name}-${index}`}

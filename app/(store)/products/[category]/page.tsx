@@ -3,8 +3,8 @@ import CategoryBreadcrumbs from "@/app/components/ui/breadcrumbs/CategoryBreadcr
 import CategoryTitleIcon from "@/app/components/ui/icons/CategoryTitleIcon";
 import Filters from "@/app/components/ui/filters/Filters";
 import { getFiltersForCategoryPathAction } from "@/app/actions/getFiltersForCategoryPathAction";
-import { getFilteredProductsByCategoryAction } from "@/app/actions/getFilteredProductsByCategoryAction";
-
+import getFilterObjects from "../helpers/getFilterObjects";
+import getProductsByCategoryPathAndSelectedFiltersAndSorting from "@/sanity/lib/products/getProductsByCategoryPathAndSelectedFiltersAndSorting";
 export default async function ProductsPage({
   params,
   searchParams,
@@ -18,41 +18,30 @@ export default async function ProductsPage({
   const leafCategory = categoryParts[categoryParts.length - 1];
 
   // Convert searchParams to filter objects
-  const filterObjects = [];
+  const filterObjects = getFilterObjects(searchParams);
+  const defaultSorting = { field: "name", direction: "asc" };
 
-  // Extract each param and create filter objects
-  for (const field in searchParams) {
-    const value = searchParams[field];
-    if (!value) continue;
+  // Start both promises in parallel
+  const productsPromise = getProductsByCategoryPathAndSelectedFiltersAndSorting(
+    path,
+    filterObjects
+  );
+  const filtersPromise = getFiltersForCategoryPathAction(path);
 
-    // Determine operator based on field type/context
-    let operator = "==";
-
-    if (field === "priceRange") operator = "<=";
-    if (field === "inStock") operator = ">";
-    if (field === "design" || field === "connection") operator = "in";
-
-    // Create filter object
-    filterObjects.push({
-      field: field === "inStock" ? "stock" : field,
-      operator,
-      value: field === "inStock" ? 0 : value,
-    });
-  }
-
-  console.log("Filter Objects:", filterObjects);
-
-  // Use Promise.allSettled to handle potential fetch failures gracefully
-  const [productsResult, filtersResult] = await Promise.allSettled([
-    getFilteredProductsByCategoryAction(path),
-    getFiltersForCategoryPathAction(path),
+  // Wait for both promises to resolve
+  const [products, filterOptions] = await Promise.all([
+    productsPromise.catch((error) => {
+      console.error("Failed to fetch products:", error);
+      return [];
+    }),
+    filtersPromise.catch((error) => {
+      console.error("Failed to fetch filters:", error);
+      return [];
+    }),
   ]);
 
-  // Extract data or use empty arrays as fallbacks
-  const products =
-    productsResult.status === "fulfilled" ? productsResult.value : [];
-  const filterOptions =
-    filtersResult.status === "fulfilled" ? filtersResult.value : [];
+  console.log(products, "products");
+  console.log(filterOptions, "filterOptions");
 
   return (
     <div className="grid grid-cols-[1fr_3fr] gap-4">
