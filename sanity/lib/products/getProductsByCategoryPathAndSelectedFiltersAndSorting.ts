@@ -51,6 +51,18 @@ const getProductsByCategoryPathAndSelectedFiltersAndSorting = async (
     return field.includes(" ") ? `"${field}"` : field;
   };
 
+  // Handle special case for "in stock" filter
+  const processedFilters = filterObjects.map((filter) => {
+    if (filter.field.toLowerCase() === "in stock" && filter.value === "true") {
+      return {
+        field: "stock",
+        operator: ">",
+        value: 0,
+      };
+    }
+    return filter;
+  });
+
   // Start with the base filter condition
   let queryFilters = [
     `_type == 'product'`,
@@ -58,8 +70,8 @@ const getProductsByCategoryPathAndSelectedFiltersAndSorting = async (
   ];
 
   // Add additional filter conditions
-  if (filterObjects && filterObjects.length > 0) {
-    filterObjects.forEach((filter) => {
+  if (processedFilters && processedFilters.length > 0) {
+    processedFilters.forEach((filter) => {
       const fieldName = formatFieldName(filter.field);
 
       // Always use 'in' operator for arrays
@@ -101,6 +113,18 @@ const getProductsByCategoryPathAndSelectedFiltersAndSorting = async (
   fullQuery += ` | order(${sortField} ${sortDirection})`;
 
   console.log(fullQuery, "fullQuery");
+
+  // Detailed logging to verify "in stock" handling
+  const hasInStockFilter = filterObjects.some(
+    (f) => f.field.toLowerCase() === "in stock" && f.value === "true"
+  );
+  if (hasInStockFilter) {
+    console.log(
+      "Query contains 'in stock' filter, converted to:",
+      `Looking for products where stock > 0 in query: ${fullQuery}`
+    );
+  }
+
   const PRODUCTS_QUERY = await defineQuery(fullQuery);
 
   try {
