@@ -7,16 +7,40 @@ import { getFilteredProductsByCategoryAction } from "@/app/actions/getFilteredPr
 
 export default async function ProductsPage({
   params,
+  searchParams,
 }: {
   params: { category: string };
-  searchParams: URLSearchParams;
+  searchParams: { [key: string]: string | string[] };
 }) {
   const path = (await params).category;
   const categoryParts = path.split("/");
   const rootCategory = categoryParts[0];
   const leafCategory = categoryParts[categoryParts.length - 1];
 
-  const selectedFilters = new URLSearchParams();
+  // Convert searchParams to filter objects
+  const filterObjects = [];
+
+  // Extract each param and create filter objects
+  for (const field in searchParams) {
+    const value = searchParams[field];
+    if (!value) continue;
+
+    // Determine operator based on field type/context
+    let operator = "==";
+
+    if (field === "priceRange") operator = "<=";
+    if (field === "inStock") operator = ">";
+    if (field === "design" || field === "connection") operator = "in";
+
+    // Create filter object
+    filterObjects.push({
+      field: field === "inStock" ? "stock" : field,
+      operator,
+      value: field === "inStock" ? 0 : value,
+    });
+  }
+
+  console.log("Filter Objects:", filterObjects);
 
   // Use Promise.allSettled to handle potential fetch failures gracefully
   const [productsResult, filtersResult] = await Promise.allSettled([
