@@ -1,5 +1,9 @@
 export default function parseFilterValue(paramValue, filterType) {
   if (paramValue === null || paramValue === undefined) {
+    // Return appropriate defaults based on filter type
+    if (filterType === "multiselect") return [];
+    if (filterType === "checkbox") return false;
+    if (filterType === "range") return 0;
     return null;
   }
 

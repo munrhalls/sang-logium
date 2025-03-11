@@ -2,9 +2,9 @@ import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../live";
 
 const getProductsByCategoryPath = async (path: string) => {
-  let query =
-    '*[_type == "product" && categoryPath match $path + "/*" || categoryPath == $path] | order(name asc)';
-  const PRODUCTS_BY_CATEGORY_PATH_QUERY = await defineQuery(query);
+  const PRODUCTS_BY_CATEGORY_PATH_QUERY = await defineQuery(`
+    *[_type == 'product' && categoryPath match $path + "/*" || categoryPath == $path] | order(name asc)
+  `);
 
   try {
     const products = await sanityFetch({

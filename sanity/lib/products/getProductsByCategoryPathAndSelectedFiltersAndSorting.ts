@@ -36,6 +36,10 @@ const getProductsByCategoryPathAndSelectedFiltersAndSorting = async (
       }
     }
 
+    // Handle boolean strings
+    if (value === "true") return "true";
+    if (value === "false") return "false";
+
     // Handle regular string/number values
     return typeof value === "string"
       ? `"${value.replace(/"/g, '\\"')}"`
