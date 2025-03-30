@@ -1,5 +1,3 @@
-// categoryFiltersType.ts
-
 import { defineType, defineField } from "sanity";
 
 export const categoryFiltersType = defineType({
@@ -46,6 +44,21 @@ export const categoryFiltersType = defineType({
                       "multiselect",
                     ],
                   },
+                  validation: (rule) => rule.required(),
+                },
+                {
+                  name: "filterCategory",
+                  title: "Filter Category",
+                  type: "string",
+                  options: {
+                    list: [
+                      { title: "Overview", value: "overview" },
+                      { title: "Specification", value: "specification" },
+                      { title: "Regular", value: "regular" },
+                    ],
+                  },
+                  description:
+                    "Determines where this filter appears in the product display",
                   validation: (rule) => rule.required(),
                 },
                 {

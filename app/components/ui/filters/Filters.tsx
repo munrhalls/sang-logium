@@ -17,7 +17,6 @@ export default function Filters({ filterOptions }) {
   function handleFilterChange(name, value, type) {
     const params = new URLSearchParams(searchParams.toString());
 
-    // For checkbox type, if value is false, delete the parameter
     if (type === "checkbox" && value === false) {
       params.delete(name);
     } else if (!value || (Array.isArray(value) && value.length === 0)) {
@@ -25,7 +24,7 @@ export default function Filters({ filterOptions }) {
     } else if (type === "multiselect") {
       params.set(name, JSON.stringify(value));
     } else {
-      params.set(name, String(value));
+      params.set(name, String(value).toLowerCase().trim());
     }
 
     const filterObj = Object.fromEntries(params.entries());

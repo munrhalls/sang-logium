@@ -330,6 +330,7 @@ export type CategoryFilters = {
     filterItems?: Array<{
       name?: string;
       type?: "checkbox" | "radio" | "range" | "boolean" | "multiselect";
+      filterCategory?: "overview" | "specification" | "regular";
       defaultValue?: string;
       options?: Array<string>;
       min?: number;
@@ -786,6 +787,96 @@ export type PRODUCT_BY_ID_QUERYResult = {
   }>;
 } | null;
 
+// Source: ./sanity/lib/products/getSelectedProducts.ts
+// Variable: GET_PRODUCTS_BY_QUERY
+// Query: *[            _type == "product"        ] | order(name asc)
+export type GET_PRODUCTS_BY_QUERYResult = Array<{
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      _key: string;
+    } & HighlightColor | {
+      _key: string;
+    } & TextColor | {
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  slug?: Slug;
+  brand?: string;
+  price?: number;
+  stock?: number;
+  sku?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
+  categoryPath?: Array<string>;
+  tags?: Array<string>;
+  overviewFields?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
+    _type: "overviewField";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
+    _type: "spec";
+    _key: string;
+  }>;
+}>;
+
 // Source: ./sanity/lib/products/searchProductsByName.ts
 // Variable: SEARCH_FOR_PRODUCTS_QUERY
 // Query: *[        _type == "product"        && name match $searchParam    ] | order(name asc)
@@ -949,7 +1040,7 @@ declare module "@sanity/client" {
     "{\n    \"brands\": array::unique(*[_type == \"product\"].brand->name)\n  }": FILTERSResult;
     "\n    *[_type == \"categoryFilters\" && title == $topLevelCategory][0] {\n      title,\n      \"filters\": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        step\n      },\n      \"mappings\": categoryMappings[path == $cleanPath]\n    }\n  ": FILTERS_BY_CATEGORY_QUERYResult;
     "\n          *[\n              _type == \"category\"\n          ] | order(name desc)\n      ": ALL_CATEGORIES_QUERYResult;
-    "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
+    "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult | GET_PRODUCTS_BY_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && _id == $id\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
     "*[\n        _type == \"product\"\n        && name match $searchParam\n    ] | order(name asc)": SEARCH_FOR_PRODUCTS_QUERYResult;
     "\n    *[_type == \"categorySortables\" && title == $topLevelCategory][0] {\n      title,\n      \"sortOptions\": sortOptions[]{\n        name,\n        displayName,\n        type,\n        field,\n        defaultDirection\n      },\n      \"mappings\": categoryMappings[path == $cleanPath]\n    }\n  ": SORTABLES_BY_CATEGORY_QUERYResult;

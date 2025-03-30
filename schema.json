@@ -2160,6 +2160,27 @@
                       },
                       "optional": true
                     },
+                    "filterCategory": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "union",
+                        "of": [
+                          {
+                            "type": "string",
+                            "value": "overview"
+                          },
+                          {
+                            "type": "string",
+                            "value": "specification"
+                          },
+                          {
+                            "type": "string",
+                            "value": "regular"
+                          }
+                        ]
+                      },
+                      "optional": true
+                    },
                     "defaultValue": {
                       "type": "objectAttribute",
                       "value": {
