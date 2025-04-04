@@ -27,13 +27,14 @@ const PriceRangeFilter = ({
   // Handle max value change
   const handleMaxChange = (newMax) => {
     // Ensure max doesn't go below min
+    console.log("wtf");
     const validMax = Math.max(newMax, minValue);
     setMaxValue(validMax);
     if (onChange) {
       onChange(name, { min: minValue, max: validMax }, "range");
     }
   };
-  
+
   // Submit changes when user stops interacting
   const handleChangeComplete = () => {
     if (onChange) {
@@ -57,7 +58,9 @@ const PriceRangeFilter = ({
             min={min}
             max={max}
             value={minValue}
-            onChange={(e) => handleMinChange(parseInt(e.target.value, 10) || min)}
+            onChange={(e) =>
+              handleMinChange(parseInt(e.target.value, 10) || min)
+            }
             onBlur={handleChangeComplete}
             className="w-24 p-1 border rounded text-sm"
           />
@@ -67,12 +70,14 @@ const PriceRangeFilter = ({
             min={min}
             max={max}
             value={maxValue}
-            onChange={(e) => handleMaxChange(parseInt(e.target.value, 10) || max)}
+            onChange={(e) =>
+              handleMaxChange(parseInt(e.target.value, 10) || max)
+            }
             onBlur={handleChangeComplete}
             className="w-24 p-1 border rounded text-sm"
           />
         </div>
-        
+
         <div className="relative pt-5">
           <input
             type="range"
@@ -83,7 +88,7 @@ const PriceRangeFilter = ({
             onChange={(e) => handleMinChange(parseInt(e.target.value, 10))}
             onMouseUp={handleChangeComplete}
             onTouchEnd={handleChangeComplete}
-            className="absolute w-full pointer-events-none appearance-none bg-transparent"
+            className="absolute w-full bg-white"
             style={{ zIndex: 3 }}
           />
           <input
@@ -95,7 +100,7 @@ const PriceRangeFilter = ({
             onChange={(e) => handleMaxChange(parseInt(e.target.value, 10))}
             onMouseUp={handleChangeComplete}
             onTouchEnd={handleChangeComplete}
-            className="absolute w-full pointer-events-none appearance-none bg-transparent"
+            className="absolute w-full bg-white"
             style={{ zIndex: 4 }}
           />
         </div>

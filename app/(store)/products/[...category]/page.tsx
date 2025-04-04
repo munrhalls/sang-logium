@@ -21,28 +21,27 @@ export default async function ProductsPage({
   const path = params.category;
   const [root, leaf] = [path[0], path[path.length - 1]];
   const selectedFilters = getSelectedFilters(searchParams);
-  
+
   // Get sort parameters
-  const sortField = typeof searchParams.sort === 'string' ? searchParams.sort : '';
-  const sortDirection = typeof searchParams.dir === 'string' ? searchParams.dir : 'asc';
-  
+  const sortField =
+    typeof searchParams.sort === "string" ? searchParams.sort : "";
+  const sortDirection =
+    typeof searchParams.dir === "string" ? searchParams.dir : "asc";
+
   // Fetch data in parallel
   const [products, filterOptions, sortOptions] = await Promise.all([
-    getSelectedProducts(path, selectedFilters)
-      .catch((error) => {
-        console.error("Failed to fetch products:", error);
-        return [];
-      }),
-    getFiltersForCategoryPathAction(path)
-      .catch((error) => {
-        console.error("Failed to fetch filters:", error);
-        return [];
-      }),
-    getSortablesForCategoryPathAction(path.join('/'))
-      .catch((error) => {
-        console.error("Failed to fetch sort options:", error);
-        return [];
-      }),
+    getSelectedProducts(path, selectedFilters).catch((error) => {
+      console.error("Failed to fetch products:", error);
+      return [];
+    }),
+    getFiltersForCategoryPathAction(path).catch((error) => {
+      console.error("Failed to fetch filters:", error);
+      return [];
+    }),
+    getSortablesForCategoryPathAction(path.join("/")).catch((error) => {
+      console.error("Failed to fetch sort options:", error);
+      return [];
+    }),
   ]);
 
   return (
@@ -72,9 +71,12 @@ export default async function ProductsPage({
             <div className="bg-white rounded-lg shadow p-4 mb-4">
               <Filters filterOptions={filterOptions} />
             </div>
-            
+
             <div className="bg-white rounded-lg shadow p-4">
-              <SortClient initialSortOptions={sortOptions} currentSort={sortField} />
+              <SortClient
+                initialSortOptions={sortOptions}
+                currentSort={sortField}
+              />
             </div>
           </div>
         </aside>
@@ -83,11 +85,11 @@ export default async function ProductsPage({
         <div>
           <div className="mb-4 p-4 bg-white rounded-lg shadow">
             <p className="text-sm text-gray-500">
-              Showing {products.length} product{products.length !== 1 && 's'}
+              Showing {products.length} product{products.length !== 1 && "s"}
               {sortField && ` sorted by ${sortField} (${sortDirection})`}
             </p>
           </div>
-          
+
           <ProductsGrid products={products} />
         </div>
       </div>
