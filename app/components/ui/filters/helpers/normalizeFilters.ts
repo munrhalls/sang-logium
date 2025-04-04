@@ -4,6 +4,7 @@ export default function normalizeFilters(
   const result: Record<string, any> = {};
 
   Object.entries(filters).forEach(([key, value]) => {
+    if (key === "in stock") key = "stock";
     const normalizedKey = key.toLowerCase();
     result[normalizedKey] = value;
   });

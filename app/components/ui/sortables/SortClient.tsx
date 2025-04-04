@@ -1,14 +1,40 @@
 "use client";
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { ArrowDown, ArrowUp, Check } from "lucide-react";
+import { useEffect, useState } from "react";
 
-export default function SortClient({ initialSortOptions, currentSort }) {
+export default function SortClient({ initialSortOptions = [], currentSort = '' }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [options, setOptions] = useState(initialSortOptions);
 
   const currentSortName = searchParams.get("sort") || "";
   const currentSortDir = searchParams.get("dir") || "asc";
+
+  // Ensure options have display names
+  useEffect(() => {
+    if (initialSortOptions && initialSortOptions.length > 0) {
+      // Map options to ensure they have displayName
+      const processedOptions = initialSortOptions.map(option => ({
+        name: option.name,
+        displayName: option.displayName || formatSortName(option.name),
+        type: option.type || "alphabetic",
+        field: option.field || option.name,
+        defaultDirection: option.defaultDirection || "asc"
+      }));
+      
+      setOptions(processedOptions);
+    }
+  }, [initialSortOptions]);
+
+  function formatSortName(name) {
+    return name
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/^./, str => str.toUpperCase())
+      .replace(/_/g, ' ');
+  }
 
   function handleSortChange(sortName, direction = "asc") {
     const params = new URLSearchParams(searchParams);
@@ -25,27 +51,66 @@ export default function SortClient({ initialSortOptions, currentSort }) {
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
+  function getDirectionIcon(isActive, direction) {
+    if (!isActive) return null;
+    
+    return direction === "asc" 
+      ? <ArrowUp className="ml-1 h-4 w-4" /> 
+      : <ArrowDown className="ml-1 h-4 w-4" />;
+  }
+
+  // Handle different sort types
+  function getSortLabel(option) {
+    const { displayName, type } = option;
+    
+    switch (type) {
+      case "alphabetic":
+        return `${displayName} (A-Z)`;
+      case "numeric":
+        return `${displayName} (Low-High)`;
+      case "date":
+        return `${displayName} (Newest)`;
+      case "boolean":
+        return `${displayName}`;
+      default:
+        return displayName;
+    }
+  }
+
+  if (!options || options.length === 0) {
+    return <div className="p-4 text-gray-500">No sort options available</div>;
+  }
+
   return (
-    <div className="sort-options">
-      <h3>Sort By</h3>
-      <div className="sort-buttons">
-        {initialSortOptions.map((option) => (
-          <button
-            key={option.name}
-            className={option.name === currentSortName ? "active" : ""}
-            onClick={() => {
-              const newDirection =
-                option.name === currentSortName && currentSortDir === "asc"
-                  ? "desc"
-                  : "asc";
-              handleSortChange(option.name, newDirection);
-            }}
-          >
-            {option.label}
-            {option.name === currentSortName &&
-              (currentSortDir === "asc" ? " ↑" : " ↓")}
-          </button>
-        ))}
+    <div className="sort-options space-y-4">
+      <h3 className="text-lg font-medium mb-2">Sort By</h3>
+      <div className="sort-buttons space-y-2">
+        {options.map((option) => {
+          const isActive = option.name === currentSortName;
+          return (
+            <button
+              key={option.name}
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-md transition-colors ${
+                isActive 
+                  ? 'bg-blue-700 text-white' 
+                  : 'bg-blue-800 hover:bg-blue-700 text-white'
+              }`}
+              onClick={() => {
+                const newDirection =
+                  isActive && currentSortDir === "asc"
+                    ? "desc"
+                    : option.defaultDirection || "asc";
+                handleSortChange(option.name, newDirection);
+              }}
+            >
+              <span>{getSortLabel(option)}</span>
+              <div className="flex items-center">
+                {isActive && <Check className="mr-1 h-4 w-4" />}
+                {getDirectionIcon(isActive, currentSortDir)}
+              </div>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

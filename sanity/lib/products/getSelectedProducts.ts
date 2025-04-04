@@ -2,10 +2,10 @@ import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../live";
 
 export const getSelectedProducts = async (path, selectedFilters) => {
-  // console.log(selectedFilters, "selectedFilters");
+  console.log(selectedFilters, "selectedFilters");
   console.log("path", path);
 
-  const [regular, overview, specifications] = selectedFilters;
+  const [regular, overview, specifications, rangeFilters] = selectedFilters;
   const regularQuery =
     regular.length > 0
       ? regular
@@ -46,13 +46,44 @@ export const getSelectedProducts = async (path, selectedFilters) => {
           .join(" && ") // Combine all conditions with AND
       : "";
 
+  const rangeQuery =
+    rangeFilters.length > 0
+      ? rangeFilters
+          .map((item) => {
+            // Parse the range values and operator
+            const { min, max, operator } = JSON.parse(item.value);
+
+            // If operator is provided, use it for direct comparison
+            if (operator && operator !== "range") {
+              return `${item.field} ${operator} ${min}`;
+            }
+
+            // Handle range cases
+            if (min !== null && max !== null) {
+              return `(${item.field} >= ${min} && ${item.field} <= ${max})`;
+            } else if (min !== null) {
+              return `${item.field} >= ${min}`;
+            } else if (max !== null) {
+              return `${item.field} <= ${max}`;
+            }
+            return "";
+          })
+          .filter((query) => query !== "") // Remove empty queries
+          .join(" && ")
+      : "";
+
   let assembledQuery = `*[_type == "product"`;
 
   const pathString = path.join("/");
   const pathQuery = ` && (categoryPath == "${pathString}" || categoryPath match "${pathString}/*")`;
   assembledQuery += pathQuery;
   // Combine all filters
-  const allFilters = [regularQuery, overviewQuery, specificationsQuery]
+  const allFilters = [
+    regularQuery,
+    overviewQuery,
+    specificationsQuery,
+    rangeQuery,
+  ]
     .filter((query) => query !== "")
     .join(" && ");
 

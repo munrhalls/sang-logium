@@ -23,6 +23,22 @@ export default function Filters({ filterOptions }) {
       params.delete(name);
     } else if (type === "multiselect") {
       params.set(name, JSON.stringify(value));
+    } else if (type === "range") {
+      // For range type, expect value to be an object with min and max properties
+      if (value.min !== undefined) {
+        params.set(`${name}_min`, String(value.min));
+      } else {
+        params.delete(`${name}_min`);
+      }
+
+      if (value.max !== undefined) {
+        params.set(`${name}_max`, String(value.max));
+      } else {
+        params.delete(`${name}_max`);
+      }
+
+      // Remove the single value if it exists
+      params.delete(name);
     } else {
       params.set(name, String(value).toLowerCase().trim());
     }

@@ -1,7 +1,24 @@
-export default function FilterItem({ filter, value, onChange }) {
+import PriceRangeFilter from "./PriceRangeFilter";
+import { useSearchParams } from "next/navigation";
+
+export default function FilterItem({
+  filter,
+  value,
+  onChange,
+  onChangeMin,
+  onChangeMax,
+}) {
+  const searchParams = useSearchParams();
+  
   if (!filter) return null;
 
   const { type, name, options, min, max, step } = filter;
+  const priceMin = searchParams.get("price_min")
+    ? parseInt(searchParams.get("price_min"), 10)
+    : undefined;
+  const priceMax = searchParams.get("price_max")
+    ? parseInt(searchParams.get("price_max"), 10)
+    : undefined;
 
   switch (type) {
     case "checkbox":
@@ -24,24 +41,15 @@ export default function FilterItem({ filter, value, onChange }) {
       return (
         <div className="filter-item mb-3">
           <h4 className="font-medium mb-1">{name}</h4>
-          <div className="flex flex-col">
-            <input
-              type="range"
-              min={min || 0}
-              max={max || 1000}
-              step={step || 1}
-              value={value !== null && value !== undefined ? value : min || 0}
-              onChange={(e) => onChange(parseInt(e.target.value, 10))}
-              className="w-full"
-            />
-            <div className="flex justify-between text-sm mt-1">
-              <span>${min || 0}</span>
-              <span>
-                ${value !== null && value !== undefined ? value : min || 0}
-              </span>
-              <span>${max || 1000}</span>
-            </div>
-          </div>
+          <PriceRangeFilter 
+            name={name.toLowerCase()}
+            min={min || 0}
+            max={max || 10000}
+            step={step || 1}
+            onChange={onChange}
+            initialMin={priceMin}
+            initialMax={priceMax}
+          />
         </div>
       );
 
@@ -71,6 +79,44 @@ export default function FilterItem({ filter, value, onChange }) {
               </label>
             ))}
           </div>
+        </div>
+      );
+
+    case "radio":
+      const radioOptions = Array.isArray(options) ? options : [];
+      return (
+        <div className="filter-item mb-3">
+          <h4 className="font-medium mb-1">{name}</h4>
+          <div className="space-y-1">
+            {radioOptions.map((option, i) => (
+              <label key={i} className="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  name={name.toLowerCase()}
+                  checked={value === option}
+                  onChange={() => onChange(option)}
+                  className="mr-2"
+                />
+                <span>{option}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      );
+      
+    case "boolean":
+      return (
+        <div className="filter-item mb-3">
+          <h4 className="font-medium mb-1">{name}</h4>
+          <label className="flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              checked={!!value}
+              onChange={(e) => onChange(e.target.checked)}
+              className="mr-2"
+            />
+            <span>{name}</span>
+          </label>
         </div>
       );
 
