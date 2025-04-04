@@ -22,7 +22,9 @@ export default function Filters({ filterOptions }) {
     } else if (!value || (Array.isArray(value) && value.length === 0)) {
       params.delete(name);
     } else if (type === "multiselect") {
-      params.set(name, JSON.stringify(value));
+      // Ensure value is an array before stringifying
+      const valueToStore = Array.isArray(value) ? value : [value];
+      params.set(name, JSON.stringify(valueToStore));
     } else if (type === "range") {
       // For range type, expect value to be an object with min and max properties
       if (value.min !== undefined) {

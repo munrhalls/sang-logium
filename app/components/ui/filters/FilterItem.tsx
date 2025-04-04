@@ -13,11 +13,12 @@ export default function FilterItem({
   if (!filter) return null;
 
   const { type, name, options, min, max, step } = filter;
-  const priceMin = searchParams.get("price_min")
-    ? parseInt(searchParams.get("price_min"), 10)
+  const normalizedName = name.toLowerCase();
+  const priceMin = searchParams.get(`${normalizedName}_min`)
+    ? parseInt(searchParams.get(`${normalizedName}_min`), 10)
     : undefined;
-  const priceMax = searchParams.get("price_max")
-    ? parseInt(searchParams.get("price_max"), 10)
+  const priceMax = searchParams.get(`${normalizedName}_max`)
+    ? parseInt(searchParams.get(`${normalizedName}_max`), 10)
     : undefined;
 
   switch (type) {
@@ -29,7 +30,7 @@ export default function FilterItem({
             <input
               type="checkbox"
               checked={!!value}
-              onChange={(e) => onChange(e.target.checked)}
+              onChange={(e) => onChange(e.target.checked, "checkbox")}
               className="mr-2"
             />
             <span>{options && options[0] ? options[0] : "Enable"}</span>
@@ -68,9 +69,12 @@ export default function FilterItem({
                   checked={safeValue.includes(option)}
                   onChange={(e) => {
                     if (e.target.checked) {
-                      onChange([...safeValue, option]);
+                      onChange([...safeValue, option], "multiselect");
                     } else {
-                      onChange(safeValue.filter((item) => item !== option));
+                      onChange(
+                        safeValue.filter((item) => item !== option),
+                        "multiselect"
+                      );
                     }
                   }}
                   className="mr-2"
@@ -94,7 +98,7 @@ export default function FilterItem({
                   type="radio"
                   name={name.toLowerCase()}
                   checked={value === option}
-                  onChange={() => onChange(option)}
+                  onChange={() => onChange(option, "radio")}
                   className="mr-2"
                 />
                 <span>{option}</span>
@@ -112,7 +116,7 @@ export default function FilterItem({
             <input
               type="checkbox"
               checked={!!value}
-              onChange={(e) => onChange(e.target.checked)}
+              onChange={(e) => onChange(e.target.checked, "checkbox")}
               className="mr-2"
             />
             <span>{name}</span>

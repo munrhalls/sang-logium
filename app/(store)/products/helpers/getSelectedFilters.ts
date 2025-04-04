@@ -103,6 +103,17 @@ export default function getSelectedFilters(searchParamsInput: {
       }
       continue;
     }
+    
+    // Specifically check for _min and _max suffixes to handle range filter parts
+    if (normalizedField.endsWith('_min') || normalizedField.endsWith('_max')) {
+      const baseField = normalizedField.split('_')[0];
+      
+      // Skip if we don't know this is a range filter
+      if (!rangeFiltersMap[baseField]) continue;
+      
+      // Already handled through the base field
+      continue;
+    }
 
     // Handle regular filters
     if (regularFiltersMap[normalizedField]) {
