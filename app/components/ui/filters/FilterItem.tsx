@@ -9,7 +9,7 @@ export default function FilterItem({
   onChangeMax,
 }) {
   const searchParams = useSearchParams();
-  
+
   if (!filter) return null;
 
   const { type, name, options, min, max, step } = filter;
@@ -41,13 +41,13 @@ export default function FilterItem({
     case "range":
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-medium mb-1">{name}</h4>
-          <PriceRangeFilter 
+          <h4 className="font-medium mb-1 font-black uppercase">{name}</h4>
+          <PriceRangeFilter
             name={name.toLowerCase()}
             min={min || 0}
             max={max || 10000}
             step={step || 1}
-            onChange={onChange}
+            onChange={(e) => onChange({ min: min, max: max }, "range")}
             initialMin={priceMin}
             initialMax={priceMax}
           />
@@ -107,7 +107,7 @@ export default function FilterItem({
           </div>
         </div>
       );
-      
+
     case "boolean":
       return (
         <div className="filter-item mb-3">

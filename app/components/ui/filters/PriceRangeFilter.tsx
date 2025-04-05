@@ -1,5 +1,5 @@
-// In your range filter component
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import debounce from "lodash/debounce";
 
 const PriceRangeFilter = ({
   name,
@@ -27,7 +27,6 @@ const PriceRangeFilter = ({
   // Handle max value change
   const handleMaxChange = (newMax) => {
     // Ensure max doesn't go below min
-    console.log("wtf");
     const validMax = Math.max(newMax, minValue);
     setMaxValue(validMax);
     if (onChange) {
@@ -42,6 +41,8 @@ const PriceRangeFilter = ({
       onChange(name, { min: minValue, max: maxValue }, "range");
     }
   };
+
+  const debouncedHandleChangeComplete = debounce(handleChangeComplete, 800);
 
   // Update if initial values change (e.g., from URL params)
   useEffect(() => {
@@ -61,7 +62,7 @@ const PriceRangeFilter = ({
             onChange={(e) =>
               handleMinChange(parseInt(e.target.value, 10) || min)
             }
-            onBlur={handleChangeComplete}
+            onBlur={debouncedHandleChangeComplete}
             className="w-24 p-1 border rounded text-sm"
           />
           <span className="text-gray-500">to</span>
@@ -73,12 +74,15 @@ const PriceRangeFilter = ({
             onChange={(e) =>
               handleMaxChange(parseInt(e.target.value, 10) || max)
             }
-            onBlur={handleChangeComplete}
+            onBlur={debouncedHandleChangeComplete}
             className="w-24 p-1 border rounded text-sm"
           />
         </div>
 
-        <div className="relative pt-5">
+        <div className="relative pt-5 flex flex-col gap-2">
+          <label className="flex flex-col">
+            <span className="text-gray-500 text-sm">MIN</span>
+          </label>
           <input
             type="range"
             min={min}
@@ -86,11 +90,14 @@ const PriceRangeFilter = ({
             step={step}
             value={minValue}
             onChange={(e) => handleMinChange(parseInt(e.target.value, 10))}
-            onMouseUp={handleChangeComplete}
-            onTouchEnd={handleChangeComplete}
-            className="absolute w-full bg-white"
+            onMouseUp={debouncedHandleChangeComplete}
+            onTouchEnd={debouncedHandleChangeComplete}
+            className="w-full bg-white"
             style={{ zIndex: 3 }}
           />
+          <label className="flex justify-right w-full">
+            <span className="text-gray-500 text-sm text-right">MAX</span>
+          </label>
           <input
             type="range"
             min={min}
@@ -98,9 +105,9 @@ const PriceRangeFilter = ({
             step={step}
             value={maxValue}
             onChange={(e) => handleMaxChange(parseInt(e.target.value, 10))}
-            onMouseUp={handleChangeComplete}
-            onTouchEnd={handleChangeComplete}
-            className="absolute w-full bg-white"
+            onMouseUp={debouncedHandleChangeComplete}
+            onTouchEnd={debouncedHandleChangeComplete}
+            className="w-full bg-white"
             style={{ zIndex: 4 }}
           />
         </div>

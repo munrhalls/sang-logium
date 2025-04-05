@@ -15,6 +15,7 @@ export default function Filters({ filterOptions }) {
   }
 
   function handleFilterChange(name, value, type) {
+    console.log("Filter change:", name, value, type);
     const params = new URLSearchParams(searchParams.toString());
 
     if (type === "checkbox" && value === false) {
