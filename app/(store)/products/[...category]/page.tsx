@@ -18,15 +18,20 @@ export default async function ProductsPage({
   params: { category: string[] };
   searchParams: { [key: string]: string | string[] };
 }) {
-  const path = params.category;
+  const path = (await params).category;
   const [root, leaf] = [path[0], path[path.length - 1]];
-  const selectedFilters = getSelectedFilters(searchParams);
-
+  const searchParamsResolved = await searchParams;
+  const selectedFilters = getSelectedFilters(searchParamsResolved);
+  console.log("Selected filters:", selectedFilters);
   // Get sort parameters
   const sortField =
-    typeof searchParams.sort === "string" ? searchParams.sort : "";
+    typeof searchParamsResolved.sort === "string"
+      ? searchParamsResolved.sort
+      : "";
   const sortDirection =
-    typeof searchParams.dir === "string" ? searchParams.dir : "asc";
+    typeof searchParamsResolved.dir === "string"
+      ? searchParamsResolved.dir
+      : "asc";
 
   // Fetch data in parallel
   const [products, filterOptions, sortOptions] = await Promise.all([

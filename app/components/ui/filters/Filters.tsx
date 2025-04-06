@@ -15,7 +15,6 @@ export default function Filters({ filterOptions }) {
   }
 
   function handleFilterChange(name, value, type) {
-    console.log("Filter change:", name, value, type);
     const params = new URLSearchParams(searchParams.toString());
 
     if (type === "checkbox" && value === false) {
@@ -29,18 +28,19 @@ export default function Filters({ filterOptions }) {
     } else if (type === "range") {
       // For range type, expect value to be an object with min and max properties
       if (value.min !== undefined) {
+        console.log("name", name);
         params.set(`${name}_min`, String(value.min));
       } else {
         params.delete(`${name}_min`);
       }
 
+      console.log("RANGE", name, value, type);
       if (value.max !== undefined) {
         params.set(`${name}_max`, String(value.max));
       } else {
         params.delete(`${name}_max`);
       }
 
-      // Remove the single value if it exists
       params.delete(name);
     } else {
       params.set(name, String(value).toLowerCase().trim());

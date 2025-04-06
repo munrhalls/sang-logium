@@ -12,7 +12,8 @@ export default function parseFilterValue(paramValue, filterType) {
     switch (filterType) {
       case "range":
         // Handle special case for range which might be structured as multiple URL params
-        // This is handled in the component with separate _min and _max params
+        // The actual values are retrieved directly in FilterItem component
+        // using separate _min and _max URL parameters
         return { min: undefined, max: undefined };
       case "multiselect":
         try {

@@ -37,119 +37,93 @@ interface FilterItem {
   filterType?: string;
 }
 
+interface RangeFilterItem {
+  field: string;
+  value: { min?: number; max?: number };
+  filterType: "range";
+}
+
 export default function getSelectedFilters(searchParamsInput: {
   [key: string]: string | string[];
-}): [FilterItem[], FilterItem[], FilterItem[], { [key: string]: boolean }] {
+}): [FilterItem[], FilterItem[], FilterItem[], RangeFilterItem[]] {
+  console.log(searchParamsInput);
   const regularFilters: FilterItem[] = [];
   const overviewFilters: FilterItem[] = [];
   const specificationsFilters: FilterItem[] = [];
-
-  // Process regular filters first
+  const rangeFilters: RangeFilterItem[] = [];
   for (const field in searchParamsInput) {
     const value = searchParamsInput[field];
     if (!value) continue;
 
-    // Skip min/max suffix fields, they'll be handled with their base field
-    if (field.endsWith('_min') || field.endsWith('_max')) continue;
+    const lowercaseField = field.toLowerCase();
 
-    const normalizedField = field.toLowerCase();
-
-    // Handle overview filters
-    if (overviewFiltersMap[normalizedField]) {
-      // Handle arrays of values
+    if (overviewFiltersMap[lowercaseField]) {
       const parsedValue = parseFilterValue(value);
-      overviewFilters.push({ 
-        field: normalizedField, 
+      overviewFilters.push({
+        field: lowercaseField,
         value: parsedValue,
-        filterType: 'overview'
+        filterType: "overview",
       });
       continue;
     }
 
-    // Handle specification filters
-    if (specificationsFiltersMap[normalizedField]) {
+    if (specificationsFiltersMap[lowercaseField]) {
       const parsedValue = parseFilterValue(value);
-      specificationsFilters.push({ 
-        field: normalizedField, 
+      specificationsFilters.push({
+        field: lowercaseField,
         value: parsedValue,
-        filterType: 'specification'
+        filterType: "specification",
       });
       continue;
     }
 
-    // Handle range filters
-    if (rangeFiltersMap[normalizedField]) {
-      // For range filters, check for _min and _max suffixes
-      const minValue = searchParamsInput[`${normalizedField}_min`];
-      const maxValue = searchParamsInput[`${normalizedField}_max`];
-
-      const rangeValue: { min?: number; max?: number } = {};
-      
-      if (minValue) {
-        rangeValue.min = parseInt(minValue as string, 10);
-      }
-      
-      if (maxValue) {
-        rangeValue.max = parseInt(maxValue as string, 10);
-      }
-
-      // Only add if we have at least one bound
-      if (rangeValue.min !== undefined || rangeValue.max !== undefined) {
-        regularFilters.push({ 
-          field: normalizedField, 
-          value: rangeValue,
-          filterType: 'range'
+    if (rangeFiltersMap[lowercaseField]) {
+      const parsedValue = parseFilterValue(value);
+      console.log("PARSED VALUE ", parsedValue);
+      if (typeof parsedValue === "object" && parsedValue !== null) {
+        rangeFilters.push({
+          field: lowercaseField,
+          value: parsedValue,
+          filterType: "range",
         });
+      } else {
+        console.warn(
+          `Expected object for range filter ${lowercaseField}, but got ${typeof parsedValue}`
+        );
       }
-      continue;
     }
-    
-    // Specifically check for _min and _max suffixes to handle range filter parts
-    if (normalizedField.endsWith('_min') || normalizedField.endsWith('_max')) {
-      const baseField = normalizedField.split('_')[0];
-      
-      // Skip if we don't know this is a range filter
-      if (!rangeFiltersMap[baseField]) continue;
-      
-      // Already handled through the base field
-      continue;
-    }
-
-    // Handle regular filters
-    if (regularFiltersMap[normalizedField]) {
+    if (regularFiltersMap[lowercaseField]) {
+      console.log("IS IT HERE?", lowercaseField);
       const parsedValue = parseFilterValue(value);
-      regularFilters.push({ 
-        field: normalizedField, 
+      regularFilters.push({
+        field: lowercaseField,
         value: parsedValue,
-        filterType: 'regular'
+        filterType: "regular",
       });
       continue;
     }
 
-    // If we got here and it's not a special field, add it as a regular filter
-    if (!normalizedField.includes('sort') && !normalizedField.includes('dir')) {
-      regularFilters.push({ 
-        field: normalizedField, 
+    if (!lowercaseField.includes("sort") && !lowercaseField.includes("dir")) {
+      regularFilters.push({
+        field: lowercaseField,
         value: parseFilterValue(value),
-        filterType: 'regular'
+        filterType: "regular",
       });
     }
   }
 
-  return [regularFilters, overviewFilters, specificationsFilters, rangeFiltersMap];
+  return [regularFilters, overviewFilters, specificationsFilters, rangeFilters];
 }
 
-// Helper function to parse filter values
 function parseFilterValue(value: string | string[]): FilterValue {
   if (Array.isArray(value)) {
     return value;
   }
 
-  // Try to parse as JSON (for multiselect filters)
   try {
     return JSON.parse(value);
   } catch (e) {
-    // Not JSON, return as is
+    console.error("@getSelectedFilters ", e);
     return value;
   }
 }

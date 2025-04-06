@@ -28,7 +28,6 @@ const SPECIAL_FIELD_MAPPINGS = {
 };
 
 export default function validateFilterObjects(rawFilters) {
-  console.log("Server rawFilters", rawFilters);
   const validatedFilters = rawFilters
     .map((filter) => {
       // Handle special field mappings
@@ -85,6 +84,5 @@ export default function validateFilterObjects(rawFilters) {
     })
     .filter(Boolean); // Remove null entries
 
-  console.log("Server validatedFilters", validatedFilters);
   return validatedFilters;
 }

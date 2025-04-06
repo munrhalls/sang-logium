@@ -47,7 +47,9 @@ export default function FilterItem({
             min={min || 0}
             max={max || 10000}
             step={step || 1}
-            onChange={(e) => onChange({ min: min, max: max }, "range")}
+            onChange={(name, value, type) =>
+              onChange(value, type)
+            }
             initialMin={priceMin}
             initialMax={priceMax}
           />

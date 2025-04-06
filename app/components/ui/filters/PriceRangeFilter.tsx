@@ -38,6 +38,7 @@ const PriceRangeFilter = ({
   const handleChangeComplete = () => {
     if (onChange) {
       // We send final values only when user stops sliding
+      console.log("name @price bot ", name);
       onChange(name, { min: minValue, max: maxValue }, "range");
     }
   };
@@ -92,7 +93,7 @@ const PriceRangeFilter = ({
             onChange={(e) => handleMinChange(parseInt(e.target.value, 10))}
             onMouseUp={debouncedHandleChangeComplete}
             onTouchEnd={debouncedHandleChangeComplete}
-            className="w-full bg-white"
+            className="w-full bg-slate-400 cursor-pointer"
             style={{ zIndex: 3 }}
           />
           <label className="flex justify-right w-full">
@@ -107,7 +108,7 @@ const PriceRangeFilter = ({
             onChange={(e) => handleMaxChange(parseInt(e.target.value, 10))}
             onMouseUp={debouncedHandleChangeComplete}
             onTouchEnd={debouncedHandleChangeComplete}
-            className="w-full bg-white"
+            className="w-full bg-slate-100 cursor-pointer"
             style={{ zIndex: 4 }}
           />
         </div>
