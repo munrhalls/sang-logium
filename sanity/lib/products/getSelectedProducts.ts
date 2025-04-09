@@ -7,7 +7,7 @@ export const getSelectedProducts = async (path, selectedFilters) => {
   // Debug logging
   console.log(
     "getSelectedProducts received filters:",
-    JSON.stringify(regular, null, 2)
+    JSON.stringify(rangeFilters, null, 2)
   );
 
   const regularQuery =
@@ -98,32 +98,22 @@ export const getSelectedProducts = async (path, selectedFilters) => {
           })
           .join(" && ") // Combine all conditions with AND
       : "";
-
+  console.log("Range filters:", rangeFilters);
   const rangeQuery =
     rangeFilters && rangeFilters.length > 0
       ? rangeFilters
           .map((item) => {
-            console.log(`Processing range filter: ${item.field}`, item.value);
-
-            const conditions = [];
-            if (item.value && item.value.min !== undefined) {
-              conditions.push(`${item.field} >= ${item.value.min}`);
-            }
-
-            if (item.value && item.value.max !== undefined) {
-              conditions.push(`${item.field} <= ${item.value.max}`);
-            }
-
-            if (conditions.length === 0) return "";
-
-            const query = `(${conditions.join(" && ")})`;
-            console.log(`Generated range query for ${item.field}: ${query}`);
+            let query = "";
+            console.log("item range", item);
+            query += `${item.field} ${item.operator} ${item.value}`;
+            console.log("range query ", query);
             return query;
           })
-          .filter((query) => query !== "")
-          .join(" && ")
+          .filter((query) => query !== "") // Filter out empty strings
+          .join(" && ") // Join with proper operator
       : "";
 
+  console.log("Range query:", rangeQuery);
   let assembledQuery = `*[_type == "product"`;
 
   const pathString = path.join("/");

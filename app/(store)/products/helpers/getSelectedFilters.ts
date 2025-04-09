@@ -39,7 +39,8 @@ interface FilterItem {
 
 interface RangeFilterItem {
   field: string;
-  value: { min?: number; max?: number };
+  operator: string;
+  value: FilterValue;
   filterType: "range";
 }
 
@@ -51,11 +52,14 @@ export default function getSelectedFilters(searchParamsInput: {
   const overviewFilters: FilterItem[] = [];
   const specificationsFilters: FilterItem[] = [];
   const rangeFilters: RangeFilterItem[] = [];
+
   for (const field in searchParamsInput) {
     const value = searchParamsInput[field];
     if (!value) continue;
 
     const lowercaseField = field.toLowerCase();
+    console.log("lowercaseField ", lowercaseField);
+    console.log("map check", regularFiltersMap[lowercaseField]);
 
     if (overviewFiltersMap[lowercaseField]) {
       const parsedValue = parseFilterValue(value);
@@ -77,21 +81,34 @@ export default function getSelectedFilters(searchParamsInput: {
       continue;
     }
 
-    if (rangeFiltersMap[lowercaseField]) {
+    const lowercaseRangeField = lowercaseField.split("_")[0];
+    console.log("lowercaseRangeField ", lowercaseRangeField);
+    console.log("map check", rangeFiltersMap[lowercaseRangeField]);
+
+    if (rangeFiltersMap[lowercaseRangeField]) {
       const parsedValue = parseFilterValue(value);
-      console.log("PARSED VALUE ", parsedValue);
-      if (typeof parsedValue === "object" && parsedValue !== null) {
+      const dir = lowercaseField.split("_")[1];
+
+      const operatorsMap: { [key: string]: string } = {
+        min: ">=",
+        max: "<=",
+      };
+      const operator = operatorsMap[dir] || null;
+      if (operator && parsedValue) {
         rangeFilters.push({
-          field: lowercaseField,
+          field: lowercaseRangeField,
+          operator: operator,
           value: parsedValue,
           filterType: "range",
         });
       } else {
         console.warn(
-          `Expected object for range filter ${lowercaseField}, but got ${typeof parsedValue}`
+          `Invalid range filter: ${lowercaseField} with operator ${operator}`
         );
       }
+      continue;
     }
+
     if (regularFiltersMap[lowercaseField]) {
       console.log("IS IT HERE?", lowercaseField);
       const parsedValue = parseFilterValue(value);
@@ -102,16 +119,17 @@ export default function getSelectedFilters(searchParamsInput: {
       });
       continue;
     }
-
-    if (!lowercaseField.includes("sort") && !lowercaseField.includes("dir")) {
-      regularFilters.push({
-        field: lowercaseField,
-        value: parseFilterValue(value),
-        filterType: "regular",
-      });
-    }
   }
-
+  console.log("filters arrays !!!!!");
+  console.log("regularFilters", regularFilters);
+  // console.log(regularFiltersMap[])
+  console.log(
+    JSON.stringify(
+      [regularFilters, overviewFilters, specificationsFilters, rangeFilters],
+      null,
+      2
+    )
+  );
   return [regularFilters, overviewFilters, specificationsFilters, rangeFilters];
 }
 
