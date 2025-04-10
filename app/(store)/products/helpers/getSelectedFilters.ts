@@ -27,6 +27,7 @@ const regularFiltersMap: FiltersMap = {
 const rangeFiltersMap: FiltersMap = {
   price: true,
   stock: true,
+  "stock amount": true,
 };
 
 type FilterValue = string | string[] | { min?: number; max?: number };
@@ -81,7 +82,6 @@ export default function getSelectedFilters(searchParamsInput: {
     const lowercaseRangeField = lowercaseField.split("_")[0];
 
     if (rangeFiltersMap[lowercaseRangeField]) {
-      console.log("lowercaseRangeField", lowercaseRangeField);
       const parsedValue = parseFilterValue(value);
       const dir = lowercaseField.split("_")[1];
 

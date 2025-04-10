@@ -22,23 +22,18 @@ export default function Filters({ filterOptions }) {
     } else if (!value || (Array.isArray(value) && value.length === 0)) {
       params.delete(name);
     } else if (type === "multiselect") {
-      // Ensure value is an array before stringifying
       const valueToStore = Array.isArray(value) ? value : [value];
       params.set(name, JSON.stringify(valueToStore));
     } else if (type === "range") {
-      // For range type, expect value to be an object with min and max properties
       if (value.min !== undefined) {
         params.set(`${name}_min`, String(value.min));
       } else {
         params.delete(`${name}_min`);
       }
 
-      // For regular range filters, handle max value
-      // For min-only range filters (when max is undefined or null), delete the max parameter
       if (value.max !== undefined && value.max !== null) {
         params.set(`${name}_max`, String(value.max));
       } else {
-        // Delete max param if max is undefined or null
         params.delete(`${name}_max`);
       }
 
