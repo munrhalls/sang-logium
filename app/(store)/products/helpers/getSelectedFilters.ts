@@ -81,6 +81,7 @@ export default function getSelectedFilters(searchParamsInput: {
     const lowercaseRangeField = lowercaseField.split("_")[0];
 
     if (rangeFiltersMap[lowercaseRangeField]) {
+      console.log("lowercaseRangeField", lowercaseRangeField);
       const parsedValue = parseFilterValue(value);
       const dir = lowercaseField.split("_")[1];
 
@@ -94,6 +95,13 @@ export default function getSelectedFilters(searchParamsInput: {
           field: lowercaseRangeField,
           operator: operator,
           value: parsedValue,
+          filterType: "range",
+        });
+      } else if (lowercaseField === "stock" && value === "true") {
+        rangeFilters.push({
+          field: lowercaseRangeField,
+          operator: ">=",
+          value: "1",
           filterType: "range",
         });
       } else {
@@ -114,6 +122,7 @@ export default function getSelectedFilters(searchParamsInput: {
       continue;
     }
   }
+  console.log("rangeFilters", rangeFilters);
   return [regularFilters, overviewFilters, specificationsFilters, rangeFilters];
 }
 
