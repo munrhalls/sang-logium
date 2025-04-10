@@ -9,6 +9,7 @@ const RangeFilter = ({
   onChange,
   initialMin,
   initialMax,
+  isMinOnly = false,
 }) => {
   // Fix initialization order - define minValue/maxValue first
   const [minValue, setMinValue] = useState(initialMin || min);

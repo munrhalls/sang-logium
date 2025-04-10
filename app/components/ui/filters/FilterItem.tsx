@@ -11,8 +11,7 @@ export default function FilterItem({
   const searchParams = useSearchParams();
 
   if (!filter) return null;
-
-  const { type, name, options, min, max, step } = filter;
+  const { type, name, options, min, max, isMinOnly, step } = filter;
   const normalizedName = name.toLowerCase();
   const initialMin = searchParams.get(`${normalizedName}_min`)
     ? parseInt(searchParams.get(`${normalizedName}_min`), 10)
@@ -39,6 +38,29 @@ export default function FilterItem({
       );
 
     case "range":
+      // Check if this is a min-only range filter
+      console.log(
+        "isMinOnly isMinOnlyisMinOnlyisMinOnlyisMinOnlyisMinOnlyisMinOnlyisMinOnly",
+        isMinOnly
+      );
+      if (isMinOnly) {
+        return (
+          <div className="filter-item mb-3">
+            <h4 className="font-medium mb-1 font-black uppercase">{name}</h4>
+            {/* <MinOnlyFilter
+              name={name.toLowerCase()}
+              min={min || 0}
+              max={max || 10000}
+              step={step || 1}
+              onChange={(name, value, type) => onChange(value, type)}
+              initialMin={initialMin}
+            /> */}
+            Min only filter !!!!!!!!!!!
+          </div>
+        );
+      }
+
+      // Regular range filter
       return (
         <div className="filter-item mb-3">
           <h4 className="font-medium mb-1 font-black uppercase">{name}</h4>

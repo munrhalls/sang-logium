@@ -49,6 +49,7 @@ export default async function ProductsPage({
     }),
   ]);
 
+  console.log("Filter options:", filterOptions);
   return (
     <main className="container mx-auto px-4 py-8">
       {/* Breadcrumbs & Category Title */}

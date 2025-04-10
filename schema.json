@@ -2198,6 +2198,13 @@
                       },
                       "optional": true
                     },
+                    "isMinOnly": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    },
                     "min": {
                       "type": "objectAttribute",
                       "value": {

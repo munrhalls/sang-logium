@@ -21,6 +21,7 @@ export const getFiltersForCategoryPath = async (categoryPath: string[]) => {
         defaultValue,
         min,
         max,
+        isMinOnly,
         step
       },
       "mappings": categoryMappings[path == $cleanPath]
