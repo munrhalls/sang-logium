@@ -1,4 +1,5 @@
 import RangeFilter from "./RangeFilter";
+import MinOnlyFilter from "./MinOnlyFilter";
 import { useSearchParams } from "next/navigation";
 
 export default function FilterItem({
@@ -47,15 +48,14 @@ export default function FilterItem({
         return (
           <div className="filter-item mb-3">
             <h4 className="font-medium mb-1 font-black uppercase">{name}</h4>
-            {/* <MinOnlyFilter
+            <MinOnlyFilter
               name={name.toLowerCase()}
               min={min || 0}
               max={max || 10000}
               step={step || 1}
               onChange={(name, value, type) => onChange(value, type)}
               initialMin={initialMin}
-            /> */}
-            Min only filter !!!!!!!!!!!
+            />
           </div>
         );
       }
