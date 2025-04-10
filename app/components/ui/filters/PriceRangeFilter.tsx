@@ -136,6 +136,43 @@ const PriceRangeFilter = ({
           />
         </div>
 
+        <div className="relative pt-5 flex flex-col gap-2">
+          <label className="flex flex-col">
+            <span className="text-gray-500 text-sm">MIN</span>
+          </label>
+          <input
+            type="range"
+            min={min}
+            max={max}
+            step={step}
+            value={minValue}
+            onChange={(e) => handleMinChange(parseInt(e.target.value, 10))}
+            onMouseUp={debouncedHandleChangeComplete}
+            onTouchEnd={debouncedHandleChangeComplete}
+            className="w-full bg-slate-400 cursor-pointer"
+            style={{ zIndex: 3 }}
+          />
+          <label className="flex justify-right w-full">
+            <span className="text-gray-500 text-sm text-right">MAX</span>
+          </label>
+          <input
+            type="range"
+            min={min}
+            max={max}
+            step={step}
+            value={maxValue}
+            onChange={(e) => handleMaxChange(parseInt(e.target.value, 10))}
+            onMouseUp={debouncedHandleChangeComplete}
+            onTouchEnd={debouncedHandleChangeComplete}
+            className="w-full bg-slate-100 cursor-pointer"
+            style={{ zIndex: 4 }}
+          />
+        </div>
+        <div className="flex justify-between text-sm mt-1">
+          <span>${minValue}</span>
+          <span>${maxValue}</span>
+        </div>
+
         {/* Rest of component remains the same */}
       </div>
     </div>
