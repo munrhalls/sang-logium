@@ -14,10 +14,10 @@ export default function FilterItem({
 
   const { type, name, options, min, max, step } = filter;
   const normalizedName = name.toLowerCase();
-  const priceMin = searchParams.get(`${normalizedName}_min`)
+  const initialMin = searchParams.get(`${normalizedName}_min`)
     ? parseInt(searchParams.get(`${normalizedName}_min`), 10)
     : undefined;
-  const priceMax = searchParams.get(`${normalizedName}_max`)
+  const initialMax = searchParams.get(`${normalizedName}_max`)
     ? parseInt(searchParams.get(`${normalizedName}_max`), 10)
     : undefined;
 
@@ -48,8 +48,8 @@ export default function FilterItem({
             max={max || 10000}
             step={step || 1}
             onChange={(name, value, type) => onChange(value, type)}
-            initialMin={priceMin}
-            initialMax={priceMax}
+            initialMin={initialMin}
+            initialMax={initialMax}
           />
         </div>
       );
