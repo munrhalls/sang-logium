@@ -79,6 +79,15 @@ export const categoryFiltersType = defineType({
                     parent?.type === "boolean" || parent?.type === "range",
                 },
                 {
+                  name: "isMinOnly",
+                  title: "Min Value Only",
+                  type: "boolean",
+                  description:
+                    "If checked, only the minimum value will be used for filtering",
+                  hidden: ({ parent }) => parent?.type !== "range",
+                  initialValue: false,
+                },
+                {
                   name: "min",
                   title: "Minimum Value",
                   type: "number",
@@ -88,7 +97,8 @@ export const categoryFiltersType = defineType({
                   name: "max",
                   title: "Maximum Value",
                   type: "number",
-                  hidden: ({ parent }) => parent?.type !== "range",
+                  hidden: ({ parent }) =>
+                    parent?.type !== "range" || parent?.isMinOnly === true,
                 },
                 {
                   name: "step",

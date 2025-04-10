@@ -43,6 +43,7 @@ export default function Filters({ filterOptions }) {
 
       params.delete(name);
     } else {
+      console.log("checkbox", name, value);
       params.set(name, String(value).toLowerCase().trim());
     }
 
