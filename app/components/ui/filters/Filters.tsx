@@ -28,22 +28,22 @@ export default function Filters({ filterOptions }) {
     } else if (type === "range") {
       // For range type, expect value to be an object with min and max properties
       if (value.min !== undefined) {
-        console.log("name", name);
         params.set(`${name}_min`, String(value.min));
       } else {
         params.delete(`${name}_min`);
       }
 
-      console.log("RANGE", name, value, type);
-      if (value.max !== undefined) {
+      // For regular range filters, handle max value
+      // For min-only range filters (when max is undefined or null), delete the max parameter
+      if (value.max !== undefined && value.max !== null) {
         params.set(`${name}_max`, String(value.max));
       } else {
+        // Delete max param if max is undefined or null
         params.delete(`${name}_max`);
       }
 
       params.delete(name);
     } else {
-      console.log("checkbox", name, value);
       params.set(name, String(value).toLowerCase().trim());
     }
 

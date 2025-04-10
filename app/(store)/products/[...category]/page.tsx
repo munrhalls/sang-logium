@@ -22,7 +22,6 @@ export default async function ProductsPage({
   const [root, leaf] = [path[0], path[path.length - 1]];
   const searchParamsResolved = await searchParams;
   const selectedFilters = getSelectedFilters(searchParamsResolved);
-  console.log("Selected filters:", selectedFilters);
   // Get sort parameters
   const sortField =
     typeof searchParamsResolved.sort === "string"

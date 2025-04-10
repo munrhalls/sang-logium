@@ -4,31 +4,29 @@ import debounce from "lodash/debounce";
 const MinOnlyFilter = ({
   name,
   min = 0,
-  max = 10000,
+  max = 1500,
   step = 1,
   onChange,
   initialMin,
 }) => {
   // Initialize state for the minimum value
   const [minValue, setMinValue] = useState(initialMin || min);
-  const [minInputValue, setMinInputValue] = useState(String(minValue));
-
+  console.log("max", max);
   // Handle min value change from slider
   const handleMinChange = (newMin) => {
     // Ensure min is valid
     const validMin = Math.max(min, Math.min(newMin, max));
     setMinValue(validMin);
-    setMinInputValue(String(validMin));
 
     if (onChange) {
-      onChange(name, { min: validMin }, "range-min");
+      onChange(name, { min: validMin }, "range");
     }
   };
 
   // Debounce change events to avoid too many updates
   const debouncedHandleChangeComplete = debounce(() => {
     if (onChange) {
-      onChange(name, { min: minValue }, "range-min");
+      onChange(name, { min: minValue }, "range");
     }
   }, 800);
 
@@ -36,17 +34,16 @@ const MinOnlyFilter = ({
   useEffect(() => {
     if (initialMin !== undefined) {
       setMinValue(initialMin);
-      setMinInputValue(String(initialMin));
     }
   }, [initialMin]);
 
   return (
     <div className="flex flex-col">
       <div className="flex flex-col gap-4 mb-4">
-        {/* Single slider for minimum value */}
         <div className="relative pt-5">
           <label className="flex flex-col">
-            <span className="text-gray-500 text-sm">Products available</span>
+            {/* <span className="text-gray-500 text-sm">Products available</span> */}
+            <span className="text-md font-black">{minValue}</span>
           </label>
           <input
             type="range"
@@ -62,10 +59,7 @@ const MinOnlyFilter = ({
         </div>
 
         {/* Show the current range */}
-        <div className="flex justify-between text-sm mt-1">
-          <span>{minValue} and above</span>
-          <span>{max}</span>
-        </div>
+        <div className="flex justify-between text-md font-black "></div>
       </div>
     </div>
   );

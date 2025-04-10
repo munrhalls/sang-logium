@@ -104,16 +104,13 @@ export const getSelectedProducts = async (path, selectedFilters) => {
       ? rangeFilters
           .map((item) => {
             let query = "";
-            console.log("item range", item);
             query += `${item.field} ${item.operator} ${item.value}`;
-            console.log("range query ", query);
             return query;
           })
           .filter((query) => query !== "") // Filter out empty strings
           .join(" && ") // Join with proper operator
       : "";
 
-  console.log("Range query:", rangeQuery);
   let assembledQuery = `*[_type == "product"`;
 
   const pathString = path.join("/");

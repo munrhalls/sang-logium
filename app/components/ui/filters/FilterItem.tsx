@@ -40,18 +40,15 @@ export default function FilterItem({
 
     case "range":
       // Check if this is a min-only range filter
-      console.log(
-        "isMinOnly isMinOnlyisMinOnlyisMinOnlyisMinOnlyisMinOnlyisMinOnlyisMinOnly",
-        isMinOnly
-      );
       if (isMinOnly) {
+        console.log("max @filter item", max);
         return (
           <div className="filter-item mb-3">
-            <h4 className="font-medium mb-1 font-black uppercase">{name}</h4>
+            <h4 className="font-medium mb-1 font-black">{name}</h4>
             <MinOnlyFilter
               name={name.toLowerCase()}
               min={min || 0}
-              max={max || 10000}
+              max={max || 1500}
               step={step || 1}
               onChange={(name, value, type) => onChange(value, type)}
               initialMin={initialMin}

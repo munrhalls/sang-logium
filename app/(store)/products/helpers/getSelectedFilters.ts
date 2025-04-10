@@ -47,7 +47,6 @@ interface RangeFilterItem {
 export default function getSelectedFilters(searchParamsInput: {
   [key: string]: string | string[];
 }): [FilterItem[], FilterItem[], FilterItem[], RangeFilterItem[]] {
-  console.log(searchParamsInput);
   const regularFilters: FilterItem[] = [];
   const overviewFilters: FilterItem[] = [];
   const specificationsFilters: FilterItem[] = [];
@@ -58,8 +57,6 @@ export default function getSelectedFilters(searchParamsInput: {
     if (!value) continue;
 
     const lowercaseField = field.toLowerCase();
-    console.log("lowercaseField ", lowercaseField);
-    console.log("map check", regularFiltersMap[lowercaseField]);
 
     if (overviewFiltersMap[lowercaseField]) {
       const parsedValue = parseFilterValue(value);
@@ -82,8 +79,6 @@ export default function getSelectedFilters(searchParamsInput: {
     }
 
     const lowercaseRangeField = lowercaseField.split("_")[0];
-    console.log("lowercaseRangeField ", lowercaseRangeField);
-    console.log("map check", rangeFiltersMap[lowercaseRangeField]);
 
     if (rangeFiltersMap[lowercaseRangeField]) {
       const parsedValue = parseFilterValue(value);
@@ -110,7 +105,6 @@ export default function getSelectedFilters(searchParamsInput: {
     }
 
     if (regularFiltersMap[lowercaseField]) {
-      console.log("IS IT HERE?", lowercaseField);
       const parsedValue = parseFilterValue(value);
       regularFilters.push({
         field: lowercaseField,
@@ -120,16 +114,6 @@ export default function getSelectedFilters(searchParamsInput: {
       continue;
     }
   }
-  console.log("filters arrays !!!!!");
-  console.log("regularFilters", regularFilters);
-  // console.log(regularFiltersMap[])
-  console.log(
-    JSON.stringify(
-      [regularFilters, overviewFilters, specificationsFilters, rangeFilters],
-      null,
-      2
-    )
-  );
   return [regularFilters, overviewFilters, specificationsFilters, rangeFilters];
 }
 
