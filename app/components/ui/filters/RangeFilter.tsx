@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import debounce from "lodash/debounce";
 
-const PriceRangeFilter = ({
+const RangeFilter = ({
   name,
   min = 0,
   max = 10000,
@@ -179,4 +179,4 @@ const PriceRangeFilter = ({
   );
 };
 
-export default PriceRangeFilter;
+export default RangeFilter;

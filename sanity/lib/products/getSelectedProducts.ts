@@ -3,7 +3,7 @@ import { sanityFetch } from "../live";
 
 export const getSelectedProducts = async (path, selectedFilters) => {
   const [regular, overview, specifications, rangeFilters] = selectedFilters;
-
+  console.log("selectedFilters", selectedFilters);
   // Debug logging
   console.log(
     "getSelectedProducts received filters:",
