@@ -47,7 +47,7 @@ export default function FilterItem({
             <MinOnlyFilter
               name={name.toLowerCase()}
               min={min || 0}
-              max={max || 1500}
+              max={max || 500}
               step={step || 1}
               onChange={(name, value, type) => onChange(value, type)}
               initialMin={initialMin}

@@ -30,6 +30,13 @@ const rangeFiltersMap: FiltersMap = {
   "stock amount": true,
 };
 
+interface DisplayToRealMapType {
+  "stock amount": string;
+}
+const displayToRealMap: DisplayToRealMapType = {
+  "stock amount": "stock",
+};
+
 type FilterValue = string | string[] | { min?: number; max?: number };
 
 interface FilterItem {
@@ -79,9 +86,14 @@ export default function getSelectedFilters(searchParamsInput: {
       continue;
     }
 
-    const lowercaseRangeField = lowercaseField.split("_")[0];
+    let lowercaseRangeField = lowercaseField.split("_")[0];
 
     if (rangeFiltersMap[lowercaseRangeField]) {
+      if (lowercaseRangeField in displayToRealMap) {
+        lowercaseRangeField =
+          displayToRealMap[lowercaseRangeField as keyof DisplayToRealMapType];
+      }
+
       const parsedValue = parseFilterValue(value);
       const dir = lowercaseField.split("_")[1];
 
