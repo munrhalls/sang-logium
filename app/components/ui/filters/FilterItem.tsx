@@ -25,7 +25,7 @@ export default function FilterItem({
     case "checkbox":
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-medium mb-1">{name}</h4>
+          <h4 className="font-black mb-1">{name}</h4>
           <label className="flex items-center cursor-pointer">
             <input
               type="checkbox"
@@ -41,10 +41,9 @@ export default function FilterItem({
     case "range":
       // Check if this is a min-only range filter
       if (isMinOnly) {
-        console.log("max @filter item", max);
         return (
           <div className="filter-item mb-3">
-            <h4 className="font-medium mb-1 font-black">{name}</h4>
+            <h4 className="font-black mb-1 font-black">{name}</h4>
             <MinOnlyFilter
               name={name.toLowerCase()}
               min={min || 0}
@@ -60,7 +59,7 @@ export default function FilterItem({
       // Regular range filter
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-medium mb-1 font-black uppercase">{name}</h4>
+          <h4 className="font-black mb-1 font-black">{name}</h4>
           <RangeFilter
             name={name.toLowerCase()}
             min={min || 0}
@@ -79,7 +78,7 @@ export default function FilterItem({
 
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-medium mb-1">{name}</h4>
+          <h4 className="font-black mb-1">{name}</h4>
           <div className="space-y-1">
             {safeOptions.map((option, i) => (
               <label key={i} className="flex items-center cursor-pointer">
@@ -109,7 +108,7 @@ export default function FilterItem({
       const radioOptions = Array.isArray(options) ? options : [];
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-medium mb-1">{name}</h4>
+          <h4 className="font-black mb-1">{name}</h4>
           <div className="space-y-1">
             {radioOptions.map((option, i) => (
               <label key={i} className="flex items-center cursor-pointer">
@@ -130,7 +129,7 @@ export default function FilterItem({
     case "boolean":
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-medium mb-1">{name}</h4>
+          <h4 className="font-black mb-1">{name}</h4>
           <label className="flex items-center cursor-pointer">
             <input
               type="checkbox"
@@ -146,7 +145,7 @@ export default function FilterItem({
     default:
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-medium mb-1">{name}</h4>
+          <h4 className="font-black mb-1">{name}</h4>
           <p className="text-sm text-gray-500">
             Unsupported filter type: {type}
           </p>

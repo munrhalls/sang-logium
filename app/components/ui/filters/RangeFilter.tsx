@@ -169,9 +169,9 @@ const RangeFilter = ({
             style={{ zIndex: 4 }}
           />
         </div>
-        <div className="flex justify-between text-sm mt-1">
-          <span>${minValue}</span>
-          <span>${maxValue}</span>
+        <div className="flex justify-between text-md mt-1">
+          <span className="font-black">${minValue}</span>
+          <span className="font-black">${maxValue}</span>
         </div>
 
         {/* Rest of component remains the same */}

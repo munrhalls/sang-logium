@@ -40,7 +40,7 @@ const MinOnlyFilter = ({
   return (
     <div className="flex flex-col">
       <div className="flex flex-col gap-4 mb-4">
-        <div className="relative pt-5">
+        <div className="relative">
           <label className="flex flex-col">
             {/* <span className="text-gray-500 text-sm">Products available</span> */}
             <span className="text-md font-black">{minValue}</span>
