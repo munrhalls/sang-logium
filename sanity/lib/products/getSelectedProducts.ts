@@ -155,6 +155,14 @@ export const getSelectedProducts = async (
         ),
         "sortingOrder": count(specifications[title match "Frequency Response" && value match "*kHz*"])
       } | order(sortingOrder ${selectedSort.direction})`;
+    } else if (selectedSort.field === "frequencyRange") {
+      assembledQuery += `] {
+        ...,
+        "hasFreq": defined(specifications[title match "Frequency Response"][0]),
+        "hasDash": specifications[title match "Frequency Response"][0].value match "*-*",
+        "hasRange": hasFreq && hasDash,
+        "sortingOrder": count(specifications[title match "Frequency Response" && value match "*-*"])
+      } | order(sortingOrder ${selectedSort.direction})`;
     } else {
       assembledQuery += `] | order(${selectedSort.field} ${selectedSort.direction})`;
     }
