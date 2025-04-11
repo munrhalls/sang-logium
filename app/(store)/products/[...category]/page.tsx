@@ -1,16 +1,14 @@
 import ProductsGrid from "@/app/components/features/products-view/ProductsGrid";
 import CategoryBreadcrumbs from "@/app/components/ui/breadcrumbs/CategoryBreadcrumbs";
 import CategoryTitleIcon from "@/app/components/ui/icons/CategoryTitleIcon";
-import Filters from "@/app/components/ui/filters/Filters";
 import AppliedFilters from "@/app/components/ui/tag-elements/AppliedFilters";
 import FilterSortBtns from "@/app/components/ui/buttons/FilterSortBtns";
-import SortClient from "@/app/components/ui/sortables/SortClient";
 import ProductsFilterSortDrawersWrapper from "@/app/components/ui/drawers/ProductsFilterSortDrawersWrapper";
 import { getFiltersForCategoryPathAction } from "@/app/actions/getFiltersForCategoryPathAction";
 import { getSortablesForCategoryPathAction } from "@/app/actions/getSortablesForCategoryPathAction";
 import getSelectedFilters from "../helpers/getSelectedFilters";
 import { getSelectedProducts } from "@/sanity/lib/products/getSelectedProducts";
-
+import SidebarClient from "../SidebarClient";
 export default async function ProductsPage({
   params,
   searchParams,
@@ -71,20 +69,11 @@ export default async function ProductsPage({
       {/* Content Grid */}
       <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 mt-4">
         {/* Desktop Filters - Hidden on Mobile */}
-        <aside className="hidden md:block">
-          <div className="sticky top-4">
-            <div className="bg-white rounded-lg shadow p-4 mb-4">
-              <Filters filterOptions={filterOptions} />
-            </div>
-
-            <div className="bg-white rounded-lg shadow p-4">
-              <SortClient
-                initialSortOptions={sortOptions}
-                currentSort={sortField}
-              />
-            </div>
-          </div>
-        </aside>
+        <SidebarClient
+          filterOptions={filterOptions}
+          sortOptions={sortOptions}
+          sortField={sortField}
+        />
 
         {/* Products Grid */}
         <div>
