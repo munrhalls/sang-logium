@@ -9,6 +9,8 @@ import { getSortablesForCategoryPathAction } from "@/app/actions/getSortablesFor
 import getSelectedFilters from "../helpers/getSelectedFilters";
 import { getSelectedProducts } from "@/sanity/lib/products/getSelectedProducts";
 import SidebarClient from "../SidebarClient";
+import getSelectedSort from "../helpers/getSelectedSort";
+
 export default async function ProductsPage({
   params,
   searchParams,
@@ -20,6 +22,7 @@ export default async function ProductsPage({
   const [root, leaf] = [path[0], path[path.length - 1]];
   const searchParamsResolved = await searchParams;
   const selectedFilters = getSelectedFilters(searchParamsResolved);
+  const selectedSort = getSelectedSort(searchParamsResolved);
   // Get sort parameters
   const sortField =
     typeof searchParamsResolved.sort === "string"
@@ -32,7 +35,7 @@ export default async function ProductsPage({
 
   // Fetch data in parallel
   const [products, filterOptions, sortOptions] = await Promise.all([
-    getSelectedProducts(path, selectedFilters).catch((error) => {
+    getSelectedProducts(path, selectedFilters, selectedSort).catch((error) => {
       console.error("Failed to fetch products:", error);
       return [];
     }),

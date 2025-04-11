@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import client from "./getClient.mjs";
+import client from "./../getClient.mjs";
 
 /**
  * Script to add Brand sort option to top-level and all nested categories

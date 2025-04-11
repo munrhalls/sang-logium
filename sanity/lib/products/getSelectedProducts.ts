@@ -1,8 +1,14 @@
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../live";
 
-export const getSelectedProducts = async (path, selectedFilters) => {
+export const getSelectedProducts = async (
+  path,
+  selectedFilters,
+  selectedSort
+) => {
   const [regular, overview, specifications, rangeFilters] = selectedFilters;
+  console.log("selectedSort", selectedSort);
+
   console.log("selectedFilters", selectedFilters);
   // Debug logging
   console.log(
@@ -131,8 +137,30 @@ export const getSelectedProducts = async (path, selectedFilters) => {
     assembledQuery += ` && (${allFilters})`;
   }
 
-  assembledQuery += `] | order(name asc)`;
-
+  if (selectedSort && selectedSort.field && selectedSort.field !== "default") {
+    if (selectedSort.field === "bassPerformance") {
+      assembledQuery += `] {
+        ...,
+        "sortValue": coalesce(
+          specifications[title match "Frequency Response" || title match "frequency response"][0].value,
+          "100Hz"
+        )
+      } | order(sortValue ${selectedSort.direction})`;
+    } else if (selectedSort.field === "detailClarity") {
+      assembledQuery += `] {
+        ...,
+        "freqResponse": coalesce(
+          specifications[title match "Frequency Response" || title match "frequency response"][0].value,
+          ""
+        ),
+        "sortingOrder": count(specifications[title match "Frequency Response" && value match "*kHz*"])
+      } | order(sortingOrder ${selectedSort.direction})`;
+    } else {
+      assembledQuery += `] | order(${selectedSort.field} ${selectedSort.direction})`;
+    }
+  } else {
+    assembledQuery += `] | order(name asc)`;
+  }
   console.log("Final GROQ query:", assembledQuery);
   const GET_PRODUCTS_BY_QUERY = defineQuery(assembledQuery);
   try {
