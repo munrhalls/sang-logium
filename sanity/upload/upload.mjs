@@ -37,7 +37,10 @@ const uploadImage = async (url) => {
     });
     return asset._id;
   } catch (error) {
-    console.error(`Error uploading image ${url}:`, error.message);
+    console.error(
+      `Error uploading image with url: ${url}. Error message:`,
+      error.message
+    );
     throw error;
   }
 };

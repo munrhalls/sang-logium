@@ -163,6 +163,26 @@ export const getSelectedProducts = async (
         "hasRange": hasFreq && hasDash,
         "sortingOrder": count(specifications[title match "Frequency Response" && value match "*-*"])
       } | order(sortingOrder ${selectedSort.direction})`;
+    } else if (selectedSort.field === "sensitivity") {
+      assembledQuery += `] {
+        ...,
+        "sensitivitySpec": coalesce(
+          specifications[title match "Sensitivity"][0].value,
+          "0 dB"
+        ),
+        "hasSensitivity": defined(specifications[title match "Sensitivity"][0]),
+        "sortingOrder": count(specifications[title match "Sensitivity"])
+      } | order(sortingOrder ${selectedSort.direction})`;
+    } else if (selectedSort.field === "impedance") {
+      assembledQuery += `] {
+          ...,
+          "impedanceSpec": coalesce(
+            specifications[title match "Impedance"][0].value,
+            "0"
+          ),
+          "hasImpedance": defined(specifications[title match "Impedance"][0]),
+          "sortingOrder": count(specifications[title match "Impedance"])
+        } | order(sortingOrder ${selectedSort.direction})`;
     } else {
       assembledQuery += `] | order(${selectedSort.field} ${selectedSort.direction})`;
     }

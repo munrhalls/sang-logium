@@ -1,0 +1,300 @@
+[
+  {
+    "_type": "product",
+    "name": "JBL MP350 Classic Streaming Digital Media Player",
+    "slug": {
+      "_type": "slug",
+      "current": "jbl-mp350-classic-streaming-digital-media-player"
+    },
+    "brand": "JBL",
+    "description": [
+      {
+        "_type": "block",
+        "_key": "1a0ee80e-9773-46a7-aca7-e0a5df6c9779",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "_key": "2bc0a1c3-8b8a-43a8-a886-eac960ceead1",
+            "text": "No description available"
+          }
+        ]
+      }
+    ],
+    "price": 799,
+    "sku": "JBL-MP350-CLASSIC",
+    "stock": 106,
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_type": "reference",
+        "_ref": "https://www.worldwidestereo.com/cdn/shop/files/180253_WWS1_1946x.jpg?v=1744047686"
+      }
+    },
+    "gallery": [
+      {
+        "_type": "image",
+        "_key": "ebc3aeea-24fe-4543-b5c2-aafb7108fb19",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://www.worldwidestereo.com/cdn/shop/files/180253_WWS1_1946x.jpg?v=1744047686"
+        }
+      },
+      {
+        "_type": "image",
+        "_key": "2833ccc8-e974-41a1-b0ed-a880566400b4",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://www.worldwidestereo.com/cdn/shop/files/180253_WWS2_1946x.jpg?v=1744047686"
+        }
+      },
+      {
+        "_type": "image",
+        "_key": "15813460-74e6-4ef0-a15f-8e27c07c4505",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://www.worldwidestereo.com/cdn/shop/files/180253_WWS3_1946x.jpg?v=1744047686"
+        }
+      },
+      {
+        "_type": "image",
+        "_key": "bade843d-1270-4185-8c8a-4b710b8a514d",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://www.worldwidestereo.com/cdn/shop/files/180253_WWS4_1946x.jpg?v=1744047686"
+        }
+      },
+      {
+        "_type": "image",
+        "_key": "36d4a515-14bf-4ed8-b4fc-9b9f8dcbaffd",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://www.worldwidestereo.com/cdn/shop/files/180253_WWS5_1946x.jpg?v=1744047686"
+        }
+      },
+      {
+        "_type": "image",
+        "_key": "c1bb9e9e-7235-4096-9821-083440e19aeb",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://www.worldwidestereo.com/cdn/shop/files/180253_WWS6_1946x.jpg?v=1744047686"
+        }
+      },
+      {
+        "_type": "image",
+        "_key": "659780ef-59a9-42de-b0c6-1afa2483ef71",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://www.worldwidestereo.com/cdn/shop/files/180253_WWS7_1946x.jpg?v=1744047686"
+        }
+      },
+      {
+        "_type": "image",
+        "_key": "a0c9ec70-4286-4d67-8c28-20f2603229e0",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://www.worldwidestereo.com/cdn/shop/files/180253_WWS8_1946x.jpg?v=1744047686"
+        }
+      },
+      {
+        "_type": "image",
+        "_key": "811d3267-d8a0-422a-ab94-600b39a18793",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://www.worldwidestereo.com/cdn/shop/files/180253_WWS9_1946x.jpg?v=1744047686"
+        }
+      },
+      {
+        "_type": "image",
+        "_key": "6c45006a-ee22-4404-9302-0e1a6db601dd",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://www.worldwidestereo.com/cdn/shop/files/180253_WWS10_1946x.jpg?v=1744047686"
+        }
+      },
+      {
+        "_type": "image",
+        "_key": "15f9192d-3a08-4492-a832-d57eb6c47f4c",
+        "asset": {
+          "_type": "reference",
+          "_ref": "https://www.worldwidestereo.com/cdn/shop/files/180253_WWS11_1946x.jpg?v=1744047686"
+        }
+      }
+    ],
+    "specifications": [
+      {
+        "_type": "spec",
+        "_key": "47063318-b0f5-42db-b7b7-3c0b44d45bd4",
+        "title": "Type",
+        "value": "Digital Media Player / Streamer",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "0f017069-75d3-4e31-8b76-f88eeb5ed648",
+        "title": "Supported Hi-res media",
+        "value": "FLAC, WAV (LPCM), MQA, AAC, ALAC, AIFF, DSD (128)",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "78d1328b-b6de-4302-b224-1c42af926c93",
+        "title": "Supported Hi-res Bit depth",
+        "value": "16, 24",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "41008ac2-4611-4d0d-b685-bc584755b1d2",
+        "title": "Supported Hi-res sample rates (kHz)",
+        "value": "44.1, 48, 88.2, 96, 176.4, 192",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "c15bc471-b789-48b1-9d4e-3bead99db2ce",
+        "title": "Supported media",
+        "value": "MP3, MP4, OGG, WMA",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "62a9c975-894f-4673-b321-12f32071b57e",
+        "title": "Supported Bit depth",
+        "value": "16",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "cb9357a2-205b-4b05-b46e-333ea2debb6a",
+        "title": "Supported sample rates (kHz)",
+        "value": "32, 44.1, 48",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "dcec0331-d7fc-40db-b7b9-434336703542",
+        "title": "Gapless Playback",
+        "value": "Yes",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "fee9a803-076c-473c-99bd-e07d1c3242f9",
+        "title": "Digital Outputs",
+        "value": "1x Coaxial (RCA), 1x Optical (Toslink)",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "20e098d3-2dc3-4e3f-b233-2177edb588fc",
+        "title": "Analog Inputs",
+        "value": "1x Stereo (RCA) pair",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "781ec3fe-2b26-4ed1-a321-89d0e3956ab4",
+        "title": "Frequency Response",
+        "value": "20Hz - 20kHz ±0.05dB",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "9c3a4179-873a-4895-9ec2-3b7825f36f8d",
+        "title": "Finish",
+        "value": "Silver with Walnut wood veneer",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "1168baf7-a81a-42a0-a73d-3e7b078fc87d",
+        "title": "Power Consumption",
+        "value": "12W",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "f386ac1b-fc7e-4ad0-a95f-f70aa9c74225",
+        "title": "Power Supply",
+        "value": "AV 100-240V, 50/60 Hz",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "bb49120c-5bdf-4d6c-b847-4f5db854a597",
+        "title": "Dimensions (W x H x D)",
+        "value": "17.7” x 1.9” x 11.1”",
+        "information": ""
+      },
+      {
+        "_type": "spec",
+        "_key": "710ac603-8be1-4660-8a28-ad5957c9a4f5",
+        "title": "Product Weight",
+        "value": "11.0 lbs",
+        "information": ""
+      }
+    ],
+    "overviewFields": [
+      {
+        "_type": "overviewField",
+        "_key": "164b7a11-acf6-45f8-9703-5e0e009f4e10",
+        "title": "Feature",
+        "value": "Network Media Player with Classic Styling",
+        "information": "Features"
+      },
+      {
+        "_type": "overviewField",
+        "_key": "296827fe-5a25-4424-81db-ef0655b0f589",
+        "title": "Feature",
+        "value": "Walnut veneer side panels match JBL Classic and Studio Monitor loudspeakers",
+        "information": "Features"
+      },
+      {
+        "_type": "overviewField",
+        "_key": "2c49a0cd-5805-47e2-8321-1f95e7e6199f",
+        "title": "Feature",
+        "value": "Works with Spotify Connect, Tidal Connect (MQA supported), Apple Airplay2 and has Chromecast built-in",
+        "information": "Features"
+      },
+      {
+        "_type": "overviewField",
+        "_key": "50555bba-6de6-4d52-b1be-1460a995b5f6",
+        "title": "Feature",
+        "value": "Roon Ready",
+        "information": "Features"
+      },
+      {
+        "_type": "overviewField",
+        "_key": "4b6d8543-74e2-45c8-a784-9be9dc5116c1",
+        "title": "Feature",
+        "value": "Supports up to 24 bit / 192 kHz Hi-res audio",
+        "information": "Features"
+      },
+      {
+        "_type": "overviewField",
+        "_key": "cabde815-5ba2-49fc-838e-1658ffcbc9b5",
+        "title": "Feature",
+        "value": "Analog and Digital Outputs",
+        "information": "Features"
+      },
+      {
+        "_type": "overviewField",
+        "_key": "2827d53c-011a-48c2-88db-4e6e0c7e66dc",
+        "title": "Model",
+        "value": "JBLMP350WNAM",
+        "information": "Product Identifier"
+      },
+      {
+        "_type": "overviewField",
+        "_key": "a00923b7-85b7-41dc-a6a8-fe1c55bc3938",
+        "title": "UPC",
+        "value": "050036397421",
+        "information": "Product Identifier"
+      }
+    ],
+    "categoryPath": [
+      "Personal Audio/Digital Audio Players"
+    ]
+  }
+]

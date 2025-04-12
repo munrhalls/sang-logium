@@ -74,11 +74,14 @@ const transformProduct = (product) => {
     information: field.information || "",
   }));
 
-  // Safely transform image URLs
-  const imageUrl = makeUrlComplete(product.imageUrl);
-  const galleryUrls = (product.galleryUrls || []).map((url) =>
-    makeUrlComplete(url)
-  );
+  // Safely transform image URLs - handle both structures
+  const imageUrl =
+    product.image?.src || makeUrlComplete(product.imageUrl || "");
+
+  // Handle both gallery structures
+  const galleryUrls = product.gallery
+    ? product.gallery.map((img) => makeUrlComplete(img.src || ""))
+    : (product.galleryUrls || []).map((url) => makeUrlComplete(url));
 
   return {
     _type: "product",
