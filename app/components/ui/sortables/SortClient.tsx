@@ -12,14 +12,13 @@ export default function SortClient({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [options, setOptions] = useState(initialSortOptions);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const currentSortName = searchParams.get("sort") || "";
   const currentSortDir = searchParams.get("dir") || "asc";
 
-  // Ensure options have display names
   useEffect(() => {
     if (initialSortOptions && initialSortOptions.length > 0) {
-      // Map options to ensure they have displayName
       const processedOptions = initialSortOptions.map((option) => ({
         name: option.name,
         displayName: option.displayName || formatSortName(option.name),
@@ -40,6 +39,7 @@ export default function SortClient({
   }
 
   function handleSortChange(sortName, direction = "asc") {
+    setIsTransitioning(true);
     const params = new URLSearchParams(searchParams);
 
     if (sortName) {
@@ -50,8 +50,9 @@ export default function SortClient({
       params.delete("dir");
     }
 
-    // Update URL (single source of truth)
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+
+    setTimeout(() => setIsTransitioning(false), 600);
   }
 
   function getDirectionIcon(isActive, direction) {
@@ -75,7 +76,6 @@ export default function SortClient({
     );
   }
 
-  // Handle different sort types
   function getSortLabel(option) {
     const { displayName, type } = option;
 
@@ -98,7 +98,12 @@ export default function SortClient({
   }
 
   return (
-    <div className="sort-options space-y-4">
+    <div className="sort-options space-y-4 relative">
+      {isTransitioning && (
+        <div className="absolute inset-0 bg-white/50 flex items-center justify-center z-10 rounded-md">
+          <div className="w-5 h-5 border-2 border-blue-700 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
       <div className="sort-buttons space-y-2">
         {options.map((option) => {
           const isActive = option.name === currentSortName;
@@ -120,7 +125,6 @@ export default function SortClient({
             >
               <span>{getSortLabel(option)}</span>
               <div className="flex items-center">
-                {/* {isActive && <Check className="mr-1 h-5 w-5" />} */}
                 {getDirectionIcon(isActive, currentSortDir)}
               </div>
             </button>
