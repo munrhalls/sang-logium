@@ -67,9 +67,9 @@ const RangeFilter = ({
       <div className="flex flex-col gap-4 mb-4">
         <div className="flex justify-between items-center gap-2">
           <input
+            className="w-24 p-1 border rounded text-md font-semibold  text-black"
             type="text"
             inputMode="numeric"
-            className="text-black"
             value={minInputValue}
             onChange={(e) => {
               const newValue = e.target.value;
@@ -99,10 +99,10 @@ const RangeFilter = ({
               }
               debouncedNumInputHandleChangeComplete();
             }}
-            className="w-24 p-1 border rounded text-sm text-black"
           />
           <span className="text-white">to</span>
           <input
+            className="w-24 p-1 border rounded text-md font-semibold  text-black"
             type="text"
             inputMode="numeric"
             value={maxInputValue}
@@ -134,13 +134,12 @@ const RangeFilter = ({
               }
               debouncedNumInputHandleChangeComplete();
             }}
-            className="w-24 p-1 border rounded text-sm text-black"
           />
         </div>
 
-        <div className="relative pt-5 flex flex-col gap-2">
+        <div className="relative flex flex-col gap-2">
           <label className="flex flex-col">
-            <span className="text-white text-sm">MIN</span>
+            <span className="text-white text-md font-black">MIN</span>
           </label>
           <input
             type="range"
@@ -155,7 +154,9 @@ const RangeFilter = ({
             style={{ zIndex: 3 }}
           />
           <label className="flex justify-right w-full">
-            <span className="text-white text-sm text-right">MAX</span>
+            <span className="text-white text-right text-md font-black">
+              MAX
+            </span>
           </label>
           <input
             type="range"

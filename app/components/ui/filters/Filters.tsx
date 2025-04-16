@@ -65,7 +65,6 @@ export default function Filters({ filterOptions }) {
 
   return (
     <div className="filters p-4">
-      <h3 className="text-lg font-bold mb-4">Filters</h3>
       <form onSubmit={handleFormSubmit} className="space-y-4">
         {filterOptions.map((filter, index) => {
           if (!filter || !filter.name || !filter.type) return null;

@@ -4,7 +4,10 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { ArrowDown, ArrowUp, Check } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function SortClient({ initialSortOptions = [], currentSort = '' }) {
+export default function SortClient({
+  initialSortOptions = [],
+  currentSort = "",
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -17,23 +20,23 @@ export default function SortClient({ initialSortOptions = [], currentSort = '' }
   useEffect(() => {
     if (initialSortOptions && initialSortOptions.length > 0) {
       // Map options to ensure they have displayName
-      const processedOptions = initialSortOptions.map(option => ({
+      const processedOptions = initialSortOptions.map((option) => ({
         name: option.name,
         displayName: option.displayName || formatSortName(option.name),
         type: option.type || "alphabetic",
         field: option.field || option.name,
-        defaultDirection: option.defaultDirection || "asc"
+        defaultDirection: option.defaultDirection || "asc",
       }));
-      
+
       setOptions(processedOptions);
     }
   }, [initialSortOptions]);
 
   function formatSortName(name) {
     return name
-      .replace(/([A-Z])/g, ' $1')
-      .replace(/^./, str => str.toUpperCase())
-      .replace(/_/g, ' ');
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (str) => str.toUpperCase())
+      .replace(/_/g, " ");
   }
 
   function handleSortChange(sortName, direction = "asc") {
@@ -53,16 +56,18 @@ export default function SortClient({ initialSortOptions = [], currentSort = '' }
 
   function getDirectionIcon(isActive, direction) {
     if (!isActive) return null;
-    
-    return direction === "asc" 
-      ? <ArrowUp className="ml-1 h-4 w-4" /> 
-      : <ArrowDown className="ml-1 h-4 w-4" />;
+
+    return direction === "asc" ? (
+      <ArrowUp className="ml-1 h-4 w-4" />
+    ) : (
+      <ArrowDown className="ml-1 h-4 w-4" />
+    );
   }
 
   // Handle different sort types
   function getSortLabel(option) {
     const { displayName, type } = option;
-    
+
     switch (type) {
       case "alphabetic":
         return `${displayName} (A-Z)`;
@@ -83,7 +88,6 @@ export default function SortClient({ initialSortOptions = [], currentSort = '' }
 
   return (
     <div className="sort-options space-y-4">
-      <h3 className="text-lg font-medium mb-2">Sort By</h3>
       <div className="sort-buttons space-y-2">
         {options.map((option) => {
           const isActive = option.name === currentSortName;
@@ -91,9 +95,9 @@ export default function SortClient({ initialSortOptions = [], currentSort = '' }
             <button
               key={option.name}
               className={`w-full flex items-center justify-between px-4 py-3 rounded-md transition-colors ${
-                isActive 
-                  ? 'bg-blue-700 text-white' 
-                  : 'bg-blue-800 hover:bg-blue-700 text-white'
+                isActive
+                  ? "bg-blue-700 text-white"
+                  : "bg-blue-800 hover:bg-blue-700 text-white"
               }`}
               onClick={() => {
                 const newDirection =

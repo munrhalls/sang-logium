@@ -16,13 +16,13 @@ export default function SidebarClient({
       <div className="flex space-x-2 mb-4">
         <button
           onClick={() => setActiveView("filters")}
-          className={`flex-1 py-1 px-3 rounded ${activeView === "filters" ? "bg-blue-700 text-white" : "bg-white text-black"}`}
+          className={`flex-1 py-2 px-3 rounded tracking-wide uppercase text-sm  ${activeView === "filters" ? "bg-blue-700 text-white font-semibold" : "bg-white text-black font-light"}`}
         >
           Filters
         </button>
         <button
           onClick={() => setActiveView("sort")}
-          className={`flex-1 py-1 px-3 rounded ${activeView === "sort" ? "bg-blue-700 text-white" : "bg-white text-black"}`}
+          className={`flex-1 py-2 px-3 rounded tracking-wide uppercase text-sm  ${activeView === "sort" ? "bg-blue-700 text-white font-semibold" : "bg-white text-black font-light"}`}
         >
           Sort
         </button>
