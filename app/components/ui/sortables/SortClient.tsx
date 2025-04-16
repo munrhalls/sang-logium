@@ -55,6 +55,15 @@ export default function SortClient({
     setTimeout(() => setIsTransitioning(false), 600);
   }
 
+  function handleClearSort() {
+    setIsTransitioning(true);
+    const params = new URLSearchParams(searchParams);
+    params.delete("sort");
+    params.delete("dir");
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    setTimeout(() => setIsTransitioning(false), 600);
+  }
+
   function getDirectionIcon(isActive, direction) {
     if (!isActive)
       return <ArrowUp className="h-5 w-5 text-slate-500 opacity-40" />;
@@ -131,6 +140,15 @@ export default function SortClient({
           );
         })}
       </div>
+
+      {currentSortName && (
+        <button
+          onClick={handleClearSort}
+          className="w-full mt-4 px-4 py-2 border border-gray-300 rounded text-center hover:bg-gray-100"
+        >
+          Clear Sort
+        </button>
+      )}
     </div>
   );
 }
