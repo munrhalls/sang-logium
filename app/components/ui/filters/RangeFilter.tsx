@@ -11,15 +11,12 @@ const RangeFilter = ({
   initialMax,
   isMinOnly = false,
 }) => {
-  // Fix initialization order - define minValue/maxValue first
   const [minValue, setMinValue] = useState(initialMin || min);
   const [maxValue, setMaxValue] = useState(initialMax || max);
   const [minInputValue, setMinInputValue] = useState(String(minValue));
   const [maxInputValue, setMaxInputValue] = useState(String(maxValue));
 
-  // Handle min value change
   const handleMinChange = (newMin) => {
-    // Ensure min doesn't exceed max
     const validMin = Math.min(newMin, maxValue);
     setMinValue(validMin);
     if (onChange) {
@@ -27,9 +24,7 @@ const RangeFilter = ({
     }
   };
 
-  // Handle max value change
   const handleMaxChange = (newMax) => {
-    // Ensure max doesn't go below min
     const validMax = Math.max(newMax, minValue);
     setMaxValue(validMax);
     if (onChange) {
@@ -37,7 +32,6 @@ const RangeFilter = ({
     }
   };
 
-  // Submit changes when user stops interacting
   const handleChangeComplete = () => {
     if (onChange) {
       onChange(name, { min: minValue, max: maxValue }, "range");
@@ -50,7 +44,6 @@ const RangeFilter = ({
     2500
   );
 
-  // Update if initial values change
   useEffect(() => {
     if (initialMin !== undefined) {
       setMinValue(initialMin);
@@ -87,10 +80,8 @@ const RangeFilter = ({
             }}
             onBlur={() => {
               if (minInputValue === "") {
-                // Restore previous value if empty
                 setMinInputValue(String(minValue));
               } else {
-                // Ensure value doesn't exceed max
                 const numValue = parseInt(minInputValue, 10);
                 if (numValue > maxValue) {
                   setMinInputValue(String(maxValue));
@@ -122,10 +113,8 @@ const RangeFilter = ({
             }}
             onBlur={() => {
               if (maxInputValue === "") {
-                // Restore previous value if empty
                 setMaxInputValue(String(maxValue));
               } else {
-                // Ensure value isn't below min
                 const numValue = parseInt(maxInputValue, 10);
                 if (numValue < minValue) {
                   setMaxInputValue(String(minValue));
@@ -175,8 +164,6 @@ const RangeFilter = ({
           <span className="font-black">${minValue}</span>
           <span className="font-black">${maxValue}</span>
         </div>
-
-        {/* Rest of component remains the same */}
       </div>
     </div>
   );
