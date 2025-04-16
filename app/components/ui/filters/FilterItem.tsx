@@ -59,7 +59,7 @@ export default function FilterItem({
       // Regular range filter
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-black mb-1 font-black">{name}</h4>
+          <h4 className="font-black mb-1">{name}</h4>
           <RangeFilter
             name={name.toLowerCase()}
             min={min || 0}

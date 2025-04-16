@@ -69,6 +69,7 @@ const RangeFilter = ({
           <input
             type="text"
             inputMode="numeric"
+            className="text-black"
             value={minInputValue}
             onChange={(e) => {
               const newValue = e.target.value;
@@ -98,9 +99,9 @@ const RangeFilter = ({
               }
               debouncedNumInputHandleChangeComplete();
             }}
-            className="w-24 p-1 border rounded text-sm"
+            className="w-24 p-1 border rounded text-sm text-black"
           />
-          <span className="text-gray-500">to</span>
+          <span className="text-white">to</span>
           <input
             type="text"
             inputMode="numeric"
@@ -133,13 +134,13 @@ const RangeFilter = ({
               }
               debouncedNumInputHandleChangeComplete();
             }}
-            className="w-24 p-1 border rounded text-sm"
+            className="w-24 p-1 border rounded text-sm text-black"
           />
         </div>
 
         <div className="relative pt-5 flex flex-col gap-2">
           <label className="flex flex-col">
-            <span className="text-gray-500 text-sm">MIN</span>
+            <span className="text-white text-sm">MIN</span>
           </label>
           <input
             type="range"
@@ -150,11 +151,11 @@ const RangeFilter = ({
             onChange={(e) => handleMinChange(parseInt(e.target.value, 10))}
             onMouseUp={debouncedHandleChangeComplete}
             onTouchEnd={debouncedHandleChangeComplete}
-            className="w-full bg-slate-400 cursor-pointer"
+            className="w-full bg-slate-400 cursor-pointer text-black"
             style={{ zIndex: 3 }}
           />
           <label className="flex justify-right w-full">
-            <span className="text-gray-500 text-sm text-right">MAX</span>
+            <span className="text-white text-sm text-right">MAX</span>
           </label>
           <input
             type="range"
@@ -165,7 +166,7 @@ const RangeFilter = ({
             onChange={(e) => handleMaxChange(parseInt(e.target.value, 10))}
             onMouseUp={debouncedHandleChangeComplete}
             onTouchEnd={debouncedHandleChangeComplete}
-            className="w-full bg-slate-100 cursor-pointer"
+            className="w-full bg-slate-100 cursor-pointer text-black"
             style={{ zIndex: 4 }}
           />
         </div>
