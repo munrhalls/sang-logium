@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import FilterItem from "./FilterItem";
 import parseFilterValue from "./helpers/parseFilterValue";
 import normalizeFilters from "./helpers/normalizeFilters";
@@ -9,12 +10,14 @@ export default function Filters({ filterOptions }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   if (!Array.isArray(filterOptions) || filterOptions.length === 0) {
     return <div className="filters">No filters available</div>;
   }
 
   function handleFilterChange(name, value, type) {
+    setIsTransitioning(true);
     const params = new URLSearchParams(searchParams.toString());
 
     if (type === "checkbox" && value === false) {
@@ -53,6 +56,8 @@ export default function Filters({ filterOptions }) {
     router.push(`${pathname}?${normalizedParams.toString()}`, {
       scroll: false,
     });
+
+    setTimeout(() => setIsTransitioning(false), 600);
   }
 
   function handleFormSubmit(e) {
@@ -60,11 +65,18 @@ export default function Filters({ filterOptions }) {
   }
 
   function handleReset() {
+    setIsTransitioning(true);
     router.push(pathname, { scroll: false });
+    setTimeout(() => setIsTransitioning(false), 600);
   }
 
   return (
-    <div className="filters p-4">
+    <div className="filters p-4 relative">
+      {isTransitioning && (
+        <div className="absolute inset-0 bg-white/50 flex items-center justify-center z-10 rounded-md">
+          <div className="w-5 h-5 border-2 border-blue-700 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
       <form onSubmit={handleFormSubmit} className="space-y-4">
         {filterOptions.map((filter, index) => {
           if (!filter || !filter.name || !filter.type) return null;
