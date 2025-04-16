@@ -55,12 +55,17 @@ export default function SortClient({
   }
 
   function getDirectionIcon(isActive, direction) {
-    if (!isActive) return null;
+    if (!isActive)
+      return <ArrowUp className="h-5 w-5 text-slate-500 opacity-15" />;
 
-    return direction === "asc" ? (
-      <ArrowUp className="ml-1 h-4 w-4" />
-    ) : (
-      <ArrowDown className="ml-1 h-4 w-4" />
+    return (
+      <>
+        {direction === "asc" ? (
+          <ArrowUp className="h-5 w-5 text-orange-500" />
+        ) : (
+          <ArrowDown className="h-5 w-5 text-orange-500" />
+        )}
+      </>
     );
   }
 
@@ -97,7 +102,7 @@ export default function SortClient({
               className={`w-full flex items-center justify-between px-4 py-3 rounded-md transition-colors ${
                 isActive
                   ? "bg-blue-700 text-white"
-                  : "bg-blue-800 hover:bg-blue-700 text-white"
+                  : "bg-white hover:bg-blue-400 text-black"
               }`}
               onClick={() => {
                 const newDirection =
@@ -109,7 +114,7 @@ export default function SortClient({
             >
               <span>{getSortLabel(option)}</span>
               <div className="flex items-center">
-                {isActive && <Check className="mr-1 h-4 w-4" />}
+                {/* {isActive && <Check className="mr-1 h-5 w-5" />} */}
                 {getDirectionIcon(isActive, currentSortDir)}
               </div>
             </button>
