@@ -12,7 +12,7 @@ export default function SidebarClient({
   const [activeView, setActiveView] = useState("filters");
 
   return (
-    <div className="bg-white rounded-lg shadow p-4 mb-4">
+    <div className="hidden md:block bg-white rounded-lg shadow p-4 mb-4">
       <div className="flex space-x-2 mb-4">
         <button
           onClick={() => setActiveView("filters")}
