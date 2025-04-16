@@ -56,14 +56,20 @@ export default function SortClient({
 
   function getDirectionIcon(isActive, direction) {
     if (!isActive)
-      return <ArrowUp className="h-5 w-5 text-slate-500 opacity-15" />;
+      return <ArrowUp className="h-5 w-5 text-slate-500 opacity-40" />;
 
     return (
       <>
         {direction === "asc" ? (
-          <ArrowUp className="h-5 w-5 text-orange-500" />
+          <div className="flex items-center">
+            <ArrowDown className="h-5 w-5 text-white" />
+            <ArrowUp className="h-5 w-5  text-orange-500" />
+          </div>
         ) : (
-          <ArrowDown className="h-5 w-5 text-orange-500" />
+          <div className="flex items-center">
+            <ArrowDown className="h-5 w-5 text-orange-500" />
+            <ArrowUp className="h-5 w-5 text-white" />
+          </div>
         )}
       </>
     );
