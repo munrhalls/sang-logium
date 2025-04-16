@@ -10,6 +10,7 @@ import getSelectedFilters from "../helpers/getSelectedFilters";
 import { getSelectedProducts } from "@/sanity/lib/products/getSelectedProducts";
 import SidebarClient from "../SidebarClient";
 import getSelectedSort from "../helpers/getSelectedSort";
+import formatCategoryTitle from "../helpers/formatCategoryTitle";
 
 export default async function ProductsPage({
   params,
@@ -20,6 +21,7 @@ export default async function ProductsPage({
 }) {
   const path = (await params).category;
   const [root, leaf] = [path[0], path[path.length - 1]];
+  const categoryTitle = formatCategoryTitle(leaf);
   const searchParamsResolved = await searchParams;
   const selectedFilters = getSelectedFilters(searchParamsResolved);
   const selectedSort = getSelectedSort(searchParamsResolved);
@@ -55,9 +57,9 @@ export default async function ProductsPage({
       {/* Breadcrumbs & Category Title */}
       <div className="mb-6">
         <CategoryBreadcrumbs categoryParts={path} />
-        <div className="flex items-center gap-4 mt-4">
+        <div className="flex justify-center items-center gap-4 mt-4">
           <CategoryTitleIcon category={root} />
-          <h1 className="text-2xl font-bold">{leaf}</h1>
+          <h1 className="text-2xl font-bold">{categoryTitle}</h1>
         </div>
       </div>
 
