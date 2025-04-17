@@ -160,9 +160,9 @@ export default function AppliedFilters({ filterOptions = [] }) {
               aria-label="Toggle sort direction"
             >
               {activeFilters.sort.dir === "asc" ? (
-                <ArrowUp size={24} />
+                <ArrowUp size={18} />
               ) : (
-                <ArrowDown size={24} />
+                <ArrowDown size={18} />
               )}
             </button>
             <button
@@ -173,7 +173,7 @@ export default function AppliedFilters({ filterOptions = [] }) {
               className="ml-1 text-gray-500 hover:text-gray-800"
               aria-label="Remove sort"
             >
-              <X size={24} />
+              <X size={18} />
             </button>
           </div>
         )}
