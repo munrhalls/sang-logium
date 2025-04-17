@@ -14,5 +14,14 @@ const ROOT_CATEGORY_ICONS: Record<string, LucideIcon | typeof FaHeadphones> = {
 export default function CategoryTitleIcon({ category }: { category: string }) {
   if (category === "on-sale") return null;
   const Icon = ROOT_CATEGORY_ICONS[category];
-  return Icon ? <Icon size={48} strokeWidth={3} /> : null;
+  return Icon ? (
+    <div className="flex">
+      <div className="hidden md:block">
+        <Icon size={48} strokeWidth={3} />
+      </div>
+      <div className="md:hidden mb-1">
+        <Icon size={13} strokeWidth={3} />
+      </div>
+    </div>
+  ) : null;
 }
