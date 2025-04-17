@@ -45,13 +45,12 @@ export default async function RootLayout({
             <MobileDrawersWrapper />
             <div className="h-full min-h-0 overflow-y-auto relative">
               {children}
-              <div className="min-h-[400px] md:min-h-[800px] col-start-1 col-span-3 ">
-                <Footer />
-              </div>
             </div>
           </div>
+          <div className="auto-rows-auto bg-black">
+            <Footer />
+          </div>
           <MobileMenu />
-          {/* <SanityLive /> */}
         </div>
       </body>
     </html>

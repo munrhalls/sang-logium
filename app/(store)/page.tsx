@@ -5,7 +5,6 @@ import MonthProduct from "../components/features/homepage/month-product/MonthPro
 import NewestRelease from "../components/features/homepage/newest-release/NewestRelease";
 import FeaturedProducts from "../components/features/homepage/featured-products/FeaturedProducts";
 import MainCategories from "../components/features/homepage/main-categories/MainCategories";
-import Footer from "@/app/components/layout/footer/Footer";
 import HeroCommercials from "../components/features/homepage/hero-commercials/HeroCommercials";
 
 export default async function Page() {
