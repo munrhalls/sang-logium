@@ -11,6 +11,7 @@ export default function AppliedFilters({ filterOptions = [] }) {
   const pathname = usePathname();
 
   // Update search params
+
   const updateSearchParams = (key, value = null) => {
     const current = new URLSearchParams(searchParams.toString());
 
@@ -115,6 +116,13 @@ export default function AppliedFilters({ filterOptions = [] }) {
     return null;
   }
 
+  const formatActiveSortName = (name) => {
+    return name
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (s) => s.toUpperCase())
+      .replace(/_/g, " ");
+  };
+
   return (
     <div className="py-3 px-4">
       <h3 className="text-sm font-medium mb-2 text-gray-700">Active Filters</h3>
@@ -143,7 +151,9 @@ export default function AppliedFilters({ filterOptions = [] }) {
         {activeFilters.sort && (
           <div className="flex items-center bg-blue-100 rounded-full px-5 py-1 text-sm md:text-lg">
             <span className="font-medium mr-1">Sort:</span>
-            <span className="text-gray-700">{activeFilters.sort.name}</span>
+            <span className="text-gray-700">
+              {formatActiveSortName(activeFilters.sort.name)}
+            </span>
             <button
               onClick={toggleSortDirection}
               className="mx-2 md:mx-3 text-blue-600"
