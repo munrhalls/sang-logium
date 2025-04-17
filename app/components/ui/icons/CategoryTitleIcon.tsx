@@ -16,7 +16,7 @@ export default function CategoryTitleIcon({ category }: { category: string }) {
   const Icon = ROOT_CATEGORY_ICONS[category];
   return Icon ? (
     <div className="flex">
-      <div className="hidden md:block">
+      <div className="hidden md:block mb-1">
         <Icon size={48} strokeWidth={3} />
       </div>
       <div className="md:hidden mb-1">
