@@ -156,7 +156,7 @@ export default function AppliedFilters({ filterOptions = [] }) {
             </span>
             <button
               onClick={toggleSortDirection}
-              className="mx-2 md:mx-3 text-blue-600"
+              className="mx-2 md:mx-3 text-blue-600 hover:text-orange-500"
               aria-label="Toggle sort direction"
             >
               {activeFilters.sort.dir === "asc" ? (
