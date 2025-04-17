@@ -53,11 +53,11 @@ export default async function ProductsPage({
 
   console.log("Filter options:", filterOptions);
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="container mx-auto px-4 py-1 md:py-8">
       {/* Breadcrumbs & Category Title */}
-      <div className="mb-6">
+      <div className="md:mb-6">
         <CategoryBreadcrumbs categoryParts={path} />
-        <div className="flex justify-center items-center gap-1 md:gap-3  mt-8 mb-6 border-b md:border-gray-300 pb-4 md:pb-12">
+        <div className="flex justify-center items-center gap-1 md:gap-3  mt-1 mb-1 md:mt-8 md:mb-6 border-b md:border-gray-300 pb-4 md:pb-12">
           <CategoryTitleIcon category={root} />
           <h1 className="text-md font-bold tracking-wide">{categoryTitle}</h1>
         </div>
