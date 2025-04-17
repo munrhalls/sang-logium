@@ -8,6 +8,7 @@ import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWr
 import CategoriesWrapper from "../components/layout/categoryMenu/CategoriesWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 // import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
+import Footer from "../components/layout/footer/Footer";
 
 // import Image from "next/image";
 // import Link from "next/link";
@@ -44,6 +45,9 @@ export default async function RootLayout({
             <MobileDrawersWrapper />
             <div className="h-full min-h-0 overflow-y-auto relative">
               {children}
+              <div className="min-h-[400px] md:min-h-[800px] col-start-1 col-span-3 ">
+                <Footer />
+              </div>
             </div>
           </div>
           <MobileMenu />

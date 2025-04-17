@@ -57,9 +57,11 @@ export default async function ProductsPage({
       {/* Breadcrumbs & Category Title */}
       <div className="mb-6">
         <CategoryBreadcrumbs categoryParts={path} />
-        <div className="flex justify-center items-center gap-4 mt-8 mb-6">
+        <div className="flex justify-center items-center gap-4  mt-8 mb-6 border-b md:border-gray-300 pb-4 md:pb-12">
           <CategoryTitleIcon category={root} />
-          <h1 className="text-5xl font-bold">{categoryTitle}</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold tracking-wide">
+            {categoryTitle}
+          </h1>
         </div>
       </div>
 

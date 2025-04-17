@@ -1,5 +1,5 @@
 import { searchProductsByName } from "@/sanity/lib/products/searchProductsByName";
-// import ProductsGrid from "@/app/components/features/products-view/ProductsGrid";
+import ProductsGrid from "@/app/components/features/products-view/ProductsGrid";
 
 export default async function Page({
   searchParams,
@@ -47,7 +47,7 @@ export default async function Page({
         <h1 className="text-3xl font-bold text-center mb-6">
           Search results for {query}
         </h1>
-        {/* <ProductsGrid products={products} /> */}
+        <ProductsGrid products={products} />
       </div>
     </div>
   );
