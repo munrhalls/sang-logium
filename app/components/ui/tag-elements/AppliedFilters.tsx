@@ -125,7 +125,7 @@ export default function AppliedFilters({ filterOptions = [] }) {
 
   return (
     <div className="py-3 px-4">
-      <h3 className="text-sm font-medium mb-2 text-gray-700">Active Filters</h3>
+      {/* <h3 className="text-sm font-medium mb-2 text-gray-700">Active Filters</h3> */}
       <div className="flex flex-wrap gap-2">
         {activeFilters.filters.map(({ key, value }) => (
           <div

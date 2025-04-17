@@ -11,6 +11,8 @@ import { getSelectedProducts } from "@/sanity/lib/products/getSelectedProducts";
 import SidebarClient from "../SidebarClient";
 import getSelectedSort from "../helpers/getSelectedSort";
 import formatCategoryTitle from "../helpers/formatCategoryTitle";
+import formatSortName from "@/app/components/ui/sortables/helpers/formatSortName";
+import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSortDirection";
 
 export default async function ProductsPage({
   params,
@@ -57,19 +59,18 @@ export default async function ProductsPage({
       {/* Breadcrumbs & Category Title */}
       <div className="md:mb-6">
         <CategoryBreadcrumbs categoryParts={path} />
-        <div className="flex justify-center items-center gap-1 md:gap-3  mt-1 mb-1 md:mt-8 md:mb-6 border-b md:border-gray-300 pb-4 md:pb-12">
+        <div className="flex justify-center items-center gap-1 md:gap-3  mt-1 mb-1 md:mt-8 md:mb-6 md:border-b md:border-gray-300 pb-1 md:pb-12">
           <CategoryTitleIcon category={root} />
           <h1 className="text-md font-bold tracking-wide">{categoryTitle}</h1>
         </div>
       </div>
 
-      {/* Applied Filters */}
-      <AppliedFilters filterOptions={filterOptions} />
-
       {/* Mobile Filter/Sort Buttons */}
-      <div className="md:hidden">
+      <div className="md:hidden grid grid-cols-1 items-center bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
         <FilterSortBtns />
       </div>
+      {/* Applied Filters */}
+      <AppliedFilters filterOptions={filterOptions} />
 
       {/* Content Grid */}
       <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 mt-4">
@@ -82,14 +83,15 @@ export default async function ProductsPage({
 
         {/* Products Grid */}
         <div>
-          <div className="mb-4 p-4 bg-white rounded-lg shadow">
-            <p className="text-md lg:text-xl text-gray-500">
+          <div className=" mb-1 p-1 bg-slate-200 rounded-lg shadow ">
+            <p className="text-md p-2 lg:text-xl text-gray-500">
               Showing {products.length} product{products.length !== 1 && "s"}
-              {sortField && ` sorted by ${sortField} (${sortDirection})`}
+              {sortField &&
+                ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
             </p>
-          </div>
 
-          <ProductsGrid products={products} />
+            <ProductsGrid products={products} />
+          </div>
         </div>
       </div>
 

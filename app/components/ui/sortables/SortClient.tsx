@@ -3,6 +3,7 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { ArrowDown, ArrowUp, Check } from "lucide-react";
 import { useEffect, useState } from "react";
+import formatSortName from "./helpers/formatSortName";
 
 export default function SortClient({
   initialSortOptions = [],
@@ -30,13 +31,6 @@ export default function SortClient({
       setOptions(processedOptions);
     }
   }, [initialSortOptions]);
-
-  function formatSortName(name) {
-    return name
-      .replace(/([A-Z])/g, " $1")
-      .replace(/^./, (str) => str.toUpperCase())
-      .replace(/_/g, " ");
-  }
 
   function handleSortChange(sortName, direction = "asc") {
     setIsTransitioning(true);
