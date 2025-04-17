@@ -135,24 +135,24 @@ export default function AppliedFilters({ filterOptions = [] }) {
               className="ml-2 text-gray-500 hover:text-gray-800"
               aria-label={`Remove ${key} filter`}
             >
-              <X size={14} />
+              <X size={18} />
             </button>
           </div>
         ))}
 
         {activeFilters.sort && (
-          <div className="flex items-center bg-blue-100 rounded-full px-3 py-1 text-sm">
+          <div className="flex items-center bg-blue-100 rounded-full px-5 py-1 text-sm md:text-lg">
             <span className="font-medium mr-1">Sort:</span>
             <span className="text-gray-700">{activeFilters.sort.name}</span>
             <button
               onClick={toggleSortDirection}
-              className="mx-1 text-blue-600"
+              className="mx-2 md:mx-3 text-blue-600"
               aria-label="Toggle sort direction"
             >
               {activeFilters.sort.dir === "asc" ? (
-                <ArrowUp size={14} />
+                <ArrowUp size={24} />
               ) : (
-                <ArrowDown size={14} />
+                <ArrowDown size={24} />
               )}
             </button>
             <button
@@ -163,7 +163,7 @@ export default function AppliedFilters({ filterOptions = [] }) {
               className="ml-1 text-gray-500 hover:text-gray-800"
               aria-label="Remove sort"
             >
-              <X size={14} />
+              <X size={24} />
             </button>
           </div>
         )}
