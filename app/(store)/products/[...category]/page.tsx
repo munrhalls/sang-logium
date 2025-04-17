@@ -54,41 +54,93 @@ export default async function ProductsPage({
 
   console.log("Filter options:", filterOptions);
   return (
-    <main className="container mx-auto px-4 py-1 md:py-8">
-      <div className="md:mb-6">
-        <CategoryBreadcrumbs categoryParts={path} />
-        <div className="flex justify-center items-center gap-1 md:gap-3  mt-1 mb-1 md:mt-8 md:mb-6 md:border-b md:border-gray-300 pb-1 md:pb-12">
-          <CategoryTitleIcon category={root} />
-          <h1 className="text-md font-bold tracking-wide">{categoryTitle}</h1>
+    <>
+      {/* Desktop View */}
+      <main className="hidden md:block container mx-auto px-4 py-8">
+        <div className="mb-6">
+          <CategoryBreadcrumbs categoryParts={path} />
+          <div className="flex justify-center items-center gap-3 mt-8 mb-6 border-b border-gray-300 pb-12">
+            <CategoryTitleIcon category={root} />
+            <h1 className="text-md font-bold tracking-wide">{categoryTitle}</h1>
+          </div>
         </div>
-      </div>
 
-      <div className="md:hidden grid grid-cols-1 items-center bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
-        <FilterSortBtns />
-      </div>
-      <AppliedFilters filterOptions={filterOptions} />
+        <AppliedFilters filterOptions={filterOptions} />
 
-      <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 mt-4">
-        <SidebarClient
-          filterOptions={filterOptions}
-          sortOptions={sortOptions}
-          sortField={sortField}
-        />
+        <div className="grid grid-cols-[280px_1fr] gap-6 mt-4">
+          <SidebarClient
+            filterOptions={filterOptions}
+            sortOptions={sortOptions}
+            sortField={sortField}
+          />
 
-        <div>
-          <div className=" mb-1 p-1 bg-slate-200 rounded-lg shadow ">
-            <p className="text-md p-2 lg:text-xl text-gray-500">
-              Showing {products.length} product{products.length !== 1 && "s"}
-              {sortField &&
-                ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
-            </p>
+          <div>
+            <div className="mb-1 p-1 bg-slate-200 rounded-lg shadow">
+              <p className="text-md p-2 lg:text-xl text-gray-500">
+                Showing {products.length} product{products.length !== 1 && "s"}
+                {sortField &&
+                  ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
+              </p>
 
-            <ProductsGrid products={products} />
+              <ProductsGrid products={products} />
+            </div>
+          </div>
+        </div>
+
+        <ProductsFilterSortDrawersWrapper categoryPath={path} />
+      </main>
+
+      {/* Mobile View */}
+      <div className="md:hidden flex flex-col h-screen overflow-hidden">
+        {/* Header area - doesn't scroll */}
+        <div className="flex-none bg-white">
+          <div className="container mx-auto px-4 py-1">
+            <div className="mb-1">
+              <CategoryBreadcrumbs categoryParts={path} />
+              <div className="flex justify-center items-center gap-1 mt-2 mb-1 pb-1">
+                <CategoryTitleIcon category={root} />
+                <h1 className="text-lg font-bold tracking-wide">
+                  {categoryTitle}
+                </h1>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 items-center bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
+              <FilterSortBtns />
+            </div>
+          </div>
+        </div>
+
+        {/* Scrollable content area */}
+        <div className="flex-grow overflow-y-auto">
+          <div className="container mx-auto px-4">
+            <AppliedFilters filterOptions={filterOptions} />
+
+            <div className="grid grid-cols-1 gap-6 mt-4">
+              <SidebarClient
+                filterOptions={filterOptions}
+                sortOptions={sortOptions}
+                sortField={sortField}
+              />
+
+              <div>
+                <div className="mb-1 p-1 bg-slate-200 rounded-lg shadow">
+                  <p className="text-md p-2 lg:text-xl text-gray-500">
+                    Showing {products.length} product
+                    {products.length !== 1 && "s"}
+                    {sortField &&
+                      ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
+                  </p>
+
+                  <ProductsGrid products={products} />
+                </div>
+              </div>
+            </div>
+
+            <ProductsFilterSortDrawersWrapper categoryPath={path} />
           </div>
         </div>
       </div>
-
-      <ProductsFilterSortDrawersWrapper categoryPath={path} />
-    </main>
+    </>
   );
 }

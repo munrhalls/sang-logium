@@ -20,7 +20,7 @@ export default function CategoryTitleIcon({ category }: { category: string }) {
         <Icon size={48} strokeWidth={3} />
       </div>
       <div className="md:hidden mb-1">
-        <Icon size={13} strokeWidth={3} />
+        <Icon size={14} strokeWidth={3} />
       </div>
     </div>
   ) : null;
