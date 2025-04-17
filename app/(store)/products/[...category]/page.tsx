@@ -83,7 +83,7 @@ export default async function ProductsPage({
         {/* Products Grid */}
         <div>
           <div className="mb-4 p-4 bg-white rounded-lg shadow">
-            <p className="text-sm text-gray-500">
+            <p className="text-xl text-gray-500">
               Showing {products.length} product{products.length !== 1 && "s"}
               {sortField && ` sorted by ${sortField} (${sortDirection})`}
             </p>
