@@ -62,7 +62,7 @@ export default function Pagination({
     if (!searchParams.has("page") || !searchParams.has("pageSize")) {
       updateUrl(currentPage, pageSize);
     }
-  }, []);
+  }, [currentPage, pageSize, searchParams, updateUrl]);
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -132,20 +132,22 @@ export default function Pagination({
 
       <div className="flex items-center justify-center">
         <div className="flex flex-nowrap gap-3">
-          <button
-            onClick={handleFirstPage}
-            className={`flex items-center justify-center ${
-              currentPage === 1
-                ? "text-blue-500 font-medium"
-                : "text-black hover:bg-gray-100"
-            }`}
-          >
-            1
-          </button>
+          {totalPages > 0 && (
+            <button
+              onClick={handleFirstPage}
+              className={`flex items-center justify-center ${
+                currentPage === 1
+                  ? "text-blue-500 font-medium"
+                  : "text-black hover:bg-gray-100"
+              }`}
+            >
+              1
+            </button>
+          )}
 
           {currentPage > 3 && <span className="px-2">...</span>}
 
-          {currentPage > 2 && currentPage < totalPages && (
+          {currentPage > 2 && (
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               className="text-black hover:bg-gray-100"
@@ -158,7 +160,7 @@ export default function Pagination({
             <button className="text-blue-500 font-medium">{currentPage}</button>
           )}
 
-          {currentPage < totalPages - 1 && currentPage > 0 && (
+          {currentPage < totalPages - 1 && (
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               className="text-black hover:bg-gray-100"

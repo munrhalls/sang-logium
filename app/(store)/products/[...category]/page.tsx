@@ -65,6 +65,9 @@ export default async function ProductsPage({
             <h1 className="text-5xl font-bold tracking-wide">
               {categoryTitle}
             </h1>
+            <div className="hidden md:block md:ml-auto">
+              <Pagination />
+            </div>
           </div>
         </div>
 
