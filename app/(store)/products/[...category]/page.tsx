@@ -13,6 +13,7 @@ import getSelectedSort from "../helpers/getSelectedSort";
 import formatCategoryTitle from "../helpers/formatCategoryTitle";
 import formatSortName from "@/app/components/ui/sortables/helpers/formatSortName";
 import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSortDirection";
+import Footer from "@/app/components/layout/footer/Footer";
 
 export default async function ProductsPage({
   params,
@@ -55,7 +56,6 @@ export default async function ProductsPage({
   console.log("Filter options:", filterOptions);
   return (
     <>
-      {/* Desktop View */}
       <main className="hidden md:block container mx-auto px-4 py-8">
         <div className="mb-6">
           <CategoryBreadcrumbs categoryParts={path} />
@@ -92,9 +92,7 @@ export default async function ProductsPage({
         <ProductsFilterSortDrawersWrapper categoryPath={path} />
       </main>
 
-      {/* Mobile View */}
       <div className="md:hidden flex flex-col h-screen overflow-hidden">
-        {/* Header area - doesn't scroll */}
         <div className="flex-none bg-white">
           <div className="container mx-auto px-4 py-1">
             <div className="mb-1">
@@ -113,7 +111,6 @@ export default async function ProductsPage({
           </div>
         </div>
 
-        {/* Scrollable content area */}
         <div className="flex-grow overflow-y-auto">
           <div className="container mx-auto px-4">
             <AppliedFilters filterOptions={filterOptions} />
@@ -143,6 +140,7 @@ export default async function ProductsPage({
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

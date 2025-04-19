@@ -6,6 +6,7 @@ import NewestRelease from "../components/features/homepage/newest-release/Newest
 import FeaturedProducts from "../components/features/homepage/featured-products/FeaturedProducts";
 import MainCategories from "../components/features/homepage/main-categories/MainCategories";
 import HeroCommercials from "../components/features/homepage/hero-commercials/HeroCommercials";
+import Footer from "../components/layout/footer/Footer";
 
 export default async function Page() {
   return (
@@ -32,6 +33,7 @@ export default async function Page() {
           <MainCategories />
         </div>
       </div>
+      <Footer />
     </main>
   );
 }

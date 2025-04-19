@@ -3,6 +3,7 @@
 @tailwind utilities;
 body {
   font-family: Iceland, Helvetica, Arial, sans-serif;
+  overflow-y: hidden;
 }
 
 @layer base {

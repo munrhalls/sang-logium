@@ -33,25 +33,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${iceland.className} w-full}`}>
-      <body className={`${iceland.variable} font-sans w-full`}>
-        <div
-          id="wrapper"
-          className="h-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative"
-        >
-          <Header />
-          <CategoriesWrapper />
-          <div className="h-full min-h-0 overflow-hidden relative">
-            <MobileDrawersWrapper />
-            <div className="h-full min-h-0 overflow-y-auto relative">
-              {children}
-            </div>
+    <html lang="en" className={`${iceland.className} w-full h-full `}>
+      <body
+        className={`${iceland.variable} font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_1fr_auto] relative`}
+      >
+        <Header />
+        <CategoriesWrapper />
+        <div className="h-full min-h-0 overflow-hidden relative">
+          <MobileDrawersWrapper />
+          <div className="h-full min-h-0 overflow-y-auto relative">
+            {children}
           </div>
-          <div className="auto-rows-auto bg-black">
-            <Footer />
-          </div>
-          <MobileMenu />
         </div>
+        <MobileMenu />
       </body>
     </html>
   );
