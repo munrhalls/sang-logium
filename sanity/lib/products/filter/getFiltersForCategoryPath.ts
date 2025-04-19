@@ -4,7 +4,12 @@ import { sanityFetch } from "../../live";
 export const getFiltersForCategoryPath = async (categoryPath: string[]) => {
   // Handle full URL paths like "/products/headphones/wired"
   // Strip any leading paths like "/products/" to get just the category part
-  if (categoryPath[0] === "products") categoryPath.shift();
+
+  if (categoryPath[0] === "products" && categoryPath.length > 1) {
+    categoryPath.shift();
+  } else if (categoryPath[0] === "products") {
+    categoryPath = ["all"];
+  }
 
   const cleanPath = categoryPath.join("/");
   console.log("cleanPath", cleanPath);

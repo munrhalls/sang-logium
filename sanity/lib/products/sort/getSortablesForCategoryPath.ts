@@ -5,9 +5,15 @@ export const getSortablesForCategoryPath = async (categoryPath: string) => {
   // Handle full URL paths like "/products/headphones/wired"
   // Strip any leading paths like "/products/" to get just the category part
   const cleanPath = categoryPath.replace(/^\/products\//, "");
+  console.log("cleanPath", cleanPath);
 
   // Get the top-level category (first segment)
-  const topLevelCategory = cleanPath.split("/")[0];
+  let topLevelCategory;
+  if (cleanPath === "products") {
+    topLevelCategory = "all";
+  } else {
+    topLevelCategory = cleanPath.split("/")[0];
+  }
 
   const SORTABLES_BY_CATEGORY_QUERY = defineQuery(`
     *[_type == "categorySortables" && title == $topLevelCategory][0] {
