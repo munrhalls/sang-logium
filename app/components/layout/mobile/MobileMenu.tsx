@@ -1,8 +1,21 @@
 "use client";
 
 import React from "react";
-import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { Menu, Search, ShoppingBag, X } from "lucide-react";
 import { useStore } from "@/store";
+import { ClerkLoaded } from "@clerk/nextjs";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const AuthContent = dynamic(
+  () => import("@/app/components/features/auth/AuthContent"),
+  {
+    loading: () => (
+      <div className="w-[16px] h-[16px] mx-auto bg-gray-800 rounded-full animate-pulse" />
+    ),
+    ssr: false,
+  }
+);
 
 const MobileMenu = () => {
   const isCategoriesOpen = useStore((state) => state.isCategoriesDrawerOpen);
@@ -44,15 +57,14 @@ const MobileMenu = () => {
             )}
           </button>
 
-          <button className="flex flex-col items-center">
+          <Link href="/basket" className="flex flex-col items-center">
             <ShoppingBag className="h-6 w-6" />
             <span className="text-xs mt-1">Basket</span>
-          </button>
+          </Link>
 
-          <button className="flex flex-col items-center">
-            <User className="h-6 w-6" />
-            <span className="text-xs mt-1">Sign in</span>
-          </button>
+          <ClerkLoaded>
+            <AuthContent />
+          </ClerkLoaded>
         </div>
       </div>
     </>

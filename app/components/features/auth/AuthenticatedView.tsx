@@ -5,23 +5,23 @@ import { useState } from "react";
 
 export function AuthenticatedView() {
   const { user, isLoaded } = useUser();
-  const clerk = useClerk();
-  const [isCreatingPasskey, setIsCreatingPasskey] = useState(false);
+  // const clerk = useClerk();
+  // const [isCreatingPasskey, setIsCreatingPasskey] = useState(false);
 
-  const createClerkPasskey = async () => {
-    if (!user) return;
-    setIsCreatingPasskey(true);
-    try {
-      await clerk.authenticateWithWeb3({
-        strategy: "web3_metamask_signature",
-        redirectUrl: "/auth/callback",
-      });
-    } catch (err) {
-      console.error("Failed to create passkey:", err);
-    } finally {
-      setIsCreatingPasskey(false);
-    }
-  };
+  // const createClerkPasskey = async () => {
+  //   if (!user) return;
+  //   setIsCreatingPasskey(true);
+  //   try {
+  //     await clerk.authenticateWithWeb3({
+  //       strategy: "web3_metamask_signature",
+  //       redirectUrl: "/auth/callback",
+  //     });
+  //   } catch (err) {
+  //     console.error("Failed to create passkey:", err);
+  //   } finally {
+  //     setIsCreatingPasskey(false);
+  //   }
+  // };
 
   if (!isLoaded || !user) {
     return <div>Loading...</div>;
@@ -31,7 +31,7 @@ export function AuthenticatedView() {
     <div className="grid place-content-center">
       <div className="grid place-content-center">
         <UserButton />
-        {user.passwordEnabled === false && (
+        {/* {user.passwordEnabled === false && (
           <div className="ml-2 flex items-center justify-center">
             <button
               onClick={createClerkPasskey}
@@ -41,14 +41,17 @@ export function AuthenticatedView() {
               <KeyIcon />
             </button>
           </div>
-        )}
+        )} */}
       </div>
       <div
         style={{ lineHeight: "16px" }}
-        className="flex flex-col items-center justify-center"
+        className="flex items-center justify-center"
       >
-        <p className="text-white">Welcome back</p>
-        <p className="font-bold text-white">{user.fullName}</p>
+        <p className="text-white text-xs md:text-sm mr-1">Welcome back,</p>
+        <p className="font-semibold text-xs md:text-sm text-white">
+          {" "}
+          {` ${user.fullName}`}
+        </p>
       </div>
     </div>
   );

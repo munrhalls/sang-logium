@@ -1,14 +1,13 @@
 import "./../globals.css";
 import type { Metadata } from "next";
 import { Iceland } from "next/font/google";
-// import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 // import { SanityLive } from "@/sanity/lib/live";
 import Header from "@/app/components/layout/header/Header";
 import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWrapper";
 import CategoriesWrapper from "../components/layout/categoryMenu/CategoriesWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 // import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
-import Footer from "../components/layout/footer/Footer";
 
 // import Image from "next/image";
 // import Link from "next/link";
@@ -34,19 +33,21 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${iceland.className} w-full h-full `}>
-      <body
-        className={`${iceland.variable} font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_1fr_auto] relative`}
-      >
-        <Header />
-        <CategoriesWrapper />
-        <div className="h-full min-h-0 overflow-hidden relative">
-          <MobileDrawersWrapper />
-          <div className="h-full min-h-0 overflow-y-auto relative">
-            {children}
+      <ClerkProvider>
+        <body
+          className={`${iceland.variable} font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_1fr_auto] relative`}
+        >
+          <Header />
+          <CategoriesWrapper />
+          <div className="h-full min-h-0 overflow-hidden relative">
+            <MobileDrawersWrapper />
+            <div className="h-full min-h-0 overflow-y-auto relative">
+              {children}
+            </div>
           </div>
-        </div>
-        <MobileMenu />
-      </body>
+          <MobileMenu />
+        </body>
+      </ClerkProvider>
     </html>
   );
 }
