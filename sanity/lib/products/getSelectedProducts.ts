@@ -120,7 +120,16 @@ export const getSelectedProducts = async (
   let assembledQuery = `*[_type == "product"`;
 
   const pathString = path.join("/");
-  const pathQuery = ` && (categoryPath == "${pathString}" || categoryPath match "${pathString}/*")`;
+  let pathQuery = "";
+
+  if (pathString === "products") {
+    // All products case - no path filtering needed
+    pathQuery = "";
+  } else {
+    // Category filtering
+    pathQuery = ` && (categoryPath == "${pathString}" || categoryPath match "${pathString}/*")`;
+  }
+
   assembledQuery += pathQuery;
 
   // Combine all filters
