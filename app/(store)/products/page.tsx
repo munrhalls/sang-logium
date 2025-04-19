@@ -11,9 +11,11 @@ import getSelectedSort from "./helpers/getSelectedSort";
 import formatSortName from "@/app/components/ui/sortables/helpers/formatSortName";
 import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSortDirection";
 import Footer from "@/app/components/layout/footer/Footer";
+import getSelectedPagination from "./helpers/getSelectedPagination";
+import Pagination from "@/app/components/ui/pagination/Pagination";
 
 /**
- * Root products page to handle the "/products" path
+ * Root products page to handle the "/products" patWh
  */
 export default async function RootProductsPage({
   searchParams,
@@ -25,6 +27,7 @@ export default async function RootProductsPage({
   const searchParamsResolved = await searchParams;
   const selectedFilters = getSelectedFilters(searchParamsResolved);
   const selectedSort = getSelectedSort(searchParamsResolved);
+  const selectedPagination = getSelectedPagination(searchParamsResolved);
 
   const sortField =
     typeof searchParamsResolved.sort === "string"
@@ -55,9 +58,7 @@ export default async function RootProductsPage({
       <main className="hidden md:block container mx-auto px-4 py-8">
         <div className="mb-6">
           <div className="flex justify-center items-center gap-3 mt-8 mb-6 border-b border-gray-300 pb-12">
-            <h1 className="text-5xl font-bold tracking-wide">
-              All Products
-            </h1>
+            <h1 className="text-5xl font-bold tracking-wide">All Products</h1>
           </div>
         </div>
 
@@ -100,6 +101,7 @@ export default async function RootProductsPage({
             <div className="grid grid-cols-1 items-center bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
               <FilterSortBtns />
             </div>
+            <Pagination />
           </div>
         </div>
 

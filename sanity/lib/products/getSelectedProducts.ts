@@ -4,8 +4,7 @@ import { sanityFetch } from "../live";
 export const getSelectedProducts = async (
   path,
   selectedFilters,
-  selectedSort,
-  selectedPagination
+  selectedSort
 ) => {
   const [regular, overview, specifications, rangeFilters] = selectedFilters;
   console.log("selectedSort", selectedSort);

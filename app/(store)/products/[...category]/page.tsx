@@ -14,6 +14,7 @@ import formatCategoryTitle from "../helpers/formatCategoryTitle";
 import formatSortName from "@/app/components/ui/sortables/helpers/formatSortName";
 import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSortDirection";
 import Footer from "@/app/components/layout/footer/Footer";
+import Pagination from "@/app/components/ui/pagination/Pagination";
 
 export default async function ProductsPage({
   params,
@@ -108,6 +109,7 @@ export default async function ProductsPage({
             <div className="grid grid-cols-1 items-center bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
               <FilterSortBtns />
             </div>
+            <Pagination />
           </div>
         </div>
 

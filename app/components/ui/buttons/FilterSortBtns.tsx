@@ -1,7 +1,6 @@
 "use client";
 import { useStore } from "@/store";
 import { SlidersHorizontal, ArrowUpDown } from "lucide-react";
-import { useSearchParams } from "next/navigation";
 
 export default function FilterSortBtns() {
   const toggleProductsFilterDrawer = useStore(
