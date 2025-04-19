@@ -9,29 +9,29 @@ interface ProductQuantityControlProps {
    * @default 1
    */
   quantity?: number;
-  
+
   /**
    * Maximum allowed quantity
    * @default 99
    */
   maxQuantity?: number;
-  
+
   /**
    * Product ID to identify which product is being modified
    */
   productId: string;
-  
+
   /**
    * Optional className for styling
    */
   className?: string;
-  
+
   /**
    * Placeholder for handling quantity increase
    * Would be replaced with actual logic when integrating
    */
   onIncrease?: (productId: string) => void;
-  
+
   /**
    * Placeholder for handling quantity decrease
    * Would be replaced with actual logic when integrating
@@ -41,7 +41,7 @@ interface ProductQuantityControlProps {
 
 /**
  * Add/subtract buttons for product listings and individual product pages
- * 
+ *
  * Example:
  * ```tsx
  * // On a product page
@@ -58,14 +58,14 @@ const ProductQuantityControl = ({
   productId,
   className = "",
   onIncrease = () => {},
-  onDecrease = () => {}
+  onDecrease = () => {},
 }: ProductQuantityControlProps) => {
   // Placeholder functions that would be replaced with real functionality
   const handleIncrease = (e: React.MouseEvent) => {
     // Stop the event from propagating to parent elements (like Link)
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (quantity < maxQuantity) {
       onIncrease(productId);
     }
@@ -75,7 +75,7 @@ const ProductQuantityControl = ({
     // Stop the event from propagating to parent elements (like Link)
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (quantity > 1) {
       onDecrease(productId);
     }
@@ -91,11 +91,11 @@ const ProductQuantityControl = ({
       >
         <MinusIcon className="h-4 w-4" />
       </button>
-      
+
       <div className="px-4 py-1 bg-white border-t border-b border-gray-200 text-center min-w-[40px]">
         {quantity}
       </div>
-      
+
       <button
         onClick={handleIncrease}
         disabled={quantity >= maxQuantity}

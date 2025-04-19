@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MouseEvent, useState } from "react";
 import { imageUrl } from "@/lib/imageUrl";
-import ProductQuantityControl from "@/app/components/basket/ProductQuantityControl";
+import ProductQuantityControl from "@/app/components/features/basket/ProductQuantityControl";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 interface ProductThumbProps {
@@ -14,7 +14,7 @@ interface ProductThumbProps {
 const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
   if (!product.name || !product.image) return null;
   const isOutOfStock = product.stock != null && product.stock <= 0;
-  
+
   // Local state to track if item is in basket and quantity
   // In real implementation, this would come from your basket state management
   const [inBasket, setInBasket] = useState(false);
@@ -27,7 +27,7 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
       : originalPrice;
 
   const showPrice = product.price !== undefined;
-  
+
   // Placeholder functions that would connect to your basket state management
   const handleAddToBasket = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault(); // Prevent navigation from Link
@@ -75,27 +75,24 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
               </p>
             )}
           </div>
-          
+
           {/* Basket Controls */}
           {!isOutOfStock && (
-            <div 
-              onClick={(e) => e.preventDefault()} 
-              className="z-10 relative"
-            >
+            <div onClick={(e) => e.preventDefault()} className="z-10 relative">
               {inBasket ? (
                 <div className="flex items-center">
                   <ProductQuantityControl
                     productId={product._id}
                     quantity={quantity}
                     onIncrease={(id) => {
-                      setQuantity(prev => Math.min(prev + 1, 99));
+                      setQuantity((prev) => Math.min(prev + 1, 99));
                     }}
                     onDecrease={(id) => {
-                      setQuantity(prev => Math.max(prev - 1, 1));
+                      setQuantity((prev) => Math.max(prev - 1, 1));
                     }}
                     className="scale-90 transform origin-right"
                   />
-                  
+
                   {/* Remove from basket button */}
                   <button
                     onClick={(e) => {
