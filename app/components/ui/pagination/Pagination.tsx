@@ -1,6 +1,7 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ProductsPerPageDropdown from "./ProductsPerPageDropdown";
+import generatePageNumbers from "./generatePageNumbers";
 
 const DEFAULT_PAGE_SIZE = 12;
 const DEFAULT_PAGE = 1;
@@ -47,6 +48,7 @@ export default function Pagination({ totalProductsCount }) {
   const initialNums = [1, 2, 3];
   const throughNums = [7];
   const lastNum = 12;
+  const pageNumbers = generatePageNumbers(currentPage, pagesCount);
 
   const NumberButton = ({ pageNum }) => (
     <a
@@ -85,7 +87,7 @@ export default function Pagination({ totalProductsCount }) {
         </button>
 
         <div className="flex">
-          {initialNums.map((pageNum) => (
+          {/* {initialNums.map((pageNum) => (
             <NumberButton key={`init-${pageNum}`} pageNum={pageNum} />
           ))}
           <span className="mx-1 self-center">...</span>
@@ -93,7 +95,10 @@ export default function Pagination({ totalProductsCount }) {
             <NumberButton key={`through-${pageNum}`} pageNum={pageNum} />
           ))}
           <span className="mx-1 self-center">...</span>
-          <NumberButton key={`last-${lastNum}`} pageNum={lastNum} />
+          <NumberButton key={`last-${lastNum}`} pageNum={lastNum} /> */}
+          {pageNumbers.map((pageNum) => (
+            <NumberButton key={pageNum} pageNum={pageNum} />
+          ))}
         </div>
 
         <button

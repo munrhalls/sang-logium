@@ -1,12 +1,14 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
+const DEFAULT_PAGE_SIZE = 12;
+
 export default function ProductsPerPageDropdown() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const itemsPerPage = Number(searchParams.get("size")) || 10;
+  const itemsPerPage = Number(searchParams.get("size")) || DEFAULT_PAGE_SIZE;
   const options = [5, 10, 15, 25, 50];
 
   const handleChange = (e) => {
