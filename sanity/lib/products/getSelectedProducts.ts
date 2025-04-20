@@ -3,7 +3,7 @@ import { sanityFetch } from "../live";
 import { FilterItem } from "@/app/(store)/products/helpers/getSelectedFilters";
 
 export const getSelectedProducts = async (
-  path: string[],
+  path: string[] | string,
   selectedFilters: [FilterItem[], FilterItem[], FilterItem[], FilterItem[]],
   selectedSort: { field: string; direction: string } | null,
   selectedPagination = { page: 0, pageSize: 12 }
@@ -128,7 +128,7 @@ export const getSelectedProducts = async (
 
   let assembledQuery = `*[_type == "product"`;
 
-  const pathString = path.join("/");
+  const pathString = Array.isArray(path) ? path.join("/") : path;
   let pathQuery = "";
 
   if (pathString === "products") {
