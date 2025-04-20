@@ -25,7 +25,7 @@ const DiscountPrice = function ({
             loading="lazy"
             src={PriceLineCross}
             alt="Price line cross"
-            height={32}
+            // height={32}
             width={54}
             unoptimized
           />
@@ -47,7 +47,7 @@ const Title = function ({ name }: { name: string }) {
         <Image
           src={LogoOrbitWhite}
           alt="Logo"
-          height={32}
+          height={30}
           width={32}
           loading="lazy"
         />
@@ -98,7 +98,7 @@ export default async function MonthProduct() {
               width={300}
               height={300}
               quality={90}
-              objectFit="contain"
+              style={{ objectFit: "cover" }}
               sizes="(max-width: 300px) 75vw, 350px"
               className="object-contain aspect-square row-start-1 row-span-2 min-h-[300px] max-h-[350px] 2xs:row-start-1 2xs:row-span-3 2xs:col-start-2 2xs:col-span-4 2xs:gap-1"
             />

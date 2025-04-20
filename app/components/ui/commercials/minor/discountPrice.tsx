@@ -21,7 +21,7 @@ const DiscountPrice = function ({
             loading="lazy"
             src={PriceLineCross}
             alt="Price line cross"
-            height={32}
+            // height={32}
             width={54}
             unoptimized
           />

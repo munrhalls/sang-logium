@@ -21,7 +21,7 @@ export default function SegmentTitle({
         src={Logo}
         alt="Logo"
         width={width ?? 60}
-        height={height ?? 60}
+        height={height ?? 56}
         unoptimized
       />
       <h1

@@ -1,17 +1,14 @@
+// import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
+// import { SanityLive } from "@/sanity/lib/live";
+
 import "./../globals.css";
 import type { Metadata } from "next";
 import { Iceland } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
-// import { SanityLive } from "@/sanity/lib/live";
 import Header from "@/app/components/layout/header/Header";
 import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWrapper";
 import CategoriesWrapper from "../components/layout/categoryMenu/CategoriesWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
-// import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
-
-// import Image from "next/image";
-// import Link from "next/link";
-// import logo from "@/public/logo.png";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
@@ -45,7 +42,7 @@ export default async function RootLayout({
               {children}
             </div>
           </div>
-          {/* <MobileMenu /> */}
+          <MobileMenu />
         </body>
       </ClerkProvider>
     </html>

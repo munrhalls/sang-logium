@@ -26,7 +26,7 @@ export default function Dots({
             <Image
               loading="lazy"
               src={Logo}
-              height={height + 8}
+              // height={height + 8}
               width={width + 8}
               alt={"Icon"}
               unoptimized

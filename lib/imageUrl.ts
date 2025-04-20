@@ -16,3 +16,8 @@ export const heroImageUrl = (source: SanityImageSource) => {
 export const thumbnailImageUrl = (source: SanityImageSource) => {
   return imageUrl(source).width(400).quality(75);
 };
+
+export const brandImageUrl = (source: SanityImageSource) => {
+  console.log("brand image url", source);
+  return builder.image(source).auto("format").quality(85);
+};
