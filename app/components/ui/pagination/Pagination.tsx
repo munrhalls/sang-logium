@@ -12,20 +12,20 @@ export default function Pagination({ totalProductsCount }) {
   const searchParams = useSearchParams();
   if (totalProductsCount === undefined) return null;
 
-  console.log("totalProductsCount ", totalProductsCount);
+  // console.log("totalProductsCount ", totalProductsCount);
 
   const currentPage = Number(searchParams.get("page")) || DEFAULT_PAGE;
   const pageSize = Number(searchParams.get("size")) || DEFAULT_PAGE_SIZE;
   const pagesCount = Math.ceil(totalProductsCount / pageSize);
-  console.log(
-    "totalProductsCount /  ",
-    totalProductsCount,
-    "page size",
-    pageSize,
-    " === ",
-    " pages count",
-    pagesCount
-  );
+  // console.log(
+  //   "totalProductsCount /  ",
+  //   totalProductsCount,
+  //   "page size",
+  //   pageSize,
+  //   " === ",
+  //   " pages count",
+  //   pagesCount
+  // );
 
   const createPageUrl = (pageNum) => {
     const params = new URLSearchParams(searchParams);
@@ -87,15 +87,6 @@ export default function Pagination({ totalProductsCount }) {
         </button>
 
         <div className="flex">
-          {/* {initialNums.map((pageNum) => (
-            <NumberButton key={`init-${pageNum}`} pageNum={pageNum} />
-          ))}
-          <span className="mx-1 self-center">...</span>
-          {throughNums.map((pageNum) => (
-            <NumberButton key={`through-${pageNum}`} pageNum={pageNum} />
-          ))}
-          <span className="mx-1 self-center">...</span>
-          <NumberButton key={`last-${lastNum}`} pageNum={lastNum} /> */}
           {pageNavItems.map((item, index) =>
             item === "..." ? (
               <span key={`ellipsis-${index}`} className="pagination-ellipsis">

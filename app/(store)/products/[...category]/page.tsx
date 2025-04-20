@@ -15,6 +15,7 @@ import formatSortName from "@/app/components/ui/sortables/helpers/formatSortName
 import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSortDirection";
 import Footer from "@/app/components/layout/footer/Footer";
 import Pagination from "@/app/components/ui/pagination/Pagination";
+import getSelectedPagination from "../helpers/getSelectedPagination";
 
 export default async function ProductsPage({
   params,
@@ -29,7 +30,8 @@ export default async function ProductsPage({
   const searchParamsResolved = await searchParams;
   const selectedFilters = getSelectedFilters(searchParamsResolved);
   const selectedSort = getSelectedSort(searchParamsResolved);
-
+  const selectedPagination = getSelectedPagination(searchParamsResolved);
+  console.log("Selected Pagination", selectedPagination);
   const totalProductsCount = 150;
 
   const sortField =
@@ -42,7 +44,12 @@ export default async function ProductsPage({
       : "asc";
 
   const [products, filterOptions, sortOptions] = await Promise.all([
-    getSelectedProducts(path, selectedFilters, selectedSort).catch((error) => {
+    getSelectedProducts(
+      path,
+      selectedFilters,
+      selectedSort,
+      selectedPagination
+    ).catch((error) => {
       console.error("Failed to fetch products:", error);
       return [];
     }),
