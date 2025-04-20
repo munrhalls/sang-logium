@@ -12,7 +12,6 @@ export const getFiltersForCategoryPath = async (categoryPath: string[]) => {
   }
 
   const cleanPath = categoryPath.join("/");
-  console.log("cleanPath", cleanPath);
 
   // Get the top-level category (first segment)
   const topLevelCategory = categoryPath[0];

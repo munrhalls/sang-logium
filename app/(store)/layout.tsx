@@ -45,7 +45,7 @@ export default async function RootLayout({
               {children}
             </div>
           </div>
-          <MobileMenu />
+          {/* <MobileMenu /> */}
         </body>
       </ClerkProvider>
     </html>

@@ -1,34 +1,36 @@
 "use client";
-import dynamic from "next/dynamic";
 import { useUser } from "@clerk/nextjs";
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 
 const AuthenticatedView = dynamic(
-  () =>
-    import("./AuthenticatedView").then((mod) => ({
-      default: mod.AuthenticatedView,
-    })),
+  () => import("./AuthenticatedView").then((mod) => mod.AuthenticatedView),
   {
     ssr: false,
-    loading: () => (
-      <div className="w-[24px] h-[24px] bg-gray-800 rounded-full animate-pulse" />
-    ),
   }
 );
 
 const UnauthenticatedView = dynamic(
-  () =>
-    import("./UnauthenticatedView").then((mod) => ({
-      default: mod.UnauthenticatedView,
-    })),
+  () => import("./UnauthenticatedView").then((mod) => mod.UnauthenticatedView),
   {
     ssr: false,
-    loading: () => (
-      <div className="w-[24px] h-[24px] bg-gray-800 rounded-full animate-pulse" />
-    ),
   }
 );
 
 export default function AuthContent() {
-  const { user } = useUser();
+  const { isLoaded, user } = useUser();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Only render on client-side after mounting
+  if (!isMounted || !isLoaded) {
+    return (
+      <div className="w-[24px] h-[24px] bg-gray-800 rounded-full animate-pulse" />
+    );
+  }
+
   return user ? <AuthenticatedView /> : <UnauthenticatedView />;
 }

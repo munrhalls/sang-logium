@@ -5,7 +5,6 @@ export const getSortablesForCategoryPath = async (categoryPath: string) => {
   // Handle full URL paths like "/products/headphones/wired"
   // Strip any leading paths like "/products/" to get just the category part
   const cleanPath = categoryPath.replace(/^\/products\//, "");
-  console.log("cleanPath", cleanPath);
 
   // Get the top-level category (first segment)
   let topLevelCategory;

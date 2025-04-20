@@ -11,7 +11,7 @@ import getSelectedSort from "./helpers/getSelectedSort";
 import formatSortName from "@/app/components/ui/sortables/helpers/formatSortName";
 import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSortDirection";
 import Footer from "@/app/components/layout/footer/Footer";
-import getSelectedPagination from "./helpers/getSelectedPagination";
+// import getSelectedPagination from "./helpers/getSelectedPagination";
 import Pagination from "@/app/components/ui/pagination/Pagination";
 
 /**
@@ -27,7 +27,7 @@ export default async function RootProductsPage({
   const searchParamsResolved = await searchParams;
   const selectedFilters = getSelectedFilters(searchParamsResolved);
   const selectedSort = getSelectedSort(searchParamsResolved);
-  const selectedPagination = getSelectedPagination(searchParamsResolved);
+  // const selectedPagination = getSelectedPagination(searchParamsResolved);
 
   const sortField =
     typeof searchParamsResolved.sort === "string"

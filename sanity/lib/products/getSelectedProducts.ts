@@ -7,14 +7,14 @@ export const getSelectedProducts = async (
   selectedSort
 ) => {
   const [regular, overview, specifications, rangeFilters] = selectedFilters;
-  console.log("selectedSort", selectedSort);
+  // console.log("selectedSort", selectedSort);
 
-  console.log("selectedFilters", selectedFilters);
+  // console.log("selectedFilters", selectedFilters);
   // Debug logging
-  console.log(
-    "getSelectedProducts received filters:",
-    JSON.stringify(rangeFilters, null, 2)
-  );
+  // console.log(
+  //   "getSelectedProducts received filters:",
+  //   JSON.stringify(rangeFilters, null, 2)
+  // );
 
   const regularQuery =
     regular.length > 0
@@ -104,7 +104,7 @@ export const getSelectedProducts = async (
           })
           .join(" && ") // Combine all conditions with AND
       : "";
-  console.log("Range filters:", rangeFilters);
+  // console.log("Range filters:", rangeFilters);
   const rangeQuery =
     rangeFilters && rangeFilters.length > 0
       ? rangeFilters

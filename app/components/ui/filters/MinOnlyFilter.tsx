@@ -11,7 +11,6 @@ const MinOnlyFilter = ({
 }) => {
   // Initialize state for the minimum value
   const [minValue, setMinValue] = useState(initialMin || min);
-  console.log("max", max);
   // Handle min value change from slider
   const handleMinChange = (newMin) => {
     // Ensure min is valid

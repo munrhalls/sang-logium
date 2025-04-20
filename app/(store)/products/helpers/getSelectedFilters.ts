@@ -134,7 +134,6 @@ export default function getSelectedFilters(searchParamsInput: {
       continue;
     }
   }
-  console.log("rangeFilters", rangeFilters);
   return [regularFilters, overviewFilters, specificationsFilters, rangeFilters];
 }
 
