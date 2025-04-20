@@ -17,13 +17,14 @@ import Footer from "@/app/components/layout/footer/Footer";
 import Pagination from "@/app/components/ui/pagination/Pagination";
 import getSelectedPagination from "../helpers/getSelectedPagination";
 
-export default async function ProductsPage({
-  params,
-  searchParams,
-}: {
-  params: { category: string[] };
-  searchParams: { [key: string]: string | string[] };
-}) {
+export default async function ProductsPage(
+  props: {
+    params: Promise<{ category: string[] }>;
+    searchParams: Promise<{ [key: string]: string | string[] }>;
+  }
+) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const path = params.category;
   const [root, leaf] = [path[0], path[path.length - 1]];
   const categoryTitle = formatCategoryTitle(leaf);
