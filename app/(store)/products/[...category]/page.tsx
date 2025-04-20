@@ -24,7 +24,9 @@ export default async function ProductsPage({
   params: { [key: string]: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const path = params.category;
+  const path = Array.isArray(params.category)
+    ? params.category
+    : [params.category];
   const [root, leaf] = [path[0], path[path.length - 1]];
   const categoryTitle = formatCategoryTitle(leaf);
   const searchParamsResolved = searchParams;
