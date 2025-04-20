@@ -5,14 +5,30 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { X, ArrowDown, ArrowUp } from "lucide-react";
 
-export default function AppliedFilters({ filterOptions = [] }) {
+interface FilterOption {
+  name: string | null;
+  type: "boolean" | "checkbox" | "multiselect" | "radio" | "range" | null;
+  options: string[] | null;
+  defaultValue: string | null;
+  min: number | null;
+  max: number | null;
+  isMinOnly: boolean | null;
+  step: number | null;
+}
+
+interface AppliedFiltersProps {
+  filterOptions?: FilterOption[];
+}
+
+export default function AppliedFilters({
+  filterOptions = [],
+}: AppliedFiltersProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
   // Update search params
-
-  const updateSearchParams = (key, value = null) => {
+  const updateSearchParams = (key: string, value: string | null = null) => {
     const current = new URLSearchParams(searchParams.toString());
 
     // Handle range filter special case
@@ -33,7 +49,7 @@ export default function AppliedFilters({ filterOptions = [] }) {
   };
 
   // Toggle sort direction
-  const toggleSortDirection = () => {
+  const toggleSortDirection = (): void => {
     const current = new URLSearchParams(searchParams.toString());
     const currentSort = current.get("sort");
     const currentDir = current.get("dir") || "asc";
@@ -45,7 +61,7 @@ export default function AppliedFilters({ filterOptions = [] }) {
   };
 
   // Get filter display names from filter options
-  const getFilterDisplayName = (key) => {
+  const getFilterDisplayName = (key: string): string => {
     // First normalize the key (it might have _min or _max suffix)
     const baseKey = key.includes("_") ? key.split("_")[0] : key;
 
@@ -55,18 +71,18 @@ export default function AppliedFilters({ filterOptions = [] }) {
     );
 
     if (filter) {
-      return filter.name;
+      return filter.name ?? "";
     }
 
     // Otherwise humanize the key
     return baseKey
       .replace(/([A-Z])/g, " $1")
-      .replace(/^./, (s) => s.toUpperCase())
+      .replace(/^./, (s: string) => s.toUpperCase())
       .replace(/_/g, " ");
   };
 
   // Format filter value for display
-  const formatFilterValue = (key, value) => {
+  const formatFilterValue = (key: string, value: string): string => {
     if (key === "price") {
       return `${value}`;
     }
@@ -93,10 +109,19 @@ export default function AppliedFilters({ filterOptions = [] }) {
   };
 
   // Get all active filters from search params
-  const activeFilters = Array.from(searchParams.entries())
+  const activeFilters: {
+    filters: Array<{ key: string; value: string }>;
+    sort: { name: string; dir: string } | null;
+  } = Array.from(searchParams.entries())
     .filter(([key]) => !key.includes("page")) // Exclude pagination params
     .reduce(
-      (acc, [key, value]) => {
+      (
+        acc: {
+          filters: Array<{ key: string; value: string }>;
+          sort: { name: string; dir: string } | null;
+        },
+        [key, value]
+      ) => {
         if (!value) return acc;
 
         // Handle sort separately
@@ -117,10 +142,10 @@ export default function AppliedFilters({ filterOptions = [] }) {
     return null;
   }
 
-  const formatActiveSortName = (name) => {
+  const formatActiveSortName = (name: string): string => {
     return name
       .replace(/([A-Z])/g, " $1")
-      .replace(/^./, (s) => s.toUpperCase())
+      .replace(/^./, (s: string) => s.toUpperCase())
       .replace(/_/g, " ");
   };
 

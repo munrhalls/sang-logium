@@ -39,16 +39,15 @@ const displayToRealMap: DisplayToRealMapType = {
 
 type FilterValue = string | string[] | { min?: number; max?: number };
 
-interface FilterItem {
+export interface FilterItem {
   field: string;
   value: FilterValue;
   filterType?: string;
+  operator?: string;
 }
 
-interface RangeFilterItem {
-  field: string;
+interface RangeFilterItem extends FilterItem {
   operator: string;
-  value: FilterValue;
   filterType: "range";
 }
 
@@ -60,14 +59,14 @@ export default function getSelectedFilters(searchParamsInput: {
   const overviewFilters: FilterItem[] = [];
   const specificationsFilters: FilterItem[] = [];
   const rangeFilters: RangeFilterItem[] = [];
-  
+
   // Define pagination parameters to exclude from filters
-  const paginationParams = ['page', 'size', 'pageSize'];
+  const paginationParams = ["page", "size", "pageSize"];
 
   for (const field in searchParamsInput) {
     const value = searchParamsInput[field];
     if (!value) continue;
-    
+
     // Skip pagination parameters to avoid filter-pagination conflicts
     if (paginationParams.includes(field)) continue;
 

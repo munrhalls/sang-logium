@@ -1,13 +1,6 @@
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../live";
-
-// Define more specific types for filter arrays
-type FilterItem = {
-  field: string;
-  value: string | string[] | number | boolean;
-  filterType?: string;
-  operator?: string;
-};
+import { FilterItem } from "@/app/(store)/products/helpers/getSelectedFilters";
 
 export const getSelectedProducts = async (
   path: string[],
@@ -222,14 +215,14 @@ export const getSelectedProducts = async (
   }
 
   console.log("Final GROQ query:", assembledQuery);
-  
+
   // Extract the base query more reliably for the count operation
   // This ensures we're counting the right set of filtered products
   const baseQuery = assembledQuery.substring(
     0,
     assembledQuery.lastIndexOf("]") + 1
   );
-  
+
   // Extract sort part separately to maintain proper ordering
   const sortPart = assembledQuery.substring(
     assembledQuery.lastIndexOf("]") + 1
