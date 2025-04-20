@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { Menu, Search, ShoppingBag, X } from "lucide-react";
+import { Menu, Search, ShoppingBag, X, User } from "lucide-react";
 import { useStore } from "@/store";
-import { ClerkLoaded } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
@@ -62,9 +62,20 @@ const MobileMenu = () => {
             <span className="text-xs mt-1">Basket</span>
           </Link>
 
-          <ClerkLoaded>
+          <SignedIn>
             <AuthContent />
-          </ClerkLoaded>
+          </SignedIn>
+
+          <SignedOut>
+            <button className="flex flex-col items-center">
+              <SignInButton mode="modal">
+                <>
+                  <User className="h-6 w-6" />
+                  <span className="text-xs mt-1">Sign In</span>
+                </>
+              </SignInButton>
+            </button>
+          </SignedOut>
         </div>
       </div>
     </>
