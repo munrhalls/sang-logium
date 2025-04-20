@@ -19,15 +19,15 @@ const UnauthenticatedView = dynamic(
 
 export default function AuthContent() {
   const { isLoaded, user } = useUser();
-  const [isMounted, setIsMounted] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
+    setHasMounted(true);
   }, []);
 
-  if (!isMounted || !isLoaded) {
+  if (!hasMounted || !isLoaded) {
     return (
-      <div className="w-[24px] h-[24px] bg-gray-800 rounded-full animate-pulse" />
+      <div className="w-[24px] h-[24px] mx-auto bg-gray-800 rounded-full animate-pulse" />
     );
   }
 
