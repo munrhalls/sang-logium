@@ -48,7 +48,7 @@ export default function Pagination({ totalProductsCount }) {
   const initialNums = [1, 2, 3];
   const throughNums = [7];
   const lastNum = 12;
-  const pageNumbers = generatePageNumbers(currentPage, pagesCount);
+  const pageNavItems = generatePageNumbers(currentPage, pagesCount);
 
   const NumberButton = ({ pageNum }) => (
     <a
@@ -96,9 +96,15 @@ export default function Pagination({ totalProductsCount }) {
           ))}
           <span className="mx-1 self-center">...</span>
           <NumberButton key={`last-${lastNum}`} pageNum={lastNum} /> */}
-          {pageNumbers.map((pageNum) => (
-            <NumberButton key={pageNum} pageNum={pageNum} />
-          ))}
+          {pageNavItems.map((item, index) =>
+            item === "..." ? (
+              <span key={`ellipsis-${index}`} className="pagination-ellipsis">
+                ...
+              </span>
+            ) : (
+              <NumberButton key={`page-${item}`} pageNum={item} />
+            )
+          )}
         </div>
 
         <button

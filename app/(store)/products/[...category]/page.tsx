@@ -30,7 +30,7 @@ export default async function ProductsPage({
   const selectedFilters = getSelectedFilters(searchParamsResolved);
   const selectedSort = getSelectedSort(searchParamsResolved);
 
-  const totalProductsCount = 70;
+  const totalProductsCount = 150;
 
   const sortField =
     typeof searchParamsResolved.sort === "string"
