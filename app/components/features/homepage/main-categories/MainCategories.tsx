@@ -88,7 +88,7 @@ export default async function MainCategories() {
               // style={{ objectPosition: "50% 25%" }}
               className="absolute inset-0 w-full h-full aspect-square"
               quality={85}
-              sizes="100vw"
+              sizes="(max-width: 1023px) 400px, 600px"
               alt={commercial.title || "Sale"}
             />
           </div>

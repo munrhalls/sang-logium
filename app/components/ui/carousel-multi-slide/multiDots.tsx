@@ -26,7 +26,7 @@ export default function MultiDots({
             <Image
               loading="lazy"
               src={LogoBlack}
-              height={height + 8}
+              // height={height + 8}
               width={width + 8}
               alt={"Icon"}
               unoptimized
