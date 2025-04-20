@@ -24,10 +24,10 @@ export default async function ProductsPage({
   params: { category: string[] };
   searchParams: { [key: string]: string | string[] };
 }) {
-  const path = (await params).category;
+  const path = params.category;
   const [root, leaf] = [path[0], path[path.length - 1]];
   const categoryTitle = formatCategoryTitle(leaf);
-  const searchParamsResolved = await searchParams;
+  const searchParamsResolved = searchParams;
   const selectedFilters = getSelectedFilters(searchParamsResolved);
   const selectedSort = getSelectedSort(searchParamsResolved);
   const selectedPagination = getSelectedPagination(searchParamsResolved);
