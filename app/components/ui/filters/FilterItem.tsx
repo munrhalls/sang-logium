@@ -6,8 +6,9 @@ export default function FilterItem({
   filter,
   value,
   onChange,
-  onChangeMin,
-  onChangeMax,
+  // Removed unused parameters
+  // onChangeMin,
+  // onChangeMax,
 }) {
   const searchParams = useSearchParams();
 

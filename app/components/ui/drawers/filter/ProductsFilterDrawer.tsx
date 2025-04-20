@@ -3,7 +3,7 @@
 import { useStore } from "@/store";
 import { X } from "lucide-react";
 import Filters from "../../filters/Filters";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 export default function ProductsFilterDrawer({ filterOptions = [] }) {
@@ -15,6 +15,7 @@ export default function ProductsFilterDrawer({ filterOptions = [] }) {
     if (isProductsFilterDrawerOpen) {
       toggleProductsFilterDrawer();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return (

@@ -45,9 +45,10 @@ export default function Pagination({ totalProductsCount }) {
     }
   };
 
-  const initialNums = [1, 2, 3];
-  const throughNums = [7];
-  const lastNum = 12;
+  // Removed unused variables
+  // const initialNums = [1, 2, 3];
+  // const throughNums = [7];
+  // const lastNum = 12;
   const pageNavItems = generatePageNumbers(currentPage, pagesCount);
 
   const NumberButton = ({ pageNum }) => (

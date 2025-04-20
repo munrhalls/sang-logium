@@ -86,7 +86,8 @@ export default function AppliedFilters({ filterOptions = [] }) {
         return parsed.join(", ");
       }
       return String(parsed);
-    } catch (e) {
+    } catch {
+      // If parsing fails, return the value as-is
       return String(value);
     }
   };

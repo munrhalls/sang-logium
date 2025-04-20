@@ -1,7 +1,8 @@
-import { useUser, useClerk } from "@clerk/nextjs";
+// Remove unused imports
+import { useUser } from "@clerk/nextjs";
 import { UserButton } from "@clerk/nextjs";
-import { KeyIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+// import { KeyIcon } from "@heroicons/react/24/outline";
+// import { useState } from "react";
 
 export function AuthenticatedView() {
   const { user, isLoaded } = useUser();

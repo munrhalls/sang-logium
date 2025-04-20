@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import debounce from "lodash/debounce";
 
 const RangeFilter = ({
@@ -9,7 +9,8 @@ const RangeFilter = ({
   onChange,
   initialMin,
   initialMax,
-  isMinOnly = false,
+  // Removed unused parameter
+  // isMinOnly = false,
 }) => {
   const [minValue, setMinValue] = useState(initialMin || min);
   const [maxValue, setMaxValue] = useState(initialMax || max);

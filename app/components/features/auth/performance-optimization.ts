@@ -24,8 +24,8 @@ export function usePrefetchClerkResources() {
 
           // Mark as cached
           isUserDataCached = true;
-        } catch (error) {
-          // Silently fail
+        } catch {
+          // Silently fail - no need to capture the error
         }
       };
 
@@ -48,8 +48,8 @@ export function useAuthSessionCache() {
     clearSessionCache: () => {
       try {
         sessionStorage.removeItem('user_display_info');
-      } catch (e) {
-        // Ignore errors
+      } catch {
+        // Ignore errors - no need to capture the error
       }
     }
   };

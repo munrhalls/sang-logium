@@ -12,13 +12,12 @@ interface ProductThumbProps {
 }
 
 const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
-  if (!product.name || !product.image) return null;
-  const isOutOfStock = product.stock != null && product.stock <= 0;
-
-  // Local state to track if item is in basket and quantity
-  // In real implementation, this would come from your basket state management
+  // Initialize state at the top level to avoid React Hooks rules violations
   const [inBasket, setInBasket] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  
+  if (!product.name || !product.image) return null;
+  const isOutOfStock = product.stock != null && product.stock <= 0;
 
   const originalPrice = product.price ?? 0;
   const salePrice =
@@ -84,10 +83,10 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
                   <ProductQuantityControl
                     productId={product._id}
                     quantity={quantity}
-                    onIncrease={(id) => {
+                    onIncrease={() => {
                       setQuantity((prev) => Math.min(prev + 1, 99));
                     }}
-                    onDecrease={(id) => {
+                    onDecrease={() => {
                       setQuantity((prev) => Math.max(prev - 1, 1));
                     }}
                     className="scale-90 transform origin-right"

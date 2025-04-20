@@ -565,7 +565,7 @@ export type FILTERSResult = {
 
 // Source: ./sanity/lib/products/filter/getFiltersForCategoryPath.ts
 // Variable: FILTERS_BY_CATEGORY_QUERY
-// Query: *[_type == "categoryFilters" && title == $topLevelCategory][0] {      title,      "filters": filters.filterItems[]{        name,        type,        options,        defaultValue,        min,        max,        step      },      "mappings": categoryMappings[path == $cleanPath]    }
+// Query: *[_type == "categoryFilters" && title == $topLevelCategory][0] {      title,      "filters": filters.filterItems[]{        name,        type,        options,        defaultValue,        min,        max,        isMinOnly,        step      },      "mappings": categoryMappings[path == $cleanPath]    }
 export type FILTERS_BY_CATEGORY_QUERYResult = {
   title: string | null;
   filters: Array<{
@@ -575,6 +575,7 @@ export type FILTERS_BY_CATEGORY_QUERYResult = {
     defaultValue: string | null;
     min: number | null;
     max: number | null;
+    isMinOnly: boolean | null;
     step: number | null;
   }> | null;
   mappings: Array<{
@@ -910,7 +911,7 @@ export type GET_ACTIVE_SALES_QUERYResult = Array<{
   isActive: boolean | null;
 }>;
 
-// Source: ./sanity/lib/sales/getSaleById.ts
+// Source: ./sanity/lib/sales/getSaleByID.ts
 // Variable: SALE_BY_ID_QUERY
 // Query: *[_type == "sale" && _id == $saleId]{      name,      "slug": slug.current,      validFrom,      validUntil,      isActive,      description,      "image": image.asset->url,      category->{        name,        "slug": slug.current,        "products": *[_type=='product' && categoryPath == ^.metadata.path]{          name,          "slug": slug.current,          image,          defaultPrice        }      }    }
 export type SALE_BY_ID_QUERYResult = Array<{
@@ -949,7 +950,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"commercial\" && feature == $feature] {\n    _id,\n  title,\n  \"image\": image.asset->url,\n  variant,\n  displayOrder,\n  text,\n  ctaLink,\n  \"products\": products[]-> {\n    _id,\n    brand,\n    name,\n    description,\n    price,\n    \"image\": image.asset->url,\n  },\n  sale-> {\n    discount,\n    validUntil,\n    _id\n  }\n}": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
     "{\n    \"brands\": array::unique(*[_type == \"product\"].brand->name)\n  }": FILTERSResult;
-    "\n    *[_type == \"categoryFilters\" && title == $topLevelCategory][0] {\n      title,\n      \"filters\": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        step\n      },\n      \"mappings\": categoryMappings[path == $cleanPath]\n    }\n  ": FILTERS_BY_CATEGORY_QUERYResult;
+    "\n    *[_type == \"categoryFilters\" && title == $topLevelCategory][0] {\n      title,\n      \"filters\": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        isMinOnly,\n        step\n      },\n      \"mappings\": categoryMappings[path == $cleanPath]\n    }\n  ": FILTERS_BY_CATEGORY_QUERYResult;
     "\n          *[\n              _type == \"category\"\n          ] | order(name desc)\n      ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && _id == $id\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;

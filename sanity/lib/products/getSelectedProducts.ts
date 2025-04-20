@@ -1,9 +1,17 @@
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../live";
 
+// Define more specific types for filter arrays
+type FilterItem = {
+  field: string;
+  value: string | string[] | number | boolean;
+  filterType?: string;
+  operator?: string;
+};
+
 export const getSelectedProducts = async (
   path: string[],
-  selectedFilters: [any[], any[], any[], any[]],
+  selectedFilters: [FilterItem[], FilterItem[], FilterItem[], FilterItem[]],
   selectedSort: { field: string; direction: string } | null,
   selectedPagination = { page: 0, pageSize: 12 }
 ) => {
@@ -36,7 +44,7 @@ export const getSelectedProducts = async (
                 values = JSON.parse(item.value);
                 // If the parsed result is not an array, make it one
                 values = Array.isArray(values) ? values : [values];
-              } catch (e) {
+              } catch {
                 // If parsing fails, use the string value as is
                 values = [item.value];
               }
@@ -63,7 +71,7 @@ export const getSelectedProducts = async (
                 values = JSON.parse(item.value);
                 // If the parsed result is not an array, make it one
                 values = Array.isArray(values) ? values : [values];
-              } catch (e) {
+              } catch {
                 // If parsing fails, use the string value as is
                 values = [item.value];
               }
@@ -94,7 +102,7 @@ export const getSelectedProducts = async (
                 values = JSON.parse(item.value);
                 // If the parsed result is not an array, make it one
                 values = Array.isArray(values) ? values : [values];
-              } catch (e) {
+              } catch {
                 // If parsing fails, use the string value as is
                 values = [item.value];
               }
@@ -158,7 +166,7 @@ export const getSelectedProducts = async (
   const page = (selectedPagination?.page || 1) - 1;
   const pageSize = selectedPagination?.pageSize || 12;
   const start = page * pageSize;
-  const end = start + pageSize - 1;
+  // We calculate pageSize directly when needed instead of storing in a variable
 
   if (selectedSort && selectedSort.field && selectedSort.field !== "default") {
     if (selectedSort.field === "bassPerformance") {

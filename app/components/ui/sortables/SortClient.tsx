@@ -1,13 +1,14 @@
 "use client";
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { ArrowDown, ArrowUp, Check } from "lucide-react";
+import { ArrowDown, ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import formatSortName from "./helpers/formatSortName";
 
 export default function SortClient({
   initialSortOptions = [],
-  currentSort = "",
+  // Removed unused parameter
+  // currentSort = "",
 }) {
   const router = useRouter();
   const pathname = usePathname();

@@ -14,7 +14,8 @@ const AuthenticatedView = dynamic(
 );
 
 export default function AuthContent() {
-  const { isLoaded, user } = useUser();
+  // Using only isLoaded from useUser
+  const { isLoaded } = useUser();
 
   if (!isLoaded) {
     return (

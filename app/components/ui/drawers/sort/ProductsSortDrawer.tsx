@@ -15,6 +15,7 @@ export default function ProductsSortDrawer({ sortOptions = [] }) {
     if (isProductsSortDrawerOpen) {
       toggleProductsSortDrawer();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return (

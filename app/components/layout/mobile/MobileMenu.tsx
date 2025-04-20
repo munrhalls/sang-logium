@@ -3,7 +3,7 @@
 import React from "react";
 import { Menu, Search, ShoppingBag, X, User } from "lucide-react";
 import { useStore } from "@/store";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 

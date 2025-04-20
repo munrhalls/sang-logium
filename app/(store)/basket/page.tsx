@@ -5,7 +5,8 @@ import {
   XMarkIcon,
   ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
-import Image from "next/image";
+// Removing unused import
+// import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ProductQuantityControl from "@/app/components/features/basket/ProductQuantityControl";
@@ -83,8 +84,8 @@ export default function BasketPage() {
             Your basket is empty
           </h2>
           <p className="text-gray-600 mt-3 mb-8 text-center max-w-md">
-            Looks like you haven't added any products to your basket yet. Browse
-            our collection to find something you'll love.
+            Looks like you haven&apos;t added any products to your basket yet. Browse
+            our collection to find something you&apos;ll love.
           </p>
           <Link
             href="/products"

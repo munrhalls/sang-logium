@@ -15,7 +15,8 @@ export default function parseParamsToFilters(searchParams) {
       } else {
         parsedFilters[key] = value;
       }
-    } catch (e) {
+    } catch {
+      // If parsing fails, use original value
       parsedFilters[key] = value;
     }
   }
