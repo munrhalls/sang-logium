@@ -59,14 +59,14 @@ export default async function ProductsPage({
       <main className="hidden md:block container mx-auto px-4 py-8">
         <div className="mb-6">
           <CategoryBreadcrumbs categoryParts={path} />
-          <div className="flex justify-center items-center gap-3 mt-8 mb-6 border-b border-gray-300 pb-12">
+          <div className="flex justify-center items-center gap-3 mt-8 mb-6  pb-12">
             <CategoryTitleIcon category={root} />
             <h1 className="text-5xl font-bold tracking-wide">
               {categoryTitle}
             </h1>
-            <div className="hidden md:block md:ml-auto">
-              <Pagination />
-            </div>
+          </div>
+          <div className="hidden md:flex  items-center justify-start md:ml-auto border-b border-gray-300">
+            <Pagination />
           </div>
         </div>
 
