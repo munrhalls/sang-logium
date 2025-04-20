@@ -2,9 +2,9 @@ import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../live";
 
 export const getSelectedProducts = async (
-  path,
-  selectedFilters,
-  selectedSort,
+  path: string[],
+  selectedFilters: [any[], any[], any[], any[]],
+  selectedSort: { field: string; direction: string } | null,
   selectedPagination = { page: 0, pageSize: 12 }
 ) => {
   const [regular, overview, specifications, rangeFilters] = selectedFilters;
@@ -233,6 +233,9 @@ export const getSelectedProducts = async (
     };
   } catch (err) {
     console.error("Error fetching products:", err);
-    return { products: [], totalProductsCount: 0 };
+    return {
+      products: [],
+      totalProductsCount: 0,
+    };
   }
 };

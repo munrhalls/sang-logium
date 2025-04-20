@@ -38,26 +38,27 @@ export default async function RootProductsPage({
       ? searchParamsResolved.dir
       : "asc";
 
-  const [{ products, totalProductsCount }, filterOptions, sortOptions] =
-    await Promise.all([
-      getSelectedProducts(
-        path,
-        selectedFilters,
-        selectedSort,
-        selectedPagination
-      ).catch((error) => {
-        console.error("Failed to fetch products:", error);
-        return [];
-      }),
-      getFiltersForCategoryPathAction(path).catch((error) => {
-        console.error("Failed to fetch filters:", error);
-        return [];
-      }),
-      getSortablesForCategoryPathAction(path.join("/")).catch((error) => {
-        console.error("Failed to fetch sort options:", error);
-        return [];
-      }),
-    ]);
+  const [productsResult, filterOptions, sortOptions] = await Promise.all([
+    getSelectedProducts(
+      path,
+      selectedFilters,
+      selectedSort,
+      selectedPagination
+    ).catch((error) => {
+      console.error("Failed to fetch products:", error);
+      return { products: [], totalProductsCount: 0 };
+    }),
+    getFiltersForCategoryPathAction(path).catch((error) => {
+      console.error("Failed to fetch filters:", error);
+      return [];
+    }),
+    getSortablesForCategoryPathAction(path.join("/")).catch((error) => {
+      console.error("Failed to fetch sort options:", error);
+      return [];
+    }),
+  ]);
+
+  const { products, totalProductsCount } = productsResult;
 
   return (
     <>
