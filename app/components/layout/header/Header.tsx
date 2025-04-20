@@ -1,9 +1,10 @@
 "use client";
 
-import { ClerkLoaded } from "@clerk/nextjs";
+// Removed UserButton from the import
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { ShoppingCartIcon, UserIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import logo from "@/public/logo.svg";
 
@@ -16,6 +17,7 @@ const AuthContent = dynamic(
     ssr: false,
   }
 );
+
 const SearchForm = dynamic(
   () => import("@/app/components/features/homepage/search/SearchForm"),
   {
@@ -50,9 +52,22 @@ function Header() {
           <span>Basket</span>
         </Link>
 
-        <ClerkLoaded>
+        <SignedIn>
           <AuthContent />
-        </ClerkLoaded>
+        </SignedIn>
+
+        <SignedOut>
+          <div className="grid place-content-center text-white">
+            <SignInButton mode="modal">
+              <div className="flex flex-col items-center">
+                <div className="grid place-content-center">
+                  <UserIcon height={24} width={24} />
+                </div>
+                <span>Sign In</span>
+              </div>
+            </SignInButton>
+          </div>
+        </SignedOut>
       </div>
     </header>
   );
