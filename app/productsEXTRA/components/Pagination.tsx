@@ -11,43 +11,50 @@ interface PaginationProps {
 /**
  * Pagination component for products listing
  */
-export default function Pagination({ 
-  currentPage, 
-  totalPages, 
-  onPageChange 
+export default function Pagination({
+  currentPage,
+  totalPages,
+  onPageChange,
 }: PaginationProps) {
   // Generate page numbers to show
   const getPageNumbers = () => {
-    // Always show first and last page
-    // Show 5 pages around current page
-    const pages = [];
-    const rangeStart = Math.max(2, currentPage - 2);
-    const rangeEnd = Math.min(totalPages - 1, currentPage + 2);
+    const delta = 1;
 
-    // Always add page 1
-    pages.push(1);
+    let initialNums = [];
+    let throughNums = [];
+    let lastNum = null;
 
-    // Add ellipsis if needed
-    if (rangeStart > 2) {
-      pages.push('ellipsis1');
+    if (currentPage > 1 + delta) {
+      initialNums = [1];
+
+      if (currentPage - delta > 2) {
+        throughNums = Array.from(
+          { length: 2 * delta + 1 },
+          (_, i) => currentPage - delta + i
+        );
+      } else {
+        initialNums = Array.from(
+          { length: currentPage + delta },
+          (_, i) => i + 1
+        );
+      }
+    } else {
+      initialNums = Array.from(
+        { length: Math.min(1 + 2 * delta, totalPages) },
+        (_, i) => i + 1
+      );
     }
 
-    // Add pages in range
-    for (let i = rangeStart; i <= rangeEnd; i++) {
-      pages.push(i);
+    if (currentPage + delta < totalPages - 1) {
+      lastNum = totalPages;
+    } else if (initialNums[initialNums.length - 1] !== totalPages) {
+      throughNums = Array.from(
+        { length: Math.min(totalPages - (currentPage - delta), totalPages) },
+        (_, i) => i + (currentPage - delta)
+      ).filter((n) => n > initialNums[initialNums.length - 1]);
     }
 
-    // Add ellipsis if needed
-    if (rangeEnd < totalPages - 1) {
-      pages.push('ellipsis2');
-    }
-
-    // Add last page if needed
-    if (totalPages > 1) {
-      pages.push(totalPages);
-    }
-
-    return pages;
+    return { initialNums, throughNums, lastNum };
   };
 
   // Don't show pagination if only one page
@@ -86,9 +93,9 @@ export default function Pagination({
 
       {/* Page numbers */}
       {pageNumbers.map((page, index) => {
-        if (page === 'ellipsis1' || page === 'ellipsis2') {
+        if (page === "ellipsis1" || page === "ellipsis2") {
           return (
-            <span 
+            <span
               key={`ellipsis-${index}`}
               className="w-10 h-10 flex items-center justify-center text-gray-500"
             >
@@ -96,7 +103,7 @@ export default function Pagination({
             </span>
           );
         }
-        
+
         return (
           <button
             key={page}
