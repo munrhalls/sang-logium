@@ -17,10 +17,16 @@ export const getSelectedProducts = async (
   //   "getSelectedProducts received filters:",
   //   JSON.stringify(rangeFilters, null, 2)
   // );
-  // ok
+
+  // No longer need to filter out 'size' parameter since we handle it in getSelectedFilters
+  // but we'll keep this as a failsafe in case older code still passes size parameter
+  const filteredRegular = regular.filter(
+    (item) => !(item.field === "size" && !isNaN(parseInt(String(item.value))))
+  );
+
   const regularQuery =
-    regular.length > 0
-      ? regular
+    filteredRegular.length > 0
+      ? filteredRegular
           .map((item) => {
             // Handle different value types
             let values = [];
@@ -148,7 +154,8 @@ export const getSelectedProducts = async (
     assembledQuery += ` && (${allFilters})`;
   }
 
-  const page = selectedPagination?.page || 0;
+  // Convert from 1-based (UI) to 0-based (GROQ) pagination
+  const page = (selectedPagination?.page || 1) - 1;
   const pageSize = selectedPagination?.pageSize || 12;
   const start = page * pageSize;
   const end = start + pageSize - 1;
@@ -207,17 +214,22 @@ export const getSelectedProducts = async (
   }
 
   console.log("Final GROQ query:", assembledQuery);
+  
+  // Extract the base query more reliably for the count operation
+  // This ensures we're counting the right set of filtered products
   const baseQuery = assembledQuery.substring(
     0,
     assembledQuery.lastIndexOf("]") + 1
   );
-  // Extract sort part separately
+  
+  // Extract sort part separately to maintain proper ordering
   const sortPart = assembledQuery.substring(
     assembledQuery.lastIndexOf("]") + 1
   );
 
+  // Construct final query with pagination and count
   const finalQuery = `{
-  "products": ${baseQuery}${sortPart}[${start}...${end}],
+  "products": ${baseQuery}${sortPart}[${start}...${start + pageSize}],
   "totalProductsCount": count(${baseQuery})
 }`;
   console.log("Final GROQ query:", finalQuery);

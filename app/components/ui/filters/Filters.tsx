@@ -45,6 +45,9 @@ export default function Filters({ filterOptions }) {
       params.set(name, String(value).toLowerCase().trim());
     }
 
+    // Reset pagination to page 1 whenever filters change
+    params.set("page", "1");
+
     const filterObj = Object.fromEntries(params.entries());
     const normalized = normalizeFilters(filterObj);
 
@@ -52,6 +55,11 @@ export default function Filters({ filterOptions }) {
     Object.entries(normalized).forEach(([key, val]) => {
       normalizedParams.set(key, String(val));
     });
+    
+    // Ensure page=1 is preserved in normalized params
+    if (!normalizedParams.has("page")) {
+      normalizedParams.set("page", "1");
+    }
 
     router.push(`${pathname}?${normalizedParams.toString()}`, {
       scroll: false,
@@ -66,7 +74,10 @@ export default function Filters({ filterOptions }) {
 
   function handleReset() {
     setIsTransitioning(true);
-    router.push(pathname, { scroll: false });
+    // Clear all filters and reset to page 1
+    const params = new URLSearchParams();
+    params.set("page", "1");
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
     setTimeout(() => setIsTransitioning(false), 600);
   }
 

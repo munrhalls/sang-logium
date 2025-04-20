@@ -17,10 +17,10 @@ const specificationsFiltersMap: FiltersMap = {
   sensitivity: true,
   weight: true,
 };
+// Remove 'size' from regular filters to avoid pagination parameter collision
 const regularFiltersMap: FiltersMap = {
   brand: true,
   color: true,
-  size: true,
   type: true,
 };
 
@@ -55,14 +55,21 @@ interface RangeFilterItem {
 export default function getSelectedFilters(searchParamsInput: {
   [key: string]: string | string[];
 }): [FilterItem[], FilterItem[], FilterItem[], RangeFilterItem[]] {
+  console.log("searchParamsInput", searchParamsInput);
   const regularFilters: FilterItem[] = [];
   const overviewFilters: FilterItem[] = [];
   const specificationsFilters: FilterItem[] = [];
   const rangeFilters: RangeFilterItem[] = [];
+  
+  // Define pagination parameters to exclude from filters
+  const paginationParams = ['page', 'size', 'pageSize'];
 
   for (const field in searchParamsInput) {
     const value = searchParamsInput[field];
     if (!value) continue;
+    
+    // Skip pagination parameters to avoid filter-pagination conflicts
+    if (paginationParams.includes(field)) continue;
 
     const lowercaseField = field.toLowerCase();
 
@@ -134,6 +141,10 @@ export default function getSelectedFilters(searchParamsInput: {
       continue;
     }
   }
+  console.log("regularFilters", regularFilters);
+  console.log("overviewFilters", overviewFilters);
+  console.log("specificationsFilters", specificationsFilters);
+  console.log("rangeFilters", rangeFilters);
   return [regularFilters, overviewFilters, specificationsFilters, rangeFilters];
 }
 
