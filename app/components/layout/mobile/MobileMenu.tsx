@@ -67,14 +67,17 @@ const MobileMenu = () => {
           </SignedIn>
 
           <SignedOut>
-            <button className="flex flex-col items-center">
-              <SignInButton mode="modal">
-                <>
-                  <User className="h-6 w-6" />
-                  <span className="text-xs mt-1">Sign In</span>
-                </>
-              </SignInButton>
-            </button>
+            {/* Removed the extra <button> wrapper */}
+            <SignInButton mode="modal">
+              {/* You can add your styling classes directly to SignInButton */}
+              {/* or wrap the children in a div/span for layout if needed */}
+              <div className="flex flex-col items-center">
+                {" "}
+                {/* Using div for layout */}
+                <User className="h-6 w-6" />
+                <span className="text-xs mt-1">Sign In</span>
+              </div>
+            </SignInButton>
           </SignedOut>
         </div>
       </div>
