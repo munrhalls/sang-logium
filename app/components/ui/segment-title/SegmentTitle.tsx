@@ -5,7 +5,7 @@ import LogoOrbitWhite from "@/public/logo-orbit-white.svg";
 export default function SegmentTitle({
   title,
   width,
-  height,
+  // height,
   white = false,
 }: {
   title: string;

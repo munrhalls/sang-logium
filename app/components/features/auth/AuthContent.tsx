@@ -25,7 +25,6 @@ export default function AuthContent() {
     setIsMounted(true);
   }, []);
 
-  // Only render on client-side after mounting
   if (!isMounted || !isLoaded) {
     return (
       <div className="w-[24px] h-[24px] bg-gray-800 rounded-full animate-pulse" />
