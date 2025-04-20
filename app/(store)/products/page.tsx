@@ -29,6 +29,8 @@ export default async function RootProductsPage({
   const selectedSort = getSelectedSort(searchParamsResolved);
   // const selectedPagination = getSelectedPagination(searchParamsResolved);
 
+  const totalProductsCount = 80;
+
   const sortField =
     typeof searchParamsResolved.sort === "string"
       ? searchParamsResolved.sort
@@ -101,7 +103,7 @@ export default async function RootProductsPage({
             <div className="grid grid-cols-1 items-center bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
               <FilterSortBtns />
             </div>
-            <Pagination />
+            <Pagination totalProductsCount={totalProductsCount} />
           </div>
         </div>
 

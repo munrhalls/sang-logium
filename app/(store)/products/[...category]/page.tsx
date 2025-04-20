@@ -30,6 +30,8 @@ export default async function ProductsPage({
   const selectedFilters = getSelectedFilters(searchParamsResolved);
   const selectedSort = getSelectedSort(searchParamsResolved);
 
+  const totalProductsCount = 70;
+
   const sortField =
     typeof searchParamsResolved.sort === "string"
       ? searchParamsResolved.sort
@@ -66,7 +68,7 @@ export default async function ProductsPage({
             </h1>
           </div>
           <div className="hidden md:flex  items-center justify-start md:ml-auto border-b border-gray-300">
-            <Pagination />
+            <Pagination totalProductsCount={totalProductsCount} />
           </div>
         </div>
 
@@ -111,7 +113,7 @@ export default async function ProductsPage({
             <div className="grid grid-cols-1 items-center bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
               <FilterSortBtns />
             </div>
-            <Pagination />
+            <Pagination totalProductsCount={totalProductsCount} />
           </div>
         </div>
 

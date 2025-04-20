@@ -2,18 +2,29 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ProductsPerPageDropdown from "./ProductsPerPageDropdown";
 
-const pagesCount = 150;
-const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_PAGE_SIZE = 12;
 const DEFAULT_PAGE = 1;
 
-export default function Pagination() {
+export default function Pagination({ totalProductsCount }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  if (totalProductsCount === undefined) return null;
+
+  console.log("totalProductsCount ", totalProductsCount);
 
   const currentPage = Number(searchParams.get("page")) || DEFAULT_PAGE;
   const pageSize = Number(searchParams.get("size")) || DEFAULT_PAGE_SIZE;
-  const totalPages = Math.ceil(pagesCount / pageSize);
+  const pagesCount = Math.ceil(totalProductsCount / pageSize);
+  console.log(
+    "totalProductsCount /  ",
+    totalProductsCount,
+    "page size",
+    pageSize,
+    " === ",
+    " pages count",
+    pagesCount
+  );
 
   const createPageUrl = (pageNum) => {
     const params = new URLSearchParams(searchParams);
@@ -28,7 +39,7 @@ export default function Pagination() {
   };
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
+    if (currentPage < pagesCount) {
       router.push(createPageUrl(currentPage + 1));
     }
   };
@@ -57,7 +68,7 @@ export default function Pagination() {
   return (
     <div>
       <h1>
-        Page {currentPage} of {totalPages}
+        Page {currentPage} of {pagesCount}
       </h1>
       <ProductsPerPageDropdown />
       <div className="flex justify-around items-center max-w-[400px] my-4">
@@ -87,9 +98,9 @@ export default function Pagination() {
 
         <button
           onClick={handleNextPage}
-          disabled={currentPage >= totalPages}
+          disabled={currentPage >= pagesCount}
           className={`px-3 py-1 rounded ${
-            currentPage >= totalPages
+            currentPage >= pagesCount
               ? "bg-gray-100 text-gray-400 cursor-not-allowed"
               : "bg-gray-200 hover:bg-gray-300"
           }`}
