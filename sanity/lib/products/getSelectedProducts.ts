@@ -17,7 +17,7 @@ export const getSelectedProducts = async (
   //   "getSelectedProducts received filters:",
   //   JSON.stringify(rangeFilters, null, 2)
   // );
-
+  // ok
   const regularQuery =
     regular.length > 0
       ? regular
