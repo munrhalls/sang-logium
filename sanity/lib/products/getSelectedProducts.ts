@@ -5,7 +5,7 @@ export const getSelectedProducts = async (
   path,
   selectedFilters,
   selectedSort,
-  selectedPagination
+  selectedPagination = { page: 0, pageSize: 12 }
 ) => {
   const [regular, overview, specifications, rangeFilters] = selectedFilters;
   console.log("selectedPagination", selectedPagination);
@@ -148,6 +148,11 @@ export const getSelectedProducts = async (
     assembledQuery += ` && (${allFilters})`;
   }
 
+  const page = selectedPagination?.page || 0;
+  const pageSize = selectedPagination?.pageSize || 12;
+  const start = page * pageSize;
+  const end = start + pageSize - 1;
+
   if (selectedSort && selectedSort.field && selectedSort.field !== "default") {
     if (selectedSort.field === "bassPerformance") {
       assembledQuery += `] {
@@ -200,15 +205,34 @@ export const getSelectedProducts = async (
   } else {
     assembledQuery += `] | order(name asc)`;
   }
+
   console.log("Final GROQ query:", assembledQuery);
-  const GET_PRODUCTS_BY_QUERY = defineQuery(assembledQuery);
+  const baseQuery = assembledQuery.substring(
+    0,
+    assembledQuery.lastIndexOf("]") + 1
+  );
+  // Extract sort part separately
+  const sortPart = assembledQuery.substring(
+    assembledQuery.lastIndexOf("]") + 1
+  );
+
+  const finalQuery = `{
+  "products": ${baseQuery}${sortPart}[${start}...${end}],
+  "totalProductsCount": count(${baseQuery})
+}`;
+  console.log("Final GROQ query:", finalQuery);
+  const GET_PRODUCTS_BY_QUERY = defineQuery(finalQuery);
+
   try {
-    const products = await sanityFetch({
+    const result = await sanityFetch({
       query: GET_PRODUCTS_BY_QUERY,
     });
-    return products.data || [];
+    return {
+      products: result.data.products || [],
+      totalProductsCount: result.data.totalProductsCount || 0,
+    };
   } catch (err) {
-    console.error("Error fetching all products: ", err);
-    return [];
+    console.error("Error fetching products:", err);
+    return { products: [], totalProductsCount: 0 };
   }
 };

@@ -11,7 +11,7 @@ import getSelectedSort from "./helpers/getSelectedSort";
 import formatSortName from "@/app/components/ui/sortables/helpers/formatSortName";
 import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSortDirection";
 import Footer from "@/app/components/layout/footer/Footer";
-// import getSelectedPagination from "./helpers/getSelectedPagination";
+import getSelectedPagination from "./helpers/getSelectedPagination";
 import Pagination from "@/app/components/ui/pagination/Pagination";
 
 /**
@@ -27,9 +27,7 @@ export default async function RootProductsPage({
   const searchParamsResolved = await searchParams;
   const selectedFilters = getSelectedFilters(searchParamsResolved);
   const selectedSort = getSelectedSort(searchParamsResolved);
-  // const selectedPagination = getSelectedPagination(searchParamsResolved);
-
-  const totalProductsCount = 80;
+  const selectedPagination = getSelectedPagination(searchParamsResolved);
 
   const sortField =
     typeof searchParamsResolved.sort === "string"
@@ -40,20 +38,26 @@ export default async function RootProductsPage({
       ? searchParamsResolved.dir
       : "asc";
 
-  const [products, filterOptions, sortOptions] = await Promise.all([
-    getSelectedProducts(path, selectedFilters, selectedSort).catch((error) => {
-      console.error("Failed to fetch products:", error);
-      return [];
-    }),
-    getFiltersForCategoryPathAction(path).catch((error) => {
-      console.error("Failed to fetch filters:", error);
-      return [];
-    }),
-    getSortablesForCategoryPathAction(path.join("/")).catch((error) => {
-      console.error("Failed to fetch sort options:", error);
-      return [];
-    }),
-  ]);
+  const [{ products, totalProductsCount }, filterOptions, sortOptions] =
+    await Promise.all([
+      getSelectedProducts(
+        path,
+        selectedFilters,
+        selectedSort,
+        selectedPagination
+      ).catch((error) => {
+        console.error("Failed to fetch products:", error);
+        return [];
+      }),
+      getFiltersForCategoryPathAction(path).catch((error) => {
+        console.error("Failed to fetch filters:", error);
+        return [];
+      }),
+      getSortablesForCategoryPathAction(path.join("/")).catch((error) => {
+        console.error("Failed to fetch sort options:", error);
+        return [];
+      }),
+    ]);
 
   return (
     <>

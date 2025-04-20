@@ -32,7 +32,6 @@ export default async function ProductsPage({
   const selectedSort = getSelectedSort(searchParamsResolved);
   const selectedPagination = getSelectedPagination(searchParamsResolved);
   console.log("Selected Pagination", selectedPagination);
-  const totalProductsCount = 150;
 
   const sortField =
     typeof searchParamsResolved.sort === "string"
@@ -43,26 +42,28 @@ export default async function ProductsPage({
       ? searchParamsResolved.dir
       : "asc";
 
-  const [products, filterOptions, sortOptions] = await Promise.all([
-    getSelectedProducts(
-      path,
-      selectedFilters,
-      selectedSort,
-      selectedPagination
-    ).catch((error) => {
-      console.error("Failed to fetch products:", error);
-      return [];
-    }),
-    getFiltersForCategoryPathAction(path).catch((error) => {
-      console.error("Failed to fetch filters:", error);
-      return [];
-    }),
-    getSortablesForCategoryPathAction(path.join("/")).catch((error) => {
-      console.error("Failed to fetch sort options:", error);
-      return [];
-    }),
-  ]);
+  const [{ products, totalProductsCount }, filterOptions, sortOptions] =
+    await Promise.all([
+      getSelectedProducts(
+        path,
+        selectedFilters,
+        selectedSort,
+        selectedPagination
+      ).catch((error) => {
+        console.error("Failed to fetch products:", error);
+        return [];
+      }),
+      getFiltersForCategoryPathAction(path).catch((error) => {
+        console.error("Failed to fetch filters:", error);
+        return [];
+      }),
+      getSortablesForCategoryPathAction(path.join("/")).catch((error) => {
+        console.error("Failed to fetch sort options:", error);
+        return [];
+      }),
+    ]);
 
+  console.log("Products", products, "Total Products Count", totalProductsCount);
   return (
     <>
       <main className="hidden md:block container mx-auto px-4 py-8">
@@ -91,7 +92,8 @@ export default async function ProductsPage({
           <div>
             <div className="mb-1 p-1 bg-slate-200 rounded-lg shadow">
               <p className="text-md p-2 lg:text-xl text-gray-500">
-                Showing {products.length} product{products.length !== 1 && "s"}
+                Showing {products.length} product
+                {products.length !== 1 && "s"}
                 {sortField &&
                   ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
               </p>
