@@ -70,10 +70,12 @@ export default function Pagination({
 
   return (
     <div>
-      <h1>
-        Page {currentPage} of {pagesCount}
-      </h1>
-      <ProductsPerPageDropdown />
+      <div className="flex justify-between items-center">
+        <h1 className="text-sm">
+          Page {currentPage} of {pagesCount}
+        </h1>
+        <ProductsPerPageDropdown />
+      </div>
       <div className="flex justify-around items-center max-w-[400px] my-4">
         <button
           onClick={handlePrevPage}

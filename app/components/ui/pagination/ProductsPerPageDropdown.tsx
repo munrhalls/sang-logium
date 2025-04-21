@@ -24,9 +24,9 @@ export default function ProductsPerPageDropdown() {
   };
 
   return (
-    <div className="flex items-center mb-4">
+    <div className="flex justify-center items-center ">
       <label htmlFor="itemsPerPage" className="mr-2 text-sm">
-        Items per page:
+        Items/page
       </label>
       <select
         id="itemsPerPage"
