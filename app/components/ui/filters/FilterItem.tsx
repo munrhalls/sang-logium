@@ -1,14 +1,19 @@
 import RangeFilter from "./RangeFilter";
 import MinOnlyFilter from "./MinOnlyFilter";
 import { useSearchParams } from "next/navigation";
+import { FilterItem as FilterItemType } from "./FilterTypes";
 
 export default function FilterItem({
   filter,
   value,
   onChange,
-  // Removed unused parameters
-  // onChangeMin,
-  // onChangeMax,
+}: {
+  filter: FilterItemType;
+  value: string | number | boolean | object | string[] | null;
+  onChange: (
+    value: string | number | boolean | object | string[],
+    type: string
+  ) => void;
 }) {
   const searchParams = useSearchParams();
 

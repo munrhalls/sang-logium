@@ -12,12 +12,15 @@ export const displayToRealMap: DisplayToRealMapType = {
 
 export type FilterValue = string | string[] | { min?: number; max?: number };
 
-export interface FilterItem {
-  field: string;
-  value: FilterValue;
-  filterType?: string;
-  operator?: string;
-}
+export type FilterItem = {
+  type: string;
+  name: string;
+  options?: string[];
+  min?: number;
+  max?: number;
+  step?: number;
+  isMinOnly?: boolean;
+};
 
 export interface RangeFilterItem extends FilterItem {
   operator: string;

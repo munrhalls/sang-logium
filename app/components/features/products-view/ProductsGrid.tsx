@@ -1,10 +1,12 @@
 "use client";
-import { GET_SELECTED_PRODUCTS_QueryResult } from "@/sanity.types";
+import { GET_SELECTED_PRODUCTSResult } from "@/sanity.types";
 
 import ProductThumb from "@/app/components/features/products-view/ProductThumb";
 
+type Product = GET_SELECTED_PRODUCTSResult['products'][number];
+
 type ProductsGridProps = {
-  products: GET_SELECTED_PRODUCTS_QueryResult;
+  products: GET_SELECTED_PRODUCTSResult['products'];
 };
 
 export default function ProductsGrid({ products }: ProductsGridProps) {
