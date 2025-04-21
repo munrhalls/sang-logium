@@ -14,17 +14,15 @@ import Footer from "@/app/components/layout/footer/Footer";
 import getSelectedPagination from "./helpers/getSelectedPagination";
 import Pagination from "@/app/components/ui/pagination/Pagination";
 
-/**
- * Root products page to handle the "/products" patWh
- */
-export default async function RootProductsPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] };
+type Params = Promise<{ slug: string }>;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+export default async function RootProductsPage(props: {
+  params: Params;
+  searchParams: SearchParams;
 }) {
-  // Empty path array for root products
   const path = ["products"];
-  const searchParamsResolved = await searchParams;
+  const searchParamsResolved = await props.searchParams;
   const selectedFilters = getSelectedFilters(searchParamsResolved);
   const selectedSort = getSelectedSort(searchParamsResolved);
   const selectedPagination = getSelectedPagination(searchParamsResolved);
