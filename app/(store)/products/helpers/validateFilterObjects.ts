@@ -27,13 +27,22 @@ const SPECIAL_FIELD_MAPPINGS = {
   },
 };
 
-export default function validateFilterObjects(rawFilters) {
+export default function validateFilterObjects(
+  rawFilters: Array<{
+    field: string;
+    value: string | number | boolean | Array<string | number | boolean>;
+  }>
+) {
   const validatedFilters = rawFilters
     .map((filter) => {
       // Handle special field mappings
       const lcField = filter.field.toLowerCase();
-      if (SPECIAL_FIELD_MAPPINGS[lcField]) {
-        return SPECIAL_FIELD_MAPPINGS[lcField];
+      if (
+        SPECIAL_FIELD_MAPPINGS[lcField as keyof typeof SPECIAL_FIELD_MAPPINGS]
+      ) {
+        return SPECIAL_FIELD_MAPPINGS[
+          lcField as keyof typeof SPECIAL_FIELD_MAPPINGS
+        ];
       }
 
       // Process filter value
