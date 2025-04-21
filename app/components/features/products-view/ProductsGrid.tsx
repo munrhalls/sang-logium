@@ -3,10 +3,10 @@ import { GET_SELECTED_PRODUCTSResult } from "@/sanity.types";
 
 import ProductThumb from "@/app/components/features/products-view/ProductThumb";
 
-type Product = GET_SELECTED_PRODUCTSResult['products'][number];
+type Product = GET_SELECTED_PRODUCTSResult["products"][number];
 
 type ProductsGridProps = {
-  products: GET_SELECTED_PRODUCTSResult['products'];
+  products: GET_SELECTED_PRODUCTSResult["products"];
 };
 
 export default function ProductsGrid({ products }: ProductsGridProps) {
