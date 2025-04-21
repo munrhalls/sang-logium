@@ -7,8 +7,6 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "deploy": "netlify deploy --prod",
-    "deploy:staging": "netlify deploy",
-    "deploy:windows": "npm run build && netlify deploy --prod",
     "verify": "node verify-deployment.js",
     "start": "next start",
     "type-check": "tsc --noEmit",

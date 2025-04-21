@@ -114,10 +114,10 @@ export default async function ProductsPage(props: {
 
       <div className="md:hidden flex flex-col h-screen overflow-hidden">
         <div className="flex-none bg-white">
-          <div className="container mx-auto px-1 py-1">
+          <div className="container mx-auto px-1 py-1 flex">
             <div className="mb-1">
               <CategoryBreadcrumbs categoryParts={path} isMobile={true} />
-              <div className="flex justify-center items-center gap-1 mt-2 mb-1 pb-1">
+              <div className="flex justify-start items-center m-1 gap-1">
                 <CategoryTitleIcon category={root} />
                 <h1 className="text-lg font-bold tracking-wide">
                   {categoryTitle}
@@ -125,11 +125,11 @@ export default async function ProductsPage(props: {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 items-center bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
+            <div className="flex-1 flex justify-center">
               <FilterSortBtns />
             </div>
-            <Pagination totalProductsCount={totalProductsCount} />
           </div>
+          <Pagination totalProductsCount={totalProductsCount} />
         </div>
 
         <div className="flex-grow overflow-y-auto">
