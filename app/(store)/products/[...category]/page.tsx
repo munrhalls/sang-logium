@@ -16,7 +16,7 @@ import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSor
 import Footer from "@/app/components/layout/footer/Footer";
 import Pagination from "@/app/components/ui/pagination/Pagination";
 import getSelectedPagination from "../helpers/getSelectedPagination";
-import { FilterOptions } from "@/app/components/ui/filters/FilterTypes";
+// Import removed: FilterOptions was unused
 
 type Params = Promise<{ category: string }>;
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;

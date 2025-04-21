@@ -6,7 +6,7 @@ interface RangeFilterProps {
   min?: number;
   max?: number;
   step?: number;
-  onChange: (name: string, value: any, type: string) => void;
+  onChange: (name: string, value: { min?: number; max?: number } | number, type: string) => void;
   initialMin?: number;
   initialMax?: number;
 }

@@ -8,7 +8,7 @@ import { SortOption } from "./SortTypes";
 
 export default function SortClient({
   initialSortOptions = [],
-  currentSort = "",
+  _currentSort = "", // Prefixed with _ as it's not currently used
 }: {
   initialSortOptions?: SortOption[];
   currentSort?: string;

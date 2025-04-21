@@ -14,7 +14,7 @@ interface CategoryWithMetadata extends CategoryBase {
     path: string;
     group?: string;
   };
-  groups?: Array<string | GroupItem> | any[];
+  groups?: Array<string | GroupItem> | Array<GroupItem | null>;
 }
 
 export const flatToTree = function (
