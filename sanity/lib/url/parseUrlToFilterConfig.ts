@@ -1,6 +1,6 @@
 // /sanity/lib/url/parseUrlToFilterConfig.ts
 
-type FilterConfig = {
+export type FilterConfig = {
   categories?: string[];
   price?: {
     min?: number;

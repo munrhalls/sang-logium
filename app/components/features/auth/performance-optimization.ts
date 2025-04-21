@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 // Used to track if we need to fetch user data or if it's already cached
 let isUserDataCached = false;
@@ -16,10 +16,11 @@ export function usePrefetchClerkResources() {
       const prefetchResources = async () => {
         try {
           // Prefetch Clerk JS bundle - use standard CDN URL instead of custom domain
-          const link = document.createElement('link');
-          link.rel = 'prefetch';
-          link.href = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js';
-          link.as = 'script';
+          const link = document.createElement("link");
+          link.rel = "prefetch";
+          link.href =
+            "https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js";
+          link.as = "script";
           document.head.appendChild(link);
 
           // Mark as cached
@@ -30,7 +31,7 @@ export function usePrefetchClerkResources() {
       };
 
       // Use requestIdleCallback for non-blocking prefetch
-      if ('requestIdleCallback' in window) {
+      if ("requestIdleCallback" in window) {
         window.requestIdleCallback(prefetchResources, { timeout: 5000 });
       } else {
         setTimeout(prefetchResources, 500);
@@ -47,11 +48,11 @@ export function useAuthSessionCache() {
   return {
     clearSessionCache: () => {
       try {
-        sessionStorage.removeItem('user_display_info');
+        sessionStorage.removeItem("user_display_info");
       } catch {
         // Ignore errors - no need to capture the error
       }
-    }
+    },
   };
 }
 
@@ -66,31 +67,31 @@ export const getOptimizedClerkOptions = () => {
       // Use shimmer effect during loading for better UX
       layout: {
         shimmer: true,
-        logoPlacement: 'none', // Don't show Clerk's logo to reduce load time
+        logoPlacement: "none", // Don't show Clerk's logo to reduce load time
       },
       variables: {
         // Use smaller colorPrimary to reduce paint time
-        colorPrimary: 'rgb(0, 0, 0)',
+        colorPrimary: "rgb(0, 0, 0)",
       },
       elements: {
         // Optimize modal to prevent layout shifts
-        card: 'rounded shadow-none',
-        formButtonPrimary: 'bg-black',
-        footerActionLink: 'text-black',
+        card: "rounded shadow-none",
+        formButtonPrimary: "bg-black",
+        footerActionLink: "text-black",
         // Ensure sufficient contrast
-        formFieldInput: 'border-2 border-gray-300 focus:border-black',
+        formFieldInput: "border-2 border-gray-300 focus:border-black",
       },
     },
-    
+
     // Speed up page navigation with more agreesive loading
-    navigate: (to) => {
+    navigate: (to: string) => {
       window.location.href = to;
     },
-    
+
     // Use loading fallbacks to avoid blocking UI
     loadingFallback: () => null,
-    
+
     // Use persistent sessions
-    tokenCache: 'session-storage',
+    tokenCache: "session-storage",
   };
 };
