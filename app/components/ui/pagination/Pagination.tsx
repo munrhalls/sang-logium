@@ -31,7 +31,7 @@ export default function Pagination({
   //   pagesCount
   // );
 
-  const createPageUrl = (pageNum: number) => {
+  const createPageUrl = (pageNum: number | string) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", pageNum.toString());
     return `${pathname}?${params.toString()}`;
@@ -51,7 +51,7 @@ export default function Pagination({
 
   const pageNavItems = generatePageNumbers(currentPage, pagesCount);
 
-  const NumberButton = ({ pageNum }: { pageNum: number }) => (
+  const NumberButton = ({ pageNum }: { pageNum: number | string }) => (
     <a
       href={createPageUrl(pageNum)}
       onClick={(e) => {

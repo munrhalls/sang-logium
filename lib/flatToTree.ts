@@ -1,7 +1,17 @@
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 
+// Extended type for categories with metadata
+interface CategoryWithMetadata extends ALL_CATEGORIES_QUERYResult[number] {
+  metadata?: {
+    depth: number;
+    path: string;
+    group?: string;
+  };
+  groups?: string[];
+}
+
 export const flatToTree = function (
-  list: ALL_CATEGORIES_QUERYResult,
+  list: CategoryWithMetadata[],
   depth = 1
 ) {
   const itemsAtDepth = list.filter((item) => item?.metadata?.depth === depth);
@@ -13,14 +23,16 @@ export const flatToTree = function (
   return trees;
 };
 
-const transformToTree = function (item, list) {
+const transformToTree = function (item: CategoryWithMetadata, list: CategoryWithMetadata[]) {
   const depth = item?.metadata?.depth;
   const path = item?.metadata?.path;
   if (!item.groups) item.groups = ["empty"];
 
+  if (!depth || !path) return item;
+
   const children = list.filter(
     (child) =>
-      child?.metadata?.path.startsWith(path) &&
+      child?.metadata?.path?.startsWith(path) &&
       child?.metadata?.depth === depth + 1
   );
 

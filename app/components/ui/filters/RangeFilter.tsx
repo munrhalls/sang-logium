@@ -1,6 +1,16 @@
 import { useState, useEffect } from "react";
 import debounce from "lodash/debounce";
 
+interface RangeFilterProps {
+  name: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  onChange: (name: string, value: { min?: number; max?: number }, type: string) => void;
+  initialMin?: number;
+  initialMax?: number;
+}
+
 const RangeFilter = ({
   name,
   min = 0,
@@ -11,13 +21,13 @@ const RangeFilter = ({
   initialMax,
   // Removed unused parameter
   // isMinOnly = false,
-}) => {
+}: RangeFilterProps) => {
   const [minValue, setMinValue] = useState(initialMin || min);
   const [maxValue, setMaxValue] = useState(initialMax || max);
   const [minInputValue, setMinInputValue] = useState(String(minValue));
   const [maxInputValue, setMaxInputValue] = useState(String(maxValue));
 
-  const handleMinChange = (newMin) => {
+  const handleMinChange = (newMin: number) => {
     const validMin = Math.min(newMin, maxValue);
     setMinValue(validMin);
     if (onChange) {
@@ -25,7 +35,7 @@ const RangeFilter = ({
     }
   };
 
-  const handleMaxChange = (newMax) => {
+  const handleMaxChange = (newMax: number) => {
     const validMax = Math.max(newMax, minValue);
     setMaxValue(validMax);
     if (onChange) {
