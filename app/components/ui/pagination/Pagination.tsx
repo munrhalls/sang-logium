@@ -75,12 +75,34 @@ export default function Pagination({
           Page {currentPage} of {pagesCount}
         </h1>
         <ProductsPerPageDropdown />
-      </div>
-      <div className="flex justify-around items-center max-w-[400px] my-4">
         <button
           onClick={handlePrevPage}
           disabled={currentPage <= 1}
-          className={`px-1 md:px-3 md:py-1 text-xs rounded ${
+          className={`col-start-4 w-12 md:hidden px-1 md:px-3 md:py-1 text-xs rounded ${
+            currentPage <= 1
+              ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+              : "bg-gray-200 hover:bg-gray-300"
+          }`}
+        >
+          Prev
+        </button>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage >= pagesCount}
+          className={`col-start-6 w-12 md:hidden  px-1 md:px-3 md:py-1 text-xs py-1 rounded ${
+            currentPage >= pagesCount
+              ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+              : "bg-gray-200 hover:bg-gray-300"
+          }`}
+        >
+          Next
+        </button>
+      </div>
+      <div className="px-4 flex justify-around items-center max-w-[400px] my-4">
+        <button
+          onClick={handlePrevPage}
+          disabled={currentPage <= 1}
+          className={`hidden md:block px-1 md:px-3 md:py-1 text-xs rounded ${
             currentPage <= 1
               ? "bg-gray-100 text-gray-400 cursor-not-allowed"
               : "bg-gray-200 hover:bg-gray-300"
@@ -107,7 +129,7 @@ export default function Pagination({
         <button
           onClick={handleNextPage}
           disabled={currentPage >= pagesCount}
-          className={`px-1 md:px-3 md:py-1 text-xs py-1 rounded ${
+          className={`hidden md:block  px-1 md:px-3 md:py-1 text-xs py-1 rounded ${
             currentPage >= pagesCount
               ? "bg-gray-100 text-gray-400 cursor-not-allowed"
               : "bg-gray-200 hover:bg-gray-300"
