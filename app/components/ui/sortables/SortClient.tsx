@@ -4,16 +4,19 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import formatSortName from "./helpers/formatSortName";
+import { SortOption } from "./SortTypes";
 
 export default function SortClient({
   initialSortOptions = [],
-  // Removed unused parameter
-  // currentSort = "",
+  currentSort = "",
+}: {
+  initialSortOptions?: SortOption[];
+  currentSort?: string;
 }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [options, setOptions] = useState(initialSortOptions);
+  const [options, setOptions] = useState<SortOption[]>(initialSortOptions);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const currentSortName = searchParams.get("sort") || "";
@@ -33,7 +36,7 @@ export default function SortClient({
     }
   }, [initialSortOptions]);
 
-  function handleSortChange(sortName, direction = "asc") {
+  function handleSortChange(sortName: string, direction: 'asc' | 'desc' = "asc") {
     setIsTransitioning(true);
     const params = new URLSearchParams(searchParams);
 
@@ -59,7 +62,7 @@ export default function SortClient({
     setTimeout(() => setIsTransitioning(false), 600);
   }
 
-  function getDirectionIcon(isActive, direction) {
+  function getDirectionIcon(isActive: boolean, direction: string) {
     if (!isActive)
       return <ArrowUp className="h-5 w-5 text-slate-500 opacity-40" />;
 
@@ -80,7 +83,7 @@ export default function SortClient({
     );
   }
 
-  function getSortLabel(option) {
+  function getSortLabel(option: SortOption) {
     const { displayName, type } = option;
 
     switch (type) {

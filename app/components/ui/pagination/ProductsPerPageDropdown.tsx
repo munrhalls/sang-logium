@@ -8,7 +8,11 @@ export default function ProductsPerPageDropdown() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const itemsPerPage = String(searchParams.get("size")) || DEFAULT_PAGE_SIZE;
+  // Use the URL parameter if it exists, otherwise use the default
+  const itemsPerPage = searchParams.get("size")
+    ? String(searchParams.get("size"))
+    : String(DEFAULT_PAGE_SIZE);
+
   const options = [5, 10, 15, 25, 50];
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

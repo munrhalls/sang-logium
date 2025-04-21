@@ -1,6 +1,11 @@
-interface FiltersMap {
-  [key: string]: boolean;
-}
+import {
+  FiltersMap,
+  displayToRealMap,
+  DisplayToRealMapType,
+  FilterValue,
+  FilterItem,
+  RangeFilterItem,
+} from "@/app/components/ui/filters/FilterTypes";
 
 const overviewFiltersMap: FiltersMap = {
   design: true,
@@ -29,27 +34,6 @@ const rangeFiltersMap: FiltersMap = {
   stock: true,
   "stock amount": true,
 };
-
-interface DisplayToRealMapType {
-  "stock amount": string;
-}
-const displayToRealMap: DisplayToRealMapType = {
-  "stock amount": "stock",
-};
-
-type FilterValue = string | string[] | { min?: number; max?: number };
-
-export interface FilterItem {
-  field: string;
-  value: FilterValue;
-  filterType?: string;
-  operator?: string;
-}
-
-interface RangeFilterItem extends FilterItem {
-  operator: string;
-  filterType: "range";
-}
 
 export default function getSelectedFilters(searchParamsInput: {
   [key: string]: string | string[] | undefined;
