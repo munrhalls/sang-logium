@@ -68,6 +68,7 @@
     "zustand": "^5.0.1"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.10.7",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/typography": "^0.5.15",
     "@testing-library/dom": "^10.4.0",
