@@ -2,6 +2,7 @@ import RangeFilter from "./RangeFilter";
 import MinOnlyFilter from "./MinOnlyFilter";
 import { useSearchParams } from "next/navigation";
 import { FilterComponentProps } from "./FilterTypes";
+import { FilterValue } from "./FilterTypes";
 
 export default function FilterItem({
   filter,
@@ -79,9 +80,13 @@ export default function FilterItem({
             min={min || 0}
             max={max || 10000}
             step={step || 1}
-            onChange={(name: string, value: any, type: string) =>
-              onChange(value, type)
-            }
+            onChange={(
+              name: string,
+              value: { min?: number; max?: number } | number,
+              type: string
+            ) => {
+              onChange(value as FilterValue, type);
+            }}
             initialMin={initialMin}
             initialMax={initialMax}
           />
