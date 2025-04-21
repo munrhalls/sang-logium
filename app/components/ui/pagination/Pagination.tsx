@@ -49,10 +49,6 @@ export default function Pagination({
     }
   };
 
-  // Removed unused variables
-  // const initialNums = [1, 2, 3];
-  // const throughNums = [7];
-  // const lastNum = 12;
   const pageNavItems = generatePageNumbers(currentPage, pagesCount);
 
   const NumberButton = ({ pageNum }: { pageNum: number }) => (
@@ -62,7 +58,7 @@ export default function Pagination({
         e.preventDefault();
         router.push(createPageUrl(pageNum));
       }}
-      className={`mx-1 px-3 py-1 rounded ${
+      className={`text-xs px-1 md:py-1 text-xs mx-1 md:px-3 py-1 rounded-xl ${
         pageNum === currentPage
           ? "bg-blue-500 text-white"
           : "bg-gray-200 hover:bg-gray-300"
@@ -82,7 +78,7 @@ export default function Pagination({
         <button
           onClick={handlePrevPage}
           disabled={currentPage <= 1}
-          className={`px-3 py-1 rounded ${
+          className={`px-1 md:px-3 md:py-1 text-xs rounded ${
             currentPage <= 1
               ? "bg-gray-100 text-gray-400 cursor-not-allowed"
               : "bg-gray-200 hover:bg-gray-300"
@@ -94,7 +90,10 @@ export default function Pagination({
         <div className="flex">
           {pageNavItems.map((item, index) =>
             item === "..." ? (
-              <span key={`ellipsis-${index}`} className="pagination-ellipsis">
+              <span
+                key={`text-xs ellipsis-${index}`}
+                className="pagination-ellipsis"
+              >
                 ...
               </span>
             ) : (
@@ -106,7 +105,7 @@ export default function Pagination({
         <button
           onClick={handleNextPage}
           disabled={currentPage >= pagesCount}
-          className={`px-3 py-1 rounded ${
+          className={`px-1 md:px-3 md:py-1 text-xs py-1 rounded ${
             currentPage >= pagesCount
               ? "bg-gray-100 text-gray-400 cursor-not-allowed"
               : "bg-gray-200 hover:bg-gray-300"
