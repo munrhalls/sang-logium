@@ -5,17 +5,22 @@ import { X } from "lucide-react";
 import Filters from "../../filters/Filters";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { FilterOptions } from "../../filters/FilterTypes";
 
-export default function ProductsFilterDrawer({ filterOptions = [] }) {
+export default function ProductsFilterDrawer({
+  filterOptions = [],
+}: {
+  filterOptions: FilterOptions;
+}) {
   const { isProductsFilterDrawerOpen, toggleProductsFilterDrawer } = useStore();
   const pathname = usePathname();
-  
+
   // Close drawer when navigating to a new page
   useEffect(() => {
     if (isProductsFilterDrawerOpen) {
       toggleProductsFilterDrawer();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return (
@@ -26,9 +31,7 @@ export default function ProductsFilterDrawer({ filterOptions = [] }) {
     >
       <div className="h-full flex flex-col">
         <header className="p-4 border-b flex justify-between items-center">
-          <h2 className="text-xl font-semibold text-white">
-            Filter Products
-          </h2>
+          <h2 className="text-xl font-semibold text-white">Filter Products</h2>
           <button
             onClick={toggleProductsFilterDrawer}
             className="p-2 rounded-full hover:bg-blue-900"
@@ -41,9 +44,9 @@ export default function ProductsFilterDrawer({ filterOptions = [] }) {
         <div className="flex-1 overflow-y-auto p-4 text-white">
           <Filters filterOptions={filterOptions} />
         </div>
-        
+
         <footer className="p-4 border-t">
-          <button 
+          <button
             onClick={toggleProductsFilterDrawer}
             className="w-full py-2 bg-white text-blue-950 rounded-md font-medium"
           >

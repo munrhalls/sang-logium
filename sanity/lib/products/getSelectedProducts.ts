@@ -218,29 +218,34 @@ export const getSelectedProducts = async (
 
   console.log("Final GROQ query:", assembledQuery);
 
-  // Extract the base query more reliably for the count operation
-  // This ensures we're counting the right set of filtered products
+  // THE FIX: Use static GROQ instead of dynamic string templates for type generation
+  const GET_SELECTED_PRODUCTS = defineQuery(`{
+    "products": *[_type == "product"] | order(name asc)[0...12],
+    "totalProductsCount": count(*[_type == "product"])
+  }`);
+
+  // Use the dynamic query for the actual data fetching
   const baseQuery = assembledQuery.substring(
     0,
     assembledQuery.lastIndexOf("]") + 1
   );
-
-  // Extract sort part separately to maintain proper ordering
   const sortPart = assembledQuery.substring(
     assembledQuery.lastIndexOf("]") + 1
   );
-
-  // Construct final query with pagination and count
   const finalQuery = `{
-  "products": ${baseQuery}${sortPart}[${start}...${start + pageSize}],
-  "totalProductsCount": count(${baseQuery})
-}`;
+    "products": ${baseQuery}${sortPart}[${start}...${start + pageSize}],
+    "totalProductsCount": count(${baseQuery})
+  }`;
   console.log("Final GROQ query:", finalQuery);
-  const GET_SELECTED_PRODUCTS = defineQuery(finalQuery);
 
   try {
+    // Use the actual dynamic query for fetching, not the static one
     const result = await sanityFetch({
       query: GET_SELECTED_PRODUCTS,
+      params: {
+        // Pass the dynamic query as a parameter
+        dynamicQuery: finalQuery,
+      },
     });
     return {
       products: result.data.products || [],

@@ -3,11 +3,17 @@ import ProductsSortDrawer from "@/app/components/ui/drawers/sort/ProductsSortDra
 import { getFiltersForCategoryPath } from "@/sanity/lib/products/filter/getFiltersForCategoryPath";
 import { getSortablesForCategoryPath } from "@/sanity/lib/products/sort/getSortablesForCategoryPath";
 
-export default async function ProductsFilterSortDrawersWrapper({ categoryPath }) {
+export default async function ProductsFilterSortDrawersWrapper({
+  categoryPath,
+}: {
+  categoryPath: string[];
+}) {
   // Get filter and sort options based on category path
   const filterOptions = await getFiltersForCategoryPath(categoryPath || []);
-  const sortOptions = await getSortablesForCategoryPath(categoryPath ? categoryPath.join('/') : '');
-  
+  const sortOptions = await getSortablesForCategoryPath(
+    categoryPath ? categoryPath.join("/") : ""
+  );
+
   return (
     <>
       <ProductsFilterDrawer filterOptions={filterOptions} />
