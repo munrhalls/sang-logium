@@ -1,6 +1,8 @@
-export default function parseFilterValue(paramValue, filterType) {
+export default function parseFilterValue(
+  paramValue: string | number | boolean | null | undefined,
+  filterType: string
+) {
   if (paramValue === null || paramValue === undefined) {
-    // Return appropriate defaults based on filter type
     if (filterType === "multiselect") return [];
     if (filterType === "checkbox" || filterType === "boolean") return false;
     if (filterType === "range") return { min: undefined, max: undefined };
@@ -11,15 +13,15 @@ export default function parseFilterValue(paramValue, filterType) {
   try {
     switch (filterType) {
       case "range":
-        // Handle special case for range which might be structured as multiple URL params
-        // The actual values are retrieved directly in FilterItem component
-        // using separate _min and _max URL parameters
         return { min: undefined, max: undefined };
       case "multiselect":
         try {
-          return JSON.parse(paramValue) || [];
+          return (
+            JSON.parse(
+              typeof paramValue === "string" ? paramValue : String(paramValue)
+            ) || []
+          );
         } catch {
-          // If it's not a JSON array, treat as a single value
           return [paramValue];
         }
       case "checkbox":
