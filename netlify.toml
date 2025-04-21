@@ -25,11 +25,6 @@
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
-# Define redirect for SPA fallback
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = false
-  conditions = {Role = ["anonymous"]}
+# Proper Next.js fallback handling is managed by @netlify/plugin-nextjs
+# Remove SPA fallback which conflicts with Next.js asset handling
 
