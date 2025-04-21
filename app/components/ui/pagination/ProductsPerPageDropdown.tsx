@@ -24,15 +24,19 @@ export default function ProductsPerPageDropdown() {
   };
 
   return (
-    <div className="flex justify-center items-center ">
-      <label htmlFor="itemsPerPage" className="mr-2 text-sm">
-        Items/page
+    <div className="col-start-1 col-span-2 px-2 flex md:justify-center md:items-center ">
+      <label
+        htmlFor="itemsPerPage"
+        className="font-iceland text-xs font-semibold mr-1 flex flex-col items-center justify-center md:mr-2 md:text-sm"
+      >
+        <span>Products</span>
+        <span>/ page</span>
       </label>
       <select
         id="itemsPerPage"
         value={itemsPerPage}
         onChange={handleChange}
-        className="border rounded px-2 py-1 text-sm"
+        className="border rounded text-xs md:px-2 md:py-1 md:text-sm"
       >
         {options.map((option) => (
           <option key={option} value={option}>

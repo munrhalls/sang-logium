@@ -58,7 +58,7 @@ export default function Pagination({
         e.preventDefault();
         router.push(createPageUrl(pageNum));
       }}
-      className={`text-xs px-1 md:py-1 text-xs mx-1 md:px-3 py-1 rounded-xl ${
+      className={`text-xs px-1 md:py-1 mx-1 md:px-3 py-1 rounded-xl ${
         pageNum === currentPage
           ? "bg-blue-500 text-white"
           : "bg-gray-200 hover:bg-gray-300"
@@ -70,8 +70,8 @@ export default function Pagination({
 
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <h1 className="text-sm">
+      <div className="grid grid-cols-8 md:flex md:items-center md:justify-between ">
+        <h1 className="hidden md:block text-sm">
           Page {currentPage} of {pagesCount}
         </h1>
         <ProductsPerPageDropdown />
