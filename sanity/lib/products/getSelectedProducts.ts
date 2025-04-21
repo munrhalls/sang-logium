@@ -1,6 +1,6 @@
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../live";
-import { FilterItem } from "@/app/(store)/products/helpers/getSelectedFilters";
+import { FilterItem } from "@/app/components/ui/filters/FilterTypes";
 
 export const getSelectedProducts = async (
   path: string[] | string,
@@ -47,7 +47,7 @@ export const getSelectedProducts = async (
               values = [item.value];
             }
 
-            return `(${values.map((value) => `${item.field} == "${value}"`).join(" || ")})`;
+            return `(${values.map((value: string) => `${item.field} == "${value}"`).join(" || ")})`;
           })
           .filter((query) => query !== "") // Remove any empty queries
           .join(" && ")
@@ -76,7 +76,8 @@ export const getSelectedProducts = async (
 
             return `(${values
               .map(
-                (value) => `count(overviewFields[value match "${value}"]) > 0` // Check any field that has this value
+                (value: string) =>
+                  `count(overviewFields[value match "${value}"]) > 0` // Check any field that has this value
               )
               .join(" || ")})`; // Join conditions with OR
           })
@@ -107,7 +108,8 @@ export const getSelectedProducts = async (
 
             return `(${values
               .map(
-                (value) => `count(specifications[value match "${value}"]) > 0` // Check any field that has this value
+                (value: string) =>
+                  `count(specifications[value match "${value}"]) > 0` // Check any field that has this value
               )
               .join(" || ")})`; // Join conditions with OR
           })

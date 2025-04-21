@@ -4,14 +4,18 @@ import { useState } from "react";
 import Filters from "@/app/components/ui/filters/Filters";
 import SortClient from "@/app/components/ui/sortables/SortClient";
 import { SortOption } from "@/app/components/ui/sortables/SortTypes";
-import { FilterOptions } from "@/app/components/ui/filters/FilterTypes";
+import {
+  FilterOptions,
+  FilterItem,
+  RangeFilterItem,
+} from "@/app/components/ui/filters/FilterTypes";
 
 export default function SidebarClient({
   filterOptions,
   sortOptions,
   sortField,
 }: {
-  filterOptions: FilterOptions[];
+  filterOptions: FilterOptions;
   sortOptions?: SortOption[];
   sortField?: string;
 }) {

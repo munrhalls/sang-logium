@@ -1,5 +1,6 @@
-export default function parseParamsToFilters(searchParams) {
-  const parsedFilters = {};
+export default function parseParamsToFilters(searchParams: URLSearchParams) {
+  const parsedFilters: { [key: string]: string | number | boolean | object } =
+    {};
 
   for (const [key, value] of searchParams.entries()) {
     try {

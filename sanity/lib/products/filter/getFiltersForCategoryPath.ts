@@ -2,9 +2,6 @@ import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../../live";
 
 export const getFiltersForCategoryPath = async (categoryPath: string[]) => {
-  // Handle full URL paths like "/products/headphones/wired"
-  // Strip any leading paths like "/products/" to get just the category part
-
   if (categoryPath[0] === "products" && categoryPath.length > 1) {
     categoryPath.shift();
   } else if (categoryPath[0] === "products") {
@@ -13,7 +10,6 @@ export const getFiltersForCategoryPath = async (categoryPath: string[]) => {
 
   const cleanPath = categoryPath.join("/");
 
-  // Get the top-level category (first segment)
   const topLevelCategory = categoryPath[0];
 
   const FILTERS_BY_CATEGORY_QUERY = defineQuery(`
@@ -58,8 +54,10 @@ export const getFiltersForCategoryPath = async (categoryPath: string[]) => {
 
     if (specificMapping) {
       // Return only the filters that are in the mapping
-      return allFilters.filter((filter) =>
-        specificMapping.filters.includes(filter.name)
+      return allFilters.filter(
+        (filter) =>
+          filter.name !== null &&
+          (specificMapping.filters ?? []).includes(filter.name)
       );
     }
 

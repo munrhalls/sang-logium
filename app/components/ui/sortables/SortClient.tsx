@@ -8,8 +8,10 @@ import { SortOption } from "./SortTypes";
 
 export default function SortClient({
   initialSortOptions = [],
+  currentSort = "",
 }: {
   initialSortOptions?: SortOption[];
+  currentSort?: string;
 }) {
   const router = useRouter();
   const pathname = usePathname();

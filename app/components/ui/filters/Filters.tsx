@@ -5,8 +5,9 @@ import { useState } from "react";
 import FilterItem from "./FilterItem";
 import parseFilterValue from "./helpers/parseFilterValue";
 import normalizeFilters from "./helpers/normalizeFilters";
+import { FilterOptions } from "./FilterTypes";
 
-export default function Filters({ filterOptions }) {
+export default function Filters({ filterOptions }: { filterOptions: FilterOptions[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -16,7 +17,7 @@ export default function Filters({ filterOptions }) {
     return <div className="filters">No filters available</div>;
   }
 
-  function handleFilterChange(name, value, type) {
+  function handleFilterChange(name: string, value: any, type: string) {
     setIsTransitioning(true);
     const params = new URLSearchParams(searchParams.toString());
 
@@ -68,7 +69,7 @@ export default function Filters({ filterOptions }) {
     setTimeout(() => setIsTransitioning(false), 600);
   }
 
-  function handleFormSubmit(e) {
+  function handleFormSubmit(e: React.FormEvent) {
     e.preventDefault();
   }
 

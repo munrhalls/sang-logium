@@ -11,7 +11,10 @@
     "deploy:windows": "npm run build && netlify deploy --prod",
     "verify": "node verify-deployment.js",
     "start": "next start",
-    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "check-all": "npm run lint && npm run type-check",
+    "lint": "eslint --ext .ts,.tsx .",
+    "lint:fix": "eslint --fix --ext .ts,.tsx .",
     "lint-strict": "eslint . --ext ts,tsx --max-warnings 0",
     "test:ci": "jest --ci --coverage",
     "backup": "node backup-env.js",
@@ -19,7 +22,16 @@
     "seed": "ts-node --esm seedCategories.ts",
     "typegen": "npx -y sanity@latest schema extract && npx -y  sanity@latest typegen generate",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "ts-check": "tsc --noEmit --pretty",
+    "ts-check:watch": "tsc --noEmit --watch",
+    "ts-coverage": "type-coverage --detail",
+    "ts-coverage:strict": "type-coverage --strict --at-least 70",
+    "ts-unused": "ts-prune",
+    "ts-error-report": "typescript-error-reporter",
+    "ts-error:7006": "tsc --noEmit | findstr \"TS7006\"",
+    "ts-error:2322": "tsc --noEmit | findstr \"TS2322\"",
+    "fix-all": "npm run lint:fix && npm run ts-check"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.16.0",
@@ -96,6 +108,7 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.16",
     "ts-jest": "^29.2.5",
+    "type-coverage": "^2.29.7",
     "typescript": "^5"
   }
 }
