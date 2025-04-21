@@ -4,20 +4,10 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { X, ArrowDown, ArrowUp } from "lucide-react";
-
-interface FilterOption {
-  name: string | null;
-  type: "boolean" | "checkbox" | "multiselect" | "radio" | "range" | null;
-  options: string[] | null;
-  defaultValue: string | null;
-  min: number | null;
-  max: number | null;
-  isMinOnly: boolean | null;
-  step: number | null;
-}
+import { FilterOptionObject, FilterOptions } from "../filters/FilterTypes";
 
 interface AppliedFiltersProps {
-  filterOptions?: FilterOption[];
+  filterOptions?: FilterOptions;
 }
 
 export default function AppliedFilters({

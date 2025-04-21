@@ -1,14 +1,14 @@
 import RangeFilter from "./RangeFilter";
 import MinOnlyFilter from "./MinOnlyFilter";
 import { useSearchParams } from "next/navigation";
-import { FilterItem as FilterItemType } from "./FilterTypes";
+import { FilterComponentProps } from "./FilterTypes";
 
 export default function FilterItem({
   filter,
   value,
   onChange,
 }: {
-  filter: FilterItemType;
+  filter: FilterComponentProps;
   value: string | number | boolean | object | string[] | null;
   onChange: (
     value: string | number | boolean | object | string[],
@@ -21,10 +21,10 @@ export default function FilterItem({
   const { type, name, options, min, max, isMinOnly, step } = filter;
   const normalizedName = name.toLowerCase();
   const initialMin = searchParams.get(`${normalizedName}_min`)
-    ? parseInt(searchParams.get(`${normalizedName}_min`), 10)
+    ? parseInt(searchParams.get(`${normalizedName}_min`) ?? "0", 10)
     : undefined;
   const initialMax = searchParams.get(`${normalizedName}_max`)
-    ? parseInt(searchParams.get(`${normalizedName}_max`), 10)
+    ? parseInt(searchParams.get(`${normalizedName}_max`) ?? "", 10)
     : undefined;
 
   switch (type) {
@@ -59,7 +59,9 @@ export default function FilterItem({
               min={min || 0}
               max={max || 500}
               step={step || 1}
-              onChange={(name, value, type) => onChange(value, type)}
+              onChange={(name: string, value: number, type: string) =>
+                onChange(value, type)
+              }
               initialMin={initialMin}
             />
           </div>
@@ -77,7 +79,9 @@ export default function FilterItem({
             min={min || 0}
             max={max || 10000}
             step={step || 1}
-            onChange={(name, value, type) => onChange(value, type)}
+            onChange={(name: string, value: number, type: string) =>
+              onChange(value, type)
+            }
             initialMin={initialMin}
             initialMax={initialMax}
           />

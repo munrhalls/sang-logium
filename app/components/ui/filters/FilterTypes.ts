@@ -12,21 +12,20 @@ export const displayToRealMap: DisplayToRealMapType = {
 
 export type FilterValue = string | string[] | { min?: number; max?: number };
 
-export type FilterItem = {
-  type: string;
-  name: string;
-  options?: string[];
-  min?: number;
-  max?: number;
-  step?: number;
-  isMinOnly?: boolean;
-};
+// Used for filtering products in query params and API
+export interface FilterItem {
+  field: string;
+  value: FilterValue;
+  filterType?: string;
+  operator?: string;
+}
 
 export interface RangeFilterItem extends FilterItem {
   operator: string;
   filterType: "range";
 }
 
+// Used for UI filter configuration
 export interface FilterOptionObject {
   name: string;
   type: "boolean" | "checkbox" | "multiselect" | "radio" | "range" | null;
@@ -37,5 +36,8 @@ export interface FilterOptionObject {
   isMinOnly: boolean | null;
   step: number | null;
 }
+
+// Alias type to make FilterItem component use FilterOptionObject
+export type FilterComponentProps = FilterOptionObject;
 
 export type FilterOptions = FilterOptionObject[] | [];
