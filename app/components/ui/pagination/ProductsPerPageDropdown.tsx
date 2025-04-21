@@ -1,21 +1,21 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const DEFAULT_PAGE_SIZE = 12;
+const DEFAULT_PAGE_SIZE = 15;
 
 export default function ProductsPerPageDropdown() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const itemsPerPage = Number(searchParams.get("size")) || DEFAULT_PAGE_SIZE;
+  const itemsPerPage = String(searchParams.get("size")) || DEFAULT_PAGE_SIZE;
   const options = [5, 10, 15, 25, 50];
 
-  const handleChange = (e) => {
-    const newSize = Number(e.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newSize = String(e.target.value);
     const params = new URLSearchParams(searchParams);
     params.set("size", newSize);
-    params.set("page", 1);
+    params.set("page", "1");
     router.push(`${pathname}?${params.toString()}`);
   };
 

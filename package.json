@@ -8,7 +8,6 @@
     "build": "next build",
     "deploy": "netlify deploy --prod",
     "deploy:staging": "netlify deploy",
-    "deploy:ship": "node simple-deploy.js",
     "deploy:windows": "npm run build && netlify deploy --prod",
     "verify": "node verify-deployment.js",
     "start": "next start",
