@@ -1,13 +1,20 @@
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 
+// Define group item type
+interface GroupItem {
+  label: string | null;
+  children: CategoryWithMetadata[];
+}
+
 // Extended type for categories with metadata
-interface CategoryWithMetadata extends ALL_CATEGORIES_QUERYResult[number] {
+type CategoryBase = ALL_CATEGORIES_QUERYResult[number];
+interface CategoryWithMetadata extends CategoryBase {
   metadata?: {
     depth: number;
     path: string;
     group?: string;
   };
-  groups?: string[];
+  groups?: Array<string | GroupItem> | any[];
 }
 
 export const flatToTree = function (
