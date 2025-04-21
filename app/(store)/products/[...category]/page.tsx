@@ -74,7 +74,7 @@ export default async function ProductsPage(props: {
     <>
       <main className="hidden md:block container mx-auto px-4 py-8">
         <div className="mb-6">
-          <CategoryBreadcrumbs categoryParts={path} />
+          <CategoryBreadcrumbs categoryParts={path} isMobile={false} />
           <div className="flex justify-center items-center gap-3 mt-8 mb-6  pb-12">
             <CategoryTitleIcon category={root} />
             <h1 className="text-5xl font-bold tracking-wide">
@@ -114,9 +114,9 @@ export default async function ProductsPage(props: {
 
       <div className="md:hidden flex flex-col h-screen overflow-hidden">
         <div className="flex-none bg-white">
-          <div className="container mx-auto px-4 py-1">
+          <div className="container mx-auto px-1 py-1">
             <div className="mb-1">
-              <CategoryBreadcrumbs categoryParts={path} />
+              <CategoryBreadcrumbs categoryParts={path} isMobile={true} />
               <div className="flex justify-center items-center gap-1 mt-2 mb-1 pb-1">
                 <CategoryTitleIcon category={root} />
                 <h1 className="text-lg font-bold tracking-wide">
