@@ -8,10 +8,8 @@ import { SortOption } from "./SortTypes";
 
 export default function SortClient({
   initialSortOptions = [],
-  currentSort = "",
 }: {
   initialSortOptions?: SortOption[];
-  currentSort?: string;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -36,7 +34,10 @@ export default function SortClient({
     }
   }, [initialSortOptions]);
 
-  function handleSortChange(sortName: string, direction: 'asc' | 'desc' = "asc") {
+  function handleSortChange(
+    sortName: string,
+    direction: "asc" | "desc" = "asc"
+  ) {
     setIsTransitioning(true);
     const params = new URLSearchParams(searchParams);
 
