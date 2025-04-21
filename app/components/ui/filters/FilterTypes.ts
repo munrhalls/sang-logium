@@ -24,8 +24,8 @@ export interface RangeFilterItem extends FilterItem {
   filterType: "range";
 }
 
-export interface FilterOptions {
-  name: string | null;
+export interface FilterOptionObject {
+  name: string;
   type: "boolean" | "checkbox" | "multiselect" | "radio" | "range" | null;
   options: string[] | null;
   defaultValue: string | null;
@@ -34,3 +34,5 @@ export interface FilterOptions {
   isMinOnly: boolean | null;
   step: number | null;
 }
+
+export type FilterOptions = FilterOptionObject[] | [];

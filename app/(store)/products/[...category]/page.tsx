@@ -16,6 +16,7 @@ import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSor
 import Footer from "@/app/components/layout/footer/Footer";
 import Pagination from "@/app/components/ui/pagination/Pagination";
 import getSelectedPagination from "../helpers/getSelectedPagination";
+import { FilterOptions } from "@/app/components/ui/filters/FilterTypes";
 
 type Params = Promise<{ category: string }>;
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
@@ -58,7 +59,7 @@ export default async function ProductsPage(props: {
     }),
     getFiltersForCategoryPathAction(path).catch((error) => {
       console.error("Failed to fetch filters:", error);
-      return [];
+      return []; // Explicitly cast to FilterOptions
     }),
     getSortablesForCategoryPathAction(path.join("/")).catch((error) => {
       console.error("Failed to fetch sort options:", error);

@@ -7,7 +7,11 @@ import parseFilterValue from "./helpers/parseFilterValue";
 import normalizeFilters from "./helpers/normalizeFilters";
 import { FilterOptions } from "./FilterTypes";
 
-export default function Filters({ filterOptions }: { filterOptions: FilterOptions[] }) {
+export default function Filters({
+  filterOptions,
+}: {
+  filterOptions: FilterOptions;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -17,7 +21,17 @@ export default function Filters({ filterOptions }: { filterOptions: FilterOption
     return <div className="filters">No filters available</div>;
   }
 
-  function handleFilterChange(name: string, value: any, type: string) {
+  function handleFilterChange(
+    name: string,
+    value:
+      | string
+      | number
+      | boolean
+      | { min?: number; max?: number }
+      | string[]
+      | null,
+    type: string
+  ) {
     setIsTransitioning(true);
     const params = new URLSearchParams(searchParams.toString());
 
@@ -29,13 +43,24 @@ export default function Filters({ filterOptions }: { filterOptions: FilterOption
       const valueToStore = Array.isArray(value) ? value : [value];
       params.set(name, JSON.stringify(valueToStore));
     } else if (type === "range") {
-      if (value.min !== undefined) {
+      if (
+        typeof value === "object" &&
+        value !== null &&
+        "min" in value &&
+        value.min !== undefined
+      ) {
         params.set(`${name}_min`, String(value.min));
       } else {
         params.delete(`${name}_min`);
       }
 
-      if (value.max !== undefined && value.max !== null) {
+      if (
+        typeof value === "object" &&
+        value !== null &&
+        "max" in value &&
+        value.max !== undefined &&
+        value.max !== null
+      ) {
         params.set(`${name}_max`, String(value.max));
       } else {
         params.delete(`${name}_max`);
@@ -56,7 +81,7 @@ export default function Filters({ filterOptions }: { filterOptions: FilterOption
     Object.entries(normalized).forEach(([key, val]) => {
       normalizedParams.set(key, String(val));
     });
-    
+
     // Ensure page=1 is preserved in normalized params
     if (!normalizedParams.has("page")) {
       normalizedParams.set("page", "1");
@@ -92,17 +117,30 @@ export default function Filters({ filterOptions }: { filterOptions: FilterOption
       <form onSubmit={handleFormSubmit} className="space-y-4">
         {filterOptions.map((filter, index) => {
           if (!filter || !filter.name || !filter.type) return null;
-          const normalizedName = filter.name.toLowerCase();
+          const normalizedName = (filter.name || "").toLowerCase().trim();
           const paramValue = searchParams.get(normalizedName);
-          const currentValue = parseFilterValue(paramValue, filter.type);
+          const filterType = filter.type as
+            | "boolean"
+            | "checkbox"
+            | "multiselect"
+            | "radio"
+            | "range";
+
+          const currentValue = parseFilterValue(paramValue, filterType);
           return (
             <FilterItem
               key={`${filter.name}-${index}`}
               filter={filter}
               value={currentValue}
-              onChange={(value) =>
-                handleFilterChange(normalizedName, value, filter.type)
-              }
+              onChange={(
+                value:
+                  | string
+                  | number
+                  | boolean
+                  | { min?: number; max?: number }
+                  | string[]
+                  | null
+              ) => handleFilterChange(normalizedName, value, filterType)}
             />
           );
         })}
