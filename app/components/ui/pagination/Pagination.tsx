@@ -6,7 +6,11 @@ import generatePageNumbers from "./generatePageNumbers";
 const DEFAULT_PAGE_SIZE = 12;
 const DEFAULT_PAGE = 1;
 
-export default function Pagination({ totalProductsCount }) {
+export default function Pagination({
+  totalProductsCount,
+}: {
+  totalProductsCount: number;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -27,9 +31,9 @@ export default function Pagination({ totalProductsCount }) {
   //   pagesCount
   // );
 
-  const createPageUrl = (pageNum) => {
+  const createPageUrl = (pageNum: number) => {
     const params = new URLSearchParams(searchParams);
-    params.set("page", pageNum);
+    params.set("page", pageNum.toString());
     return `${pathname}?${params.toString()}`;
   };
 
@@ -51,7 +55,7 @@ export default function Pagination({ totalProductsCount }) {
   // const lastNum = 12;
   const pageNavItems = generatePageNumbers(currentPage, pagesCount);
 
-  const NumberButton = ({ pageNum }) => (
+  const NumberButton = ({ pageNum }: { pageNum: number }) => (
     <a
       href={createPageUrl(pageNum)}
       onClick={(e) => {
