@@ -14,7 +14,7 @@ interface CategoryWithMetadata extends CategoryBase {
     path: string;
     group?: string;
   };
-  groups?: Array<string | GroupItem> | Array<GroupItem | null>;
+  groups?: any; // Using any to accommodate the complex nested structure
 }
 
 export const flatToTree = function (
@@ -47,7 +47,7 @@ const transformToTree = function (item: CategoryWithMetadata, list: CategoryWith
     transformToTree(child, list)
   );
 
-  const filledGroups = item.groups.map((group, index) => {
+  const filledGroups = item.groups.map((group: string, index: number) => {
     if (index === 0) {
       const childrenGroup = transformedChildren.filter(
         (child) => !child?.metadata?.group
@@ -75,7 +75,7 @@ const transformToTree = function (item: CategoryWithMetadata, list: CategoryWith
       return null;
     }
   });
-  const filledGroupsOnly = filledGroups.filter((item) => item !== null);
+  const filledGroupsOnly = filledGroups.filter((groupItem: GroupItem | null) => groupItem !== null);
   item.groups = filledGroupsOnly;
 
   return item;

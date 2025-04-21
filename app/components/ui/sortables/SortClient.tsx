@@ -8,11 +8,13 @@ import { SortOption } from "./SortTypes";
 
 export default function SortClient({
   initialSortOptions = [],
-  _currentSort = "", // Prefixed with _ as it's not currently used
+  currentSort = "", // Not currently used
 }: {
   initialSortOptions?: SortOption[];
   currentSort?: string;
 }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _ = currentSort; // Suppress unused variable warning
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

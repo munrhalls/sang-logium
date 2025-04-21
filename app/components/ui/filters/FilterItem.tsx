@@ -79,7 +79,7 @@ export default function FilterItem({
             min={min || 0}
             max={max || 10000}
             step={step || 1}
-            onChange={(name: string, value: number, type: string) =>
+            onChange={(name: string, value: any, type: string) =>
               onChange(value, type)
             }
             initialMin={initialMin}
