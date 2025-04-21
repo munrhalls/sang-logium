@@ -1,7 +1,16 @@
 import { useState, useEffect } from "react";
-import debounce from "lodash/debounce";
+import debounce from "lodash";
 
-const MinOnlyFilter = ({
+interface MinOnlyFilterProps {
+  name: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  onChange?: (name: string, value: { min: number }, type: string) => void;
+  initialMin?: number;
+}
+
+const MinOnlyFilter: React.FC<MinOnlyFilterProps> = ({
   name,
   min = 0,
   max = 1500,
@@ -12,7 +21,7 @@ const MinOnlyFilter = ({
   // Initialize state for the minimum value
   const [minValue, setMinValue] = useState(initialMin || min);
   // Handle min value change from slider
-  const handleMinChange = (newMin) => {
+  const handleMinChange = (newMin: number) => {
     // Ensure min is valid
     const validMin = Math.max(min, Math.min(newMin, max));
     setMinValue(validMin);

@@ -1,4 +1,7 @@
-export default function generatePageNumbers(currentPage, pagesCount) {
+export default function generatePageNumbers(
+  currentPage: number,
+  pagesCount: number
+): (number | string)[] {
   currentPage = Math.max(
     1,
     Math.min(
