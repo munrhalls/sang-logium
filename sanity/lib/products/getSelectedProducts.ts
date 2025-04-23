@@ -10,17 +10,7 @@ export const getSelectedProducts = async (
 ) => {
   const [regular, overview, specifications, rangeFilters] = selectedFilters;
   console.log("selectedPagination", selectedPagination);
-  // console.log("selectedSort", selectedSort);
 
-  // console.log("selectedFilters", selectedFilters);
-  // Debug logging
-  // console.log(
-  //   "getSelectedProducts received filters:",
-  //   JSON.stringify(rangeFilters, null, 2)
-  // );
-
-  // No longer need to filter out 'size' parameter since we handle it in getSelectedFilters
-  // but we'll keep this as a failsafe in case older code still passes size parameter
   const filteredRegular = regular.filter(
     (item) => !(item.field === "size" && !isNaN(parseInt(String(item.value))))
   );
@@ -29,16 +19,12 @@ export const getSelectedProducts = async (
     filteredRegular.length > 0
       ? filteredRegular
           .map((item) => {
-            // Handle different value types
             let values = [];
             if (typeof item.value === "string") {
               try {
-                // Try to parse as JSON
                 values = JSON.parse(item.value);
-                // If the parsed result is not an array, make it one
                 values = Array.isArray(values) ? values : [values];
               } catch {
-                // If parsing fails, use the string value as is
                 values = [item.value];
               }
             } else if (Array.isArray(item.value)) {
@@ -49,23 +35,19 @@ export const getSelectedProducts = async (
 
             return `(${values.map((value) => `${item.field} == "${value}"`).join(" || ")})`;
           })
-          .filter((query) => query !== "") // Remove any empty queries
+          .filter((query) => query !== "")
           .join(" && ")
       : "";
   const overviewQuery =
     overview.length > 0
       ? overview
           .map((item) => {
-            // Handle different value types
             let values = [];
             if (typeof item.value === "string") {
               try {
-                // Try to parse as JSON
                 values = JSON.parse(item.value);
-                // If the parsed result is not an array, make it one
                 values = Array.isArray(values) ? values : [values];
               } catch {
-                // If parsing fails, use the string value as is
                 values = [item.value];
               }
             } else if (Array.isArray(item.value)) {
@@ -76,27 +58,23 @@ export const getSelectedProducts = async (
 
             return `(${values
               .map(
-                (value) => `count(overviewFields[value match "${value}"]) > 0` // Check any field that has this value
+                (value) => `count(overviewFields[value match "${value}"]) > 0`
               )
-              .join(" || ")})`; // Join conditions with OR
+              .join(" || ")})`;
           })
-          .join(" && ") // Combine all conditions with AND
+          .join(" && ")
       : "";
 
   const specificationsQuery =
     specifications.length > 0
       ? specifications
           .map((item) => {
-            // Handle different value types
             let values = [];
             if (typeof item.value === "string") {
               try {
-                // Try to parse as JSON
                 values = JSON.parse(item.value);
-                // If the parsed result is not an array, make it one
                 values = Array.isArray(values) ? values : [values];
               } catch {
-                // If parsing fails, use the string value as is
                 values = [item.value];
               }
             } else if (Array.isArray(item.value)) {
@@ -107,13 +85,13 @@ export const getSelectedProducts = async (
 
             return `(${values
               .map(
-                (value) => `count(specifications[value match "${value}"]) > 0` // Check any field that has this value
+                (value) => `count(specifications[value match "${value}"]) > 0`
               )
-              .join(" || ")})`; // Join conditions with OR
+              .join(" || ")})`;
           })
-          .join(" && ") // Combine all conditions with AND
+          .join(" && ")
       : "";
-  // console.log("Range filters:", rangeFilters);
+
   const rangeQuery =
     rangeFilters && rangeFilters.length > 0
       ? rangeFilters
@@ -122,8 +100,8 @@ export const getSelectedProducts = async (
             query += `${item.field} ${item.operator} ${item.value}`;
             return query;
           })
-          .filter((query) => query !== "") // Filter out empty strings
-          .join(" && ") // Join with proper operator
+          .filter((query) => query !== "")
+          .join(" && ")
       : "";
 
   let assembledQuery = `*[_type == "product"`;
@@ -132,16 +110,13 @@ export const getSelectedProducts = async (
   let pathQuery = "";
 
   if (pathString === "products") {
-    // All products case - no path filtering needed
     pathQuery = "";
   } else {
-    // Category filtering
     pathQuery = ` && (categoryPath == "${pathString}" || categoryPath match "${pathString}/*")`;
   }
 
   assembledQuery += pathQuery;
 
-  // Combine all filters
   const allFilters = [
     regularQuery,
     overviewQuery,
@@ -155,11 +130,9 @@ export const getSelectedProducts = async (
     assembledQuery += ` && (${allFilters})`;
   }
 
-  // Convert from 1-based (UI) to 0-based (GROQ) pagination
   const page = (selectedPagination?.page || 1) - 1;
   const pageSize = selectedPagination?.pageSize || 12;
   const start = page * pageSize;
-  // We calculate pageSize directly when needed instead of storing in a variable
 
   if (selectedSort && selectedSort.field && selectedSort.field !== "default") {
     if (selectedSort.field === "bassPerformance") {
@@ -216,19 +189,15 @@ export const getSelectedProducts = async (
 
   console.log("Final GROQ query:", assembledQuery);
 
-  // Extract the base query more reliably for the count operation
-  // This ensures we're counting the right set of filtered products
   const baseQuery = assembledQuery.substring(
     0,
     assembledQuery.lastIndexOf("]") + 1
   );
 
-  // Extract sort part separately to maintain proper ordering
   const sortPart = assembledQuery.substring(
     assembledQuery.lastIndexOf("]") + 1
   );
 
-  // Construct final query with pagination and count
   const finalQuery = `{
   "products": ${baseQuery}${sortPart}[${start}...${start + pageSize}],
   "totalProductsCount": count(${baseQuery})
