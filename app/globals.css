@@ -78,6 +78,16 @@ body {
     min-height: 100%;
   }
 }
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.animate-fade-out {
+  animation: fadeOut 3s forwards;
+}
+
 @layer components {
   .carousel-multislide-track {
     --slide-width: 100%;

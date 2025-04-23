@@ -31,7 +31,7 @@ export function AuthenticatedView() {
   return (
     <div className="grid place-content-center">
       <div className="grid place-content-center">
-        <UserButton />
+        <UserButton afterSignOutUrl="/" />
         {/* {user.passwordEnabled === false && (
           <div className="ml-2 flex items-center justify-center">
             <button

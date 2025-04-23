@@ -3,7 +3,10 @@
 import { useUser } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
 import { UserProfile } from "@/sanity/lib/profiles/profileTypes";
-import { fetchProfileByClerkIdAction, createUserProfileAction } from "@/app/actions/userProfileActions";
+import {
+  fetchProfileByClerkIdAction,
+  createUserProfileAction,
+} from "@/app/actions/userProfileActions";
 
 type ProfileState = {
   profile: UserProfile | null;
@@ -13,7 +16,7 @@ type ProfileState = {
 
 /**
  * Custom hook to fetch or create a Sanity profile for the current Clerk user
- * 
+ *
  * This hook:
  * - Gets the current authenticated user from Clerk
  * - Checks if a corresponding Sanity profile exists
@@ -31,17 +34,20 @@ export function useUserProfile() {
   useEffect(() => {
     // Skip if Clerk hasn't loaded yet or user isn't signed in
     if (!isClerkLoaded || !isSignedIn || !user) {
-      setState(prev => ({ ...prev, isLoading: isClerkLoaded && !isSignedIn ? false : prev.isLoading }));
+      setState((prev) => ({
+        ...prev,
+        isLoading: isClerkLoaded && !isSignedIn ? false : prev.isLoading,
+      }));
       return;
     }
 
     async function loadOrCreateProfile() {
       try {
         console.log("Checking for existing Sanity profile for user:", user.id);
-        
+
         // Attempt to fetch existing profile using server action
         const existingProfile = await fetchProfileByClerkIdAction(user.id);
-        
+
         if (existingProfile) {
           console.log("Found existing Sanity profile:", existingProfile);
           setState({
@@ -51,19 +57,26 @@ export function useUserProfile() {
           });
           return;
         }
-        
+
         // No profile exists, create one using server action
-        console.log("No profile found. Creating new Sanity profile for user:", user.id);
+        console.log(
+          "No profile found. Creating new Sanity profile for user:",
+          user.id
+        );
         const newProfile = await createUserProfileAction({
           clerkId: user.id,
-          displayName: user.fullName || user.username || user.emailAddresses?.[0]?.emailAddress || "New User",
+          displayName:
+            user.fullName ||
+            user.username ||
+            user.emailAddresses?.[0]?.emailAddress ||
+            "New User",
           preferences: {
             receiveMarketingEmails: false,
             darkMode: false,
             savePaymentInfo: false,
-          }
+          },
         });
-        
+
         console.log("Created new Sanity profile:", newProfile);
         setState({
           profile: newProfile,
@@ -86,6 +99,7 @@ export function useUserProfile() {
   return {
     ...state,
     isAuthenticated: isClerkLoaded && isSignedIn,
+    "bla!": "bla!",
     user, // Return the Clerk user object for convenience
   };
 }
