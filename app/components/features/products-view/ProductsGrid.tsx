@@ -10,6 +10,7 @@ type ProductsGridProps = {
 };
 
 export default function ProductsGrid({ products }: ProductsGridProps) {
+  console.log("ProductsGrid", products);
   return (
     <div className="relative">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 bg-slate-200">

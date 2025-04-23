@@ -1,6 +1,6 @@
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../live";
-import { FilterItem } from "@/app/components/ui/filters/FilterTypes";
+import { FilterItem } from "@/app/(store)/products/helpers/getSelectedFilters";
 
 export const getSelectedProducts = async (
   path: string[] | string,
@@ -47,7 +47,7 @@ export const getSelectedProducts = async (
               values = [item.value];
             }
 
-            return `(${values.map((value: string) => `${item.field} == "${value}"`).join(" || ")})`;
+            return `(${values.map((value) => `${item.field} == "${value}"`).join(" || ")})`;
           })
           .filter((query) => query !== "") // Remove any empty queries
           .join(" && ")
@@ -76,8 +76,7 @@ export const getSelectedProducts = async (
 
             return `(${values
               .map(
-                (value: string) =>
-                  `count(overviewFields[value match "${value}"]) > 0` // Check any field that has this value
+                (value) => `count(overviewFields[value match "${value}"]) > 0` // Check any field that has this value
               )
               .join(" || ")})`; // Join conditions with OR
           })
@@ -108,8 +107,7 @@ export const getSelectedProducts = async (
 
             return `(${values
               .map(
-                (value: string) =>
-                  `count(specifications[value match "${value}"]) > 0` // Check any field that has this value
+                (value) => `count(specifications[value match "${value}"]) > 0` // Check any field that has this value
               )
               .join(" || ")})`; // Join conditions with OR
           })
@@ -218,34 +216,29 @@ export const getSelectedProducts = async (
 
   console.log("Final GROQ query:", assembledQuery);
 
-  // THE FIX: Use static GROQ instead of dynamic string templates for type generation
-  const GET_SELECTED_PRODUCTS = defineQuery(`{
-    "products": *[_type == "product"] | order(name asc)[0...12],
-    "totalProductsCount": count(*[_type == "product"])
-  }`);
-
-  // Use the dynamic query for the actual data fetching
+  // Extract the base query more reliably for the count operation
+  // This ensures we're counting the right set of filtered products
   const baseQuery = assembledQuery.substring(
     0,
     assembledQuery.lastIndexOf("]") + 1
   );
+
+  // Extract sort part separately to maintain proper ordering
   const sortPart = assembledQuery.substring(
     assembledQuery.lastIndexOf("]") + 1
   );
+
+  // Construct final query with pagination and count
   const finalQuery = `{
-    "products": ${baseQuery}${sortPart}[${start}...${start + pageSize}],
-    "totalProductsCount": count(${baseQuery})
-  }`;
+  "products": ${baseQuery}${sortPart}[${start}...${start + pageSize}],
+  "totalProductsCount": count(${baseQuery})
+}`;
   console.log("Final GROQ query:", finalQuery);
+  const GET_PRODUCTS_BY_QUERY = defineQuery(finalQuery);
 
   try {
-    // Use the actual dynamic query for fetching, not the static one
     const result = await sanityFetch({
-      query: GET_SELECTED_PRODUCTS,
-      params: {
-        // Pass the dynamic query as a parameter
-        dynamicQuery: finalQuery,
-      },
+      query: GET_PRODUCTS_BY_QUERY,
     });
     return {
       products: result.data.products || [],
