@@ -9,6 +9,7 @@ import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWr
 import CategoriesWrapper from "../components/layout/categoryMenu/CategoriesWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
+import dynamic from "next/dynamic";
 
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
