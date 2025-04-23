@@ -1,6 +1,6 @@
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../live";
-import { FilterItem } from "@/app/(store)/products/helpers/getSelectedFilters";
+import { FilterItem } from "@/app/components/ui/filters/FilterTypes";
 
 export const getSelectedProducts = async (
   path: string[] | string,
