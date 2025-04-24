@@ -8,6 +8,7 @@ import ProfileHeader from "./ProfileHeader";
 import EditableField from "./EditableField";
 import EditableAddress from "./EditableAddress";
 import PreferencesSection from "./PreferencesSection";
+import { ClerkAccountManager } from "../features/auth/ClerkAccountManager";
 
 export default function UserProfilePage() {
   const { profile, isLoading, error, isAuthenticated, user } = useUserProfile();
@@ -177,6 +178,11 @@ export default function UserProfilePage() {
         <p className="text-xs text-gray-500 mt-2">
           This is how your name will appear across the store.
         </p>
+      </div>
+      
+      {/* New Clerk Account Management Section */}
+      <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
+        <ClerkAccountManager />
       </div>
       
       <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
