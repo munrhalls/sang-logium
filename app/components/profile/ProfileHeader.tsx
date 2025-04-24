@@ -1,7 +1,7 @@
 "use client";
 
 import { User } from "@clerk/nextjs/dist/types/server";
-import { UserButton } from "@clerk/nextjs";
+import { CustomUserButton } from "../features/auth/CustomUserButton";
 
 interface ProfileHeaderProps {
   user: User;
@@ -27,7 +27,7 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
               {user.primaryEmailAddress?.emailAddress}
             </div>
           </div>
-          <UserButton />
+          <CustomUserButton />
         </div>
       </div>
     </div>

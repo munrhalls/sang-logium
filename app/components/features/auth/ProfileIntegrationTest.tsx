@@ -1,7 +1,8 @@
 "use client";
 
 import { useUserProfile } from "@/app/hooks/useUserProfile";
-import { SignInButton, UserButton } from "./AuthButtons";
+import { SignInButton } from "./AuthButtons";
+import { CustomUserButton } from "./CustomUserButton";
 
 /**
  * Test component that demonstrates the Clerk-Sanity profile integration
@@ -26,7 +27,7 @@ export default function ProfileIntegrationTest() {
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-gray-800">Clerk + Sanity Integration</h2>
         <div>
-          {isAuthenticated ? <UserButton /> : <SignInButton />}
+          {isAuthenticated ? <CustomUserButton /> : <SignInButton />}
         </div>
       </div>
 
