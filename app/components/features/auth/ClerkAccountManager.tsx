@@ -135,8 +135,6 @@ export function ClerkAccountManager() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold mb-4">Account Management</h2>
-
       <div className="space-y-4">
         <div className="p-4 bg-gray-50 rounded-md">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between">

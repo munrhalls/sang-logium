@@ -11,12 +11,13 @@ export async function fetchProfileByClerkIdAction(
 ): Promise<UserProfile | null> {
   try {
     // GROQ query to fetch a user profile by Clerk ID
+    // Still including displayName for backward compatibility
     const profile = await client.fetch(
       `*[_type == "userProfile" && clerkId == $clerkId][0] {
         _id,
         _type,
         clerkId,
-        displayName,
+        displayName,  // Kept for backward compatibility but not actively used
         primaryAddress {
           streetAddress,
           city,
@@ -47,7 +48,6 @@ export async function fetchProfileByClerkIdAction(
  */
 export async function createUserProfileAction(data: {
   clerkId: string;
-  displayName?: string;
   primaryAddress?: any;
   preferences?: any;
 }): Promise<UserProfile | null> {
@@ -65,11 +65,10 @@ export async function createUserProfileAction(data: {
 
     const now = new Date().toISOString();
 
-    // Create profile document
+    // Create profile document (no displayName - we use Clerk's name system instead)
     const profileData = {
       _type: "userProfile",
       clerkId: data.clerkId,
-      displayName: data.displayName,
       primaryAddress: data.primaryAddress,
       preferences: data.preferences || {
         receiveMarketingEmails: false,
@@ -127,7 +126,7 @@ export async function updateUserProfileFieldAction(data: {
       .commit();
 
     return { 
-      success: true 
+      success: true
     };
   } catch (error) {
     console.error("Error updating user profile field:", error);

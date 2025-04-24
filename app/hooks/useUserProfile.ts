@@ -63,13 +63,10 @@ export function useUserProfile() {
           "No profile found. Creating new Sanity profile for user:",
           user.id
         );
+        
+        // Create a new profile (name is now managed solely by Clerk)
         const newProfile = await createUserProfileAction({
           clerkId: user.id,
-          displayName:
-            user.fullName ||
-            user.username ||
-            user.emailAddresses?.[0]?.emailAddress ||
-            "New User",
           preferences: {
             receiveMarketingEmails: false,
             darkMode: false,

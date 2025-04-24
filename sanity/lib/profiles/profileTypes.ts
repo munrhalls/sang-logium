@@ -32,14 +32,12 @@ export interface FetchProfileOptions {
 
 export interface CreateProfileOptions {
   clerkId: string;
-  displayName?: string;
   primaryAddress?: Address;
   preferences?: Preferences;
 }
 
 export interface UpdateProfileOptions {
   clerkId: string;
-  displayName?: string;
   primaryAddress?: Partial<Address>;
   preferences?: Partial<Preferences>;
 }

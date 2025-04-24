@@ -12,13 +12,14 @@ import {
   updateNestedProfileFieldAction,
 } from "@/app/actions/userProfileActions";
 import ProfileHeader from "./ProfileHeader";
-import EditableField from "./EditableField";
 import EditableAddress from "./EditableAddress";
 import PreferencesSection from "./PreferencesSection";
 import { ClerkAccountManager } from "../features/auth/ClerkAccountManager";
+import { useClerk } from "@clerk/nextjs";
 
 export default function UserProfilePage() {
   const { profile, isLoading, error, isAuthenticated, user } = useUserProfile();
+  const clerk = useClerk();
   const [profileData, setProfileData] = useState<UserProfile | null>(null);
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [pendingChanges, setPendingChanges] = useState<Record<string, any>>({});
@@ -217,32 +218,6 @@ export default function UserProfilePage() {
           <p className="mt-1">{globalError}</p>
         </div>
       )}
-
-      <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-4">Profile Information</h2>
-
-        <EditableField
-          label="Display Name"
-          value={profileData.displayName || ""}
-          onSaveAction={(value) => handleUpdateField("displayName", value)}
-          placeholder="Add a display name"
-          required={true}
-          minLength={2}
-          maxLength={50}
-          isRequiredField={true}
-          customValidation={[
-            {
-              validator: (value) => /^[a-zA-Z0-9\s\-_.]+$/.test(value),
-              message:
-                "Display name can only contain letters, numbers, spaces, and common symbols (-, _, .)",
-            },
-          ]}
-        />
-
-        <p className="text-xs text-gray-500 mt-2">
-          This is how your name will appear across the store.
-        </p>
-      </div>
 
       {/* Clerk Account Management Section */}
       <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
