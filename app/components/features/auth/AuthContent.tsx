@@ -20,7 +20,8 @@ export default function AuthContent() {
   const { isLoaded, isSignedIn } = useUser();
   const pathname = usePathname();
   // Check both possible profile page routes
-  const isProfilePage = pathname === "/account/profile" || pathname === "/(store)/account/profile";
+  const isProfilePage =
+    pathname === "/account/profile" || pathname === "/(store)/account/profile";
 
   if (!isLoaded) {
     return (
@@ -31,14 +32,6 @@ export default function AuthContent() {
   return (
     <div className="flex flex-col items-center">
       <AuthenticatedView />
-      {isSignedIn && !isProfilePage && (
-        <Link 
-          href="/account/profile"
-          className="text-xs text-blue-300 hover:text-blue-200 mt-1"
-        >
-          My Profile
-        </Link>
-      )}
     </div>
   );
 }
