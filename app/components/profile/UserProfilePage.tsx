@@ -2,8 +2,15 @@
 
 import { useUserProfile } from "@/app/hooks/useUserProfile";
 import { useEffect, useState } from "react";
-import { Address, Preferences, UserProfile } from "@/sanity/lib/profiles/profileTypes";
-import { updateUserProfileFieldAction, updateNestedProfileFieldAction } from "@/app/actions/userProfileActions";
+import {
+  Address,
+  Preferences,
+  UserProfile,
+} from "@/sanity/lib/profiles/profileTypes";
+import {
+  updateUserProfileFieldAction,
+  updateNestedProfileFieldAction,
+} from "@/app/actions/userProfileActions";
 import ProfileHeader from "./ProfileHeader";
 import EditableField from "./EditableField";
 import EditableAddress from "./EditableAddress";
@@ -13,6 +20,8 @@ import { ClerkAccountManager } from "../features/auth/ClerkAccountManager";
 export default function UserProfilePage() {
   const { profile, isLoading, error, isAuthenticated, user } = useUserProfile();
   const [profileData, setProfileData] = useState<UserProfile | null>(null);
+  const [globalError, setGlobalError] = useState<string | null>(null);
+  const [pendingChanges, setPendingChanges] = useState<Record<string, any>>({});
 
   useEffect(() => {
     if (profile) {
@@ -20,16 +29,23 @@ export default function UserProfilePage() {
     }
   }, [profile]);
 
+  // Reset error when profile data changes
+  useEffect(() => {
+    if (globalError) {
+      setGlobalError(null);
+    }
+  }, [profileData]);
+
   if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="animate-pulse">
           <div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
           <div className="h-4 bg-gray-200 rounded w-2/4 mb-8"></div>
-          
+
           <div className="h-6 bg-gray-200 rounded w-1/6 mb-2"></div>
           <div className="h-10 bg-gray-200 rounded mb-6"></div>
-          
+
           <div className="border rounded-md p-4 mb-6">
             <div className="h-6 bg-gray-200 rounded w-1/6 mb-4"></div>
             {[1, 2, 3, 4, 5].map((i) => (
@@ -39,7 +55,7 @@ export default function UserProfilePage() {
               </div>
             ))}
           </div>
-          
+
           <div className="border rounded-md p-4 mb-6">
             <div className="h-6 bg-gray-200 rounded w-1/6 mb-4"></div>
             {[1, 2, 3].map((i) => (
@@ -86,120 +102,170 @@ export default function UserProfilePage() {
 
   const handleUpdateField = async (field: string, value: string) => {
     if (!user) return;
-    
-    const result = await updateUserProfileFieldAction({
-      clerkId: user.id,
-      field,
-      value,
-    });
-    
-    if (result.success) {
-      // Update local state
-      setProfileData((prev) => {
-        if (!prev) return prev;
-        return {
-          ...prev,
-          [field]: value,
-        };
+
+    try {
+      setGlobalError(null);
+      const result = await updateUserProfileFieldAction({
+        clerkId: user.id,
+        field,
+        value,
       });
-    } else {
-      throw new Error(result.message || "Failed to update profile");
+
+      if (result.success) {
+        // Update local state
+        setProfileData((prev) => {
+          if (!prev) return prev;
+          return {
+            ...prev,
+            [field]: value,
+          };
+        });
+      } else {
+        throw new Error(result.message || "Failed to update profile");
+      }
+    } catch (err) {
+      setGlobalError(
+        err instanceof Error ? err.message : "Failed to update profile"
+      );
+      throw err; // Re-throw for component-level error handling
     }
   };
 
-  const handleUpdateAddressField = async (field: keyof Address, value: string) => {
+  const handleUpdateAddressField = async (
+    field: keyof Address,
+    value: string
+  ) => {
     if (!user || !profileData) return;
-    
-    const result = await updateNestedProfileFieldAction({
-      clerkId: user.id,
-      parentField: "primaryAddress",
-      field,
-      value,
-    });
-    
-    if (result.success) {
-      // Update local state
-      setProfileData((prev) => {
-        if (!prev) return prev;
-        return {
-          ...prev,
-          primaryAddress: {
-            ...prev.primaryAddress,
-            [field]: value,
-          },
-        };
+
+    try {
+      setGlobalError(null);
+      const result = await updateNestedProfileFieldAction({
+        clerkId: user.id,
+        parentField: "primaryAddress",
+        field,
+        value,
       });
-    } else {
-      throw new Error(result.message || "Failed to update address");
+
+      if (result.success) {
+        // Update local state
+        setProfileData((prev) => {
+          if (!prev) return prev;
+          return {
+            ...prev,
+            primaryAddress: {
+              ...prev.primaryAddress,
+              [field]: value,
+            },
+          };
+        });
+      } else {
+        throw new Error(result.message || "Failed to update address");
+      }
+    } catch (err) {
+      setGlobalError(
+        err instanceof Error ? err.message : "Failed to update address"
+      );
+      throw err; // Re-throw for component-level error handling
     }
   };
 
-  const handleTogglePreference = async (field: keyof Preferences, value: boolean) => {
+  const handleTogglePreference = async (
+    field: keyof Preferences,
+    value: boolean
+  ) => {
     if (!user || !profileData) return;
-    
-    const result = await updateNestedProfileFieldAction({
-      clerkId: user.id,
-      parentField: "preferences",
-      field,
-      value,
-    });
-    
-    if (result.success) {
-      // Update local state
-      setProfileData((prev) => {
-        if (!prev || !prev.preferences) return prev;
-        return {
-          ...prev,
-          preferences: {
-            ...prev.preferences,
-            [field]: value,
-          },
-        };
+
+    try {
+      setGlobalError(null);
+      const result = await updateNestedProfileFieldAction({
+        clerkId: user.id,
+        parentField: "preferences",
+        field,
+        value,
       });
-    } else {
-      throw new Error(result.message || "Failed to update preference");
+
+      if (result.success) {
+        // Update local state
+        setProfileData((prev) => {
+          if (!prev || !prev.preferences) return prev;
+          return {
+            ...prev,
+            preferences: {
+              ...prev.preferences,
+              [field]: value,
+            },
+          };
+        });
+      } else {
+        throw new Error(result.message || "Failed to update preference");
+      }
+    } catch (err) {
+      setGlobalError(
+        err instanceof Error ? err.message : "Failed to update preference"
+      );
+      throw err; // Re-throw for component-level error handling
     }
   };
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
       <ProfileHeader user={user} />
-      
+
+      {globalError && (
+        <div className="bg-red-50 border border-red-200 text-red-800 rounded-md p-4 mb-6">
+          <h3 className="text-lg font-medium">Error</h3>
+          <p className="mt-1">{globalError}</p>
+        </div>
+      )}
+
       <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4">Profile Information</h2>
-        
+
         <EditableField
           label="Display Name"
           value={profileData.displayName || ""}
-          onSave={(value) => handleUpdateField("displayName", value)}
+          onSaveAction={(value) => handleUpdateField("displayName", value)}
           placeholder="Add a display name"
+          required={true}
+          minLength={2}
+          maxLength={50}
+          isRequiredField={true}
+          customValidation={[
+            {
+              validator: (value) => /^[a-zA-Z0-9\s\-_.]+$/.test(value),
+              message:
+                "Display name can only contain letters, numbers, spaces, and common symbols (-, _, .)",
+            },
+          ]}
         />
-        
+
         <p className="text-xs text-gray-500 mt-2">
           This is how your name will appear across the store.
         </p>
       </div>
-      
-      {/* New Clerk Account Management Section */}
+
+      {/* Clerk Account Management Section */}
       <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
         <ClerkAccountManager />
       </div>
-      
+
       <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
         <EditableAddress
           address={profileData.primaryAddress || {}}
-          onSave={handleUpdateAddressField}
+          onSaveAction={handleUpdateAddressField}
         />
       </div>
-      
+
       <div className="bg-white shadow-sm rounded-lg p-6">
         <PreferencesSection
-          preferences={profileData.preferences || {
-            receiveMarketingEmails: false,
-            darkMode: false,
-            savePaymentInfo: false,
-          }}
-          onTogglePreference={handleTogglePreference}
+          preferences={
+            profileData.preferences || {
+              receiveMarketingEmails: false,
+              darkMode: false,
+              savePaymentInfo: false,
+            }
+          }
+          onTogglePreferenceAction={handleTogglePreference}
         />
       </div>
     </div>
