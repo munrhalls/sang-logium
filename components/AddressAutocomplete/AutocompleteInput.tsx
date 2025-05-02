@@ -17,6 +17,8 @@ export interface AutocompleteInputProps {
   onAddressSuggestions: (suggestions: AddressResult[]) => void;
   /** Callback when an error occurs during API fetch */
   onError?: (error: Error) => void;
+  /** Callback when loading state changes */
+  onLoadingChange?: (isLoading: boolean) => void;
   /** Placeholder text for the input */
   placeholder?: string;
   /** Optional country code to restrict results (gb or pl) */
@@ -43,6 +45,7 @@ export function AutocompleteInput({
   onChange,
   onAddressSuggestions,
   onError,
+  onLoadingChange,
   placeholder = 'Enter an address',
   countryCode,
   debounceMs = 350,
@@ -83,6 +86,9 @@ export function AutocompleteInput({
       
       // Set loading state
       setIsLoading(true);
+      if (onLoadingChange) {
+        onLoadingChange(true);
+      }
       
       // Generate request URL
       const requestUrl = formatAutocompleteRequest(searchText, countryCode);
@@ -117,6 +123,9 @@ export function AutocompleteInput({
     } finally {
       // Reset loading state
       setIsLoading(false);
+      if (onLoadingChange) {
+        onLoadingChange(false);
+      }
     }
   };
   
