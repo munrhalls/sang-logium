@@ -10,6 +10,8 @@ Tech stack:
 - sanity CMS for backend
 - GROQ for communication CMS-FRONTEND
 - tailwind
+- clerk.dev for authentication and user management
+- Google Maps Platform's Address Validation API for address verification
 
 Project structure:
 
@@ -34,6 +36,23 @@ Development experience pattern:
 - This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+
+### API Keys Setup
+
+This project uses external APIs that require keys for full functionality:
+
+1. **Clerk Authentication**: Set up your Clerk.dev account and get API keys
+2. **Google Maps Platform**: Set up Address Validation API for address verification
+   - See [SETUP_API_KEYS.md](/SETUP_API_KEYS.md) for detailed instructions
+3. **Sanity CMS**: Create a Sanity.io project and configure tokens
+
+Copy `.env.example` to `.env.local` and fill in your API keys:
+
+```bash
+cp .env.example .env.local
+```
+
+### Running the Development Server
 
 First, run the development server:
 

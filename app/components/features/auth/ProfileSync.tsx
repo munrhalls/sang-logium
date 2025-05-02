@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 /**
  * Silent component that syncs Clerk users with Sanity profiles
- * 
+ *
  * This component:
  * - Can be placed in the layout or other persistent component
  * - Automatically creates Sanity profiles for authenticated Clerk users
@@ -18,10 +18,10 @@ export default function ProfileSync() {
   useEffect(() => {
     if (isAuthenticated && !isLoading) {
       if (profile) {
-        console.log("ProfileSync: User profile synchronized", { 
-          clerkId: profile.clerkId,
-          displayName: profile.displayName
-        });
+        // console.log("ProfileSync: User profile synchronized", {
+        //   clerkId: profile.clerkId,
+        //   displayName: profile.displayName
+        // });
       } else if (error) {
         console.error("ProfileSync: Error synchronizing profile", error);
       }

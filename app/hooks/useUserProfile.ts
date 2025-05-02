@@ -43,13 +43,10 @@ export function useUserProfile() {
 
     async function loadOrCreateProfile() {
       try {
-        console.log("Checking for existing Sanity profile for user:", user.id);
-
         // Attempt to fetch existing profile using server action
         const existingProfile = await fetchProfileByClerkIdAction(user.id);
 
         if (existingProfile) {
-          console.log("Found existing Sanity profile:", existingProfile);
           setState({
             profile: existingProfile,
             isLoading: false,
@@ -63,7 +60,7 @@ export function useUserProfile() {
           "No profile found. Creating new Sanity profile for user:",
           user.id
         );
-        
+
         // Create a new profile (name is now managed solely by Clerk)
         const newProfile = await createUserProfileAction({
           clerkId: user.id,

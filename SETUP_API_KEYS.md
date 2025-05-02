@@ -1,40 +1,32 @@
 # Setting Up API Keys for Address Validation
 
-This project uses the Google Maps Platform's Address Validation API for validating user addresses. Follow these steps to set up your API keys:
+This project uses Geoapify's Geocoding API for validating user addresses. Follow these steps to understand how to set up or change API keys:
 
-## Google Maps Platform Address Validation API
+## Geoapify Geocoding API
 
-1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
-2. Create a new project or select an existing project.
-3. Enable the "Address Validation API" from the API Library:
-   - Navigate to APIs & Services > Library
-   - Search for "Address Validation API"
-   - Click "Enable"
-4. Create an API key:
-   - Navigate to APIs & Services > Credentials
-   - Click "Create Credentials" and select "API key"
-   - Copy the generated API key
-5. Set up usage restrictions (recommended for production):
-   - In the credentials page, find your API key and click "Edit"
-   - Under "Application restrictions", choose "HTTP referrers" and add your domain
-   - Under "API restrictions", limit the key to only the Address Validation API
+The application uses Geoapify for address validation:
 
-## Geocodio API (Alternative/Fallback)
+1. A default API key (2954b2442d2d4731a391d34936e4e181) is already provided in the code.
+2. For production or high-volume usage, it's recommended to create your own Geoapify account:
+   - Go to [Geoapify](https://www.geoapify.com/) and sign up.
+   - Navigate to your dashboard to create a new API key.
+   - Copy your API key to use in the application.
+3. Geoapify offers a free tier with 3,000 requests per day.
 
-The application also supports Geocodio as a fallback for address validation:
+## Key Features of Geoapify Address Validation
 
-1. Go to [Geocodio](https://www.geocod.io/) and create an account.
-2. After logging in, navigate to your dashboard to find your API key.
-3. Copy your API key for use in the application.
+- **Strict Street and City Validation**: Addresses are only accepted when both street and city exist and can be confirmed
+- **High Confidence Requirement**: Validation requires a high confidence score (0.75+) to ensure addresses are real
+- **Suggestions for Invalid Addresses**: When an address fails validation, the system provides corrected suggestions
+- **Automatic Fallback**: If the API is unavailable, the system falls back to local validation
 
-## Adding the Keys to Your Environment
+## Adding or Changing API Keys
 
-1. Create or edit the `.env.local` file in the project root:
+1. Edit the `.env.local` file in the project root:
 
 ```
-# Google Maps Platform API Keys
-NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
-NEXT_PUBLIC_GEOCODIO_API_KEY=your_geocodio_api_key_here
+# Address Validation API Keys
+NEXT_PUBLIC_GEOAPIFY_API_KEY=your_geoapify_api_key_here
 ```
 
 2. Restart your development server for the changes to take effect.
@@ -46,14 +38,35 @@ After setting up your API keys, you can test the address validation in the user 
 1. Login to your account
 2. Navigate to the account/profile section
 3. Enter an address in the address form
-4. The system will validate your address using the Google Maps Platform API or fall back to Geocodio if needed
+4. The system will validate your address using the Geoapify API
 
-## Development Mode
+Try entering both valid and invalid addresses to see how the validation works:
+- **Valid Address**: A real street and city (e.g., "123 Main St, New York, NY")
+- **Invalid Street**: A street that doesn't exist (e.g., "999 Fake St, New York, NY")
+- **Invalid City**: A city that doesn't exist (e.g., "123 Main St, Fakeville, NY")
+- **Low Confidence**: An incomplete or ambiguous address (e.g., just "Main St")
 
-In development mode or when using placeholder API keys, the system will use simulated API responses. To test with actual API calls, ensure you've added valid API keys to your environment variables.
+## Fallback Validation
+
+If the API key is not available or the API service is down, the system automatically falls back to local validation:
+- Basic format checking
+- Pattern matching for common address elements
+- Detection of suspicious input
+
+This ensures the application remains functional even when external services are unavailable.
+
+## How the Address Validation Works
+
+1. **Basic Pre-check**: Before making an API call, the system performs basic validation to filter out obviously invalid addresses (keyboard patterns, excessive repetition, etc.)
+2. **API Validation**: Sends the address to Geoapify's Geocoding API which attempts to find a match
+3. **Confidence Assessment**: Analyzes the confidence score and verify street and city components
+4. **Strict Validation**: Only accepts addresses where both the street and city are recognized and match with high confidence
+5. **Response Handling**: Returns standardized results including validation status, errors, and suggestions
 
 ## API Usage Considerations
 
-- The Google Maps Platform Address Validation API is a paid service with a free tier (check current pricing).
-- Geocodio also offers a free tier with limited requests per day.
-- Consider implementing rate limiting and caching mechanisms for production deployments.
+- The current API key has a limit of 3,000 requests per day
+- For high-volume applications, consider:
+  - Implementing rate limiting
+  - Adding caching for repeated validation of the same address
+  - Using a dedicated API key with a paid Geoapify plan

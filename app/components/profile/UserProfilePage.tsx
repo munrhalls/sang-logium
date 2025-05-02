@@ -12,10 +12,13 @@ import {
   updateNestedProfileFieldAction,
 } from "@/app/actions/userProfileActions";
 import ProfileHeader from "./ProfileHeader";
-import EditableAddress from "./EditableAddress";
 import PreferencesSection from "./PreferencesSection";
 import { ClerkAccountManager } from "../features/auth/ClerkAccountManager";
 import { useClerk } from "@clerk/nextjs";
+import {
+  isGeoapifyApiKeyConfigured,
+  getGeoapifyApiKey,
+} from "@/lib/address/geoapifyEnv";
 
 export default function UserProfilePage() {
   const { profile, isLoading, error, isAuthenticated, user } = useUserProfile();
@@ -207,7 +210,13 @@ export default function UserProfilePage() {
       throw err; // Re-throw for component-level error handling
     }
   };
-
+  {
+    console.log("Geoapify API Configuration Test (Corrected):", {
+      baseUrl: require("@/lib/address/geoapifyConfig").baseUrl,
+      headers: require("@/lib/address/geoapifyConfig").getHeaders(),
+      defaultParams: require("@/lib/address/geoapifyConfig").getDefaultParams(),
+    });
+  }
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
       <ProfileHeader user={user} />
@@ -224,12 +233,7 @@ export default function UserProfilePage() {
         <ClerkAccountManager />
       </div>
 
-      <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
-        <EditableAddress
-          address={profileData.primaryAddress || {}}
-          onSaveAction={handleUpdateAddressField}
-        />
-      </div>
+      <div className="bg-white shadow-sm rounded-lg p-6 mb-6"></div>
 
       <div className="bg-white shadow-sm rounded-lg p-6">
         <PreferencesSection
