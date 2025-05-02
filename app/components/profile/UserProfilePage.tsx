@@ -21,6 +21,7 @@ import {
 } from "@/lib/address/geoapifyEnv";
 // Inside your UserProfilePage component, add these imports at the top
 import AutocompleteInput from "@/components/AddressAutocomplete/AutocompleteInput";
+import Autocomplete from "@/components/AddressAutocomplete/Autocomplete";
 
 export default function UserProfilePage() {
   const { profile, isLoading, error, isAuthenticated, user } = useUserProfile();
@@ -30,6 +31,7 @@ export default function UserProfilePage() {
   const [pendingChanges, setPendingChanges] = useState<Record<string, any>>({});
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [selectedAddress, setSelectedAddress] = useState(null);
 
   useEffect(() => {
     if (profile) {
@@ -138,6 +140,11 @@ export default function UserProfilePage() {
       throw err; // Re-throw for component-level error handling
     }
   };
+  const handleAddressSelect = (address) => {
+    setSelectedAddress(address);
+    // You could also call handleUpdateAddressField here to save to your backend
+    // e.g., for each relevant field in the address object
+  };
 
   const handleUpdateAddressField = async (
     field: keyof Address,
@@ -228,23 +235,17 @@ export default function UserProfilePage() {
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-      <AutocompleteInput
+      <Autocomplete
         value={inputValue}
-        onChange={handleInputChange}
-        onAddressSuggestions={handleSuggestions}
+        onChange={setInputValue} // Use setState directly if component passes string value
+        onAddressSelect={handleAddressSelect}
         placeholder="Enter an address (GB or PL)"
         countryCode="gb"
       />
-      {suggestions.length > 0 && (
-        <div className="mt-2 border rounded p-2">
-          <h4 className="text-sm font-medium">Suggestions:</h4>
-          <ul className="mt-1">
-            {suggestions.map((suggestion, index) => (
-              <li key={index} className="text-sm py-1">
-                {suggestion.formattedAddress}
-              </li>
-            ))}
-          </ul>
+      {selectedAddress && (
+        <div className="mt-2 p-2 border rounded bg-gray-50">
+          <h4 className="text-sm font-medium">Selected Address:</h4>
+          <p>{selectedAddress.formattedAddress}</p>
         </div>
       )}
 
