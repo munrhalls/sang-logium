@@ -19,6 +19,8 @@ import {
   isGeoapifyApiKeyConfigured,
   getGeoapifyApiKey,
 } from "@/lib/address/geoapifyEnv";
+// Inside your UserProfilePage component, add these imports at the top
+import AutocompleteInput from "@/components/AddressAutocomplete/AutocompleteInput";
 
 export default function UserProfilePage() {
   const { profile, isLoading, error, isAuthenticated, user } = useUserProfile();
@@ -26,6 +28,8 @@ export default function UserProfilePage() {
   const [profileData, setProfileData] = useState<UserProfile | null>(null);
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [pendingChanges, setPendingChanges] = useState<Record<string, any>>({});
+  const [inputValue, setInputValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     if (profile) {
@@ -210,15 +214,40 @@ export default function UserProfilePage() {
       throw err; // Re-throw for component-level error handling
     }
   };
-  {
-    console.log("Geoapify API Configuration Test (Corrected):", {
-      baseUrl: require("@/lib/address/geoapifyConfig").baseUrl,
-      headers: require("@/lib/address/geoapifyConfig").getHeaders(),
-      defaultParams: require("@/lib/address/geoapifyConfig").getDefaultParams(),
-    });
-  }
+
+  const handleInputChange = (event) => {
+    // Extract the value from the event object
+    setInputValue(event.target.value);
+  };
+
+  // Keep the handleSuggestions function as is, but make sure it matches the expected signature
+  const handleSuggestions = (addressSuggestions) => {
+    setSuggestions(addressSuggestions || []);
+    // Note: isLoading is managed by the AutocompleteInput component internally now
+  };
+
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <AutocompleteInput
+        value={inputValue}
+        onChange={handleInputChange}
+        onAddressSuggestions={handleSuggestions}
+        placeholder="Enter an address (GB or PL)"
+        countryCode="gb"
+      />
+      {suggestions.length > 0 && (
+        <div className="mt-2 border rounded p-2">
+          <h4 className="text-sm font-medium">Suggestions:</h4>
+          <ul className="mt-1">
+            {suggestions.map((suggestion, index) => (
+              <li key={index} className="text-sm py-1">
+                {suggestion.formattedAddress}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <ProfileHeader user={user} />
 
       {globalError && (
