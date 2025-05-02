@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import AddressSelectionManager, { FormattedAddress } from './AddressSelectionManager';
+import { AddressSelectionManager, FormattedAddress } from './AddressSelectionManager';
 import { AddressResult } from '@/lib/address/geoapifyResponseHandler';
+import styles from './AddressFormField.module.css';
 
 /**
  * Props for the AddressFormField component
@@ -14,7 +15,7 @@ export interface AddressFormFieldProps {
   initialAddress?: AddressResult | null;
   /** Whether the field is required */
   required?: boolean;
-  /** Country code to restrict results (gb or pl) */
+  /** Initial country code to restrict results (gb or pl) */
   countryCode?: 'gb' | 'pl';
   /** Label for the country selector */
   countrySelectLabel?: string;
@@ -32,10 +33,12 @@ export interface AddressFormFieldProps {
   disabled?: boolean;
   /** ID attribute for the field */
   id?: string;
+  /** Name attribute for the field (for form integration) */
+  name?: string;
 }
 
 /**
- * Form field component for address selection
+ * Form field component for address selection with country selector and validation
  */
 export function AddressFormField({
   label = 'Address',
@@ -50,6 +53,7 @@ export function AddressFormField({
   className = '',
   disabled = false,
   id,
+  name,
 }: AddressFormFieldProps) {
   // State for selected address and validation
   const [selectedAddress, setSelectedAddress] = useState<AddressResult | null>(initialAddress);
@@ -57,31 +61,38 @@ export function AddressFormField({
   const [countryCode, setCountryCode] = useState<'gb' | 'pl'>(initialCountryCode);
   const [validationError, setValidationError] = useState<string | null>(null);
   
+  // Generate unique field id if not provided
+  const fieldId = id || `address-field-${Math.random().toString(36).substring(2, 9)}`;
+  const countryId = `${fieldId}-country`;
+  
   /**
    * Handle address change from AddressSelectionManager
    */
-  const handleAddressChange = (address: AddressResult | null) => {
-    setSelectedAddress(address);
+  const handleAddressChange = (address: FormattedAddress | null) => {
+    // Convert FormattedAddress back to AddressResult for internal state
+    const addressResult = address ? {
+      streetAddress: address.streetAddress,
+      city: address.city,
+      state: address.state,
+      postalCode: address.postalCode,
+      country: address.country,
+      formattedAddress: address.formattedAddress,
+      coordinates: address.coordinates ? {
+        longitude: address.coordinates.longitude,
+        latitude: address.coordinates.latitude
+      } : undefined
+    } as AddressResult : null;
+    
+    setSelectedAddress(addressResult);
     
     // Validate if the field has been touched
     if (touched) {
-      validateAddress(address);
+      validateAddress(addressResult);
     }
     
     // Notify parent component if callback provided
-    if (onChange && address) {
-      const formattedAddress: FormattedAddress = {
-        streetAddress: address.streetAddress || '',
-        city: address.city || '',
-        state: address.state || '',
-        postalCode: address.postalCode || '',
-        country: address.country || '',
-        formattedAddress: address.formattedAddress || '',
-        coordinates: address.coordinates,
-      };
-      onChange(formattedAddress);
-    } else if (onChange) {
-      onChange(null);
+    if (onChange) {
+      onChange(address);
     }
   };
   
@@ -89,9 +100,13 @@ export function AddressFormField({
    * Handle country code change
    */
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCountryCode(e.target.value as 'gb' | 'pl');
+    const newCountryCode = e.target.value as 'gb' | 'pl';
+    setCountryCode(newCountryCode);
+    
     // Reset selected address when country changes
     setSelectedAddress(null);
+    
+    // Notify parent component if callback provided
     if (onChange) {
       onChange(null);
     }
@@ -103,6 +118,7 @@ export function AddressFormField({
   const handleBlur = () => {
     setTouched(true);
     validateAddress(selectedAddress);
+    
     if (onBlur) {
       onBlur();
     }
@@ -126,7 +142,7 @@ export function AddressFormField({
     if (touched) {
       validateAddress(selectedAddress);
     }
-  }, [required, touched, selectedAddress]);
+  }, [required, touched]);
   
   // Update country code when prop changes
   useEffect(() => {
@@ -135,34 +151,32 @@ export function AddressFormField({
     }
   }, [initialCountryCode]);
   
-  // Generate unique ID for accessibility
-  const fieldId = id || `address-field-${Math.random().toString(36).substr(2, 9)}`;
-  const countryId = `${fieldId}-country`;
-  
   return (
-    <div className={`address-form-field ${className}`}>
+    <div className={`${styles.container} ${className}`}>
       {label && (
         <label 
           htmlFor={fieldId}
-          className="block text-sm font-medium text-gray-700 mb-1"
+          className={styles.label}
         >
-          {label}{required && <span className="text-red-500 ml-1">*</span>}
+          {label}
+          {required && <span className={styles.requiredMark}>*</span>}
         </label>
       )}
       
-      <div className="mb-2">
+      <div className={styles.countrySelectContainer}>
         <label 
           htmlFor={countryId}
-          className="block text-sm font-medium text-gray-700 mb-1"
+          className={styles.countrySelectLabel}
         >
           {countrySelectLabel}
         </label>
         <select 
           id={countryId}
+          name={name ? `${name}-country` : undefined}
           value={countryCode} 
           onChange={handleCountryChange}
           disabled={disabled}
-          className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+          className={styles.countrySelect}
           aria-label="Select country"
         >
           <option value="gb">United Kingdom</option>
@@ -170,7 +184,7 @@ export function AddressFormField({
         </select>
       </div>
       
-      <div onBlur={handleBlur}>
+      <div onBlur={handleBlur} className={styles.addressSelectionContainer}>
         <AddressSelectionManager
           initialAddress={selectedAddress}
           onAddressChange={handleAddressChange}
@@ -181,9 +195,18 @@ export function AddressFormField({
       </div>
       
       {(validationError || error) && (
-        <p className="mt-1 text-sm text-red-600" role="alert">
+        <p className={styles.errorMessage} role="alert">
           {validationError || error}
         </p>
+      )}
+      
+      {/* Hidden input for form serialization */}
+      {name && (
+        <input 
+          type="hidden" 
+          name={name} 
+          value={selectedAddress?.formattedAddress || ''} 
+        />
       )}
     </div>
   );

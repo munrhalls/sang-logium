@@ -13,7 +13,7 @@ export interface AutocompleteProps {
   /** The current input value */
   value: string;
   /** Callback when input value changes */
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: string) => void;
   /** Callback when an address is selected from suggestions */
   onAddressSelect: (address: AddressResult) => void;
   /** Placeholder text for the input */
@@ -62,8 +62,8 @@ export function Autocomplete({
   // State for keyboard navigation
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   
-  // Reference to the input component
-  const inputRef = useRef<HTMLInputElement>(null);
+  // Reference to the input wrapper
+  const inputWrapperRef = useRef<HTMLDivElement>(null);
   
   // Container ref for the component
   const containerRef = useRef<HTMLDivElement>(null);
@@ -81,8 +81,39 @@ export function Autocomplete({
    * Handle address selection from dropdown
    */
   const handleAddressSelect = (address: AddressResult) => {
+    // Call the parent component's handler
     onAddressSelect(address);
+    
+    // Update the input value to the selected address
+    if (address.formattedAddress) {
+      onChange(address.formattedAddress);
+    } else {
+      const formattedAddress = [
+        address.streetAddress,
+        address.city,
+        address.state,
+        address.postalCode,
+        address.country
+      ].filter(Boolean).join(', ');
+      onChange(formattedAddress);
+    }
+    
+    // Close the dropdown
     setIsDropdownOpen(false);
+  };
+  
+  /**
+   * Handle input value changes
+   */
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    onChange(newValue);
+    
+    // If the input is cleared, also clear suggestions
+    if (!newValue.trim()) {
+      setSuggestions([]);
+      setIsDropdownOpen(false);
+    }
   };
   
   /**
@@ -129,31 +160,37 @@ export function Autocomplete({
   };
   
   /**
-   * Close dropdown when clicking outside
-   */
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        containerRef.current && 
-        !containerRef.current.contains(event.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    };
-    
-    document.addEventListener('mousedown', handleClickOutside);
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-  
-  /**
    * Reset highlighted index when suggestions change
    */
   useEffect(() => {
     setHighlightedIndex(-1);
   }, [suggestions]);
+  
+  /**
+   * Update ARIA attributes for accessibility
+   */
+  useEffect(() => {
+    // Find the input element
+    const inputElement = inputWrapperRef.current?.querySelector('input');
+    
+    if (inputElement) {
+      // Set ARIA attributes based on dropdown state
+      if (isDropdownOpen) {
+        inputElement.setAttribute('aria-expanded', 'true');
+        inputElement.setAttribute('aria-controls', 'address-suggestions-list');
+      } else {
+        inputElement.setAttribute('aria-expanded', 'false');
+        inputElement.removeAttribute('aria-controls');
+      }
+      
+      // Set active descendant for keyboard navigation
+      if (isDropdownOpen && highlightedIndex >= 0) {
+        inputElement.setAttribute('aria-activedescendant', `address-suggestion-${highlightedIndex}`);
+      } else {
+        inputElement.removeAttribute('aria-activedescendant');
+      }
+    }
+  }, [isDropdownOpen, highlightedIndex]);
   
   return (
     <div 
@@ -161,10 +198,10 @@ export function Autocomplete({
       ref={containerRef}
       onKeyDown={handleKeyDown}
     >
-      <div className={styles.inputWrapper} ref={inputRef}>
+      <div className={styles.inputWrapper} ref={inputWrapperRef}>
         <AutocompleteInput
           value={value}
-          onChange={onChange}
+          onChange={handleInputChange}
           onAddressSuggestions={handleSuggestions}
           onLoadingChange={handleLoadingChange}
           placeholder={placeholder}
@@ -185,7 +222,7 @@ export function Autocomplete({
         onClose={() => setIsDropdownOpen(false)}
         highlightedIndex={highlightedIndex}
         setHighlightedIndex={setHighlightedIndex}
-        inputRef={inputRef}
+        inputRef={inputWrapperRef}
       />
     </div>
   );

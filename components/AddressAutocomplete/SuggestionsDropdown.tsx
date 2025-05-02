@@ -23,7 +23,7 @@ export interface SuggestionsDropdownProps {
   /** Callback to set the highlighted index */
   setHighlightedIndex: (index: number) => void;
   /** Input reference for positioning */
-  inputRef: React.RefObject<HTMLInputElement>;
+  inputRef: React.RefObject<HTMLDivElement>;
   /** No results message */
   noResultsMessage?: string;
   /** Loading message */
@@ -33,7 +33,7 @@ export interface SuggestionsDropdownProps {
 }
 
 /**
- * Dropdown component for displaying address suggestions
+ * Component that displays address suggestions in a dropdown
  */
 export function SuggestionsDropdown({
   suggestions,
@@ -92,7 +92,7 @@ export function SuggestionsDropdown({
   useEffect(() => {
     if (isOpen && highlightedIndex >= 0 && dropdownRef.current) {
       const highlighted = dropdownRef.current.querySelector(`[data-index="${highlightedIndex}"]`);
-      if (highlighted) {
+      if (highlighted instanceof HTMLElement) {
         highlighted.scrollIntoView({ block: 'nearest' });
       }
     }
@@ -109,6 +109,7 @@ export function SuggestionsDropdown({
       ref={dropdownRef}
       role="listbox"
       aria-label="Address suggestions"
+      id="address-suggestions-list"
     >
       {isLoading ? (
         <div className={styles.message}>{loadingMessage}</div>
@@ -126,6 +127,7 @@ export function SuggestionsDropdown({
               aria-selected={index === highlightedIndex}
               data-index={index}
               tabIndex={-1}
+              id={`address-suggestion-${index}`}
             >
               {formatAddressForDisplay(address)}
             </li>

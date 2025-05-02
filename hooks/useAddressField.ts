@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { FormattedAddress } from '@/components/AddressAutocomplete/AddressSelectionManager';
 import { AddressResult } from '@/lib/address/geoapifyResponseHandler';
 
@@ -14,6 +14,8 @@ export interface UseAddressFieldProps {
   onAddressChange?: (address: FormattedAddress | null) => void;
   /** Whether the field is required for validation */
   required?: boolean;
+  /** Default country code */
+  defaultCountryCode?: 'gb' | 'pl';
 }
 
 /**
@@ -23,11 +25,13 @@ export function useAddressField({
   initialAddress = null,
   onAddressChange,
   required = false,
+  defaultCountryCode = 'gb',
 }: UseAddressFieldProps = {}) {
   // State for address and validation
   const [address, setAddress] = useState<FormattedAddress | null>(initialAddress);
   const [isValid, setIsValid] = useState(!required || !!initialAddress);
   const [isTouched, setIsTouched] = useState(false);
+  const [countryCode, setCountryCode] = useState<'gb' | 'pl'>(defaultCountryCode);
   
   /**
    * Handle address change
@@ -36,7 +40,7 @@ export function useAddressField({
     setAddress(newAddress);
     setIsValid(!required || !!newAddress);
     
-    if (isTouched) {
+    if (!isTouched) {
       setIsTouched(true);
     }
     
@@ -44,6 +48,21 @@ export function useAddressField({
       onAddressChange(newAddress);
     }
   }, [onAddressChange, required, isTouched]);
+  
+  /**
+   * Handle country code change
+   */
+  const handleCountryChange = useCallback((newCountryCode: 'gb' | 'pl') => {
+    setCountryCode(newCountryCode);
+    
+    // Clear address when country changes
+    setAddress(null);
+    setIsValid(!required);
+    
+    if (onAddressChange) {
+      onAddressChange(null);
+    }
+  }, [required, onAddressChange]);
   
   /**
    * Handle field blur
@@ -92,15 +111,29 @@ export function useAddressField({
     return null;
   }, [address, required]);
   
+  // Update validation when initialAddress or required changes
+  useEffect(() => {
+    setIsValid(!required || !!initialAddress);
+  }, [initialAddress, required]);
+  
+  // Update address when initialAddress changes
+  useEffect(() => {
+    if (initialAddress !== address) {
+      setAddress(initialAddress);
+    }
+  }, [initialAddress]);
+  
   return {
     // State
     address,
     setAddress,
     isValid,
     isTouched,
+    countryCode,
     
     // Handlers
     handleAddressChange,
+    handleCountryChange,
     handleBlur,
     resetField,
     validate,
@@ -117,12 +150,19 @@ export function useAddressField({
     country: address?.country || '',
     coordinates: address?.coordinates,
     
-    // Form field object (compatible with React Hook Form)
-    field: {
+    // Form field objects (compatible with React Hook Form and similar libraries)
+    addressField: {
       value: address,
       onChange: handleAddressChange,
       onBlur: handleBlur,
     },
+    countryField: {
+      value: countryCode,
+      onChange: handleCountryChange,
+    },
+    
+    // Error state
+    error: isTouched && required && !address ? 'Please select an address' : null,
   };
 }
 

@@ -1,29 +1,12 @@
 'use client';
 
-import React, { useState, ChangeEvent } from 'react';
-import { AddressResult } from '@/lib/address/geoapifyResponseHandler';
+import React, { useState } from 'react';
 import { Autocomplete } from './Autocomplete';
+import { AddressResult } from '@/lib/address/geoapifyResponseHandler';
+import styles from './AddressSelectionManager.module.css';
 
 /**
- * Props for the AddressSelectionManager component
- */
-export interface AddressSelectionManagerProps {
-  /** Initial address to populate the component with */
-  initialAddress?: AddressResult | null;
-  /** Callback when selected address changes */
-  onAddressChange?: (address: AddressResult | null) => void;
-  /** Optional country code to restrict results (gb or pl) */
-  countryCode?: 'gb' | 'pl';
-  /** Placeholder text for the input */
-  placeholder?: string;
-  /** Additional CSS class names */
-  className?: string;
-  /** Disabled state */
-  disabled?: boolean;
-}
-
-/**
- * Interface for address data ready for form submission
+ * Interface for a formatted address ready for form submission
  */
 export interface FormattedAddress {
   streetAddress: string;
@@ -39,60 +22,46 @@ export interface FormattedAddress {
 }
 
 /**
- * Component for managing the selection of an address
+ * Props for the AddressSelectionManager component
+ */
+export interface AddressSelectionManagerProps {
+  /** Initial address to populate the component with */
+  initialAddress?: AddressResult | null;
+  /** Callback when selected address changes */
+  onAddressChange?: (address: FormattedAddress | null) => void;
+  /** Country code to restrict results (gb or pl) */
+  countryCode?: 'gb' | 'pl';
+  /** Placeholder text for the input */
+  placeholder?: string;
+  /** Additional CSS class names */
+  className?: string;
+  /** Disabled state */
+  disabled?: boolean;
+  /** Label for the clear button */
+  clearButtonLabel?: string;
+  /** Selected address prefix label */
+  selectedAddressLabel?: string;
+}
+
+/**
+ * Component that manages the selection of an address
  */
 export function AddressSelectionManager({
   initialAddress = null,
   onAddressChange,
-  countryCode,
+  countryCode = 'gb',
   placeholder = 'Enter an address',
   className = '',
   disabled = false,
+  clearButtonLabel = 'Clear',
+  selectedAddressLabel = 'Selected:',
 }: AddressSelectionManagerProps) {
   // State for input value and selected address
   const [inputValue, setInputValue] = useState(initialAddress?.formattedAddress || '');
   const [selectedAddress, setSelectedAddress] = useState<AddressResult | null>(initialAddress);
   
   /**
-   * Handle input change
-   */
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setInputValue(value);
-    
-    // If input is cleared, also clear the selected address
-    if (!value) {
-      clearSelectedAddress();
-    }
-  };
-  
-  /**
-   * Handle address selection
-   */
-  const handleAddressSelect = (address: AddressResult) => {
-    setSelectedAddress(address);
-    setInputValue(address.formattedAddress || '');
-    
-    // Notify parent component if callback provided
-    if (onAddressChange) {
-      onAddressChange(address);
-    }
-  };
-  
-  /**
-   * Clear selected address
-   */
-  const clearSelectedAddress = () => {
-    setSelectedAddress(null);
-    
-    // Notify parent component if callback provided
-    if (onAddressChange) {
-      onAddressChange(null);
-    }
-  };
-  
-  /**
-   * Format selected address for form submission
+   * Format the selected address for form submission
    */
   const getFormattedAddress = (): FormattedAddress | null => {
     if (!selectedAddress) return null;
@@ -101,7 +70,7 @@ export function AddressSelectionManager({
       streetAddress: selectedAddress.streetAddress || '',
       city: selectedAddress.city || '',
       state: selectedAddress.state || '',
-      postalCode: selectedAddress.postalCode,
+      postalCode: selectedAddress.postalCode || '',
       country: selectedAddress.country || '',
       formattedAddress: selectedAddress.formattedAddress || '',
       coordinates: selectedAddress.coordinates ? {
@@ -111,33 +80,81 @@ export function AddressSelectionManager({
     };
   };
   
+  /**
+   * Handle input value changes
+   */
+  const handleInputChange = (value: string) => {
+    setInputValue(value);
+    
+    // If the input is cleared, also clear the selected address
+    if (!value) {
+      clearSelectedAddress();
+    }
+  };
+  
+  /**
+   * Handle address selection from autocomplete
+   */
+  const handleAddressSelect = (address: AddressResult) => {
+    setSelectedAddress(address);
+    setInputValue(address.formattedAddress || '');
+    
+    // Notify parent component if callback provided
+    if (onAddressChange) {
+      const formattedAddress = {
+        streetAddress: address.streetAddress || '',
+        city: address.city || '',
+        state: address.state || '',
+        postalCode: address.postalCode || '',
+        country: address.country || '',
+        formattedAddress: address.formattedAddress || '',
+        coordinates: address.coordinates ? {
+          latitude: address.coordinates.latitude,
+          longitude: address.coordinates.longitude
+        } : undefined,
+      };
+      
+      onAddressChange(formattedAddress);
+    }
+  };
+  
+  /**
+   * Clear the selected address
+   */
+  const clearSelectedAddress = () => {
+    setSelectedAddress(null);
+    setInputValue('');
+    
+    // Notify parent component if callback provided
+    if (onAddressChange) {
+      onAddressChange(null);
+    }
+  };
+  
   return (
-    <div className="address-selection-manager">
+    <div className={`${styles.container} ${className}`}>
       <Autocomplete
         value={inputValue}
         onChange={handleInputChange}
         onAddressSelect={handleAddressSelect}
         placeholder={placeholder}
         countryCode={countryCode}
-        className={className}
         disabled={disabled}
       />
       
       {selectedAddress && (
-        <div className="mt-2 flex items-center">
-          <span className="text-sm text-gray-700 mr-2">
-            Selected: {selectedAddress.formattedAddress || 'Address selected'}
+        <div className={styles.selectedAddressContainer}>
+          <span className={styles.selectedAddressLabel}>
+            {selectedAddressLabel} {selectedAddress.formattedAddress || 'Address selected'}
           </span>
           <button
             type="button"
-            onClick={() => {
-              setInputValue('');
-              clearSelectedAddress();
-            }}
-            className="text-xs text-gray-500 hover:text-gray-700"
+            onClick={clearSelectedAddress}
+            className={styles.clearButton}
             disabled={disabled}
+            aria-label="Clear selected address"
           >
-            Clear
+            {clearButtonLabel}
           </button>
         </div>
       )}
