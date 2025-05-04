@@ -1,10 +1,16 @@
-'use client';
+"use client";
 
-import React, { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from 'react';
-import { AutocompleteInput } from './AutocompleteInput';
-import SuggestionsDropdown from './SuggestionsDropdown';
-import { AddressResult } from '@/lib/address/geoapifyResponseHandler';
-import styles from './Autocomplete.module.css';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  ChangeEvent,
+  KeyboardEvent,
+} from "react";
+import { AutocompleteInput } from "./AutocompleteInput";
+import SuggestionsDropdown from "./SuggestionsDropdown";
+import { AddressResult } from "@/lib/address/geoapifyResponseHandler";
+import styles from "./Autocomplete.module.css";
 
 /**
  * Props for the Autocomplete component
@@ -19,7 +25,7 @@ export interface AutocompleteProps {
   /** Placeholder text for the input */
   placeholder?: string;
   /** Optional country code to restrict results (gb or pl) */
-  countryCode?: 'gb' | 'pl';
+  countryCode?: "gb" | "pl";
   /** Debounce delay in milliseconds */
   debounceMs?: number;
   /** Minimum length before triggering suggestions */
@@ -45,29 +51,29 @@ export function Autocomplete({
   countryCode,
   debounceMs,
   minLength,
-  className = '',
+  className = "",
   disabled = false,
   id,
   ariaLabel,
 }: AutocompleteProps) {
   // State for suggestions
   const [suggestions, setSuggestions] = useState<AddressResult[]>([]);
-  
+
   // State for dropdown visibility
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  
+
   // State for loading status
   const [isLoading, setIsLoading] = useState(false);
-  
+
   // State for keyboard navigation
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  
+
   // Reference to the input wrapper
   const inputWrapperRef = useRef<HTMLDivElement>(null);
-  
+
   // Container ref for the component
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   /**
    * Handle suggestions received from API
    */
@@ -76,14 +82,14 @@ export function Autocomplete({
     setIsDropdownOpen(newSuggestions.length > 0);
     setHighlightedIndex(-1);
   };
-  
+
   /**
    * Handle address selection from dropdown
    */
   const handleAddressSelect = (address: AddressResult) => {
     // Call the parent component's handler
     onAddressSelect(address);
-    
+
     // Update the input value to the selected address
     if (address.formattedAddress) {
       onChange(address.formattedAddress);
@@ -93,111 +99,118 @@ export function Autocomplete({
         address.city,
         address.state,
         address.postalCode,
-        address.country
-      ].filter(Boolean).join(', ');
+        address.country,
+      ]
+        .filter(Boolean)
+        .join(", ");
       onChange(formattedAddress);
     }
-    
+
     // Close the dropdown
     setIsDropdownOpen(false);
   };
-  
+
   /**
    * Handle input value changes
    */
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
     onChange(newValue);
-    
+
     // If the input is cleared, also clear suggestions
     if (!newValue.trim()) {
       setSuggestions([]);
       setIsDropdownOpen(false);
     }
   };
-  
+
   /**
    * Handle loading state changes
    */
   const handleLoadingChange = (loading: boolean) => {
     setIsLoading(loading);
   };
-  
+
   /**
    * Handle keyboard navigation
    */
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (!isDropdownOpen) return;
-    
+
     switch (event.key) {
-      case 'ArrowDown':
+      case "ArrowDown":
         event.preventDefault();
-        setHighlightedIndex(prev => 
+        setHighlightedIndex((prev) =>
           prev < suggestions.length - 1 ? prev + 1 : prev
         );
         break;
-        
-      case 'ArrowUp':
+
+      case "ArrowUp":
         event.preventDefault();
-        setHighlightedIndex(prev => (prev > 0 ? prev - 1 : 0));
+        setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : 0));
         break;
-        
-      case 'Enter':
+
+      case "Enter":
         event.preventDefault();
         if (highlightedIndex >= 0 && highlightedIndex < suggestions.length) {
           handleAddressSelect(suggestions[highlightedIndex]);
         }
         break;
-        
-      case 'Escape':
+
+      case "Escape":
         event.preventDefault();
         setIsDropdownOpen(false);
         break;
-        
+
       default:
         break;
     }
   };
-  
+
   /**
    * Reset highlighted index when suggestions change
    */
   useEffect(() => {
     setHighlightedIndex(-1);
   }, [suggestions]);
-  
+
   /**
    * Update ARIA attributes for accessibility
    */
   useEffect(() => {
     // Find the input element
-    const inputElement = inputWrapperRef.current?.querySelector('input');
-    
+    const inputElement = inputWrapperRef.current?.querySelector("input");
+
     if (inputElement) {
       // Set ARIA attributes based on dropdown state
       if (isDropdownOpen) {
-        inputElement.setAttribute('aria-expanded', 'true');
-        inputElement.setAttribute('aria-controls', 'address-suggestions-list');
+        inputElement.setAttribute("aria-expanded", "true");
+        inputElement.setAttribute("aria-controls", "address-suggestions-list");
       } else {
-        inputElement.setAttribute('aria-expanded', 'false');
-        inputElement.removeAttribute('aria-controls');
+        inputElement.setAttribute("aria-expanded", "false");
+        inputElement.removeAttribute("aria-controls");
       }
-      
+
       // Set active descendant for keyboard navigation
       if (isDropdownOpen && highlightedIndex >= 0) {
-        inputElement.setAttribute('aria-activedescendant', `address-suggestion-${highlightedIndex}`);
+        inputElement.setAttribute(
+          "aria-activedescendant",
+          `address-suggestion-${highlightedIndex}`
+        );
       } else {
-        inputElement.removeAttribute('aria-activedescendant');
+        inputElement.removeAttribute("aria-activedescendant");
       }
     }
   }, [isDropdownOpen, highlightedIndex]);
-  
+
   return (
-    <div 
+    <div
       className={`${styles.container} ${className}`}
       ref={containerRef}
       onKeyDown={handleKeyDown}
     >
+      <h1 className="text-xl border rounded-md p-4 mb-6">Address</h1>
+
       <div className={styles.inputWrapper} ref={inputWrapperRef}>
         <AutocompleteInput
           value={value}
@@ -213,7 +226,7 @@ export function Autocomplete({
           ariaLabel={ariaLabel}
         />
       </div>
-      
+
       <SuggestionsDropdown
         suggestions={suggestions}
         isOpen={isDropdownOpen}

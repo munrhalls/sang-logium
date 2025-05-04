@@ -235,20 +235,6 @@ export default function UserProfilePage() {
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-      <Autocomplete
-        value={inputValue}
-        onChange={setInputValue} // Use setState directly if component passes string value
-        onAddressSelect={handleAddressSelect}
-        placeholder="Enter an address (GB or PL)"
-        countryCode="gb"
-      />
-      {selectedAddress && (
-        <div className="mt-2 p-2 border rounded bg-gray-50">
-          <h4 className="text-sm font-medium">Selected Address:</h4>
-          <p>{selectedAddress.formattedAddress}</p>
-        </div>
-      )}
-
       <ProfileHeader user={user} />
 
       {globalError && (
@@ -261,6 +247,22 @@ export default function UserProfilePage() {
       {/* Clerk Account Management Section */}
       <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
         <ClerkAccountManager />
+      </div>
+
+      <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
+        <Autocomplete
+          value={inputValue}
+          onChange={setInputValue} // Use setState directly if component passes string value
+          onAddressSelect={handleAddressSelect}
+          placeholder="Enter an address (GB or PL)"
+          countryCode="gb"
+        />
+        {selectedAddress && (
+          <div className="mt-2 p-2 border rounded bg-gray-50">
+            <h4 className="text-sm font-medium">Selected Address:</h4>
+            <p>{selectedAddress.formattedAddress}</p>
+          </div>
+        )}
       </div>
 
       <div className="bg-white shadow-sm rounded-lg p-6 mb-6"></div>

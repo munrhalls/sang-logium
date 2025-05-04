@@ -110,7 +110,7 @@ export default function PreferencesSection({
   return (
     <div className="border rounded-md p-4 mb-6">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-medium">Preferences</h3>
+        <h3 className="text-xl font-medium">Preferences</h3>
 
         <div className="flex space-x-2">
           {hasPendingChanges && (
