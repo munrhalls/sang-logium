@@ -278,6 +278,25 @@ export default function UserProfilePage() {
     }
   };
 
+  const onStreetSelect = (place) => {
+    if (place) {
+      setSelectedAddress(place);
+
+      if (place.street) {
+        handleUpdateAddressField("street", place.street);
+      }
+
+      if (place.housenumber) {
+        handleUpdateAddressField("houseNumber", place.housenumber);
+      }
+
+      // You might also want to update postal code if available
+      if (place.postcode) {
+        handleUpdateAddressField("postalCode", place.postcode);
+      }
+    }
+  };
+
   const onSuggestionChange = (suggestions) => {
     setSuggestions(suggestions || []);
   };
@@ -303,6 +322,14 @@ export default function UserProfilePage() {
             placeholder="Enter city name"
             type="city"
             placeSelect={onPlaceSelect}
+            suggestionsChange={onSuggestionChange}
+            filterByCountryCode={["gb"]}
+            biasByLocation={{ lat: 51.5074, lon: -0.1278 }}
+          />
+          <GeoapifyGeocoderAutocomplete
+            placeholder="Enter street address"
+            type="street"
+            placeSelect={onStreetSelect}
             suggestionsChange={onSuggestionChange}
             filterByCountryCode={["gb"]}
             biasByLocation={{ lat: 51.5074, lon: -0.1278 }}
