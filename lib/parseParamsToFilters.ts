@@ -1,7 +1,6 @@
 export default function parseParamsToFilters(searchParams: URLSearchParams) {
   const parsedFilters: { [key: string]: string | number | boolean | object } =
     {};
-
   for (const [key, value] of searchParams.entries()) {
     try {
       if (
@@ -17,10 +16,8 @@ export default function parseParamsToFilters(searchParams: URLSearchParams) {
         parsedFilters[key] = value;
       }
     } catch {
-      // If parsing fails, use original value
       parsedFilters[key] = value;
     }
   }
-
   return parsedFilters;
 }

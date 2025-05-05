@@ -1,18 +1,10 @@
 'use client';
-
 import React, { useState, FormEvent } from 'react';
 import { AddressFormField } from './AddressFormField';
 import { useAddressField } from '@/hooks/useAddressField';
 import { FormattedAddress } from './AddressSelectionManager';
-
-/**
- * Example component demonstrating form integration with AddressFormField and useAddressField
- */
 export function FormExample() {
-  // Example 1: Direct component usage
   const [shippingAddress, setShippingAddress] = useState<FormattedAddress | null>(null);
-  
-  // Example 2: Using the useAddressField hook
   const {
     address: billingAddress,
     handleAddressChange: handleBillingAddressChange,
@@ -24,35 +16,25 @@ export function FormExample() {
   } = useAddressField({
     required: true
   });
-  
-  // Form submission handler
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    
-    // Validate form fields
     if (!shippingAddress) {
       alert('Please select a shipping address');
       return;
     }
-    
     if (!isBillingAddressValid) {
       alert('Please select a valid billing address');
       return;
     }
-    
-    // If valid, log the form data
     console.log('Form submitted with:', {
       shippingAddress,
       billingAddress
     });
-    
     alert('Form submitted successfully!');
   };
-  
   return (
     <div style={{ maxWidth: '600px', padding: '20px' }}>
       <h2>Address Form Example</h2>
-      
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '20px' }}>
           <h3>Example 1: Direct Component Usage</h3>
@@ -64,7 +46,6 @@ export function FormExample() {
             placeholder="Enter shipping address"
           />
         </div>
-        
         <div style={{ marginBottom: '20px' }}>
           <h3>Example 2: Using useAddressField Hook</h3>
           <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>
@@ -86,7 +67,6 @@ export function FormExample() {
             <option value="gb">United Kingdom</option>
             <option value="pl">Poland</option>
           </select>
-          
           <AddressFormField
             label="Billing Address"
             initialAddress={convertToAddressResult(billingAddress)}
@@ -97,7 +77,6 @@ export function FormExample() {
             error={billingAddressError || undefined}
           />
         </div>
-        
         <button 
           type="submit"
           style={{
@@ -113,7 +92,6 @@ export function FormExample() {
           Submit Form
         </button>
       </form>
-      
       <div style={{ marginTop: '30px' }}>
         <h3>Form Values Preview:</h3>
         <div style={{ 
@@ -125,7 +103,6 @@ export function FormExample() {
           <pre style={{ overflowX: 'auto' }}>
             {JSON.stringify(shippingAddress, null, 2) || 'Not selected'}
           </pre>
-          
           <h4>Billing Address:</h4>
           <pre style={{ overflowX: 'auto' }}>
             {JSON.stringify(billingAddress, null, 2) || 'Not selected'}
@@ -135,5 +112,4 @@ export function FormExample() {
     </div>
   );
 }
-
 export default FormExample;

@@ -34,6 +34,8 @@
   "dependencies": {
     "@clerk/nextjs": "^6.16.0",
     "@eslint/eslintrc": "^3.2.0",
+    "@geoapify/geocoder-autocomplete": "^2.1.0",
+    "@geoapify/react-geocoder-autocomplete": "^2.0.1",
     "@heroicons/react": "^2.2.0",
     "@next/eslint-plugin-next": "^15.1.6",
     "@radix-ui/react-dialog": "^1.1.2",

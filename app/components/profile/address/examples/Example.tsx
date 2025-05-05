@@ -1,23 +1,15 @@
 'use client';
-
 import React, { useState } from 'react';
 import { AddressSelectionManager, FormattedAddress } from './AddressSelectionManager';
-
-/**
- * Example component demonstrating how to use the AddressSelectionManager
- */
 export function AddressSelectionExample() {
   const [selectedAddress, setSelectedAddress] = useState<FormattedAddress | null>(null);
-  
   const handleAddressChange = (address: FormattedAddress | null) => {
     setSelectedAddress(address);
     console.log('Address changed:', address);
   };
-  
   return (
     <div style={{ maxWidth: '500px', padding: '20px' }}>
       <h2>Address Selection Example</h2>
-      
       <div style={{ marginBottom: '20px' }}>
         <AddressSelectionManager
           onAddressChange={handleAddressChange}
@@ -25,7 +17,6 @@ export function AddressSelectionExample() {
           placeholder="Enter your address"
         />
       </div>
-      
       {selectedAddress && (
         <div style={{ marginTop: '20px' }}>
           <h3>Selected Address Details:</h3>
@@ -42,5 +33,4 @@ export function AddressSelectionExample() {
     </div>
   );
 }
-
 export default AddressSelectionExample;

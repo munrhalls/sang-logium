@@ -1,6 +1,5 @@
 export function suppressSpamDevelopmentKeysClerkWarning() {
   if (typeof window === "undefined") return;
-
   const originalWarn = console.warn;
   console.warn = (...args) => {
     if (

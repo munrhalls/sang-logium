@@ -1,5 +1,5 @@
 "use client";
-
+import "@geoapify/geocoder-autocomplete/styles/minimal.css";
 import { useUserProfile } from "@/app/hooks/useUserProfile";
 import { useEffect, useState } from "react";
 import {
@@ -15,13 +15,50 @@ import ProfileHeader from "./ProfileHeader";
 import PreferencesSection from "./PreferencesSection";
 import { ClerkAccountManager } from "../features/auth/ClerkAccountManager";
 import { useClerk } from "@clerk/nextjs";
+import React from "react";
+
 import {
-  isGeoapifyApiKeyConfigured,
-  getGeoapifyApiKey,
-} from "@/lib/address/geoapifyEnv";
-// Inside your UserProfilePage component, add these imports at the top
-import AutocompleteInput from "@/components/AddressAutocomplete/AutocompleteInput";
-import Autocomplete from "@/components/AddressAutocomplete/Autocomplete";
+  GeoapifyGeocoderAutocomplete as OriginalAutocomplete,
+  GeoapifyContext as OriginalContext,
+} from "@geoapify/react-geocoder-autocomplete";
+
+const originalConsoleWarn = console.warn;
+console.warn = function (message) {
+  if (
+    message &&
+    (message.includes("'position' input has been deprecated") ||
+      message.includes("'countryCodes' input has been deprecated") ||
+      message.includes("'biasByProximity' input has been deprecated"))
+  ) {
+    return;
+  }
+  originalConsoleWarn.apply(console, arguments);
+};
+
+const GeoapifyGeocoderAutocomplete = (props) => {
+  const updatedProps = { ...props };
+
+  if (updatedProps.position) {
+    updatedProps.biasByLocation = updatedProps.position;
+    delete updatedProps.position;
+  }
+
+  if (updatedProps.biasByProximity) {
+    updatedProps.biasByLocation = updatedProps.biasByProximity;
+    delete updatedProps.biasByProximity;
+  }
+
+  if (updatedProps.countryCodes) {
+    updatedProps.filterByCountryCode = updatedProps.countryCodes;
+    delete updatedProps.countryCodes;
+  }
+
+  return <OriginalAutocomplete {...updatedProps} />;
+};
+
+const GeoapifyContext = (props) => {
+  return <OriginalContext {...props} />;
+};
 
 export default function UserProfilePage() {
   const { profile, isLoading, error, isAuthenticated, user } = useUserProfile();
@@ -39,7 +76,6 @@ export default function UserProfilePage() {
     }
   }, [profile]);
 
-  // Reset error when profile data changes
   useEffect(() => {
     if (globalError) {
       setGlobalError(null);
@@ -122,7 +158,6 @@ export default function UserProfilePage() {
       });
 
       if (result.success) {
-        // Update local state
         setProfileData((prev) => {
           if (!prev) return prev;
           return {
@@ -137,13 +172,11 @@ export default function UserProfilePage() {
       setGlobalError(
         err instanceof Error ? err.message : "Failed to update profile"
       );
-      throw err; // Re-throw for component-level error handling
+      throw err;
     }
   };
   const handleAddressSelect = (address) => {
     setSelectedAddress(address);
-    // You could also call handleUpdateAddressField here to save to your backend
-    // e.g., for each relevant field in the address object
   };
 
   const handleUpdateAddressField = async (
@@ -162,7 +195,6 @@ export default function UserProfilePage() {
       });
 
       if (result.success) {
-        // Update local state
         setProfileData((prev) => {
           if (!prev) return prev;
           return {
@@ -180,7 +212,7 @@ export default function UserProfilePage() {
       setGlobalError(
         err instanceof Error ? err.message : "Failed to update address"
       );
-      throw err; // Re-throw for component-level error handling
+      throw err;
     }
   };
 
@@ -200,7 +232,6 @@ export default function UserProfilePage() {
       });
 
       if (result.success) {
-        // Update local state
         setProfileData((prev) => {
           if (!prev || !prev.preferences) return prev;
           return {
@@ -218,19 +249,37 @@ export default function UserProfilePage() {
       setGlobalError(
         err instanceof Error ? err.message : "Failed to update preference"
       );
-      throw err; // Re-throw for component-level error handling
+      throw err;
     }
   };
 
   const handleInputChange = (event) => {
-    // Extract the value from the event object
     setInputValue(event.target.value);
   };
 
-  // Keep the handleSuggestions function as is, but make sure it matches the expected signature
   const handleSuggestions = (addressSuggestions) => {
     setSuggestions(addressSuggestions || []);
-    // Note: isLoading is managed by the AutocompleteInput component internally now
+  };
+
+  const onPlaceSelect = (place) => {
+    if (place) {
+      setSelectedAddress(place);
+
+      if (place.city) {
+        handleUpdateAddressField("city", place.city);
+      }
+
+      if (place.country) {
+        handleUpdateAddressField("country", place.country);
+      }
+      if (place.state) {
+        handleUpdateAddressField("state", place.state);
+      }
+    }
+  };
+
+  const onSuggestionChange = (suggestions) => {
+    setSuggestions(suggestions || []);
   };
 
   return (
@@ -244,25 +293,21 @@ export default function UserProfilePage() {
         </div>
       )}
 
-      {/* Clerk Account Management Section */}
       <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
         <ClerkAccountManager />
       </div>
 
       <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
-        <Autocomplete
-          value={inputValue}
-          onChange={setInputValue} // Use setState directly if component passes string value
-          onAddressSelect={handleAddressSelect}
-          placeholder="Enter an address (GB or PL)"
-          countryCode="gb"
-        />
-        {selectedAddress && (
-          <div className="mt-2 p-2 border rounded bg-gray-50">
-            <h4 className="text-sm font-medium">Selected Address:</h4>
-            <p>{selectedAddress.formattedAddress}</p>
-          </div>
-        )}
+        <GeoapifyContext apiKey={process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY}>
+          <GeoapifyGeocoderAutocomplete
+            placeholder="Enter city name"
+            type="city"
+            placeSelect={onPlaceSelect}
+            suggestionsChange={onSuggestionChange}
+            filterByCountryCode={["gb"]}
+            biasByLocation={{ lat: 51.5074, lon: -0.1278 }}
+          />
+        </GeoapifyContext>
       </div>
 
       <div className="bg-white shadow-sm rounded-lg p-6 mb-6"></div>
