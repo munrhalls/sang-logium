@@ -74,7 +74,6 @@ export function SuggestionsDropdown({
   if (!isOpen) {
     return null;
   }
-  // In SuggestionsDropdown.js/tsx
   return (
     <div
       className={`${styles.dropdown} ${className}`}

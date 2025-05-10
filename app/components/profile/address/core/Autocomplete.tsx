@@ -1,5 +1,4 @@
 "use client";
-
 import React, {
   useState,
   useRef,
@@ -8,7 +7,6 @@ import React, {
   KeyboardEvent,
 } from "react";
 import styles from "./Autocomplete.module.css";
-
 export interface CityResult {
   id: string;
   name: string;
@@ -55,30 +53,20 @@ export function Autocomplete({
     }
     setIsLoading(true);
     try {
-      // Create the URL object with the base endpoint
       const apiUrl = new URL(
-        "https://api.geoapify.com/v1/geocode/autocomplete"
+        "https:
       );
-
-      // Add query parameters
       apiUrl.searchParams.append("text", query);
       apiUrl.searchParams.append("type", "city");
       apiUrl.searchParams.append("format", "json");
-
-      // Add country filter if provided
       if (countryCode) {
         apiUrl.searchParams.append("filter", `countrycode:${countryCode}`);
       }
-
-      // Limit results if needed (optional)
       apiUrl.searchParams.append("limit", "5");
-
-      // Add API key
       apiUrl.searchParams.append(
         "apiKey",
         process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY || ""
       );
-
       const response = await fetch(apiUrl.toString());
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
@@ -120,7 +108,6 @@ export function Autocomplete({
       setIsDropdownOpen(false);
     }
   };
-
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (!isDropdownOpen) return;
     switch (event.key) {
@@ -148,7 +135,6 @@ export function Autocomplete({
         break;
     }
   };
-
   useEffect(() => {
     setHighlightedIndex(-1);
   }, [suggestions]);
@@ -182,7 +168,6 @@ export function Autocomplete({
           }
         />
       </div>
-
       {isDropdownOpen && (
         <ul
           id="city-suggestions-list"

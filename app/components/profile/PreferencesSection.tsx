@@ -1,9 +1,7 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { Preferences } from "@/sanity/lib/profiles/profileTypes";
 import EditableToggle from "./EditableToggle";
-
 interface PreferencesSectionProps {
   preferences: Preferences;
   onTogglePreferenceAction: (
@@ -11,7 +9,6 @@ interface PreferencesSectionProps {
     value: boolean
   ) => Promise<void>;
 }
-
 export default function PreferencesSection({
   preferences,
   onTogglePreferenceAction,
@@ -23,66 +20,48 @@ export default function PreferencesSection({
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saveSuccess, setSaveSuccess] = useState(false);
-
-  // Track pending changes
   useEffect(() => {
     setHasPendingChanges(Object.keys(pendingPreferences).length > 0);
   }, [pendingPreferences]);
-
-  // Set up navigation warning when there are unsaved changes
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (hasPendingChanges) {
-        // Standard browser behavior
         e.preventDefault();
-        // For older browsers
         e.returnValue = "";
         return "";
       }
     };
-
     if (hasPendingChanges) {
       window.addEventListener("beforeunload", handleBeforeUnload);
     }
-
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [hasPendingChanges]);
-
   const handlePreferenceChange = (field: keyof Preferences, value: boolean) => {
     if (value === preferences[field]) {
-      // If toggling back to original value, remove from pending changes
       const newPending = { ...pendingPreferences };
       delete newPending[field];
       setPendingPreferences(newPending);
     } else {
-      // Otherwise add to pending changes
       setPendingPreferences((prev) => ({
         ...prev,
         [field]: value,
       }));
     }
   };
-
   const handleSaveAll = async () => {
     setIsSaving(true);
     setError(null);
-
     try {
-      // Process all pending changes sequentially
       for (const [field, value] of Object.entries(pendingPreferences)) {
         await onTogglePreferenceAction(
           field as keyof Preferences,
           value as boolean
         );
       }
-
-      // Clear pending changes on success
       setPendingPreferences({});
       setSaveSuccess(true);
-
-      // Clear success message after 3 seconds
       setTimeout(() => {
         setSaveSuccess(false);
       }, 3000);
@@ -94,24 +73,19 @@ export default function PreferencesSection({
       setIsSaving(false);
     }
   };
-
   const handleCancelAll = () => {
     setPendingPreferences({});
     setError(null);
   };
-
-  // Define preference fields with their labels
   const preferenceFields: { key: keyof Preferences; label: string }[] = [
     { key: "receiveMarketingEmails", label: "Receive marketing emails" },
     { key: "darkMode", label: "Use dark mode" },
     { key: "savePaymentInfo", label: "Save payment information" },
   ];
-
   return (
     <div className="border rounded-md p-4 mb-6">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-xl font-medium">Preferences</h3>
-
         <div className="flex space-x-2">
           {hasPendingChanges && (
             <button
@@ -135,13 +109,11 @@ export default function PreferencesSection({
           </button>
         </div>
       </div>
-
       {error && (
         <div className="mb-4 p-2 bg-red-50 border border-red-200 rounded-md">
           <p className="text-xs text-red-600">{error}</p>
         </div>
       )}
-
       {saveSuccess && (
         <div className="mb-4 p-2 bg-green-50 border border-green-200 rounded-md">
           <p className="text-xs text-green-600">
@@ -149,17 +121,13 @@ export default function PreferencesSection({
           </p>
         </div>
       )}
-
       <div className={hasPendingChanges ? "p-2 bg-blue-50 rounded-md" : ""}>
         {preferenceFields.map(({ key, label }) => {
-          // Use pending change if available, otherwise use original preference
           const currentValue =
             key in pendingPreferences
               ? (pendingPreferences[key] as boolean)
               : preferences[key];
-
           const isDirty = key in pendingPreferences;
-
           return (
             <div
               key={key}
@@ -175,7 +143,6 @@ export default function PreferencesSection({
           );
         })}
       </div>
-
       {hasPendingChanges && (
         <div className="mt-4 p-2 bg-yellow-50 border border-yellow-200 rounded-md">
           <p className="text-xs text-yellow-700">

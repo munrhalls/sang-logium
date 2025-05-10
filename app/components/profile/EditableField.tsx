@@ -1,12 +1,9 @@
 "use client";
-
 import { useState } from "react";
-
 interface ValidationRule {
   validator: (value: string) => boolean;
   message: string;
 }
-
 interface EditableFieldProps {
   label: string;
   value: string;
@@ -21,7 +18,6 @@ interface EditableFieldProps {
   customValidation?: ValidationRule[];
   onChange?: (value: string) => void;
 }
-
 export default function EditableField({
   label,
   value,
@@ -42,7 +38,6 @@ export default function EditableField({
   const [error, setError] = useState<string | null>(null);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [saveSuccess, setSaveSuccess] = useState(false);
-
   const handleEdit = () => {
     setIsEditing(true);
     setEditValue(value);
@@ -50,87 +45,62 @@ export default function EditableField({
     setValidationErrors([]);
     setSaveSuccess(false);
   };
-
   const handleCancel = () => {
     setIsEditing(false);
     setError(null);
     setValidationErrors([]);
   };
-
   const handleChange = (newValue: string) => {
     setEditValue(newValue);
     if (onChange) {
       onChange(newValue);
     }
-
-    // Clear validation errors when user types
     if (validationErrors.length > 0) {
       setValidationErrors([]);
     }
   };
-
   const validateField = (): boolean => {
     const errors: string[] = [];
-
-    // Check required
     if (required && !editValue.trim()) {
       errors.push(`${label} is required`);
     }
-
-    // Check min length
     if (minLength && editValue.trim().length < minLength) {
       errors.push(`${label} must be at least ${minLength} characters`);
     }
-
-    // Check max length
     if (maxLength && editValue.trim().length > maxLength) {
       errors.push(`${label} cannot exceed ${maxLength} characters`);
     }
-
-    // Check pattern
     if (pattern && !pattern.regex.test(editValue)) {
       errors.push(pattern.message);
     }
-
-    // Check type-specific validations
     if (type === "email" && editValue.trim()) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(editValue)) {
         errors.push("Please enter a valid email address");
       }
     }
-
-    // Check custom validations
     customValidation.forEach((rule) => {
       if (!rule.validator(editValue)) {
         errors.push(rule.message);
       }
     });
-
     setValidationErrors(errors);
     return errors.length === 0;
   };
-
   const handleSave = async () => {
     if (editValue === value) {
       setIsEditing(false);
       return;
     }
-
-    // Validate before saving
     if (!validateField()) {
       return;
     }
-
     setIsLoading(true);
     setError(null);
-
     try {
       await onSaveAction(editValue);
       setIsEditing(false);
       setSaveSuccess(true);
-
-      // Clear success message after 3 seconds
       setTimeout(() => {
         setSaveSuccess(false);
       }, 3000);
@@ -140,7 +110,6 @@ export default function EditableField({
       setIsLoading(false);
     }
   };
-
   return (
     <div className="mb-4">
       <div className="flex justify-between items-center mb-1">
@@ -157,7 +126,6 @@ export default function EditableField({
           </button>
         )}
       </div>
-
       {isEditing ? (
         <div>
           <input
@@ -168,7 +136,6 @@ export default function EditableField({
             disabled={isLoading}
             onBlur={validateField}
           />
-
           {validationErrors.length > 0 && (
             <ul className="mt-1">
               {validationErrors.map((err, index) => (
@@ -178,9 +145,7 @@ export default function EditableField({
               ))}
             </ul>
           )}
-
           {error && <p className="text-xs text-red-600 mt-1">{error}</p>}
-
           <div className="flex justify-end space-x-2 mt-2">
             <button
               onClick={handleCancel}
