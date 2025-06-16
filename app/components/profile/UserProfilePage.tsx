@@ -56,6 +56,7 @@ interface CityData {
   lat: number;
   lon: number;
 }
+// COMPLETE REWRITE
 export default function UserProfilePage() {
   const { profile, isLoading, error, isAuthenticated, user } = useUserProfile();
   const clerk = useClerk();
