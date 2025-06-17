@@ -6,6 +6,18 @@ export interface Address {
   state?: string;
   postalCode?: string;
   country?: string;
+  formattedAddress?: string;
+}
+
+export function formatAddress(address: Address): string {
+  const parts = [
+    address.streetAddress,
+    address.city,
+    address.state,
+    address.postalCode,
+    address.country,
+  ].filter(Boolean);
+  return parts.join(", ");
 }
 
 export interface Preferences {

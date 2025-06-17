@@ -1,0 +1,32 @@
+- Do not write any comments along with the code. Write only code. No comments. Ever. Zero comments whatsoever.
+- Only modify code directly relevant to the specific request. Avoid changing unrelated functionality.
+- Never replace code with placeholders like `// ... rest of the processing ...`. Always include complete code.
+- Break problems into smaller steps. Think through each step separately before implementing.
+- Always provide a complete PLAN with REASONING based on evidence from code and logs before making changes.
+- Explain your OBSERVATIONS clearly, then provide REASONING to identify the exact issue. Add console logs when needed to gather more information.
+
+# Critical Rules (Cursor will follow)
+
+- Always return consistent types (arrays never undefined)
+- Use optional chaining for nested API properties
+- Add try/catch to all API calls
+- Provide fallback values for destructured data
+
+# Quality Guidelines (Cursor may skip under pressure)
+
+- Prefer early returns over nested ifs
+- Test critical service functions
+- Use descriptive variable names
+- Log actual API responses during development before defining interfaces
+- When API calls fail, always check the actual response structure first
+- Never assume API response format - always verify with real data
+
+# Avoid
+
+- Never crash UI on API errors
+- Don't use 'any' for core business logic
+
+# File Organization
+
+- Create new files in appropriate folders (components/, hooks/, services/)
+- Don't put everything in one file
