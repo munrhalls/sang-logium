@@ -13,15 +13,40 @@ export default function AddressForm() {
   const [isLoading, setIsLoading] = useState(false);
   const GEOAPIFY_API_KEY = process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY;
 
-  const validatePostcodeIO = async (postcode: string): Promise<boolean> => {
+  const comparePostcodeToGeoapify = (
+    postcodeData: any,
+    geoapifyData: any
+  ): boolean => {
+    console.log("POSTCODE DATA", postcodeData, "GEO DATA", geoapifyData);
+
     try {
-      const response = await fetch(
-        `https://api.postcodes.io/postcodes/${postcode.replace(/\s/g, "")}`
-      );
-      const data = await response.json();
-      console.log("POSTCODE", data);
-      return data.result === true;
+      const postcodeCoords = {
+        lat: postcodeData.result.latitude,
+        lon: postcodeData.result.longitude,
+      };
+
+      const geoapifyCoords = {
+        lat: geoapifyData.features[0].properties.lat,
+        lon: geoapifyData.features[0].properties.lon,
+      };
+
+      const latDiff = Math.abs(postcodeCoords.lat - geoapifyCoords.lat);
+      const lonDiff = Math.abs(postcodeCoords.lon - geoapifyCoords.lon);
+
+      const tolerance = 0.0005;
+      const isMatch = latDiff <= tolerance && lonDiff <= tolerance;
+
+      console.log("Coordinate comparison:", {
+        postcodeCoords,
+        geoapifyCoords,
+        latDiff,
+        lonDiff,
+        isMatch,
+      });
+
+      return isMatch;
     } catch (error) {
+      console.error("Error comparing coordinates:", error);
       return false;
     }
   };
@@ -32,50 +57,75 @@ export default function AddressForm() {
     const feature = data.features[0];
     const rank = feature.properties?.rank;
 
-    if (!rank) return false;
-    if (rank.confidence < 0.98) return false;
-    if (rank.confidence_building_level !== 1) return false;
+    if (
+      !rank ||
+      rank.confidence < 0.98 ||
+      rank.confidence_city_level < 0.98 ||
+      rank.confidence_street_level < 0.98 ||
+      rank.confidence_building_level !== 1
+    )
+      return false;
 
     return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!GEOAPIFY_API_KEY) {
+      setMessage(
+        "Error verifying address due to server downtime. Please try again later."
+      );
+      console.error("API key in AddressForm.tsx not configured!");
+      return;
+    }
+
     setIsLoading(true);
     setMessage("");
 
     try {
-      const geoapifyResponse = await fetch(
-        `https://api.geoapify.com/v1/geocode/search?` +
-          `housenumber=${encodeURIComponent(form.houseNumber)}&` +
-          `street=${encodeURIComponent(form.street)}&` +
-          `city=${encodeURIComponent(form.city)}&` +
-          `postcode=${encodeURIComponent(form.postcode)}&` +
-          `country=GB&` +
-          `apiKey=${GEOAPIFY_API_KEY}`
-      );
+      const [postcodeResponse, geoapifyResponse] = await Promise.all([
+        fetch(
+          `https://api.postcodes.io/postcodes/${form.postcode.replace(/\s/g, "")}`
+        ),
+        fetch(
+          `https://api.geoapify.com/v1/geocode/search?` +
+            `housenumber=${encodeURIComponent(form.houseNumber)}&` +
+            `street=${encodeURIComponent(form.street)}&` +
+            `city=${encodeURIComponent(form.city)}&` +
+            `postcode=${encodeURIComponent(form.postcode)}&` +
+            `country=GB&` +
+            `apiKey=${GEOAPIFY_API_KEY}`
+        ),
+      ]);
 
       if (!geoapifyResponse.ok) {
-        throw new Error("Failed to verify address");
+        console.error("Geoapify API in AddressForm responds with 401");
+        setMessage("Error verifying address. Please try again.");
+        return;
       }
 
-      const data = await geoapifyResponse.json();
-      console.log("daata", data);
+      const [postcodeData, geoapifyData] = await Promise.all([
+        postcodeResponse.json(),
+        geoapifyResponse.json(),
+      ]);
 
-      const geoapifyValid = validateGeoapifyConfidence(data);
-      const postcodeValid = await validatePostcodeIO(form.postcode, data);
+      const geoapifyValid = validateGeoapifyConfidence(geoapifyData);
+      const postcodeValid =
+        postcodeData.status === 200 && !!postcodeData.result;
+
+      let isLegitimateAddress;
 
       if (geoapifyValid && postcodeValid) {
-        const result = data.features[0];
-        const properties = result.properties;
-        console.log(result);
-        setForm((prev) => ({
-          ...prev,
-          postcode: properties.postcode || prev.postcode,
-          city: properties.city || prev.city,
-          street: properties.street || prev.street,
-        }));
+        isLegitimateAddress = comparePostcodeToGeoapify(
+          postcodeData,
+          geoapifyData
+        );
+      } else {
+        isLegitimateAddress = false;
+      }
 
+      if (isLegitimateAddress) {
         setMessage("Address verified successfully!");
       } else {
         setMessage(
