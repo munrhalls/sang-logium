@@ -13,13 +13,39 @@ export default function AddressForm() {
   const [isLoading, setIsLoading] = useState(false);
   const GEOAPIFY_API_KEY = process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY;
 
+  const validatePostcodeIO = async (postcode: string): Promise<boolean> => {
+    try {
+      const response = await fetch(
+        `https://api.postcodes.io/postcodes/${postcode.replace(/\s/g, "")}`
+      );
+      const data = await response.json();
+      console.log("POSTCODE", data);
+      return data.result === true;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const validateGeoapifyConfidence = (data: any): boolean => {
+    if (!data.features?.length) return false;
+
+    const feature = data.features[0];
+    const rank = feature.properties?.rank;
+
+    if (!rank) return false;
+    if (rank.confidence < 0.98) return false;
+    if (rank.confidence_building_level !== 1) return false;
+
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setMessage("");
 
     try {
-      const response = await fetch(
+      const geoapifyResponse = await fetch(
         `https://api.geoapify.com/v1/geocode/search?` +
           `housenumber=${encodeURIComponent(form.houseNumber)}&` +
           `street=${encodeURIComponent(form.street)}&` +
@@ -29,14 +55,17 @@ export default function AddressForm() {
           `apiKey=${GEOAPIFY_API_KEY}`
       );
 
-      if (!response.ok) {
+      if (!geoapifyResponse.ok) {
         throw new Error("Failed to verify address");
       }
 
-      const data = await response.json();
+      const data = await geoapifyResponse.json();
+      console.log("daata", data);
 
-      if (data.features && data.features.length > 0) {
-        console.log("daata", data);
+      const geoapifyValid = validateGeoapifyConfidence(data);
+      const postcodeValid = await validatePostcodeIO(form.postcode, data);
+
+      if (geoapifyValid && postcodeValid) {
         const result = data.features[0];
         const properties = result.properties;
         console.log(result);
