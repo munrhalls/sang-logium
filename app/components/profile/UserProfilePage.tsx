@@ -5,17 +5,19 @@ import { ClerkAccountManager } from "../features/auth/ClerkAccountManager";
 import AddressForm from "./AddressForm";
 import { useErrorHandler } from "./hooks/useErrorHandler";
 import { useProfileData } from "./hooks/useProfileData";
-import { formatAddress } from "@/sanity/lib/profiles/profileTypes";
 
 export default function UserProfilePage() {
-  const { profile, isLoading, error, isAuthenticated, user, updateAddress } =
-    useProfileData();
+  const { profile, isLoading, error, isAuthenticated, user } = useProfileData();
   const { error: globalError } = useErrorHandler();
 
   if (isLoading) return <LoadingState />;
   if (error) return <ErrorState error={error} />;
   if (!isAuthenticated || !user) return <AuthRequiredState />;
   if (!profile) return <ProfileNotFoundState />;
+
+  const handleAddressChange = (address: any) => {
+    console.log("Address changed:", address);
+  };
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
@@ -25,12 +27,7 @@ export default function UserProfilePage() {
         <ClerkAccountManager />
       </div>
       <div className="bg-white shadow-sm rounded-lg p-6">
-        <AddressForm
-          address={
-            profile.primaryAddress ? formatAddress(profile.primaryAddress) : ""
-          }
-          onChange={updateAddress}
-        />
+        <AddressForm onAddressChange={handleAddressChange} />
       </div>
     </div>
   );

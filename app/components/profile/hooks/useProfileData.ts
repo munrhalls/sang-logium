@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useUserProfile } from "@/app/hooks/useUserProfile";
 import { UserProfile } from "@/sanity/lib/profiles/profileTypes";
-import { updateNestedProfileFieldAction } from "@/app/actions/userProfileActions";
 import { useErrorHandler } from "./useErrorHandler";
 
 interface UseProfileDataReturn {
@@ -10,7 +9,6 @@ interface UseProfileDataReturn {
   error: Error | null;
   isAuthenticated: boolean;
   user: any; // TODO: Type this properly
-  updateAddress: (address: string) => Promise<void>;
 }
 
 export function useProfileData(): UseProfileDataReturn {
@@ -24,44 +22,11 @@ export function useProfileData(): UseProfileDataReturn {
     }
   }, [profile]);
 
-  const updateAddress = async (address: string) => {
-    if (!user) return;
-
-    try {
-      clearError();
-      const result = await updateNestedProfileFieldAction({
-        clerkId: user.id,
-        parentField: "primaryAddress",
-        field: "formattedAddress",
-        value: address,
-      });
-
-      if (!result.success) {
-        throw new Error(result.message || "Failed to update address");
-      }
-
-      // Update local state
-      setProfileData((prev) => {
-        if (!prev) return prev;
-        return {
-          ...prev,
-          primaryAddress: {
-            ...(prev.primaryAddress || {}),
-            formattedAddress: address,
-          },
-        };
-      });
-    } catch (err) {
-      handleError(err);
-    }
-  };
-
   return {
     profile: profileData,
     isLoading,
     error,
     isAuthenticated,
     user,
-    updateAddress,
   };
 }

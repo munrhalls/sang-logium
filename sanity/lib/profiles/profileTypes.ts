@@ -7,6 +7,8 @@ export interface Address {
   postalCode?: string;
   country?: string;
   formattedAddress?: string;
+  lat?: number;
+  lon?: number;
 }
 
 export function formatAddress(address: Address): string {

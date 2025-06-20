@@ -33,11 +33,11 @@ export default async function RootLayout({
     <html lang="en" className={`${iceland.className} w-full h-full `}>
       <ClerkProvider>
         <body
-          className={`${iceland.variable} font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_1fr_auto] relative`}
+          className={`${iceland.variable} font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_5fr_auto] relative`}
         >
           <Header />
           <CategoriesWrapper />
-          <div className="h-full min-h-0 overflow-hidden relative">
+          <div className="h-full min-h-0 overflow-hidden relative ">
             <MobileDrawersWrapper />
             <div className="h-full min-h-0 overflow-y-auto relative">
               {children}

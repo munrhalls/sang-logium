@@ -5,14 +5,16 @@ const GEOAPIFY_API_URL = "https://api.geoapify.com/v1/geocode/autocomplete";
 
 interface GeoapifyFeature {
   formatted: string;
-  street?: string;
-  housenumber?: string;
-  postcode?: string;
   city?: string;
   state?: string;
+  postcode?: string;
   country?: string;
   lat: number;
   lon: number;
+  result_type: string;
+  address_line1?: string;
+  address_line2?: string;
+  country_code?: string;
 }
 
 interface GeoapifyResponse {
@@ -34,20 +36,26 @@ export async function searchAddresses(query: string): Promise<Address[]> {
     format: "json",
     limit: "5",
     country: "gb",
+    type: "city",
+    filter: "countrycode:gb",
   });
 
   try {
     const response = await fetch(`${GEOAPIFY_API_URL}?${params}`);
     const data: GeoapifyResponse = await response.json();
 
-    return data.results.map((feature) => ({
-      streetAddress: feature.street ?? "",
-      city: feature.city ?? "",
-      state: feature.state ?? "",
-      postalCode: feature.postcode ?? "",
-      country: feature.country ?? "",
-      formattedAddress: feature.formatted,
-    }));
+    return data.results
+      .filter((feature) => feature.country_code === "gb")
+      .map((feature) => ({
+        streetAddress: feature.address_line1 ?? "",
+        city: feature.city ?? "",
+        state: feature.state ?? "",
+        postalCode: feature.postcode ?? "",
+        country: feature.country ?? "",
+        formattedAddress: feature.formatted,
+        lat: feature.lat,
+        lon: feature.lon,
+      }));
   } catch (error) {
     console.error("Error searching addresses:", error);
     throw new Error("Failed to search addresses");
