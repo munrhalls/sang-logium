@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import AddressForm from "../AddressForm";
-import { commonlyWrongAddresses } from "./AddressForm.mocks";
+import { commonlyWrongAddresses } from "../__mocks__/AddressForm.mocks";
 
 process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY = "test-api-key";
 

@@ -20,6 +20,7 @@
     "seed": "ts-node --esm seedCategories.ts",
     "typegen": "npx -y sanity@latest schema extract && npx -y  sanity@latest typegen generate",
     "test": "jest",
+    "test:api": "CONFIRM_API_TESTS=true jest",
     "test:watch": "jest --watch",
     "ts-check": "tsc --noEmit --pretty",
     "ts-check:watch": "tsc --noEmit --watch",

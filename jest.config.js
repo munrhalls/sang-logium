@@ -1,4 +1,10 @@
 import nextJest from "next/jest.js";
+import dotenv from "dotenv";
+
+dotenv.config({
+  path: "__tests__/.env.local",
+});
+
 const createJestConfig = nextJest({
   dir: "./",
 });

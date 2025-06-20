@@ -1,11 +1,12 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import AddressForm from "../AddressForm";
-import { completelyIncorrectAddresses } from "./AddressForm.mocks";
+import { completelyIncorrectAddresses } from "../__mocks__/AddressForm.mocks";
 
 const TEST_COUNT = 1;
 
 describe("Completely Wrong Addresses (Real API)", () => {
+  console.log(process.env.CONFIRM_API_TESTS);
   beforeAll(() => {
     if (!process.env.CONFIRM_API_TESTS) {
       throw new Error("Set CONFIRM_API_TESTS=true to run real API tests");

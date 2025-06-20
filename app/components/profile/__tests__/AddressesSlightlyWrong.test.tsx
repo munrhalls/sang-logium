@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import AddressForm from "../AddressForm";
-import { slightlyIncorrectAddresses } from "./AddressForm.mocks";
+import { slightlyIncorrectAddresses } from "../__mocks__/AddressForm.mocks";
 
 const TEST_COUNT = 3;
 
