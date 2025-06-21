@@ -2,10 +2,10 @@ import { useState } from "react";
 
 export default function AddressForm() {
   const [form, setForm] = useState({
-    postcode: "NW1 6XE",
+    postcode: "SW1A 1AA",
     city: "London",
-    street: "Baker Street",
-    houseNumber: "221B",
+    street: "Buckingham Palace Road",
+    houseNumber: "1",
     apartment: "",
   });
 
@@ -35,6 +35,8 @@ export default function AddressForm() {
 
       const tolerance = 0.0005;
       const isMatch = latDiff <= tolerance && lonDiff <= tolerance;
+      console.log(postcodeCoords, geoapifyCoords);
+      console.log("is match ", isMatch);
 
       console.log("Coordinate comparison:", {
         postcodeCoords,
@@ -56,6 +58,14 @@ export default function AddressForm() {
 
     const feature = data.features[0];
     const rank = feature.properties?.rank;
+    console.log("rank", rank);
+    console.log("rank.confidence", rank.confidence);
+    console.log("rank.confidence_city_level", rank.confidence_city_level);
+    console.log("rank.confidence_street_level", rank.confidence_street_level);
+    console.log(
+      "rank.confidence_building_level",
+      rank.confidence_building_level
+    );
 
     if (
       !rank ||
@@ -115,6 +125,9 @@ export default function AddressForm() {
         postcodeData.status === 200 && !!postcodeData.result;
 
       let isLegitimateAddress;
+
+      console.log("geoapifyValid", geoapifyValid);
+      console.log("postcodeValid", postcodeValid);
 
       if (geoapifyValid && postcodeValid) {
         isLegitimateAddress = comparePostcodeToGeoapify(
