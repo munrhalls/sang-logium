@@ -3,8 +3,6 @@ import "@testing-library/jest-dom";
 import AddressForm from "../AddressForm";
 import { correctAddresses } from "../__mocks__/AddressForm.mocks";
 
-const TEST_COUNT = 1;
-
 describe("Valid Addresses (Real API)", () => {
   beforeAll(() => {
     if (!process.env.CONFIRM_API_TESTS) {
@@ -39,12 +37,13 @@ describe("Valid Addresses (Real API)", () => {
     );
   };
 
-  correctAddresses.slice(0, TEST_COUNT).forEach((address, index) => {
-    test(`validates ${address.postcode} ${address.street} ${address.city} (valid #${index + 1})`, async () => {
-      await fillAndSubmitForm(address);
-      expect(
-        screen.getByText("Address verified successfully!")
-      ).toBeInTheDocument();
-    });
+  test("validates known good address (47 Battersea Rise, London)", async () => {
+    const validAddress = correctAddresses[0]; // 47 Battersea Rise, SW11 2RJ, London
+
+    await fillAndSubmitForm(validAddress);
+
+    expect(
+      screen.getByText("Address verified successfully!")
+    ).toBeInTheDocument();
   });
 });

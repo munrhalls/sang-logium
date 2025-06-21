@@ -1,59 +1,59 @@
 const correctAddresses = [
   {
-    postcode: "SW1A 1AA",
-    street: "Buckingham Palace Road",
-    houseNumber: "1",
+    postcode: "SW11 2RJ",
+    street: "Battersea Rise",
+    houseNumber: "47",
     city: "London",
   },
+
   {
-    postcode: "M1 1AA",
-    street: "Piccadilly",
-    houseNumber: "1",
+    postcode: "M20 2RN",
+    street: "Palatine Road",
+    houseNumber: "156",
     city: "Manchester",
   },
+
   {
-    postcode: "B1 1HQ",
-    street: "Colmore Row",
-    houseNumber: "1",
+    postcode: "B29 6BY",
+    street: "Harborne Park Road",
+    houseNumber: "23",
     city: "Birmingham",
   },
+
   {
-    postcode: "LS1 1UR",
-    street: "City Square",
-    houseNumber: "1",
+    postcode: "LS6 3QS",
+    street: "Kirkstall Lane",
+    houseNumber: "89",
     city: "Leeds",
   },
+
   {
-    postcode: "NE1 1EE",
-    street: "Grey Street",
-    houseNumber: "1",
-    city: "Newcastle",
-  },
-  {
-    postcode: "S1 1DA",
-    street: "Howard Street",
-    houseNumber: "1",
-    city: "Sheffield",
-  },
-  {
-    postcode: "CV1 1GN",
-    street: "Broadgate",
-    houseNumber: "1",
-    city: "Coventry",
-  },
-  {
-    postcode: "L1 1JQ",
-    street: "Dale Street",
-    houseNumber: "1",
+    postcode: "L18 1HG",
+    street: "Allerton Road",
+    houseNumber: "67",
     city: "Liverpool",
   },
+
   {
-    postcode: "BS1 1DB",
-    street: "Castle Street",
-    houseNumber: "1",
+    postcode: "S11 8YA",
+    street: "Ecclesall Road",
+    houseNumber: "134",
+    city: "Sheffield",
+  },
+
+  {
+    postcode: "NE2 3LS",
+    street: "Osborne Road",
+    houseNumber: "42",
+    city: "Newcastle",
+  },
+
+  {
+    postcode: "BS8 4QU",
+    street: "Clifton Down Road",
+    houseNumber: "91",
     city: "Bristol",
   },
-  { postcode: "OX1 1DP", street: "Carfax", houseNumber: "1", city: "Oxford" },
 ];
 
 const slightlyIncorrectAddresses = [
