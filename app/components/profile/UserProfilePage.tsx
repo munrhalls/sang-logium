@@ -27,7 +27,7 @@ export default function UserProfilePage() {
         <ClerkAccountManager />
       </div>
       <div className="bg-white shadow-sm rounded-lg p-6">
-        <AddressForm onAddressChange={handleAddressChange} />
+        <AddressForm />
       </div>
     </div>
   );
