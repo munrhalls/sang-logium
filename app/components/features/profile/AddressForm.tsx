@@ -2,10 +2,10 @@ import { useState } from "react";
 
 export default function AddressForm() {
   const [form, setForm] = useState({
-    postcode: "SW1A 1AA",
-    city: "London",
-    street: "Buckingham Palace Road",
-    houseNumber: "1",
+    postcode: "",
+    city: "",
+    street: "",
+    houseNumber: "",
     apartment: "",
   });
 
