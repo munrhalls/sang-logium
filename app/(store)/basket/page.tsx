@@ -229,9 +229,12 @@ export default function BasketPage() {
               </div>
             </div>
 
-            <button className="w-full py-4 bg-black text-white rounded-sm hover:bg-gray-800 transition-colors font-medium text-lg">
+            <Link
+              href="/checkout"
+              className="w-full py-4 bg-black text-white rounded-sm hover:bg-gray-800 transition-colors font-medium text-lg flex items-center justify-center"
+            >
               Proceed to Checkout
-            </button>
+            </Link>
 
             {/* Continue Shopping - Desktop View */}
             <div className="mt-4 hidden lg:block">

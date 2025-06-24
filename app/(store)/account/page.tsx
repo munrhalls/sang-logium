@@ -19,7 +19,7 @@ export default function BasketPage() {
         <SegmentTitle title="Your Account" />
       </div>
 
-      <div className="sm:min-h-[400px] lg:min-h-[800px] bg-blue-700"></div>
+      <div className="h-full"></div>
     </div>
   );
 }

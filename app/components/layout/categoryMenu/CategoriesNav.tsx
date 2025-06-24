@@ -64,7 +64,7 @@ export default function CategoriesNav({
 
   return (
     <nav className="hidden h-11 lg:flex items-center justify-center bg-gray-900 ">
-      {/* <div className="h-full max-w-7xl mx-auto lg:px-1 xl:px-4 lg:flex items-center justify-center">
+      <div className="h-full max-w-7xl mx-auto lg:px-1 xl:px-4 lg:flex items-center justify-center">
         <ul className="h-full flex items-center">
           {categories.map((category, index) => {
             return (
@@ -104,7 +104,8 @@ export default function CategoriesNav({
             );
           })}
         </ul>
-      </div> */}
+      </div>
     </nav>
   );
 }
+``;
