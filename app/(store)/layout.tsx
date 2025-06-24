@@ -33,7 +33,7 @@ export default async function RootLayout({
     <html lang="en" className={`${iceland.className} w-full h-full `}>
       <ClerkProvider>
         <body
-          className={`${iceland.variable} font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_5fr_auto] relative`}
+          className={`${iceland.variable} font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative`}
         >
           <Header />
           <CategoriesWrapper />

@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import ProfileHeader from "./ProfileHeader";
-import { ClerkAccountManager } from "../features/auth/ClerkAccountManager";
-import AddressForm from "./AddressForm";
+import { ClerkAccountManager } from "../../features/auth/ClerkAccountManager";
+// import AddressForm from "./../AddressForm";
 import { useErrorHandler } from "./hooks/useErrorHandler";
 import { useProfileData } from "./hooks/useProfileData";
 
@@ -20,15 +20,18 @@ export default function UserProfilePage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-      <ProfileHeader user={user} />
-      {globalError && <ErrorDisplay error={globalError} />}
-      <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
-        <ClerkAccountManager />
-      </div>
-      <div className="bg-white shadow-sm rounded-lg p-6">
-        <AddressForm />
-      </div>
+    // <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    //   <ProfileHeader user={user} />
+    //   {globalError && <ErrorDisplay error={globalError} />}
+    //   <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
+    //     <ClerkAccountManager />
+    //   </div>
+    //   <div className="bg-white shadow-sm rounded-lg p-6">
+    //     {/* <AddressForm /> */}
+    //   </div>
+    // </div>
+    <div className="max-w-7xl mx-auto my-8 px-4 sm:px-6 lg:px-8 bg-slate-100 pt-8 pb-16">
+      <h1>yo</h1>
     </div>
   );
 }

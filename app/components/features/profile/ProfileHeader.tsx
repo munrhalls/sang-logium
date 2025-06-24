@@ -1,6 +1,6 @@
 "use client";
-import { User } from "@clerk/nextjs/dist/types/server";
-import { CustomUserButton } from "../features/auth/CustomUserButton";
+import { User } from "@clerk/nextjs/server";
+import { CustomUserButton } from "../../features/auth/CustomUserButton";
 interface ProfileHeaderProps {
   user: User;
 }

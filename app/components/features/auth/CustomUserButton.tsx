@@ -14,15 +14,15 @@ export function CustomUserButton() {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
-        menuRef.current && 
-        buttonRef.current && 
-        !menuRef.current.contains(event.target as Node) && 
+        menuRef.current &&
+        buttonRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
         !buttonRef.current.contains(event.target as Node)
       ) {
         setShowMenu(false);
       }
     }
-    
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -42,30 +42,30 @@ export function CustomUserButton() {
 
   return (
     <div className="relative">
-      <div 
+      <div
         onClick={() => setShowMenu(!showMenu)}
         ref={buttonRef}
         className="cursor-pointer"
       >
-        <ClerkUserButton 
+        <ClerkUserButton
           appearance={{
             elements: {
               // This prevents the Clerk dropdown menu from showing
               userButtonPopoverCard: "hidden",
-              userButtonTrigger: "focus:outline-none"
-            }
+              userButtonTrigger: "focus:outline-none",
+            },
           }}
         />
       </div>
-      
+
       {showMenu && (
-        <div 
+        <div
           ref={menuRef}
           className="absolute top-full right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-50 overflow-hidden border border-gray-200"
         >
           <div className="py-1">
             <Link
-              href="/account/profile"
+              href="account"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black transition-colors font-medium"
               onClick={() => setShowMenu(false)}
             >

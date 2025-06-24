@@ -84,8 +84,8 @@ export default function BasketPage() {
             Your basket is empty
           </h2>
           <p className="text-gray-600 mt-3 mb-8 text-center max-w-md">
-            Looks like you haven&apos;t added any products to your basket yet. Browse
-            our collection to find something you&apos;ll love.
+            Looks like you haven&apos;t added any products to your basket yet.
+            Browse our collection to find something you&apos;ll love.
           </p>
           <Link
             href="/products"

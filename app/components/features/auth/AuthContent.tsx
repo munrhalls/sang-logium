@@ -20,7 +20,7 @@ export default function AuthContent() {
   const pathname = usePathname();
 
   const isProfilePage =
-    pathname === "/account/profile" || pathname === "/(store)/account/profile";
+    pathname === "/account" || pathname === "/(store)/account";
 
   if (!isLoaded) {
     return (
