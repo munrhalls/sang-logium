@@ -68,3 +68,42 @@ If quantity would go below 1, the product is removed from the basket and the con
 If the user clicks the “X” button, the product is removed from the basket and the controls revert to the “Add to Cart” button.
 The experience and controls should match the behavior and appearance of the product listing page’s product thumbnail after adding to basket, ensuring consistency across the app.
 All changes to the basket state are reflected in real time in the UI and in the global basket state.
+
+Specification: Basket Experience for “Add to Cart” Button and Controls on Products Listing Page
+Initial State
+Each product card or thumbnail on the products listing page displays an “Add to Cart” button if the product is not currently in the basket.
+Adding to Basket
+When the user clicks the “Add to Cart” button on a product card:
+The product is added to the basket with quantity 1.
+The “Add to Cart” button is immediately replaced by quantity controls for that product.
+Quantity Controls
+The quantity controls consist of:
+A minus (–) button to decrease quantity.
+A plus (+) button to increase quantity.
+A display of the current quantity.
+An “X” (remove) button to remove the product from the basket entirely.
+These controls are visible as long as the product is in the basket.
+Increasing Quantity
+Clicking the plus (+) button increases the product’s quantity in the basket by 1.
+The displayed quantity updates in real time.
+Decreasing Quantity
+Clicking the minus (–) button decreases the product’s quantity by 1, but not below 1.
+If the quantity would go below 1, the product is removed from the basket and the controls revert to the “Add to Cart” button.
+Removing from Basket
+Clicking the “X” button removes the product from the basket.
+The controls revert to the “Add to Cart” button.
+UI Consistency
+The appearance and behavior of the quantity controls on the product card must match those on the individual product page.
+All controls must be accessible (proper roles and labels) and provide immediate feedback.
+State Synchronization
+All changes to the basket state from the listing page are reflected in real time in the global basket state.
+The basket state is consistent across the listing page, individual product page, basket page, and header BasketButton.
+Persistence
+Basket state changes from the listing page persist across page reloads (via localStorage).
+Error Handling
+The UI never crashes if basket operations fail; fallback UI or error messages are shown.
+Testability
+All basket operations (add, remove, adjust quantity) can be tested via UI interactions on the product card.
+The basket state can be inspected and verified at any point in the user flow.
+Summary:
+The products listing page must provide a seamless, real-time, and consistent basket experience for each product card, matching the individual product page and ensuring all state changes are global, persistent, and testable.
