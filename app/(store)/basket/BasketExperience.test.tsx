@@ -1,6 +1,7 @@
 import { useStore } from "@/store";
 import { render, screen, fireEvent } from "@testing-library/react";
 import React from "react";
+import ProductPageBasketControls from "../product/[id]/ProductPageBasketControls";
 
 describe("Basket Store Business Logic", () => {
   afterEach(() => {
@@ -59,36 +60,40 @@ describe("Basket Store Business Logic", () => {
   });
 });
 
-// Mock ProductPage component for test purposes
-function ProductPage({ product }: { product: any }) {
-  // This is a placeholder. Actual implementation will be needed for tests to pass.
-  return <div>Product Page</div>;
-}
-
 describe("Individual Product Page Basket Experience", () => {
   afterEach(() => {
     useStore.setState({ basket: [] });
   });
 
+  const mockProduct = { id: "audio-1", name: "Headphones", price: 100 };
+
   test("Add to Cart button is visible when product is not in basket", () => {
-    render(<ProductPage product={{ id: "audio-1", name: "Headphones", price: 100 }} />);
-    expect(screen.getByRole("button", { name: /add to cart/i })).toBeInTheDocument();
+    render(<ProductPageBasketControls product={mockProduct} />);
+    expect(
+      screen.getByRole("button", { name: /add to cart/i })
+    ).toBeInTheDocument();
   });
 
   test("Clicking Add to Cart adds product and shows quantity controls", () => {
-    render(<ProductPage product={{ id: "audio-1", name: "Headphones", price: 100 }} />);
+    render(<ProductPageBasketControls product={mockProduct} />);
     fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     const items = useStore.getState().basket;
     expect(items.length).toBe(1);
     expect(items[0].quantity).toBe(1);
-    expect(screen.getByRole("button", { name: /increase quantity/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /decrease quantity/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /remove from cart/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /increase quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /decrease quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /remove from cart/i })
+    ).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
   });
 
   test("Clicking + increases product quantity", () => {
-    render(<ProductPage product={{ id: "audio-1", name: "Headphones", price: 100 }} />);
+    render(<ProductPageBasketControls product={mockProduct} />);
     fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     fireEvent.click(screen.getByRole("button", { name: /increase quantity/i }));
     const items = useStore.getState().basket;
@@ -97,7 +102,7 @@ describe("Individual Product Page Basket Experience", () => {
   });
 
   test("Clicking - decreases product quantity but not below 1", () => {
-    render(<ProductPage product={{ id: "audio-1", name: "Headphones", price: 100 }} />);
+    render(<ProductPageBasketControls product={mockProduct} />);
     fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     fireEvent.click(screen.getByRole("button", { name: /increase quantity/i }));
     fireEvent.click(screen.getByRole("button", { name: /decrease quantity/i }));
@@ -108,25 +113,28 @@ describe("Individual Product Page Basket Experience", () => {
   });
 
   test("Clicking X removes product and restores Add to Cart button", () => {
-    render(<ProductPage product={{ id: "audio-1", name: "Headphones", price: 100 }} />);
+    render(<ProductPageBasketControls product={mockProduct} />);
     fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     fireEvent.click(screen.getByRole("button", { name: /remove from cart/i }));
     const items = useStore.getState().basket;
     expect(items.length).toBe(0);
-    expect(screen.getByRole("button", { name: /add to cart/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /add to cart/i })
+    ).toBeInTheDocument();
   });
 
   test("Quantity controls match product listing behavior", () => {
-    // This test assumes there is a ProductListing component with the same controls
-    render(<>
-      <ProductPage product={{ id: "audio-1", name: "Headphones", price: 100 }} />
-      {/* <ProductListing ... /> would be rendered here in a real test */}
-    </>);
+    render(<ProductPageBasketControls product={mockProduct} />);
     fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
-    // Simulate/compare controls between product page and listing (placeholder)
-    expect(screen.getByRole("button", { name: /increase quantity/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /decrease quantity/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /remove from cart/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /increase quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /decrease quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /remove from cart/i })
+    ).toBeInTheDocument();
     // In a real test, would compare with listing controls for consistency
   });
 });
