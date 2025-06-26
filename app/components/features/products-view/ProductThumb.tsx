@@ -1,10 +1,11 @@
 import { Product } from "@/sanity.types";
 import Image from "next/image";
 import Link from "next/link";
-import { MouseEvent, useState } from "react";
+import { MouseEvent } from "react";
 import { imageUrl } from "@/lib/imageUrl";
 import ProductQuantityControl from "@/app/components/features/basket/ProductQuantityControl";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useStore } from "@/store";
 
 interface ProductThumbProps {
   product: Product;
@@ -12,10 +13,11 @@ interface ProductThumbProps {
 }
 
 const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
-  // Initialize state at the top level to avoid React Hooks rules violations
-  const [inBasket, setInBasket] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-  
+  const basket = useStore((s) => s.basket);
+  const addItem = useStore((s) => s.addItem);
+  const updateQuantity = useStore((s) => s.updateQuantity);
+  const removeItem = useStore((s) => s.removeItem);
+
   if (!product.name || !product.image) return null;
   const isOutOfStock = product.stock != null && product.stock <= 0;
 
@@ -27,11 +29,12 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
 
   const showPrice = product.price !== undefined;
 
-  // Placeholder functions that would connect to your basket state management
+  const item = basket.find((i) => i.id === product._id);
+
   const handleAddToBasket = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault(); // Prevent navigation from Link
-    e.stopPropagation(); // Prevent event bubbling
-    setInBasket(true);
+    e.preventDefault();
+    e.stopPropagation();
+    addItem({ id: product._id, name: product.name, price: originalPrice });
   };
 
   return (
@@ -78,27 +81,24 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
           {/* Basket Controls */}
           {!isOutOfStock && (
             <div onClick={(e) => e.preventDefault()} className="z-10 relative">
-              {inBasket ? (
+              {item ? (
                 <div className="flex items-center">
                   <ProductQuantityControl
                     productId={product._id}
-                    quantity={quantity}
+                    quantity={item.quantity}
                     onIncrease={() => {
-                      setQuantity((prev) => Math.min(prev + 1, 99));
+                      updateQuantity(product._id, item.quantity + 1);
                     }}
                     onDecrease={() => {
-                      setQuantity((prev) => Math.max(prev - 1, 1));
+                      updateQuantity(product._id, item.quantity - 1);
                     }}
                     className="scale-90 transform origin-right"
                   />
-
-                  {/* Remove from basket button */}
                   <button
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      setInBasket(false);
-                      setQuantity(1);
+                      removeItem(product._id);
                     }}
                     className="ml-1 text-gray-500 hover:text-red-500 transition-colors"
                     aria-label="Remove from basket"
