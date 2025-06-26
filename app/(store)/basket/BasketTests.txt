@@ -1,3 +1,40 @@
+Test specifications for the individual product page basket experience regarding the "add to cart" button (in the style of your examples):
+Add to Cart Button Initial State
+Test: "Add to Cart button is visible when product is not in basket"
+GIVEN: Product page for Product A
+WHEN: Product A is not in the basket
+THEN: "Add to Cart" button is visible
+Add to Cart Button Click
+Test: "Clicking Add to Cart adds product and shows quantity controls"
+GIVEN: Product page for Product A, not in basket
+WHEN: User clicks "Add to Cart"
+THEN: Product A is added to basket with quantity 1
+AND: Quantity controls (-, +, X, current quantity) are shown instead of the button
+Quantity Increase
+Test: "Clicking + increases product quantity"
+GIVEN: Product A in basket with quantity 1
+WHEN: User clicks +
+THEN: Product A quantity increases to 2
+AND: Quantity controls remain visible
+Quantity Decrease
+Test: "Clicking - decreases product quantity but not below 1"
+GIVEN: Product A in basket with quantity 2
+WHEN: User clicks -
+THEN: Product A quantity decreases to 1
+AND: If user clicks - again, quantity remains 1 and controls remain visible
+Remove Product
+Test: "Clicking X removes product and restores Add to Cart button"
+GIVEN: Product A in basket with any quantity
+WHEN: User clicks X
+THEN: Product A is removed from basket
+AND: "Add to Cart" button is visible again
+UI Consistency
+Test: "Quantity controls match product listing behavior"
+GIVEN: Product A in basket
+WHEN: Viewing quantity controls on product page and product listing
+THEN: Controls and behavior are consistent between both views
+
+
 ✅ GOOD Test Prompts for Cursor
 Store Business Logic Tests
 1. Adding Items

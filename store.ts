@@ -17,8 +17,11 @@ export interface UIState {
   isProductsSortDrawerOpen: boolean;
   toggleProductsSortDrawer: () => void;
   basket: BasketItem[];
-  addItem: (item: Omit<BasketItem, "quantity">) => void;
+  addItem: (item: any) => void;
   removeItem: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
+  getTotal: () => number;
+  isCheckoutEnabled: () => boolean;
 }
 
 export const useStore = create<UIState>((set, get) => ({
@@ -48,6 +51,15 @@ export const useStore = create<UIState>((set, get) => ({
     })),
   basket: [],
   addItem: (item) => {
+    if (
+      !item ||
+      typeof item !== "object" ||
+      !item.id ||
+      !item.name ||
+      typeof item.price !== "number"
+    ) {
+      return;
+    }
     const basket = get().basket;
     const existing = basket.find((i) => i.id === item.id);
     if (existing) {
@@ -63,5 +75,21 @@ export const useStore = create<UIState>((set, get) => ({
   removeItem: (id) => {
     const basket = get().basket;
     set({ basket: basket.filter((i) => i.id !== id) });
+  },
+  updateQuantity: (id, quantity) => {
+    const basket = get().basket;
+    set({
+      basket: basket.map((i) =>
+        i.id === id ? { ...i, quantity: quantity < 1 ? 1 : quantity } : i
+      ),
+    });
+  },
+  getTotal: () => {
+    const basket = get().basket;
+    return basket.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  },
+  isCheckoutEnabled: () => {
+    const basket = get().basket;
+    return basket.length > 0;
   },
 }));

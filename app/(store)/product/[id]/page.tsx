@@ -5,6 +5,8 @@ import ProductPageGallery from "./ProductPageGallery";
 import { FaCheckCircle } from "react-icons/fa";
 // import { FaInfoCircle } from "react-icons/fa";
 import InfoTooltip from "@/app/components/ui/infoTooltip/infoTooltip";
+import ProductPageBasketControls from "./ProductPageBasketControls";
+
 export default async function ProductPage({
   params,
 }: {
@@ -51,9 +53,13 @@ export default async function ProductPage({
           </div>
         )}
 
-        <button className="align-self-end text-xl bg-blue-950 text-yellow-500  font-black p-4 rounded-sm">
-          ADD TO CART
-        </button>
+        <ProductPageBasketControls
+          product={{
+            id: product._id || "",
+            name: product.name || "",
+            price: typeof product.price === "number" ? product.price : 0,
+          }}
+        />
       </div>
       {product.overviewFields && product.overviewFields.length > 0 && (
         <div className="mb-6 md:max-w-[500px] border-l-2 border-b-2 pl-4 pb-4 border-gray-400 ">

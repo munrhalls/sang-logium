@@ -51,36 +51,20 @@ Basket Experience Specifications
 - All basket operations (add, remove, adjust quantity) can be tested via UI interactions.
 - The basket state can be inspected and verified at any point in the user flow.
 
-TESTING
-PLAN FOR SIMPLE, PRAGMATIC JEST TESTS FOR BASKET EXPERIENCE
-Global State Management
-Test that the basket state is accessible from multiple components/pages.
-Test that adding/removing items in one component reflects in another.
-Adding Items
-Test that adding a product to the basket increases the basket item count.
-Test that adding the same product again increases its quantity, not the number of unique items.
-Removing Items
-Test that removing a product deletes it from the basket.
-Test that reducing a product’s quantity to zero removes it from the basket.
-Adjusting Quantity
-Test that increasing a product’s quantity updates the basket state.
-Test that decreasing a product’s quantity does not go below one.
-Basket Display
-Test that the basket page displays all items in the basket with correct details.
-Test that subtotal, shipping, and total are calculated and displayed correctly.
-Test that an empty basket shows the empty state message and call-to-action.
-BasketButton
-Test that the BasketButton displays the correct total item count.
-Test that the item count updates in real time as items are added or removed.
-Checkout Integration
-Test that the “Proceed to Checkout” button is enabled only when the basket has items.
-Test that clicking the button navigates to the checkout page.
-Persistence (Required)
-Test that basket contents persist after a page reload (simulate reload by re-mounting the store/component).
-Test that changes to the basket are saved to localStorage.
-Error Handling
-Test that the UI does not crash if basket operations fail (simulate errors).
-Test that fallback UI or error messages are shown on failure.
-Testability
-Ensure all basket operations (add, remove, adjust quantity) can be triggered and verified via UI or store interactions.
-Test that the basket state can be inspected and matches expected values after each operation.
+Specification: Basket Experience for “Add to Cart” Button on Individual Product Page
+When the user first visits the individual product page, the “Add to Cart” (basket) button is visible if the product is not already in the basket.
+When the user clicks the “Add to Cart” button:
+The product is added to the basket with quantity 1.
+The “Add to Cart” button is immediately replaced by quantity controls:
+A minus (–) button to decrease quantity.
+A plus (+) button to increase quantity.
+A display of the current quantity.
+An “X” (remove) button to remove the product from the basket entirely.
+The quantity controls remain visible as long as the product is in the basket.
+If the user increases the quantity, the displayed quantity updates accordingly.
+If the user decreases the quantity:
+If quantity is greater than 1, it decreases by 1.
+If quantity would go below 1, the product is removed from the basket and the controls revert to the “Add to Cart” button.
+If the user clicks the “X” button, the product is removed from the basket and the controls revert to the “Add to Cart” button.
+The experience and controls should match the behavior and appearance of the product listing page’s product thumbnail after adding to basket, ensuring consistency across the app.
+All changes to the basket state are reflected in real time in the UI and in the global basket state.
