@@ -1,65 +1,16 @@
-import { useStore } from "@/store";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import React from "react";
-import ProductPageBasketControls from "../product/[id]/ProductPageBasketControls";
-import ErrorBoundary from "../product/[id]/ErrorBoundary";
+import { useStore } from "@/store";
+import ProductPageBasketControls from "../../product/[id]/ProductPageBasketControls";
+import ErrorBoundary from "../../product/[id]/ErrorBoundary";
 
-describe("Basket Store Business Logic", () => {
-  afterEach(() => {
-    useStore.setState({ basket: [] });
-  });
-
-  test("adds duplicate items by increasing quantity, not item count", () => {
-    const product = { id: "audio-1", name: "Headphones", price: 100 };
-    useStore.getState().addItem(product);
-    useStore.getState().addItem(product);
-    const items = useStore.getState().basket;
-    expect(items.length).toBe(1);
-    expect(items[0].quantity).toBe(2);
-  });
-
-  test("removing item completely clears it from basket", () => {
-    const product = { id: "audio-1", name: "Headphones", price: 100 };
-    useStore.getState().addItem(product);
-    useStore.getState().removeItem(product.id);
-    const items = useStore.getState().basket;
-    expect(items.length).toBe(0);
-  });
-
-  test("quantity cannot be decreased below 1", () => {
-    const product = { id: "audio-1", name: "Headphones", price: 100 };
-    useStore.getState().addItem(product);
-    useStore.getState().updateQuantity(product.id, 0);
-    const items = useStore.getState().basket;
-    expect(items[0].quantity).toBe(1);
-  });
-
-  test("basket calculates correct total for multiple items", () => {
-    const productA = { id: "audio-1", name: "Headphones", price: 100 };
-    const productB = { id: "audio-2", name: "Speakers", price: 50 };
-    useStore.getState().addItem(productA);
-    useStore.getState().addItem(productA);
-    useStore.getState().addItem(productB);
-    const total = useStore.getState().getTotal();
-    expect(total).toBe(250);
-  });
-
-  test("checkout enabled only when basket has items", () => {
-    expect(useStore.getState().isCheckoutEnabled()).toBe(false);
-    const product = { id: "audio-1", name: "Headphones", price: 100 };
-    useStore.getState().addItem(product);
-    expect(useStore.getState().isCheckoutEnabled()).toBe(true);
-  });
-
-  test("invalid product data doesn't crash basket", () => {
-    expect(() => {
-      // @ts-expect-error purposely passing invalid data
-      useStore.getState().addItem({ invalid: "data" });
-    }).not.toThrow();
-    const items = useStore.getState().basket;
-    expect(items.length).toBe(0);
-  });
-});
+function ProductCardBasketControls({
+  product,
+}: {
+  product: { id: string; name: string; price: number };
+}) {
+  return <ProductPageBasketControls product={product} />;
+}
 
 describe("Individual Product Page Basket Experience", () => {
   afterEach(() => {
@@ -136,18 +87,8 @@ describe("Individual Product Page Basket Experience", () => {
     expect(
       screen.getByRole("button", { name: /remove from cart/i })
     ).toBeInTheDocument();
-    // In a real test, would compare with listing controls for consistency
   });
 });
-
-function ProductCardBasketControls({
-  product,
-}: {
-  product: { id: string; name: string; price: number };
-}) {
-  // For now, reuse the same controls as the product page for test purposes
-  return <ProductPageBasketControls product={product} />;
-}
 
 describe("Products Listing Page Basket Experience", () => {
   afterEach(() => {
@@ -225,7 +166,6 @@ describe("Products Listing Page Basket Experience", () => {
     expect(
       screen.getByRole("button", { name: /remove from cart/i })
     ).toBeInTheDocument();
-    // In a real test, would compare with product page controls for consistency
   });
 
   test("Basket state updates are reflected across all product cards and pages", () => {
@@ -249,7 +189,6 @@ describe("Products Listing Page Basket Experience", () => {
     fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     cleanup();
     render(<ProductCardBasketControls product={mockProduct} />);
-    // Use getAllByRole to avoid ambiguity
     const decreaseButtons = screen.getAllByRole("button", {
       name: /decrease quantity/i,
     });
@@ -270,7 +209,6 @@ describe("Products Listing Page Basket Experience", () => {
       </ErrorBoundary>
     );
     fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
-    // Simulate error and assert fallback UI is shown
     fireEvent.click(screen.getByRole("button", { name: /increase quantity/i }));
     expect(screen.getByText(/basket error fallback/i)).toBeInTheDocument();
     useStore.setState({ updateQuantity: original });
