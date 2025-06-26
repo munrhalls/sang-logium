@@ -1,5 +1,12 @@
 import { create } from "zustand";
 
+export interface BasketItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 export interface UIState {
   isSearchDrawerOpen: boolean;
   toggleSearchDrawer: () => void;
@@ -9,9 +16,12 @@ export interface UIState {
   toggleProductsFilterDrawer: () => void;
   isProductsSortDrawerOpen: boolean;
   toggleProductsSortDrawer: () => void;
+  basket: BasketItem[];
+  addItem: (item: Omit<BasketItem, "quantity">) => void;
+  removeItem: (id: string) => void;
 }
 
-export const useStore = create<UIState>((set) => ({
+export const useStore = create<UIState>((set, get) => ({
   isSearchDrawerOpen: false,
   toggleSearchDrawer: () =>
     set((state) => ({
@@ -36,4 +46,22 @@ export const useStore = create<UIState>((set) => ({
       isProductsSortDrawerOpen: !state.isProductsSortDrawerOpen,
       isProductsFilterDrawerOpen: false,
     })),
+  basket: [],
+  addItem: (item) => {
+    const basket = get().basket;
+    const existing = basket.find((i) => i.id === item.id);
+    if (existing) {
+      set({
+        basket: basket.map((i) =>
+          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+        ),
+      });
+    } else {
+      set({ basket: [...basket, { ...item, quantity: 1 }] });
+    }
+  },
+  removeItem: (id) => {
+    const basket = get().basket;
+    set({ basket: basket.filter((i) => i.id !== id) });
+  },
 }));
