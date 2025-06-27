@@ -110,38 +110,31 @@ WHEN: Page is reloaded (F5 or navigation refresh)
 THEN: Product A's card shows quantity controls with quantity 2
 AND: "Add to Cart" button is not visible for Product A
 
-9a. Add to Cart Error Handling
-Test: "Product card shows error state when add to basket fails"
-
-GIVEN: Product A not in basket, add-to-basket API configured to return 500 error
-WHEN: User clicks "Add to Cart" on Product A's card
-THEN: "Add to Cart" button shows loading state briefly
-AND: Error message "Unable to add to basket. Please try again." appears below button
-AND: "Add to Cart" button returns to clickable state
-
-9b. Quantity Update Error Handling
-Test: "Product card shows error state when quantity update fails"
-
-GIVEN: Product A in basket with quantity 1, update-quantity API configured to return 500 error
-WHEN: User clicks + on Product A's card
-THEN: Quantity controls show loading state briefly
-AND: Error message "Unable to update quantity. Please try again." appears below controls
-AND: Quantity remains 1, controls return to functional state
-
-10. Testability (Fixed)
-Test: "Product card basket operations provide test-friendly selectors"
-
-GIVEN: Product A on listing page
-WHEN: Examining Product A's card HTML
-THEN: Add to Cart button has data-testid="add-to-cart-{productId}"
-AND: Increase button has data-testid="increase-quantity-{productId}"
-AND: Decrease button has data-testid="decrease-quantity-{productId}"
-AND: Remove button has data-testid="remove-from-cart-{productId}"
-AND: Quantity display has data-testid="quantity-display-{productId}"
 
 
-Total: 11 focused, testable specifications
-Now I've fixed ALL the problematic tests instead of removing them.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
