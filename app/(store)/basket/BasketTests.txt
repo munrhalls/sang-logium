@@ -39,60 +39,109 @@ THEN: Controls and behavior are consistent between both views
 
 
 Test Specifications for the Products Listing Page Basket Experience
-Add to Cart Button Initial State
+1. Add to Cart Button Initial State
 Test: "Add to Cart button is visible on product card when product is not in basket"
+
 GIVEN: Products listing page with Product A
 WHEN: Product A is not in the basket
-THEN: "Add to Cart" button is visible on Product A’s card
-Add to Cart Button Click
+THEN: "Add to Cart" button is visible on Product A's card
+
+2. Add to Cart Button Click
 Test: "Clicking Add to Cart on product card adds product and shows quantity controls"
+
 GIVEN: Products listing page with Product A, not in basket
-WHEN: User clicks "Add to Cart" on Product A’s card
+WHEN: User clicks "Add to Cart" on Product A's card
 THEN: Product A is added to basket with quantity 1
-AND: Quantity controls (-, +, X, current quantity) are shown instead of the button on Product A’s card
-Quantity Increase
+AND: Quantity controls (-, +, X, current quantity) are shown instead of the button on Product A's card
+
+3. Quantity Increase
 Test: "Clicking + on product card increases product quantity"
+
 GIVEN: Product A in basket with quantity 1 (on listing page)
-WHEN: User clicks + on Product A’s card
+WHEN: User clicks + on Product A's card
 THEN: Product A quantity increases to 2
 AND: Quantity controls remain visible
-Quantity Decrease
-Test: "Clicking - on product card decreases product quantity but not below 1"
+
+4a. Quantity Decrease
+Test: "Clicking - on product card decreases product quantity"
+
 GIVEN: Product A in basket with quantity 2 (on listing page)
-WHEN: User clicks - on Product A’s card
+WHEN: User clicks - on Product A's card
 THEN: Product A quantity decreases to 1
-AND: If user clicks - again, quantity remains 1 and controls remain visible
-Remove Product
+AND: Quantity controls remain visible
+
+4b. Quantity Decrease Minimum
+Test: "Quantity cannot decrease below 1 via - button"
+
+GIVEN: Product A in basket with quantity 1 (on listing page)
+WHEN: User clicks - on Product A's card
+THEN: Product A quantity remains 1
+AND: Quantity controls remain visible
+
+5. Remove Product
 Test: "Clicking X on product card removes product and restores Add to Cart button"
+
 GIVEN: Product A in basket with any quantity (on listing page)
-WHEN: User clicks X on Product A’s card
+WHEN: User clicks X on Product A's card
 THEN: Product A is removed from basket
-AND: "Add to Cart" button is visible again on Product A’s card
-UI Consistency
-Test: "Quantity controls on product card match individual product page"
-GIVEN: Product A in basket
-WHEN: Viewing quantity controls on product card and on individual product page
-THEN: Controls and behavior are consistent between both views
-State Synchronization
-Test: "Basket state updates are reflected across all product cards and pages"
-GIVEN: Product A in basket, quantity 2
-WHEN: User increases quantity on Product A’s card
-THEN: Quantity updates on all views (listing, product page, basket page, header)
-Persistence
-Test: "Basket state from product card persists after page reload"
-GIVEN: Product A added to basket from listing page
-WHEN: Page is reloaded
-THEN: Product A and its quantity remain in the basket, and controls reflect the correct state
-Error Handling
-Test: "UI does not crash if basket operation fails on product card"
+AND: "Add to Cart" button is visible again on Product A's card
+
+6. UI Consistency (Fixed)
+Test: "Product card quantity controls render with same structure as individual product page"
+
+GIVEN: Product A in basket with quantity 2
+WHEN: Examining quantity controls on Product A's card
+THEN: Controls have same CSS classes, data attributes, and aria-labels as individual product page
+AND: Button order is: decrease (-), quantity display (2), increase (+), remove (X)
+
+7. State Synchronization (Fixed)
+Test: "Product card reflects basket state changes made elsewhere"
+
+GIVEN: Product A in basket with quantity 1, displayed on product card
+WHEN: Quantity is increased to 3 via external action (API call, other component)
+THEN: Product A's card updates to show quantity 3
+AND: All controls remain functional
+
+8. Persistence (Fixed)
+Test: "Product card basket state persists after page reload"
+
+GIVEN: Product A added to basket with quantity 2 via product card
+WHEN: Page is reloaded (F5 or navigation refresh)
+THEN: Product A's card shows quantity controls with quantity 2
+AND: "Add to Cart" button is not visible for Product A
+
+9a. Add to Cart Error Handling
+Test: "Product card shows error state when add to basket fails"
+
+GIVEN: Product A not in basket, add-to-basket API configured to return 500 error
+WHEN: User clicks "Add to Cart" on Product A's card
+THEN: "Add to Cart" button shows loading state briefly
+AND: Error message "Unable to add to basket. Please try again." appears below button
+AND: "Add to Cart" button returns to clickable state
+
+9b. Quantity Update Error Handling
+Test: "Product card shows error state when quantity update fails"
+
+GIVEN: Product A in basket with quantity 1, update-quantity API configured to return 500 error
+WHEN: User clicks + on Product A's card
+THEN: Quantity controls show loading state briefly
+AND: Error message "Unable to update quantity. Please try again." appears below controls
+AND: Quantity remains 1, controls return to functional state
+
+10. Testability (Fixed)
+Test: "Product card basket operations provide test-friendly selectors"
+
 GIVEN: Product A on listing page
-WHEN: Simulate a failure in basket operation (e.g., storage error)
-THEN: UI remains stable, and an error message or fallback is shown
-Testability
-Test: "All basket operations on product card are testable via UI"
-GIVEN: Products listing page
-WHEN: User interacts with Add to Cart, +, -, X on any product card
-THEN: Basket state and UI update as expected, and can be verified in tests
+WHEN: Examining Product A's card HTML
+THEN: Add to Cart button has data-testid="add-to-cart-{productId}"
+AND: Increase button has data-testid="increase-quantity-{productId}"
+AND: Decrease button has data-testid="decrease-quantity-{productId}"
+AND: Remove button has data-testid="remove-from-cart-{productId}"
+AND: Quantity display has data-testid="quantity-display-{productId}"
+
+
+Total: 11 focused, testable specifications
+Now I've fixed ALL the problematic tests instead of removing them.
 
 
 

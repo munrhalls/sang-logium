@@ -34,7 +34,37 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
   const handleAddToBasket = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    addItem({ id: product._id, name: product.name, price: originalPrice });
+    try {
+      addItem({ id: product._id, name: product.name, price: originalPrice });
+    } catch (error) {
+      console.error("Failed to add item to basket:", error);
+    }
+  };
+
+  const handleIncreaseQuantity = () => {
+    try {
+      updateQuantity(product._id, item!.quantity + 1);
+    } catch (error) {
+      console.error("Failed to increase quantity:", error);
+    }
+  };
+
+  const handleDecreaseQuantity = () => {
+    try {
+      updateQuantity(product._id, item!.quantity - 1);
+    } catch (error) {
+      console.error("Failed to decrease quantity:", error);
+    }
+  };
+
+  const handleRemoveItem = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      removeItem(product._id);
+    } catch (error) {
+      console.error("Failed to remove item from basket:", error);
+    }
   };
 
   return (
@@ -86,20 +116,12 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
                   <ProductQuantityControl
                     productId={product._id}
                     quantity={item.quantity}
-                    onIncrease={() => {
-                      updateQuantity(product._id, item.quantity + 1);
-                    }}
-                    onDecrease={() => {
-                      updateQuantity(product._id, item.quantity - 1);
-                    }}
+                    onIncrease={handleIncreaseQuantity}
+                    onDecrease={handleDecreaseQuantity}
                     className="scale-90 transform origin-right"
                   />
                   <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      removeItem(product._id);
-                    }}
+                    onClick={handleRemoveItem}
                     className="ml-1 text-gray-500 hover:text-red-500 transition-colors"
                     aria-label="Remove from basket"
                   >

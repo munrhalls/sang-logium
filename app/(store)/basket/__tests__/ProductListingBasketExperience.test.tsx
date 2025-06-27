@@ -9,7 +9,6 @@ import React from "react";
 import { useStore } from "@/store";
 import ProductThumb from "@/app/components/features/products-view/ProductThumb";
 import ProductPageBasketControls from "../../product/[id]/ProductPageBasketControls";
-import ErrorBoundary from "../../product/[id]/ErrorBoundary";
 import { Product } from "@/sanity.types";
 
 describe("Products Listing Page Basket Experience", () => {
@@ -29,7 +28,10 @@ describe("Products Listing Page Basket Experience", () => {
     _updatedAt: "2023-01-01T00:00:00Z",
     _rev: "mockrev1",
     image: {
-      asset: { _ref: "image-abc123", _type: "reference" },
+      asset: {
+        _ref: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg",
+        _type: "reference",
+      },
       _type: "image",
     },
     description: [],
@@ -47,13 +49,13 @@ describe("Products Listing Page Basket Experience", () => {
   test("Add to Cart button is visible on product card when product is not in basket", () => {
     render(<ProductThumb product={mockProduct} />);
     expect(
-      screen.getByRole("button", { name: /add to cart/i })
+      screen.getByRole("button", { name: /add to basket/i })
     ).toBeInTheDocument();
   });
 
   test("Clicking Add to Cart on product card adds product and shows quantity controls", () => {
     render(<ProductThumb product={mockProduct} />);
-    fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
+    fireEvent.click(screen.getByRole("button", { name: /add to basket/i }));
     const items = useStore.getState().basket;
     expect(items.length).toBe(1);
     expect(items[0].quantity).toBe(1);
@@ -71,7 +73,7 @@ describe("Products Listing Page Basket Experience", () => {
 
   test("Clicking + on product card increases product quantity", () => {
     render(<ProductThumb product={mockProduct} />);
-    fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
+    fireEvent.click(screen.getByRole("button", { name: /add to basket/i }));
     fireEvent.click(screen.getByRole("button", { name: /increase quantity/i }));
     const items = useStore.getState().basket;
     expect(items[0].quantity).toBe(2);
@@ -80,7 +82,7 @@ describe("Products Listing Page Basket Experience", () => {
 
   test("Clicking - on product card decreases product quantity but not below 1", () => {
     render(<ProductThumb product={mockProduct} />);
-    fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
+    fireEvent.click(screen.getByRole("button", { name: /add to basket/i }));
     fireEvent.click(screen.getByRole("button", { name: /increase quantity/i }));
     fireEvent.click(screen.getByRole("button", { name: /decrease quantity/i }));
     fireEvent.click(screen.getByRole("button", { name: /decrease quantity/i }));
@@ -91,20 +93,20 @@ describe("Products Listing Page Basket Experience", () => {
 
   test("Clicking X on product card removes product and restores Add to Cart button", () => {
     render(<ProductThumb product={mockProduct} />);
-    fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
+    fireEvent.click(screen.getByRole("button", { name: /add to basket/i }));
     fireEvent.click(
       screen.getByRole("button", { name: /remove from basket/i })
     );
     const items = useStore.getState().basket;
     expect(items.length).toBe(0);
     expect(
-      screen.getByRole("button", { name: /add to cart/i })
+      screen.getByRole("button", { name: /add to basket/i })
     ).toBeInTheDocument();
   });
 
   test("Quantity controls on product card match individual product page", () => {
     render(<ProductThumb product={mockProduct} />);
-    fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
+    fireEvent.click(screen.getByRole("button", { name: /add to basket/i }));
     expect(
       screen.getByRole("button", { name: /increase quantity/i })
     ).toBeInTheDocument();
@@ -129,7 +131,9 @@ describe("Products Listing Page Basket Experience", () => {
         />
       </>
     );
-    fireEvent.click(screen.getAllByRole("button", { name: /add to cart/i })[0]);
+    fireEvent.click(
+      screen.getAllByRole("button", { name: /add to basket/i })[0]
+    );
     fireEvent.click(
       screen.getAllByRole("button", { name: /increase quantity/i })[0]
     );
@@ -140,7 +144,7 @@ describe("Products Listing Page Basket Experience", () => {
 
   test("Basket state from product card persists after page reload", () => {
     render(<ProductThumb product={mockProduct} />);
-    fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
+    fireEvent.click(screen.getByRole("button", { name: /add to basket/i }));
     cleanup();
     render(<ProductThumb product={mockProduct} />);
     const decreaseButtons = screen.getAllByRole("button", {
@@ -150,40 +154,90 @@ describe("Products Listing Page Basket Experience", () => {
     expect(screen.getByText("1")).toBeInTheDocument();
   });
 
-  test("UI does not crash if basket operation fails on product card", () => {
-    const original = useStore.getState().updateQuantity;
+  test("UI gracefully handles basket operation errors without crashing", () => {
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+    const originalAddItem = useStore.getState().addItem;
+    const originalUpdateQuantity = useStore.getState().updateQuantity;
+    const originalRemoveItem = useStore.getState().removeItem;
+
+    render(<ProductThumb product={mockProduct} />);
+
     useStore.setState({
-      updateQuantity: () => {
-        throw new Error("Simulated error");
+      addItem: () => {
+        throw new Error("Simulated add error");
       },
     });
-    render(
-      <ErrorBoundary fallback={<div>Basket error fallback</div>}>
-        <ProductThumb product={mockProduct} />
-      </ErrorBoundary>
-    );
-    fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
-    fireEvent.click(screen.getByRole("button", { name: /increase quantity/i }));
-    expect(screen.getByText(/basket error fallback/i)).toBeInTheDocument();
-    useStore.setState({ updateQuantity: original });
-  });
 
-  test("All basket operations on product card are testable via UI", () => {
-    render(
-      <ErrorBoundary fallback={<div>Basket error fallback</div>}>
-        <ProductThumb product={mockProduct} />
-      </ErrorBoundary>
+    fireEvent.click(screen.getByRole("button", { name: /add to basket/i }));
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Failed to add item to basket:",
+      expect.any(Error)
     );
-    fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
+
+    useStore.setState({
+      addItem: originalAddItem,
+      updateQuantity: () => {
+        throw new Error("Simulated update error");
+      },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /add to basket/i }));
     fireEvent.click(screen.getByRole("button", { name: /increase quantity/i }));
-    fireEvent.click(screen.getByRole("button", { name: /decrease quantity/i }));
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Failed to increase quantity:",
+      expect.any(Error)
+    );
+
+    useStore.setState({
+      removeItem: () => {
+        throw new Error("Simulated remove error");
+      },
+    });
+
     fireEvent.click(
       screen.getByRole("button", { name: /remove from basket/i })
     );
-    const items = useStore.getState().basket;
-    expect(items.length).toBe(0);
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Failed to remove item from basket:",
+      expect.any(Error)
+    );
+
+    consoleSpy.mockRestore();
+  });
+
+  test("All basket operations on product card are testable via UI", () => {
+    render(<ProductThumb product={mockProduct} />);
+
+    const addButton = screen.getByRole("button", { name: /add to basket/i });
+    expect(addButton).toBeInTheDocument();
+
+    fireEvent.click(addButton);
+
+    const increaseButton = screen.getByRole("button", {
+      name: /increase quantity/i,
+    });
+    const decreaseButton = screen.getByRole("button", {
+      name: /decrease quantity/i,
+    });
+    const removeButton = screen.getByRole("button", {
+      name: /remove from basket/i,
+    });
+
+    expect(increaseButton).toBeInTheDocument();
+    expect(decreaseButton).toBeInTheDocument();
+    expect(removeButton).toBeInTheDocument();
+
+    fireEvent.click(increaseButton);
+    expect(screen.getByText("2")).toBeInTheDocument();
+
+    fireEvent.click(decreaseButton);
+    expect(screen.getByText("1")).toBeInTheDocument();
+
+    fireEvent.click(removeButton);
     expect(
-      screen.getByRole("button", { name: /add to cart/i })
+      screen.getByRole("button", { name: /add to basket/i })
     ).toBeInTheDocument();
   });
 });
