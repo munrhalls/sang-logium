@@ -31,5 +31,15 @@
 - Create new files in appropriate folders (components/, hooks/, services/)
 - Don't put everything in one file
 
+# Tests
+
+- be aware that for images, due to sanity CMS constraint, the following format is required:
+  image: {
+  asset: { \_ref: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg" },
+  },
+  for the \_ref
+
+      if you put "image-abc" in the _ref, even though it is a test file, it will fail, therefore put the above format
+
 PROJECT DESCRIPTION:
 This project is a modern e-commerce web application for high-end audio gear.Tech stack: Next.js (React), TypeScript, Tailwind CSS, Zustand (state management), Sanity (CMS), Google Address Validation API.Purpose: To provide a robust, user-friendly online shop with real-time product management, validated delivery information, and a seamless basket/checkout experience.
