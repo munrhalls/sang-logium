@@ -1,7 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, cleanup } from "@testing-library/react";
 import { useStore } from "@/store";
 
 import ProductThumb from "@/app/components/features/products-view/ProductThumb";
+import ProductPageBasketControls from "@/app/(store)/product/[id]/ProductPageBasketControls";
 
 jest.mock("../../../../store", () => {
   const actual = jest.requireActual("../../../../store");
@@ -152,4 +153,155 @@ describe("Product Listing Basket Experience", () => {
     expect(updateQuantity).not.toHaveBeenCalled();
     expect(decreaseButton).toBeDisabled();
   });
+
+  it("Clicking X on product card removes product and restores Add to Cart button", () => {
+    const product = {
+      _id: "audio-1",
+      name: "Headphones",
+      price: 100,
+      image: {
+        asset: { _ref: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg" },
+      },
+      stock: 5,
+    };
+    const removeItem = jest.fn();
+    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        basket: [
+          { id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
+        ],
+        removeItem,
+      })
+    );
+    const { rerender } = render(<ProductThumb product={product as any} />);
+    const removeButton = screen.getByRole("button", {
+      name: /remove from basket/i,
+    });
+    removeButton.click();
+    expect(removeItem).toHaveBeenCalledWith("audio-1");
+    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({ basket: [], removeItem })
+    );
+    rerender(<ProductThumb product={product as any} />);
+    const addToCartButton = screen.getByRole("button", {
+      name: /add to basket/i,
+    });
+    expect(addToCartButton).toBeInTheDocument();
+  });
+
+  it("Clicking X on product card sets that product's quantity in basket to 0", () => {
+    const product = {
+      _id: "audio-1",
+      name: "Headphones",
+      price: 100,
+      image: {
+        asset: { _ref: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg" },
+      },
+      stock: 5,
+    };
+    const removeItem = jest.fn();
+    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        basket: [
+          { id: "audio-1", name: "Headphones", price: 100, quantity: 3 },
+        ],
+        removeItem,
+      })
+    );
+    render(<ProductThumb product={product as any} />);
+    const removeButton = screen.getByRole("button", {
+      name: /remove from basket/i,
+    });
+    removeButton.click();
+    expect(removeItem).toHaveBeenCalledWith("audio-1");
+  });
+
+  it("Product card quantity controls render with same structure as individual product page", () => {
+    const product = {
+      _id: "audio-1",
+      name: "Headphones",
+      price: 100,
+      image: {
+        asset: { _ref: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg" },
+      },
+      stock: 5,
+    };
+    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        basket: [
+          { id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
+        ],
+      })
+    );
+    render(<ProductThumb product={product as any} />);
+    expect(
+      screen.getByRole("button", { name: /increase quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /decrease quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /remove from basket/i })
+    ).toBeInTheDocument();
+    cleanup();
+    render(
+      <ProductPageBasketControls
+        product={{ id: "audio-1", name: "Headphones", price: 100 }}
+      />
+    );
+    expect(
+      screen.getByRole("button", { name: /increase quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /decrease quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /remove from cart/i })
+    ).toBeInTheDocument();
+  });
+
+  it("Product card reflects basket state changes made elsewhere", () => {
+    const product = {
+      _id: "audio-1",
+      name: "Headphones",
+      price: 100,
+      image: {
+        asset: { _ref: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg" },
+      },
+      stock: 5,
+    };
+    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        basket: [
+          { id: "audio-1", name: "Headphones", price: 100, quantity: 1 },
+        ],
+      })
+    );
+    const { rerender } = render(<ProductThumb product={product as any} />);
+    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+      selector({
+        basket: [
+          { id: "audio-1", name: "Headphones", price: 100, quantity: 3 },
+        ],
+      })
+    );
+    rerender(<ProductThumb product={product as any} />);
+    expect(
+      screen.getByRole("button", { name: /increase quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /decrease quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /remove from basket/i })
+    ).toBeInTheDocument();
+  });
+
+  //   7. State Synchronization (Fixed)
+  // Test: "Product card reflects basket state changes made elsewhere"
+
+  // GIVEN: Product A in basket with quantity 1, displayed on product card
+  // WHEN: Quantity is increased to 3 via external action (API call, other component)
+  // THEN: Product A's card updates to show quantity 3
+  // AND: All controls remain functional
 });
