@@ -6,62 +6,22 @@ import {
   ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useState } from "react";
 import ProductQuantityControl from "@/app/components/features/basket/ProductQuantityControl";
 import SegmentTitle from "@/app/components/ui/segment-title/SegmentTitle";
+import { useBasketStore } from "@/store";
 
 export default function BasketPage() {
-  const [basketItems, setBasketItems] = useState([
-    {
-      id: "1",
-      name: "Studio Headphones Pro",
-      brand: "AudioTech",
-      price: 249.99,
-      image: "/placeholder.jpg",
-      quantity: 1,
-    },
-    {
-      id: "2",
-      name: "Wireless Earbuds X2",
-      brand: "SoundMaster",
-      price: 99.99,
-      image: "/placeholder.jpg",
-      quantity: 2,
-    },
-  ]);
-
-  const handleIncreaseQuantity = (id) => {
-    setBasketItems((items) =>
-      items.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
-  };
-
-  const handleDecreaseQuantity = (id) => {
-    setBasketItems((items) =>
-      items.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
-  };
-
-  const handleRemoveItem = (id) => {
-    setBasketItems((items) => items.filter((item) => item.id !== id));
-  };
-
-  const subtotal = basketItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const basket = useBasketStore((s) => s.basket);
+  const updateQuantity = useBasketStore((s) => s.updateQuantity);
+  const removeItem = useBasketStore((s) => s.removeItem);
+  const getTotal = useBasketStore((s) => s.getTotal);
+  const isCheckoutEnabled = useBasketStore((s) => s.isCheckoutEnabled);
 
   const shipping = 15.99;
-
+  const subtotal = getTotal();
   const total = subtotal + shipping;
 
-  if (basketItems.length === 0) {
+  if (basket.length === 0) {
     return (
       <div className="max-w-7xl mx-auto my-8 px-4 sm:px-6 lg:px-8 bg-slate-100 pt-8 pb-16">
         <div className="mb-8">
@@ -104,7 +64,7 @@ export default function BasketPage() {
               <div></div>
             </div>
 
-            {basketItems.map((item) => (
+            {basket.map((item) => (
               <div
                 key={item.id}
                 className="grid grid-cols-1 lg:grid-cols-[3fr_1fr_1fr_auto] p-5 border-b border-gray-200 gap-5 items-center hover:bg-gray-50 transition-colors"
@@ -119,7 +79,6 @@ export default function BasketPage() {
                         {item.name}
                       </h3>
                     </Link>
-                    <p className="text-sm text-gray-500 mb-1">{item.brand}</p>
                     <p className="text-sm text-gray-500 lg:hidden mt-2">
                       <span className="font-medium">
                         ${item.price.toFixed(2)}
@@ -143,11 +102,15 @@ export default function BasketPage() {
                     <ProductQuantityControl
                       productId={item.id}
                       quantity={item.quantity}
-                      onIncrease={handleIncreaseQuantity}
-                      onDecrease={handleDecreaseQuantity}
+                      onIncrease={() =>
+                        updateQuantity(item.id, item.quantity + 1)
+                      }
+                      onDecrease={() =>
+                        updateQuantity(item.id, item.quantity - 1)
+                      }
                     />
                     <button
-                      onClick={() => handleRemoveItem(item.id)}
+                      onClick={() => removeItem(item.id)}
                       className="ml-3 text-gray-400 hover:text-red-500 transition-colors lg:hidden"
                       aria-label="Remove item"
                     >
@@ -158,7 +121,7 @@ export default function BasketPage() {
 
                 <div className="hidden lg:flex items-center justify-center">
                   <button
-                    onClick={() => handleRemoveItem(item.id)}
+                    onClick={() => removeItem(item.id)}
                     className="flex items-center justify-center h-9 w-9 rounded-full hover:bg-gray-200 text-gray-400 hover:text-red-500 transition-colors"
                     aria-label="Remove item"
                   >
@@ -190,8 +153,7 @@ export default function BasketPage() {
               <div className="flex justify-between text-gray-700">
                 <div>
                   Subtotal (
-                  {basketItems.reduce((sum, item) => sum + item.quantity, 0)}{" "}
-                  items)
+                  {basket.reduce((sum, item) => sum + item.quantity, 0)} items)
                 </div>
                 <div className="font-medium">${subtotal.toFixed(2)}</div>
               </div>

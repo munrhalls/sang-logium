@@ -60,7 +60,6 @@ export const useBasketStore = create<BasketState>()(
     (set, get) => ({
       basket: [],
       addItem: (item) => {
-        console.log("[Zustand] addItem called", item);
         if (
           !item ||
           typeof item !== "object" ||
@@ -82,34 +81,27 @@ export const useBasketStore = create<BasketState>()(
         } else {
           set({ basket: [...basket, { ...item, quantity: 1 }] });
         }
-        console.log("[Zustand] basket after addItem", get().basket);
       },
       removeItem: (id) => {
-        console.log("[Zustand] removeItem called", id);
         const basket = get().basket;
         set({ basket: basket.filter((i) => i.id !== id) });
-        console.log("[Zustand] basket after removeItem", get().basket);
       },
       updateQuantity: (id, quantity) => {
-        console.log("[Zustand] updateQuantity called", { id, quantity });
         const basket = get().basket;
         set({
           basket: basket.map((i) =>
             i.id === id ? { ...i, quantity: quantity < 1 ? 1 : quantity } : i
           ),
         });
-        console.log("[Zustand] basket after updateQuantity", get().basket);
       },
       getTotal: () => {
         const basket = get().basket;
         const total = basket.reduce((sum, i) => sum + i.price * i.quantity, 0);
-        console.log("[Zustand] getTotal called", total);
         return total;
       },
       isCheckoutEnabled: () => {
         const basket = get().basket;
         const enabled = basket.length > 0;
-        console.log("[Zustand] isCheckoutEnabled called", enabled);
         return enabled;
       },
     }),

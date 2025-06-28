@@ -1,4 +1,4 @@
-import { useUIStore } from "@/store";
+import { useBasketStore } from "@/store";
 
 describe("Basket Store Business Logic", () => {
   afterEach(() => {
@@ -49,7 +49,6 @@ describe("Basket Store Business Logic", () => {
 
   test("invalid product data doesn't crash basket", () => {
     expect(() => {
-      // @ts-expect-error purposely passing invalid data
       useBasketStore.getState().addItem({ invalid: "data" });
     }).not.toThrow();
     const items = useBasketStore.getState().basket;
