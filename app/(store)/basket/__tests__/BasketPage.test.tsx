@@ -480,4 +480,96 @@ describe("4. Item Removal", () => {
       expect(checkoutLink).toHaveAttribute("href", "/checkout");
     });
   });
+
+  describe("6.2 Continue Shopping", () => {
+    it("Continue shopping returns to products page", () => {
+      const mockProducts = [
+        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+      ];
+      const mockStore = {
+        basket: mockProducts,
+        addItem: jest.fn(),
+        removeItem: jest.fn(),
+        updateQuantity: jest.fn(),
+        getTotal: jest.fn(() => 200.0),
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+      mockUseBasketStore.mockImplementation((selector) =>
+        selector ? selector(mockStore) : mockStore
+      );
+      render(<BasketPage />);
+
+      const continueShoppingLinks = screen.getAllByRole("link", {
+        name: /continue shopping/i,
+      });
+      expect(continueShoppingLinks).toHaveLength(2);
+
+      continueShoppingLinks.forEach((link) => {
+        expect(link).toHaveAttribute("href", "/products");
+      });
+    });
+  });
+
+  describe("6.3 Product Page Navigation", () => {
+    it("Product name links to individual product page", () => {
+      const mockProducts = [
+        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { id: "2", name: "Product B", price: 50.0, quantity: 1 },
+      ];
+      const mockStore = {
+        basket: mockProducts,
+        addItem: jest.fn(),
+        removeItem: jest.fn(),
+        updateQuantity: jest.fn(),
+        getTotal: jest.fn(() => 250.0),
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+      mockUseBasketStore.mockImplementation((selector) =>
+        selector ? selector(mockStore) : mockStore
+      );
+      render(<BasketPage />);
+
+      const productALink = screen.getByRole("link", { name: "Product A" });
+      const productBLink = screen.getByRole("link", { name: "Product B" });
+
+      expect(productALink).toHaveAttribute("href", "/product/1");
+      expect(productBLink).toHaveAttribute("href", "/product/2");
+    });
+  });
+
+  describe("7.1 Page Reload Persistence", () => {
+    it("Basket contents persist after page reload", () => {
+      const mockProducts = [
+        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { id: "2", name: "Product B", price: 50.0, quantity: 1 },
+      ];
+      const mockStore = {
+        basket: mockProducts,
+        addItem: jest.fn(),
+        removeItem: jest.fn(),
+        updateQuantity: jest.fn(),
+        getTotal: jest.fn(() => 250.0),
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+      mockUseBasketStore.mockImplementation((selector) =>
+        selector ? selector(mockStore) : mockStore
+      );
+
+      const { rerender } = render(<BasketPage />);
+
+      expect(screen.getByText("Product A")).toBeInTheDocument();
+      expect(screen.getByText("Product B")).toBeInTheDocument();
+      expect(screen.getByText("2")).toBeInTheDocument();
+      expect(screen.getByText("1")).toBeInTheDocument();
+      expect(screen.getByText("$250.00")).toBeInTheDocument();
+
+      rerender(<BasketPage />);
+
+      expect(screen.getByText("Product A")).toBeInTheDocument();
+      expect(screen.getByText("Product B")).toBeInTheDocument();
+      expect(screen.getByText("2")).toBeInTheDocument();
+      expect(screen.getByText("1")).toBeInTheDocument();
+      expect(screen.getByText("$250.00")).toBeInTheDocument();
+    });
+  });
 });
