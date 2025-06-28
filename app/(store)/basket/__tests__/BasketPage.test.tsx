@@ -572,4 +572,108 @@ describe("4. Item Removal", () => {
       expect(screen.getByText("$250.00")).toBeInTheDocument();
     });
   });
+
+  describe("7.2 Cross-Page Synchronization", () => {
+    it("Basket changes reflect across all pages", () => {
+      const initialProducts = [
+        { id: "1", name: "Product A", price: 100.0, quantity: 1 },
+      ];
+
+      const updatedProducts = [
+        { id: "1", name: "Product A", price: 100.0, quantity: 3 },
+      ];
+
+      const mockStore = {
+        basket: initialProducts,
+        addItem: jest.fn(),
+        removeItem: jest.fn(),
+        updateQuantity: jest.fn(),
+        getTotal: jest.fn(() => 100.0),
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+
+      mockUseBasketStore.mockImplementation((selector) =>
+        selector ? selector(mockStore) : mockStore
+      );
+
+      const { rerender } = render(<BasketPage />);
+
+      expect(screen.getByText("1")).toBeInTheDocument();
+      expect(screen.getAllByText("$100.00")).toHaveLength(3);
+
+      mockStore.basket = updatedProducts;
+      mockStore.getTotal = jest.fn(() => 300.0);
+
+      rerender(<BasketPage />);
+
+      expect(screen.getByText("3")).toBeInTheDocument();
+      expect(screen.getAllByText("$300.00")).toHaveLength(1);
+    });
+  });
+
+  describe("8.1 Invalid Product Data", () => {
+    it("Page handles corrupted basket data gracefully", () => {
+      const invalidProducts: any[] = [
+        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { id: "2", name: "", price: 50.0, quantity: 1 },
+        { id: "3", name: "Product C", price: 0, quantity: 1 },
+      ];
+
+      const mockStore = {
+        basket: invalidProducts,
+        addItem: jest.fn(),
+        removeItem: jest.fn(),
+        updateQuantity: jest.fn(),
+        getTotal: jest.fn(() => 250.0),
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+
+      mockUseBasketStore.mockImplementation((selector) =>
+        selector ? selector(mockStore) : mockStore
+      );
+
+      render(<BasketPage />);
+
+      expect(screen.getByText("Product A")).toBeInTheDocument();
+      expect(screen.getByText("Product C")).toBeInTheDocument();
+      expect(screen.getByText("$250.00")).toBeInTheDocument();
+    });
+  });
+
+  describe("8.2 Network Errors", () => {
+    it("Page functions during temporary network issues", () => {
+      const mockProducts = [
+        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+      ];
+
+      const mockUpdateQuantity = jest.fn();
+      const mockRemoveItem = jest.fn();
+
+      const mockStore = {
+        basket: mockProducts,
+        addItem: jest.fn(),
+        removeItem: mockRemoveItem,
+        updateQuantity: mockUpdateQuantity,
+        getTotal: jest.fn(() => 200.0),
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+
+      mockUseBasketStore.mockImplementation((selector) =>
+        selector ? selector(mockStore) : mockStore
+      );
+
+      render(<BasketPage />);
+
+      const increaseButton = screen.getByRole("button", {
+        name: /increase quantity/i,
+      });
+      const removeButton = screen.getAllByLabelText("Remove item")[0];
+
+      increaseButton.click();
+      removeButton.click();
+
+      expect(mockUpdateQuantity).toHaveBeenCalledWith("1", 3);
+      expect(mockRemoveItem).toHaveBeenCalledWith("1");
+    });
+  });
 });
