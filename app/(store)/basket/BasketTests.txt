@@ -78,13 +78,20 @@ WHEN: User clicks - on Product A's card
 THEN: Product A quantity remains 1
 AND: Quantity controls remain visible
 
-5. Remove Product
+5a. Remove Product
 Test: "Clicking X on product card removes product and restores Add to Cart button"
 
 GIVEN: Product A in basket with any quantity (on listing page)
 WHEN: User clicks X on Product A's card
 THEN: Product A is removed from basket
 AND: "Add to Cart" button is visible again on Product A's card
+
+5b. Remove Product
+Test: "Clicking X on product card sets that product's quantity in basket to 0"
+
+GIVEN: Product A in basket with any quantity above 0 (on listing page)
+WHEN: User clicks X on Product A's card
+THEN: that product's quantity in basket is set to 0
 
 6. UI Consistency (Fixed)
 Test: "Product card quantity controls render with same structure as individual product page"

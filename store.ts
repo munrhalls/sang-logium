@@ -64,6 +64,7 @@ export const useStore = create<UIState>()(
         ) {
           return;
         }
+
         const basket = get().basket;
         const existing = basket.find((i) => i.id === item.id);
         if (existing) {

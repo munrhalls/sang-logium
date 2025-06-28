@@ -296,12 +296,4 @@ describe("Product Listing Basket Experience", () => {
       screen.getByRole("button", { name: /remove from basket/i })
     ).toBeInTheDocument();
   });
-
-  //   7. State Synchronization (Fixed)
-  // Test: "Product card reflects basket state changes made elsewhere"
-
-  // GIVEN: Product A in basket with quantity 1, displayed on product card
-  // WHEN: Quantity is increased to 3 via external action (API call, other component)
-  // THEN: Product A's card updates to show quantity 3
-  // AND: All controls remain functional
 });
