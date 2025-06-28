@@ -13,10 +13,10 @@ interface ProductThumbProps {
 }
 
 const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
-  const basket = useStore((s) => s.basket);
-  const addItem = useStore((s) => s.addItem);
-  const updateQuantity = useStore((s) => s.updateQuantity);
-  const removeItem = useStore((s) => s.removeItem);
+  const basket = useUIStore((s) => s.basket);
+  const addItem = useUIStore((s) => s.addItem);
+  const updateQuantity = useUIStore((s) => s.updateQuantity);
+  const removeItem = useUIStore((s) => s.removeItem);
 
   if (!product.name || !product.image) return null;
   const isOutOfStock = product.stock != null && product.stock <= 0;

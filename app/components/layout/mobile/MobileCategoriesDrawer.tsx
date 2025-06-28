@@ -9,10 +9,10 @@ export default function MobileCategoriesDrawer({
 }: {
   categoriesTreeUI: ReactElement;
 }) {
-  const isCategoriesDrawerOpen = useStore(
+  const isCategoriesDrawerOpen = useUIStore(
     (state) => state.isCategoriesDrawerOpen
   );
-  const toggleCategoriesDrawer = useStore(
+  const toggleCategoriesDrawer = useUIStore(
     (state) => state.toggleCategoriesDrawer
   );
 

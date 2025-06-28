@@ -7,10 +7,10 @@ export default function ProductPageBasketControls({
 }: {
   product: { id: string; name: string; price: number };
 }) {
-  const basket = useStore((s) => s.basket);
-  const addItem = useStore((s) => s.addItem);
-  const updateQuantity = useStore((s) => s.updateQuantity);
-  const removeItem = useStore((s) => s.removeItem);
+  const basket = useUIStore((s) => s.basket);
+  const addItem = useUIStore((s) => s.addItem);
+  const updateQuantity = useUIStore((s) => s.updateQuantity);
+  const removeItem = useUIStore((s) => s.removeItem);
   const item = basket.find((i) => i.id === product.id);
   const [error, setError] = useState<string | null>(null);
 

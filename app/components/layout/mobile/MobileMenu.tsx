@@ -18,12 +18,12 @@ const AuthContent = dynamic(
 );
 
 const MobileMenu = () => {
-  const isCategoriesOpen = useStore((state) => state.isCategoriesDrawerOpen);
-  const toggleCategoriesDrawer = useStore(
+  const isCategoriesOpen = useUIStore((state) => state.isCategoriesDrawerOpen);
+  const toggleCategoriesDrawer = useUIStore(
     (state) => state.toggleCategoriesDrawer
   );
-  const isSearchDrawerOpen = useStore((state) => state.isSearchDrawerOpen);
-  const toggleSearchDrawer = useStore((state) => state.toggleSearchDrawer);
+  const isSearchDrawerOpen = useUIStore((state) => state.isSearchDrawerOpen);
+  const toggleSearchDrawer = useUIStore((state) => state.toggleSearchDrawer);
 
   return (
     <>

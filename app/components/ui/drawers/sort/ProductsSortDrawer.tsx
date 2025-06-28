@@ -12,7 +12,7 @@ export default function ProductsSortDrawer({
 }: {
   sortOptions: SortOption[];
 }) {
-  const { isProductsSortDrawerOpen, toggleProductsSortDrawer } = useStore();
+  const { isProductsSortDrawerOpen, toggleProductsSortDrawer } = useUIStore();
   const pathname = usePathname();
 
   // Close drawer when navigating to a new page

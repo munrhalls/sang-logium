@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 
 export default function MobileSearchDrawer() {
-  const isSearchDrawerOpen = useStore((state) => state.isSearchDrawerOpen);
-  const toggleSearchDrawer = useStore((state) => state.toggleSearchDrawer);
+  const isSearchDrawerOpen = useUIStore((state) => state.isSearchDrawerOpen);
+  const toggleSearchDrawer = useUIStore((state) => state.toggleSearchDrawer);
 
   const [isMounted, setIsMounted] = useState(false);
 

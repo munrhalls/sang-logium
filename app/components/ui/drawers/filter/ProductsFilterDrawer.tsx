@@ -12,7 +12,8 @@ export default function ProductsFilterDrawer({
 }: {
   filterOptions: FilterOptions;
 }) {
-  const { isProductsFilterDrawerOpen, toggleProductsFilterDrawer } = useStore();
+  const { isProductsFilterDrawerOpen, toggleProductsFilterDrawer } =
+    useUIStore();
   const pathname = usePathname();
 
   // Close drawer when navigating to a new page
