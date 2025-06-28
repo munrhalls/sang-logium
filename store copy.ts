@@ -8,7 +8,7 @@ export interface BasketItem {
   quantity: number;
 }
 
-interface UIState {
+export interface UIState {
   isSearchDrawerOpen: boolean;
   toggleSearchDrawer: () => void;
   isCategoriesDrawerOpen: boolean;
@@ -17,9 +17,6 @@ interface UIState {
   toggleProductsFilterDrawer: () => void;
   isProductsSortDrawerOpen: boolean;
   toggleProductsSortDrawer: () => void;
-}
-
-interface BasketState {
   basket: BasketItem[];
   addItem: (item: any) => void;
   removeItem: (id: string) => void;
@@ -28,36 +25,33 @@ interface BasketState {
   isCheckoutEnabled: () => boolean;
 }
 
-export const useUIStore = create<UIState>((set) => ({
-  isSearchDrawerOpen: false,
-  toggleSearchDrawer: () =>
-    set((state) => ({
-      isSearchDrawerOpen: !state.isSearchDrawerOpen,
-      isCategoriesDrawerOpen: false,
-    })),
-  isCategoriesDrawerOpen: false,
-  toggleCategoriesDrawer: () =>
-    set((state) => ({
-      isCategoriesDrawerOpen: !state.isCategoriesDrawerOpen,
-      isSearchDrawerOpen: false,
-    })),
-  isProductsFilterDrawerOpen: false,
-  toggleProductsFilterDrawer: () =>
-    set((state) => ({
-      isProductsFilterDrawerOpen: !state.isProductsFilterDrawerOpen,
-      isProductsSortDrawerOpen: false,
-    })),
-  isProductsSortDrawerOpen: false,
-  toggleProductsSortDrawer: () =>
-    set((state) => ({
-      isProductsSortDrawerOpen: !state.isProductsSortDrawerOpen,
-      isProductsFilterDrawerOpen: false,
-    })),
-}));
-
-export const useBasketStore = create<BasketState>()(
+export const useStore = create<UIState>()(
   persist(
     (set, get) => ({
+      isSearchDrawerOpen: false,
+      toggleSearchDrawer: () =>
+        set((state) => ({
+          isSearchDrawerOpen: !state.isSearchDrawerOpen,
+          isCategoriesDrawerOpen: false,
+        })),
+      isCategoriesDrawerOpen: false,
+      toggleCategoriesDrawer: () =>
+        set((state) => ({
+          isCategoriesDrawerOpen: !state.isCategoriesDrawerOpen,
+          isSearchDrawerOpen: false,
+        })),
+      isProductsFilterDrawerOpen: false,
+      toggleProductsFilterDrawer: () =>
+        set((state) => ({
+          isProductsFilterDrawerOpen: !state.isProductsFilterDrawerOpen,
+          isProductsSortDrawerOpen: false,
+        })),
+      isProductsSortDrawerOpen: false,
+      toggleProductsSortDrawer: () =>
+        set((state) => ({
+          isProductsSortDrawerOpen: !state.isProductsSortDrawerOpen,
+          isProductsFilterDrawerOpen: false,
+        })),
       basket: [],
       addItem: (item) => {
         console.log("[Zustand] addItem called", item);

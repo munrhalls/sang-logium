@@ -1,4 +1,4 @@
-import { useStore } from "@/store";
+import { useUIStore } from "@/store";
 
 describe("Basket Store Business Logic", () => {
   afterEach(() => {

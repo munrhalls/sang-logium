@@ -5,7 +5,7 @@ import { MouseEvent } from "react";
 import { imageUrl } from "@/lib/imageUrl";
 import ProductQuantityControl from "@/app/components/features/basket/ProductQuantityControl";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useStore } from "@/store";
+import { useUIStore } from "@/store";
 
 interface ProductThumbProps {
   product: Product;

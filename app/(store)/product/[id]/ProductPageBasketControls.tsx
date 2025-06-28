@@ -1,5 +1,5 @@
 "use client";
-import { useStore } from "@/store";
+import { useUIStore } from "@/store";
 import { useState } from "react";
 
 export default function ProductPageBasketControls({

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import React from "react";
-import { useStore } from "@/store";
+import { useUIStore } from "@/store";
 import ProductPageBasketControls from "../../product/[id]/ProductPageBasketControls";
 import ErrorBoundary from "../../product/[id]/ErrorBoundary";
 

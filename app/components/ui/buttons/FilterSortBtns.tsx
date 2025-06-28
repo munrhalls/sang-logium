@@ -1,5 +1,5 @@
 "use client";
-import { useStore } from "@/store";
+import { useUIStore } from "@/store";
 import { SlidersHorizontal, ArrowUpDown } from "lucide-react";
 
 export default function FilterSortBtns() {

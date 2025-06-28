@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore } from "../../../../store";
+import { useUIStore } from "../../../../store";
 import { ReactElement } from "react";
 import { FaTimes } from "react-icons/fa";
 

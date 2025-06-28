@@ -1,5 +1,5 @@
 import { render, screen, cleanup } from "@testing-library/react";
-import { useStore } from "@/store";
+import { useUIStore } from "@/store";
 
 import ProductThumb from "@/app/components/features/products-view/ProductThumb";
 import ProductPageBasketControls from "@/app/(store)/product/[id]/ProductPageBasketControls";

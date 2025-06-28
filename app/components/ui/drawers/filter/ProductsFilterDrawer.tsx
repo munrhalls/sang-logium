@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore } from "@/store";
+import { useUIStore } from "@/store";
 import { X } from "lucide-react";
 import Filters from "../../filters/Filters";
 import { useEffect } from "react";
