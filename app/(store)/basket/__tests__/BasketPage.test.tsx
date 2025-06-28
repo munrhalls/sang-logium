@@ -163,3 +163,250 @@ describe("2. Item Display & Information", () => {
     });
   });
 });
+
+describe("3. Quantity Interactions", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe("3.1 Increase Quantity", () => {
+    it("Increasing quantity updates item and totals", () => {
+      const mockProduct = {
+        id: "1",
+        name: "Test Product",
+        price: 249.99,
+        quantity: 1,
+      };
+
+      const mockUpdateQuantity = jest.fn();
+      const mockGetTotal = jest.fn(() => 249.99);
+
+      const mockStore = {
+        basket: [mockProduct],
+        addItem: jest.fn(),
+        removeItem: jest.fn(),
+        updateQuantity: mockUpdateQuantity,
+        getTotal: mockGetTotal,
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+
+      mockUseBasketStore.mockImplementation((selector) => {
+        return selector ? selector(mockStore) : mockStore;
+      });
+
+      render(<BasketPage />);
+
+      const increaseButton = screen.getByRole("button", {
+        name: /increase quantity/i,
+      });
+      expect(increaseButton).toBeInTheDocument();
+
+      increaseButton.click();
+
+      expect(mockUpdateQuantity).toHaveBeenCalledWith("1", 2);
+    });
+  });
+
+  describe("3.2 Decrease Quantity", () => {
+    it("Decreasing quantity updates item and totals", () => {
+      const mockProduct = {
+        id: "1",
+        name: "Test Product",
+        price: 249.99,
+        quantity: 3,
+      };
+
+      const mockUpdateQuantity = jest.fn();
+      const mockGetTotal = jest.fn(() => 749.97);
+
+      const mockStore = {
+        basket: [mockProduct],
+        addItem: jest.fn(),
+        removeItem: jest.fn(),
+        updateQuantity: mockUpdateQuantity,
+        getTotal: mockGetTotal,
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+
+      mockUseBasketStore.mockImplementation((selector) => {
+        return selector ? selector(mockStore) : mockStore;
+      });
+
+      render(<BasketPage />);
+
+      const decreaseButton = screen.getByRole("button", {
+        name: /decrease quantity/i,
+      });
+      expect(decreaseButton).toBeInTheDocument();
+
+      decreaseButton.click();
+
+      expect(mockUpdateQuantity).toHaveBeenCalledWith("1", 2);
+    });
+  });
+
+  describe("3.3 Minimum Quantity Enforcement", () => {
+    it("Quantity cannot decrease below 1", () => {
+      const mockProduct = {
+        id: "1",
+        name: "Test Product",
+        price: 249.99,
+        quantity: 1,
+      };
+
+      const mockUpdateQuantity = jest.fn();
+      const mockGetTotal = jest.fn(() => 249.99);
+
+      const mockStore = {
+        basket: [mockProduct],
+        addItem: jest.fn(),
+        removeItem: jest.fn(),
+        updateQuantity: mockUpdateQuantity,
+        getTotal: mockGetTotal,
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+
+      mockUseBasketStore.mockImplementation((selector) => {
+        return selector ? selector(mockStore) : mockStore;
+      });
+
+      render(<BasketPage />);
+
+      const decreaseButton = screen.getByRole("button", {
+        name: /decrease quantity/i,
+      });
+      expect(decreaseButton).toBeInTheDocument();
+      expect(decreaseButton).toBeDisabled();
+
+      decreaseButton.click();
+
+      expect(mockUpdateQuantity).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe("4. Item Removal", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe("4.1 Remove Single Item", () => {
+    it("Removing item updates basket and totals", () => {
+      const mockProducts = [
+        {
+          id: "1",
+          name: "Product A",
+          price: 100.0,
+          quantity: 2,
+        },
+        {
+          id: "2",
+          name: "Product B",
+          price: 50.0,
+          quantity: 1,
+        },
+      ];
+
+      const mockRemoveItem = jest.fn();
+      const mockGetTotal = jest.fn(() => 250.0);
+
+      const mockStore = {
+        basket: mockProducts,
+        addItem: jest.fn(),
+        removeItem: mockRemoveItem,
+        updateQuantity: jest.fn(),
+        getTotal: mockGetTotal,
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+
+      mockUseBasketStore.mockImplementation((selector) => {
+        return selector ? selector(mockStore) : mockStore;
+      });
+
+      render(<BasketPage />);
+
+      const removeButtons = screen.getAllByLabelText("Remove item");
+      expect(removeButtons).toHaveLength(4);
+
+      removeButtons[0].click();
+
+      expect(mockRemoveItem).toHaveBeenCalledWith("1");
+    });
+  });
+
+  describe("4.2 Remove Last Item", () => {
+    it("Removing last item shows empty basket state", () => {
+      const mockProduct = {
+        id: "1",
+        name: "Product A",
+        price: 100.0,
+        quantity: 1,
+      };
+
+      const mockRemoveItem = jest.fn();
+      const mockGetTotal = jest.fn(() => 100.0);
+
+      const mockStore = {
+        basket: [mockProduct],
+        addItem: jest.fn(),
+        removeItem: mockRemoveItem,
+        updateQuantity: jest.fn(),
+        getTotal: mockGetTotal,
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+
+      mockUseBasketStore.mockImplementation((selector) => {
+        return selector ? selector(mockStore) : mockStore;
+      });
+
+      render(<BasketPage />);
+
+      const removeButtons = screen.getAllByLabelText("Remove item");
+      expect(removeButtons).toHaveLength(2);
+
+      removeButtons[0].click();
+
+      expect(mockRemoveItem).toHaveBeenCalledWith("1");
+    });
+  });
+
+  describe("4.3 Subtotal Calculation", () => {
+    it("Subtotal calculates correctly for multiple items", () => {
+      const mockProducts = [
+        {
+          id: "1",
+          name: "Product A",
+          price: 100.0,
+          quantity: 2,
+        },
+        {
+          id: "2",
+          name: "Product B",
+          price: 50.0,
+          quantity: 1,
+        },
+      ];
+
+      const mockStore = {
+        basket: mockProducts,
+        addItem: jest.fn(),
+        removeItem: jest.fn(),
+        updateQuantity: jest.fn(),
+        getTotal: jest.fn(() => 250.0),
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+
+      mockUseBasketStore.mockImplementation((selector) => {
+        return selector ? selector(mockStore) : mockStore;
+      });
+
+      render(<BasketPage />);
+
+      expect(screen.getByText("Subtotal (3 items)")).toBeInTheDocument();
+      expect(screen.getByText("$250.00")).toBeInTheDocument();
+      expect(screen.getByText("$15.99")).toBeInTheDocument();
+      expect(screen.getByText("$265.99")).toBeInTheDocument();
+      expect(screen.getByText("Including VAT")).toBeInTheDocument();
+    });
+  });
+});
