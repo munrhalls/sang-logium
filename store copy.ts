@@ -25,7 +25,7 @@ export interface UIState {
   isCheckoutEnabled: () => boolean;
 }
 
-export const useStore = create<UIState>()(
+export const useBasketStore = create<UIState>()(
   persist(
     (set, get) => ({
       isSearchDrawerOpen: false,

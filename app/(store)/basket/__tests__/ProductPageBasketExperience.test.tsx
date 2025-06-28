@@ -6,7 +6,7 @@ import ErrorBoundary from "../../product/[id]/ErrorBoundary";
 
 describe("Individual Product Page Basket Experience", () => {
   afterEach(() => {
-    useStore.setState({ basket: [] });
+    useBasketStore.setState({ basket: [] });
   });
 
   const mockProduct = { id: "audio-1", name: "Headphones", price: 100 };
@@ -21,7 +21,7 @@ describe("Individual Product Page Basket Experience", () => {
   test("Clicking Add to Cart adds product and shows quantity controls", () => {
     render(<ProductPageBasketControls product={mockProduct} />);
     fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
-    const items = useStore.getState().basket;
+    const items = useBasketStore.getState().basket;
     expect(items.length).toBe(1);
     expect(items[0].quantity).toBe(1);
     expect(
@@ -40,7 +40,7 @@ describe("Individual Product Page Basket Experience", () => {
     render(<ProductPageBasketControls product={mockProduct} />);
     fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     fireEvent.click(screen.getByRole("button", { name: /increase quantity/i }));
-    const items = useStore.getState().basket;
+    const items = useBasketStore.getState().basket;
     expect(items[0].quantity).toBe(2);
     expect(screen.getByText("2")).toBeInTheDocument();
   });
@@ -51,7 +51,7 @@ describe("Individual Product Page Basket Experience", () => {
     fireEvent.click(screen.getByRole("button", { name: /increase quantity/i }));
     fireEvent.click(screen.getByRole("button", { name: /decrease quantity/i }));
     fireEvent.click(screen.getByRole("button", { name: /decrease quantity/i }));
-    const items = useStore.getState().basket;
+    const items = useBasketStore.getState().basket;
     expect(items[0].quantity).toBe(1);
     expect(screen.getByText("1")).toBeInTheDocument();
   });
@@ -60,7 +60,7 @@ describe("Individual Product Page Basket Experience", () => {
     render(<ProductPageBasketControls product={mockProduct} />);
     fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     fireEvent.click(screen.getByRole("button", { name: /remove from cart/i }));
-    const items = useStore.getState().basket;
+    const items = useBasketStore.getState().basket;
     expect(items.length).toBe(0);
     expect(
       screen.getByRole("button", { name: /add to cart/i })

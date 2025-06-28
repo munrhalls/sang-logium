@@ -1,5 +1,5 @@
 "use client";
-import { useUIStore } from "@/store";
+import { useBasketStore } from "@/store";
 import { useState } from "react";
 
 export default function ProductPageBasketControls({
@@ -7,10 +7,10 @@ export default function ProductPageBasketControls({
 }: {
   product: { id: string; name: string; price: number };
 }) {
-  const basket = useUIStore((s) => s.basket);
-  const addItem = useUIStore((s) => s.addItem);
-  const updateQuantity = useUIStore((s) => s.updateQuantity);
-  const removeItem = useUIStore((s) => s.removeItem);
+  const basket = useBasketStore((s) => s.basket);
+  const addItem = useBasketStore((s) => s.addItem);
+  const updateQuantity = useBasketStore((s) => s.updateQuantity);
+  const removeItem = useBasketStore((s) => s.removeItem);
   const item = basket.find((i) => i.id === product.id);
   const [error, setError] = useState<string | null>(null);
 

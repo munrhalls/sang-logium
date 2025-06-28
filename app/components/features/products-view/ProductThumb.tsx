@@ -5,7 +5,7 @@ import { MouseEvent } from "react";
 import { imageUrl } from "@/lib/imageUrl";
 import ProductQuantityControl from "@/app/components/features/basket/ProductQuantityControl";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useUIStore } from "@/store";
+import { useBasketStore } from "@/store";
 
 interface ProductThumbProps {
   product: Product;
@@ -13,10 +13,10 @@ interface ProductThumbProps {
 }
 
 const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
-  const basket = useUIStore((s) => s.basket);
-  const addItem = useUIStore((s) => s.addItem);
-  const updateQuantity = useUIStore((s) => s.updateQuantity);
-  const removeItem = useUIStore((s) => s.removeItem);
+  const basket = useBasketStore((s) => s.basket);
+  const addItem = useBasketStore((s) => s.addItem);
+  const updateQuantity = useBasketStore((s) => s.updateQuantity);
+  const removeItem = useBasketStore((s) => s.removeItem);
 
   if (!product.name || !product.image) return null;
   const isOutOfStock = product.stock != null && product.stock <= 0;

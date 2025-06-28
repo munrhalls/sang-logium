@@ -8,13 +8,13 @@ jest.mock("../../../../store", () => {
   const actual = jest.requireActual("../../../../store");
   return {
     ...actual,
-    useStore: jest.fn(),
+    useBasketStore: jest.fn(),
   };
 });
 
 describe("Product Listing Basket Experience", () => {
   beforeEach(() => {
-    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+    (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({ basket: [] })
     );
   });
@@ -46,7 +46,7 @@ describe("Product Listing Basket Experience", () => {
       },
       stock: 5,
     };
-    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+    (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
           { id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
@@ -83,7 +83,7 @@ describe("Product Listing Basket Experience", () => {
       stock: 5,
     };
     const updateQuantity = jest.fn();
-    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+    (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
           { id: "audio-1", name: "Headphones", price: 100, quantity: 1 },
@@ -110,7 +110,7 @@ describe("Product Listing Basket Experience", () => {
       stock: 5,
     };
     const updateQuantity = jest.fn();
-    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+    (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
           { id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
@@ -137,7 +137,7 @@ describe("Product Listing Basket Experience", () => {
       stock: 5,
     };
     const updateQuantity = jest.fn();
-    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+    (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
           { id: "audio-1", name: "Headphones", price: 100, quantity: 1 },
@@ -165,7 +165,7 @@ describe("Product Listing Basket Experience", () => {
       stock: 5,
     };
     const removeItem = jest.fn();
-    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+    (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
           { id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
@@ -179,7 +179,7 @@ describe("Product Listing Basket Experience", () => {
     });
     removeButton.click();
     expect(removeItem).toHaveBeenCalledWith("audio-1");
-    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+    (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({ basket: [], removeItem })
     );
     rerender(<ProductThumb product={product as any} />);
@@ -200,7 +200,7 @@ describe("Product Listing Basket Experience", () => {
       stock: 5,
     };
     const removeItem = jest.fn();
-    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+    (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
           { id: "audio-1", name: "Headphones", price: 100, quantity: 3 },
@@ -226,7 +226,7 @@ describe("Product Listing Basket Experience", () => {
       },
       stock: 5,
     };
-    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+    (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
           { id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
@@ -270,7 +270,7 @@ describe("Product Listing Basket Experience", () => {
       },
       stock: 5,
     };
-    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+    (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
           { id: "audio-1", name: "Headphones", price: 100, quantity: 1 },
@@ -278,7 +278,7 @@ describe("Product Listing Basket Experience", () => {
       })
     );
     const { rerender } = render(<ProductThumb product={product as any} />);
-    (useStore as unknown as jest.Mock).mockImplementation((selector) =>
+    (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
           { id: "audio-1", name: "Headphones", price: 100, quantity: 3 },
