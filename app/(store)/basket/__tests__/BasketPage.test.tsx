@@ -409,4 +409,75 @@ describe("4. Item Removal", () => {
       expect(screen.getByText("Including VAT")).toBeInTheDocument();
     });
   });
+
+  describe("5.2 Shipping Calculation", () => {
+    it("Shipping fee applies correctly and total includes shipping", () => {
+      const mockProducts = [
+        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { id: "2", name: "Product B", price: 50.0, quantity: 1 },
+      ];
+      const mockStore = {
+        basket: mockProducts,
+        addItem: jest.fn(),
+        removeItem: jest.fn(),
+        updateQuantity: jest.fn(),
+        getTotal: jest.fn(() => 250.0),
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+      mockUseBasketStore.mockImplementation((selector) =>
+        selector ? selector(mockStore) : mockStore
+      );
+      render(<BasketPage />);
+      expect(screen.getByText("$15.99")).toBeInTheDocument();
+      expect(screen.getByText("$265.99")).toBeInTheDocument();
+    });
+  });
+
+  describe("5.3 Total Calculation", () => {
+    it("Total combines subtotal and shipping, VAT note is displayed", () => {
+      const mockProducts = [
+        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { id: "2", name: "Product B", price: 50.0, quantity: 1 },
+      ];
+      const mockStore = {
+        basket: mockProducts,
+        addItem: jest.fn(),
+        removeItem: jest.fn(),
+        updateQuantity: jest.fn(),
+        getTotal: jest.fn(() => 250.0),
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+      mockUseBasketStore.mockImplementation((selector) =>
+        selector ? selector(mockStore) : mockStore
+      );
+      render(<BasketPage />);
+      expect(screen.getByText("$265.99")).toBeInTheDocument();
+      expect(screen.getByText("Including VAT")).toBeInTheDocument();
+    });
+  });
+
+  describe("6.1 Checkout Navigation", () => {
+    it("Checkout button navigates to checkout page", () => {
+      const mockProducts = [
+        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+      ];
+      const mockStore = {
+        basket: mockProducts,
+        addItem: jest.fn(),
+        removeItem: jest.fn(),
+        updateQuantity: jest.fn(),
+        getTotal: jest.fn(() => 200.0),
+        isCheckoutEnabled: jest.fn(() => true),
+      };
+      mockUseBasketStore.mockImplementation((selector) =>
+        selector ? selector(mockStore) : mockStore
+      );
+      render(<BasketPage />);
+      const checkoutLink = screen.getByRole("link", {
+        name: /proceed to checkout/i,
+      });
+      expect(checkoutLink).toBeInTheDocument();
+      expect(checkoutLink).toHaveAttribute("href", "/checkout");
+    });
+  });
 });
