@@ -5,13 +5,13 @@ import { useState } from "react";
 export default function ProductPageBasketControls({
   product,
 }: {
-  product: { id: string; name: string; price: number };
+  product: { _id: string; name: string; price: number };
 }) {
   const basket = useBasketStore((s) => s.basket);
   const addItem = useBasketStore((s) => s.addItem);
   const updateQuantity = useBasketStore((s) => s.updateQuantity);
   const removeItem = useBasketStore((s) => s.removeItem);
-  const item = basket.find((i) => i.id === product.id);
+  const item = basket.find((i) => i._id === product._id);
   const [error, setError] = useState<string | null>(null);
 
   if (error) {
@@ -24,7 +24,7 @@ export default function ProductPageBasketControls({
         type="button"
         onClick={() => {
           try {
-            addItem(product);
+            addItem(product as any);
           } catch (e) {
             setError("Basket error fallback");
           }
@@ -42,7 +42,7 @@ export default function ProductPageBasketControls({
         type="button"
         onClick={() => {
           try {
-            updateQuantity(product.id, item.quantity - 1);
+            updateQuantity(product._id, item.quantity - 1);
           } catch (e) {
             setError("Basket error fallback");
           }
@@ -56,7 +56,7 @@ export default function ProductPageBasketControls({
         type="button"
         onClick={() => {
           try {
-            updateQuantity(product.id, item.quantity + 1);
+            updateQuantity(product._id, item.quantity + 1);
           } catch (e) {
             setError("Basket error fallback");
           }
@@ -69,7 +69,7 @@ export default function ProductPageBasketControls({
         type="button"
         onClick={() => {
           try {
-            removeItem(product.id);
+            removeItem(product._id);
           } catch (e) {
             setError("Basket error fallback");
           }
