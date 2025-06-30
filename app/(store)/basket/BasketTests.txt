@@ -125,31 +125,6 @@ AND: "Add to Cart" button is not visible for Product A
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ✅ GOOD Test Prompts for Cursor
 Store Business Logic Tests
 1. Adding Items

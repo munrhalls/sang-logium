@@ -5,7 +5,7 @@ import ProductPageGallery from "./ProductPageGallery";
 import { FaCheckCircle } from "react-icons/fa";
 // import { FaInfoCircle } from "react-icons/fa";
 import InfoTooltip from "@/app/components/ui/infoTooltip/infoTooltip";
-import ProductPageBasketControls from "./ProductPageBasketControls";
+import BasketControls from "@/app/components/features/basket/BasketControls";
 
 export default async function ProductPage({
   params,
@@ -19,6 +19,8 @@ export default async function ProductPage({
   }
 
   const isOutOfStock = product.stock != null && product.stock <= 0;
+
+  // const item = basket.find((i) => i.id === product._id);
 
   return (
     <div className="mx-auto max-w-[1400px] grid justify-center p-4 gap-4 lg:gap-12 xl:gap-16 sm:grid-cols-2 auto-rows-min">
@@ -53,13 +55,23 @@ export default async function ProductPage({
           </div>
         )}
 
-        <ProductPageBasketControls
-          product={{
-            id: product._id || "",
-            name: product.name || "",
-            price: typeof product.price === "number" ? product.price : 0,
-          }}
-        />
+        {/* <div className="flex items-center">
+          <ProductQuantityControl
+            productId={product._id}
+            quantity={item.quantity}
+            onIncrease={handleIncreaseQuantity}
+            onDecrease={handleDecreaseQuantity}
+            className="scale-90 transform origin-right"
+          />
+          <button
+            onClick={handleRemoveItem}
+            className="ml-1 text-gray-500 hover:text-red-500 transition-colors"
+            aria-label="Remove from basket"
+          >
+            <XMarkIcon className="h-5 w-5" />
+          </button>
+        </div> */}
+        <BasketControls product={product} />
       </div>
       {product.overviewFields && product.overviewFields.length > 0 && (
         <div className="mb-6 md:max-w-[500px] border-l-2 border-b-2 pl-4 pb-4 border-gray-400 ">

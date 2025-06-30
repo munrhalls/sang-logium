@@ -92,7 +92,7 @@ const ProductQuantityControl = ({
         <MinusIcon className="h-4 w-4" />
       </button>
 
-      <div className="px-4 py-1 bg-white border-t border-b border-gray-200 text-center min-w-[40px]">
+      <div className="px-4 py-1 bg-white border-t border-b border-gray-200 text-center min-w-[40px] bg-red-700">
         {quantity}
       </div>
 
@@ -100,7 +100,7 @@ const ProductQuantityControl = ({
         onClick={handleIncrease}
         disabled={quantity >= maxQuantity}
         aria-label="Increase quantity"
-        className="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-r-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-8 h-8 flex items-center justify-center bg-gray-200  rounded-r-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <PlusIcon className="h-4 w-4" />
       </button>
