@@ -3,7 +3,7 @@ import React from "react";
 import { useBasketStore } from "@/store";
 
 interface Product {
-  id: string;
+  _id: string;
   name: string;
   stock: number;
   price: number;
@@ -14,7 +14,7 @@ export default function BasketControls({ product }: { product: Product }) {
   const addItem = useBasketStore((s) => s.addItem);
   const updateQuantity = useBasketStore((s) => s.updateQuantity);
   const removeItem = useBasketStore((s) => s.removeItem);
-  const item = basket.find((i) => i.id === product.id);
+  const item = basket.find((i) => i.id === product._id);
   console.log(product);
 
   if (!item) {
