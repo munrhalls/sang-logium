@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface BasketItem {
-  id: string;
+  _id: string;
   name: string;
   price: number;
   quantity: number;
@@ -21,9 +21,9 @@ interface UIState {
 
 interface BasketState {
   basket: BasketItem[];
-  addItem: (item: any) => void;
-  removeItem: (id: string) => void;
-  updateQuantity: (id: string, quantity: number) => void;
+  addItem: (item: BasketItem) => void;
+  removeItem: (_id: string) => void;
+  updateQuantity: (_id: string, quantity: number) => void;
   getTotal: () => number;
   isCheckoutEnabled: () => boolean;
 }
@@ -60,11 +60,10 @@ export const useBasketStore = create<BasketState>()(
     (set, get) => ({
       basket: [],
       addItem: (item) => {
-        console.log(item, "item from store function call");
         if (
           !item ||
           typeof item !== "object" ||
-          !item.id ||
+          !item._id ||
           !item.name ||
           typeof item.price !== "number"
         ) {
@@ -72,26 +71,26 @@ export const useBasketStore = create<BasketState>()(
         }
 
         const basket = get().basket;
-        const existing = basket.find((i) => i.id === item.id);
+        const existing = basket.find((i) => i._id === item._id);
         if (existing) {
           set({
             basket: basket.map((i) =>
-              i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+              i._id === item._id ? { ...i, quantity: i.quantity + 1 } : i
             ),
           });
         } else {
           set({ basket: [...basket, { ...item, quantity: 1 }] });
         }
       },
-      removeItem: (id) => {
+      removeItem: (_id) => {
         const basket = get().basket;
-        set({ basket: basket.filter((i) => i.id !== id) });
+        set({ basket: basket.filter((i) => i._id !== _id) });
       },
-      updateQuantity: (id, quantity) => {
+      updateQuantity: (_id, quantity) => {
         const basket = get().basket;
         set({
           basket: basket.map((i) =>
-            i.id === id ? { ...i, quantity: quantity < 1 ? 1 : quantity } : i
+            i._id === _id ? { ...i, quantity: quantity < 1 ? 1 : quantity } : i
           ),
         });
       },
