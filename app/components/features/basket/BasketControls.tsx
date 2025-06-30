@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useBasketStore } from "@/store";
+import { XMarkIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 interface Product {
   _id: string;
@@ -25,15 +26,23 @@ export default function BasketControls({ product }: { product: Product }) {
       quantity: 1,
     };
     return (
-      <button onClick={() => addItem(basketItem)} aria-label="Add to Cart">
-        Add to Cart
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          addItem(basketItem);
+        }}
+        aria-label="Add to Cart"
+        className="bg-black text-black rounded p-2 h-9 w-9 flex items-center justify-center hover:bg-gray-800 transition-colors"
+      >
+        <ShoppingCartIcon className="h-5 w-5 text-white mr-1" />
       </button>
     );
   }
 
   const canIncrement = item.quantity < product.stock;
 
-  const handleDecrement = () => {
+  const handleDecrement = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (item.quantity === 1) {
       removeItem(_id);
     } else {
@@ -41,25 +50,42 @@ export default function BasketControls({ product }: { product: Product }) {
     }
   };
 
-  const handleRemove = () => {
+  const handleRemove = (e: React.MouseEvent) => {
+    e.stopPropagation();
     removeItem(_id);
   };
 
+  const handleIncrement = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (canIncrement) {
+      updateQuantity(_id, item.quantity + 1);
+    }
+  };
+
   return (
-    <div>
+    <div className="flex items-center gap-x-2">
       <button
         aria-label="Increase quantity"
-        onClick={() => canIncrement && updateQuantity(_id, item.quantity + 1)}
+        onClick={handleIncrement}
         disabled={!canIncrement}
+        className="bg-black text-white rounded p-2 h-9 w-9 flex items-center justify-center hover:bg-gray-800 transition-colors disabled:opacity-50"
       >
         +
       </button>
-      <span>{item.quantity}</span>
-      <button aria-label="Decrease quantity" onClick={handleDecrement}>
+      <span className="font-medium w-6 text-center">{item.quantity}</span>
+      <button
+        aria-label="Decrease quantity"
+        onClick={handleDecrement}
+        className="rounded p-2 h-9 w-9 flex items-center justify-center text-gray-700 hover:bg-gray-100 transition-colors"
+      >
         -
       </button>
-      <button aria-label="Remove from basket" onClick={handleRemove}>
-        X
+      <button
+        aria-label="Remove from basket"
+        onClick={handleRemove}
+        className="text-gray-400 hover:text-red-500 transition-colors rounded p-2 h-9 w-9 flex items-center justify-center"
+      >
+        <XMarkIcon className="h-5 w-5" />
       </button>
     </div>
   );

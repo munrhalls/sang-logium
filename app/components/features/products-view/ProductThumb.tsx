@@ -115,19 +115,9 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
 
           {/* Basket Controls */}
           {!isOutOfStock && (
-            <div onClick={(e) => e.preventDefault()} className="z-10 relative">
-              {item ? (
-                <BasketControls product={product} />
-              ) : (
-                <button
-                  onClick={handleAddToBasket}
-                  className="bg-black text-white p-2 rounded-full hover:bg-gray-800 transition-colors"
-                  aria-label="Add to basket"
-                >
-                  <ShoppingCartIcon className="h-5 w-5" />
-                </button>
-              )}
-            </div>
+            // <div onClick={(e) => e.preventDefault()} className="z-10 relative">
+            <BasketControls product={product} />
+            // </div>
           )}
         </div>
       </div>
