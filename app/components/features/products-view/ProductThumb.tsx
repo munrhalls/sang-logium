@@ -30,48 +30,6 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
 
   const showPrice = product.price !== undefined;
 
-  const item = basket.find((i) => i._id === product._id);
-
-  const handleAddToBasket = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    try {
-      addItem({
-        _id: product._id,
-        name: product.name,
-        price: originalPrice,
-      } as any);
-    } catch (error) {
-      console.error("Failed to add item to basket:", error);
-    }
-  };
-
-  const handleIncreaseQuantity = () => {
-    try {
-      updateQuantity(product._id, item!.quantity + 1);
-    } catch (error) {
-      console.error("Failed to increase quantity:", error);
-    }
-  };
-
-  const handleDecreaseQuantity = () => {
-    try {
-      updateQuantity(product._id, item!.quantity - 1);
-    } catch (error) {
-      console.error("Failed to decrease quantity:", error);
-    }
-  };
-
-  const handleRemoveItem = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    try {
-      removeItem(product._id);
-    } catch (error) {
-      console.error("Failed to remove item from basket:", error);
-    }
-  };
-
   return (
     <Link
       href={`/product/${product._id}`}

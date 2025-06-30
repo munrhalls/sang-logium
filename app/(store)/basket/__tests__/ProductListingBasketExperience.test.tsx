@@ -4,8 +4,8 @@ import { useBasketStore } from "@/store";
 import ProductThumb from "@/app/components/features/products-view/ProductThumb";
 import ProductPageBasketControls from "@/app/(store)/product/[id]/ProductPageBasketControls";
 
-jest.mock("../../../../store", () => {
-  const actual = jest.requireActual("../../../../store");
+jest.mock("@/store", () => {
+  const actual = jest.requireActual("@/store");
   return {
     ...actual,
     useBasketStore: jest.fn(),
@@ -126,7 +126,7 @@ describe("Product Listing Basket Experience", () => {
     });
     decreaseButton.click();
     expect(updateQuantity).toHaveBeenCalledWith("audio-1", 1);
-    expect(removeItem).toHaveBeenCalledWith("audio-1");
+    expect(removeItem).not.toHaveBeenCalled();
   });
 
   it("Quantity cannot decrease below 1 via - button", () => {
