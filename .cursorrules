@@ -43,3 +43,17 @@
 
 PROJECT DESCRIPTION:
 This project is a modern e-commerce web application for high-end audio gear.Tech stack: Next.js (React), TypeScript, Tailwind CSS, Zustand (state management), Sanity (CMS), Google Address Validation API.Purpose: To provide a robust, user-friendly online shop with real-time product management, validated delivery information, and a seamless basket/checkout experience.
+
+# Data Structure Consistency (NEVER CHANGE)
+
+- ALL basket and product operations MUST use `_id` field exclusively
+- NEVER use `id` field for basket items or product identification
+- Store interface: `BasketItem` uses `_id: string`
+- All store methods (addItem, removeItem, updateQuantity) use `_id` parameter
+- All component props expecting products use `_id: string`
+- All test data must use `_id` field for products and basket items
+- All basket.find() operations: `item._id === product._id`
+- Database products have `_id` - maintain this consistency throughout app
+- DO NOT mix `id` and `_id` - choose `_id` and stick to it everywhere
+- When adding products to basket: `{ _id: product._id, name: product.name, ... }`
+- All React keys for basket items: `key={item._id}`

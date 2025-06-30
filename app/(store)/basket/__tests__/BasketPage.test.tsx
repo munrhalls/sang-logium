@@ -44,13 +44,13 @@ describe("1. Page Load & Initial State", () => {
     it("Basket displays all items with correct information", () => {
       const mockProducts = [
         {
-          id: "1",
+          _id: "1",
           name: "Test Product 1",
           price: 249.99,
           quantity: 2,
         },
         {
-          id: "2",
+          _id: "2",
           name: "Test Product 2",
           price: 149.99,
           quantity: 1,
@@ -92,7 +92,7 @@ describe("2. Item Display & Information", () => {
   describe("2.1 Product Information Display", () => {
     it("Each basket item shows complete product details", () => {
       const mockProduct = {
-        id: "1",
+        _id: "1",
         name: "Test Product",
         price: 249.99,
         quantity: 2,
@@ -125,7 +125,7 @@ describe("2. Item Display & Information", () => {
   describe("2.2 Responsive Item Layout", () => {
     it("Item layout adapts correctly on mobile and desktop", () => {
       const mockProduct = {
-        id: "1",
+        _id: "1",
         name: "Test Product",
         price: 249.99,
         quantity: 2,
@@ -172,7 +172,7 @@ describe("3. Quantity Interactions", () => {
   describe("3.1 Increase Quantity", () => {
     it("Increasing quantity updates item and totals", () => {
       const mockProduct = {
-        id: "1",
+        _id: "1",
         name: "Test Product",
         price: 249.99,
         quantity: 1,
@@ -210,7 +210,7 @@ describe("3. Quantity Interactions", () => {
   describe("3.2 Decrease Quantity", () => {
     it("Decreasing quantity updates item and totals", () => {
       const mockProduct = {
-        id: "1",
+        _id: "1",
         name: "Test Product",
         price: 249.99,
         quantity: 3,
@@ -248,7 +248,7 @@ describe("3. Quantity Interactions", () => {
   describe("3.3 Minimum Quantity Enforcement", () => {
     it("Quantity cannot decrease below 1", () => {
       const mockProduct = {
-        id: "1",
+        _id: "1",
         name: "Test Product",
         price: 249.99,
         quantity: 1,
@@ -294,13 +294,13 @@ describe("4. Item Removal", () => {
     it("Removing item updates basket and totals", () => {
       const mockProducts = [
         {
-          id: "1",
+          _id: "1",
           name: "Product A",
           price: 100.0,
           quantity: 2,
         },
         {
-          id: "2",
+          _id: "2",
           name: "Product B",
           price: 50.0,
           quantity: 1,
@@ -337,7 +337,7 @@ describe("4. Item Removal", () => {
   describe("4.2 Remove Last Item", () => {
     it("Removing last item shows empty basket state", () => {
       const mockProduct = {
-        id: "1",
+        _id: "1",
         name: "Product A",
         price: 100.0,
         quantity: 1,
@@ -374,13 +374,13 @@ describe("4. Item Removal", () => {
     it("Subtotal calculates correctly for multiple items", () => {
       const mockProducts = [
         {
-          id: "1",
+          _id: "1",
           name: "Product A",
           price: 100.0,
           quantity: 2,
         },
         {
-          id: "2",
+          _id: "2",
           name: "Product B",
           price: 50.0,
           quantity: 1,
@@ -413,8 +413,8 @@ describe("4. Item Removal", () => {
   describe("5.2 Shipping Calculation", () => {
     it("Shipping fee applies correctly and total includes shipping", () => {
       const mockProducts = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
-        { id: "2", name: "Product B", price: 50.0, quantity: 1 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { _id: "2", name: "Product B", price: 50.0, quantity: 1 },
       ];
       const mockStore = {
         basket: mockProducts,
@@ -436,8 +436,8 @@ describe("4. Item Removal", () => {
   describe("5.3 Total Calculation", () => {
     it("Total combines subtotal and shipping, VAT note is displayed", () => {
       const mockProducts = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
-        { id: "2", name: "Product B", price: 50.0, quantity: 1 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { _id: "2", name: "Product B", price: 50.0, quantity: 1 },
       ];
       const mockStore = {
         basket: mockProducts,
@@ -459,7 +459,7 @@ describe("4. Item Removal", () => {
   describe("6.1 Checkout Navigation", () => {
     it("Checkout button navigates to checkout page", () => {
       const mockProducts = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 2 },
       ];
       const mockStore = {
         basket: mockProducts,
@@ -484,7 +484,7 @@ describe("4. Item Removal", () => {
   describe("6.2 Continue Shopping", () => {
     it("Continue shopping returns to products page", () => {
       const mockProducts = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 2 },
       ];
       const mockStore = {
         basket: mockProducts,
@@ -513,8 +513,8 @@ describe("4. Item Removal", () => {
   describe("6.3 Product Page Navigation", () => {
     it("Product name links to individual product page", () => {
       const mockProducts = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
-        { id: "2", name: "Product B", price: 50.0, quantity: 1 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { _id: "2", name: "Product B", price: 50.0, quantity: 1 },
       ];
       const mockStore = {
         basket: mockProducts,
@@ -540,8 +540,8 @@ describe("4. Item Removal", () => {
   describe("7.1 Page Reload Persistence", () => {
     it("Basket contents persist after page reload", () => {
       const mockProducts = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
-        { id: "2", name: "Product B", price: 50.0, quantity: 1 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { _id: "2", name: "Product B", price: 50.0, quantity: 1 },
       ];
       const mockStore = {
         basket: mockProducts,
@@ -576,11 +576,11 @@ describe("4. Item Removal", () => {
   describe("7.2 Cross-Page Synchronization", () => {
     it("Basket changes reflect across all pages", () => {
       const initialProducts = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 1 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 1 },
       ];
 
       const updatedProducts = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 3 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 3 },
       ];
 
       const mockStore = {
@@ -614,9 +614,9 @@ describe("4. Item Removal", () => {
   describe("8.1 Invalid Product Data", () => {
     it("Page handles corrupted basket data gracefully", () => {
       const invalidProducts: any[] = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
-        { id: "2", name: "", price: 50.0, quantity: 1 },
-        { id: "3", name: "Product C", price: 0, quantity: 1 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { _id: "2", name: "", price: 50.0, quantity: 1 },
+        { _id: "3", name: "Product C", price: 0, quantity: 1 },
       ];
 
       const mockStore = {
@@ -643,7 +643,7 @@ describe("4. Item Removal", () => {
   describe("8.2 Network Errors", () => {
     it("Page functions during temporary network issues", () => {
       const mockProducts = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 2 },
       ];
 
       const mockUpdateQuantity = jest.fn();
@@ -680,7 +680,7 @@ describe("4. Item Removal", () => {
   describe("9.1 Keyboard Navigation", () => {
     it("All interactive elements are keyboard accessible", () => {
       const mockProducts = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 2 },
       ];
       const mockStore = {
         basket: mockProducts,
@@ -720,7 +720,7 @@ describe("4. Item Removal", () => {
   describe("9.2 Screen Reader Support", () => {
     it("All buttons have descriptive aria-labels", () => {
       const mockProducts = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 2 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 2 },
       ];
       const mockStore = {
         basket: mockProducts,
@@ -751,7 +751,7 @@ describe("4. Item Removal", () => {
     it("Quantity changes update immediately and are debounced", () => {
       jest.useFakeTimers();
       const mockProducts = [
-        { id: "1", name: "Product A", price: 100.0, quantity: 1 },
+        { _id: "1", name: "Product A", price: 100.0, quantity: 1 },
       ];
       const mockUpdateQuantity = jest.fn();
       const mockStore = {

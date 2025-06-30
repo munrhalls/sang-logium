@@ -113,12 +113,7 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
             )}
           </div>
 
-          {/* Basket Controls */}
-          {!isOutOfStock && (
-            // <div onClick={(e) => e.preventDefault()} className="z-10 relative">
-            <BasketControls product={product} />
-            // </div>
-          )}
+          {!isOutOfStock && <BasketControls product={product} />}
         </div>
       </div>
     </Link>
