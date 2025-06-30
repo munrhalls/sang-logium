@@ -28,7 +28,12 @@ export default function BasketControls({ product }: { product: Product }) {
       quantity: 1,
     };
     return (
-      <div className="flex justify-center items-center gap-4">
+      <div
+        className="flex justify-center items-center gap-4"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -44,7 +49,7 @@ export default function BasketControls({ product }: { product: Product }) {
             <ShoppingCart className="w-8 h-8 text-white" />
           </span>
         </button>
-        <span className="text-black text-3xl font-black border-dashed border-black mb-[1px]">
+        <span className="text-black text-xl font-black border-dashed border-black mb-[1px]">
           Add to cart
         </span>
       </div>
@@ -75,30 +80,33 @@ export default function BasketControls({ product }: { product: Product }) {
   };
 
   return (
-    <div className="flex items-center gap-x-2">
-      <button
-        aria-label="Increase quantity"
-        onClick={handleIncrement}
-        disabled={!canIncrement}
-        className="bg-black text-white rounded p-2 h-9 w-9 flex items-center justify-center hover:bg-gray-800 transition-colors disabled:opacity-50"
-      >
-        +
-      </button>
-      <span className="font-medium w-6 text-center">{item.quantity}</span>
-      <button
-        aria-label="Decrease quantity"
-        onClick={handleDecrement}
-        className="rounded p-2 h-9 w-9 flex items-center justify-center text-gray-700 hover:bg-gray-100 transition-colors"
-      >
-        -
-      </button>
-      <button
-        aria-label="Remove from basket"
-        onClick={handleRemove}
-        className="text-gray-400 hover:text-red-500 transition-colors rounded p-2 h-9 w-9 flex items-center justify-center"
-      >
-        <XMarkIcon className="h-5 w-5" />
-      </button>
+    <div>
+      <div className="font-bold text-lg">Purchase quantity:</div>
+      <div className="flex items-center gap-x-2">
+        <button
+          aria-label="Increase quantity"
+          onClick={handleIncrement}
+          disabled={!canIncrement}
+          className="bg-black text-white rounded p-2 h-9 w-9 flex items-center justify-center hover:bg-gray-800 transition-colors disabled:opacity-50"
+        >
+          +
+        </button>
+        <span className="font-black w-6 text-center">{item.quantity}</span>
+        <button
+          aria-label="Decrease quantity"
+          onClick={handleDecrement}
+          className="rounded p-2 h-9 w-9 flex items-center justify-center text-gray-700 hover:bg-gray-100 transition-colors"
+        >
+          -
+        </button>
+        <button
+          aria-label="Remove from basket"
+          onClick={handleRemove}
+          className="text-gray-400 hover:text-red-500 transition-colors rounded p-2 h-9 w-9 flex items-center justify-center"
+        >
+          <XMarkIcon className="h-5 w-5" />
+        </button>
+      </div>
     </div>
   );
 }
