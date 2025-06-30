@@ -11,7 +11,7 @@ describe("Individual Product Page Basket Experience", () => {
     });
   });
 
-  const mockProduct = { id: "audio-1", name: "Headphones", price: 100 };
+  const mockProduct = { _id: "audio-1", name: "Headphones", price: 100 };
 
   test("Add to Cart button is visible when product is not in basket", () => {
     render(<ProductPageBasketControls product={mockProduct} />);

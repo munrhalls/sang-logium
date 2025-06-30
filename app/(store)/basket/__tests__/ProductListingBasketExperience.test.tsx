@@ -31,7 +31,7 @@ describe("Product Listing Basket Experience", () => {
     };
     render(<ProductThumb product={product as any} />);
     const addToCartButton = screen.getByRole("button", {
-      name: /add to basket/i,
+      name: /add to cart/i,
     });
     expect(addToCartButton).toBeInTheDocument();
   });
@@ -49,13 +49,13 @@ describe("Product Listing Basket Experience", () => {
     (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
-          { id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
+          { _id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
         ],
       })
     );
     render(<ProductThumb product={product as any} />);
     const addToCartButton = screen.queryByRole("button", {
-      name: /add to basket/i,
+      name: /add to cart/i,
     });
     expect(addToCartButton).not.toBeInTheDocument();
     const increaseButton = screen.getByRole("button", {
@@ -86,7 +86,7 @@ describe("Product Listing Basket Experience", () => {
     (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
-          { id: "audio-1", name: "Headphones", price: 100, quantity: 1 },
+          { _id: "audio-1", name: "Headphones", price: 100, quantity: 1 },
         ],
         updateQuantity,
       })
@@ -110,12 +110,14 @@ describe("Product Listing Basket Experience", () => {
       stock: 5,
     };
     const updateQuantity = jest.fn();
+    const removeItem = jest.fn();
     (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
-          { id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
+          { _id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
         ],
         updateQuantity,
+        removeItem,
       })
     );
     render(<ProductThumb product={product as any} />);
@@ -124,6 +126,7 @@ describe("Product Listing Basket Experience", () => {
     });
     decreaseButton.click();
     expect(updateQuantity).toHaveBeenCalledWith("audio-1", 1);
+    expect(removeItem).toHaveBeenCalledWith("audio-1");
   });
 
   it("Quantity cannot decrease below 1 via - button", () => {
@@ -137,12 +140,14 @@ describe("Product Listing Basket Experience", () => {
       stock: 5,
     };
     const updateQuantity = jest.fn();
+    const removeItem = jest.fn();
     (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
-          { id: "audio-1", name: "Headphones", price: 100, quantity: 1 },
+          { _id: "audio-1", name: "Headphones", price: 100, quantity: 1 },
         ],
         updateQuantity,
+        removeItem,
       })
     );
     render(<ProductThumb product={product as any} />);
@@ -151,7 +156,7 @@ describe("Product Listing Basket Experience", () => {
     });
     decreaseButton.click();
     expect(updateQuantity).not.toHaveBeenCalled();
-    expect(decreaseButton).toBeDisabled();
+    expect(removeItem).toHaveBeenCalledWith("audio-1");
   });
 
   it("Clicking X on product card removes product and restores Add to Cart button", () => {
@@ -168,7 +173,7 @@ describe("Product Listing Basket Experience", () => {
     (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
-          { id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
+          { _id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
         ],
         removeItem,
       })
@@ -184,7 +189,7 @@ describe("Product Listing Basket Experience", () => {
     );
     rerender(<ProductThumb product={product as any} />);
     const addToCartButton = screen.getByRole("button", {
-      name: /add to basket/i,
+      name: /add to cart/i,
     });
     expect(addToCartButton).toBeInTheDocument();
   });
@@ -203,7 +208,7 @@ describe("Product Listing Basket Experience", () => {
     (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
-          { id: "audio-1", name: "Headphones", price: 100, quantity: 3 },
+          { _id: "audio-1", name: "Headphones", price: 100, quantity: 3 },
         ],
         removeItem,
       })
@@ -229,7 +234,7 @@ describe("Product Listing Basket Experience", () => {
     (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
-          { id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
+          { _id: "audio-1", name: "Headphones", price: 100, quantity: 2 },
         ],
       })
     );
@@ -246,7 +251,7 @@ describe("Product Listing Basket Experience", () => {
     cleanup();
     render(
       <ProductPageBasketControls
-        product={{ id: "audio-1", name: "Headphones", price: 100 }}
+        product={{ _id: "audio-1", name: "Headphones", price: 100 }}
       />
     );
     expect(
@@ -273,7 +278,7 @@ describe("Product Listing Basket Experience", () => {
     (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
-          { id: "audio-1", name: "Headphones", price: 100, quantity: 1 },
+          { _id: "audio-1", name: "Headphones", price: 100, quantity: 1 },
         ],
       })
     );
@@ -281,7 +286,7 @@ describe("Product Listing Basket Experience", () => {
     (useBasketStore as unknown as jest.Mock).mockImplementation((selector) =>
       selector({
         basket: [
-          { id: "audio-1", name: "Headphones", price: 100, quantity: 3 },
+          { _id: "audio-1", name: "Headphones", price: 100, quantity: 3 },
         ],
       })
     );
