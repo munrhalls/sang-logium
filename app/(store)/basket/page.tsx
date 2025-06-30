@@ -66,7 +66,7 @@ export default function BasketPage() {
 
             {basket.map((item) => (
               <div
-                key={item.id}
+                key={item._id}
                 className="grid grid-cols-1 lg:grid-cols-[3fr_1fr_1fr_auto] p-5 border-b border-gray-200 gap-5 items-center hover:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center gap-5">
@@ -74,7 +74,7 @@ export default function BasketPage() {
                     <ShoppingCartIcon className="h-10 w-10 text-gray-400" />
                   </div>
                   <div>
-                    <Link href={`/product/${item.id}`}>
+                    <Link href={`/product/${item._id}`}>
                       <h3 className="font-medium text-lg text-gray-900 hover:underline">
                         {item.name}
                       </h3>
@@ -100,17 +100,17 @@ export default function BasketPage() {
                   </div>
                   <div className="flex items-center">
                     <ProductQuantityControl
-                      productId={item.id}
+                      productId={item._id}
                       quantity={item.quantity}
                       onIncrease={() =>
-                        updateQuantity(item.id, item.quantity + 1)
+                        updateQuantity(item._id, item.quantity + 1)
                       }
                       onDecrease={() =>
-                        updateQuantity(item.id, item.quantity - 1)
+                        updateQuantity(item._id, item.quantity - 1)
                       }
                     />
                     <button
-                      onClick={() => removeItem(item.id)}
+                      onClick={() => removeItem(item._id)}
                       className="ml-3 text-gray-400 hover:text-red-500 transition-colors lg:hidden"
                       aria-label="Remove item"
                     >
@@ -121,7 +121,7 @@ export default function BasketPage() {
 
                 <div className="hidden lg:flex items-center justify-center">
                   <button
-                    onClick={() => removeItem(item.id)}
+                    onClick={() => removeItem(item._id)}
                     className="flex items-center justify-center h-9 w-9 rounded-full hover:bg-gray-200 text-gray-400 hover:text-red-500 transition-colors"
                     aria-label="Remove item"
                   >

@@ -6,6 +6,7 @@ import { imageUrl } from "@/lib/imageUrl";
 import ProductQuantityControl from "@/app/components/features/basket/ProductQuantityControl";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useBasketStore } from "@/store";
+import BasketControls from "../basket/BasketControls";
 
 interface ProductThumbProps {
   product: Product;
@@ -29,13 +30,17 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
 
   const showPrice = product.price !== undefined;
 
-  const item = basket.find((i) => i.id === product._id);
+  const item = basket.find((i) => i._id === product._id);
 
   const handleAddToBasket = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
     try {
-      addItem({ id: product._id, name: product.name, price: originalPrice });
+      addItem({
+        _id: product._id,
+        name: product.name,
+        price: originalPrice,
+      } as any);
     } catch (error) {
       console.error("Failed to add item to basket:", error);
     }
@@ -112,22 +117,7 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
           {!isOutOfStock && (
             <div onClick={(e) => e.preventDefault()} className="z-10 relative">
               {item ? (
-                <div className="flex items-center">
-                  <ProductQuantityControl
-                    productId={product._id}
-                    quantity={item.quantity}
-                    onIncrease={handleIncreaseQuantity}
-                    onDecrease={handleDecreaseQuantity}
-                    className="scale-90 transform origin-right"
-                  />
-                  <button
-                    onClick={handleRemoveItem}
-                    className="ml-1 text-gray-500 hover:text-red-500 transition-colors"
-                    aria-label="Remove from basket"
-                  >
-                    <XMarkIcon className="h-5 w-5" />
-                  </button>
-                </div>
+                <BasketControls product={product} />
               ) : (
                 <button
                   onClick={handleAddToBasket}

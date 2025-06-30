@@ -15,6 +15,17 @@ const customJestConfig = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
   },
+  reporters: [
+    "default",
+    [
+      "jest-html-reporter",
+      {
+        pageTitle: "Test Results",
+        outputPath: "test-results.html",
+        includeFailureMsg: true,
+      },
+    ],
+  ],
 };
 
 export default createJestConfig(customJestConfig);
