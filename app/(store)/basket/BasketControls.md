@@ -51,3 +51,9 @@ Test: "Controls look and behave the same in all contexts"
 - GIVEN: Product with id="p5" is in the basket, quantity=2, stock=10, on product page, listing, and basket page
 - WHEN: User views the controls in any context
 - THEN: UI shows identical controls (–, qty, +, X) and behavior is consistent everywhere
+
+BasketControls: Product ID Normalization
+Test: "Product with id is correctly added to the basket as id"
+GIVEN: Product with id="mongo123", name="Sanity Product", stock=7, price=150, and the basket is empty
+WHEN: User clicks the "Add to Cart" button
+THEN: Basket store contains {id: "mongo123", quantity: 1, name: "Sanity Product", price: 150} and UI shows quantity controls for that product

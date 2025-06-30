@@ -60,6 +60,7 @@ export const useBasketStore = create<BasketState>()(
     (set, get) => ({
       basket: [],
       addItem: (item) => {
+        console.log(item, "item from store function call");
         if (
           !item ||
           typeof item !== "object" ||

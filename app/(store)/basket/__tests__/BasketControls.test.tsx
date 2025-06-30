@@ -90,13 +90,6 @@ describe("BasketControls: Add to Cart", () => {
     ).toBeInTheDocument();
   });
 
-  //   **BasketControls: UI Consistency**
-  // Test: "Controls look and behave the same in all contexts"
-
-  // - GIVEN: Product with id="p5" is in the basket, quantity=2, stock=10, on product page, listing, and basket page
-  // - WHEN: User views the controls in any context
-  // - THEN: UI shows identical controls (–, qty, +, X) and behavior is consistent everywhere
-
   it("Controls look and behave the same in all contexts", () => {
     const product = {
       id: "p5",
@@ -116,5 +109,34 @@ describe("BasketControls: Add to Cart", () => {
       screen.getByRole("button", { name: /remove from basket/i })
     ).toBeInTheDocument();
     expect(screen.getByText("2")).toBeInTheDocument();
+  });
+
+  it("Product with _id is correctly added to the basket as id", () => {
+    const product = {
+      _id: "mongo123",
+      name: "Sanity Product",
+      stock: 7,
+      price: 150,
+    };
+    render(<BasketControls product={product} />);
+    const addToCartButton = screen.getByRole("button", {
+      name: /add to cart/i,
+    });
+    fireEvent.click(addToCartButton);
+
+    const basket = useBasketStore.getState().basket;
+    const basketItem = basket.find((item) => item.id === product._id);
+    expect(basketItem).toBeTruthy();
+    expect(basketItem?.quantity).toBe(1);
+    expect(basketItem?.name).toBe("Sanity Product");
+    expect(basketItem?.price).toBe(150);
+
+    expect(
+      screen.getByRole("button", { name: /increase quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /decrease quantity/i })
+    ).toBeInTheDocument();
+    expect(screen.getByText("1")).toBeInTheDocument();
   });
 });

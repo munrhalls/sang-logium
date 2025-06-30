@@ -3,23 +3,30 @@ import React from "react";
 import { useBasketStore } from "@/store";
 
 interface Product {
-  _id: string;
+  id?: string;
+  _id?: string;
   name: string;
   stock: number;
   price: number;
 }
 
 export default function BasketControls({ product }: { product: Product }) {
+  // Normalize id for all operations
+  const id = product.id || product._id;
   const basket = useBasketStore((s) => s.basket);
   const addItem = useBasketStore((s) => s.addItem);
   const updateQuantity = useBasketStore((s) => s.updateQuantity);
   const removeItem = useBasketStore((s) => s.removeItem);
-  const item = basket.find((i) => i.id === product._id);
-  console.log(product);
+  const item = basket.find((i) => i.id === id);
 
   if (!item) {
+    // Always pass an object with .id to addItem
+    const normalizedProduct = { ...product, id };
     return (
-      <button onClick={() => addItem(product)} aria-label="Add to Cart">
+      <button
+        onClick={() => addItem(normalizedProduct)}
+        aria-label="Add to Cart"
+      >
         Add to Cart
       </button>
     );
@@ -29,23 +36,21 @@ export default function BasketControls({ product }: { product: Product }) {
 
   const handleDecrement = () => {
     if (item.quantity === 1) {
-      removeItem(product.id);
+      removeItem(id);
     } else {
-      updateQuantity(product.id, item.quantity - 1);
+      updateQuantity(id, item.quantity - 1);
     }
   };
 
   const handleRemove = () => {
-    removeItem(product.id);
+    removeItem(id);
   };
 
   return (
     <div>
       <button
         aria-label="Increase quantity"
-        onClick={() =>
-          canIncrement && updateQuantity(product.id, item.quantity + 1)
-        }
+        onClick={() => canIncrement && updateQuantity(id, item.quantity + 1)}
         disabled={!canIncrement}
       >
         +
