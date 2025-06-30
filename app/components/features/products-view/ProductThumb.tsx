@@ -59,7 +59,12 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
             .join(" ") || "No description available"}
         </p>
 
-        <div className="mt-2 flex items-center justify-between gap-2">
+        <div
+          className="mt-2 flex items-center justify-between gap-2"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <div className="flex items-center gap-2">
             <p className="text-lg font-bold text-gray-900">
               ${salePrice.toFixed(2)}

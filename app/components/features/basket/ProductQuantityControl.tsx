@@ -92,7 +92,7 @@ const ProductQuantityControl = ({
         <MinusIcon className="h-4 w-4" />
       </button>
 
-      <div className="px-4 py-1 bg-white border-t border-b border-gray-200 text-center min-w-[40px] bg-red-700">
+      <div className="px-4 py-1 bg-white border-t border-b border-gray-200 text-center min-w-[40px]">
         {quantity}
       </div>
 

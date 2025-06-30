@@ -1,7 +1,9 @@
 "use client";
 import React from "react";
 import { useBasketStore } from "@/store";
-import { XMarkIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { ShoppingCart, ShoppingBag } from "lucide-react";
 
 interface Product {
   _id: string;
@@ -26,16 +28,26 @@ export default function BasketControls({ product }: { product: Product }) {
       quantity: 1,
     };
     return (
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          addItem(basketItem);
-        }}
-        aria-label="Add to Cart"
-        className="bg-black text-black rounded p-2 h-9 w-9 flex items-center justify-center hover:bg-gray-800 transition-colors"
-      >
-        <ShoppingCartIcon className="h-5 w-5 text-white mr-1" />
-      </button>
+      <div className="flex justify-center items-center gap-4">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            addItem(basketItem);
+          }}
+          aria-label="Add to Cart"
+          className="rounded-lg bg-black text-black p-2 h-16 w-16 flex items-center justify-center hover:bg-gray-800 transition-colors"
+        >
+          <span
+            className="p-1"
+            style={{ display: "inline-flex", lineHeight: 0 }}
+          >
+            <ShoppingCart className="w-8 h-8 text-white" />
+          </span>
+        </button>
+        <span className="text-black text-3xl font-black border-dashed border-black mb-[1px]">
+          Add to cart
+        </span>
+      </div>
     );
   }
 
