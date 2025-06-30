@@ -15,7 +15,8 @@ export default function BasketControls({ product }: { product: Product }) {
   const updateQuantity = useBasketStore((s) => s.updateQuantity);
   const removeItem = useBasketStore((s) => s.removeItem);
   const item = basket.find((i) => i.id === product.id);
-  console.log("item", item);
+  console.log(product);
+
   if (!item) {
     return (
       <button onClick={() => addItem(product)} aria-label="Add to Cart">
@@ -34,6 +35,10 @@ export default function BasketControls({ product }: { product: Product }) {
     }
   };
 
+  const handleRemove = () => {
+    removeItem(product.id);
+  };
+
   return (
     <div>
       <button
@@ -48,6 +53,9 @@ export default function BasketControls({ product }: { product: Product }) {
       <span>{item.quantity}</span>
       <button aria-label="Decrease quantity" onClick={handleDecrement}>
         -
+      </button>
+      <button aria-label="Remove from basket" onClick={handleRemove}>
+        X
       </button>
     </div>
   );

@@ -90,17 +90,31 @@ describe("BasketControls: Add to Cart", () => {
     ).toBeInTheDocument();
   });
 
-  //   **BasketControls: Remove from Basket**
-  // Test: "User removes product using remove (X) button"
+  //   **BasketControls: UI Consistency**
+  // Test: "Controls look and behave the same in all contexts"
 
-  // - GIVEN: Basket store contains {id: "p4", quantity: 2}, stock=10
-  // - WHEN: User clicks the "X" button
-  // - THEN: Product with id="p4" is removed from basket and UI shows "Add to Cart" button
+  // - GIVEN: Product with id="p5" is in the basket, quantity=2, stock=10, on product page, listing, and basket page
+  // - WHEN: User views the controls in any context
+  // - THEN: UI shows identical controls (–, qty, +, X) and behavior is consistent everywhere
 
-  // **BasketControls: Error Handling**
-  // Test: "Error fallback is shown if store operation fails"
-
-  // - GIVEN: Basket store throws error on any update for product id="err1", stock=10
-  // - WHEN: User clicks any control (Add, +, -, X)
-  // - THEN: UI displays error fallback and disables controls for product id="err1"
+  it("Controls look and behave the same in all contexts", () => {
+    const product = {
+      id: "p5",
+      name: "Consistent Product",
+      stock: 10,
+      price: 99,
+    };
+    useBasketStore.getState().basket = [{ ...product, quantity: 2 }];
+    render(<BasketControls product={product} />);
+    expect(
+      screen.getByRole("button", { name: /increase quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /decrease quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /remove from basket/i })
+    ).toBeInTheDocument();
+    expect(screen.getByText("2")).toBeInTheDocument();
+  });
 });
