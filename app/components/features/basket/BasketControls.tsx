@@ -34,6 +34,7 @@ export default function BasketControls({ product }: { product: Product }) {
       <div
         className="flex justify-start items-center gap-4"
         onClick={(e) => {
+          e.preventDefault();
           e.stopPropagation();
         }}
       >
