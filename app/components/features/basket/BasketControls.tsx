@@ -54,7 +54,7 @@ export default function BasketControls({ product }: { product: Product }) {
             <ShoppingCart className="w-8 h-8 text-white" />
           </span>
         </button>
-        <span className="text-black text-2xl font-black border-dashed border-black mb-[1px]">
+        <span className="text-black text-xl font-black border-dashed border-black mb-[1px]">
           Add to cart
         </span>
       </div>
