@@ -29,7 +29,7 @@ export default function BasketControls({ product }: { product: Product }) {
     };
     return (
       <div
-        className="flex justify-center items-center gap-4"
+        className="flex justify-start items-center gap-4"
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -40,7 +40,7 @@ export default function BasketControls({ product }: { product: Product }) {
             addItem(basketItem);
           }}
           aria-label="Add to Cart"
-          className="rounded-lg bg-black text-black p-2 h-16 w-16 flex items-center justify-center hover:bg-gray-800 transition-colors"
+          className="rounded-lg bg-black text-black p-2 h-14 w-14 flex items-center justify-center hover:bg-gray-800 transition-colors"
         >
           <span
             className="p-1"
@@ -49,7 +49,7 @@ export default function BasketControls({ product }: { product: Product }) {
             <ShoppingCart className="w-8 h-8 text-white" />
           </span>
         </button>
-        <span className="text-black text-xl font-black border-dashed border-black mb-[1px]">
+        <span className="text-black text-2xl font-black border-dashed border-black mb-[1px]">
           Add to cart
         </span>
       </div>
@@ -95,7 +95,7 @@ export default function BasketControls({ product }: { product: Product }) {
         <button
           aria-label="Decrease quantity"
           onClick={handleDecrement}
-          className="rounded p-2 h-9 w-9 flex items-center justify-center text-gray-700 hover:bg-gray-100 transition-colors"
+          className="bg-black text-white rounded p-2 h-9 w-9 flex items-center justify-center hover:bg-gray-800 transition-colors"
         >
           -
         </button>
