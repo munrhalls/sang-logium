@@ -34,7 +34,8 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
     <Link
       href={`/product/${product._id}`}
       className={`group flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden
-          ${isOutOfStock ? "opacity-50" : ""}`}
+        hover:bg-gray-100 hover:border-gray-300
+        ${isOutOfStock ? "opacity-50" : ""}`}
     >
       <div className="p-4">
         <Image
