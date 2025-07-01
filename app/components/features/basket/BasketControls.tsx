@@ -13,6 +13,9 @@ interface Product {
 }
 
 export default function BasketControls({ product }: { product: Product }) {
+  const _hasHydrated = useBasketStore((s) => s._hasHydrated); // ADD THIS
+  console.log("🎯 BasketControls _hasHydrated:", _hasHydrated); // ADD THIS
+
   const _id = product._id;
   const basket = useBasketStore((s) => s.basket);
   const addItem = useBasketStore((s) => s.addItem);

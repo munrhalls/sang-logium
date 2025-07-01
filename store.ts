@@ -21,6 +21,7 @@ interface UIState {
 
 interface BasketState {
   basket: BasketItem[];
+  _hasHydrated: boolean;
   addItem: (item: BasketItem) => void;
   removeItem: (_id: string) => void;
   updateQuantity: (_id: string, quantity: number) => void;
@@ -59,6 +60,7 @@ export const useBasketStore = create<BasketState>()(
   persist(
     (set, get) => ({
       basket: [],
+      _hasHydrated: false,
       addItem: (item) => {
         if (
           !item ||
@@ -108,6 +110,14 @@ export const useBasketStore = create<BasketState>()(
     {
       name: "basket-storage",
       partialize: (state) => ({ basket: state.basket }),
+      onRehydrateStorage: (state) => {
+        // ADD THIS WHOLE BLOCK
+        console.log("🔄 Starting rehydration...");
+        return () => {
+          console.log("✅ Rehydration complete!");
+          // state?._hasHydrated = true;
+        };
+      },
     }
   )
 );
