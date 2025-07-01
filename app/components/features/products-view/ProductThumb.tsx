@@ -62,6 +62,7 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
         <div
           className="mt-2 flex items-center justify-between gap-2"
           onClick={(e) => {
+            e.preventDefault();
             e.stopPropagation();
           }}
         >
@@ -75,14 +76,8 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
               </p>
             )}
           </div>
-          <div
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-          >
-            {!isOutOfStock && <BasketControls product={product} />}
-          </div>
+
+          {!isOutOfStock && <BasketControls product={product} />}
         </div>
       </div>
     </Link>

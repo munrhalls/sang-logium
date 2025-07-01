@@ -39,6 +39,7 @@ export default function BasketControls({ product }: { product: Product }) {
       >
         <button
           onClick={(e) => {
+            e.preventDefault();
             e.stopPropagation();
             addItem(basketItem);
           }}
@@ -62,6 +63,7 @@ export default function BasketControls({ product }: { product: Product }) {
   const canIncrement = item.quantity < product.stock;
 
   const handleDecrement = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     if (item.quantity === 1) {
       removeItem(_id);
@@ -71,11 +73,13 @@ export default function BasketControls({ product }: { product: Product }) {
   };
 
   const handleRemove = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     removeItem(_id);
   };
 
   const handleIncrement = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     if (canIncrement) {
       updateQuantity(_id, item.quantity + 1);
