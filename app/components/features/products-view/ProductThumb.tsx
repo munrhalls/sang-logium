@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { MouseEvent } from "react";
 import { imageUrl } from "@/lib/imageUrl";
-import ProductQuantityControl from "@/app/components/features/basket/ProductQuantityControl";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useBasketStore } from "@/store";
 import BasketControls from "../basket/BasketControls";

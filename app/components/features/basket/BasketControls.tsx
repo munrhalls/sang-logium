@@ -12,7 +12,6 @@ interface Product {
   price: number;
 }
 
-// Wrap the component with React.memo
 const BasketControls = React.memo(
   ({ product }: { product: Product }) => {
     const _hasHydrated = useBasketStore((s) => s._hasHydrated);
@@ -121,10 +120,8 @@ const BasketControls = React.memo(
     );
   },
   (prevProps, nextProps) => {
-    // Only re-render if product._id changed
     return prevProps.product._id === nextProps.product._id;
   }
 );
 
-// Export the memoized component
 export default BasketControls;

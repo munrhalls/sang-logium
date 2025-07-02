@@ -9,28 +9,15 @@ This directory contains isolated UI components for a basket system in the e-comm
 A navigation button that shows the current item count in the basket, designed for the header.
 
 ```tsx
-import BasketButton from '@/app/components/basket/BasketButton';
+import BasketButton from "@/app/components/basket/BasketButton";
 
 // Usage in header
-<BasketButton itemCount={3} />
+<BasketButton itemCount={3} />;
 ```
 
-### ProductQuantityControl
+### Basket Controls
 
 Add/subtract buttons for adjusting product quantity on product listings and individual product pages.
-
-```tsx
-import ProductQuantityControl from '@/app/components/basket/ProductQuantityControl';
-
-// On a product page
-<ProductQuantityControl
-  productId="product123"
-  quantity={2}
-  maxQuantity={10}
-  onIncrease={(id) => { /* Add real logic here */ }}
-  onDecrease={(id) => { /* Add real logic here */ }}
-/>
-```
 
 ### Basket Page
 
@@ -48,12 +35,12 @@ For example, to integrate BasketButton with Zustand:
 
 ```tsx
 // In a real component using Zustand
-import useBasketStore from '@/store/basketStore';
-import BasketButton from '@/app/components/basket/BasketButton';
+import useBasketStore from "@/store/basketStore";
+import BasketButton from "@/app/components/basket/BasketButton";
 
 function Header() {
   const itemCount = useBasketStore((state) => state.items.length);
-  
+
   return (
     <header>
       {/* Other header content */}
