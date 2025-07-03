@@ -6,7 +6,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import InfoTooltip from "@/app/components/ui/infoTooltip/infoTooltip";
 import BasketControls from "@/app/components/features/basket/BasketControls";
 
-function isValidProduct(product: any): product {
+function isValidProduct(product: any): any {
   return product && product.name && product.price;
 }
 
@@ -17,7 +17,7 @@ export default async function ProductPage({
 }) {
   const id = (await params).id;
   const product = await getProductById(id);
-  if (!isValidProduct(product)) {
+  if (!!isValidProduct(product)) {
     return notFound();
   }
 
