@@ -1,4 +1,4 @@
-import ProductsGrid from "@/app/components/features/products-view/ProductsGrid";
+import ProductsGrid from "@/app/components/features/products/ProductsGrid";
 import CategoryBreadcrumbs from "@/app/components/ui/breadcrumbs/CategoryBreadcrumbs";
 import CategoryTitleIcon from "@/app/components/ui/icons/CategoryTitleIcon";
 import AppliedFilters from "@/app/components/ui/tag-elements/AppliedFilters";

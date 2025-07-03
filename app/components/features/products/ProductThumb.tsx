@@ -4,8 +4,8 @@ import Link from "next/link";
 import { MouseEvent } from "react";
 import { imageUrl } from "@/lib/imageUrl";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useBasketStore } from "@/store";
 import BasketControls from "../basket/BasketControls";
+import { BasketProduct } from "@/app/components/features/basket/BasketControls";
 
 interface ProductThumbProps {
   product: Product;
@@ -13,12 +13,14 @@ interface ProductThumbProps {
 }
 
 const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
-  const basket = useBasketStore((s) => s.basket);
-  const addItem = useBasketStore((s) => s.addItem);
-  const updateQuantity = useBasketStore((s) => s.updateQuantity);
-  const removeItem = useBasketStore((s) => s.removeItem);
+  if (
+    !product.name ||
+    !product.image ||
+    product.stock === undefined ||
+    !product.price
+  )
+    return null;
 
-  if (!product.name || !product.image) return null;
   const isOutOfStock = product.stock != null && product.stock <= 0;
 
   const originalPrice = product.price ?? 0;
@@ -28,6 +30,13 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
       : originalPrice;
 
   const showPrice = product.price !== undefined;
+
+  const basketProduct: BasketProduct = {
+    _id: product._id,
+    name: product.name,
+    stock: product.stock,
+    price: product.price,
+  };
 
   return (
     <Link
@@ -59,13 +68,7 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
             .join(" ") || "No description available"}
         </p>
 
-        <div
-          className="mt-2 flex items-center justify-between gap-2"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-          }}
-        >
+        <div className="mt-2 flex flex-column items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <p className="text-lg font-bold text-gray-900">
               ${salePrice.toFixed(2)}
@@ -77,7 +80,7 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
             )}
           </div>
 
-          {!isOutOfStock && <BasketControls product={product} />}
+          {!isOutOfStock && <BasketControls product={basketProduct} />}
         </div>
       </div>
     </Link>

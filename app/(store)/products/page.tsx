@@ -1,4 +1,4 @@
-import ProductsGrid from "@/app/components/features/products-view/ProductsGrid";
+import ProductsGrid from "@/app/components/features/products/ProductsGrid";
 import AppliedFilters from "@/app/components/ui/tag-elements/AppliedFilters";
 import FilterSortBtns from "@/app/components/ui/buttons/FilterSortBtns";
 import ProductsFilterSortDrawersWrapper from "@/app/components/ui/drawers/ProductsFilterSortDrawersWrapper";
