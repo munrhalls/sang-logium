@@ -19,7 +19,7 @@ export const schema = {
     orderType,
     saleType,
     exhibitionType,
-    // commercialType,
+    commercialType,
     userProfileType,
   ],
 };
