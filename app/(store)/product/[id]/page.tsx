@@ -5,10 +5,7 @@ import ProductPageGallery from "./ProductPageGallery";
 import { FaCheckCircle } from "react-icons/fa";
 import InfoTooltip from "@/app/components/ui/infoTooltip/infoTooltip";
 import BasketControls from "@/app/components/features/basket/BasketControls";
-
-function isValidProduct(product: any): any {
-  return product && product.name && product.price;
-}
+import { BasketProduct } from "@/app/components/features/basket/BasketControls";
 
 export default async function ProductPage({
   params,
@@ -17,13 +14,23 @@ export default async function ProductPage({
 }) {
   const id = (await params).id;
   const product = await getProductById(id);
-  if (!!isValidProduct(product)) {
+
+  if (
+    !product ||
+    !product.name ||
+    product.stock === undefined ||
+    !product.price
+  ) {
     return notFound();
   }
 
   const isOutOfStock = product.stock != null && product.stock <= 0;
-
-  // const item = basket.find((i) => i.id === product._id);
+  const basketProduct: BasketProduct = {
+    _id: product._id,
+    name: product.name,
+    stock: product.stock,
+    price: product.price,
+  };
 
   return (
     <div className="mx-auto max-w-[1400px] grid justify-center p-4 gap-4 lg:gap-12 xl:gap-16 sm:grid-cols-2 auto-rows-min">
@@ -57,7 +64,8 @@ export default async function ProductPage({
               </span>
               <FaCheckCircle color="green" size={16} />
             </div>
-            <BasketControls product={product} />
+
+            <BasketControls product={basketProduct} />
           </div>
         )}
       </div>

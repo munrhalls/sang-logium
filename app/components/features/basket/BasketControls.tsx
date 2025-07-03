@@ -5,7 +5,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { ShoppingCart, ShoppingBag } from "lucide-react";
 
-interface Product {
+export interface BasketProduct {
   _id: string;
   name: string;
   stock: number;
@@ -13,7 +13,7 @@ interface Product {
 }
 
 const BasketControls = React.memo(
-  ({ product }: { product: Product }) => {
+  ({ product }: { product: BasketProduct }) => {
     const _hasHydrated = useBasketStore((s) => s._hasHydrated);
     console.log("🎯 BasketControls _hasHydrated:", _hasHydrated);
 
