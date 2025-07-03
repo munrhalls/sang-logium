@@ -9,10 +9,11 @@ import { BasketProduct } from "@/app/components/features/basket/BasketControls";
 
 interface ProductThumbProps {
   product: Product;
-  saleDiscount?: number;
+  // saleDiscount?: number;
 }
 
-const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
+// const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
+const ProductThumb = ({ product }: ProductThumbProps) => {
   if (
     !product.name ||
     !product.image ||
@@ -24,10 +25,10 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
   const isOutOfStock = product.stock != null && product.stock <= 0;
 
   const originalPrice = product.price ?? 0;
-  const salePrice =
-    saleDiscount && originalPrice
-      ? originalPrice - originalPrice * (saleDiscount / 100)
-      : originalPrice;
+  // const salePrice =
+  //   saleDiscount && originalPrice
+  //     ? originalPrice - originalPrice * (saleDiscount / 100)
+  //     : originalPrice;
 
   const showPrice = product.price !== undefined;
 
@@ -71,13 +72,16 @@ const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
         <div className="mt-2 flex flex-column items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <p className="text-lg font-bold text-gray-900">
+              ${originalPrice.toFixed(2)}
+            </p>
+            {/* <p className="text-lg font-bold text-gray-900">
               ${salePrice.toFixed(2)}
             </p>
             {saleDiscount && showPrice && (
               <p className="text-sm text-gray-500 line-through">
                 ${originalPrice.toFixed(2)}
               </p>
-            )}
+            )} */}
           </div>
 
           {!isOutOfStock && <BasketControls product={basketProduct} />}
