@@ -6,9 +6,9 @@ import {
   ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import ProductQuantityControl from "@/app/components/features/basket/ProductQuantityControl";
 import SegmentTitle from "@/app/components/ui/segment-title/SegmentTitle";
 import { useBasketStore } from "@/store";
+import BasketControls from "@/app/components/features/basket/BasketControls";
 
 export default function BasketPage() {
   const basket = useBasketStore((s) => s.basket);
@@ -66,7 +66,7 @@ export default function BasketPage() {
 
             {basket.map((item) => (
               <div
-                key={item._id}
+                key={item._id + "Basket page"}
                 className="grid grid-cols-1 lg:grid-cols-[3fr_1fr_1fr_auto] p-5 border-b border-gray-200 gap-5 items-center hover:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center gap-5">
@@ -99,23 +99,7 @@ export default function BasketPage() {
                     Quantity:
                   </div>
                   <div className="flex items-center">
-                    <ProductQuantityControl
-                      productId={item._id}
-                      quantity={item.quantity}
-                      onIncrease={() =>
-                        updateQuantity(item._id, item.quantity + 1)
-                      }
-                      onDecrease={() =>
-                        updateQuantity(item._id, item.quantity - 1)
-                      }
-                    />
-                    <button
-                      onClick={() => removeItem(item._id)}
-                      className="ml-3 text-gray-400 hover:text-red-500 transition-colors lg:hidden"
-                      aria-label="Remove item"
-                    >
-                      <XMarkIcon className="h-5 w-5" />
-                    </button>
+                    <BasketControls product={item} />
                   </div>
                 </div>
 

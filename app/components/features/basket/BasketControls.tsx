@@ -25,8 +25,10 @@ const BasketControls = React.memo(
     const item = basket.find((i) => i._id === _id);
 
     if (!item) {
+      console.log(product.stock, "product.stock");
       const basketItem = {
         _id: product._id,
+        stock: product.stock,
         name: product.name,
         price: product.price,
         quantity: 1,
@@ -63,6 +65,7 @@ const BasketControls = React.memo(
     }
 
     const canIncrement = item.quantity < product.stock;
+    console.log("🎯 BasketControls canIncrement:", product.stock);
 
     const handleDecrement = (e: React.MouseEvent) => {
       e.preventDefault();

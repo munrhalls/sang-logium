@@ -72,7 +72,7 @@ export const productType = defineType({
       name: "categoryPath",
       title: "Category Path",
       type: "array",
-      of: [{ type: "string" }],
+      of: [defineArrayMember({ type: "string" })],
       description:
         "The metadata.paths of the categories this product belongs to (e.g., ['hi-fi-audio/amplifiers', 'electronics/audio'])",
       validation: (Rule) => Rule.required(),
@@ -89,25 +89,13 @@ export const productType = defineType({
       title: "Overview Fields",
       type: "array",
       of: [
-        defineField({
+        defineArrayMember({
           name: "overviewField",
           type: "object",
           fields: [
-            {
-              name: "title",
-              type: "string",
-              title: "Title",
-            },
-            {
-              name: "value",
-              type: "string",
-              title: "Value",
-            },
-            {
-              name: "information",
-              type: "string",
-              title: "Information",
-            },
+            { name: "title", type: "string", title: "Title" },
+            { name: "value", type: "string", title: "Value" },
+            { name: "information", type: "string", title: "Information" },
           ],
         }),
       ],

@@ -3,9 +3,12 @@ import { notFound } from "next/navigation";
 import { PortableText } from "next-sanity";
 import ProductPageGallery from "./ProductPageGallery";
 import { FaCheckCircle } from "react-icons/fa";
-// import { FaInfoCircle } from "react-icons/fa";
 import InfoTooltip from "@/app/components/ui/infoTooltip/infoTooltip";
 import BasketControls from "@/app/components/features/basket/BasketControls";
+
+function isValidProduct(product: any): product {
+  return product && product.name && product.price;
+}
 
 export default async function ProductPage({
   params,
@@ -14,7 +17,7 @@ export default async function ProductPage({
 }) {
   const id = (await params).id;
   const product = await getProductById(id);
-  if (!product) {
+  if (!isValidProduct(product)) {
     return notFound();
   }
 
@@ -30,7 +33,7 @@ export default async function ProductPage({
         <div>
           <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
           <div className="text-3xl font-semibold mb-4">
-            ${product.price?.toFixed(2)}
+            ${product.price.toFixed(2)}
           </div>
         </div>
 
@@ -47,31 +50,16 @@ export default async function ProductPage({
             </span>
           </div>
         ) : (
-          <div className="flex items-center gap-1 my-2">
-            <span className="text-green-700  font-bold text-xl rounded-sm">
-              In stock & shipping
-            </span>
-            <FaCheckCircle color="green" size={16} />
+          <div>
+            <div className="flex items-center gap-1 my-2">
+              <span className="text-green-700  font-bold text-xl rounded-sm">
+                In stock & shipping
+              </span>
+              <FaCheckCircle color="green" size={16} />
+            </div>
+            <BasketControls product={product} />
           </div>
         )}
-
-        {/* <div className="flex items-center">
-          <ProductQuantityControl
-            productId={product._id}
-            quantity={item.quantity}
-            onIncrease={handleIncreaseQuantity}
-            onDecrease={handleDecreaseQuantity}
-            className="scale-90 transform origin-right"
-          />
-          <button
-            onClick={handleRemoveItem}
-            className="ml-1 text-gray-500 hover:text-red-500 transition-colors"
-            aria-label="Remove from basket"
-          >
-            <XMarkIcon className="h-5 w-5" />
-          </button>
-        </div> */}
-        <BasketControls product={product} />
       </div>
       {product.overviewFields && product.overviewFields.length > 0 && (
         <div className="mb-6 md:max-w-[500px] border-l-2 border-b-2 pl-4 pb-4 border-gray-400 ">

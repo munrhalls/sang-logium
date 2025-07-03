@@ -11,15 +11,15 @@ import { userProfileType } from "./userProfileType";
 
 export const schema = {
   types: [
-    blockContentType,
-    categoryType,
-    categoryFiltersType,
-    categorySortablesType,
-    productType,
-    orderType,
-    saleType,
-    exhibitionType,
-    commercialType,
-    userProfileType,
+    // blockContentType,
+    // categoryType,
+    // categoryFiltersType,
+    // categorySortablesType,
+    // productType,
+    // orderType,
+    // saleType,
+    // exhibitionType,
+    // commercialType,
+    // userProfileType,
   ],
 };
