@@ -203,7 +203,7 @@ export const getSelectedProducts = async (
   "totalProductsCount": count(${baseQuery})
 }`;
   console.log("Final GROQ query:", finalQuery);
-  const GET_PRODUCTS_BY_QUERY = defineQuery(finalQuery);
+  const GET_PRODUCTS_BY_QUERY = finalQuery;
 
   try {
     const result = await sanityFetch({
