@@ -53,12 +53,12 @@ export const commercialType = defineType({
           type: "block",
           marks: {
             annotations: [
-              defineArrayMember({
+              {
                 type: "textColor",
-              }),
-              defineArrayMember({
+              },
+              {
                 type: "highlightColor",
-              }),
+              },
             ],
           },
         }),
