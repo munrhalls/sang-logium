@@ -75,8 +75,6 @@ const BasketControls = React.memo(
     console.log("🎯 BasketControls canIncrement:", product.stock);
 
     const handleDecrement = (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
       if (item.quantity === 1) {
         removeItem(_id);
       } else {
@@ -85,21 +83,22 @@ const BasketControls = React.memo(
     };
 
     const handleRemove = (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
       removeItem(_id);
     };
 
     const handleIncrement = (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
       if (canIncrement) {
         updateQuantity(_id, item.quantity + 1);
       }
     };
 
     return (
-      <div>
+      <div
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+      >
         <div className="font-bold text-lg">Purchase quantity:</div>
         <div className="flex items-center gap-x-2">
           <button
@@ -110,6 +109,7 @@ const BasketControls = React.memo(
           >
             +
           </button>
+
           <span className="font-black w-6 text-center">{item.quantity}</span>
           <button
             aria-label="Decrease quantity"
