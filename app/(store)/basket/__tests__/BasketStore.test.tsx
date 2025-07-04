@@ -1,4 +1,5 @@
 import { useBasketStore } from "@/store";
+import { act } from "@testing-library/react";
 
 describe("Basket Store Business Logic", () => {
   afterEach(() => {
