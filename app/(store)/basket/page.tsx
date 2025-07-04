@@ -102,16 +102,6 @@ export default function BasketPage() {
                     <BasketControlsButtons product={item} />
                   </div>
                 </div>
-
-                <div className="hidden lg:flex items-center justify-center">
-                  <button
-                    onClick={() => removeItem(item._id)}
-                    className="flex items-center justify-center h-9 w-9 rounded-full hover:bg-gray-200 text-gray-400 hover:text-red-500 transition-colors"
-                    aria-label="Remove item"
-                  >
-                    <XMarkIcon className="h-5 w-5" />
-                  </button>
-                </div>
               </div>
             ))}
           </div>

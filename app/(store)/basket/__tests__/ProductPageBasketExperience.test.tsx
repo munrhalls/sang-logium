@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import React from "react";
 import { useBasketStore } from "@/store";
-import ProductPageBasketControls from "../../product/[id]/ProductPageBasketControls";
+import BasketControls from "@/app/components/features/basket/BasketControls";
 import ErrorBoundary from "../../product/[id]/ErrorBoundary";
 
 describe("Individual Product Page Basket Experience", () => {
@@ -11,17 +11,30 @@ describe("Individual Product Page Basket Experience", () => {
     });
   });
 
-  const mockProduct = { _id: "audio-1", name: "Headphones", price: 100 };
+  const mockProduct = {
+    _id: "audio-1",
+    name: "Headphones",
+    price: 100,
+    stock: 5,
+  };
 
   test("Add to Cart button is visible when product is not in basket", () => {
-    render(<ProductPageBasketControls product={mockProduct} />);
+    render(<BasketControls product={mockProduct} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     expect(
       screen.getByRole("button", { name: /add to cart/i })
     ).toBeInTheDocument();
   });
 
   test("Clicking Add to Cart adds product and shows quantity controls", () => {
-    render(<ProductPageBasketControls product={mockProduct} />);
+    render(<BasketControls product={mockProduct} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     act(() => {
       fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     });
@@ -35,13 +48,17 @@ describe("Individual Product Page Basket Experience", () => {
       screen.getByRole("button", { name: /decrease quantity/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /remove from cart/i })
+      screen.getByRole("button", { name: /remove from basket/i })
     ).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
   });
 
   test("Clicking + increases product quantity", () => {
-    render(<ProductPageBasketControls product={mockProduct} />);
+    render(<BasketControls product={mockProduct} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     act(() => {
       fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     });
@@ -56,7 +73,11 @@ describe("Individual Product Page Basket Experience", () => {
   });
 
   test("Clicking - decreases product quantity but not below 1", () => {
-    render(<ProductPageBasketControls product={mockProduct} />);
+    render(<BasketControls product={mockProduct} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     act(() => {
       fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     });
@@ -76,29 +97,45 @@ describe("Individual Product Page Basket Experience", () => {
       );
     });
     const items = useBasketStore.getState().basket;
-    expect(items[0].quantity).toBe(1);
-    expect(screen.getByText("1")).toBeInTheDocument();
+    expect(items.length).toBe(0);
+    expect(
+      screen.getByRole("button", { name: /show basket controls/i })
+    ).toBeInTheDocument();
   });
 
   test("Clicking X removes product and restores Add to Cart button", () => {
-    render(<ProductPageBasketControls product={mockProduct} />);
+    render(<BasketControls product={mockProduct} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     act(() => {
       fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     });
     act(() => {
       fireEvent.click(
-        screen.getByRole("button", { name: /remove from cart/i })
+        screen.getByRole("button", { name: /remove from basket/i })
       );
     });
     const items = useBasketStore.getState().basket;
     expect(items.length).toBe(0);
+    expect(
+      screen.getByRole("button", { name: /show basket controls/i })
+    ).toBeInTheDocument();
+    fireEvent.click(
+      screen.getByRole("button", { name: /show basket controls/i })
+    );
     expect(
       screen.getByRole("button", { name: /add to cart/i })
     ).toBeInTheDocument();
   });
 
   test("Quantity controls match product listing behavior", () => {
-    render(<ProductPageBasketControls product={mockProduct} />);
+    render(<BasketControls product={mockProduct} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     act(() => {
       fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     });
@@ -109,7 +146,7 @@ describe("Individual Product Page Basket Experience", () => {
       screen.getByRole("button", { name: /decrease quantity/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /remove from cart/i })
+      screen.getByRole("button", { name: /remove from basket/i })
     ).toBeInTheDocument();
   });
 });
