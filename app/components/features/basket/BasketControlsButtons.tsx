@@ -18,11 +18,12 @@ const BasketControlsButtons = React.memo(
     console.log("🎯 BasketControls _hasHydrated:", _hasHydrated);
 
     const _id = product._id;
-    const basket = useBasketStore((s) => s.basket);
+    const item = useBasketStore((s) =>
+      s.basket.find((i) => i._id === product._id)
+    );
     const addItem = useBasketStore((s) => s.addItem);
     const updateQuantity = useBasketStore((s) => s.updateQuantity);
     const removeItem = useBasketStore((s) => s.removeItem);
-    const item = basket.find((i) => i._id === _id);
 
     if (!item) {
       console.log(product.stock, "product.stock");

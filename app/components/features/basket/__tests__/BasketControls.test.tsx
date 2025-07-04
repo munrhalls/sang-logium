@@ -9,7 +9,7 @@ import { useBasketStore } from "@/store";
 // - WHEN: User clicks the "Add to Cart" button
 // - THEN: The inner buttons component is not rendered initially, however after click the state of parent container changes to active and the inner buttons component renders
 
-describe("BasketControls: Add to Cart", () => {
+describe("BasketControls: Increment and decrement from Cart", () => {
   beforeEach(() => {
     useBasketStore.getState().basket = [];
   });
