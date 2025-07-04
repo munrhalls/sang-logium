@@ -19,7 +19,7 @@ export interface BasketProduct {
 // this way, only the basket controls that are active are re-rendered on button click
 // when the store changed, all the other basket controls are not even rendered, so they don't re-render
 
-const BasketControls = React.memo(
+const BasketControlsButtons = React.memo(
   ({ product }: { product: BasketProduct }) => {
     const _hasHydrated = useBasketStore((s) => s._hasHydrated);
     console.log("🎯 BasketControls _hasHydrated:", _hasHydrated);
@@ -134,7 +134,7 @@ const BasketControls = React.memo(
   }
 );
 
-function BasketControlsWrapper({ product }: { product: BasketProduct }) {
+function BasketControls({ product }: { product: BasketProduct }) {
   const [active, setActive] = React.useState(false);
   const basket = useBasketStore((s) => s.basket);
   const item = basket.find((i) => i._id === product._id);
@@ -158,7 +158,7 @@ function BasketControlsWrapper({ product }: { product: BasketProduct }) {
       </button>
     );
   }
-  return <BasketControls product={product} />;
+  return <BasketControlsButtons product={product} />;
 }
 
-export default BasketControlsWrapper;
+export default BasketControls;
