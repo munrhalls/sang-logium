@@ -428,7 +428,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore
+        selector ? selector(mockStore) : mockStore,
       );
       render(<BasketPage />);
       expect(screen.getByText("$15.99")).toBeInTheDocument();
@@ -452,7 +452,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore
+        selector ? selector(mockStore) : mockStore,
       );
       render(<BasketPage />);
       expect(screen.getByText("$265.99")).toBeInTheDocument();
@@ -475,7 +475,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore
+        selector ? selector(mockStore) : mockStore,
       );
       render(<BasketPage />);
       const checkoutLink = screen.getByRole("link", {
@@ -501,7 +501,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore
+        selector ? selector(mockStore) : mockStore,
       );
       render(<BasketPage />);
 
@@ -532,7 +532,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore
+        selector ? selector(mockStore) : mockStore,
       );
       render(<BasketPage />);
 
@@ -560,7 +560,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore
+        selector ? selector(mockStore) : mockStore,
       );
 
       const { rerender } = render(<BasketPage />);
@@ -602,7 +602,7 @@ describe("4. Item Removal", () => {
       };
 
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore
+        selector ? selector(mockStore) : mockStore,
       );
 
       const { rerender, container } = render(<BasketPage />);
@@ -645,7 +645,7 @@ describe("4. Item Removal", () => {
       };
 
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore
+        selector ? selector(mockStore) : mockStore,
       );
 
       render(<BasketPage />);
@@ -677,25 +677,25 @@ describe("4. Item Removal", () => {
       };
 
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore
+        selector ? selector(mockStore) : mockStore,
       );
 
       const { container } = render(<BasketPage />);
 
       // Robustly find and click the increase button
       const increaseButton = Array.from(
-        container.querySelectorAll("button")
+        container.querySelectorAll("button"),
       ).find((btn) =>
-        btn.getAttribute("aria-label")?.toLowerCase().includes("increase")
+        btn.getAttribute("aria-label")?.toLowerCase().includes("increase"),
       );
       expect(increaseButton).toBeTruthy();
       if (increaseButton) increaseButton.click();
 
       // Robustly find and click the remove button
       const removeButton = Array.from(
-        container.querySelectorAll("button")
+        container.querySelectorAll("button"),
       ).find((btn) =>
-        btn.getAttribute("aria-label")?.toLowerCase().includes("remove")
+        btn.getAttribute("aria-label")?.toLowerCase().includes("remove"),
       );
       expect(removeButton).toBeTruthy();
       if (removeButton) removeButton.click();
@@ -721,7 +721,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore
+        selector ? selector(mockStore) : mockStore,
       );
       render(<BasketPage />);
       // All buttons and links should be focusable
@@ -762,15 +762,15 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore
+        selector ? selector(mockStore) : mockStore,
       );
       render(<BasketPage />);
       // All interactive buttons should have aria-labels
       expect(
-        screen.getByRole("button", { name: /increase quantity/i })
+        screen.getByRole("button", { name: /increase quantity/i }),
       ).toBeInTheDocument();
       expect(
-        screen.getByRole("button", { name: /decrease quantity/i })
+        screen.getByRole("button", { name: /decrease quantity/i }),
       ).toBeInTheDocument();
       screen
         .getAllByLabelText("Remove item")
@@ -795,14 +795,14 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore
+        selector ? selector(mockStore) : mockStore,
       );
       const { container } = render(<BasketPage />);
       // Robustly find the increase button
       const increaseButton = Array.from(
-        container.querySelectorAll("button")
+        container.querySelectorAll("button"),
       ).find((btn) =>
-        btn.getAttribute("aria-label")?.toLowerCase().includes("increase")
+        btn.getAttribute("aria-label")?.toLowerCase().includes("increase"),
       );
       expect(increaseButton).toBeTruthy();
       // Simulate rapid clicks
