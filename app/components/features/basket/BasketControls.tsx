@@ -17,6 +17,8 @@ export interface BasketProduct {
 // solution:
 // need to have a wrapper with local state for the purpose of de-activating (by default) the basket controls
 // this way, only the basket controls that are active are re-rendered on button click
+// when the store changed, all the other basket controls are not even rendered, so they don't re-render
+
 const BasketControls = React.memo(
   ({ product }: { product: BasketProduct }) => {
     const _hasHydrated = useBasketStore((s) => s._hasHydrated);
@@ -132,4 +134,31 @@ const BasketControls = React.memo(
   }
 );
 
-export default BasketControls;
+function BasketControlsWrapper({ product }: { product: BasketProduct }) {
+  const [active, setActive] = React.useState(false);
+  const basket = useBasketStore((s) => s.basket);
+  const item = basket.find((i) => i._id === product._id);
+  React.useEffect(() => {
+    if (!item) setActive(false);
+  }, [item]);
+  if (!active) {
+    return (
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setActive(true);
+        }}
+        aria-label="Show Basket Controls"
+        className="rounded-lg bg-black text-black p-2 h-14 w-14 flex items-center justify-center hover:bg-gray-800 transition-colors"
+      >
+        <span className="p-1" style={{ display: "inline-flex", lineHeight: 0 }}>
+          <ShoppingCart className="w-8 h-8 text-white" />
+        </span>
+      </button>
+    );
+  }
+  return <BasketControls product={product} />;
+}
+
+export default BasketControlsWrapper;
