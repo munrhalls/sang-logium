@@ -8,7 +8,7 @@ interface UseProfileDataReturn {
   isLoading: boolean;
   error: Error | null;
   isAuthenticated: boolean;
-  user: any; // TODO: Type this properly
+  user: unknown; // TODO: Type this properly
 }
 
 export function useProfileData(): UseProfileDataReturn {

@@ -1,11 +1,9 @@
 import { Product } from "@/sanity.types";
 import Image from "next/image";
 import Link from "next/link";
-import { MouseEvent } from "react";
 import { imageUrl } from "@/lib/imageUrl";
-import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import BasketControls from "../basket/BasketControls";
-import { BasketProduct } from "@/app/components/features/basket/BasketControls";
+import { BasketItem } from "@/store";
 
 interface ProductThumbProps {
   product: Product;
@@ -30,13 +28,12 @@ const ProductThumb = ({ product }: ProductThumbProps) => {
   //     ? originalPrice - originalPrice * (saleDiscount / 100)
   //     : originalPrice;
 
-  const showPrice = product.price !== undefined;
-
-  const basketProduct: BasketProduct = {
+  const basketProduct: BasketItem = {
     _id: product._id,
     name: product.name,
     stock: product.stock,
     price: product.price,
+    quantity: 1,
   };
 
   return (

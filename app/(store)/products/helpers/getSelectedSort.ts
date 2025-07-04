@@ -11,6 +11,6 @@ export default function getSelectedSort(searchParams: SearchParams): SortState {
 
   return {
     field: sortField,
-    direction: sortDir as 'asc' | 'desc',
+    direction: sortDir as "asc" | "desc",
   };
 }

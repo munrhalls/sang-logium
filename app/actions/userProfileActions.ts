@@ -48,8 +48,8 @@ export async function fetchProfileByClerkIdAction(
  */
 export async function createUserProfileAction(data: {
   clerkId: string;
-  primaryAddress?: any;
-  preferences?: any;
+  primaryAddress?: unknown;
+  preferences?: unknown;
 }): Promise<UserProfile | null> {
   try {
     // Check if profile already exists
@@ -93,26 +93,26 @@ export async function createUserProfileAction(data: {
 export async function updateUserProfileFieldAction(data: {
   clerkId: string;
   field: string;
-  value: any;
+  value: unknown;
 }): Promise<{ success: boolean; message?: string }> {
   try {
     const { clerkId, field, value } = data;
-    
+
     // Find the profile ID first
     const profileId = await client.fetch(
       `*[_type == "userProfile" && clerkId == $clerkId][0]._id`,
       { clerkId }
     );
-    
+
     if (!profileId) {
-      return { 
-        success: false, 
-        message: "Profile not found" 
+      return {
+        success: false,
+        message: "Profile not found"
       };
     }
 
     // Create the update patch
-    const patch: Record<string, any> = {
+    const patch: Record<string, unknown> = {
       updatedAt: new Date().toISOString()
     };
 
@@ -125,14 +125,14 @@ export async function updateUserProfileFieldAction(data: {
       .set(patch)
       .commit();
 
-    return { 
+    return {
       success: true
     };
   } catch (error) {
     console.error("Error updating user profile field:", error);
-    return { 
-      success: false, 
-      message: error instanceof Error ? error.message : "Unknown error" 
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
     };
   }
 }
@@ -144,26 +144,26 @@ export async function updateNestedProfileFieldAction(data: {
   clerkId: string;
   parentField: string;
   field: string;
-  value: any;
+  value: unknown;
 }): Promise<{ success: boolean; message?: string }> {
   try {
     const { clerkId, parentField, field, value } = data;
-    
+
     // Find the profile ID first
     const profileId = await client.fetch(
       `*[_type == "userProfile" && clerkId == $clerkId][0]._id`,
       { clerkId }
     );
-    
+
     if (!profileId) {
-      return { 
-        success: false, 
-        message: "Profile not found" 
+      return {
+        success: false,
+        message: "Profile not found"
       };
     }
 
     // Create the update patch with updatedAt timestamp
-    const patch: Record<string, any> = {
+    const patch: Record<string, unknown> = {
       updatedAt: new Date().toISOString()
     };
 
@@ -176,14 +176,14 @@ export async function updateNestedProfileFieldAction(data: {
       .set(patch)
       .commit();
 
-    return { 
-      success: true 
+    return {
+      success: true
     };
   } catch (error) {
     console.error("Error updating nested user profile field:", error);
-    return { 
-      success: false, 
-      message: error instanceof Error ? error.message : "Unknown error" 
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
     };
   }
 }

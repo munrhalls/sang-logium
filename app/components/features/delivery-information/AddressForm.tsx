@@ -78,7 +78,7 @@ export default function AddressForm() {
               component.confirmationLevel !== "CONFIRMED"
           )
           .map(
-            (component: { componentType: any; confirmationLevel: any }) =>
+            (component: { componentType: unknown; confirmationLevel: unknown }) =>
               `${component.componentType} (${component.confirmationLevel})`
           );
 

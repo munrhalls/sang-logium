@@ -22,7 +22,7 @@ export default class ErrorBoundary extends React.Component<
     return { hasError: true };
   }
 
-  componentDidCatch(error: any, info: any) {
+  componentDidCatch(error: unknown, info: unknown) {
     // Optionally log error
     console.log("Error: ", error, "Info: ", info);
   }

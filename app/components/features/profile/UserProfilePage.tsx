@@ -1,23 +1,14 @@
 "use client";
 import React from "react";
-import ProfileHeader from "./ProfileHeader";
-import { ClerkAccountManager } from "../../features/auth/ClerkAccountManager";
-// import AddressForm from "./../AddressForm";
-import { useErrorHandler } from "./hooks/useErrorHandler";
 import { useProfileData } from "./hooks/useProfileData";
 
 export default function UserProfilePage() {
   const { profile, isLoading, error, isAuthenticated, user } = useProfileData();
-  const { error: globalError } = useErrorHandler();
 
   if (isLoading) return <LoadingState />;
   if (error) return <ErrorState error={error} />;
   if (!isAuthenticated || !user) return <AuthRequiredState />;
   if (!profile) return <ProfileNotFoundState />;
-
-  const handleAddressChange = (address: any) => {
-    console.log("Address changed:", address);
-  };
 
   return (
     // <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
@@ -77,15 +68,6 @@ function ProfileNotFoundState() {
         <h3 className="text-lg font-medium">Profile not found</h3>
         <p className="mt-1">We couldn't find your profile information.</p>
       </div>
-    </div>
-  );
-}
-
-function ErrorDisplay({ error }: { error: string }) {
-  return (
-    <div className="bg-red-50 border border-red-200 text-red-800 rounded-md p-4 mb-6">
-      <h3 className="text-lg font-medium">Error</h3>
-      <p className="mt-1">{error}</p>
     </div>
   );
 }
