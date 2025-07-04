@@ -48,7 +48,7 @@ export default function AddressForm() {
       console.log("Response:", data);
 
       const result = data.result;
-      const verdict = result?.verdict;
+      const _verdict = result?.verdict;
 
       const addressComponents = result?.address?.addressComponents || [];
       const allComponentsConfirmed = addressComponents.every(

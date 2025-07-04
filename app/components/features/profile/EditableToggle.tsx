@@ -39,7 +39,7 @@ export default function EditableToggle({
             } ${disabled ? "opacity-50 cursor-not-allowed" : ""} ${
               localValue !== value ? "border-2 border-blue-300" : ""
             }`}
-            aria-pressed={localValue}
+            aria-checked={localValue}
             role="switch"
           >
             <span

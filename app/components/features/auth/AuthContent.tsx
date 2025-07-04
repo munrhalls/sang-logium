@@ -16,10 +16,10 @@ const AuthenticatedView = dynamic(
 );
 
 export default function AuthContent() {
-  const { isLoaded, isSignedIn } = useUser();
+  const { isLoaded } = useUser();
   const pathname = usePathname();
 
-  const isProfilePage =
+  const _isProfilePage =
     pathname === "/account" || pathname === "/(store)/account";
 
   if (!isLoaded) {

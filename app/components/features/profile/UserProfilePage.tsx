@@ -66,7 +66,7 @@ function ProfileNotFoundState() {
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
       <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-md p-4">
         <h3 className="text-lg font-medium">Profile not found</h3>
-        <p className="mt-1">We couldn't find your profile information.</p>
+        <p className="mt-1">We couldn&apos;t find your profile information.</p>
       </div>
     </div>
   );

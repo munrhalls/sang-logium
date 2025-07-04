@@ -14,7 +14,8 @@ interface UseProfileDataReturn {
 export function useProfileData(): UseProfileDataReturn {
   const { profile, isLoading, error, isAuthenticated, user } = useUserProfile();
   const [profileData, setProfileData] = useState<UserProfile | null>(null);
-  const { handleError, clearError } = useErrorHandler();
+  const { handleError: _handleError, clearError: _clearError } =
+    useErrorHandler();
 
   useEffect(() => {
     if (profile) {
