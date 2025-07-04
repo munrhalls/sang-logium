@@ -2,19 +2,11 @@
 import React from "react";
 import { useBasketStore } from "@/store";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
-import { ShoppingCart, ShoppingBag } from "lucide-react";
-import { useShallow } from "zustand/react/shallow";
-
-export interface BasketProduct {
-  _id: string;
-  name: string;
-  stock: number;
-  price: number;
-}
+import { ShoppingCart } from "lucide-react";
+import { BasketItem } from "@/store";
 
 const BasketControls = React.memo(
-  ({ product }: { product: BasketProduct }) => {
+  function BasketControls({ product }: { product: BasketItem }) {
     const _hasHydrated = useBasketStore((s) => s._hasHydrated);
     console.log("🎯 BasketControls _hasHydrated:", _hasHydrated);
 
@@ -59,9 +51,6 @@ const BasketControls = React.memo(
               <ShoppingCart className="w-6 h-6 text-white" />
             </span>
           </button>
-          {/* <span className="text-black text-lg font-black border-dashed border-black mb-[1px]">
-            Add to cart
-          </span> */}
         </div>
       );
     }
@@ -69,7 +58,7 @@ const BasketControls = React.memo(
     const canIncrement = item.quantity < product.stock;
     console.log("🎯 BasketControls canIncrement:", product.stock);
 
-    const handleDecrement = (e: React.MouseEvent) => {
+    const handleDecrement = (_e: React.MouseEvent) => {
       if (item.quantity === 1) {
         removeItem(_id);
       } else {
@@ -77,11 +66,11 @@ const BasketControls = React.memo(
       }
     };
 
-    const handleRemove = (e: React.MouseEvent) => {
+    const handleRemove = (_e: React.MouseEvent) => {
       removeItem(_id);
     };
 
-    const handleIncrement = (e: React.MouseEvent) => {
+    const handleIncrement = (_e: React.MouseEvent) => {
       if (canIncrement) {
         updateQuantity(_id, item.quantity + 1);
       }

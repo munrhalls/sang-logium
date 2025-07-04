@@ -2,7 +2,6 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import React from "react";
 import { useBasketStore } from "@/store";
 import BasketControls from "@/app/components/features/basket/BasketControls";
-import ErrorBoundary from "../../../../(store)/product/[id]/ErrorBoundary";
 
 describe("Individual Product Page Basket Experience", () => {
   afterEach(() => {
@@ -16,6 +15,7 @@ describe("Individual Product Page Basket Experience", () => {
     name: "Headphones",
     price: 100,
     stock: 5,
+    quantity: 3,
   };
 
   test("Add to Cart button is visible when product is not in basket", () => {
