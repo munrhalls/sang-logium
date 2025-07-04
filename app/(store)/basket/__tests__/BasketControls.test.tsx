@@ -17,6 +17,11 @@ describe("BasketControls: Add to Cart", () => {
   it("User adds a product to the basket from any context", () => {
     const product = { _id: "p1", name: "Test Product", stock: 5, price: 100 };
     render(<BasketControls product={product} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
+
     const addToCartButton = screen.getByRole("button", {
       name: /add to cart/i,
     });
@@ -40,6 +45,10 @@ describe("BasketControls: Add to Cart", () => {
     const product = { _id: "p2", name: "Stock Product", stock: 3, price: 50 };
     useBasketStore.getState().basket = [{ ...product, quantity: 2 }];
     render(<BasketControls product={product} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     const incBtn = screen.getByRole("button", { name: /increase quantity/i });
     fireEvent.click(incBtn);
     const basket = useBasketStore.getState().basket;
@@ -52,6 +61,10 @@ describe("BasketControls: Add to Cart", () => {
     const product = { _id: "p2", name: "Stock Product", stock: 3, price: 50 };
     useBasketStore.getState().basket = [{ ...product, quantity: 3 }];
     render(<BasketControls product={product} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     const incBtn = screen.getByRole("button", { name: /increase quantity/i });
     fireEvent.click(incBtn);
     const basket = useBasketStore.getState().basket;
@@ -70,6 +83,10 @@ describe("BasketControls: Add to Cart", () => {
     };
     useBasketStore.getState().basket = [{ ...product, quantity: 3 }];
     render(<BasketControls product={product} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     const decBtn = screen.getByRole("button", { name: /decrease quantity/i });
     fireEvent.click(decBtn);
     const basket = useBasketStore.getState().basket;
@@ -87,13 +104,17 @@ describe("BasketControls: Add to Cart", () => {
     };
     useBasketStore.getState().basket = [{ ...product, quantity: 1 }];
     render(<BasketControls product={product} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     const decBtn = screen.getByRole("button", { name: /decrease quantity/i });
     fireEvent.click(decBtn);
     const basket = useBasketStore.getState().basket;
     const basketItem = basket.find((item) => item._id === product._id);
     expect(basketItem).toBeUndefined();
     expect(
-      screen.getByRole("button", { name: /add to cart/i })
+      screen.getByRole("button", { name: /show basket controls/i })
     ).toBeInTheDocument();
   });
 
@@ -106,6 +127,10 @@ describe("BasketControls: Add to Cart", () => {
     };
     useBasketStore.getState().basket = [{ ...product, quantity: 2 }];
     render(<BasketControls product={product} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     expect(
       screen.getByRole("button", { name: /increase quantity/i })
     ).toBeInTheDocument();
@@ -126,6 +151,10 @@ describe("BasketControls: Add to Cart", () => {
       price: 150,
     };
     render(<BasketControls product={product} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     const addToCartButton = screen.getByRole("button", {
       name: /add to cart/i,
     });
@@ -155,6 +184,10 @@ describe("BasketControls: Add to Cart", () => {
       price: 100,
     };
     render(<BasketControls product={product} />);
+    const showControlsButton = screen.getByRole("button", {
+      name: /show basket controls/i,
+    });
+    fireEvent.click(showControlsButton);
     expect(
       screen.getByRole("button", { name: /add to cart/i })
     ).toBeInTheDocument();
