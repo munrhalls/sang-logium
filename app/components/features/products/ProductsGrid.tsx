@@ -1,15 +1,11 @@
-// "use client";
-// import { GET_PRODUCTS_BY_QUERY } from "@/sanity.types";
-
 import ProductThumb from "@/app/components/features/products/ProductThumb";
+import { ALL_PRODUCTS_QUERYResult } from "@/sanity.types";
 
-// type Product = GET_PRODUCTS_BY_QUERY["products"][number];
-
-// type ProductsGridProps = {
-//   products: GET_PRODUCTS_BY_QUERY["products"];
-// };
-
-export default function ProductsGrid({ products }) {
+export default function ProductsGrid({
+  products,
+}: {
+  products: ALL_PRODUCTS_QUERYResult;
+}) {
   return (
     <div className="relative">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 bg-slate-200">

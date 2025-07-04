@@ -12,6 +12,11 @@ export interface BasketProduct {
   price: number;
 }
 
+// problem: this component re-used means it rerenders as many times as there are re-used components anytime user clicks a button
+// goal: only clicked component re-renders
+// solution:
+// need to have a wrapper with local state for the purpose of de-activating (by default) the basket controls
+// this way, only the basket controls that are active are re-rendered on button click
 const BasketControls = React.memo(
   ({ product }: { product: BasketProduct }) => {
     const _hasHydrated = useBasketStore((s) => s._hasHydrated);
