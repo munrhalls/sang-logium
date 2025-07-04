@@ -2,7 +2,7 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import React from "react";
 import { useBasketStore } from "@/store";
 import BasketControls from "@/app/components/features/basket/BasketControls";
-import ErrorBoundary from "../../product/[id]/ErrorBoundary";
+import ErrorBoundary from "../../../../(store)/product/[id]/ErrorBoundary";
 
 describe("Individual Product Page Basket Experience", () => {
   afterEach(() => {
