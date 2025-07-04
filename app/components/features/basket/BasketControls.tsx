@@ -37,7 +37,7 @@ const BasketControls = React.memo(
       };
       return (
         <div
-          className="flex justify-start items-center gap-4"
+          className="flex flex-col justify-start items-center "
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -50,18 +50,18 @@ const BasketControls = React.memo(
               addItem(basketItem);
             }}
             aria-label="Add to Cart"
-            className="rounded-lg bg-black text-black p-2 h-14 w-14 flex items-center justify-center hover:bg-gray-800 transition-colors"
+            className="mt-2 rounded-lg bg-black text-black h-10 w-10 flex flex-col items-center justify-center hover:bg-gray-800 transition-colors"
           >
             <span
               className="p-1"
               style={{ display: "inline-flex", lineHeight: 0 }}
             >
-              <ShoppingCart className="w-8 h-8 text-white" />
+              <ShoppingCart className="w-6 h-6 text-white" />
             </span>
           </button>
-          <span className="text-black text-xl font-black border-dashed border-black mb-[1px]">
+          {/* <span className="text-black text-lg font-black border-dashed border-black mb-[1px]">
             Add to cart
-          </span>
+          </span> */}
         </div>
       );
     }
