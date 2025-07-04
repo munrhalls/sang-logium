@@ -25,7 +25,9 @@ describe("Individual Product Page Basket Experience", () => {
     });
     fireEvent.click(showControlsButton);
     expect(
-      screen.getByRole("button", { name: /add to cart/i })
+      screen.getByRole("button", {
+        name: /add to cart/i,
+      })
     ).toBeInTheDocument();
   });
 
@@ -42,13 +44,19 @@ describe("Individual Product Page Basket Experience", () => {
     expect(items.length).toBe(1);
     expect(items[0].quantity).toBe(1);
     expect(
-      screen.getByRole("button", { name: /increase quantity/i })
+      screen.getByRole("button", {
+        name: /increase quantity/i,
+      })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /decrease quantity/i })
+      screen.getByRole("button", {
+        name: /decrease quantity/i,
+      })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /remove from basket/i })
+      screen.getByRole("button", {
+        name: /remove from basket/i,
+      })
     ).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
   });
@@ -64,7 +72,9 @@ describe("Individual Product Page Basket Experience", () => {
     });
     act(() => {
       fireEvent.click(
-        screen.getByRole("button", { name: /increase quantity/i })
+        screen.getByRole("button", {
+          name: /increase quantity/i,
+        })
       );
     });
     const items = useBasketStore.getState().basket;
@@ -83,23 +93,31 @@ describe("Individual Product Page Basket Experience", () => {
     });
     act(() => {
       fireEvent.click(
-        screen.getByRole("button", { name: /increase quantity/i })
+        screen.getByRole("button", {
+          name: /increase quantity/i,
+        })
       );
     });
     act(() => {
       fireEvent.click(
-        screen.getByRole("button", { name: /decrease quantity/i })
+        screen.getByRole("button", {
+          name: /decrease quantity/i,
+        })
       );
     });
     act(() => {
       fireEvent.click(
-        screen.getByRole("button", { name: /decrease quantity/i })
+        screen.getByRole("button", {
+          name: /decrease quantity/i,
+        })
       );
     });
     const items = useBasketStore.getState().basket;
     expect(items.length).toBe(0);
     expect(
-      screen.getByRole("button", { name: /show basket controls/i })
+      screen.getByRole("button", {
+        name: /show basket controls/i,
+      })
     ).toBeInTheDocument();
   });
 
@@ -114,19 +132,27 @@ describe("Individual Product Page Basket Experience", () => {
     });
     act(() => {
       fireEvent.click(
-        screen.getByRole("button", { name: /remove from basket/i })
+        screen.getByRole("button", {
+          name: /remove from basket/i,
+        })
       );
     });
     const items = useBasketStore.getState().basket;
     expect(items.length).toBe(0);
     expect(
-      screen.getByRole("button", { name: /show basket controls/i })
+      screen.getByRole("button", {
+        name: /show basket controls/i,
+      })
     ).toBeInTheDocument();
     fireEvent.click(
-      screen.getByRole("button", { name: /show basket controls/i })
+      screen.getByRole("button", {
+        name: /show basket controls/i,
+      })
     );
     expect(
-      screen.getByRole("button", { name: /add to cart/i })
+      screen.getByRole("button", {
+        name: /add to cart/i,
+      })
     ).toBeInTheDocument();
   });
 
@@ -140,13 +166,19 @@ describe("Individual Product Page Basket Experience", () => {
       fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     });
     expect(
-      screen.getByRole("button", { name: /increase quantity/i })
+      screen.getByRole("button", {
+        name: /increase quantity/i,
+      })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /decrease quantity/i })
+      screen.getByRole("button", {
+        name: /decrease quantity/i,
+      })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /remove from basket/i })
+      screen.getByRole("button", {
+        name: /remove from basket/i,
+      })
     ).toBeInTheDocument();
   });
 });
