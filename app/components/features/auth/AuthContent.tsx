@@ -12,7 +12,7 @@ const AuthenticatedView = dynamic(
     loading: () => (
       <div className="w-[24px] h-[24px] mx-auto bg-blue-500 rounded-full animate-pulse" />
     ),
-  }
+  },
 );
 
 export default function AuthContent() {

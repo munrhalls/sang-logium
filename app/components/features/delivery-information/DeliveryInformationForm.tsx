@@ -1,4 +1,3 @@
-
 export default function DeliveryInformation() {
   // its only job is
   // holds delivery information state

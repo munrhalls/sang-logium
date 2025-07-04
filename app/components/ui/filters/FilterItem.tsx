@@ -13,7 +13,7 @@ export default function FilterItem({
   value: string | number | boolean | object | string[] | null;
   onChange: (
     value: string | number | boolean | object | string[],
-    type: string
+    type: string,
   ) => void;
 }) {
   const searchParams = useSearchParams();
@@ -83,7 +83,7 @@ export default function FilterItem({
             onChange={(
               name: string,
               value: { min?: number; max?: number } | number,
-              type: string
+              type: string,
             ) => {
               onChange(value as FilterValue, type);
             }}
@@ -114,7 +114,7 @@ export default function FilterItem({
                     } else {
                       onChange(
                         safeValue.filter((item) => item !== option),
-                        "multiselect"
+                        "multiselect",
                       );
                     }
                   }}

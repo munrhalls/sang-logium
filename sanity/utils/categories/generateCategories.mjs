@@ -24,7 +24,7 @@ async function generateCategoryDocuments(parentName, childrenNames) {
   // Check if parent category exists
   const parentSlug = parentName.toLowerCase().replace(/\s+/g, "-");
   const existingParent = await client.fetch(
-    `*[_type == "category" && slug.current match "${parentSlug}*"][0]`
+    `*[_type == "category" && slug.current match "${parentSlug}*"][0]`,
   );
 
   let parentCategory;
@@ -90,7 +90,7 @@ async function generateCategoryDocuments(parentName, childrenNames) {
 
   const categoryDocuments = await generateCategoryDocuments(
     parentName,
-    childrenNames
+    childrenNames,
   );
 
   const outputPath = path.join(__dirname, "categories.json");

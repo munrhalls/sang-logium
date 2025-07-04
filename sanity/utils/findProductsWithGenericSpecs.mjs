@@ -24,12 +24,12 @@ async function findProductsWithGenericSpecs() {
         (spec) =>
           spec.value === "See product documentation" ||
           spec.value === "See product documentation." ||
-          spec.value.toLowerCase().includes("see product documentation")
+          spec.value.toLowerCase().includes("see product documentation"),
       );
     });
 
     console.log(
-      `Found ${productsWithGenericSpecs.length} products with generic specifications`
+      `Found ${productsWithGenericSpecs.length} products with generic specifications`,
     );
     console.log("\nProducts with generic specifications:");
 
@@ -39,7 +39,7 @@ async function findProductsWithGenericSpecs() {
       console.log(`   Title: ${product.title}`);
       console.log(`   Brand: ${product.brand || "N/A"}`);
       console.log(
-        `   Category Path: ${Array.isArray(product.categoryPath) ? product.categoryPath.join(", ") : product.categoryPath || "N/A"}`
+        `   Category Path: ${Array.isArray(product.categoryPath) ? product.categoryPath.join(", ") : product.categoryPath || "N/A"}`,
       );
 
       // Print the specifications to see exactly what we found
@@ -59,7 +59,7 @@ async function findProductsWithGenericSpecs() {
     // Export the list to a JSON file
     fs.writeFileSync(
       "products-with-generic-specs.json",
-      JSON.stringify(productsWithGenericSpecs, null, 2)
+      JSON.stringify(productsWithGenericSpecs, null, 2),
     );
 
     // Also export as CSV for easier viewing in spreadsheet software

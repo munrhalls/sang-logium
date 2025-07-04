@@ -44,11 +44,11 @@ async function extractOverviewFieldsMap() {
     if (overviewFieldNames.size > 0) {
       const exampleName = Array.from(overviewFieldNames)[0];
       console.log(
-        `Is "${exampleName}" an overview field? ${!!overviewFieldsMap[exampleName]}`
+        `Is "${exampleName}" an overview field? ${!!overviewFieldsMap[exampleName]}`,
       );
     }
     console.log(
-      `Is "Price Range" an overview field? ${!!overviewFieldsMap["Price Range"]}`
+      `Is "Price Range" an overview field? ${!!overviewFieldsMap["Price Range"]}`,
     );
 
     // Add TypeScript interface

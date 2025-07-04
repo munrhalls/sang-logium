@@ -25,7 +25,7 @@ async function getProductByName(productName) {
         image,
         gallery
       }`,
-      { productName }
+      { productName },
     );
 
     if (exactProduct) {
@@ -50,7 +50,7 @@ async function getProductByName(productName) {
         specifications,
         image,
         gallery
-      }`
+      }`,
     );
 
     if (partialProduct) {

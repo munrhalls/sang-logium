@@ -10,7 +10,7 @@ const AuthenticatedView = dynamic(
     loading: () => (
       <div className="w-[24px] h-[24px] bg-gray-800 rounded-full animate-pulse" />
     ),
-  }
+  },
 );
 
 const UnauthenticatedView = dynamic(
@@ -23,7 +23,7 @@ const UnauthenticatedView = dynamic(
     loading: () => (
       <div className="w-[24px] h-[24px] bg-gray-800 rounded-full animate-pulse" />
     ),
-  }
+  },
 );
 
 import { useUser } from "@clerk/nextjs";

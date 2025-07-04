@@ -37,7 +37,7 @@ export default function AddressForm() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(requestBody),
-        }
+        },
       );
 
       if (!response.ok) {
@@ -53,7 +53,7 @@ export default function AddressForm() {
       const addressComponents = result?.address?.addressComponents || [];
       const allComponentsConfirmed = addressComponents.every(
         (component: { confirmationLevel: string }) =>
-          component.confirmationLevel === "CONFIRMED"
+          component.confirmationLevel === "CONFIRMED",
       );
 
       if (allComponentsConfirmed && addressComponents.length > 0) {
@@ -66,7 +66,7 @@ export default function AddressForm() {
 
         if (returnedPostcode && inputPostcode !== normalizedReturnedPostcode) {
           setMessage(
-            `Address found, but postcode does not match. Expected ${inputPostcode}, got ${returnedPostcode}.`
+            `Address found, but postcode does not match. Expected ${inputPostcode}, got ${returnedPostcode}.`,
           );
         } else {
           setMessage("Address verified successfully!");
@@ -75,11 +75,13 @@ export default function AddressForm() {
         const unconfirmedComponents = addressComponents
           .filter(
             (component: { confirmationLevel: string }) =>
-              component.confirmationLevel !== "CONFIRMED"
+              component.confirmationLevel !== "CONFIRMED",
           )
           .map(
-            (component: { componentType: unknown; confirmationLevel: unknown }) =>
-              `${component.componentType} (${component.confirmationLevel})`
+            (component: {
+              componentType: unknown;
+              confirmationLevel: unknown;
+            }) => `${component.componentType} (${component.confirmationLevel})`,
           );
 
         setMessage(
@@ -87,7 +89,7 @@ export default function AddressForm() {
             unconfirmedComponents.length > 0
               ? `Unconfirmed components: ${unconfirmedComponents.join(", ")}`
               : "No valid address components found"
-          }. Please check your details and try again.`
+          }. Please check your details and try again.`,
         );
       }
     } catch (error) {

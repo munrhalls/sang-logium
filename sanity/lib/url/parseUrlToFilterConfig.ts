@@ -20,7 +20,7 @@ export type FilterConfig = {
  * Parses URL search parameters into a validated filter configuration
  */
 export function parseUrlToFilterConfig(
-  searchParams: URLSearchParams | Record<string, string | string[]>
+  searchParams: URLSearchParams | Record<string, string | string[]>,
 ): FilterConfig {
   // Normalize searchParams to handle both URLSearchParams and NextJS searchParams
   const params =

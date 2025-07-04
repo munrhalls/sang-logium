@@ -30,7 +30,7 @@ export default function Filters({
       | { min?: number; max?: number }
       | string[]
       | null,
-    type: string
+    type: string,
   ) {
     setIsTransitioning(true);
     const params = new URLSearchParams(searchParams.toString());
@@ -139,7 +139,7 @@ export default function Filters({
                   | boolean
                   | { min?: number; max?: number }
                   | string[]
-                  | null
+                  | null,
               ) => handleFilterChange(normalizedName, value, filterType)}
             />
           );

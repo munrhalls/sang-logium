@@ -28,30 +28,30 @@ Example:
 async function analyzeAllSortables() {
   try {
     console.log(
-      `Analyzing sortables for top category and nested categories of: "${topLevelCategory}"\n`
+      `Analyzing sortables for top category and nested categories of: "${topLevelCategory}"\n`,
     );
 
     // Fetch the document by title (since the title is the category name)
     // First try exact match
     let doc = await client.fetch(
-      `*[_type == "categorySortables" && title == "${topLevelCategory}"][0]`
+      `*[_type == "categorySortables" && title == "${topLevelCategory}"][0]`,
     );
 
     // If not found, try case insensitive match
     if (!doc) {
       doc = await client.fetch(
-        `*[_type == "categorySortables" && title match "${topLevelCategory}"][0]`
+        `*[_type == "categorySortables" && title match "${topLevelCategory}"][0]`,
       );
     }
 
     if (!doc) {
       console.log(
-        `No sortables document found for category: ${topLevelCategory}`
+        `No sortables document found for category: ${topLevelCategory}`,
       );
 
       // List available sortable documents to help troubleshooting
       const availableDocs = await client.fetch(
-        `*[_type == "categorySortables"].title`
+        `*[_type == "categorySortables"].title`,
       );
       if (availableDocs && availableDocs.length > 0) {
         console.log(`\nAvailable category sortable documents:`);
@@ -59,7 +59,7 @@ async function analyzeAllSortables() {
       }
 
       console.log(
-        `\nTry using one of the above category names or check that sortables exist.`
+        `\nTry using one of the above category names or check that sortables exist.`,
       );
       return;
     }
@@ -69,7 +69,7 @@ async function analyzeAllSortables() {
     // Check if sortables exist in the document
     if (!doc.sortOptions || !Array.isArray(doc.sortOptions)) {
       console.log(
-        `No sortables found in the document for ${topLevelCategory}.`
+        `No sortables found in the document for ${topLevelCategory}.`,
       );
       return;
     }
@@ -83,13 +83,13 @@ async function analyzeAllSortables() {
     } else {
       doc.sortOptions.forEach((sortOption, index) => {
         console.log(
-          `${index + 1}. ${sortOption.displayName || sortOption.name || "Unnamed"}`
+          `${index + 1}. ${sortOption.displayName || sortOption.name || "Unnamed"}`,
         );
         console.log(`   Name: ${sortOption.name || "N/A"}`);
         console.log(`   Field: ${sortOption.field || "N/A"}`);
         console.log(`   Type: ${sortOption.type || "N/A"}`);
         console.log(
-          `   Default Direction: ${sortOption.defaultDirection || "N/A"}`
+          `   Default Direction: ${sortOption.defaultDirection || "N/A"}`,
         );
         console.log("");
       });
@@ -119,7 +119,7 @@ async function analyzeAllSortables() {
 
       console.log(`\n\n=============================================`);
       console.log(
-        `ANALYZING CATEGORY ${i + 1}/${doc.categoryMappings.length}: ${categoryPath}`
+        `ANALYZING CATEGORY ${i + 1}/${doc.categoryMappings.length}: ${categoryPath}`,
       );
       console.log(`=============================================\n`);
 
@@ -172,7 +172,7 @@ async function analyzeAllSortables() {
         // Check if this sortable is missing in any category
         const allCategories = doc.categoryMappings.map((m) => m.path);
         const missingIn = allCategories.filter(
-          (category) => !info.categories.includes(category)
+          (category) => !info.categories.includes(category),
         );
 
         if (missingIn.length > 0) {
@@ -183,7 +183,7 @@ async function analyzeAllSortables() {
     }
 
     console.log(
-      `\nCompleted analysis of sortables for "${topLevelCategory}" and its nested categories`
+      `\nCompleted analysis of sortables for "${topLevelCategory}" and its nested categories`,
     );
   } catch (error) {
     console.error("Error:", error);
@@ -208,7 +208,7 @@ async function analyzeSortablesForCategory(doc, mapping) {
     console.log("No sortables defined for this category.");
   } else {
     console.log(
-      `This category has ${mapping.sortOptions.length} sort options:`
+      `This category has ${mapping.sortOptions.length} sort options:`,
     );
 
     // Get details for each sortable
@@ -217,16 +217,16 @@ async function analyzeSortablesForCategory(doc, mapping) {
 
       if (sortOption) {
         console.log(
-          `${idx + 1}. ${sortOption.displayName || sortOption.name} (${sortName})`
+          `${idx + 1}. ${sortOption.displayName || sortOption.name} (${sortName})`,
         );
         console.log(`   Field: ${sortOption.field || "N/A"}`);
         console.log(`   Type: ${sortOption.type || "N/A"}`);
         console.log(
-          `   Default Direction: ${sortOption.defaultDirection || "N/A"}`
+          `   Default Direction: ${sortOption.defaultDirection || "N/A"}`,
         );
       } else {
         console.log(
-          `${idx + 1}. ⚠️ ${sortName} (NOT FOUND in defined sort options)`
+          `${idx + 1}. ⚠️ ${sortName} (NOT FOUND in defined sort options)`,
         );
       }
     });
@@ -234,14 +234,14 @@ async function analyzeSortablesForCategory(doc, mapping) {
 
   // Find available sortables not used in this category
   const unusedSortables = doc.sortOptions.filter(
-    (sort) => !mapping.sortOptions.includes(sort.name)
+    (sort) => !mapping.sortOptions.includes(sort.name),
   );
 
   if (unusedSortables.length > 0) {
     console.log(`\nAvailable sortables NOT used in ${categoryPath}:`);
     unusedSortables.forEach((sortable) => {
       console.log(
-        `- ${sortable.displayName || sortable.name} (${sortable.name})`
+        `- ${sortable.displayName || sortable.name} (${sortable.name})`,
       );
     });
   } else {

@@ -44,7 +44,7 @@ async function updateAllProducts() {
         (answer) => {
           resolve(answer.toLowerCase() === "yes");
           rl.close();
-        }
+        },
       );
     });
 

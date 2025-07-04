@@ -24,12 +24,12 @@ async function deleteProductsWithGenericSpecs() {
         (spec) =>
           spec.value === "See product documentation" ||
           spec.value === "See product documentation." ||
-          spec.value.toLowerCase().includes("see product documentation")
+          spec.value.toLowerCase().includes("see product documentation"),
       );
     });
 
     console.log(
-      `Found ${productsToDelete.length} products with generic specifications to delete`
+      `Found ${productsToDelete.length} products with generic specifications to delete`,
     );
 
     // Import fs module for saving backup
@@ -43,7 +43,7 @@ async function deleteProductsWithGenericSpecs() {
 
     // Ask for confirmation before deletion
     console.log(
-      "\n*** WARNING: This will permanently delete products from the database ***"
+      "\n*** WARNING: This will permanently delete products from the database ***",
     );
     console.log(`About to delete ${productsToDelete.length} products.`);
     console.log("Review the backup file before proceeding.");
@@ -75,7 +75,7 @@ async function deleteProductsWithGenericSpecs() {
   } catch (error) {
     console.error(
       "Error deleting products with generic specifications:",
-      error
+      error,
     );
   }
 }
@@ -112,7 +112,7 @@ async function performDeletion(productsToDelete) {
   // Print deletion summary
   console.log("\nDeletion completed!");
   console.log(
-    `Successfully deleted: ${deletionResults.success.length} products`
+    `Successfully deleted: ${deletionResults.success.length} products`,
   );
   console.log(`Failed to delete: ${deletionResults.failed.length} products`);
 
@@ -127,7 +127,7 @@ async function performDeletion(productsToDelete) {
   const fs = await import("fs");
   fs.writeFileSync(
     "deletion-results.json",
-    JSON.stringify(deletionResults, null, 2)
+    JSON.stringify(deletionResults, null, 2),
   );
   console.log("\nDeletion results saved to deletion-results.json");
 }

@@ -11,7 +11,7 @@ async function findAndRemoveAllReferences() {
 
     const referencingDocs = await client.fetch(query);
     console.log(
-      `Found ${referencingDocs.length} documents referencing categories`
+      `Found ${referencingDocs.length} documents referencing categories`,
     );
 
     for (const doc of referencingDocs) {
@@ -34,7 +34,7 @@ async function findAndRemoveAllReferences() {
       }
 
       console.log(
-        `Found reference fields in ${doc._type}: ${referenceFields.join(", ")}`
+        `Found reference fields in ${doc._type}: ${referenceFields.join(", ")}`,
       );
 
       const patch = client.patch(doc._id);
@@ -62,7 +62,7 @@ async function deleteAllDocumentsOfType(documentType) {
     const documentIds = await client.fetch(query, { type: documentType });
 
     console.log(
-      `Found ${documentIds.length} documents of type "${documentType}"`
+      `Found ${documentIds.length} documents of type "${documentType}"`,
     );
 
     if (documentIds.length === 0) {
@@ -88,7 +88,7 @@ async function deleteAllDocumentsOfType(documentType) {
         await transaction.commit();
 
         console.log(
-          `Deleted batch ${i + 1}/${batches} (${batch.length} documents)`
+          `Deleted batch ${i + 1}/${batches} (${batch.length} documents)`,
         );
       } catch (error) {
         console.error(`Error deleting batch ${i + 1}:`, error);

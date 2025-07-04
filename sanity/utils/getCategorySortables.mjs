@@ -115,7 +115,7 @@ async function main() {
 
     if (titleFilter) {
       console.log(
-        `Searching for categorySortables with title: "${titleFilter}"`
+        `Searching for categorySortables with title: "${titleFilter}"`,
       );
 
       // Get documents matching the title filter
@@ -138,7 +138,7 @@ async function main() {
     } else {
       // If no title filter provided, list all documents
       console.log(
-        "No title filter provided. Listing all categorySortables documents:"
+        "No title filter provided. Listing all categorySortables documents:",
       );
       await listAllCategorySortables();
     }

@@ -4,11 +4,13 @@ import { UserProfile, FetchProfileOptions } from "./profileTypes";
 
 /**
  * Fetch a user profile by Clerk ID
- * 
+ *
  * @param options Object containing the Clerk ID to search for
  * @returns The user profile if found, null otherwise
  */
-export async function fetchProfileByClerkId(options: FetchProfileOptions): Promise<UserProfile | null> {
+export async function fetchProfileByClerkId(
+  options: FetchProfileOptions,
+): Promise<UserProfile | null> {
   const { clerkId } = options;
 
   // GROQ query to fetch a user profile by Clerk ID

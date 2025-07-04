@@ -3,19 +3,21 @@ import { UserProfile, UpdateProfileOptions } from "./profileTypes";
 
 /**
  * Update specific fields in a user profile
- * 
+ *
  * @param options Object containing the Clerk ID and fields to update
  * @returns The updated user profile or null if update failed
  */
-export async function updateUserProfile(options: UpdateProfileOptions): Promise<UserProfile | null> {
+export async function updateUserProfile(
+  options: UpdateProfileOptions,
+): Promise<UserProfile | null> {
   const { clerkId, ...fieldsToUpdate } = options;
-  
+
   // First get the profile ID by Clerk ID
   const profileId = await backendClient.fetch(
     `*[_type == "userProfile" && clerkId == $clerkId][0]._id`,
-    { clerkId }
+    { clerkId },
   );
-  
+
   if (!profileId) {
     console.error(`No user profile found with clerkId ${clerkId}`);
     return null;
@@ -23,7 +25,7 @@ export async function updateUserProfile(options: UpdateProfileOptions): Promise<
 
   // Create a patch object with the fields to update
   const patch: Record<string, any> = {
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString(),
   };
 
   // Handle each possible field to update
@@ -47,17 +49,14 @@ export async function updateUserProfile(options: UpdateProfileOptions): Promise<
 
   try {
     // Apply the patch to the document
-    await backendClient
-      .patch(profileId)
-      .set(patch)
-      .commit();
+    await backendClient.patch(profileId).set(patch).commit();
 
     // Fetch and return the updated profile
     const updatedProfile = await backendClient.fetch(
       `*[_type == "userProfile" && _id == $profileId][0]`,
-      { profileId }
+      { profileId },
     );
-    
+
     return updatedProfile as UserProfile;
   } catch (error) {
     console.error("Error updating user profile:", error);

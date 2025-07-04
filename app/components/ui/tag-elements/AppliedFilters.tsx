@@ -57,7 +57,7 @@ export default function AppliedFilters({
 
     // Find the filter option with this name
     const filter = filterOptions.find(
-      (opt) => opt.name && opt.name.toLowerCase() === baseKey.toLowerCase()
+      (opt) => opt.name && opt.name.toLowerCase() === baseKey.toLowerCase(),
     );
 
     if (filter) {
@@ -110,7 +110,7 @@ export default function AppliedFilters({
           filters: Array<{ key: string; value: string }>;
           sort: { name: string; dir: string } | null;
         },
-        [key, value]
+        [key, value],
       ) => {
         if (!value) return acc;
 
@@ -125,7 +125,7 @@ export default function AppliedFilters({
         acc.filters.push({ key, value });
         return acc;
       },
-      { filters: [], sort: null }
+      { filters: [], sort: null },
     );
 
   if (activeFilters.filters.length === 0 && !activeFilters.sort) {

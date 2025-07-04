@@ -68,7 +68,7 @@ const updateCategoryPaths = async () => {
     await fs.writeFile(
       outputFilePath,
       JSON.stringify(updatedProducts, null, 2),
-      "utf8"
+      "utf8",
     );
 
     console.log("Category paths updated successfully!");
@@ -78,7 +78,7 @@ const updateCategoryPaths = async () => {
     const updatedCount = updatedProducts.filter(
       (product, index) =>
         JSON.stringify(product.categoryPath) !==
-        JSON.stringify(products[index].categoryPath)
+        JSON.stringify(products[index].categoryPath),
     ).length;
 
     console.log(`Number of products updated: ${updatedCount}`);

@@ -218,7 +218,7 @@ async function fixSingleProductDescription(productId) {
       brand,
       description
     }`,
-      { productId }
+      { productId },
     );
 
     if (!product) {
@@ -266,7 +266,7 @@ async function fixSingleProductDescription(productId) {
       console.log(
         Array.isArray(product.description)
           ? "Portable Text (Array)"
-          : typeof product.description
+          : typeof product.description,
       );
       console.log("\nDESCRIPTION PREVIEW:");
       console.log(formatDescription(product.description));
@@ -289,7 +289,7 @@ async function fixSingleProductDescription(productId) {
 
     const answer = await question(
       rl,
-      "\n⚠️ Apply these fixes to the description? (yes/no): "
+      "\n⚠️ Apply these fixes to the description? (yes/no): ",
     );
 
     if (answer.toLowerCase() === "yes" || answer.toLowerCase() === "y") {

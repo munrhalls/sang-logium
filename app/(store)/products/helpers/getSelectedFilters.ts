@@ -108,7 +108,7 @@ export default function getSelectedFilters(searchParamsInput: {
         });
       } else {
         console.warn(
-          `Invalid range filter: ${lowercaseField} with operator ${operator}`
+          `Invalid range filter: ${lowercaseField} with operator ${operator}`,
         );
       }
       continue;

@@ -11,7 +11,7 @@ async function retrieveCategory(categoryName) {
       `*[_type == "category" && name == $categoryName][0]`,
       {
         categoryName,
-      }
+      },
     );
 
     if (!category) {

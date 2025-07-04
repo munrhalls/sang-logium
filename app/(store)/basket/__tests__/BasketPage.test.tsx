@@ -28,7 +28,7 @@ describe("1. Page Load & Initial State", () => {
         _hasHydrated: true,
       };
 
-      mockUseBasketStore.mockImplementation((selector,) => {
+      mockUseBasketStore.mockImplementation((selector) => {
         return selector ? selector(mockStore) : mockStore;
       });
 
@@ -69,7 +69,7 @@ describe("1. Page Load & Initial State", () => {
         _hasHydrated: true,
       };
 
-      mockUseBasketStore.mockImplementation((selector,) => {
+      mockUseBasketStore.mockImplementation((selector) => {
         return selector ? selector(mockStore) : mockStore;
       });
 
@@ -111,7 +111,7 @@ describe("2. Item Display & Information", () => {
         _hasHydrated: true,
       };
 
-      mockUseBasketStore.mockImplementation((selector,) => {
+      mockUseBasketStore.mockImplementation((selector) => {
         return selector ? selector(mockStore) : mockStore;
       });
 
@@ -144,7 +144,7 @@ describe("2. Item Display & Information", () => {
         _hasHydrated: true,
       };
 
-      mockUseBasketStore.mockImplementation((selector,) => {
+      mockUseBasketStore.mockImplementation((selector) => {
         return selector ? selector(mockStore) : mockStore;
       });
 

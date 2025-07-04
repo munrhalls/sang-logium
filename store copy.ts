@@ -70,7 +70,7 @@ export const useBasketStore = create<UIState>()(
         if (existing) {
           set({
             basket: basket.map((i) =>
-              i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+              i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i,
             ),
           });
         } else {
@@ -89,7 +89,7 @@ export const useBasketStore = create<UIState>()(
         const basket = get().basket;
         set({
           basket: basket.map((i) =>
-            i.id === id ? { ...i, quantity: quantity < 1 ? 1 : quantity } : i
+            i.id === id ? { ...i, quantity: quantity < 1 ? 1 : quantity } : i,
           ),
         });
         console.log("[Zustand] basket after updateQuantity", get().basket);
@@ -110,6 +110,6 @@ export const useBasketStore = create<UIState>()(
     {
       name: "basket-storage",
       partialize: (state) => ({ basket: state.basket }),
-    }
-  )
+    },
+  ),
 );

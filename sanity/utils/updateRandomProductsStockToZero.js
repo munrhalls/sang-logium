@@ -42,11 +42,11 @@ async function updateRandomProductsStockToZero() {
       // Determine random number between 1 and 4 (or the max available products)
       const numToUpdate = Math.min(
         Math.floor(Math.random() * 4) + 1,
-        productIds.length
+        productIds.length,
       );
 
       console.log(
-        `Category ${category}: Selecting ${numToUpdate} of ${productIds.length} products to update`
+        `Category ${category}: Selecting ${numToUpdate} of ${productIds.length} products to update`,
       );
 
       // Shuffle and select random products
@@ -84,7 +84,7 @@ async function updateRandomProductsStockToZero() {
     const successCount = results.filter((result) => result !== null).length;
 
     console.log(
-      `Update complete. Successfully updated ${successCount} of ${productsToUpdate.length} products with stock value 0.`
+      `Update complete. Successfully updated ${successCount} of ${productsToUpdate.length} products with stock value 0.`,
     );
   } catch (error) {
     console.error("Error in update process:", error);

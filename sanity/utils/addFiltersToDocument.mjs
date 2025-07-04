@@ -63,7 +63,7 @@ async function addFiltersToDocument(sourceTitle, targetTitle, filterNames) {
       !Array.isArray(sourceDoc.filters.filterItems)
     ) {
       console.error(
-        `Source document "${sourceTitle}" doesn't have valid filter items.`
+        `Source document "${sourceTitle}" doesn't have valid filter items.`,
       );
       return false;
     }
@@ -71,7 +71,7 @@ async function addFiltersToDocument(sourceTitle, targetTitle, filterNames) {
     // Find each requested filter
     for (const filterName of filterNames) {
       const filter = sourceDoc.filters.filterItems.find(
-        (item) => item.name === filterName
+        (item) => item.name === filterName,
       );
       if (filter) {
         filtersToCopy.push(filter);
@@ -82,7 +82,7 @@ async function addFiltersToDocument(sourceTitle, targetTitle, filterNames) {
 
     if (notFound.length > 0) {
       console.warn(
-        `Warning: The following filters were not found in the source document: ${notFound.join(", ")}`
+        `Warning: The following filters were not found in the source document: ${notFound.join(", ")}`,
       );
     }
 
@@ -100,23 +100,23 @@ async function addFiltersToDocument(sourceTitle, targetTitle, filterNames) {
     }
 
     const targetFilterNames = targetDoc.filters.filterItems.map(
-      (filter) => filter.name
+      (filter) => filter.name,
     );
     const duplicateFilters = filtersToCopy.filter((filter) =>
-      targetFilterNames.includes(filter.name)
+      targetFilterNames.includes(filter.name),
     );
 
     if (duplicateFilters.length > 0) {
       console.warn(
-        `Warning: The following filters already exist in the target document and will be skipped: ${duplicateFilters.map((filter) => filter.name).join(", ")}`
+        `Warning: The following filters already exist in the target document and will be skipped: ${duplicateFilters.map((filter) => filter.name).join(", ")}`,
       );
       // Remove duplicates from the filters to copy
       const filteredFilters = filtersToCopy.filter(
-        (filter) => !targetFilterNames.includes(filter.name)
+        (filter) => !targetFilterNames.includes(filter.name),
       );
       if (filteredFilters.length === 0) {
         console.error(
-          "All filters already exist in the target document. Nothing to add."
+          "All filters already exist in the target document. Nothing to add.",
         );
         return false;
       }
@@ -193,10 +193,10 @@ async function main() {
     // Check if the required arguments are provided
     if (process.argv.length < 5) {
       console.log(
-        "Usage: node addFiltersToDocument.mjs <sourceTitle> <targetTitle> <filter1,filter2,...>"
+        "Usage: node addFiltersToDocument.mjs <sourceTitle> <targetTitle> <filter1,filter2,...>",
       );
       console.log(
-        'Example: node addFiltersToDocument.mjs "headphones" "speakers" "Brand,Price,Driver Type"'
+        'Example: node addFiltersToDocument.mjs "headphones" "speakers" "Brand,Price,Driver Type"',
       );
       return;
     }

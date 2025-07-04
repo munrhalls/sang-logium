@@ -278,16 +278,16 @@ async function fixAllProductDescriptions() {
 
     // Show breakdown of issues
     const htmlStringCount = productsToFix.filter(
-      (p) => p.fixReason === "HTML string"
+      (p) => p.fixReason === "HTML string",
     ).length;
     const embeddedHtmlCount = productsToFix.filter(
-      (p) => p.fixReason === "Portable Text with embedded HTML"
+      (p) => p.fixReason === "Portable Text with embedded HTML",
     ).length;
 
     console.log(`\nIssue breakdown:`);
     console.log(`- HTML strings: ${htmlStringCount} products`);
     console.log(
-      `- Embedded HTML in Portable Text: ${embeddedHtmlCount} products`
+      `- Embedded HTML in Portable Text: ${embeddedHtmlCount} products`,
     );
 
     // Create a readline interface
@@ -299,7 +299,7 @@ async function fixAllProductDescriptions() {
     // Get confirmation to proceed
     const initialAnswer = await question(
       rl,
-      `\n⚠️ Found ${productsToFix.length} products with description issues. Proceed with individual confirmation for the first 3? (yes/no): `
+      `\n⚠️ Found ${productsToFix.length} products with description issues. Proceed with individual confirmation for the first 3? (yes/no): `,
     );
 
     if (
@@ -319,7 +319,7 @@ async function fixAllProductDescriptions() {
     for (const [index, product] of firstThree.entries()) {
       console.log(`\n======================================================`);
       console.log(
-        `PRODUCT ${index + 1} OF 3: ${product.title || product.brand || product._id}`
+        `PRODUCT ${index + 1} OF 3: ${product.title || product.brand || product._id}`,
       );
       console.log(`ID: ${product._id}`);
       console.log(`ISSUE: ${product.fixReason}`);
@@ -336,7 +336,7 @@ async function fixAllProductDescriptions() {
       // Get confirmation for this specific product
       const answer = await question(
         rl,
-        `\n⚠️ Apply these changes to product ${index + 1}? (yes/no): `
+        `\n⚠️ Apply these changes to product ${index + 1}? (yes/no): `,
       );
 
       if (answer.toLowerCase() === "yes" || answer.toLowerCase() === "y") {
@@ -348,17 +348,17 @@ async function fixAllProductDescriptions() {
             .commit();
 
           console.log(
-            `✅ Successfully updated product: ${product.title || product.brand || product._id}`
+            `✅ Successfully updated product: ${product.title || product.brand || product._id}`,
           );
         } catch (err) {
           console.error(
-            `❌ Failed to update product ${product._id}: ${err.message}`
+            `❌ Failed to update product ${product._id}: ${err.message}`,
           );
 
           // Ask if we should continue with the rest
           const continueAnswer = await question(
             rl,
-            `\n⚠️ Error occurred. Continue with remaining products? (yes/no): `
+            `\n⚠️ Error occurred. Continue with remaining products? (yes/no): `,
           );
           if (
             continueAnswer.toLowerCase() !== "yes" &&
@@ -374,7 +374,7 @@ async function fixAllProductDescriptions() {
         // Ask if we should continue with the rest
         const continueAnswer = await question(
           rl,
-          `\n⚠️ Continue with remaining products? (yes/no): `
+          `\n⚠️ Continue with remaining products? (yes/no): `,
         );
         if (
           continueAnswer.toLowerCase() !== "yes" &&
@@ -390,7 +390,7 @@ async function fixAllProductDescriptions() {
     if (proceedWithRemaining && remainingProducts.length > 0) {
       const finalConfirmation = await question(
         rl,
-        `\n⚠️ Process the remaining ${remainingProducts.length} products automatically? (yes/no): `
+        `\n⚠️ Process the remaining ${remainingProducts.length} products automatically? (yes/no): `,
       );
 
       if (
@@ -398,7 +398,7 @@ async function fixAllProductDescriptions() {
         finalConfirmation.toLowerCase() === "y"
       ) {
         console.log(
-          `\n🔄 Processing remaining ${remainingProducts.length} products...`
+          `\n🔄 Processing remaining ${remainingProducts.length} products...`,
         );
 
         let successCount = 0;
@@ -419,12 +419,12 @@ async function fixAllProductDescriptions() {
               successCount === remainingProducts.length
             ) {
               console.log(
-                `Progress: ${successCount}/${remainingProducts.length} additional products updated`
+                `Progress: ${successCount}/${remainingProducts.length} additional products updated`,
               );
             }
           } catch (err) {
             console.error(
-              `❌ Failed to update product ${product._id}: ${err.message}`
+              `❌ Failed to update product ${product._id}: ${err.message}`,
             );
             errorCount++;
           }
@@ -432,7 +432,7 @@ async function fixAllProductDescriptions() {
 
         console.log("\n✅ COMPLETED!");
         console.log(
-          `Successfully updated: ${successCount} additional products`
+          `Successfully updated: ${successCount} additional products`,
         );
         console.log(`Failed to update: ${errorCount} products`);
       } else {

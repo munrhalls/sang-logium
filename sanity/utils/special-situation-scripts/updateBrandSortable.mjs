@@ -55,29 +55,29 @@ const brandSortOption = {
 async function updateBrandSortable() {
   try {
     console.log(
-      `Adding Brand sortable to top-level category "${topLevelCategory}" and all nested categories\n`
+      `Adding Brand sortable to top-level category "${topLevelCategory}" and all nested categories\n`,
     );
 
     // Fetch the document by title
     let doc = await client.fetch(
-      `*[_type == "categorySortables" && title == "${topLevelCategory}"][0]`
+      `*[_type == "categorySortables" && title == "${topLevelCategory}"][0]`,
     );
 
     // If not found, try case insensitive match
     if (!doc) {
       doc = await client.fetch(
-        `*[_type == "categorySortables" && title match "${topLevelCategory}"][0]`
+        `*[_type == "categorySortables" && title match "${topLevelCategory}"][0]`,
       );
     }
 
     if (!doc) {
       console.log(
-        `No sortables document found for category: ${topLevelCategory}`
+        `No sortables document found for category: ${topLevelCategory}`,
       );
 
       // List available sortable documents to help troubleshooting
       const availableDocs = await client.fetch(
-        `*[_type == "categorySortables"].title`
+        `*[_type == "categorySortables"].title`,
       );
       if (availableDocs && availableDocs.length > 0) {
         console.log(`\nAvailable category sortable documents:`);
@@ -97,13 +97,13 @@ async function updateBrandSortable() {
 
     // Check if brand sort option already exists in top-level category
     const hasBrandSort = doc.sortOptions.some(
-      (option) => option.name === "brand" || option.name === "Brand"
+      (option) => option.name === "brand" || option.name === "Brand",
     );
 
     // Add brand sort option to top-level category if it doesn't exist
     if (!hasBrandSort) {
       console.log(
-        "Brand sort option not found in top-level category. Adding it..."
+        "Brand sort option not found in top-level category. Adding it...",
       );
 
       if (!isDryRun()) {
@@ -120,7 +120,7 @@ async function updateBrandSortable() {
         doc = await client.fetch(`*[_id == "${doc._id}"][0]`);
       } else {
         console.log(
-          "[DRY RUN] Would add Brand sort option to top-level category."
+          "[DRY RUN] Would add Brand sort option to top-level category.",
         );
       }
     } else {
@@ -134,7 +134,7 @@ async function updateBrandSortable() {
     }
 
     console.log(
-      `\nChecking ${doc.categoryMappings.length} nested categories for Brand sort option...`
+      `\nChecking ${doc.categoryMappings.length} nested categories for Brand sort option...`,
     );
 
     // Process each nested category to add the brand sort option if missing
@@ -143,7 +143,7 @@ async function updateBrandSortable() {
       const categoryPath = mapping.path;
 
       console.log(
-        `\nChecking nested category ${i + 1}/${doc.categoryMappings.length}: ${categoryPath}`
+        `\nChecking nested category ${i + 1}/${doc.categoryMappings.length}: ${categoryPath}`,
       );
 
       // Initialize sortOptions array if it doesn't exist
@@ -157,7 +157,7 @@ async function updateBrandSortable() {
       // Add brand sort option to nested category if it doesn't exist
       if (!hasBrandSortInNested) {
         console.log(
-          `Brand sort option not found in ${categoryPath}. Adding it...`
+          `Brand sort option not found in ${categoryPath}. Adding it...`,
         );
 
         if (!isDryRun()) {
@@ -173,7 +173,7 @@ async function updateBrandSortable() {
           console.log(`Added Brand sort option to ${categoryPath}.`);
         } else {
           console.log(
-            `[DRY RUN] Would add Brand sort option to ${categoryPath}.`
+            `[DRY RUN] Would add Brand sort option to ${categoryPath}.`,
           );
         }
       } else {

@@ -4,11 +4,11 @@ import { SlidersHorizontal, ArrowUpDown } from "lucide-react";
 
 export default function FilterSortBtns() {
   const toggleProductsFilterDrawer = useUIStore(
-    (state) => state.toggleProductsFilterDrawer
+    (state) => state.toggleProductsFilterDrawer,
   );
 
   const toggleProductsSortDrawer = useUIStore(
-    (state) => state.toggleProductsSortDrawer
+    (state) => state.toggleProductsSortDrawer,
   );
 
   return (

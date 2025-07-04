@@ -5,7 +5,7 @@ async function fixChildCategories() {
   const parentCategoryId = "category-hi-fi-audio";
   const parent = await client.fetch(
     `*[_type == "category" && _id == $id][0]{ "path": metadata.path, "depth": metadata.depth }`,
-    { id: parentCategoryId }
+    { id: parentCategoryId },
   );
 
   if (!parent) {
@@ -32,7 +32,7 @@ async function fixChildCategories() {
         "metadata.path": `${parentPath}/${id.split("-")[1]}`,
         "metadata.depth": parentDepth + 1,
       })
-      .commit()
+      .commit(),
   );
 
   try {

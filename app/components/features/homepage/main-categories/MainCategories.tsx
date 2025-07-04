@@ -13,7 +13,7 @@ export default async function MainCategories() {
 
   const verified = commercials.filter(
     (
-      commercial
+      commercial,
     ): commercial is NonNullable<
       GET_COMMERCIALS_BY_FEATURE_QUERYResult[number] & {
         image: NonNullable<string>;
@@ -29,7 +29,7 @@ export default async function MainCategories() {
         commercial.text !== null &&
         commercial.ctaLink !== null
       );
-    }
+    },
   );
 
   verified.sort((a, b) => a.order - b.order);

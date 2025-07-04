@@ -11,7 +11,7 @@ interface RawSortOption {
 }
 
 export const getSortablesForCategoryPath = async (
-  categoryPath: string
+  categoryPath: string,
 ): Promise<SortOption[]> => {
   const cleanPath = categoryPath.replace(/^\/products\//, "");
 
@@ -47,7 +47,7 @@ export const getSortablesForCategoryPath = async (
 
     if (!sortablesData.data) {
       console.warn(
-        `No sortables document found for category: ${topLevelCategory}`
+        `No sortables document found for category: ${topLevelCategory}`,
       );
       return [];
     }
@@ -68,7 +68,7 @@ export const getSortablesForCategoryPath = async (
 
     if (specificMapping) {
       return processedOptions.filter((option) =>
-        specificMapping.sortOptions?.includes(option.name)
+        specificMapping.sortOptions?.includes(option.name),
       );
     }
 

@@ -5,7 +5,7 @@ async function updateProduct(product) {
 
   // Verify this is a wired headphone by checking connectivity
   const connectivityField = product.overviewFields?.find((field) =>
-    field.title.toLowerCase().includes("connectivity")
+    field.title.toLowerCase().includes("connectivity"),
   );
 
   if (!connectivityField || connectivityField.value.toLowerCase() !== "wired") {
@@ -23,7 +23,7 @@ async function updateProduct(product) {
       .commit();
 
     console.log(
-      `Updated ${product.title} with categories: ${newCategories.join(", ")}`
+      `Updated ${product.title} with categories: ${newCategories.join(", ")}`,
     );
     return result;
   } catch (error) {
@@ -47,7 +47,7 @@ async function updateAllProducts() {
     // Filter for wired products before proceeding
     const wiredProducts = products.filter((product) => {
       const connectivityField = product.overviewFields?.find((field) =>
-        field.title.toLowerCase().includes("connectivity")
+        field.title.toLowerCase().includes("connectivity"),
       );
       return connectivityField?.value.toLowerCase() === "wired";
     });
@@ -56,7 +56,7 @@ async function updateAllProducts() {
     console.log("\nWired headphones to be updated:");
     wiredProducts.forEach((product) => {
       console.log(
-        `- ${product.title} (Current category: ${product.categoryPath})`
+        `- ${product.title} (Current category: ${product.categoryPath})`,
       );
     });
 
@@ -72,7 +72,7 @@ async function updateAllProducts() {
         (answer) => {
           resolve(answer.toLowerCase() === "yes");
           rl.close();
-        }
+        },
       );
     });
 

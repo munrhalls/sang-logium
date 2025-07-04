@@ -21,7 +21,7 @@ async function updateProduct(product, categories) {
       .commit();
 
     console.log(
-      `Updated ${product.title} with categories: ${newCategories.join(", ")}`
+      `Updated ${product.title} with categories: ${newCategories.join(", ")}`,
     );
     return result;
   } catch (error) {
@@ -39,7 +39,7 @@ async function determineCategories(product) {
       ?.map((block) =>
         block.children
           ?.map((child) => child.text?.toLowerCase() || "")
-          .join(" ")
+          .join(" "),
       )
       .join(" ") || "";
 
@@ -173,11 +173,11 @@ async function updateAllProducts() {
       products.map(async (product) => ({
         product,
         categories: await determineCategories(product),
-      }))
+      })),
     );
 
     const productsToUpdate = categorizedProducts.filter(
-      ({ categories }) => categories.length > 0
+      ({ categories }) => categories.length > 0,
     );
 
     console.log(`Found ${productsToUpdate.length} speakers to categorize`);
@@ -202,7 +202,7 @@ async function updateAllProducts() {
           (answer) => {
             resolve(answer.toLowerCase() === "yes");
             rl.close();
-          }
+          },
         );
       });
 
@@ -212,7 +212,7 @@ async function updateAllProducts() {
       }
 
       const updates = productsToUpdate.map(({ product, categories }) =>
-        updateProduct(product, categories)
+        updateProduct(product, categories),
       );
       await Promise.all(updates);
       console.log("All speakers updated successfully!");

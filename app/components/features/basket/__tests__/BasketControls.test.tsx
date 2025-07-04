@@ -33,10 +33,10 @@ describe("BasketControls: Increment and decrement from Cart", () => {
     expect(basketItem?.quantity).toBe(1);
 
     expect(
-      screen.getByRole("button", { name: /increase quantity/i })
+      screen.getByRole("button", { name: /increase quantity/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /decrease quantity/i })
+      screen.getByRole("button", { name: /decrease quantity/i }),
     ).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
   });
@@ -114,7 +114,7 @@ describe("BasketControls: Increment and decrement from Cart", () => {
     const basketItem = basket.find((item) => item._id === product._id);
     expect(basketItem).toBeUndefined();
     expect(
-      screen.getByRole("button", { name: /show basket controls/i })
+      screen.getByRole("button", { name: /show basket controls/i }),
     ).toBeInTheDocument();
   });
 
@@ -132,13 +132,13 @@ describe("BasketControls: Increment and decrement from Cart", () => {
     });
     fireEvent.click(showControlsButton);
     expect(
-      screen.getByRole("button", { name: /increase quantity/i })
+      screen.getByRole("button", { name: /increase quantity/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /decrease quantity/i })
+      screen.getByRole("button", { name: /decrease quantity/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /remove from basket/i })
+      screen.getByRole("button", { name: /remove from basket/i }),
     ).toBeInTheDocument();
     expect(screen.getByText("2")).toBeInTheDocument();
   });
@@ -168,10 +168,10 @@ describe("BasketControls: Increment and decrement from Cart", () => {
     expect(basketItem?.price).toBe(150);
 
     expect(
-      screen.getByRole("button", { name: /increase quantity/i })
+      screen.getByRole("button", { name: /increase quantity/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /decrease quantity/i })
+      screen.getByRole("button", { name: /decrease quantity/i }),
     ).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
   });
@@ -189,20 +189,20 @@ describe("BasketControls: Increment and decrement from Cart", () => {
     });
     fireEvent.click(showControlsButton);
     expect(
-      screen.getByRole("button", { name: /add to cart/i })
+      screen.getByRole("button", { name: /add to cart/i }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: /increase quantity/i })
+      screen.queryByRole("button", { name: /increase quantity/i }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: /decrease quantity/i })
+      screen.queryByRole("button", { name: /decrease quantity/i }),
     ).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
     expect(
-      screen.getByRole("button", { name: /increase quantity/i })
+      screen.getByRole("button", { name: /increase quantity/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /decrease quantity/i })
+      screen.getByRole("button", { name: /decrease quantity/i }),
     ).toBeInTheDocument();
   });
 });

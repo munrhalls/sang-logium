@@ -22,7 +22,7 @@ async function updateProduct(product) {
       .commit();
 
     console.log(
-      `Updated ${product.title} with categories: ${newCategories.join(", ")}`
+      `Updated ${product.title} with categories: ${newCategories.join(", ")}`,
     );
     return result;
   } catch (error) {
@@ -73,7 +73,7 @@ async function isGamingHeadphone(product) {
       const value = (field.value || "").toLowerCase();
       const info = (field.information || "").toLowerCase();
       return gamingKeywords.some(
-        (keyword) => value.includes(keyword) || info.includes(keyword)
+        (keyword) => value.includes(keyword) || info.includes(keyword),
       );
     });
 
@@ -84,7 +84,7 @@ async function isGamingHeadphone(product) {
       const title = (spec.title || "").toLowerCase();
       const value = (spec.value || "").toLowerCase();
       return gamingKeywords.some(
-        (keyword) => title.includes(keyword) || value.includes(keyword)
+        (keyword) => title.includes(keyword) || value.includes(keyword),
       );
     });
 
@@ -129,14 +129,14 @@ async function updateAllProducts() {
     }
 
     console.log(
-      `Found ${gamingProducts.length} gaming-appropriate headphones to update`
+      `Found ${gamingProducts.length} gaming-appropriate headphones to update`,
     );
 
     if (gamingProducts.length > 0) {
       console.log("\nGaming headphones to be updated:");
       gamingProducts.forEach((product) => {
         console.log(
-          `- ${product.title} (Current category: ${product.categoryPath})`
+          `- ${product.title} (Current category: ${product.categoryPath})`,
         );
       });
     }
@@ -153,7 +153,7 @@ async function updateAllProducts() {
         (answer) => {
           resolve(answer.toLowerCase() === "yes");
           rl.close();
-        }
+        },
       );
     });
 

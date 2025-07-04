@@ -31,7 +31,7 @@ export default function validateFilterObjects(
   rawFilters: Array<{
     field: string;
     value: string | number | boolean | Array<string | number | boolean>;
-  }>
+  }>,
 ) {
   const validatedFilters = rawFilters
     .map((filter) => {
@@ -59,9 +59,9 @@ export default function validateFilterObjects(
                 (v) =>
                   typeof v === "string" &&
                   VALID_OVERVIEW_VALUES.some(
-                    (val) => val.toLowerCase() === v.toLowerCase()
-                  )
-              ))
+                    (val) => val.toLowerCase() === v.toLowerCase(),
+                  ),
+              )),
         )
       ) {
         // Mark this as an overview field filter

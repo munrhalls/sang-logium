@@ -14,13 +14,13 @@ const AuthContent = dynamic(
       <div className="w-[16px] h-[16px] mx-auto bg-gray-800 rounded-full animate-pulse" />
     ),
     ssr: false,
-  }
+  },
 );
 
 const MobileMenu = () => {
   const isCategoriesOpen = useUIStore((state) => state.isCategoriesDrawerOpen);
   const toggleCategoriesDrawer = useUIStore(
-    (state) => state.toggleCategoriesDrawer
+    (state) => state.toggleCategoriesDrawer,
   );
   const isSearchDrawerOpen = useUIStore((state) => state.isSearchDrawerOpen);
   const toggleSearchDrawer = useUIStore((state) => state.toggleSearchDrawer);

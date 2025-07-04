@@ -16,7 +16,7 @@ async function getProductSpecifications(productName) {
         brand,
         specifications
       }`,
-      { productName }
+      { productName },
     );
 
     if (exactProduct) {
@@ -36,7 +36,7 @@ async function getProductSpecifications(productName) {
         name,
         brand,
         specifications
-      }`
+      }`,
     );
 
     if (partialProduct) {
@@ -68,7 +68,7 @@ function formatSpecifications(specifications) {
 
   // Sort specifications alphabetically by title
   const sortedSpecs = [...specifications].sort((a, b) =>
-    a.title.localeCompare(b.title)
+    a.title.localeCompare(b.title),
   );
 
   let result = "";

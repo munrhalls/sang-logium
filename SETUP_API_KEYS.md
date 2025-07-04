@@ -41,6 +41,7 @@ After setting up your API keys, you can test the address validation in the user 
 4. The system will validate your address using the Geoapify API
 
 Try entering both valid and invalid addresses to see how the validation works:
+
 - **Valid Address**: A real street and city (e.g., "123 Main St, New York, NY")
 - **Invalid Street**: A street that doesn't exist (e.g., "999 Fake St, New York, NY")
 - **Invalid City**: A city that doesn't exist (e.g., "123 Main St, Fakeville, NY")
@@ -49,6 +50,7 @@ Try entering both valid and invalid addresses to see how the validation works:
 ## Fallback Validation
 
 If the API key is not available or the API service is down, the system automatically falls back to local validation:
+
 - Basic format checking
 - Pattern matching for common address elements
 - Detection of suspicious input

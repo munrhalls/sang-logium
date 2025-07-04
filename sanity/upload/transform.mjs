@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const inputFilePath = path.join(
   __dirname,
-  "../../../sang-logium-data/products.json"
+  "../../../sang-logium-data/products.json",
 );
 const outputFilePath = path.join(__dirname, "./sanityProducts.json");
 
@@ -25,7 +25,7 @@ const transformProduct = (product) => {
   if (product.categoryPath && !Array.isArray(product.categoryPath)) {
     console.warn(
       `Invalid categoryPath for product ${product.title || product.name}:`,
-      product.categoryPath
+      product.categoryPath,
     );
   }
 
@@ -143,7 +143,7 @@ const transform = async () => {
     await fs.writeFile(
       outputFilePath,
       JSON.stringify(sanityProducts, null, 2),
-      "utf8"
+      "utf8",
     );
 
     console.log("Sanity products JSON file has been created successfully.");

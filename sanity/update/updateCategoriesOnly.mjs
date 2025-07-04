@@ -26,7 +26,7 @@ const updateCategoryPath = async (existingProduct, newCategoryPath) => {
   } catch (error) {
     console.error(
       `Error updating categoryPath for product ${existingProduct.name}:`,
-      error.message
+      error.message,
     );
     return false;
   }
@@ -56,7 +56,7 @@ const upload = async () => {
 
           const success = await updateCategoryPath(
             existingProduct,
-            product.categoryPath
+            product.categoryPath,
           );
           if (success) {
             productsUpdated++;
@@ -70,7 +70,7 @@ const upload = async () => {
       } catch (error) {
         console.error(
           `Error processing product ${product.name}:`,
-          error.message
+          error.message,
         );
         productsSkipped++;
       }

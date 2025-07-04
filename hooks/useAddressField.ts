@@ -29,12 +29,12 @@ export function useAddressField({
 }: UseAddressFieldProps = {}) {
   // State for address and validation
   const [address, setAddress] = useState<FormattedAddress | null>(
-    initialAddress
+    initialAddress,
   );
   const [isValid, setIsValid] = useState(!required || !!initialAddress);
   const [isTouched, setIsTouched] = useState(false);
   const [countryCode, setCountryCode] = useState<"gb" | "pl">(
-    defaultCountryCode
+    defaultCountryCode,
   );
 
   /**
@@ -53,7 +53,7 @@ export function useAddressField({
         onAddressChange(newAddress);
       }
     },
-    [onAddressChange, required, isTouched]
+    [onAddressChange, required, isTouched],
   );
 
   /**
@@ -71,7 +71,7 @@ export function useAddressField({
         onAddressChange(null);
       }
     },
-    [required, onAddressChange]
+    [required, onAddressChange],
   );
 
   /**
@@ -104,7 +104,7 @@ export function useAddressField({
           : undefined,
       };
     },
-    []
+    [],
   );
 
   /**

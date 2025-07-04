@@ -122,7 +122,7 @@ export default function Pagination({
               </span>
             ) : (
               <NumberButton key={`page-${item}`} pageNum={item} />
-            )
+            ),
           )}
         </div>
 

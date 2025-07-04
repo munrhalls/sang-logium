@@ -65,7 +65,7 @@ export function ClerkAccountManager() {
         // If no Clerk dialog found and we're still in managing state, reset
         if (!clerkDialogFound && isManagingAccount) {
           console.log(
-            "No Clerk dialog found in DOM after click, resetting state"
+            "No Clerk dialog found in DOM after click, resetting state",
           );
           setIsManagingAccount(false);
         }

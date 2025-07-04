@@ -28,7 +28,7 @@ async function updateProduct(product) {
       .commit();
 
     console.log(
-      `Updated ${product.title} with categories: ${newCategories.join(", ")}`
+      `Updated ${product.title} with categories: ${newCategories.join(", ")}`,
     );
     return result;
   } catch (error) {
@@ -108,14 +108,14 @@ async function updateAllProducts() {
     }
 
     console.log(
-      `Found ${studioProducts.length} studio-appropriate headphones to update`
+      `Found ${studioProducts.length} studio-appropriate headphones to update`,
     );
 
     if (studioProducts.length > 0) {
       console.log("\nStudio headphones to be updated:");
       studioProducts.forEach((product) => {
         console.log(
-          `- ${product.title} (Current category: ${product.categoryPath})`
+          `- ${product.title} (Current category: ${product.categoryPath})`,
         );
       });
     }
@@ -132,7 +132,7 @@ async function updateAllProducts() {
         (answer) => {
           resolve(answer.toLowerCase() === "yes");
           rl.close();
-        }
+        },
       );
     });
 

@@ -5,12 +5,14 @@ This document outlines the safe procedure for deploying the Sang-Logium e-commer
 ## Pre-Deployment Preparation
 
 1. **Ensure you are on the correct branch**
+
    ```bash
    git checkout main
    git pull origin main
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install --legacy-peer-deps
    ```
@@ -34,20 +36,23 @@ This document outlines the safe procedure for deploying the Sang-Logium e-commer
 ## Deployment Process
 
 1. **Generate Sanity type definitions**
+
    ```bash
    npm run typegen
    ```
 
 2. **Build the application**
+
    ```bash
    npm run build
    ```
 
 3. **Deploy to staging (preview)**
+
    ```bash
    npm run deploy:staging
    ```
-   
+
    Verify the preview URL works correctly:
    - Check homepage and navigation
    - Verify product listings and filtering
@@ -56,11 +61,13 @@ This document outlines the safe procedure for deploying the Sang-Logium e-commer
    - Test pagination system with filters
 
 4. **Deploy to production**
+
    ```bash
    npm run deploy
    ```
-   
+
    Or use the build and deploy command in one step:
+
    ```bash
    npm run build && npm run deploy
    ```

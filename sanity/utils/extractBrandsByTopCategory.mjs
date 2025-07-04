@@ -32,7 +32,7 @@ async function extractBrandsByTopCategory(topCategory) {
     });
 
     console.log(
-      `Products in ${topCategory} category: ${filteredProducts.length}`
+      `Products in ${topCategory} category: ${filteredProducts.length}`,
     );
 
     // Extract unique brands

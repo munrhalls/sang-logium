@@ -91,7 +91,7 @@ function createFilter(name, type, options) {
 async function addFilterToCategory() {
   try {
     console.log(
-      `Adding "${filterName}" filter to ${category}${path ? ` (path: ${path})` : ""}...`
+      `Adding "${filterName}" filter to ${category}${path ? ` (path: ${path})` : ""}...`,
     );
 
     // Process filter options
@@ -141,7 +141,7 @@ async function addFilterToCategory() {
         ].sort();
 
         console.log(
-          `Found ${uniquePaths.length} paths for category ${category}`
+          `Found ${uniquePaths.length} paths for category ${category}`,
         );
 
         // Add each path to mappings
@@ -157,7 +157,7 @@ async function addFilterToCategory() {
       // Create the document
       await client.create(doc);
       console.log(
-        `Created new document "${docId}" with filter "${filterName}"`
+        `Created new document "${docId}" with filter "${filterName}"`,
       );
     } else {
       // Document exists, update it
@@ -165,7 +165,7 @@ async function addFilterToCategory() {
 
       // Check if filter already exists
       const existingFilterIndex = doc.filters.filterItems.findIndex(
-        (f) => f.name.toLowerCase() === filterName.toLowerCase()
+        (f) => f.name.toLowerCase() === filterName.toLowerCase(),
       );
 
       if (existingFilterIndex >= 0) {
@@ -182,7 +182,7 @@ async function addFilterToCategory() {
       if (path) {
         // Find the specific path
         const mappingIndex = doc.categoryMappings.findIndex(
-          (m) => m.path === path
+          (m) => m.path === path,
         );
 
         if (mappingIndex >= 0) {

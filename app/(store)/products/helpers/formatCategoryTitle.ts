@@ -5,7 +5,7 @@ export default function formatCategoryTitle(leaf: string) {
 
   title = title.replace(
     /\b(cd|dvd|tv|hd|ssd|usb|hdmi|rca|dac)(s?)\b/gi,
-    (match, acronym, plural) => acronym.toUpperCase() + plural.toLowerCase()
+    (match, acronym, plural) => acronym.toUpperCase() + plural.toLowerCase(),
   );
 
   return title;

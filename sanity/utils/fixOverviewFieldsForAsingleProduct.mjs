@@ -15,7 +15,7 @@ async function fixSingleProduct(productId) {
       brand,
       overviewFields
     }`,
-      { productId }
+      { productId },
     );
 
     if (!product) {
@@ -128,7 +128,7 @@ async function fixSingleProduct(productId) {
           console.log("\n⏸️ Update canceled. No changes were made.");
         }
         rl.close();
-      }
+      },
     );
   } catch (error) {
     console.error("❌ Error fixing overview fields:", error);

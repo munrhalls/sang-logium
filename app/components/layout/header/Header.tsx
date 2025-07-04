@@ -15,7 +15,7 @@ const AuthContent = dynamic(
       <div className="w-[24px] h-[24px] mx-auto bg-gray-800 rounded-full animate-pulse" />
     ),
     ssr: false,
-  }
+  },
 );
 
 const SearchForm = dynamic(
@@ -23,12 +23,12 @@ const SearchForm = dynamic(
   {
     loading: () => <div className="animate-pulse" />,
     ssr: false,
-  }
+  },
 );
 
 const ProfileSync = dynamic(
   () => import("@/app/components/features/auth/ProfileSync"),
-  { ssr: false }
+  { ssr: false },
 );
 
 function Header() {

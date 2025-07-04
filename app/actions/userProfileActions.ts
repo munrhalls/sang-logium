@@ -7,7 +7,7 @@ import { UserProfile } from "@/sanity/lib/profiles/profileTypes";
  * Server action to fetch a user profile by Clerk ID
  */
 export async function fetchProfileByClerkIdAction(
-  clerkId: string
+  clerkId: string,
 ): Promise<UserProfile | null> {
   try {
     // GROQ query to fetch a user profile by Clerk ID
@@ -33,7 +33,7 @@ export async function fetchProfileByClerkIdAction(
         createdAt,
         updatedAt
       }`,
-      { clerkId }
+      { clerkId },
     );
 
     return profile;
@@ -55,7 +55,7 @@ export async function createUserProfileAction(data: {
     // Check if profile already exists
     const existingProfile = await client.fetch(
       `*[_type == "userProfile" && clerkId == $clerkId][0]._id`,
-      { clerkId: data.clerkId }
+      { clerkId: data.clerkId },
     );
 
     if (existingProfile) {
@@ -101,38 +101,35 @@ export async function updateUserProfileFieldAction(data: {
     // Find the profile ID first
     const profileId = await client.fetch(
       `*[_type == "userProfile" && clerkId == $clerkId][0]._id`,
-      { clerkId }
+      { clerkId },
     );
 
     if (!profileId) {
       return {
         success: false,
-        message: "Profile not found"
+        message: "Profile not found",
       };
     }
 
     // Create the update patch
     const patch: Record<string, unknown> = {
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
 
     // Set the specified field
     patch[field] = value;
 
     // Apply the patch to the document
-    await client
-      .patch(profileId)
-      .set(patch)
-      .commit();
+    await client.patch(profileId).set(patch).commit();
 
     return {
-      success: true
+      success: true,
     };
   } catch (error) {
     console.error("Error updating user profile field:", error);
     return {
       success: false,
-      message: error instanceof Error ? error.message : "Unknown error"
+      message: error instanceof Error ? error.message : "Unknown error",
     };
   }
 }
@@ -152,38 +149,35 @@ export async function updateNestedProfileFieldAction(data: {
     // Find the profile ID first
     const profileId = await client.fetch(
       `*[_type == "userProfile" && clerkId == $clerkId][0]._id`,
-      { clerkId }
+      { clerkId },
     );
 
     if (!profileId) {
       return {
         success: false,
-        message: "Profile not found"
+        message: "Profile not found",
       };
     }
 
     // Create the update patch with updatedAt timestamp
     const patch: Record<string, unknown> = {
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
 
     // Set the nested field
     patch[`${parentField}.${field}`] = value;
 
     // Apply the patch to the document
-    await client
-      .patch(profileId)
-      .set(patch)
-      .commit();
+    await client.patch(profileId).set(patch).commit();
 
     return {
-      success: true
+      success: true,
     };
   } catch (error) {
     console.error("Error updating nested user profile field:", error);
     return {
       success: false,
-      message: error instanceof Error ? error.message : "Unknown error"
+      message: error instanceof Error ? error.message : "Unknown error",
     };
   }
 }

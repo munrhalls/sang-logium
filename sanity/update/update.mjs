@@ -62,7 +62,7 @@ const transformProduct = async (product) => {
         const id = await uploadImage(img.asset._ref);
         console.log("Gallery image uploaded:", id);
         return id;
-      })
+      }),
     );
 
     const transformedProduct = {
@@ -141,7 +141,7 @@ const upload = async () => {
       } catch (error) {
         console.error(
           `Error processing product ${product.name}:`,
-          error.message
+          error.message,
         );
       }
     }

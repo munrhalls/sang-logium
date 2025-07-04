@@ -36,7 +36,7 @@ export default async function MobileCategoriesDrawerWrapper() {
 
   const renderSubcategories = (
     subcategories: SubCategory[],
-    baseUrl: string
+    baseUrl: string,
   ) => {
     return subcategories.map((sub) => (
       <div key={sub._key}>

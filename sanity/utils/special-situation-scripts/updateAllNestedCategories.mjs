@@ -46,7 +46,7 @@ if (dryRun) {
 async function updateAllNestedCategories() {
   try {
     console.log(
-      `Updating stock amount filter for all nested categories of: "${topLevelCategory}"\n`
+      `Updating stock amount filter for all nested categories of: "${topLevelCategory}"\n`,
     );
 
     // Find the category filters document for this top-level category
@@ -58,7 +58,7 @@ async function updateAllNestedCategories() {
     if (!doc) {
       console.log(`No filter document found for category: ${topLevelCategory}`);
       console.log(
-        `Try creating filters first or check that the category exists.`
+        `Try creating filters first or check that the category exists.`,
       );
       return;
     }
@@ -70,12 +70,12 @@ async function updateAllNestedCategories() {
       (filter) =>
         filter.type === "range" &&
         filter.name.toLowerCase().includes("stock") &&
-        filter.name.toLowerCase().includes("amount")
+        filter.name.toLowerCase().includes("amount"),
     );
 
     if (!stockAmountFilter) {
       console.log(
-        `No stock amount filter found in the top-level category. Nothing to update.`
+        `No stock amount filter found in the top-level category. Nothing to update.`,
       );
       return;
     }
@@ -83,7 +83,7 @@ async function updateAllNestedCategories() {
     console.log(`Found stock amount filter in top-level category:`);
     console.log(JSON.stringify(stockAmountFilter, null, 2));
     console.log(
-      `\nFound ${doc.categoryMappings.length} nested categories to check:`
+      `\nFound ${doc.categoryMappings.length} nested categories to check:`,
     );
 
     // List all available nested categories
@@ -96,7 +96,7 @@ async function updateAllNestedCategories() {
       const categoryPath = doc.categoryMappings[i].path;
       console.log(`\n\n=============================================`);
       console.log(
-        `UPDATING CATEGORY ${i + 1}/${doc.categoryMappings.length}: ${categoryPath}`
+        `UPDATING CATEGORY ${i + 1}/${doc.categoryMappings.length}: ${categoryPath}`,
       );
       console.log(`=============================================\n`);
 
@@ -105,12 +105,12 @@ async function updateAllNestedCategories() {
         categoryPath,
         i,
         docId,
-        stockAmountFilter
+        stockAmountFilter,
       );
     }
 
     console.log(
-      `\nCompleted updating stock amount filter for all nested categories of "${topLevelCategory}"`
+      `\nCompleted updating stock amount filter for all nested categories of "${topLevelCategory}"`,
     );
   } catch (error) {
     console.error("Error:", error);
@@ -123,7 +123,7 @@ async function updateStockAmountFilterForCategory(
   categoryPath,
   index,
   docId,
-  stockAmountFilter
+  stockAmountFilter,
 ) {
   try {
     // Find the specific mapping for this category path
@@ -139,12 +139,12 @@ async function updateStockAmountFilterForCategory(
 
     // Check if stock amount filter is in the mapping
     const hasStockAmountFilter = mapping.filters.includes(
-      stockAmountFilter.name
+      stockAmountFilter.name,
     );
 
     if (!hasStockAmountFilter) {
       console.log(
-        `\nStock amount filter "${stockAmountFilter.name}" missing in ${categoryPath}. Adding it...`
+        `\nStock amount filter "${stockAmountFilter.name}" missing in ${categoryPath}. Adding it...`,
       );
 
       // Add the stock amount filter to the mapping
@@ -160,7 +160,7 @@ async function updateStockAmountFilterForCategory(
         console.log(`Added stock amount filter to ${categoryPath}.`);
       } else {
         console.log(
-          `[DRY RUN] Would add stock amount filter "${stockAmountFilter.name}" to ${categoryPath}.`
+          `[DRY RUN] Would add stock amount filter "${stockAmountFilter.name}" to ${categoryPath}.`,
         );
       }
     } else {

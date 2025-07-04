@@ -1,6 +1,6 @@
 export default function parseFilterValue(
   paramValue: string | number | boolean | null | undefined,
-  filterType: string
+  filterType: string,
 ) {
   if (paramValue === null || paramValue === undefined) {
     if (filterType === "multiselect") return [];
@@ -18,7 +18,7 @@ export default function parseFilterValue(
         try {
           return (
             JSON.parse(
-              typeof paramValue === "string" ? paramValue : String(paramValue)
+              typeof paramValue === "string" ? paramValue : String(paramValue),
             ) || []
           );
         } catch {

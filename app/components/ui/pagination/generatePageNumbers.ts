@@ -1,13 +1,13 @@
 export default function generatePageNumbers(
   currentPage: number,
-  pagesCount: number
+  pagesCount: number,
 ): (number | string)[] {
   currentPage = Math.max(
     1,
     Math.min(
       Math.floor(currentPage) || 1,
-      Math.max(1, Math.floor(pagesCount) || 1)
-    )
+      Math.max(1, Math.floor(pagesCount) || 1),
+    ),
   );
   pagesCount = Math.max(1, Math.floor(pagesCount) || 1);
 

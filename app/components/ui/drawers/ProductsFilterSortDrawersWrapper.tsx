@@ -11,7 +11,7 @@ export default async function ProductsFilterSortDrawersWrapper({
   // Get filter and sort options based on category path
   const filterOptions = await getFiltersForCategoryPath(categoryPath || []);
   const sortOptions = await getSortablesForCategoryPath(
-    categoryPath ? categoryPath.join("/") : ""
+    categoryPath ? categoryPath.join("/") : "",
   );
 
   return (

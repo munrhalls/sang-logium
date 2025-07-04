@@ -5,7 +5,7 @@ import { client } from "./client";
 type SanityDocumentId = string;
 
 export const cleanupRefs = async (
-  categoryId: SanityDocumentId
+  categoryId: SanityDocumentId,
 ): Promise<void> => {
   try {
     const transaction = client.transaction();
@@ -13,7 +13,7 @@ export const cleanupRefs = async (
     // Find & update referencing products
     const refs: SanityDocumentId[] = await client.fetch(
       `*[_type == "product" && references($id)]._id`,
-      { id: categoryId }
+      { id: categoryId },
     );
 
     refs.forEach((id: SanityDocumentId) => {

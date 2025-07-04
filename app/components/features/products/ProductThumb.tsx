@@ -61,7 +61,7 @@ const ProductThumb = ({ product }: ProductThumbProps) => {
             ?.map((block) =>
               block._type === "block"
                 ? block.children?.map((child) => child.text).join("")
-                : ""
+                : "",
             )
             .join(" ") || "No description available"}
         </p>

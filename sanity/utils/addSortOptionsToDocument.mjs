@@ -58,7 +58,7 @@ async function addSortOptionsToDocument(sourceTitle, targetTitle, optionNames) {
 
     for (const optionName of optionNames) {
       const option = sourceDoc.sortOptions.find(
-        (opt) => opt.name === optionName
+        (opt) => opt.name === optionName,
       );
       if (option) {
         optionsToCopy.push(option);
@@ -69,7 +69,7 @@ async function addSortOptionsToDocument(sourceTitle, targetTitle, optionNames) {
 
     if (notFound.length > 0) {
       console.warn(
-        `Warning: The following options were not found in the source document: ${notFound.join(", ")}`
+        `Warning: The following options were not found in the source document: ${notFound.join(", ")}`,
       );
     }
 
@@ -83,20 +83,20 @@ async function addSortOptionsToDocument(sourceTitle, targetTitle, optionNames) {
       ? targetDoc.sortOptions.map((opt) => opt.name)
       : [];
     const duplicateOptions = optionsToCopy.filter((opt) =>
-      targetOptionNames.includes(opt.name)
+      targetOptionNames.includes(opt.name),
     );
 
     if (duplicateOptions.length > 0) {
       console.warn(
-        `Warning: The following options already exist in the target document and will be skipped: ${duplicateOptions.map((opt) => opt.name).join(", ")}`
+        `Warning: The following options already exist in the target document and will be skipped: ${duplicateOptions.map((opt) => opt.name).join(", ")}`,
       );
       // Remove duplicates from the options to copy
       const filteredOptions = optionsToCopy.filter(
-        (opt) => !targetOptionNames.includes(opt.name)
+        (opt) => !targetOptionNames.includes(opt.name),
       );
       if (filteredOptions.length === 0) {
         console.error(
-          "All options already exist in the target document. Nothing to add."
+          "All options already exist in the target document. Nothing to add.",
         );
         return false;
       }
@@ -121,7 +121,7 @@ async function addSortOptionsToDocument(sourceTitle, targetTitle, optionNames) {
 
     // Update the target document in Sanity
     console.log(
-      `\nUpdating document "${targetTitle}" with new sort options...`
+      `\nUpdating document "${targetTitle}" with new sort options...`,
     );
     const result = await client
       .patch(targetDoc._id)
@@ -145,10 +145,10 @@ async function main() {
     // Check if the required arguments are provided
     if (process.argv.length < 5) {
       console.log(
-        "Usage: node addSortOptionsToDocument.mjs <sourceTitle> <targetTitle> <option1,option2,...>"
+        "Usage: node addSortOptionsToDocument.mjs <sourceTitle> <targetTitle> <option1,option2,...>",
       );
       console.log(
-        'Example: node addSortOptionsToDocument.mjs "headphones" "speakers" "bassPerformance,detailClarity,frequencyRange"'
+        'Example: node addSortOptionsToDocument.mjs "headphones" "speakers" "bassPerformance,detailClarity,frequencyRange"',
       );
       return;
     }

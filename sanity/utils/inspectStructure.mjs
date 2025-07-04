@@ -18,7 +18,7 @@ async function inspectProductStructure() {
         const preview = JSON.stringify(value).substring(0, 100);
 
         console.log(
-          `${key} (${type}): ${preview}${preview.length >= 100 ? "..." : ""}`
+          `${key} (${type}): ${preview}${preview.length >= 100 ? "..." : ""}`,
         );
       });
 
@@ -58,7 +58,7 @@ async function inspectProductStructure() {
       .sort()
       .forEach((key) => {
         const percentage = Math.round(
-          (fieldStats[key] / allProducts.length) * 100
+          (fieldStats[key] / allProducts.length) * 100,
         );
         console.log(`${key}: ${fieldStats[key]} products (${percentage}%)`);
       });

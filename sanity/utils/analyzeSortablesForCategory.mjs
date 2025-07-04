@@ -19,7 +19,7 @@ async function analyzeSortablesForCategory(topLevelCategory) {
         specifications,
         overviewFields
       }`,
-      { categoryPattern: `${topLevelCategory}/*` }
+      { categoryPattern: `${topLevelCategory}/*` },
     );
 
     console.log(`\n===== SORTABLES ANALYSIS FOR: ${topLevelCategory} =====`);
@@ -48,7 +48,7 @@ async function analyzeSortablesForCategory(topLevelCategory) {
       numericFields,
       dateFields,
       commonSpecifications,
-      topLevelCategory
+      topLevelCategory,
     );
 
     // Output the recommendations in a format suitable for Sanity schema
@@ -259,7 +259,7 @@ function generateRecommendedSortables(
   numericFields,
   dateFields,
   commonSpecs,
-  category
+  category,
 ) {
   const THRESHOLD_PERCENTAGE = 50; // Minimum % of products that should have the field
   const recommendedSortables = [];
@@ -312,7 +312,7 @@ function generateRecommendedSortables(
   // Add numeric specification fields that appear in enough products
   Object.entries(numericFields.specFrequency)
     .filter(
-      ([_, count]) => (count / totalProducts) * 100 >= THRESHOLD_PERCENTAGE
+      ([_, count]) => (count / totalProducts) * 100 >= THRESHOLD_PERCENTAGE,
     )
     .sort((a, b) => b[1] - a[1])
     .slice(0, 3) // Top 3 most common numeric specs

@@ -25,7 +25,7 @@ async function updateProduct(product) {
       .commit();
 
     console.log(
-      `Updated ${product.title} with categories: ${newCategories.join(", ")}`
+      `Updated ${product.title} with categories: ${newCategories.join(", ")}`,
     );
     return result;
   } catch (error) {
@@ -47,7 +47,7 @@ async function updateAllProducts() {
 
     const inEarProducts = products.filter((product) => {
       const wearingStyle = product.overviewFields?.find((field) =>
-        field.title?.toLowerCase().includes("wearing style")
+        field.title?.toLowerCase().includes("wearing style"),
       );
       return wearingStyle?.value === "In-ear";
     });
@@ -58,7 +58,7 @@ async function updateAllProducts() {
       console.log("\nIn-ear headphones to be updated:");
       inEarProducts.forEach((product) => {
         console.log(
-          `- ${product.title} (Current category: ${product.categoryPath})`
+          `- ${product.title} (Current category: ${product.categoryPath})`,
         );
       });
 
@@ -74,7 +74,7 @@ async function updateAllProducts() {
           (answer) => {
             resolve(answer.toLowerCase() === "yes");
             rl.close();
-          }
+          },
         );
       });
 

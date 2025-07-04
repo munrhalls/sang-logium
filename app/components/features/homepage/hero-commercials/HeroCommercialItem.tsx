@@ -33,8 +33,8 @@ const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
         product?.brand &&
           product?.price &&
           product?.image &&
-          product?.description
-      )
+          product?.description,
+      ),
   );
 
   if (!image) return null;

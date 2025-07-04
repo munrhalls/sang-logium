@@ -58,7 +58,7 @@ async function extractRegularFilters() {
     console.log("\nExample usage:");
     console.log(`Is "price" a regular filter? ${!!regularFiltersMap["price"]}`);
     console.log(
-      `Is "Unknown" a regular filter? ${!!regularFiltersMap["Unknown"]}`
+      `Is "Unknown" a regular filter? ${!!regularFiltersMap["Unknown"]}`,
     );
 
     // Return the map for export/use in other modules

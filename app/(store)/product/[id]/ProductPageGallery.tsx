@@ -10,7 +10,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 const ProductPageGallery = ({ product }: { product: Product }) => {
   const [currentImage, setCurrentImage] = useState<string>(
-    imageUrl(product.image as SanityImageSource).url()
+    imageUrl(product.image as SanityImageSource).url(),
   );
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -24,7 +24,7 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
       const newIndex =
         currentIndex === 0 ? product.gallery.length - 1 : currentIndex - 1;
       const imgUrl = imageUrl(
-        product.gallery[newIndex] as SanityImageSource
+        product.gallery[newIndex] as SanityImageSource,
       ).url();
       setCurrentImage(imgUrl);
       setCurrentIndex(newIndex);
@@ -36,7 +36,7 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
       const newIndex =
         currentIndex === product.gallery.length - 1 ? 0 : currentIndex + 1;
       const imgUrl = imageUrl(
-        product.gallery[newIndex] as SanityImageSource
+        product.gallery[newIndex] as SanityImageSource,
       ).url();
       setCurrentImage(imgUrl);
       setCurrentIndex(newIndex);

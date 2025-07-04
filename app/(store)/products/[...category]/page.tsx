@@ -52,7 +52,7 @@ export default async function ProductsPage(props: {
       path,
       selectedFilters,
       selectedSort,
-      selectedPagination
+      selectedPagination,
     ).catch((error) => {
       console.error("Failed to fetch products:", error);
       return { products: [], totalProductsCount: 0 };

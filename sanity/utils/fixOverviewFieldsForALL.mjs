@@ -99,7 +99,7 @@ async function fixAllProducts() {
     // Get confirmation to proceed
     const initialAnswer = await question(
       rl,
-      `\n⚠️ Found ${productsToFix.length} products to fix. Proceed with individual confirmation for the first 3? (yes/no): `
+      `\n⚠️ Found ${productsToFix.length} products to fix. Proceed with individual confirmation for the first 3? (yes/no): `,
     );
 
     if (
@@ -150,7 +150,7 @@ async function fixAllProducts() {
       // Get confirmation for this specific product
       const answer = await question(
         rl,
-        `\n⚠️ Apply these changes to product ${index + 1} (${product.title})? (yes/no): `
+        `\n⚠️ Apply these changes to product ${index + 1} (${product.title})? (yes/no): `,
       );
 
       if (answer.toLowerCase() === "yes" || answer.toLowerCase() === "y") {
@@ -164,13 +164,13 @@ async function fixAllProducts() {
           console.log(`✅ Successfully updated product: ${product.title}`);
         } catch (err) {
           console.error(
-            `❌ Failed to update product ${product._id}: ${err.message}`
+            `❌ Failed to update product ${product._id}: ${err.message}`,
           );
 
           // Ask if we should continue with the rest
           const continueAnswer = await question(
             rl,
-            `\n⚠️ Error occurred. Continue with remaining products? (yes/no): `
+            `\n⚠️ Error occurred. Continue with remaining products? (yes/no): `,
           );
           if (
             continueAnswer.toLowerCase() !== "yes" &&
@@ -182,13 +182,13 @@ async function fixAllProducts() {
         }
       } else {
         console.log(
-          `⏸️ Skipped updating product ${index + 1}: ${product.title}`
+          `⏸️ Skipped updating product ${index + 1}: ${product.title}`,
         );
 
         // Ask if we should continue with the rest
         const continueAnswer = await question(
           rl,
-          `\n⚠️ Continue with remaining products? (yes/no): `
+          `\n⚠️ Continue with remaining products? (yes/no): `,
         );
         if (
           continueAnswer.toLowerCase() !== "yes" &&
@@ -204,7 +204,7 @@ async function fixAllProducts() {
     if (proceedWithRemaining && remainingProducts.length > 0) {
       const finalConfirmation = await question(
         rl,
-        `\n⚠️ Process the remaining ${remainingProducts.length} products automatically? (yes/no): `
+        `\n⚠️ Process the remaining ${remainingProducts.length} products automatically? (yes/no): `,
       );
 
       if (
@@ -212,7 +212,7 @@ async function fixAllProducts() {
         finalConfirmation.toLowerCase() === "y"
       ) {
         console.log(
-          `\n🔄 Processing remaining ${remainingProducts.length} products...`
+          `\n🔄 Processing remaining ${remainingProducts.length} products...`,
         );
 
         let successCount = 0;
@@ -233,12 +233,12 @@ async function fixAllProducts() {
               successCount === remainingProducts.length
             ) {
               console.log(
-                `Progress: ${successCount}/${remainingProducts.length} additional products updated`
+                `Progress: ${successCount}/${remainingProducts.length} additional products updated`,
               );
             }
           } catch (err) {
             console.error(
-              `❌ Failed to update product ${product._id}: ${err.message}`
+              `❌ Failed to update product ${product._id}: ${err.message}`,
             );
             errorCount++;
           }
@@ -246,7 +246,7 @@ async function fixAllProducts() {
 
         console.log("\n✅ COMPLETED!");
         console.log(
-          `Successfully updated: ${successCount} additional products`
+          `Successfully updated: ${successCount} additional products`,
         );
         console.log(`Failed to update: ${errorCount} products`);
       } else {

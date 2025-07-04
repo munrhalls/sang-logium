@@ -21,7 +21,7 @@ class SangLogiumMCPServer {
     try {
       const instructionsPath = path.join(
         this.projectRoot,
-        "cursor-instructions.md"
+        "cursor-instructions.md",
       );
       return fs.readFileSync(instructionsPath, "utf8");
     } catch (error) {
@@ -76,7 +76,7 @@ class SangLogiumMCPServer {
 
     context.push(`\n## Project Root: ${this.projectRoot}`);
     context.push(
-      "\n## Remember: Follow specifications-first, test-driven workflow!"
+      "\n## Remember: Follow specifications-first, test-driven workflow!",
     );
 
     return context.join("\n");
@@ -167,7 +167,7 @@ class SangLogiumMCPServer {
                 jsonrpc: "2.0",
                 id: request.id,
                 result: response,
-              })
+              }),
             );
           } catch (error) {
             console.log(
@@ -178,7 +178,7 @@ class SangLogiumMCPServer {
                   code: -1,
                   message: error.message,
                 },
-              })
+              }),
             );
           }
         }

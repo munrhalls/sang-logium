@@ -171,7 +171,7 @@ async function main() {
     } else {
       // If no title filter provided, list all documents
       console.log(
-        "No title filter provided. Listing all categoryFilters documents:"
+        "No title filter provided. Listing all categoryFilters documents:",
       );
       await listAllCategoryFilters();
     }

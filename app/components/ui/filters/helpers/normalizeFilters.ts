@@ -1,5 +1,5 @@
 export default function normalizeFilters(
-  filters: Record<string, string | number | boolean | string[]>
+  filters: Record<string, string | number | boolean | string[]>,
 ): Record<string, string | number | boolean | string[]> {
   const result: Record<string, string | number | boolean | string[]> = {};
 

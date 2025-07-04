@@ -22,7 +22,7 @@ async function updateProduct(product) {
       .commit();
 
     console.log(
-      `Updated ${product.title} with categories: ${newCategories.join(", ")}`
+      `Updated ${product.title} with categories: ${newCategories.join(", ")}`,
     );
     return result;
   } catch (error) {
@@ -44,7 +44,7 @@ async function isTravelHeadphone(product) {
 
   // Check closed-back design
   const cupStyleField = product.overviewFields?.find((field) =>
-    field.title.toLowerCase().includes("cup style")
+    field.title.toLowerCase().includes("cup style"),
   );
   travelFeatures.isClosedBack = cupStyleField?.value
     ?.toLowerCase()
@@ -65,15 +65,15 @@ async function isTravelHeadphone(product) {
         const title = (spec.title || "").toLowerCase();
         const value = (spec.value || "").toLowerCase();
         return noiseKeywords.some(
-          (keyword) => title.includes(keyword) || value.includes(keyword)
+          (keyword) => title.includes(keyword) || value.includes(keyword),
         );
       })) ||
     product.description?.some((block) =>
       block.children?.some((child) =>
         noiseKeywords.some((keyword) =>
-          child.text?.toLowerCase().includes(keyword)
-        )
-      )
+          child.text?.toLowerCase().includes(keyword),
+        ),
+      ),
     );
   travelFeatures.hasNoiseFeatures = hasNoiseFeatures;
 
@@ -92,15 +92,15 @@ async function isTravelHeadphone(product) {
         const title = (spec.title || "").toLowerCase();
         const value = (spec.value || "").toLowerCase();
         return portabilityKeywords.some(
-          (keyword) => title.includes(keyword) || value.includes(keyword)
+          (keyword) => title.includes(keyword) || value.includes(keyword),
         );
       })) ||
     product.description?.some((block) =>
       block.children?.some((child) =>
         portabilityKeywords.some((keyword) =>
-          child.text?.toLowerCase().includes(keyword)
-        )
-      )
+          child.text?.toLowerCase().includes(keyword),
+        ),
+      ),
     );
   travelFeatures.hasPortableDesign = hasPortableDesign;
 
@@ -108,7 +108,7 @@ async function isTravelHeadphone(product) {
   const batterySpec = product.specifications?.find(
     (spec) =>
       spec.title?.toLowerCase().includes("battery") ||
-      spec.title?.toLowerCase().includes("playback")
+      spec.title?.toLowerCase().includes("playback"),
   );
   if (batterySpec) {
     const batteryText = batterySpec.value?.toLowerCase() || "";
@@ -121,7 +121,7 @@ async function isTravelHeadphone(product) {
 
   // Check wireless capability
   const connectivityField = product.overviewFields?.find((field) =>
-    field.title.toLowerCase().includes("connectivity")
+    field.title.toLowerCase().includes("connectivity"),
   );
   travelFeatures.isWireless = connectivityField?.value
     ?.toLowerCase()
@@ -194,14 +194,14 @@ async function updateAllProducts() {
     }
 
     console.log(
-      `Found ${travelProducts.length} travel-appropriate headphones to update`
+      `Found ${travelProducts.length} travel-appropriate headphones to update`,
     );
 
     if (travelProducts.length > 0) {
       console.log("\nTravel headphones to be updated:");
       travelProducts.forEach((product) => {
         console.log(
-          `- ${product.title} (Current category: ${product.categoryPath})`
+          `- ${product.title} (Current category: ${product.categoryPath})`,
         );
       });
     }
@@ -218,7 +218,7 @@ async function updateAllProducts() {
         (answer) => {
           resolve(answer.toLowerCase() === "yes");
           rl.close();
-        }
+        },
       );
     });
 

@@ -54,7 +54,7 @@ async function analyzeProducts() {
           const pattern = cat.split("/")[0]; // Get top-level category
           categoryPatterns.set(
             pattern,
-            (categoryPatterns.get(pattern) || 0) + 1
+            (categoryPatterns.get(pattern) || 0) + 1,
           );
         }
       });

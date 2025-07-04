@@ -41,7 +41,7 @@ function isDescriptionEmpty(description) {
         (child) =>
           child.text &&
           typeof child.text === "string" &&
-          child.text.trim() !== ""
+          child.text.trim() !== "",
       );
     });
 
@@ -173,7 +173,7 @@ async function fillSingleProduct(productId) {
       categoryPath,
       description
     }`,
-      { productId }
+      { productId },
     );
 
     if (!product) {
@@ -201,11 +201,11 @@ async function fillSingleProduct(productId) {
       } else if (typeof product.description === "string") {
         console.log(
           product.description.substring(0, 200) +
-            (product.description.length > 200 ? "..." : "")
+            (product.description.length > 200 ? "..." : ""),
         );
       } else {
         console.log(
-          JSON.stringify(product.description).substring(0, 200) + "..."
+          JSON.stringify(product.description).substring(0, 200) + "...",
         );
       }
 
@@ -229,7 +229,7 @@ async function fillSingleProduct(productId) {
 
     const answer = await question(
       rl,
-      `\n⚠️ Add this description to the product? (yes/no): `
+      `\n⚠️ Add this description to the product? (yes/no): `,
     );
 
     if (answer.toLowerCase() === "yes" || answer.toLowerCase() === "y") {
@@ -241,7 +241,7 @@ async function fillSingleProduct(productId) {
           .commit();
 
         console.log(
-          `✅ Successfully added description to product: ${result._id}`
+          `✅ Successfully added description to product: ${result._id}`,
         );
       } catch (err) {
         console.error("❌ Update failed:", err.message);
@@ -276,11 +276,11 @@ async function fillAllProducts() {
 
     // Filter for products with empty descriptions
     const productsWithEmptyDescriptions = allProducts.filter((product) =>
-      isDescriptionEmpty(product.description)
+      isDescriptionEmpty(product.description),
     );
 
     console.log(
-      `📊 Found ${productsWithEmptyDescriptions.length} products with empty or missing descriptions`
+      `📊 Found ${productsWithEmptyDescriptions.length} products with empty or missing descriptions`,
     );
 
     if (productsWithEmptyDescriptions.length === 0) {
@@ -301,10 +301,10 @@ async function fillAllProducts() {
       const descriptionText = simpleDescription[0].children[0].text;
 
       console.log(
-        `\n${index + 1}. ${product.title || product.brand || product._id} (${product._id})`
+        `\n${index + 1}. ${product.title || product.brand || product._id} (${product._id})`,
       );
       console.log(
-        "Current description: " + (product.description ? "Empty" : "None")
+        "Current description: " + (product.description ? "Empty" : "None"),
       );
       console.log("Proposed description:");
       console.log("--------------------");
@@ -315,7 +315,7 @@ async function fillAllProducts() {
     // Get confirmation to proceed
     const initialAnswer = await question(
       rl,
-      `\n⚠️ Found ${productsWithEmptyDescriptions.length} products with empty descriptions. Proceed with individual confirmation for the first 3? (yes/no): `
+      `\n⚠️ Found ${productsWithEmptyDescriptions.length} products with empty descriptions. Proceed with individual confirmation for the first 3? (yes/no): `,
     );
 
     if (
@@ -335,7 +335,7 @@ async function fillAllProducts() {
     for (const [index, product] of firstThree.entries()) {
       console.log(`\n======================================================`);
       console.log(
-        `PRODUCT ${index + 1} OF 3: ${product.title || product.brand || product._id}`
+        `PRODUCT ${index + 1} OF 3: ${product.title || product.brand || product._id}`,
       );
       console.log(`ID: ${product._id}`);
       console.log(`======================================================`);
@@ -345,7 +345,7 @@ async function fillAllProducts() {
       const descriptionText = simpleDescription[0].children[0].text;
 
       console.log(
-        "Current description: " + (product.description ? "Empty" : "None")
+        "Current description: " + (product.description ? "Empty" : "None"),
       );
       console.log("Proposed description:");
       console.log("--------------------");
@@ -355,7 +355,7 @@ async function fillAllProducts() {
       // Get confirmation for this specific product
       const answer = await question(
         rl,
-        `\n⚠️ Add this description to the product? (yes/no): `
+        `\n⚠️ Add this description to the product? (yes/no): `,
       );
 
       if (answer.toLowerCase() === "yes" || answer.toLowerCase() === "y") {
@@ -367,17 +367,17 @@ async function fillAllProducts() {
             .commit();
 
           console.log(
-            `✅ Successfully added description to product: ${product.title || product.brand || product._id}`
+            `✅ Successfully added description to product: ${product.title || product.brand || product._id}`,
           );
         } catch (err) {
           console.error(
-            `❌ Failed to update product ${product._id}: ${err.message}`
+            `❌ Failed to update product ${product._id}: ${err.message}`,
           );
 
           // Ask if we should continue with the rest
           const continueAnswer = await question(
             rl,
-            `\n⚠️ Error occurred. Continue with remaining products? (yes/no): `
+            `\n⚠️ Error occurred. Continue with remaining products? (yes/no): `,
           );
           if (
             continueAnswer.toLowerCase() !== "yes" &&
@@ -393,7 +393,7 @@ async function fillAllProducts() {
         // Ask if we should continue with the rest
         const continueAnswer = await question(
           rl,
-          `\n⚠️ Continue with remaining products? (yes/no): `
+          `\n⚠️ Continue with remaining products? (yes/no): `,
         );
         if (
           continueAnswer.toLowerCase() !== "yes" &&
@@ -409,7 +409,7 @@ async function fillAllProducts() {
     if (proceedWithRemaining && remainingProducts.length > 0) {
       const finalConfirmation = await question(
         rl,
-        `\n⚠️ Process the remaining ${remainingProducts.length} products automatically? (yes/no): `
+        `\n⚠️ Process the remaining ${remainingProducts.length} products automatically? (yes/no): `,
       );
 
       if (
@@ -417,7 +417,7 @@ async function fillAllProducts() {
         finalConfirmation.toLowerCase() === "y"
       ) {
         console.log(
-          `\n🔄 Processing remaining ${remainingProducts.length} products...`
+          `\n🔄 Processing remaining ${remainingProducts.length} products...`,
         );
 
         let successCount = 0;
@@ -440,12 +440,12 @@ async function fillAllProducts() {
               successCount === remainingProducts.length
             ) {
               console.log(
-                `Progress: ${successCount}/${remainingProducts.length} additional products processed`
+                `Progress: ${successCount}/${remainingProducts.length} additional products processed`,
               );
             }
           } catch (err) {
             console.error(
-              `❌ Failed to update product ${product._id}: ${err.message}`
+              `❌ Failed to update product ${product._id}: ${err.message}`,
             );
             errorCount++;
           }
@@ -453,7 +453,7 @@ async function fillAllProducts() {
 
         console.log("\n✅ COMPLETED!");
         console.log(
-          `Successfully added descriptions to: ${successCount} additional products`
+          `Successfully added descriptions to: ${successCount} additional products`,
         );
         console.log(`Failed to update: ${errorCount} products`);
       } else {
@@ -481,7 +481,7 @@ if (command === "single" && productId) {
   console.log("Please provide a valid command and product ID (if applicable).");
   console.log("Usage:");
   console.log(
-    '  For a single product: node fill-empty-descriptions.js single "productId"'
+    '  For a single product: node fill-empty-descriptions.js single "productId"',
   );
   console.log("  For all products: node fill-empty-descriptions.js all");
 }

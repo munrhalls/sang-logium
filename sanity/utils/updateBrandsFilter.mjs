@@ -51,14 +51,14 @@ async function updateBrandsFilter(documentTitle, brandsList) {
       !Array.isArray(document.filters.filterItems)
     ) {
       console.error(
-        `Document "${documentTitle}" doesn't have valid filter items.`
+        `Document "${documentTitle}" doesn't have valid filter items.`,
       );
       return false;
     }
 
     // Find the Brand filter
     const brandFilterIndex = document.filters.filterItems.findIndex(
-      (filter) => filter.name === "Brand"
+      (filter) => filter.name === "Brand",
     );
 
     if (brandFilterIndex === -1) {
@@ -112,10 +112,10 @@ async function updateBrandsFilter(documentTitle, brandsList) {
       .commit();
 
     console.log(
-      `Successfully updated "Brand" filter in document "${documentTitle}"`
+      `Successfully updated "Brand" filter in document "${documentTitle}"`,
     );
     console.log(
-      `Previous brand count: ${brandFilter.options.length}, New brand count: ${sortedBrands.length}`
+      `Previous brand count: ${brandFilter.options.length}, New brand count: ${sortedBrands.length}`,
     );
     return true;
   } catch (error) {
@@ -135,7 +135,7 @@ async function main() {
       console.log("Example with direct brands list:");
       console.log('node updateBrands.mjs "speakers" "Sony,Bose,JBL"');
       console.log(
-        "\nExample with multi-line format (each brand on a new line):"
+        "\nExample with multi-line format (each brand on a new line):",
       );
       console.log('node updateBrands.mjs "speakers" "Sony\nBose\nJBL"');
       return;
@@ -164,7 +164,7 @@ async function main() {
     } else {
       // If no brands provided in command line, read from stdin
       console.log(
-        "Please paste your brands list (one per line), then press Ctrl+D (Unix) or Ctrl+Z (Windows) when done:"
+        "Please paste your brands list (one per line), then press Ctrl+D (Unix) or Ctrl+Z (Windows) when done:",
       );
 
       const readline = require("readline");

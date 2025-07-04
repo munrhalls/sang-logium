@@ -69,8 +69,8 @@ describe("Address Validation", () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText("Address verified successfully!")
-      ).toBeInTheDocument()
+        screen.getByText("Address verified successfully!"),
+      ).toBeInTheDocument(),
     );
   });
 
@@ -110,8 +110,8 @@ describe("Address Validation", () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText(/Address validation failed.*Unconfirmed components/i)
-      ).toBeInTheDocument()
+        screen.getByText(/Address validation failed.*Unconfirmed components/i),
+      ).toBeInTheDocument(),
     );
   });
 
@@ -141,9 +141,9 @@ describe("Address Validation", () => {
     await waitFor(() =>
       expect(
         screen.getByText(
-          /Address validation failed.*No valid address components found/i
-        )
-      ).toBeInTheDocument()
+          /Address validation failed.*No valid address components found/i,
+        ),
+      ).toBeInTheDocument(),
     );
   });
 
@@ -165,8 +165,8 @@ describe("Address Validation", () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText("Error verifying address. Please try again.")
-      ).toBeInTheDocument()
+        screen.getByText("Error verifying address. Please try again."),
+      ).toBeInTheDocument(),
     );
   });
 });

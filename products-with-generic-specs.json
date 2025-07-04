@@ -3,9 +3,7 @@
     "_id": "5Lv8kxmcV3uCmaRbalcuTS",
     "title": null,
     "brand": "IsoAcoustics",
-    "categoryPath": [
-      "Studio Equipment/Studio Monitors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Monitors"],
     "specifications": [
       {
         "_type": "spec",
@@ -17,9 +15,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Studio Equipment/Studio Monitors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Monitors"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -37,9 +33,7 @@
     "_id": "BwEkTpjVMW9iHZxZmNGJNv",
     "title": null,
     "brand": "Victrola",
-    "categoryPath": [
-      "Speakers/Outdoor Speakers"
-    ],
+    "categoryPath": ["Speakers/Outdoor Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -51,9 +45,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Speakers/Subwoofers"
-    ],
+    "categoryPath": ["Speakers/Subwoofers"],
     "specifications": [
       {
         "_type": "spec",
@@ -68,9 +60,7 @@
     "brand": "Bose"
   },
   {
-    "categoryPath": [
-      "Headphones/Noise Cancelling"
-    ],
+    "categoryPath": ["Headphones/Noise Cancelling"],
     "specifications": [
       {
         "_key": "9bcffff6-2ca5-4033-932d-fe185fee9b6e",
@@ -88,9 +78,7 @@
     "_id": "Ul18na8DwALqxuRL3IN6HI",
     "title": null,
     "brand": "IsoAcoustics",
-    "categoryPath": [
-      "Studio Equipment/Studio Monitors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Monitors"],
     "specifications": [
       {
         "_type": "spec",
@@ -114,9 +102,7 @@
     "_id": "Y7l1IhzX2fnyiano4idGrv",
     "title": null,
     "brand": "Panasonic",
-    "categoryPath": [
-      "Personal Audio/Digital Audio Players"
-    ]
+    "categoryPath": ["Personal Audio/Digital Audio Players"]
   },
   {
     "specifications": [
@@ -131,17 +117,13 @@
     "_id": "Y7l1IhzX2fnyiano4ierq6",
     "title": null,
     "brand": "Alpine",
-    "categoryPath": [
-      "Personal Audio/Bluetooth Receivers and Transmitters"
-    ]
+    "categoryPath": ["Personal Audio/Bluetooth Receivers and Transmitters"]
   },
   {
     "_id": "Y7l1IhzX2fnyiano4if9LY",
     "title": null,
     "brand": "Sony",
-    "categoryPath": [
-      "Personal Audio/Bluetooth Receivers and Transmitters"
-    ],
+    "categoryPath": ["Personal Audio/Bluetooth Receivers and Transmitters"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -155,9 +137,7 @@
   {
     "title": null,
     "brand": "Panamax",
-    "categoryPath": [
-      "Personal Audio/Phone and Tablet Accessories"
-    ],
+    "categoryPath": ["Personal Audio/Phone and Tablet Accessories"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -171,9 +151,7 @@
   },
   {
     "brand": "Bose",
-    "categoryPath": [
-      "Personal Audio/Carrying Cases and Protection"
-    ],
+    "categoryPath": ["Personal Audio/Carrying Cases and Protection"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -190,9 +168,7 @@
     "_id": "Y7l1IhzX2fnyiano4is0lX",
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Personal Audio/Carrying Cases and Protection"
-    ],
+    "categoryPath": ["Personal Audio/Carrying Cases and Protection"],
     "specifications": [
       {
         "title": "Specifications",
@@ -205,9 +181,7 @@
   },
   {
     "brand": "Sennheiser",
-    "categoryPath": [
-      "Personal Audio/Carrying Cases and Protection"
-    ],
+    "categoryPath": ["Personal Audio/Carrying Cases and Protection"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -224,9 +198,7 @@
     "_id": "Y7l1IhzX2fnyiano4itLRZ",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "_type": "spec",
@@ -250,15 +222,11 @@
     "_id": "Y7l1IhzX2fnyiano4itOFY",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ]
+    "categoryPath": ["Personal Audio/Replacement Parts"]
   },
   {
     "brand": "JBL",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "_type": "spec",
@@ -274,9 +242,7 @@
   {
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -291,9 +257,7 @@
   {
     "title": null,
     "brand": "Ortofon",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "_type": "spec",
@@ -309,9 +273,7 @@
     "_id": "Y7l1IhzX2fnyiano4itTov",
     "title": null,
     "brand": "Ortofon",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "_type": "spec",
@@ -324,9 +286,7 @@
   },
   {
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "_key": "c20bc359-7992-4e57-91c2-1de8f616a50b",
@@ -343,9 +303,7 @@
     "_id": "Y7l1IhzX2fnyiano4itZBJ",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -360,9 +318,7 @@
     "_id": "Y7l1IhzX2fnyiano4iuiao",
     "title": null,
     "brand": "Advance Paris",
-    "categoryPath": [
-      "Home Audio/Amplifiers"
-    ],
+    "categoryPath": ["Home Audio/Amplifiers"],
     "specifications": [
       {
         "_key": "12af7dfe-d860-4f77-b3d5-897c3b295c1c",
@@ -376,9 +332,7 @@
   {
     "title": null,
     "brand": "Bose",
-    "categoryPath": [
-      "Home Audio/Amplifiers"
-    ],
+    "categoryPath": ["Home Audio/Amplifiers"],
     "specifications": [
       {
         "_type": "spec",
@@ -394,9 +348,7 @@
     "_id": "Y7l1IhzX2fnyiano4iwaMI",
     "title": null,
     "brand": "Yamaha",
-    "categoryPath": [
-      "Home Audio/Receivers"
-    ],
+    "categoryPath": ["Home Audio/Receivers"],
     "specifications": [
       {
         "title": "Specifications",
@@ -411,9 +363,7 @@
     "_id": "Y7l1IhzX2fnyiano4iwb4R",
     "title": null,
     "brand": "Yamaha",
-    "categoryPath": [
-      "Home Audio/Receivers"
-    ],
+    "categoryPath": ["Home Audio/Receivers"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -425,9 +375,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Home Audio/Preamps"
-    ],
+    "categoryPath": ["Home Audio/Preamps"],
     "specifications": [
       {
         "_type": "spec",
@@ -444,9 +392,7 @@
   {
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Home Audio/Turntables"
-    ],
+    "categoryPath": ["Home Audio/Turntables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -462,9 +408,7 @@
     "_id": "Y7l1IhzX2fnyiano4jDLC5",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Home Audio/Turntables"
-    ],
+    "categoryPath": ["Home Audio/Turntables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -479,9 +423,7 @@
     "_id": "Y7l1IhzX2fnyiano4jDVn4",
     "title": null,
     "brand": "Denon",
-    "categoryPath": [
-      "Home Audio/Turntables"
-    ],
+    "categoryPath": ["Home Audio/Turntables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -496,9 +438,7 @@
     "_id": "Y7l1IhzX2fnyiano4jDYde",
     "title": null,
     "brand": "Denon",
-    "categoryPath": [
-      "Home Audio/Turntables"
-    ],
+    "categoryPath": ["Home Audio/Turntables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -512,9 +452,7 @@
   {
     "title": null,
     "brand": "Denon",
-    "categoryPath": [
-      "Home Audio/CD Players"
-    ],
+    "categoryPath": ["Home Audio/CD Players"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -539,17 +477,13 @@
     "_id": "Y7l1IhzX2fnyiano4jH82C",
     "title": null,
     "brand": "Rotel",
-    "categoryPath": [
-      "Home Audio/CD Players"
-    ]
+    "categoryPath": ["Home Audio/CD Players"]
   },
   {
     "_id": "Y7l1IhzX2fnyiano4jNi6Z",
     "title": null,
     "brand": "AudioControl",
-    "categoryPath": [
-      "Home Audio/DACs (Digital-to-Analog Converters)"
-    ],
+    "categoryPath": ["Home Audio/DACs (Digital-to-Analog Converters)"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -564,9 +498,7 @@
     "_id": "Y7l1IhzX2fnyiano4jOcTp",
     "title": null,
     "brand": "Rotel",
-    "categoryPath": [
-      "Home Audio/DACs (Digital-to-Analog Converters)"
-    ],
+    "categoryPath": ["Home Audio/DACs (Digital-to-Analog Converters)"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -581,9 +513,7 @@
     "_id": "Y7l1IhzX2fnyiano4jOlmJ",
     "title": null,
     "brand": "Rotel",
-    "categoryPath": [
-      "Home Audio/DACs (Digital-to-Analog Converters)"
-    ],
+    "categoryPath": ["Home Audio/DACs (Digital-to-Analog Converters)"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -598,9 +528,7 @@
     "_id": "Y7l1IhzX2fnyiano55uqfc",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Studio Equipment/Microphones"
-    ],
+    "categoryPath": ["Studio Equipment/Microphones"],
     "specifications": [
       {
         "_key": "c2e60bfd-acd3-483e-955f-b18d1cb6982d",
@@ -615,9 +543,7 @@
     "_id": "Y7l1IhzX2fnyiano55vJZO",
     "title": null,
     "brand": "Shure",
-    "categoryPath": [
-      "Studio Equipment/Microphones"
-    ],
+    "categoryPath": ["Studio Equipment/Microphones"],
     "specifications": [
       {
         "_type": "spec",
@@ -632,9 +558,7 @@
     "_id": "Y7l1IhzX2fnyiano55vaze",
     "title": null,
     "brand": "Shure",
-    "categoryPath": [
-      "Studio Equipment/Microphones"
-    ],
+    "categoryPath": ["Studio Equipment/Microphones"],
     "specifications": [
       {
         "_key": "b04ab03b-868c-42a7-9888-58a0d66a8d57",
@@ -647,9 +571,7 @@
   },
   {
     "brand": "Shure",
-    "categoryPath": [
-      "Studio Equipment/Microphones"
-    ],
+    "categoryPath": ["Studio Equipment/Microphones"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -665,9 +587,7 @@
   {
     "title": null,
     "brand": "Shure",
-    "categoryPath": [
-      "Studio Equipment/Microphones"
-    ],
+    "categoryPath": ["Studio Equipment/Microphones"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -681,9 +601,7 @@
   },
   {
     "brand": "IsoAcoustics",
-    "categoryPath": [
-      "Studio Equipment/Studio Monitors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Monitors"],
     "specifications": [
       {
         "_type": "spec",
@@ -700,9 +618,7 @@
     "_id": "Y7l1IhzX2fnyiano55zIgM",
     "title": null,
     "brand": "IsoAcoustics",
-    "categoryPath": [
-      "Studio Equipment/Studio Monitors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Monitors"],
     "specifications": [
       {
         "_type": "spec",
@@ -715,9 +631,7 @@
   },
   {
     "brand": "Lutron",
-    "categoryPath": [
-      "Studio Equipment/Audio Interfaces"
-    ],
+    "categoryPath": ["Studio Equipment/Audio Interfaces"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -731,9 +645,7 @@
     "title": null
   },
   {
-    "categoryPath": [
-      "Studio Equipment/Studio Processors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Processors"],
     "specifications": [
       {
         "_type": "spec",
@@ -749,9 +661,7 @@
   },
   {
     "brand": "Alpine",
-    "categoryPath": [
-      "Studio Equipment/Studio Processors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Processors"],
     "specifications": [
       {
         "_key": "997c2c3a-d4f1-411d-af17-b05f2605f0f2",
@@ -767,9 +677,7 @@
   {
     "title": null,
     "brand": "Alpine",
-    "categoryPath": [
-      "Studio Equipment/Studio Processors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Processors"],
     "specifications": [
       {
         "_type": "spec",
@@ -785,9 +693,7 @@
     "_id": "Y7l1IhzX2fnyiano56UUME",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -802,9 +708,7 @@
     "_id": "Y7l1IhzX2fnyiano56UVHM",
     "title": null,
     "brand": "Ortofon",
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -819,9 +723,7 @@
     "_id": "Y7l1IhzX2fnyiano56UXSO",
     "title": null,
     "brand": "Ortofon",
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -833,9 +735,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -851,9 +751,7 @@
   },
   {
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "title": "Specifications",
@@ -879,14 +777,10 @@
     "_id": "Y7l1IhzX2fnyiano56UzbQ",
     "title": null,
     "brand": "Victrola",
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ]
+    "categoryPath": ["Studio Equipment/Recording Accessories"]
   },
   {
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "_key": "06654dbe-e3db-45b5-b0c5-b158450bdbad",
@@ -904,9 +798,7 @@
     "_id": "Y7l1IhzX2fnyiano5721F7",
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Headphones/Earbuds"
-    ],
+    "categoryPath": ["Headphones/Earbuds"],
     "specifications": [
       {
         "_type": "spec",
@@ -921,9 +813,7 @@
     "_id": "Y7l1IhzX2fnyiano572lGy",
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Speakers/Bluetooth Speakers"
-    ],
+    "categoryPath": ["Speakers/Bluetooth Speakers"],
     "specifications": [
       {
         "title": "Specifications",
@@ -938,9 +828,7 @@
     "_id": "Y7l1IhzX2fnyiano572o7Y",
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Speakers/Bluetooth Speakers"
-    ],
+    "categoryPath": ["Speakers/Bluetooth Speakers"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -955,9 +843,7 @@
     "_id": "Y7l1IhzX2fnyiano5731tt",
     "title": null,
     "brand": "Klipsch",
-    "categoryPath": [
-      "Speakers/Bluetooth Speakers"
-    ],
+    "categoryPath": ["Speakers/Bluetooth Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -972,9 +858,7 @@
     "_id": "Y7l1IhzX2fnyiano5738Qz",
     "title": null,
     "brand": "Victrola",
-    "categoryPath": [
-      "Speakers/Bluetooth Speakers"
-    ],
+    "categoryPath": ["Speakers/Bluetooth Speakers"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -987,9 +871,7 @@
   },
   {
     "brand": "Polk Audio",
-    "categoryPath": [
-      "Speakers/Bookshelf Speakers"
-    ],
+    "categoryPath": ["Speakers/Bookshelf Speakers"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -1005,9 +887,7 @@
   {
     "title": null,
     "brand": "Polk Audio",
-    "categoryPath": [
-      "Speakers/Bookshelf Speakers"
-    ],
+    "categoryPath": ["Speakers/Bookshelf Speakers"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -1023,9 +903,7 @@
     "_id": "Y7l1IhzX2fnyiano573qhm",
     "title": null,
     "brand": "Bowers & Wilkins",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "title": "Specifications",
@@ -1038,9 +916,7 @@
   },
   {
     "brand": "Bowers & Wilkins",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -1066,14 +942,10 @@
     "_id": "Y7l1IhzX2fnyiano5740l0",
     "title": null,
     "brand": "Bowers & Wilkins",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ]
+    "categoryPath": ["Speakers/Floor Standing Speakers"]
   },
   {
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -1091,9 +963,7 @@
     "_id": "Y7l1IhzX2fnyiano5745cE",
     "title": null,
     "brand": "Kanto",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -1108,9 +978,7 @@
     "_id": "Y7l1IhzX2fnyiano574I3T",
     "title": null,
     "brand": "Sonos",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -1125,9 +993,7 @@
     "_id": "Y7l1IhzX2fnyiano57Yolh",
     "title": null,
     "brand": "Polk Audio",
-    "categoryPath": [
-      "Speakers/Outdoor Speakers"
-    ],
+    "categoryPath": ["Speakers/Outdoor Speakers"],
     "specifications": [
       {
         "title": "Specifications",
@@ -1141,9 +1007,7 @@
   {
     "title": null,
     "brand": "Polk Audio",
-    "categoryPath": [
-      "Speakers/Outdoor Speakers"
-    ],
+    "categoryPath": ["Speakers/Outdoor Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -1159,9 +1023,7 @@
     "_id": "Y7l1IhzX2fnyiano57a6iw",
     "title": null,
     "brand": "SVS",
-    "categoryPath": [
-      "Speakers/Subwoofers"
-    ],
+    "categoryPath": ["Speakers/Subwoofers"],
     "specifications": [
       {
         "title": "Specifications",
@@ -1185,17 +1047,13 @@
     "_id": "Y7l1IhzX2fnyiano57aQF2",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ]
+    "categoryPath": ["Accessories/Power Cables"]
   },
   {
     "_id": "Y7l1IhzX2fnyiano57aQXD",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -1210,9 +1068,7 @@
     "_id": "Y7l1IhzX2fnyiano57aQkC",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -1227,9 +1083,7 @@
     "_id": "Y7l1IhzX2fnyiano57aTDP",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -1244,9 +1098,7 @@
     "_id": "Y7l1IhzX2fnyiano57aUtH",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -1259,9 +1111,7 @@
   },
   {
     "brand": "Mountson",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "_type": "spec",
@@ -1278,9 +1128,7 @@
     "_id": "Y7l1IhzX2fnyiano57ahFK",
     "title": null,
     "brand": "Mountson",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -1294,9 +1142,7 @@
   {
     "title": null,
     "brand": "Mountson",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "_key": "3a4e4f4c-3c75-432f-96bf-5a0c12928936",
@@ -1312,9 +1158,7 @@
     "_id": "Y7l1IhzX2fnyiano57axHt",
     "title": null,
     "brand": "Sonos",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "title": "Specifications",
@@ -1338,15 +1182,11 @@
     "_id": "Y7l1IhzX2fnyiano57azVW",
     "title": null,
     "brand": "Kanto",
-    "categoryPath": [
-      "Accessories/Speaker Stands"
-    ]
+    "categoryPath": ["Accessories/Speaker Stands"]
   },
   {
     "brand": "Sanus",
-    "categoryPath": [
-      "Accessories/Speaker Stands"
-    ],
+    "categoryPath": ["Accessories/Speaker Stands"],
     "specifications": [
       {
         "_type": "spec",
@@ -1363,9 +1203,7 @@
     "_id": "Y7l1IhzX2fnyiano57b5Pf",
     "title": null,
     "brand": "Sanus",
-    "categoryPath": [
-      "Accessories/Speaker Stands"
-    ],
+    "categoryPath": ["Accessories/Speaker Stands"],
     "specifications": [
       {
         "_type": "spec",
@@ -1389,14 +1227,10 @@
     "_id": "Y7l1IhzX2fnyiano57b72w",
     "title": null,
     "brand": "Sanus",
-    "categoryPath": [
-      "Accessories/Speaker Stands"
-    ]
+    "categoryPath": ["Accessories/Speaker Stands"]
   },
   {
-    "categoryPath": [
-      "Accessories/HDMI Cables"
-    ],
+    "categoryPath": ["Accessories/HDMI Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -1412,9 +1246,7 @@
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/HDMI Cables"
-    ],
+    "categoryPath": ["Accessories/HDMI Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -1431,9 +1263,7 @@
     "_id": "Y7l1IhzX2fnyiano58Fpeh",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/HDMI Cables"
-    ],
+    "categoryPath": ["Accessories/HDMI Cables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -1448,9 +1278,7 @@
     "_id": "Y7l1IhzX2fnyiano58Fyhb",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/HDMI Cables"
-    ],
+    "categoryPath": ["Accessories/HDMI Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -1464,9 +1292,7 @@
   {
     "title": null,
     "brand": "Sanus",
-    "categoryPath": [
-      "Accessories/HDMI Cables"
-    ],
+    "categoryPath": ["Accessories/HDMI Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -1479,9 +1305,7 @@
     "_id": "Y7l1IhzX2fnyiano58G2yT"
   },
   {
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ],
+    "categoryPath": ["Accessories/Phono Cartridges"],
     "specifications": [
       {
         "_key": "d6f0c3d2-c8d0-44b1-b7e5-f5fd625a8028",
@@ -1499,9 +1323,7 @@
     "_id": "Y7l1IhzX2fnyiano58G7SK",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ],
+    "categoryPath": ["Accessories/Phono Cartridges"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -1513,9 +1335,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ],
+    "categoryPath": ["Accessories/Phono Cartridges"],
     "specifications": [
       {
         "_type": "spec",
@@ -1542,9 +1362,7 @@
     "_id": "Y7l1IhzX2fnyiano58G8d2",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ]
+    "categoryPath": ["Accessories/Phono Cartridges"]
   },
   {
     "specifications": [
@@ -1559,15 +1377,11 @@
     "_id": "Y7l1IhzX2fnyiano58G9l9",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ]
+    "categoryPath": ["Accessories/Phono Cartridges"]
   },
   {
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ],
+    "categoryPath": ["Accessories/Phono Cartridges"],
     "specifications": [
       {
         "_type": "spec",
@@ -1582,9 +1396,7 @@
   },
   {
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ],
+    "categoryPath": ["Accessories/Phono Cartridges"],
     "specifications": [
       {
         "_type": "spec",
@@ -1601,9 +1413,7 @@
     "_id": "Y7l1IhzX2fnyiano58GEey",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -1616,9 +1426,7 @@
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "_key": "53ac3dbc-7c2a-44a8-bb07-b22f9d870093",
@@ -1644,17 +1452,13 @@
     "_id": "Y7l1IhzX2fnyiano58Gfy4",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ]
+    "categoryPath": ["Accessories/RCA Cables"]
   },
   {
     "_id": "Y7l1IhzX2fnyiano58GgtC",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "_key": "9e262921-c900-431b-b010-ae446d035f12",
@@ -1669,9 +1473,7 @@
     "_id": "Y7l1IhzX2fnyiano58Gi1J",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -1684,9 +1486,7 @@
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -1712,15 +1512,11 @@
     "_id": "Y7l1IhzX2fnyiano58GkPK",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ]
+    "categoryPath": ["Accessories/USB Cables"]
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -1746,17 +1542,13 @@
     "_id": "Y7l1IhzX2fnyiano58Gpdv",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ]
+    "categoryPath": ["Accessories/USB Cables"]
   },
   {
     "_id": "Y7l1IhzX2fnyiano58GwGD",
     "title": null,
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ],
+    "categoryPath": ["Accessories/Headphone Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -1771,9 +1563,7 @@
     "_id": "Y7l1IhzX2fnyiano58GzUA",
     "title": null,
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ],
+    "categoryPath": ["Accessories/Headphone Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -1786,9 +1576,7 @@
   },
   {
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ],
+    "categoryPath": ["Accessories/Headphone Cables"],
     "specifications": [
       {
         "_key": "7b232e63-b25b-4733-9af7-535da7a1d079",
@@ -1805,9 +1593,7 @@
     "_id": "Y7l1IhzX2fnyiano58H7bw",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Ethernet Cables"
-    ],
+    "categoryPath": ["Accessories/Ethernet Cables"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -1820,9 +1606,7 @@
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Ethernet Cables"
-    ],
+    "categoryPath": ["Accessories/Ethernet Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -1839,9 +1623,7 @@
     "_id": "Y7l1IhzX2fnyiano58HBDG",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Ethernet Cables"
-    ],
+    "categoryPath": ["Accessories/Ethernet Cables"],
     "specifications": [
       {
         "_key": "5314c171-80bb-4554-843b-79f3ce5b548a",
@@ -1853,9 +1635,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Accessories/Speaker and Subwoofer accessories"
-    ],
+    "categoryPath": ["Accessories/Speaker and Subwoofer accessories"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -1873,9 +1653,7 @@
     "_id": "Y7l1IhzX2fnyiano58HEtm",
     "title": null,
     "brand": "Shure",
-    "categoryPath": [
-      "Accessories/Microphone Accessories"
-    ],
+    "categoryPath": ["Accessories/Microphone Accessories"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -1887,9 +1665,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Personal Audio/Digital Audio Players"
-    ],
+    "categoryPath": ["Personal Audio/Digital Audio Players"],
     "specifications": [
       {
         "_type": "spec",
@@ -1907,9 +1683,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxkuR6z",
     "title": null,
     "brand": "Panasonic",
-    "categoryPath": [
-      "Personal Audio/Digital Audio Players"
-    ],
+    "categoryPath": ["Personal Audio/Digital Audio Players"],
     "specifications": [
       {
         "title": "Specifications",
@@ -1924,9 +1698,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxkwTy9",
     "title": null,
     "brand": "Advance Paris",
-    "categoryPath": [
-      "Personal Audio/Bluetooth Receivers and Transmitters"
-    ],
+    "categoryPath": ["Personal Audio/Bluetooth Receivers and Transmitters"],
     "specifications": [
       {
         "_type": "spec",
@@ -1941,9 +1713,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxkwUBc",
     "title": null,
     "brand": "Advance Paris",
-    "categoryPath": [
-      "Personal Audio/Bluetooth Receivers and Transmitters"
-    ],
+    "categoryPath": ["Personal Audio/Bluetooth Receivers and Transmitters"],
     "specifications": [
       {
         "title": "Specifications",
@@ -1955,9 +1725,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Personal Audio/Bluetooth Receivers and Transmitters"
-    ],
+    "categoryPath": ["Personal Audio/Bluetooth Receivers and Transmitters"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -1972,9 +1740,7 @@
     "brand": "Advance Paris"
   },
   {
-    "categoryPath": [
-      "Personal Audio/Bluetooth Receivers and Transmitters"
-    ],
+    "categoryPath": ["Personal Audio/Bluetooth Receivers and Transmitters"],
     "specifications": [
       {
         "_type": "spec",
@@ -1992,9 +1758,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxl7UOP",
     "title": null,
     "brand": "McIntosh",
-    "categoryPath": [
-      "Personal Audio/Headphone Amplifiers"
-    ],
+    "categoryPath": ["Personal Audio/Headphone Amplifiers"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -2018,17 +1782,13 @@
     "_id": "ZuUKzmkqDyQwdcwhxl7Ume",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Personal Audio/Headphone Amplifiers"
-    ]
+    "categoryPath": ["Personal Audio/Headphone Amplifiers"]
   },
   {
     "_id": "ZuUKzmkqDyQwdcwhxl81C2",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Personal Audio/Phone and Tablet Accessories"
-    ],
+    "categoryPath": ["Personal Audio/Phone and Tablet Accessories"],
     "specifications": [
       {
         "_key": "152f69bc-c1d5-41da-bcd0-2bcba51c38fb",
@@ -2041,9 +1801,7 @@
   },
   {
     "brand": "Bose",
-    "categoryPath": [
-      "Personal Audio/Carrying Cases and Protection"
-    ],
+    "categoryPath": ["Personal Audio/Carrying Cases and Protection"],
     "specifications": [
       {
         "_type": "spec",
@@ -2060,9 +1818,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxl8tl8",
     "title": null,
     "brand": "Bose",
-    "categoryPath": [
-      "Personal Audio/Carrying Cases and Protection"
-    ],
+    "categoryPath": ["Personal Audio/Carrying Cases and Protection"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -2076,9 +1832,7 @@
   {
     "title": null,
     "brand": "Devialet",
-    "categoryPath": [
-      "Personal Audio/Carrying Cases and Protection"
-    ],
+    "categoryPath": ["Personal Audio/Carrying Cases and Protection"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -2094,9 +1848,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxl94vN",
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Personal Audio/Carrying Cases and Protection"
-    ],
+    "categoryPath": ["Personal Audio/Carrying Cases and Protection"],
     "specifications": [
       {
         "_type": "spec",
@@ -2111,9 +1863,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxl9wH3",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -2137,16 +1887,12 @@
     "_id": "ZuUKzmkqDyQwdcwhxl9zkX",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ]
+    "categoryPath": ["Personal Audio/Replacement Parts"]
   },
   {
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "title": "Specifications",
@@ -2162,9 +1908,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxlA4Wp",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -2179,9 +1923,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxlCBwo",
     "title": null,
     "brand": "SVS",
-    "categoryPath": [
-      "Home Audio/Receivers"
-    ],
+    "categoryPath": ["Home Audio/Receivers"],
     "specifications": [
       {
         "title": "Specifications",
@@ -2196,9 +1938,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxlGEhy",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Home Audio/Preamps"
-    ],
+    "categoryPath": ["Home Audio/Preamps"],
     "specifications": [
       {
         "_type": "spec",
@@ -2210,9 +1950,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Home Audio/Preamps"
-    ],
+    "categoryPath": ["Home Audio/Preamps"],
     "specifications": [
       {
         "_key": "5967cf34-e6ef-4ffc-b601-e039dcf2eb7d",
@@ -2229,9 +1967,7 @@
   {
     "title": null,
     "brand": "U-Turn Audio",
-    "categoryPath": [
-      "Home Audio/Preamps"
-    ],
+    "categoryPath": ["Home Audio/Preamps"],
     "specifications": [
       {
         "_type": "spec",
@@ -2245,9 +1981,7 @@
   },
   {
     "brand": "U-Turn Audio",
-    "categoryPath": [
-      "Home Audio/Preamps"
-    ],
+    "categoryPath": ["Home Audio/Preamps"],
     "specifications": [
       {
         "title": "Specifications",
@@ -2261,9 +1995,7 @@
     "title": null
   },
   {
-    "categoryPath": [
-      "Home Audio/Turntables"
-    ],
+    "categoryPath": ["Home Audio/Turntables"],
     "specifications": [
       {
         "_type": "spec",
@@ -2290,9 +2022,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxlHza0",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Home Audio/Turntables"
-    ]
+    "categoryPath": ["Home Audio/Turntables"]
   },
   {
     "specifications": [
@@ -2307,17 +2037,13 @@
     "_id": "ZuUKzmkqDyQwdcwhxlI2H0",
     "title": null,
     "brand": "U-Turn Audio",
-    "categoryPath": [
-      "Home Audio/Turntables"
-    ]
+    "categoryPath": ["Home Audio/Turntables"]
   },
   {
     "_id": "ZuUKzmkqDyQwdcwhxlIdY4",
     "title": null,
     "brand": "Denon",
-    "categoryPath": [
-      "Home Audio/CD Players"
-    ],
+    "categoryPath": ["Home Audio/CD Players"],
     "specifications": [
       {
         "_key": "36f34d5d-3850-4a28-b644-4be5d65e1095",
@@ -2332,9 +2058,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxlIf4L",
     "title": null,
     "brand": "Integra",
-    "categoryPath": [
-      "Home Audio/CD Players"
-    ],
+    "categoryPath": ["Home Audio/CD Players"],
     "specifications": [
       {
         "_key": "321c49db-6d48-4774-a9a9-ee6b9801b030",
@@ -2349,9 +2073,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxlIfdM",
     "title": null,
     "brand": "Marantz",
-    "categoryPath": [
-      "Home Audio/CD Players"
-    ],
+    "categoryPath": ["Home Audio/CD Players"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -2363,9 +2085,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Home Audio/CD Players"
-    ],
+    "categoryPath": ["Home Audio/CD Players"],
     "specifications": [
       {
         "_type": "spec",
@@ -2383,9 +2103,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxlJjqK",
     "title": null,
     "brand": "Chord Electronics",
-    "categoryPath": [
-      "Home Audio/DACs (Digital-to-Analog Converters)"
-    ],
+    "categoryPath": ["Home Audio/DACs (Digital-to-Analog Converters)"],
     "specifications": [
       {
         "_type": "spec",
@@ -2400,9 +2118,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxlJt0f",
     "title": null,
     "brand": "Rotel",
-    "categoryPath": [
-      "Home Audio/DACs (Digital-to-Analog Converters)"
-    ],
+    "categoryPath": ["Home Audio/DACs (Digital-to-Analog Converters)"],
     "specifications": [
       {
         "_type": "spec",
@@ -2417,9 +2133,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxlJtf4",
     "title": null,
     "brand": "Rotel",
-    "categoryPath": [
-      "Home Audio/DACs (Digital-to-Analog Converters)"
-    ],
+    "categoryPath": ["Home Audio/DACs (Digital-to-Analog Converters)"],
     "specifications": [
       {
         "_key": "5ccdc404-f813-436a-a0fd-22114b714ea7",
@@ -2433,9 +2147,7 @@
   {
     "title": null,
     "brand": "Shure",
-    "categoryPath": [
-      "Studio Equipment/Microphones"
-    ],
+    "categoryPath": ["Studio Equipment/Microphones"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -2451,9 +2163,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxvH9tv",
     "title": null,
     "brand": "Shure",
-    "categoryPath": [
-      "Studio Equipment/Microphones"
-    ],
+    "categoryPath": ["Studio Equipment/Microphones"],
     "specifications": [
       {
         "_key": "60d4d9f7-eb88-4c00-9719-060c142b93b8",
@@ -2467,9 +2177,7 @@
   {
     "title": null,
     "brand": "Shure",
-    "categoryPath": [
-      "Studio Equipment/Microphones"
-    ],
+    "categoryPath": ["Studio Equipment/Microphones"],
     "specifications": [
       {
         "_key": "bbbcc763-1490-4456-b4d0-678d83da69d4",
@@ -2482,9 +2190,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxvHR1B"
   },
   {
-    "categoryPath": [
-      "Studio Equipment/Microphones"
-    ],
+    "categoryPath": ["Studio Equipment/Microphones"],
     "specifications": [
       {
         "title": "Specifications",
@@ -2501,9 +2207,7 @@
   {
     "title": null,
     "brand": "Alpine",
-    "categoryPath": [
-      "Studio Equipment/Studio Processors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Processors"],
     "specifications": [
       {
         "title": "Specifications",
@@ -2518,9 +2222,7 @@
   {
     "title": null,
     "brand": "Alpine",
-    "categoryPath": [
-      "Studio Equipment/Studio Processors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Processors"],
     "specifications": [
       {
         "_key": "f7423260-2128-432a-ae66-9cef3c476c13",
@@ -2536,9 +2238,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxvlrdD",
     "title": null,
     "brand": "Alpine",
-    "categoryPath": [
-      "Studio Equipment/Studio Processors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Processors"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -2562,14 +2262,10 @@
     "_id": "ZuUKzmkqDyQwdcwhxvojH8",
     "title": null,
     "brand": "Ortofon",
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ]
+    "categoryPath": ["Studio Equipment/Recording Accessories"]
   },
   {
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "_key": "781895af-efbd-45f5-898c-1a4294f3c86f",
@@ -2585,9 +2281,7 @@
   },
   {
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "_type": "spec",
@@ -2604,9 +2298,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxvor5y",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -2618,9 +2310,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "_type": "spec",
@@ -2636,9 +2326,7 @@
   },
   {
     "brand": "JBL",
-    "categoryPath": [
-      "Headphones/Earbuds"
-    ],
+    "categoryPath": ["Headphones/Earbuds"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -2655,9 +2343,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwQbOj",
     "title": null,
     "brand": "Bose",
-    "categoryPath": [
-      "Headphones/Noise Cancelling"
-    ],
+    "categoryPath": ["Headphones/Noise Cancelling"],
     "specifications": [
       {
         "_key": "e1017940-b18c-430d-a9bb-9301a0f40d45",
@@ -2672,9 +2358,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwQgOU",
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Headphones/Noise Cancelling"
-    ],
+    "categoryPath": ["Headphones/Noise Cancelling"],
     "specifications": [
       {
         "_key": "eb609fab-d700-42fc-ac55-725cbfceae7c",
@@ -2698,16 +2382,12 @@
     "_id": "ZuUKzmkqDyQwdcwhxwQkWN",
     "title": null,
     "brand": "Bose",
-    "categoryPath": [
-      "Speakers/Bluetooth Speakers"
-    ]
+    "categoryPath": ["Speakers/Bluetooth Speakers"]
   },
   {
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Speakers/Bluetooth Speakers"
-    ],
+    "categoryPath": ["Speakers/Bluetooth Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -2721,9 +2401,7 @@
   },
   {
     "brand": "JBL",
-    "categoryPath": [
-      "Speakers/Bookshelf Speakers"
-    ],
+    "categoryPath": ["Speakers/Bookshelf Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -2739,9 +2417,7 @@
   {
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Speakers/Bookshelf Speakers"
-    ],
+    "categoryPath": ["Speakers/Bookshelf Speakers"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -2766,14 +2442,10 @@
     "_id": "ZuUKzmkqDyQwdcwhxwS6aO",
     "title": null,
     "brand": "Bowers & Wilkins",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ]
+    "categoryPath": ["Speakers/Floor Standing Speakers"]
   },
   {
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_key": "88aa27f3-654a-433e-ac41-b0cb0bf2997f",
@@ -2791,9 +2463,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwSEfO",
     "title": null,
     "brand": "Bowers & Wilkins",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -2805,9 +2475,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -2825,9 +2493,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwSIZo",
     "title": null,
     "brand": "Bowers & Wilkins",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_key": "ee24b647-871d-4b87-b74f-e13eec5e7a1f",
@@ -2842,9 +2508,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwSMpm",
     "title": null,
     "brand": "Flexson",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -2859,9 +2523,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwSS8O",
     "title": null,
     "brand": "Kanto",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -2876,9 +2538,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwSTJ7",
     "title": null,
     "brand": "Mountson",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -2893,9 +2553,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwSbgy",
     "title": null,
     "brand": "Sonos",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -2910,9 +2568,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwT1nn",
     "title": null,
     "brand": "Sonos",
-    "categoryPath": [
-      "Speakers/Soundbars"
-    ],
+    "categoryPath": ["Speakers/Soundbars"],
     "specifications": [
       {
         "_type": "spec",
@@ -2927,9 +2583,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwwuew",
     "title": null,
     "brand": "Bose",
-    "categoryPath": [
-      "Speakers/Outdoor Speakers"
-    ],
+    "categoryPath": ["Speakers/Outdoor Speakers"],
     "specifications": [
       {
         "title": "Specifications",
@@ -2942,9 +2596,7 @@
   },
   {
     "brand": "Polk Audio",
-    "categoryPath": [
-      "Speakers/Outdoor Speakers"
-    ],
+    "categoryPath": ["Speakers/Outdoor Speakers"],
     "specifications": [
       {
         "title": "Specifications",
@@ -2961,9 +2613,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwykWj",
     "title": null,
     "brand": "Victrola",
-    "categoryPath": [
-      "Speakers/Outdoor Speakers"
-    ],
+    "categoryPath": ["Speakers/Outdoor Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -2978,9 +2628,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwyok0",
     "title": null,
     "brand": "Definitive Technology",
-    "categoryPath": [
-      "Speakers/Subwoofers"
-    ],
+    "categoryPath": ["Speakers/Subwoofers"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -2995,9 +2643,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwytLW",
     "title": null,
     "brand": "Kanto",
-    "categoryPath": [
-      "Speakers/Subwoofers"
-    ],
+    "categoryPath": ["Speakers/Subwoofers"],
     "specifications": [
       {
         "title": "Specifications",
@@ -3021,9 +2667,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwzGPn",
     "title": null,
     "brand": "SVS",
-    "categoryPath": [
-      "Speakers/Subwoofers"
-    ]
+    "categoryPath": ["Speakers/Subwoofers"]
   },
   {
     "specifications": [
@@ -3038,17 +2682,13 @@
     "_id": "ZuUKzmkqDyQwdcwhxwzj8E",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ]
+    "categoryPath": ["Accessories/Power Cables"]
   },
   {
     "_id": "ZuUKzmkqDyQwdcwhxwzoTX",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -3061,9 +2701,7 @@
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -3080,9 +2718,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwzrIc",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -3097,9 +2733,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwzruK",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -3114,9 +2748,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxwzv7e",
     "title": null,
     "brand": "Mountson",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "_type": "spec",
@@ -3131,9 +2763,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxx01Vb",
     "title": null,
     "brand": "Mountson",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "_type": "spec",
@@ -3148,9 +2778,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxx0E1L",
     "title": null,
     "brand": "Mountson",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "_type": "spec",
@@ -3165,9 +2793,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxx0P3V",
     "title": null,
     "brand": "Sanus",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "_key": "33942ea7-700f-467d-a7f7-0ba8190da91d",
@@ -3182,9 +2808,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxx0PcW",
     "title": null,
     "brand": "Sanus",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -3199,9 +2823,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxx0RvH",
     "title": null,
     "brand": "Sonos",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -3216,9 +2838,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxx0T0c",
     "title": null,
     "brand": "Kanto",
-    "categoryPath": [
-      "Accessories/Speaker Stands"
-    ],
+    "categoryPath": ["Accessories/Speaker Stands"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -3231,9 +2851,7 @@
   },
   {
     "brand": "Sanus",
-    "categoryPath": [
-      "Accessories/Speaker Stands"
-    ],
+    "categoryPath": ["Accessories/Speaker Stands"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -3250,9 +2868,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxx0b8J",
     "title": null,
     "brand": "Sanus",
-    "categoryPath": [
-      "Accessories/Speaker Stands"
-    ],
+    "categoryPath": ["Accessories/Speaker Stands"],
     "specifications": [
       {
         "title": "Specifications",
@@ -3267,9 +2883,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxxfTtO",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/HDMI Cables"
-    ],
+    "categoryPath": ["Accessories/HDMI Cables"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -3282,9 +2896,7 @@
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/HDMI Cables"
-    ],
+    "categoryPath": ["Accessories/HDMI Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -3298,9 +2910,7 @@
     "title": null
   },
   {
-    "categoryPath": [
-      "Accessories/HDMI Cables"
-    ],
+    "categoryPath": ["Accessories/HDMI Cables"],
     "specifications": [
       {
         "_key": "723e2e2f-6daa-4117-a5c3-6dbd42c1ee87",
@@ -3318,9 +2928,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxxfdEV",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/HDMI Cables"
-    ],
+    "categoryPath": ["Accessories/HDMI Cables"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -3344,15 +2952,11 @@
     "_id": "ZuUKzmkqDyQwdcwhxxfoOk",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ]
+    "categoryPath": ["Accessories/Phono Cartridges"]
   },
   {
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ],
+    "categoryPath": ["Accessories/Phono Cartridges"],
     "specifications": [
       {
         "_key": "4fd7e5f0-9665-4476-8c8f-55fb0319e487",
@@ -3366,9 +2970,7 @@
     "title": null
   },
   {
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ],
+    "categoryPath": ["Accessories/Phono Cartridges"],
     "specifications": [
       {
         "_type": "spec",
@@ -3386,9 +2988,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxxfsWd",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ],
+    "categoryPath": ["Accessories/Phono Cartridges"],
     "specifications": [
       {
         "_type": "spec",
@@ -3403,9 +3003,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxxftby",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ],
+    "categoryPath": ["Accessories/Phono Cartridges"],
     "specifications": [
       {
         "title": "Specifications",
@@ -3419,9 +3017,7 @@
   {
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ],
+    "categoryPath": ["Accessories/Phono Cartridges"],
     "specifications": [
       {
         "_type": "spec",
@@ -3435,9 +3031,7 @@
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -3451,9 +3045,7 @@
     "title": null
   },
   {
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "_key": "0f5a510e-5353-4310-8962-2217912fdcae",
@@ -3471,9 +3063,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxxg0WF",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -3487,9 +3077,7 @@
   {
     "title": null,
     "brand": "SVS",
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -3503,9 +3091,7 @@
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -3531,15 +3117,11 @@
     "_id": "ZuUKzmkqDyQwdcwhxxg3TP",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ]
+    "categoryPath": ["Accessories/USB Cables"]
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -3553,9 +3135,7 @@
     "title": null
   },
   {
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -3571,9 +3151,7 @@
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -3587,9 +3165,7 @@
     "title": null
   },
   {
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "_key": "5ea5f521-2de4-49de-b0a2-927b47e79fa8",
@@ -3605,9 +3181,7 @@
   },
   {
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ],
+    "categoryPath": ["Accessories/Headphone Cables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -3624,9 +3198,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxxgMfx",
     "title": null,
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ],
+    "categoryPath": ["Accessories/Headphone Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -3641,9 +3213,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxxgPfo",
     "title": null,
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ],
+    "categoryPath": ["Accessories/Headphone Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -3667,9 +3237,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxxgQ43",
     "title": null,
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ]
+    "categoryPath": ["Accessories/Headphone Cables"]
   },
   {
     "specifications": [
@@ -3684,16 +3252,12 @@
     "_id": "ZuUKzmkqDyQwdcwhxxgRd1",
     "title": null,
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ]
+    "categoryPath": ["Accessories/Headphone Cables"]
   },
   {
     "title": null,
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ],
+    "categoryPath": ["Accessories/Headphone Cables"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -3718,9 +3282,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxxgSiM",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Ethernet Cables"
-    ]
+    "categoryPath": ["Accessories/Ethernet Cables"]
   },
   {
     "specifications": [
@@ -3735,16 +3297,12 @@
     "_id": "ZuUKzmkqDyQwdcwhxxgX11",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Ethernet Cables"
-    ]
+    "categoryPath": ["Accessories/Ethernet Cables"]
   },
   {
     "title": null,
     "brand": "Kicker",
-    "categoryPath": [
-      "Accessories/Speaker and Subwoofer accessories"
-    ],
+    "categoryPath": ["Accessories/Speaker and Subwoofer accessories"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -3759,9 +3317,7 @@
   {
     "title": null,
     "brand": "Kicker",
-    "categoryPath": [
-      "Accessories/Speaker and Subwoofer accessories"
-    ],
+    "categoryPath": ["Accessories/Speaker and Subwoofer accessories"],
     "specifications": [
       {
         "title": "Specifications",
@@ -3774,9 +3330,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxxgZ3c"
   },
   {
-    "categoryPath": [
-      "Accessories/Microphone Accessories"
-    ],
+    "categoryPath": ["Accessories/Microphone Accessories"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -3792,9 +3346,7 @@
   },
   {
     "brand": "Shure",
-    "categoryPath": [
-      "Accessories/Microphone Accessories"
-    ],
+    "categoryPath": ["Accessories/Microphone Accessories"],
     "specifications": [
       {
         "title": "Specifications",
@@ -3811,9 +3363,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxxgdcR",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Management"
-    ],
+    "categoryPath": ["Accessories/Power Management"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -3828,9 +3378,7 @@
     "_id": "ZuUKzmkqDyQwdcwhxxgeUJ",
     "title": null,
     "brand": "iFi Audio",
-    "categoryPath": [
-      "Accessories/Power Management"
-    ],
+    "categoryPath": ["Accessories/Power Management"],
     "specifications": [
       {
         "_type": "spec",
@@ -3842,9 +3390,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Accessories/Power Management"
-    ],
+    "categoryPath": ["Accessories/Power Management"],
     "specifications": [
       {
         "_type": "spec",
@@ -3861,9 +3407,7 @@
   {
     "title": null,
     "brand": "IsoAcoustics",
-    "categoryPath": [
-      "Studio Equipment/Studio Monitors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Monitors"],
     "specifications": [
       {
         "_key": "0751bf71-717f-48cf-8ed1-d4a0c112677e",
@@ -3888,17 +3432,13 @@
     "_id": "dLGDVDmEEI2lV8CArAWAX6",
     "title": null,
     "brand": "Advance Paris",
-    "categoryPath": [
-      "Personal Audio/Digital Audio Players"
-    ]
+    "categoryPath": ["Personal Audio/Digital Audio Players"]
   },
   {
     "_id": "dLGDVDmEEI2lV8CArAcqnk",
     "title": null,
     "brand": "Sennheiser",
-    "categoryPath": [
-      "Personal Audio/Headphone Amplifiers"
-    ],
+    "categoryPath": ["Personal Audio/Headphone Amplifiers"],
     "specifications": [
       {
         "_key": "acedd7d4-b2b1-4978-aab8-62efdfd214f8",
@@ -3922,14 +3462,10 @@
     "_id": "dLGDVDmEEI2lV8CArAd2my",
     "title": null,
     "brand": "Panamax",
-    "categoryPath": [
-      "Personal Audio/Phone and Tablet Accessories"
-    ]
+    "categoryPath": ["Personal Audio/Phone and Tablet Accessories"]
   },
   {
-    "categoryPath": [
-      "Personal Audio/Carrying Cases and Protection"
-    ],
+    "categoryPath": ["Personal Audio/Carrying Cases and Protection"],
     "specifications": [
       {
         "title": "Specifications",
@@ -3947,9 +3483,7 @@
     "_id": "dLGDVDmEEI2lV8CArAdUMO",
     "title": null,
     "brand": "iFi Audio",
-    "categoryPath": [
-      "Personal Audio/Carrying Cases and Protection"
-    ],
+    "categoryPath": ["Personal Audio/Carrying Cases and Protection"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -3964,9 +3498,7 @@
     "_id": "dLGDVDmEEI2lV8CArAdUoG",
     "title": null,
     "brand": "iFi Audio",
-    "categoryPath": [
-      "Personal Audio/Carrying Cases and Protection"
-    ],
+    "categoryPath": ["Personal Audio/Carrying Cases and Protection"],
     "specifications": [
       {
         "_type": "spec",
@@ -3979,9 +3511,7 @@
   },
   {
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "_type": "spec",
@@ -3998,9 +3528,7 @@
     "_id": "dLGDVDmEEI2lV8CArAe95o",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "_key": "136a611f-a98f-4b4a-980a-17ead5693bdd",
@@ -4015,9 +3543,7 @@
     "_id": "dLGDVDmEEI2lV8CArAe9IC",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "title": "Specifications",
@@ -4032,9 +3558,7 @@
     "_id": "dLGDVDmEEI2lV8CArAe9Xg",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "_type": "spec",
@@ -4049,9 +3573,7 @@
     "_id": "dLGDVDmEEI2lV8CArAeAOK",
     "title": null,
     "brand": "Ortofon",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "_type": "spec",
@@ -4066,9 +3588,7 @@
     "_id": "dLGDVDmEEI2lV8CArAeAiS",
     "title": null,
     "brand": "Ortofon",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "title": "Specifications",
@@ -4081,9 +3601,7 @@
   },
   {
     "brand": "Ortofon",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -4097,9 +3615,7 @@
     "title": null
   },
   {
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "_type": "spec",
@@ -4117,9 +3633,7 @@
     "_id": "dLGDVDmEEI2lV8CArAeGSa",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Personal Audio/Replacement Parts"
-    ],
+    "categoryPath": ["Personal Audio/Replacement Parts"],
     "specifications": [
       {
         "title": "Specifications",
@@ -4143,14 +3657,10 @@
     "_id": "dLGDVDmEEI2lV8CArAetTA",
     "title": null,
     "brand": "Yamaha",
-    "categoryPath": [
-      "Home Audio/Amplifiers"
-    ]
+    "categoryPath": ["Home Audio/Amplifiers"]
   },
   {
-    "categoryPath": [
-      "Home Audio/Receivers"
-    ],
+    "categoryPath": ["Home Audio/Receivers"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -4166,9 +3676,7 @@
   },
   {
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Home Audio/Preamps"
-    ],
+    "categoryPath": ["Home Audio/Preamps"],
     "specifications": [
       {
         "_key": "a5818df3-01f0-4265-81c5-bb62da7e9b4f",
@@ -4194,9 +3702,7 @@
     "_id": "dLGDVDmEEI2lV8CArAj7tc",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Home Audio/Preamps"
-    ]
+    "categoryPath": ["Home Audio/Preamps"]
   },
   {
     "specifications": [
@@ -4211,17 +3717,13 @@
     "_id": "dLGDVDmEEI2lV8CArAj896",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Home Audio/Preamps"
-    ]
+    "categoryPath": ["Home Audio/Preamps"]
   },
   {
     "_id": "dLGDVDmEEI2lV8CArAj8N2",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Home Audio/Preamps"
-    ],
+    "categoryPath": ["Home Audio/Preamps"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -4235,9 +3737,7 @@
   {
     "title": null,
     "brand": "Ortofon",
-    "categoryPath": [
-      "Home Audio/Turntables"
-    ],
+    "categoryPath": ["Home Audio/Turntables"],
     "specifications": [
       {
         "_key": "da222199-8238-4cd8-9b71-0bd9576fdce7",
@@ -4252,9 +3752,7 @@
   {
     "title": null,
     "brand": "Ortofon",
-    "categoryPath": [
-      "Home Audio/Turntables"
-    ],
+    "categoryPath": ["Home Audio/Turntables"],
     "specifications": [
       {
         "_key": "f4666f5d-667c-488b-b182-ff8ae4a4ba4f",
@@ -4269,9 +3767,7 @@
   {
     "title": null,
     "brand": "Ortofon",
-    "categoryPath": [
-      "Home Audio/Turntables"
-    ],
+    "categoryPath": ["Home Audio/Turntables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -4286,9 +3782,7 @@
   {
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Home Audio/Turntables"
-    ],
+    "categoryPath": ["Home Audio/Turntables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -4304,9 +3798,7 @@
     "_id": "dLGDVDmEEI2lV8CArAklwK",
     "title": null,
     "brand": "Advance Paris",
-    "categoryPath": [
-      "Home Audio/CD Players"
-    ],
+    "categoryPath": ["Home Audio/CD Players"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -4321,9 +3813,7 @@
     "_id": "dLGDVDmEEI2lV8CArAkv88",
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Home Audio/CD Players"
-    ],
+    "categoryPath": ["Home Audio/CD Players"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -4335,9 +3825,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Home Audio/CD Players"
-    ],
+    "categoryPath": ["Home Audio/CD Players"],
     "specifications": [
       {
         "_type": "spec",
@@ -4352,9 +3840,7 @@
     "brand": "Onkyo"
   },
   {
-    "categoryPath": [
-      "Studio Equipment/Microphones"
-    ],
+    "categoryPath": ["Studio Equipment/Microphones"],
     "specifications": [
       {
         "_type": "spec",
@@ -4371,9 +3857,7 @@
   {
     "title": null,
     "brand": "Alpine",
-    "categoryPath": [
-      "Studio Equipment/Studio Processors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Processors"],
     "specifications": [
       {
         "_key": "7ee6d726-3d69-4cf9-8b38-40460333fb63",
@@ -4398,17 +3882,13 @@
     "_id": "dLGDVDmEEI2lV8CArIJKNY",
     "title": null,
     "brand": "Alpine",
-    "categoryPath": [
-      "Studio Equipment/Studio Processors"
-    ]
+    "categoryPath": ["Studio Equipment/Studio Processors"]
   },
   {
     "_id": "dLGDVDmEEI2lV8CArIL1cS",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "_type": "spec",
@@ -4423,9 +3903,7 @@
     "_id": "dLGDVDmEEI2lV8CArIL72S",
     "title": null,
     "brand": "Pro-Ject",
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "_type": "spec",
@@ -4437,9 +3915,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -4457,9 +3933,7 @@
     "_id": "dLGDVDmEEI2lV8CArILNAi",
     "title": null,
     "brand": "Victrola",
-    "categoryPath": [
-      "Studio Equipment/Recording Accessories"
-    ],
+    "categoryPath": ["Studio Equipment/Recording Accessories"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -4474,9 +3948,7 @@
     "_id": "dLGDVDmEEI2lV8CArIgMwO",
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Headphones/Earbuds"
-    ],
+    "categoryPath": ["Headphones/Earbuds"],
     "specifications": [
       {
         "title": "Specifications",
@@ -4490,9 +3962,7 @@
   {
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Headphones/Earbuds"
-    ],
+    "categoryPath": ["Headphones/Earbuds"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -4506,9 +3976,7 @@
   },
   {
     "brand": "JBL",
-    "categoryPath": [
-      "Headphones/Earbuds"
-    ],
+    "categoryPath": ["Headphones/Earbuds"],
     "specifications": [
       {
         "title": "Specifications",
@@ -4525,9 +3993,7 @@
     "_id": "dLGDVDmEEI2lV8CArIggyC",
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Speakers/Bluetooth Speakers"
-    ],
+    "categoryPath": ["Speakers/Bluetooth Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -4540,9 +4006,7 @@
   },
   {
     "brand": "JBL",
-    "categoryPath": [
-      "Speakers/Bluetooth Speakers"
-    ],
+    "categoryPath": ["Speakers/Bluetooth Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -4559,9 +4023,7 @@
     "_id": "dLGDVDmEEI2lV8CArIgtX2",
     "title": null,
     "brand": "JBL",
-    "categoryPath": [
-      "Speakers/Bluetooth Speakers"
-    ],
+    "categoryPath": ["Speakers/Bluetooth Speakers"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -4576,9 +4038,7 @@
     "_id": "dLGDVDmEEI2lV8CArIgzj2",
     "title": null,
     "brand": "Victrola",
-    "categoryPath": [
-      "Speakers/Bluetooth Speakers"
-    ],
+    "categoryPath": ["Speakers/Bluetooth Speakers"],
     "specifications": [
       {
         "title": "Specifications",
@@ -4593,9 +4053,7 @@
     "_id": "dLGDVDmEEI2lV8CArIh3vA",
     "title": null,
     "brand": "Klipsch",
-    "categoryPath": [
-      "Speakers/Bookshelf Speakers"
-    ],
+    "categoryPath": ["Speakers/Bookshelf Speakers"],
     "specifications": [
       {
         "_key": "c21e1fea-33ea-490c-95f9-337b1a0ee80e",
@@ -4610,9 +4068,7 @@
     "_id": "dLGDVDmEEI2lV8CArIh4TE",
     "title": null,
     "brand": "Klipsch",
-    "categoryPath": [
-      "Speakers/Bookshelf Speakers"
-    ],
+    "categoryPath": ["Speakers/Bookshelf Speakers"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -4627,9 +4083,7 @@
     "_id": "dLGDVDmEEI2lV8CArIhH0W",
     "title": null,
     "brand": "Bowers & Wilkins",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -4644,9 +4098,7 @@
     "_id": "dLGDVDmEEI2lV8CArIhIdA",
     "title": null,
     "brand": "Bowers & Wilkins",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -4670,17 +4122,13 @@
     "_id": "dLGDVDmEEI2lV8CArIhMKK",
     "title": null,
     "brand": "Flexson",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ]
+    "categoryPath": ["Speakers/Floor Standing Speakers"]
   },
   {
     "_id": "dLGDVDmEEI2lV8CArIhNTY",
     "title": null,
     "brand": "Kanto",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -4704,17 +4152,13 @@
     "_id": "dLGDVDmEEI2lV8CArIhPFU",
     "title": null,
     "brand": "Mountson",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ]
+    "categoryPath": ["Speakers/Floor Standing Speakers"]
   },
   {
     "_id": "dLGDVDmEEI2lV8CArIhPkS",
     "title": null,
     "brand": "Mountson",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_key": "f1c19741-d5e9-43dd-b2c1-2089d31595cd",
@@ -4729,9 +4173,7 @@
     "_id": "dLGDVDmEEI2lV8CArIhQIW",
     "title": null,
     "brand": "PSB",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -4746,9 +4188,7 @@
     "_id": "dLGDVDmEEI2lV8CArIhRCG",
     "title": null,
     "brand": "PSB",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -4763,9 +4203,7 @@
     "_id": "dLGDVDmEEI2lV8CArIhS2u",
     "title": null,
     "brand": "Sonos",
-    "categoryPath": [
-      "Speakers/Floor Standing Speakers"
-    ],
+    "categoryPath": ["Speakers/Floor Standing Speakers"],
     "specifications": [
       {
         "_key": "bfc948cf-e946-4756-aed6-ee7a818f62c5",
@@ -4779,9 +4217,7 @@
   {
     "title": null,
     "brand": "Polk Audio",
-    "categoryPath": [
-      "Speakers/Outdoor Speakers"
-    ],
+    "categoryPath": ["Speakers/Outdoor Speakers"],
     "specifications": [
       {
         "_key": "30d8f3f1-fd7e-4888-abce-1cf861f75125",
@@ -4797,9 +4233,7 @@
     "_id": "dLGDVDmEEI2lV8CArJ0KeS",
     "title": null,
     "brand": "Sanus",
-    "categoryPath": [
-      "Speakers/Outdoor Speakers"
-    ],
+    "categoryPath": ["Speakers/Outdoor Speakers"],
     "specifications": [
       {
         "_type": "spec",
@@ -4814,9 +4248,7 @@
     "_id": "dLGDVDmEEI2lV8CArJ0lFU",
     "title": null,
     "brand": "SVS",
-    "categoryPath": [
-      "Speakers/Subwoofers"
-    ],
+    "categoryPath": ["Speakers/Subwoofers"],
     "specifications": [
       {
         "_type": "spec",
@@ -4831,9 +4263,7 @@
     "_id": "dLGDVDmEEI2lV8CArJ0lci",
     "title": null,
     "brand": "SVS",
-    "categoryPath": [
-      "Speakers/Subwoofers"
-    ],
+    "categoryPath": ["Speakers/Subwoofers"],
     "specifications": [
       {
         "title": "Specifications",
@@ -4845,9 +4275,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -4862,9 +4290,7 @@
     "brand": "AudioQuest"
   },
   {
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -4882,9 +4308,7 @@
     "_id": "dLGDVDmEEI2lV8CArJ18TU",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -4898,9 +4322,7 @@
   {
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -4916,9 +4338,7 @@
     "_id": "dLGDVDmEEI2lV8CArJ1Ab6",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -4932,9 +4352,7 @@
   {
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Power Cables"
-    ],
+    "categoryPath": ["Accessories/Power Cables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -4950,9 +4368,7 @@
     "_id": "dLGDVDmEEI2lV8CArJ1LUC",
     "title": null,
     "brand": "Mountson",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -4967,9 +4383,7 @@
     "_id": "dLGDVDmEEI2lV8CArJ1P3c",
     "title": null,
     "brand": "Mountson",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "_key": "ae661b9c-9486-430f-8c0d-3269191abbf2",
@@ -4984,9 +4398,7 @@
     "_id": "dLGDVDmEEI2lV8CArJ1PX2",
     "title": null,
     "brand": "Mountson",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "_key": "ee072767-cc64-42ca-b04e-67ec08d052e0",
@@ -5001,9 +4413,7 @@
     "_id": "dLGDVDmEEI2lV8CArJ1Pvo",
     "title": null,
     "brand": "Mountson",
-    "categoryPath": [
-      "Accessories/Wall Mounts"
-    ],
+    "categoryPath": ["Accessories/Wall Mounts"],
     "specifications": [
       {
         "_type": "spec",
@@ -5017,9 +4427,7 @@
   {
     "title": null,
     "brand": "Sanus",
-    "categoryPath": [
-      "Accessories/Speaker Stands"
-    ],
+    "categoryPath": ["Accessories/Speaker Stands"],
     "specifications": [
       {
         "_type": "spec",
@@ -5033,9 +4441,7 @@
   },
   {
     "brand": "Sanus",
-    "categoryPath": [
-      "Accessories/Speaker Stands"
-    ],
+    "categoryPath": ["Accessories/Speaker Stands"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -5052,9 +4458,7 @@
     "_id": "dLGDVDmEEI2lV8CArJPyWK",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/HDMI Cables"
-    ],
+    "categoryPath": ["Accessories/HDMI Cables"],
     "specifications": [
       {
         "_key": "3e5dc6f3-bf6f-4e5c-b7d0-100e91cba6f6",
@@ -5078,17 +4482,13 @@
     "_id": "dLGDVDmEEI2lV8CArJQ6XM",
     "title": null,
     "brand": "Audio-Technica",
-    "categoryPath": [
-      "Accessories/Phono Cartridges"
-    ]
+    "categoryPath": ["Accessories/Phono Cartridges"]
   },
   {
     "_id": "dLGDVDmEEI2lV8CArJQASS",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -5103,9 +4503,7 @@
     "_id": "dLGDVDmEEI2lV8CArJQBvo",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -5117,9 +4515,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "_key": "c1a50890-e8a8-4e0d-87ce-f9196d484095",
@@ -5137,9 +4533,7 @@
     "_id": "dLGDVDmEEI2lV8CArJQCVQ",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -5151,9 +4545,7 @@
     ]
   },
   {
-    "categoryPath": [
-      "Accessories/RCA Cables"
-    ],
+    "categoryPath": ["Accessories/RCA Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -5171,9 +4563,7 @@
     "_id": "dLGDVDmEEI2lV8CArJQEWq",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -5186,9 +4576,7 @@
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -5203,9 +4591,7 @@
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -5231,17 +4617,13 @@
     "_id": "dLGDVDmEEI2lV8CArJQHhU",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ]
+    "categoryPath": ["Accessories/USB Cables"]
   },
   {
     "_id": "dLGDVDmEEI2lV8CArJQHvQ",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -5255,9 +4637,7 @@
   {
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -5273,9 +4653,7 @@
     "_id": "dLGDVDmEEI2lV8CArJQMcW",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -5289,9 +4667,7 @@
   {
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -5305,9 +4681,7 @@
   },
   {
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/USB Cables"
-    ],
+    "categoryPath": ["Accessories/USB Cables"],
     "specifications": [
       {
         "title": "Specifications",
@@ -5324,9 +4698,7 @@
     "_id": "dLGDVDmEEI2lV8CArJQQI8",
     "title": null,
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ],
+    "categoryPath": ["Accessories/Headphone Cables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -5341,9 +4713,7 @@
     "_id": "dLGDVDmEEI2lV8CArJQWbs",
     "title": null,
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ],
+    "categoryPath": ["Accessories/Headphone Cables"],
     "specifications": [
       {
         "value": "See product documentation",
@@ -5358,9 +4728,7 @@
     "_id": "dLGDVDmEEI2lV8CArJQX5I",
     "title": null,
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ],
+    "categoryPath": ["Accessories/Headphone Cables"],
     "specifications": [
       {
         "_type": "spec",
@@ -5384,17 +4752,13 @@
     "_id": "dLGDVDmEEI2lV8CArJQXSW",
     "title": null,
     "brand": "Meze Audio",
-    "categoryPath": [
-      "Accessories/Headphone Cables"
-    ]
+    "categoryPath": ["Accessories/Headphone Cables"]
   },
   {
     "_id": "dLGDVDmEEI2lV8CArJQaM8",
     "title": null,
     "brand": "AudioQuest",
-    "categoryPath": [
-      "Accessories/Ethernet Cables"
-    ],
+    "categoryPath": ["Accessories/Ethernet Cables"],
     "specifications": [
       {
         "_key": "ba0e1d4d-6236-4e8d-9ab7-17908b7a9089",
@@ -5409,9 +4773,7 @@
     "_id": "dLGDVDmEEI2lV8CArJQe0C",
     "title": null,
     "brand": "Shure",
-    "categoryPath": [
-      "Accessories/Microphone Accessories"
-    ],
+    "categoryPath": ["Accessories/Microphone Accessories"],
     "specifications": [
       {
         "information": "Could not extract detailed specifications",
@@ -5424,9 +4786,7 @@
   },
   {
     "brand": "iFi Audio",
-    "categoryPath": [
-      "Accessories/Power Management"
-    ],
+    "categoryPath": ["Accessories/Power Management"],
     "specifications": [
       {
         "title": "Specifications",
@@ -5441,9 +4801,7 @@
   },
   {
     "brand": "IsoAcoustics",
-    "categoryPath": [
-      "Studio Equipment/Studio Monitors"
-    ],
+    "categoryPath": ["Studio Equipment/Studio Monitors"],
     "specifications": [
       {
         "value": "See product documentation",

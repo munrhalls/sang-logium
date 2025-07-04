@@ -3,26 +3,28 @@ import { UserProfile, CreateProfileOptions } from "./profileTypes";
 
 /**
  * Create a new user profile in Sanity
- * 
+ *
  * @param options Object containing the profile data to create
  * @returns The created user profile or null if creation failed
  */
-export async function createUserProfile(options: CreateProfileOptions): Promise<UserProfile | null> {
+export async function createUserProfile(
+  options: CreateProfileOptions,
+): Promise<UserProfile | null> {
   const { clerkId, displayName, primaryAddress, preferences } = options;
-  
+
   // Check if profile already exists
   const existingProfile = await backendClient.fetch(
     `*[_type == "userProfile" && clerkId == $clerkId][0]._id`,
-    { clerkId }
+    { clerkId },
   );
-  
+
   if (existingProfile) {
     console.error(`User profile with clerkId ${clerkId} already exists`);
     return null;
   }
 
   const now = new Date().toISOString();
-  
+
   // Create profile document
   const profileData: UserProfile = {
     _type: "userProfile",

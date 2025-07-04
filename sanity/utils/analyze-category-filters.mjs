@@ -51,7 +51,7 @@ async function analyzeFiltersForCategory() {
     if (!doc) {
       console.log(`No filter document found for category: ${topLevelCategory}`);
       console.log(
-        `Try creating filters first or check that the category exists.`
+        `Try creating filters first or check that the category exists.`,
       );
       return;
     }
@@ -73,7 +73,7 @@ async function analyzeFiltersForCategory() {
 
     // Get all filters applicable to this path
     const applicableFilters = doc.filters.filterItems.filter((filter) =>
-      mapping.filters.includes(filter.name)
+      mapping.filters.includes(filter.name),
     );
 
     if (applicableFilters.length === 0) {
@@ -88,7 +88,7 @@ async function analyzeFiltersForCategory() {
       switch (filter.type) {
         case "range":
           console.log(
-            `  Range: ${filter.min} to ${filter.max} (step: ${filter.step})`
+            `  Range: ${filter.min} to ${filter.max} (step: ${filter.step})`,
           );
           break;
 
@@ -115,7 +115,7 @@ async function analyzeFiltersForCategory() {
     let productCount;
     try {
       productCount = await client.fetch(
-        `count(*[_type == "product" && "${categoryPath}" in categoryPath])`
+        `count(*[_type == "product" && "${categoryPath}" in categoryPath])`,
       );
     } catch (error) {
       console.log(`Error getting product count: ${error.message}`);
@@ -130,12 +130,12 @@ async function analyzeFiltersForCategory() {
         f.type === "multiselect" &&
         f.options &&
         Array.isArray(f.options) &&
-        f.options.length > 0
+        f.options.length > 0,
     );
 
     if (multiselectFilter && multiselectFilter.name) {
       console.log(
-        `\nSample distribution for "${multiselectFilter.name}" filter:`
+        `\nSample distribution for "${multiselectFilter.name}" filter:`,
       );
 
       // Get product count for each option in the filter
@@ -143,10 +143,10 @@ async function analyzeFiltersForCategory() {
         multiselectFilter.options.slice(0, 5).map(async (option) => {
           // Use a more robust query that handles string variations and null cases
           const count = await client.fetch(
-            `count(*[_type == "product" && "${categoryPath}" in categoryPath && brand match "${option}"])`
+            `count(*[_type == "product" && "${categoryPath}" in categoryPath && brand match "${option}"])`,
           );
           return { option, count };
-        })
+        }),
       );
 
       // Sort by count (highest first) and display
@@ -160,7 +160,7 @@ async function analyzeFiltersForCategory() {
 
         if (multiselectFilter.options.length > 5) {
           console.log(
-            `  ... and ${multiselectFilter.options.length - 5} more options`
+            `  ... and ${multiselectFilter.options.length - 5} more options`,
           );
         }
       } else {

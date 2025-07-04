@@ -12,7 +12,7 @@ async function retrieveCategory(categoryName) {
       `*[_type == "category" && name == $categoryName][0]`,
       {
         categoryName,
-      }
+      },
     );
 
     if (!category) {
@@ -171,7 +171,7 @@ async function addSubcategoriesToAccessories() {
 
     // Add audio equipment subcategories
     const audioItems = subcategoriesToAdd.filter((item) =>
-      audioEquipmentItems.includes(item.name)
+      audioEquipmentItems.includes(item.name),
     );
     updatedSubcategories = [...updatedSubcategories, ...audioItems];
   }
@@ -185,7 +185,7 @@ async function addSubcategoriesToAccessories() {
 
     // Add power management subcategory
     const powerItem = subcategoriesToAdd.find(
-      (item) => item.name === "Power Management"
+      (item) => item.name === "Power Management",
     );
     if (powerItem) {
       updatedSubcategories.push(powerItem);
@@ -210,7 +210,7 @@ async function addSubcategoriesToAccessories() {
 
     console.log("Successfully updated subcategories!");
     console.log(
-      `Added ${updatedSubcategories.length - existingSubcategories.length} new subcategories`
+      `Added ${updatedSubcategories.length - existingSubcategories.length} new subcategories`,
     );
   } catch (error) {
     console.error("Error updating category:", error);

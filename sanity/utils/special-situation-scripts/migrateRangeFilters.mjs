@@ -16,21 +16,21 @@ import client from "../getClient.mjs";
 async function migrateRangeFilters() {
   try {
     console.log(
-      "Starting migration to add isMinOnly field to range filters..."
+      "Starting migration to add isMinOnly field to range filters...",
     );
 
     // Find all categoryFilters documents
     const documents = await client.fetch('*[_type == "categoryFilters"]');
 
     console.log(
-      `Found ${documents.length} categoryFilters documents to examine`
+      `Found ${documents.length} categoryFilters documents to examine`,
     );
 
     // Log a sample document to verify structure
     if (documents.length > 0) {
       console.log(
         "Sample document structure:",
-        JSON.stringify(documents[0], null, 2)
+        JSON.stringify(documents[0], null, 2),
       );
     }
 
@@ -47,7 +47,7 @@ async function migrateRangeFilters() {
         !Array.isArray(doc.filters.filterItems)
       ) {
         console.log(
-          `  Skipping document ${doc._id} - missing filter structure`
+          `  Skipping document ${doc._id} - missing filter structure`,
         );
         skippedCount++;
         continue;
@@ -55,7 +55,7 @@ async function migrateRangeFilters() {
 
       // Check if any range filters need updating
       const needsUpdate = doc.filters.filterItems.some(
-        (item) => item.type === "range" && item.isMinOnly === undefined
+        (item) => item.type === "range" && item.isMinOnly === undefined,
       );
 
       if (!needsUpdate) {
@@ -68,7 +68,7 @@ async function migrateRangeFilters() {
       const updatedFilterItems = doc.filters.filterItems.map((item) => {
         if (item.type === "range" && item.isMinOnly === undefined) {
           console.log(
-            `    Adding isMinOnly: false to range filter "${item.name}" in ${doc._id}`
+            `    Adding isMinOnly: false to range filter "${item.name}" in ${doc._id}`,
           );
           return { ...item, isMinOnly: false };
         }
@@ -92,7 +92,7 @@ async function migrateRangeFilters() {
         updatedCount++;
       } catch (patchError) {
         console.error(
-          `    ✗ Failed to update ${doc._id}: ${patchError.message}`
+          `    ✗ Failed to update ${doc._id}: ${patchError.message}`,
         );
       }
     }

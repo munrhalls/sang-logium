@@ -9,7 +9,7 @@ interface RangeFilterProps {
   onChange: (
     name: string,
     value: { min?: number; max?: number } | number,
-    type: string
+    type: string,
   ) => void;
   initialMin?: number;
   initialMax?: number;
@@ -56,7 +56,7 @@ const RangeFilter = ({
   const debouncedHandleChangeComplete = debounce(handleChangeComplete, 800);
   const debouncedNumInputHandleChangeComplete = debounce(
     handleChangeComplete,
-    2500
+    2500,
   );
 
   useEffect(() => {

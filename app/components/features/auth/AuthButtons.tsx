@@ -11,7 +11,7 @@ const SignInButton = dynamic(
     loading: () => (
       <div className="w-[24px] h-[24px] bg-gray-800 rounded-full animate-pulse" />
     ),
-  }
+  },
 );
 
 const UserButton = dynamic(
@@ -21,7 +21,7 @@ const UserButton = dynamic(
     loading: () => (
       <div className="w-[24px] h-[24px] bg-gray-800 rounded-full animate-pulse" />
     ),
-  }
+  },
 );
 
 export { SignInButton, UserButton };

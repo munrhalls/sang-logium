@@ -33,7 +33,7 @@ async function extractSpecificationFields() {
     const uniqueTitles = Array.from(specificationFieldNames);
     console.log(
       "\nUnique specification field titles found:",
-      uniqueTitles.length
+      uniqueTitles.length,
     );
     console.log(uniqueTitles);
 
@@ -52,11 +52,11 @@ async function extractSpecificationFields() {
     if (uniqueTitles.length > 0) {
       const exampleTitle = uniqueTitles[0];
       console.log(
-        `Is "${exampleTitle}" a specification field? ${!!specificationsFieldsMap[exampleTitle]}`
+        `Is "${exampleTitle}" a specification field? ${!!specificationsFieldsMap[exampleTitle]}`,
       );
     }
     console.log(
-      `Is "Unknown" a specification field? ${!!specificationsFieldsMap["Unknown"]}`
+      `Is "Unknown" a specification field? ${!!specificationsFieldsMap["Unknown"]}`,
     );
 
     // Return the map for export/use in other modules

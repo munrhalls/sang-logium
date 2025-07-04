@@ -44,7 +44,14 @@ export type Commercial = {
   _updatedAt: string;
   _rev: string;
   title?: string;
-  feature?: "hero" | "bestsellers" | "extreme-quality" | "mvp-month" | "newest-release" | "featured-products" | "main-categories";
+  feature?:
+    | "hero"
+    | "bestsellers"
+    | "extreme-quality"
+    | "mvp-month"
+    | "newest-release"
+    | "featured-products"
+    | "main-categories";
   variant?: "text" | "products";
   displayOrder?: number;
   image?: {
@@ -68,11 +75,14 @@ export type Commercial = {
     }>;
     style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
     listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      _key: string;
-    } & TextColor | {
-      _key: string;
-    } & HighlightColor>;
+    markDefs?: Array<
+      | ({
+          _key: string;
+        } & TextColor)
+      | ({
+          _key: string;
+        } & HighlightColor)
+    >;
     level?: number;
     _type: "block";
     _key: string;
@@ -181,41 +191,48 @@ export type Product = {
   _updatedAt: string;
   _rev: string;
   name?: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-    listItem?: "bullet";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    } | {
-      _key: string;
-    } & TextColor | {
-      _key: string;
-    } & HighlightColor>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-    _key: string;
-  }>;
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet";
+        markDefs?: Array<
+          | {
+              href?: string;
+              _type: "link";
+              _key: string;
+            }
+          | ({
+              _key: string;
+            } & TextColor)
+          | ({
+              _key: string;
+            } & HighlightColor)
+        >;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  >;
   slug?: Slug;
   brand?: string;
   price?: number;
@@ -323,53 +340,63 @@ export type Category = {
   name?: string;
   icon?: string;
   order?: number;
-  subcategories?: Array<{
-    name?: string;
-    _type: "subcategory";
-    _key: string;
-  } | {
-    header?: string;
-    name?: string;
-    _type: "groupedSubcategory";
-    _key: string;
-  }>;
+  subcategories?: Array<
+    | {
+        name?: string;
+        _type: "subcategory";
+        _key: string;
+      }
+    | {
+        header?: string;
+        name?: string;
+        _type: "groupedSubcategory";
+        _key: string;
+      }
+  >;
 };
 
-export type BlockContent = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  }>;
-  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-  listItem?: "bullet";
-  markDefs?: Array<{
-    href?: string;
-    _type: "link";
-    _key: string;
-  } | {
-    _key: string;
-  } & TextColor | {
-    _key: string;
-  } & HighlightColor>;
-  level?: number;
-  _type: "block";
-  _key: string;
-} | {
-  asset?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-  };
-  media?: unknown;
-  hotspot?: SanityImageHotspot;
-  crop?: SanityImageCrop;
-  alt?: string;
-  _type: "image";
-  _key: string;
-}>;
+export type BlockContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+      listItem?: "bullet";
+      markDefs?: Array<
+        | {
+            href?: string;
+            _type: "link";
+            _key: string;
+          }
+        | ({
+            _key: string;
+          } & TextColor)
+        | ({
+            _key: string;
+          } & HighlightColor)
+      >;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }
+  | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+      _key: string;
+    }
+>;
 
 export type HighlightColor = {
   _type: "highlightColor";
@@ -507,7 +534,31 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = UserProfile | Commercial | Exhibition | Sale | Order | Product | CategorySortables | CategoryFilters | Category | BlockContent | HighlightColor | TextColor | SimplerColor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes =
+  | UserProfile
+  | Commercial
+  | Exhibition
+  | Sale
+  | Order
+  | Product
+  | CategorySortables
+  | CategoryFilters
+  | Category
+  | BlockContent
+  | HighlightColor
+  | TextColor
+  | SimplerColor
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityImageHotspot
+  | SanityImageCrop
+  | SanityFileAsset
+  | SanityImageAsset
+  | SanityImageMetadata
+  | Geopoint
+  | Slug
+  | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
 // Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
@@ -527,11 +578,14 @@ export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
     }>;
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      _key: string;
-    } & HighlightColor | {
-      _key: string;
-    } & TextColor>;
+    markDefs?: Array<
+      | ({
+          _key: string;
+        } & HighlightColor)
+      | ({
+          _key: string;
+        } & TextColor)
+    >;
     level?: number;
     _type: "block";
     _key: string;
@@ -541,41 +595,48 @@ export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
     _id: string;
     brand: string | null;
     name: string | null;
-    description: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
-      listItem?: "bullet";
-      markDefs?: Array<{
-        _key: string;
-      } & HighlightColor | {
-        _key: string;
-      } & TextColor | {
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    } | {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "image";
-      _key: string;
-    }> | null;
+    description: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+          listItem?: "bullet";
+          markDefs?: Array<
+            | ({
+                _key: string;
+              } & HighlightColor)
+            | ({
+                _key: string;
+              } & TextColor)
+            | {
+                href?: string;
+                _type: "link";
+                _key: string;
+              }
+          >;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+          _key: string;
+        }
+    > | null;
     price: number | null;
     image: string | null;
   }> | null;
@@ -627,16 +688,19 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   name?: string;
   icon?: string;
   order?: number;
-  subcategories?: Array<{
-    header?: string;
-    name?: string;
-    _type: "groupedSubcategory";
-    _key: string;
-  } | {
-    name?: string;
-    _type: "subcategory";
-    _key: string;
-  }>;
+  subcategories?: Array<
+    | {
+        header?: string;
+        name?: string;
+        _type: "groupedSubcategory";
+        _key: string;
+      }
+    | {
+        name?: string;
+        _type: "subcategory";
+        _key: string;
+      }
+  >;
 }>;
 
 // Source: ./sanity/lib/products/getAllProducts.ts
@@ -649,41 +713,48 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   name?: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
-    listItem?: "bullet";
-    markDefs?: Array<{
-      _key: string;
-    } & HighlightColor | {
-      _key: string;
-    } & TextColor | {
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-    _key: string;
-  }>;
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<
+          | ({
+              _key: string;
+            } & HighlightColor)
+          | ({
+              _key: string;
+            } & TextColor)
+          | {
+              href?: string;
+              _type: "link";
+              _key: string;
+            }
+        >;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  >;
   slug?: Slug;
   brand?: string;
   price?: number;
@@ -742,41 +813,48 @@ export type PRODUCT_BY_ID_QUERYResult = {
   _updatedAt: string;
   _rev: string;
   name?: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
-    listItem?: "bullet";
-    markDefs?: Array<{
-      _key: string;
-    } & HighlightColor | {
-      _key: string;
-    } & TextColor | {
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-    _key: string;
-  }>;
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<
+          | ({
+              _key: string;
+            } & HighlightColor)
+          | ({
+              _key: string;
+            } & TextColor)
+          | {
+              href?: string;
+              _type: "link";
+              _key: string;
+            }
+        >;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  >;
   slug?: Slug;
   brand?: string;
   price?: number;
@@ -835,41 +913,48 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   name?: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
-    listItem?: "bullet";
-    markDefs?: Array<{
-      _key: string;
-    } & HighlightColor | {
-      _key: string;
-    } & TextColor | {
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-    _key: string;
-  }>;
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<
+          | ({
+              _key: string;
+            } & HighlightColor)
+          | ({
+              _key: string;
+            } & TextColor)
+          | {
+              href?: string;
+              _type: "link";
+              _key: string;
+            }
+        >;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  >;
   slug?: Slug;
   brand?: string;
   price?: number;
@@ -1012,16 +1097,16 @@ export type SALE_BY_ID_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"commercial\" && feature == $feature] {\n    _id,\n  title,\n  \"image\": image.asset->url,\n  variant,\n  displayOrder,\n  text,\n  ctaLink,\n  \"products\": products[]-> {\n    _id,\n    brand,\n    name,\n    description,\n    price,\n    \"image\": image.asset->url,\n  },\n  sale-> {\n    discount,\n    validUntil,\n    _id\n  }\n}": GET_COMMERCIALS_BY_FEATURE_QUERYResult;
-    "{\n    \"brands\": array::unique(*[_type == \"product\"].brand->name)\n  }": FILTERSResult;
-    "\n    *[_type == \"categoryFilters\" && title == $topLevelCategory][0] {\n      title,\n      \"filters\": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        isMinOnly,\n        step\n      },\n      \"mappings\": categoryMappings[path == $cleanPath]\n    }\n  ": FILTERS_BY_CATEGORY_QUERYResult;
-    "\n          *[\n              _type == \"category\"\n          ] | order(name desc)\n      ": ALL_CATEGORIES_QUERYResult;
-    "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
+    '*[_type == "commercial" && feature == $feature] {\n    _id,\n  title,\n  "image": image.asset->url,\n  variant,\n  displayOrder,\n  text,\n  ctaLink,\n  "products": products[]-> {\n    _id,\n    brand,\n    name,\n    description,\n    price,\n    "image": image.asset->url,\n  },\n  sale-> {\n    discount,\n    validUntil,\n    _id\n  }\n}': GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    '{\n    "brands": array::unique(*[_type == "product"].brand->name)\n  }': FILTERSResult;
+    '\n    *[_type == "categoryFilters" && title == $topLevelCategory][0] {\n      title,\n      "filters": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        isMinOnly,\n        step\n      },\n      "mappings": categoryMappings[path == $cleanPath]\n    }\n  ': FILTERS_BY_CATEGORY_QUERYResult;
+    '\n          *[\n              _type == "category"\n          ] | order(name desc)\n      ': ALL_CATEGORIES_QUERYResult;
+    '\n        *[\n            _type == "product"\n        ] | order(name asc)\n    ': ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && _id == $id\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
-    "*[\n        _type == \"product\"\n        && name match $searchParam\n    ] | order(name asc)": SEARCH_FOR_PRODUCTS_QUERYResult;
-    "\n    *[_type == \"categorySortables\" && title == $topLevelCategory][0] {\n      title,\n      \"sortOptions\": sortOptions[]{\n        name,\n        displayName,\n        type,\n        field,\n        defaultDirection\n      },\n      \"mappings\": categoryMappings[path == $cleanPath]\n    }\n  ": SORTABLES_BY_CATEGORY_QUERYResult;
-    "\n    *[_type == \"userProfile\" && clerkId == $clerkId][0] {\n      _id,\n      _type,\n      clerkId,\n      displayName,\n      primaryAddress {\n        streetAddress,\n        city,\n        state,\n        postalCode,\n        country\n      },\n      preferences {\n        receiveMarketingEmails,\n        darkMode,\n        savePaymentInfo\n      },\n      createdAt,\n      updatedAt\n    }\n  ": FETCH_PROFILE_QUERYResult;
-    "\n      *[_type == \"sale\" && isActive == true] {\n        _id,\n        title,\n        \"slug\": slug.current,\n        discount,\n        validFrom,\n        validUntil,\n        isActive\n      }\n    ": GET_ACTIVE_SALES_QUERYResult;
-    "\n    *[_type == \"sale\" && _id == $saleId]{\n      name,\n      \"slug\": slug.current,\n      validFrom,\n      validUntil,\n      isActive,\n      description,\n      \"image\": image.asset->url,\n      category->{\n        name,\n        \"slug\": slug.current,\n        \"products\": *[_type=='product' && categoryPath == ^.metadata.path]{\n          name,\n          \"slug\": slug.current,\n          image,\n          defaultPrice\n        }\n      }\n    }\n  ": SALE_BY_ID_QUERYResult;
+    '*[\n        _type == "product"\n        && name match $searchParam\n    ] | order(name asc)': SEARCH_FOR_PRODUCTS_QUERYResult;
+    '\n    *[_type == "categorySortables" && title == $topLevelCategory][0] {\n      title,\n      "sortOptions": sortOptions[]{\n        name,\n        displayName,\n        type,\n        field,\n        defaultDirection\n      },\n      "mappings": categoryMappings[path == $cleanPath]\n    }\n  ': SORTABLES_BY_CATEGORY_QUERYResult;
+    '\n    *[_type == "userProfile" && clerkId == $clerkId][0] {\n      _id,\n      _type,\n      clerkId,\n      displayName,\n      primaryAddress {\n        streetAddress,\n        city,\n        state,\n        postalCode,\n        country\n      },\n      preferences {\n        receiveMarketingEmails,\n        darkMode,\n        savePaymentInfo\n      },\n      createdAt,\n      updatedAt\n    }\n  ': FETCH_PROFILE_QUERYResult;
+    '\n      *[_type == "sale" && isActive == true] {\n        _id,\n        title,\n        "slug": slug.current,\n        discount,\n        validFrom,\n        validUntil,\n        isActive\n      }\n    ': GET_ACTIVE_SALES_QUERYResult;
+    '\n    *[_type == "sale" && _id == $saleId]{\n      name,\n      "slug": slug.current,\n      validFrom,\n      validUntil,\n      isActive,\n      description,\n      "image": image.asset->url,\n      category->{\n        name,\n        "slug": slug.current,\n        "products": *[_type==\'product\' && categoryPath == ^.metadata.path]{\n          name,\n          "slug": slug.current,\n          image,\n          defaultPrice\n        }\n      }\n    }\n  ': SALE_BY_ID_QUERYResult;
   }
 }

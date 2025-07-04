@@ -25,7 +25,7 @@ async function updateProduct(product) {
       .commit();
 
     console.log(
-      `Updated ${product.title} with categories: ${newCategories.join(", ")}`
+      `Updated ${product.title} with categories: ${newCategories.join(", ")}`,
     );
     return result;
   } catch (error) {
@@ -47,20 +47,20 @@ async function updateAllProducts() {
 
     const overEarProducts = products.filter((product) => {
       const wearingStyle = product.overviewFields?.find((field) =>
-        field.title?.toLowerCase().includes("wearing style")
+        field.title?.toLowerCase().includes("wearing style"),
       );
       return wearingStyle?.value === "Over-ear";
     });
 
     console.log(
-      `Found ${overEarProducts.length} over-ear headphones to update`
+      `Found ${overEarProducts.length} over-ear headphones to update`,
     );
 
     if (overEarProducts.length > 0) {
       console.log("\nOver-ear headphones to be updated:");
       overEarProducts.forEach((product) => {
         console.log(
-          `- ${product.title} (Current category: ${product.categoryPath})`
+          `- ${product.title} (Current category: ${product.categoryPath})`,
         );
       });
 
@@ -76,7 +76,7 @@ async function updateAllProducts() {
           (answer) => {
             resolve(answer.toLowerCase() === "yes");
             rl.close();
-          }
+          },
         );
       });
 

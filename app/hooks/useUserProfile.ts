@@ -58,7 +58,7 @@ export function useUserProfile() {
         // No profile exists, create one using server action
         console.log(
           "No profile found. Creating new Sanity profile for user:",
-          user.id
+          user.id,
         );
 
         // Create a new profile (name is now managed solely by Clerk)

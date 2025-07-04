@@ -40,7 +40,7 @@ export default function SortClient({
 
   function handleSortChange(
     sortName: string,
-    direction: "asc" | "desc" = "asc"
+    direction: "asc" | "desc" = "asc",
   ) {
     setIsTransitioning(true);
     const params = new URLSearchParams(searchParams);
