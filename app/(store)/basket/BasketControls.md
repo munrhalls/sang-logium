@@ -1,3 +1,10 @@
+**BasketControls: clicking Add to Cart causes render of the inner buttons**
+Test: "Clicking the button activates render of the inner buttons component, which is hidden by default"
+
+- GIVEN: Only "Add to cart" button visible
+- WHEN: User clicks the "Add to Cart" button
+- THEN: The inner buttons component is not rendered initially, however after click the state of parent container changes to active and the inner buttons component renders
+
 **BasketControls: Add to Cart**
 Test: "User adds a product to the basket from any context"
 

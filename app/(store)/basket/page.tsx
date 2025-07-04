@@ -8,7 +8,7 @@ import {
 import Link from "next/link";
 import SegmentTitle from "@/app/components/ui/segment-title/SegmentTitle";
 import { useBasketStore } from "@/store";
-import BasketControls from "@/app/components/features/basket/BasketControls";
+import BasketControlsButtons from "@/app/components/features/basket/BasketControlsButtons";
 
 export default function BasketPage() {
   const basket = useBasketStore((s) => s.basket);
@@ -99,7 +99,7 @@ export default function BasketPage() {
                     Quantity:
                   </div>
                   <div className="flex items-center">
-                    <BasketControls product={item} />
+                    <BasketControlsButtons product={item} />
                   </div>
                 </div>
 

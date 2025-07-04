@@ -2,6 +2,13 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import BasketControls from "@/app/components/features/basket/BasketControls";
 import { useBasketStore } from "@/store";
 
+// **BasketControls: clicking Add to Cart causes render of the inner buttons**
+// Test: "Clicking the button activates render of the inner buttons component, which is hidden by default"
+
+// - GIVEN: Only "Add to cart" button visible
+// - WHEN: User clicks the "Add to Cart" button
+// - THEN: The inner buttons component is not rendered initially, however after click the state of parent container changes to active and the inner buttons component renders
+
 describe("BasketControls: Add to Cart", () => {
   beforeEach(() => {
     useBasketStore.getState().basket = [];
@@ -138,5 +145,31 @@ describe("BasketControls: Add to Cart", () => {
       screen.getByRole("button", { name: /decrease quantity/i })
     ).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
+  });
+
+  it("Clicking the button activates render of the inner buttons component, which is hidden by default", () => {
+    const product = {
+      _id: "spec1",
+      name: "Spec Product",
+      stock: 5,
+      price: 100,
+    };
+    render(<BasketControls product={product} />);
+    expect(
+      screen.getByRole("button", { name: /add to cart/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /increase quantity/i })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /decrease quantity/i })
+    ).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /add to cart/i }));
+    expect(
+      screen.getByRole("button", { name: /increase quantity/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /decrease quantity/i })
+    ).toBeInTheDocument();
   });
 });
