@@ -5,6 +5,7 @@ export interface BasketItem {
   _id: string;
   name: string;
   price: number;
+  stock: number;
   quantity: number;
 }
 

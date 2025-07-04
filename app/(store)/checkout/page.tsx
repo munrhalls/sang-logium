@@ -99,6 +99,8 @@ export default function CheckoutPage() {
           onSubmit={handleSubmit}
         >
           <div>
+            {/* shipping form is Address Validation, separate component imported */}
+            {/* Shipping form  */}
             <h2 className="text-lg font-bold mb-4 pb-2 border-b border-gray-200">
               Shipping Information
             </h2>
@@ -191,6 +193,7 @@ export default function CheckoutPage() {
               </div>
             </div>
           </div>
+
           <div>
             <h2 className="text-lg font-bold mb-4 pb-2 border-b border-gray-200">
               Payment Details

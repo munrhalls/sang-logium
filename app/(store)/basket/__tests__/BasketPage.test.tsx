@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import BasketPage from "../page";
+import { BasketItem } from "@/store";
 
 jest.mock("@/store", () => ({
   useBasketStore: jest.fn(),
@@ -365,7 +366,6 @@ describe("4. Item Removal", () => {
 
       expect(mockRemoveItem).toHaveBeenCalledWith("1");
       mockStore.basket = [];
-      const { rerender } = render(<BasketPage />);
       const emptyMessages = screen.queryAllByText(/your basket is empty/i);
       expect(emptyMessages.length).toBeGreaterThan(0);
     });
@@ -628,7 +628,7 @@ describe("4. Item Removal", () => {
 
   describe("8.1 Invalid Product Data", () => {
     it("Page handles corrupted basket data gracefully", () => {
-      const invalidProducts: any[] = [
+      const invalidProducts: BasketItem[] = [
         { _id: "1", name: "Product A", price: 100.0, quantity: 2 },
         { _id: "2", name: "", price: 50.0, quantity: 1 },
         { _id: "3", name: "Product C", price: 0, quantity: 1 },

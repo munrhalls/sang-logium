@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  ShoppingCartIcon,
-  XMarkIcon,
-  ArrowLeftIcon,
-} from "@heroicons/react/24/outline";
+import { ShoppingCartIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import SegmentTitle from "@/app/components/ui/segment-title/SegmentTitle";
 import { useBasketStore } from "@/store";
@@ -12,10 +8,8 @@ import BasketControls from "@/app/components/features/basket/BasketControls";
 
 export default function BasketPage() {
   const basket = useBasketStore((s) => s.basket);
-  const updateQuantity = useBasketStore((s) => s.updateQuantity);
-  const removeItem = useBasketStore((s) => s.removeItem);
+
   const getTotal = useBasketStore((s) => s.getTotal);
-  const isCheckoutEnabled = useBasketStore((s) => s.isCheckoutEnabled);
 
   const shipping = 15.99;
   const subtotal = getTotal();
