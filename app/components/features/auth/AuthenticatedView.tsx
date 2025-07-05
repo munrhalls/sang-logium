@@ -1,14 +1,11 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
 import { CustomUserButton } from "./CustomUserButton";
-
 export function AuthenticatedView() {
   const { user, isLoaded } = useUser();
-
   if (!isLoaded || !user) {
     return <div>Loading...</div>;
   }
-
   return (
     <div className="grid place-content-center">
       <div className="grid place-content-center">

@@ -1,9 +1,5 @@
 "use client";
 import dynamic from "next/dynamic";
-// import { UserIcon } from "@heroicons/react/24/outline";
-// import { KeyIcon } from "@heroicons/react/24/outline";
-// import { useUser } from "@clerk/nextjs";
-
 const SignInButton = dynamic(
   () => import("@clerk/nextjs").then((mod) => mod.SignInButton),
   {
@@ -13,7 +9,6 @@ const SignInButton = dynamic(
     ),
   },
 );
-
 const UserButton = dynamic(
   () => import("@clerk/nextjs").then((mod) => mod.UserButton),
   {
@@ -23,5 +18,4 @@ const UserButton = dynamic(
     ),
   },
 );
-
 export { SignInButton, UserButton };

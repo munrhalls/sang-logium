@@ -1,31 +1,17 @@
 "use client";
-
 import { useUserProfile } from "@/app/hooks/useUserProfile";
 import { SignInButton } from "./AuthButtons";
 import { CustomUserButton } from "./CustomUserButton";
-
-/**
- * Test component that demonstrates the Clerk-Sanity profile integration
- *
- * This component:
- * - Shows authentication status
- * - Displays Sanity profile data when authenticated
- * - Includes loading states for better UX
- */
 export default function ProfileIntegrationTest() {
   const { profile, isLoading, error, isAuthenticated, user } = useUserProfile();
-
-  // Console logs for debugging
   console.log("Auth state:", {
     isAuthenticated,
     isLoading,
     hasProfile: !!profile,
   });
-
   if (error) {
     console.error("Profile integration error:", error);
   }
-
   return (
     <div className="max-w-md mx-auto my-8 p-6 bg-white rounded-lg shadow-md">
       <div className="flex items-center justify-between mb-6">
@@ -34,7 +20,6 @@ export default function ProfileIntegrationTest() {
         </h2>
         <div>{isAuthenticated ? <CustomUserButton /> : <SignInButton />}</div>
       </div>
-
       <div className="border-t pt-4">
         <h3 className="text-lg font-medium mb-2">Authentication Status</h3>
         <div className="bg-gray-100 p-3 rounded mb-4">
@@ -54,7 +39,6 @@ export default function ProfileIntegrationTest() {
           )}
         </div>
       </div>
-
       {isAuthenticated && (
         <div className="border-t pt-4">
           <h3 className="text-lg font-medium mb-2">
@@ -120,7 +104,6 @@ export default function ProfileIntegrationTest() {
           )}
         </div>
       )}
-
       <div className="border-t mt-4 pt-4 text-xs text-gray-500">
         <p>
           This component demonstrates the integration between Clerk

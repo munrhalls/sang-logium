@@ -1,6 +1,5 @@
 import { SignInButton } from "@clerk/nextjs";
 import { UserIcon } from "@heroicons/react/24/outline";
-
 export function UnauthenticatedView() {
   return (
     <div className="grid place-content-center  text-white">

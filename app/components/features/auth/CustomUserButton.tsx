@@ -3,14 +3,11 @@ import { useClerk } from "@clerk/nextjs";
 import { UserButton as ClerkUserButton } from "@clerk/nextjs";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-
 export function CustomUserButton() {
   const { signOut } = useClerk();
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
-
-  // Close menu when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -22,14 +19,11 @@ export function CustomUserButton() {
         setShowMenu(false);
       }
     }
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  // Handle logout
   const handleLogout = async () => {
     console.log("Logging out...");
     try {
@@ -39,7 +33,6 @@ export function CustomUserButton() {
       console.error("Error signing out:", error);
     }
   };
-
   return (
     <div className="relative">
       <div
@@ -50,14 +43,12 @@ export function CustomUserButton() {
         <ClerkUserButton
           appearance={{
             elements: {
-              // This prevents the Clerk dropdown menu from showing
               userButtonPopoverCard: "hidden",
               userButtonTrigger: "focus:outline-none",
             },
           }}
         />
       </div>
-
       {showMenu && (
         <div
           ref={menuRef}

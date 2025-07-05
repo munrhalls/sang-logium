@@ -50,7 +50,7 @@ function Header() {
       </div>
 
       <div className="hidden lg:grid place-content-center grid-flow-col gap-8">
-        <Link href="/basket" className=" text-white">
+        <Link href="/basket" className="text-white" prefetch={false}>
           <div className="grid place-content-center">
             <ShoppingCartIcon height={24} width={24} />
           </div>
