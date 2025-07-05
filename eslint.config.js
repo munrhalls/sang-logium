@@ -17,7 +17,7 @@ const patchedConfig = fixupConfigRules([
   ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
 ]);
 
-export default [
+const config = [
   ...patchedConfig,
   prettierPluginRecommended,
   {
@@ -33,3 +33,5 @@ export default [
     ignores: [".next/*"],
   },
 ];
+
+export default config;
