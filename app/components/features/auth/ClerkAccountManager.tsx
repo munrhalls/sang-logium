@@ -12,7 +12,7 @@ export function ClerkAccountManager() {
       safetyTimeout = setTimeout(() => {
         console.log("Safety timeout triggered: resetting UI state");
         setIsManagingAccount(false);
-      }, 10000); 
+      }, 10000);
     }
     return () => {
       if (safetyTimeout) {
@@ -65,17 +65,16 @@ export function ClerkAccountManager() {
       headerSubtitle: "text-gray-500",
     },
   };
-  const handleClose = () => {
-    console.log("Clerk dialog closed");
-    setIsManagingAccount(false);
-  };
+  // const handleClose = () => {
+  //   console.log("Clerk dialog closed");
+  //   setIsManagingAccount(false);
+  // };
   const handleManageAccount = () => {
     console.log("Opening Clerk account management");
     setIsManagingAccount(true);
     try {
       openUserProfile({
         appearance: appearanceConfig,
-        onClose: handleClose,
       });
     } catch (error) {
       console.error("Error opening user profile:", error);

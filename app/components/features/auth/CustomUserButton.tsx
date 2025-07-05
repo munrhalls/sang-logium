@@ -56,7 +56,7 @@ export function CustomUserButton() {
         >
           <div className="py-1">
             <Link
-              href="account"
+              href="/account"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black transition-colors font-medium"
               onClick={() => setShowMenu(false)}
             >
