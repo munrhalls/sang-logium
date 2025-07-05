@@ -8,13 +8,11 @@ export function usePrefetchClerkResources() {
         try {
           const link = document.createElement("link");
           link.rel = "prefetch";
-          link.href =
-            "https:
+          link.href = "clerk.com";
           link.as = "script";
           document.head.appendChild(link);
           isUserDataCached = true;
-        } catch {
-        }
+        } catch {}
       };
       if ("requestIdleCallback" in window) {
         window.requestIdleCallback(prefetchResources, { timeout: 5000 });
@@ -29,8 +27,7 @@ export function useAuthSessionCache() {
     clearSessionCache: () => {
       try {
         sessionStorage.removeItem("user_display_info");
-      } catch {
-      }
+      } catch {}
     },
   };
 }
@@ -39,7 +36,7 @@ export const getOptimizedClerkOptions = () => {
     appearance: {
       layout: {
         shimmer: true,
-        logoPlacement: "none", 
+        logoPlacement: "none",
       },
       variables: {
         colorPrimary: "rgb(0, 0, 0)",

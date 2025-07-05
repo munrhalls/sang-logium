@@ -80,7 +80,7 @@ export async function createUserProfileAction(data: {
     };
 
     const createdProfile = await client.create(profileData);
-    return createdProfile as UserProfile;
+    return createdProfile as unknown as UserProfile;
   } catch (error) {
     console.error("Error creating user profile:", error);
     return null;

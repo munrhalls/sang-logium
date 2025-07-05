@@ -5,7 +5,8 @@ import ProductPageGallery from "./ProductPageGallery";
 import { FaCheckCircle } from "react-icons/fa";
 import InfoTooltip from "@/app/components/ui/infoTooltip/infoTooltip";
 import BasketControls from "@/app/components/features/basket/BasketControls";
-import { BasketProduct } from "@/app/components/features/basket/BasketControls";
+// import { BasketProduct } from "@/app/components/features/basket/BasketControls";
+import { BasketItem } from "@/store";
 
 export default async function ProductPage({
   params,
@@ -25,11 +26,12 @@ export default async function ProductPage({
   }
 
   const isOutOfStock = product.stock != null && product.stock <= 0;
-  const basketProduct: BasketProduct = {
+  const basketProduct: BasketItem = {
     _id: product._id,
     name: product.name,
     stock: product.stock,
     price: product.price,
+    quantity: 1,
   };
 
   return (
