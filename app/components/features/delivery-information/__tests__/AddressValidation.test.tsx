@@ -8,7 +8,12 @@ import {
 import "@testing-library/jest-dom";
 import AddressForm from "../AddressForm";
 
-const fillForm = (address: unknown) => {
+const fillForm = (address: {
+  postcode: string;
+  city: string;
+  street: string;
+  houseNumber: string;
+}) => {
   fireEvent.change(screen.getByPlaceholderText("Postcode"), {
     target: { value: address.postcode },
   });
