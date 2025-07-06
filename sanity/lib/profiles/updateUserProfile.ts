@@ -22,18 +22,9 @@ export async function updateUserProfile(
     console.error(`No user profile found with clerkId ${clerkId}`);
     return null;
   }
-
-  // Create a patch object with the fields to update
-  const patch: Record<string, any> = {
+  const patch: Record<string, string | number | boolean | object> = {
     updatedAt: new Date().toISOString(),
   };
-
-  // Handle each possible field to update
-  if (fieldsToUpdate.displayName !== undefined) {
-    patch.displayName = fieldsToUpdate.displayName;
-  }
-
-  // Handle primary address updates (patched individually to avoid overwriting the entire object)
   if (fieldsToUpdate.primaryAddress) {
     Object.entries(fieldsToUpdate.primaryAddress).forEach(([key, value]) => {
       patch[`primaryAddress.${key}`] = value;

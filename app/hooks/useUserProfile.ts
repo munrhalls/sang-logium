@@ -14,15 +14,6 @@ type ProfileState = {
   error: Error | null;
 };
 
-/**
- * Custom hook to fetch or create a Sanity profile for the current Clerk user
- *
- * This hook:
- * - Gets the current authenticated user from Clerk
- * - Checks if a corresponding Sanity profile exists
- * - Creates a basic profile if one doesn't exist
- * - Returns profile data and loading state
- */
 export function useUserProfile() {
   const { user, isLoaded: isClerkLoaded, isSignedIn } = useUser();
   const [state, setState] = useState<ProfileState>({
@@ -44,7 +35,7 @@ export function useUserProfile() {
     async function loadOrCreateProfile() {
       try {
         // Attempt to fetch existing profile using server action
-        const existingProfile = await fetchProfileByClerkIdAction(user.id);
+        const existingProfile = await fetchProfileByClerkIdAction(user!.id);
 
         if (existingProfile) {
           setState({
@@ -58,12 +49,12 @@ export function useUserProfile() {
         // No profile exists, create one using server action
         console.log(
           "No profile found. Creating new Sanity profile for user:",
-          user.id,
+          user!.id,
         );
 
         // Create a new profile (name is now managed solely by Clerk)
         const newProfile = await createUserProfileAction({
-          clerkId: user.id,
+          clerkId: user!.id,
           preferences: {
             receiveMarketingEmails: false,
             darkMode: false,
@@ -93,7 +84,6 @@ export function useUserProfile() {
   return {
     ...state,
     isAuthenticated: isClerkLoaded && isSignedIn,
-    "bla!": "bla!",
-    user, // Return the Clerk user object for convenience
+    user: isSignedIn ? user! : null, // Return the Clerk user object for convenience
   };
 }

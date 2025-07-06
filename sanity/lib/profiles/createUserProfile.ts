@@ -10,7 +10,7 @@ import { UserProfile, CreateProfileOptions } from "./profileTypes";
 export async function createUserProfile(
   options: CreateProfileOptions,
 ): Promise<UserProfile | null> {
-  const { clerkId, displayName, primaryAddress, preferences } = options;
+  const { clerkId, primaryAddress, preferences } = options;
 
   // Check if profile already exists
   const existingProfile = await backendClient.fetch(
@@ -29,7 +29,7 @@ export async function createUserProfile(
   const profileData: UserProfile = {
     _type: "userProfile",
     clerkId,
-    displayName,
+
     primaryAddress,
     preferences: preferences || {
       receiveMarketingEmails: false,

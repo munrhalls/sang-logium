@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
-       "build": "next build || true",
-       "lint": "eslint . || true",
+    "build": "next build",
+    "lint": "eslint .",
     "deploy": "netlify deploy --prod",
     "verify": "node verify-deployment.js",
     "start": "next start",
