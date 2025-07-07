@@ -1,11 +1,10 @@
-// "use client";
+"use client";
 
 import { ShoppingCartIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import SegmentTitle from "@/app/components/ui/segment-title/SegmentTitle";
 import { useBasketStore } from "@/store";
 import BasketControls from "@/app/components/features/basket/BasketControls";
-
 
 export default function BasketPage() {
   const basket = useBasketStore((s) => s.basket);
