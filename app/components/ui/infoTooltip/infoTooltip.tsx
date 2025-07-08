@@ -1,25 +1,19 @@
 "use client";
-
 import React, { useState, useRef, useEffect } from "react";
 import { X } from "lucide-react";
 import { FaInfoCircle } from "react-icons/fa";
-
 interface InfoTooltipProps {
   information: string;
 }
-
 const InfoTooltip: React.FC<InfoTooltipProps> = ({ information }) => {
   const [isVisible, setIsVisible] = useState(false);
   const tooltipRef = useRef<HTMLDivElement>(null);
-
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
-
   const hideTooltip = () => {
     setIsVisible(false);
   };
-
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -29,16 +23,13 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({ information }) => {
         setIsVisible(false);
       }
     }
-
     if (isVisible) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isVisible]);
-
   return (
     <div className="relative inline-block">
       <button
@@ -51,7 +42,6 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({ information }) => {
       >
         <FaInfoCircle size={14} />
       </button>
-
       {isVisible && (
         <div
           ref={tooltipRef}
@@ -74,5 +64,4 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({ information }) => {
     </div>
   );
 };
-
 export default InfoTooltip;

@@ -1,5 +1,4 @@
 "use client";
-
 import { useUser } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
 import { UserProfile } from "@/sanity/lib/profiles/profileTypes";
@@ -7,13 +6,11 @@ import {
   fetchProfileByClerkIdAction,
   createUserProfileAction,
 } from "@/app/actions/userProfileActions";
-
 type ProfileState = {
   profile: UserProfile | null;
   isLoading: boolean;
   error: Error | null;
 };
-
 export function useUserProfile() {
   const { user, isLoaded: isClerkLoaded, isSignedIn } = useUser();
   const [state, setState] = useState<ProfileState>({
@@ -21,9 +18,7 @@ export function useUserProfile() {
     isLoading: true,
     error: null,
   });
-
   useEffect(() => {
-    // Skip if Clerk hasn't loaded yet or user isn't signed in
     if (!isClerkLoaded || !isSignedIn || !user) {
       setState((prev) => ({
         ...prev,
@@ -31,12 +26,9 @@ export function useUserProfile() {
       }));
       return;
     }
-
     async function loadOrCreateProfile() {
       try {
-        // Attempt to fetch existing profile using server action
         const existingProfile = await fetchProfileByClerkIdAction(user!.id);
-
         if (existingProfile) {
           setState({
             profile: existingProfile,
@@ -45,14 +37,10 @@ export function useUserProfile() {
           });
           return;
         }
-
-        // No profile exists, create one using server action
         console.log(
           "No profile found. Creating new Sanity profile for user:",
           user!.id,
         );
-
-        // Create a new profile (name is now managed solely by Clerk)
         const newProfile = await createUserProfileAction({
           clerkId: user!.id,
           preferences: {
@@ -61,7 +49,6 @@ export function useUserProfile() {
             savePaymentInfo: false,
           },
         });
-
         console.log("Created new Sanity profile:", newProfile);
         setState({
           profile: newProfile,
@@ -77,13 +64,11 @@ export function useUserProfile() {
         });
       }
     }
-
     loadOrCreateProfile();
   }, [user, isClerkLoaded, isSignedIn]);
-
   return {
     ...state,
     isAuthenticated: isClerkLoaded && isSignedIn,
-    user: isSignedIn ? user! : null, // Return the Clerk user object for convenience
+    user: isSignedIn ? user! : null, 
   };
 }

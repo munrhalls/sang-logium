@@ -2,7 +2,6 @@ import Image from "next/image";
 import LogoOrbit from "@/public/logo-orbit.svg";
 import * as Brands from "@/public/brands";
 import Link from "next/link";
-
 export default async function BrandsWall() {
   return (
     <div className="w-full grid grid-cols-[1fr_7fr_1fr] sm:grid-cols-[1fr_5fr_1fr]">

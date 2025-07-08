@@ -1,28 +1,24 @@
 "use client";
-
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import formatSortName from "./helpers/formatSortName";
 import { SortOption } from "./SortTypes";
-
 export default function SortClient({
   initialSortOptions = [],
-  currentSort = "", // Not currently used
+  currentSort = "", 
 }: {
   initialSortOptions?: SortOption[];
   currentSort?: string;
 }) {
-  const _ = currentSort; // Suppress unused variable warning
+  const _ = currentSort; 
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [options, setOptions] = useState<SortOption[]>(initialSortOptions);
   const [isTransitioning, setIsTransitioning] = useState(false);
-
   const currentSortName = searchParams.get("sort") || "";
   const currentSortDir = searchParams.get("dir") || "asc";
-
   useEffect(() => {
     if (initialSortOptions && initialSortOptions.length > 0) {
       const processedOptions = initialSortOptions.map((option) => ({
@@ -32,18 +28,15 @@ export default function SortClient({
         field: option.field || option.name,
         defaultDirection: option.defaultDirection || "asc",
       }));
-
       setOptions(processedOptions);
     }
   }, [initialSortOptions]);
-
   function handleSortChange(
     sortName: string,
     direction: "asc" | "desc" = "asc",
   ) {
     setIsTransitioning(true);
     const params = new URLSearchParams(searchParams);
-
     if (sortName) {
       params.set("sort", sortName);
       params.set("dir", direction);
@@ -51,12 +44,9 @@ export default function SortClient({
       params.delete("sort");
       params.delete("dir");
     }
-
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-
     setTimeout(() => setIsTransitioning(false), 600);
   }
-
   function handleClearSort() {
     setIsTransitioning(true);
     const params = new URLSearchParams(searchParams);
@@ -65,11 +55,9 @@ export default function SortClient({
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
     setTimeout(() => setIsTransitioning(false), 600);
   }
-
   function getDirectionIcon(isActive: boolean, direction: string) {
     if (!isActive)
       return <ArrowUp className="h-5 w-5 text-slate-500 opacity-40" />;
-
     return (
       <>
         {direction === "asc" ? (
@@ -86,10 +74,8 @@ export default function SortClient({
       </>
     );
   }
-
   function getSortLabel(option: SortOption) {
     const { displayName, type } = option;
-
     switch (type) {
       case "alphabetic":
         return `${displayName} (A-Z)`;
@@ -103,11 +89,9 @@ export default function SortClient({
         return displayName;
     }
   }
-
   if (!options || options.length === 0) {
     return <div className="p-4 text-gray-500">No sort options available</div>;
   }
-
   return (
     <div className="sort-options space-y-4 relative">
       {isTransitioning && (
@@ -142,7 +126,6 @@ export default function SortClient({
           );
         })}
       </div>
-
       {currentSortName && (
         <button
           onClick={handleClearSort}

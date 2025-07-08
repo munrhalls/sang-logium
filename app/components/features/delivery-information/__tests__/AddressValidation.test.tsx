@@ -7,7 +7,6 @@ import {
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import AddressForm from "../AddressForm";
-
 const fillForm = (address: {
   postcode: string;
   city: string;
@@ -27,15 +26,12 @@ const fillForm = (address: {
     target: { value: address.houseNumber },
   });
 };
-
 describe("Address Validation", () => {
   afterEach(() => {
     cleanup();
     jest.restoreAllMocks();
   });
-
   test("should verify a valid UK address", async () => {
-    // Mock successful validation with all components confirmed
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       json: () =>
@@ -62,7 +58,6 @@ describe("Address Validation", () => {
           },
         }),
     });
-
     render(<AddressForm />);
     fillForm({
       postcode: "SW1A 1AA",
@@ -71,16 +66,13 @@ describe("Address Validation", () => {
       houseNumber: "1",
     });
     fireEvent.click(screen.getByRole("button", { name: /submit/i }));
-
     await waitFor(() =>
       expect(
         screen.getByText("Address verified successfully!"),
       ).toBeInTheDocument(),
     );
   });
-
   test("should reject a partially invalid address with component details", async () => {
-    // Mock response with some unconfirmed components
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       json: () =>
@@ -103,7 +95,6 @@ describe("Address Validation", () => {
           },
         }),
     });
-
     render(<AddressForm />);
     fillForm({
       postcode: "SW1A 1AA",
@@ -112,16 +103,13 @@ describe("Address Validation", () => {
       city: "London",
     });
     fireEvent.click(screen.getByRole("button", { name: /submit/i }));
-
     await waitFor(() =>
       expect(
         screen.getByText(/Address validation failed.*Unconfirmed components/i),
       ).toBeInTheDocument(),
     );
   });
-
   test("should reject a completely fake address", async () => {
-    // Mock response with no valid components
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       json: () =>
@@ -133,7 +121,6 @@ describe("Address Validation", () => {
           },
         }),
     });
-
     render(<AddressForm />);
     fillForm({
       postcode: "XX1 1XX",
@@ -142,7 +129,6 @@ describe("Address Validation", () => {
       city: "Nowhere",
     });
     fireEvent.click(screen.getByRole("button", { name: /submit/i }));
-
     await waitFor(() =>
       expect(
         screen.getByText(
@@ -151,14 +137,11 @@ describe("Address Validation", () => {
       ).toBeInTheDocument(),
     );
   });
-
   test("should handle API errors gracefully", async () => {
-    // Mock API error
     global.fetch = jest.fn().mockResolvedValue({
       ok: false,
       status: 500,
     });
-
     render(<AddressForm />);
     fillForm({
       postcode: "SW1A 1AA",
@@ -167,7 +150,6 @@ describe("Address Validation", () => {
       houseNumber: "1",
     });
     fireEvent.click(screen.getByRole("button", { name: /submit/i }));
-
     await waitFor(() =>
       expect(
         screen.getByText("Error verifying address. Please try again."),

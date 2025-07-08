@@ -1,6 +1,3 @@
-// import MobileComponents from "@/app/components/ui/mobile/MobileComponents";
-// import { SanityLive } from "@/sanity/lib/live";
-
 import "./../globals.css";
 import type { Metadata } from "next";
 import { Iceland } from "next/font/google";
@@ -9,12 +6,10 @@ import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWr
 import CategoriesWrapper from "../components/layout/categoryMenu/CategoriesWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
-
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
   description: "The best audio gear in the world",
 };
-
 const iceland = Iceland({
   weight: "400",
   subsets: ["latin"],
@@ -22,7 +17,6 @@ const iceland = Iceland({
   preload: false,
   variable: "--font-iceland",
 });
-
 export default async function RootLayout({
   children,
 }: Readonly<{

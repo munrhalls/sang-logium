@@ -1,11 +1,9 @@
 "use client";
-
 import { useState } from "react";
 import Filters from "@/app/components/ui/filters/Filters";
 import SortClient from "@/app/components/ui/sortables/SortClient";
 import { SortOption } from "@/app/components/ui/sortables/SortTypes";
 import { FilterOptions } from "@/app/components/ui/filters/FilterTypes";
-
 export default function SidebarClient({
   filterOptions,
   sortOptions,
@@ -16,7 +14,6 @@ export default function SidebarClient({
   sortField?: string;
 }) {
   const [activeView, setActiveView] = useState("filters");
-
   return (
     <div className="hidden md:block bg-blue-950 shadow-xl text-white rounded-lg p-4 mb-4">
       <div className="flex space-x-2 mb-4">
@@ -33,7 +30,6 @@ export default function SidebarClient({
           Sort
         </button>
       </div>
-
       {activeView === "filters" ? (
         <Filters filterOptions={filterOptions} />
       ) : (

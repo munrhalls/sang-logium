@@ -1,10 +1,8 @@
 "use client";
-
 import React, { useState } from "react";
 import Dots from "./dots";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
-
 const CarouselSingleSlide = ({
   prebuiltSlides,
   keys,
@@ -16,18 +14,14 @@ const CarouselSingleSlide = ({
   const handleSetIndex = (newIndex: number) => {
     setIndex(newIndex);
   };
-
   const count = keys.length;
-
   const handleSlide = (direction: "left" | "right") => {
     const newIndex =
       direction === "left" ? (index - 1 + count) % count : (index + 1) % count;
-
     handleSetIndex(newIndex);
   };
-
   return (
-    <div className="/*carousel*/ isolate relative h-full grid grid-rows-[1fr_3rem]">
+    <div className=" isolate relative h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
         <div
           className="h-full w-full flex transition-transform duration-300"
@@ -53,13 +47,11 @@ const CarouselSingleSlide = ({
         >
           <ChevronLeft />
         </button>
-
         <Dots
           keys={keys.map((item) => item + "dots")}
           currentIndex={index}
           onDotClick={(dotNum) => handleSetIndex(dotNum)}
         />
-
         <button
           type="button"
           onClick={() => handleSlide("right")}
@@ -71,5 +63,4 @@ const CarouselSingleSlide = ({
     </div>
   );
 };
-
 export default CarouselSingleSlide;

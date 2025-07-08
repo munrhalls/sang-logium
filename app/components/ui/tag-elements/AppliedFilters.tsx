@@ -1,31 +1,23 @@
 "use client";
-
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { X, ArrowDown, ArrowUp } from "lucide-react";
 import { FilterOptions } from "../filters/FilterTypes";
-
 interface AppliedFiltersProps {
   filterOptions?: FilterOptions;
 }
-
 export default function AppliedFilters({
   filterOptions = [],
 }: AppliedFiltersProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-
-  // Update search params
   const updateSearchParams = (key: string, value: string | null = null) => {
     const current = new URLSearchParams(searchParams.toString());
-
-    // Handle range filter special case
     if (key.includes("_min") || key.includes("_max")) {
       current.delete(key);
     } else if (key.includes("price") || key.includes("stock")) {
-      // For range filters, delete both min and max
       const baseKey = key.split("_")[0];
       current.delete(`${baseKey}_min`);
       current.delete(`${baseKey}_max`);
@@ -34,58 +26,40 @@ export default function AppliedFilters({
     } else {
       current.set(key, value);
     }
-
     router.replace(`${pathname}?${current.toString()}`, { scroll: false });
   };
-
-  // Toggle sort direction
   const toggleSortDirection = (): void => {
     const current = new URLSearchParams(searchParams.toString());
     const currentSort = current.get("sort");
     const currentDir = current.get("dir") || "asc";
-
     if (currentSort) {
       current.set("dir", currentDir === "asc" ? "desc" : "asc");
       router.replace(`${pathname}?${current.toString()}`, { scroll: false });
     }
   };
-
-  // Get filter display names from filter options
   const getFilterDisplayName = (key: string): string => {
-    // First normalize the key (it might have _min or _max suffix)
     const baseKey = key.includes("_") ? key.split("_")[0] : key;
-
-    // Find the filter option with this name
     const filter = filterOptions.find(
       (opt) => opt.name && opt.name.toLowerCase() === baseKey.toLowerCase(),
     );
-
     if (filter) {
       return filter.name ?? "";
     }
-
-    // Otherwise humanize the key
     return baseKey
       .replace(/([A-Z])/g, " $1")
       .replace(/^./, (s: string) => s.toUpperCase())
       .replace(/_/g, " ");
   };
-
-  // Format filter value for display
   const formatFilterValue = (key: string, value: string): string => {
     if (key === "price") {
       return `${value}`;
     }
-
     if (key.includes("_min")) {
       return `Min: ${key.includes("price") ? "$" : ""}${value}`;
     }
-
     if (key.includes("_max")) {
       return `Max: ${key.includes("price") ? "$" : ""}${value}`;
     }
-
-    // Try to parse JSON for arrays
     try {
       const parsed = JSON.parse(value);
       if (Array.isArray(parsed)) {
@@ -93,17 +67,14 @@ export default function AppliedFilters({
       }
       return String(parsed);
     } catch {
-      // If parsing fails, return the value as-is
       return String(value);
     }
   };
-
-  // Get all active filters from search params
   const activeFilters: {
     filters: Array<{ key: string; value: string }>;
     sort: { name: string; dir: string } | null;
   } = Array.from(searchParams.entries())
-    .filter(([key]) => !key.includes("page")) // Exclude pagination params
+    .filter(([key]) => !key.includes("page")) 
     .reduce(
       (
         acc: {
@@ -113,35 +84,29 @@ export default function AppliedFilters({
         [key, value],
       ) => {
         if (!value) return acc;
-
-        // Handle sort separately
         if (key === "sort" || key === "dir") {
           if (key === "sort") {
             acc.sort = { name: value, dir: searchParams.get("dir") || "asc" };
           }
           return acc;
         }
-
         acc.filters.push({ key, value });
         return acc;
       },
       { filters: [], sort: null },
     );
-
   if (activeFilters.filters.length === 0 && !activeFilters.sort) {
     return null;
   }
-
   const formatActiveSortName = (name: string): string => {
     return name
       .replace(/([A-Z])/g, " $1")
       .replace(/^./, (s: string) => s.toUpperCase())
       .replace(/_/g, " ");
   };
-
   return (
     <div className="py-3 px-4">
-      {/* <h3 className="text-sm font-medium mb-2 text-gray-700">Active Filters</h3> */}
+      {}
       <div className="flex flex-wrap gap-2">
         {activeFilters.filters.map(({ key, value }) => (
           <div
@@ -163,7 +128,6 @@ export default function AppliedFilters({
             </button>
           </div>
         ))}
-
         {activeFilters.sort && (
           <div className="flex items-center bg-blue-100 rounded-full px-5 py-1 text-sm md:text-lg">
             <span className="font-medium mr-1">Sort:</span>
@@ -193,7 +157,6 @@ export default function AppliedFilters({
             </button>
           </div>
         )}
-
         {(activeFilters.filters.length > 0 || activeFilters.sort) && (
           <button
             onClick={() => {

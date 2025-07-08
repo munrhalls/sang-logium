@@ -1,19 +1,10 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import BasketControls from "@/app/components/features/basket/BasketControls";
 import { useBasketStore } from "@/store";
-
-// **BasketControls: clicking Add to Cart causes render of the inner buttons**
-// Test: "Clicking the button activates render of the inner buttons component, which is hidden by default"
-
-// - GIVEN: Only "Add to cart" button visible
-// - WHEN: User clicks the "Add to Cart" button
-// - THEN: The inner buttons component is not rendered initially, however after click the state of parent container changes to active and the inner buttons component renders
-
 describe("BasketControls: Increment and decrement from Cart", () => {
   beforeEach(() => {
     useBasketStore.getState().basket = [];
   });
-
   it("User adds a product to the basket from any context", () => {
     const product = { _id: "p1", name: "Test Product", stock: 5, price: 100 };
     render(<BasketControls product={product} />);
@@ -21,17 +12,14 @@ describe("BasketControls: Increment and decrement from Cart", () => {
       name: /show basket controls/i,
     });
     fireEvent.click(showControlsButton);
-
     const addToCartButton = screen.getByRole("button", {
       name: /add to cart/i,
     });
     fireEvent.click(addToCartButton);
-
     const basket = useBasketStore.getState().basket;
     const basketItem = basket.find((item) => item._id === product._id);
     expect(basketItem).toBeTruthy();
     expect(basketItem?.quantity).toBe(1);
-
     expect(
       screen.getByRole("button", { name: /increase quantity/i }),
     ).toBeInTheDocument();
@@ -40,7 +28,6 @@ describe("BasketControls: Increment and decrement from Cart", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
   });
-
   it("User increases quantity of a product in the basket up to available stock", () => {
     const product = { _id: "p2", name: "Stock Product", stock: 3, price: 50 };
     useBasketStore.getState().basket = [{ ...product, quantity: 2 }];
@@ -56,7 +43,6 @@ describe("BasketControls: Increment and decrement from Cart", () => {
     expect(basketItem?.quantity).toBe(3);
     expect(screen.getByText("3")).toBeInTheDocument();
   });
-
   it("User cannot increase quantity above available stock", () => {
     const product = { _id: "p2", name: "Stock Product", stock: 3, price: 50 };
     useBasketStore.getState().basket = [{ ...product, quantity: 3 }];
@@ -73,7 +59,6 @@ describe("BasketControls: Increment and decrement from Cart", () => {
     expect(incBtn).toBeDisabled();
     expect(screen.getByText("3")).toBeInTheDocument();
   });
-
   it("User decreases quantity of a product in the basket", () => {
     const product = {
       _id: "p3",
@@ -94,7 +79,6 @@ describe("BasketControls: Increment and decrement from Cart", () => {
     expect(basketItem?.quantity).toBe(2);
     expect(screen.getByText("2")).toBeInTheDocument();
   });
-
   it("User removes product by decrementing to zero", () => {
     const product = {
       _id: "p3",
@@ -117,7 +101,6 @@ describe("BasketControls: Increment and decrement from Cart", () => {
       screen.getByRole("button", { name: /show basket controls/i }),
     ).toBeInTheDocument();
   });
-
   it("Controls look and behave the same in all contexts", () => {
     const product = {
       _id: "p5",
@@ -142,7 +125,6 @@ describe("BasketControls: Increment and decrement from Cart", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("2")).toBeInTheDocument();
   });
-
   it("Product with _id is correctly added to the basket as id", () => {
     const product = {
       _id: "mongo123",
@@ -159,14 +141,12 @@ describe("BasketControls: Increment and decrement from Cart", () => {
       name: /add to cart/i,
     });
     fireEvent.click(addToCartButton);
-
     const basket = useBasketStore.getState().basket;
     const basketItem = basket.find((item) => item._id === product._id);
     expect(basketItem).toBeTruthy();
     expect(basketItem?.quantity).toBe(1);
     expect(basketItem?.name).toBe("Sanity Product");
     expect(basketItem?.price).toBe(150);
-
     expect(
       screen.getByRole("button", { name: /increase quantity/i }),
     ).toBeInTheDocument();
@@ -175,7 +155,6 @@ describe("BasketControls: Increment and decrement from Cart", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
   });
-
   it("Clicking the button activates render of the inner buttons component, which is hidden by default", () => {
     const product = {
       _id: "spec1",

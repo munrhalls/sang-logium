@@ -1,7 +1,5 @@
 "use server";
-
 import { getFiltersForCategoryPath } from "@/sanity/lib/products/filter/getFiltersForCategoryPath";
-
 export async function getFiltersForCategoryPathAction(path: string[]) {
   try {
     const filters = await getFiltersForCategoryPath(path);

@@ -3,9 +3,7 @@ import { PortableTextComponents } from "@portabletext/react";
 import { ProductProps, ProductCard } from "./productCard";
 import Link from "next/link";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
-
 type CommercialText = GET_COMMERCIALS_BY_FEATURE_QUERYResult[number]["text"];
-
 function ProductsCommercial({
   products,
   discount,
@@ -20,7 +18,6 @@ function ProductsCommercial({
   const buttonColor =
     text?.[0]?.markDefs?.find((mark) => mark._type === "textColor")?.value ||
     "#CF8226";
-
   const components: PortableTextComponents = {
     block: {
       h1: ({ children }) => (
@@ -41,7 +38,6 @@ function ProductsCommercial({
       ),
     },
   };
-
   return (
     <div className="z-30 h-full w-full grid grid-rows-[auto_1fr_2rem] md:grid-rows-[auto_1fr_auto] pb-1 2xs:py-2 md:py-4 lg:auto-cols-fr gap-1">
       <div className="h-full text-white grid md:py-4 lg:py-6 xl:py-10  2xs:grid-cols-[1fr_1fr_1fr]">
@@ -51,7 +47,6 @@ function ProductsCommercial({
           </div>
         )}
       </div>
-
       <div className="h-full w-full max-w-[750px] lg:max-w-[1000px] xl:max-w-[1400px] mx-auto grid grid-flow-col auto-cols-fr place-items-center px-4 gap-4">
         {products.map((product) => (
           <ProductCard
@@ -62,12 +57,10 @@ function ProductsCommercial({
           />
         ))}
       </div>
-
       {ctaLink && (
         <div className="z-30 h-full min-h-0  text-white grid  place-items-center md:py-4 lg:py-6 xl:py-10">
           <Link
             href={ctaLink}
-            // prefetch={true}
             className="z-20 grid place-content-centerh-full min-h-0  max-w-[10rem] text-center text-white py-1 font-black px-6 lg:py-2 rounded-sm text-sm lg:text-xl "
             style={{ backgroundColor: `${buttonColor}` }}
           >
@@ -78,5 +71,4 @@ function ProductsCommercial({
     </div>
   );
 }
-
 export default ProductsCommercial;

@@ -1,5 +1,4 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-
 function SearchForm() {
   return (
     <form
@@ -18,5 +17,4 @@ function SearchForm() {
     </form>
   );
 }
-
 export default SearchForm;

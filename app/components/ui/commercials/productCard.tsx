@@ -1,23 +1,19 @@
 import Link from "next/link";
-// import PriceLineCross from "@/public/icons/PriceLineCross.svg";
 import DiscountPrice from "./minor/discountPrice";
 import Price from "./minor/price";
 import BrandTitle from "./minor/brandTitle";
 import ProductImage from "./minor/productImage";
-
 export type ProductProps = {
   _id: string;
   brand: string;
   price: number;
   image: string;
 };
-
 type Props = {
   product: ProductProps;
   discount: number | null;
   priceColor: string;
 };
-
 export const ProductCard = ({ product, discount, priceColor }: Props) => {
   return (
     <Link

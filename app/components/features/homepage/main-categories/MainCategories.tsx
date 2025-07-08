@@ -6,11 +6,9 @@ import { PortableText } from "@portabletext/react";
 import { PortableTextComponents } from "@portabletext/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-
 export default async function MainCategories() {
   const commercials = await getCommercialsByFeature("main-categories");
   if (!commercials || !commercials.length) return null;
-
   const verified = commercials.filter(
     (
       commercial,
@@ -31,9 +29,7 @@ export default async function MainCategories() {
       );
     },
   );
-
   verified.sort((a, b) => a.order - b.order);
-
   const components: PortableTextComponents = {
     block: {
       h1: ({ children }) => (
@@ -56,7 +52,6 @@ export default async function MainCategories() {
       ),
     },
   };
-
   return (
     <div className="relative h-full grid grid-rows-3 place-items-center lg:grid-rows-1 lg:grid-cols-3 bg-black">
       {verified &&
@@ -85,7 +80,6 @@ export default async function MainCategories() {
               priority={index === 0}
               loading={index === 0 ? "eager" : "lazy"}
               fill
-              // style={{ objectPosition: "50% 25%" }}
               className="absolute inset-0 w-full h-full aspect-square"
               quality={85}
               sizes="(max-width: 1023px) 400px, 600px"

@@ -1,5 +1,4 @@
 "use client";
-
 import {
   ArrowLeftIcon,
   CreditCardIcon,
@@ -8,7 +7,6 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import SegmentTitle from "@/app/components/ui/segment-title/SegmentTitle";
-
 export default function CheckoutPage() {
   const [form, setForm] = useState({
     name: "",
@@ -21,10 +19,8 @@ export default function CheckoutPage() {
     expiry: "",
     cvc: "",
   });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
-
   const basketItems = [
     {
       id: "1",
@@ -43,18 +39,15 @@ export default function CheckoutPage() {
       quantity: 2,
     },
   ];
-
   const subtotal = basketItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0,
   );
   const shipping = 15.99;
   const total = subtotal + shipping;
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -63,7 +56,6 @@ export default function CheckoutPage() {
       setIsSubmitting(false);
     }, 1500);
   };
-
   if (orderPlaced) {
     return (
       <div className="max-w-2xl mx-auto my-12 px-4 sm:px-6 lg:px-8 bg-slate-100 pt-8 pb-16 rounded">
@@ -87,7 +79,6 @@ export default function CheckoutPage() {
       </div>
     );
   }
-
   return (
     <div className="max-w-4xl mx-auto my-8 px-4 sm:px-6 lg:px-8 bg-slate-100 pt-8 pb-16">
       <div className="mb-8">
@@ -99,8 +90,8 @@ export default function CheckoutPage() {
           onSubmit={handleSubmit}
         >
           <div>
-            {/* shipping form is Address Validation, separate component imported */}
-            {/* Shipping form  */}
+            {}
+            {}
             <h2 className="text-lg font-bold mb-4 pb-2 border-b border-gray-200">
               Shipping Information
             </h2>
@@ -193,7 +184,6 @@ export default function CheckoutPage() {
               </div>
             </div>
           </div>
-
           <div>
             <h2 className="text-lg font-bold mb-4 pb-2 border-b border-gray-200">
               Payment Details

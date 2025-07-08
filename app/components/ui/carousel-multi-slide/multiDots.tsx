@@ -7,7 +7,6 @@ interface CarouselDotsProps {
   currentIndex: number;
   onDotClick: (index: number) => void;
 }
-
 export default function MultiDots({
   keys,
   currentIndex,
@@ -15,7 +14,6 @@ export default function MultiDots({
 }: CarouselDotsProps) {
   const numberOfDots = keys.length;
   const [height, width] = numberOfDots > 10 ? [8, 8] : [16, 16];
-
   return (
     <div
       className={`z-40 h-full truncate text-white text-center sm:bg-transparent flex flex-shrink-0 justify-center items-center ${numberOfDots > 10 ? "gap-[0.25rem]" : "gap-2"} lg:gap-3 xl:gap-4 xl:mb-4`}
@@ -26,7 +24,6 @@ export default function MultiDots({
             <Image
               loading="lazy"
               src={LogoBlack}
-              // height={height + 8}
               width={width + 8}
               alt={"Icon"}
               unoptimized

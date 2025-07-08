@@ -4,7 +4,6 @@ import { PortableTextComponents } from "@portabletext/react";
 import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
 import Link from "next/link";
-
 export default async function NewestRelease() {
   const [commercial] = await getCommercialsByFeature("newest-release");
   if (!commercial.image || !commercial.products || !commercial.text)
@@ -13,7 +12,6 @@ export default async function NewestRelease() {
   const image = commercial?.image;
   const products = commercial?.products;
   const product = products[0];
-
   const components: PortableTextComponents = {
     block: {
       h1: ({ children }) => (
@@ -38,11 +36,9 @@ export default async function NewestRelease() {
       ),
     },
   };
-
   return (
     <div className="grid py-24 lg:pb-40 lg:pt-60 md:grid-cols-2 xl:grid-cols-[1fr_3fr_3fr_1fr] bg-gradient-to-b from-blue-950/95 via-gray-950/100 to-black">
-      {/* <div className="bg-blue-700"></div>
-      <div className="bg-purple-700"></div> */}
+      {}
       <Image
         src={imageUrl(image).url()}
         loading="lazy"
@@ -52,7 +48,6 @@ export default async function NewestRelease() {
         quality={95}
         className="z-50 mb-12 mx-auto max-w-[300px] sm:max-w-[400px] md:max-w-[450px] lg:max-w-[600px] xl:max-w-[850px] xl:max-h-[800px] lg:col-start-1 xl:col-start-2 lg:col-span-1  object-cover rounded-lg "
       />
-
       <div className="h-full w-full grid md:place-content-center xl:justify-center gap-1 md:gap-2 lg:col-start-2 xl:col-start-3 lg:col-span-2 xl:col-span-1 text-blue-950">
         <PortableText value={text} components={components} />;
         <Link

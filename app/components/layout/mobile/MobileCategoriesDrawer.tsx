@@ -1,9 +1,7 @@
 "use client";
-
 import { useUIStore } from "../../../../store";
 import { ReactElement } from "react";
 import { FaTimes } from "react-icons/fa";
-
 export default function MobileCategoriesDrawer({
   categoriesTreeUI,
 }: {
@@ -15,11 +13,9 @@ export default function MobileCategoriesDrawer({
   const toggleCategoriesDrawer = useUIStore(
     (state) => state.toggleCategoriesDrawer,
   );
-
   const handleClick = () => {
     toggleCategoriesDrawer();
   };
-
   return (
     <div
       className={`absolute inset-0 overflow-hidden h-full w-full z-50 pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 flex flex-col ${
@@ -34,15 +30,13 @@ export default function MobileCategoriesDrawer({
               className="flex gap-1 items-center justify-center text-black"
             >
               <span>CLOSE</span>
-
               <FaTimes size={14} />
             </button>
           </div>
         </div>
         <h1 className="text-3xl text-center my-2 ml-4">Categories</h1>
       </div>
-
-      {/* Scrollable content */}
+      {}
       <div
         className="flex-1 overflow-y-auto scroll-smooth pb-6"
         onClick={handleClick}

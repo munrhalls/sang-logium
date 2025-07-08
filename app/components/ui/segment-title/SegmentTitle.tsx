@@ -1,11 +1,9 @@
 import Image from "next/image";
 import LogoOrbit from "@/public/logo-orbit.svg";
 import LogoOrbitWhite from "@/public/logo-orbit-white.svg";
-
 export default function SegmentTitle({
   title,
   width,
-  // height,
   white = false,
 }: {
   title: string;
@@ -14,14 +12,12 @@ export default function SegmentTitle({
   height?: number;
 }) {
   const Logo = white ? LogoOrbitWhite : LogoOrbit;
-
   return (
     <div className={`flex items-center justify-center gap-1`}>
       <Image
         src={Logo}
         alt="Logo"
         width={width ?? 60}
-        // height={height ?? 56}
         unoptimized
       />
       <h1

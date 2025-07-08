@@ -1,6 +1,5 @@
 import CarouselMultiSlide from "../../../ui/carousel-multi-slide/carouselMultiSlide";
 import SegmentTitle from "../../../ui/segment-title/SegmentTitle";
-// import Image from "next/image";
 import Price from "../../../ui/commercials/minor/price";
 import BrandTitle from "../../../ui/commercials/minor/brandTitle";
 import ProductName from "../../../ui/commercials/minor/productName";
@@ -9,7 +8,6 @@ import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
 import Link from "next/link";
 import { BlockContent } from "@/sanity.types";
-
 type Product = {
   _id: string;
   name: string;
@@ -18,7 +16,6 @@ type Product = {
   price: number;
   image: string;
 };
-
 function isProduct(item: unknown): item is Product {
   return (
     typeof item === "object" &&
@@ -31,16 +28,13 @@ function isProduct(item: unknown): item is Product {
     typeof (item as Product).image === "string"
   );
 }
-
 export default async function Bestsellers() {
   const [commercial] = await getCommercialsByFeature("bestsellers");
   const bestsellers = commercial.products;
   const verified = bestsellers?.filter(isProduct);
   verified?.sort((a, b) => b.price - a.price);
-
   const keys: string[] =
     verified?.map((bestseller) => bestseller._id + "_carousel") || [];
-
   const prebuilt = verified?.map((bestseller) => {
     return (
       <div
@@ -67,7 +61,6 @@ export default async function Bestsellers() {
       </div>
     );
   });
-
   return (
     <div className="w-full  grid grid-rows-[1fr_4fr]">
       <SegmentTitle title="Bestsellers" />

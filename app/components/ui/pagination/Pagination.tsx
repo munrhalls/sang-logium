@@ -2,10 +2,8 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ProductsPerPageDropdown from "./ProductsPerPageDropdown";
 import generatePageNumbers from "./generatePageNumbers";
-
 const DEFAULT_PAGE_SIZE = 12;
 const DEFAULT_PAGE = 1;
-
 export default function Pagination({
   totalProductsCount,
 }: {
@@ -15,42 +13,25 @@ export default function Pagination({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   if (totalProductsCount === undefined) return null;
-
-  // console.log("totalProductsCount ", totalProductsCount);
-
   const currentPage = Number(searchParams.get("page")) || DEFAULT_PAGE;
   const pageSize = Number(searchParams.get("size")) || DEFAULT_PAGE_SIZE;
   const pagesCount = Math.ceil(totalProductsCount / pageSize);
-  // console.log(
-  //   "totalProductsCount /  ",
-  //   totalProductsCount,
-  //   "page size",
-  //   pageSize,
-  //   " === ",
-  //   " pages count",
-  //   pagesCount
-  // );
-
   const createPageUrl = (pageNum: number | string) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", pageNum.toString());
     return `${pathname}?${params.toString()}`;
   };
-
   const handlePrevPage = () => {
     if (currentPage > 1) {
       router.push(createPageUrl(currentPage - 1));
     }
   };
-
   const handleNextPage = () => {
     if (currentPage < pagesCount) {
       router.push(createPageUrl(currentPage + 1));
     }
   };
-
   const pageNavItems = generatePageNumbers(currentPage, pagesCount);
-
   const NumberButton = ({ pageNum }: { pageNum: number | string }) => (
     <a
       href={createPageUrl(pageNum)}
@@ -67,7 +48,6 @@ export default function Pagination({
       {pageNum}
     </a>
   );
-
   return (
     <div>
       <div className="grid grid-cols-8 md:flex md:items-center md:justify-between ">
@@ -110,7 +90,6 @@ export default function Pagination({
         >
           Prev
         </button>
-
         <div className="flex">
           {pageNavItems.map((item, index) =>
             item === "..." ? (
@@ -125,7 +104,6 @@ export default function Pagination({
             ),
           )}
         </div>
-
         <button
           onClick={handleNextPage}
           disabled={currentPage >= pagesCount}

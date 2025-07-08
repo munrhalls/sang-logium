@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 export default function ContactInformationForm() {
   const [form, setForm] = useState({
     name: "",
@@ -7,11 +6,9 @@ export default function ContactInformationForm() {
     phone: "",
   });
   const [isSaving, setIsSaving] = useState(false);
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
-
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setIsSaving(true);
@@ -19,7 +16,6 @@ export default function ContactInformationForm() {
       setIsSaving(false);
     }, 1000);
   }
-
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <div>

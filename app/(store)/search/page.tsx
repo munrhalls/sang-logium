@@ -1,6 +1,5 @@
 import { searchProductsByName } from "@/sanity/lib/products/searchProductsByName";
 import ProductsGrid from "@/app/components/features/products/ProductsGrid";
-
 export default async function Page({
   searchParams,
 }: {
@@ -8,7 +7,6 @@ export default async function Page({
 }) {
   const params = await searchParams;
   const query = params.query;
-
   if (!query) {
     return (
       <div className="flex flex-col items-center justify-top min-h-screen bg-slate-200 p-4">
@@ -23,10 +21,8 @@ export default async function Page({
       </div>
     );
   }
-
   const products = await searchProductsByName(query);
   const productsCount = products.length;
-
   if (!productsCount) {
     return (
       <div className="flex flex-col items-center justify-top min-h-screen bg-slate-200 p-4">
@@ -41,7 +37,6 @@ export default async function Page({
       </div>
     );
   }
-
   return (
     <div className="flex flex-col items-center justsify-top min-h-screen bg-slate-200 p-4">
       <div className="bg-white rounded-lg w-full max-w-4xl">

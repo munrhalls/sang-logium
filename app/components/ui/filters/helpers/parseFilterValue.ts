@@ -9,7 +9,6 @@ export default function parseFilterValue(
     if (filterType === "radio") return null;
     return null;
   }
-
   try {
     switch (filterType) {
       case "range":

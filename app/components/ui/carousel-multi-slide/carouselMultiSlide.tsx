@@ -1,10 +1,8 @@
 "use client";
-
 import React, { useState } from "react";
 import MultiDots from "./multiDots";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
-
 const CarouselMultiSlide = ({
   prebuiltSlides,
   keys,
@@ -16,16 +14,12 @@ const CarouselMultiSlide = ({
   const handleSetIndex = (newIndex: number) => {
     setIndex(newIndex);
   };
-
   const count = keys.length;
-
   const handleSlide = (direction: "left" | "right") => {
     const newIndex =
       direction === "left" ? (index - 1 + count) % count : (index + 1) % count;
-
     handleSetIndex(newIndex);
   };
-
   return (
     <div className="isolate relative h-full grid grid-rows-[1fr_3rem] px-[48px]">
       <div className="relative h-full w-full z-30 overflow-hidden ">
@@ -69,5 +63,4 @@ const CarouselMultiSlide = ({
     </div>
   );
 };
-
 export default CarouselMultiSlide;

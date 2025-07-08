@@ -5,9 +5,7 @@ import ProductPageGallery from "./ProductPageGallery";
 import { FaCheckCircle } from "react-icons/fa";
 import InfoTooltip from "@/app/components/ui/infoTooltip/infoTooltip";
 import BasketControls from "@/app/components/features/basket/BasketControls";
-// import { BasketProduct } from "@/app/components/features/basket/BasketControls";
 import { BasketItem } from "@/store";
-
 export default async function ProductPage({
   params,
 }: {
@@ -15,7 +13,6 @@ export default async function ProductPage({
 }) {
   const id = (await params).id;
   const product = await getProductById(id);
-
   if (
     !product ||
     !product.name ||
@@ -24,7 +21,6 @@ export default async function ProductPage({
   ) {
     return notFound();
   }
-
   const isOutOfStock = product.stock != null && product.stock <= 0;
   const basketProduct: BasketItem = {
     _id: product._id,
@@ -33,11 +29,9 @@ export default async function ProductPage({
     price: product.price,
     quantity: 1,
   };
-
   return (
     <div className="mx-auto max-w-[1400px] grid justify-center p-4 gap-4 lg:gap-12 xl:gap-16 sm:grid-cols-2 auto-rows-min">
       <ProductPageGallery product={product} />
-
       <div className="grid items-center">
         <div>
           <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
@@ -45,13 +39,11 @@ export default async function ProductPage({
             ${product.price.toFixed(2)}
           </div>
         </div>
-
         <div className="mb-6">
           {Array.isArray(product.description) && (
             <PortableText value={product.description} />
           )}
         </div>
-
         {isOutOfStock ? (
           <div className="">
             <span className="text-white font-bold text-lg rounded-sm">
@@ -66,7 +58,6 @@ export default async function ProductPage({
               </span>
               <FaCheckCircle color="green" size={16} />
             </div>
-
             <BasketControls product={basketProduct} />
           </div>
         )}

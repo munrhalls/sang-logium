@@ -3,7 +3,6 @@ import MinOnlyFilter from "./MinOnlyFilter";
 import { useSearchParams } from "next/navigation";
 import { FilterComponentProps } from "./FilterTypes";
 import { FilterValue } from "./FilterTypes";
-
 export default function FilterItem({
   filter,
   value,
@@ -17,7 +16,6 @@ export default function FilterItem({
   ) => void;
 }) {
   const searchParams = useSearchParams();
-
   if (!filter) return null;
   const { type, name, options, min, max, isMinOnly, step } = filter;
   const normalizedName = name.toLowerCase();
@@ -27,7 +25,6 @@ export default function FilterItem({
   const initialMax = searchParams.get(`${normalizedName}_max`)
     ? parseInt(searchParams.get(`${normalizedName}_max`) ?? "", 10)
     : undefined;
-
   switch (type) {
     case "checkbox":
       return (
@@ -46,9 +43,7 @@ export default function FilterItem({
           </label>
         </div>
       );
-
     case "range":
-      // Check if this is a min-only range filter
       if (isMinOnly) {
         return (
           <div className="filter-item mb-3">
@@ -68,8 +63,6 @@ export default function FilterItem({
           </div>
         );
       }
-
-      // Regular range filter
       return (
         <div className="filter-item mb-3">
           <h4 className="font-bold tracking-wide mb-4 text-center uppercase text-xl ">
@@ -92,11 +85,9 @@ export default function FilterItem({
           />
         </div>
       );
-
     case "multiselect":
       const safeOptions = Array.isArray(options) ? options : [];
       const safeValue = Array.isArray(value) ? value : [];
-
       return (
         <div className="filter-item mb-3">
           <h4 className="font-bold tracking-wide mb-4 text-center uppercase text-xl">
@@ -126,7 +117,6 @@ export default function FilterItem({
           </div>
         </div>
       );
-
     case "radio":
       const radioOptions = Array.isArray(options) ? options : [];
       return (
@@ -150,7 +140,6 @@ export default function FilterItem({
           </div>
         </div>
       );
-
     case "boolean":
       return (
         <div className="filter-item mb-3">
@@ -168,7 +157,6 @@ export default function FilterItem({
           </label>
         </div>
       );
-
     default:
       return (
         <div className="filter-item mb-3">

@@ -1,11 +1,9 @@
 "use client";
-
 import Link from "next/link";
 import { getCategoryIcon } from "@/lib/getCategoryIcon";
 import { FaChevronDown, FaRegCircle } from "react-icons/fa";
 import { useState } from "react";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
-
 type SubCategory = {
   header?: string;
   name?: string;
@@ -15,7 +13,6 @@ type SubCategory = {
     _key: string;
   }>;
 };
-
 function SubcategoryList({
   items,
   baseUrl,
@@ -54,14 +51,12 @@ function SubcategoryList({
     </div>
   );
 }
-
 export default function CategoriesNav({
   categories,
 }: {
   categories: ALL_CATEGORIES_QUERYResult;
 }) {
   const [activeCategory, setActiveCategory] = useState<string>();
-
   return (
     <nav className="hidden h-11 lg:flex items-center justify-center bg-gray-900 ">
       <div className="h-full max-w-7xl mx-auto lg:px-1 xl:px-4 lg:flex items-center justify-center">
@@ -89,7 +84,6 @@ export default function CategoriesNav({
                   </span>
                   <FaChevronDown className="ml-2 w-3 h-3" />
                 </Link>
-
                 {activeCategory === category.name && category.subcategories && (
                   <div className="absolute z-50 left-0 w-72 bg-white shadow-lg rounded-b-lg">
                     <div className="py-2">

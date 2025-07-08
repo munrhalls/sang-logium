@@ -2,14 +2,12 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import React from "react";
 import { useBasketStore } from "@/store";
 import BasketControls from "@/app/components/features/basket/BasketControls";
-
 describe("Individual Product Page Basket Experience", () => {
   afterEach(() => {
     act(() => {
       useBasketStore.setState({ basket: [] });
     });
   });
-
   const mockProduct = {
     _id: "audio-1",
     name: "Headphones",
@@ -17,7 +15,6 @@ describe("Individual Product Page Basket Experience", () => {
     stock: 5,
     quantity: 3,
   };
-
   test("Add to Cart button is visible when product is not in basket", () => {
     render(<BasketControls product={mockProduct} />);
     const showControlsButton = screen.getByRole("button", {
@@ -30,7 +27,6 @@ describe("Individual Product Page Basket Experience", () => {
       }),
     ).toBeInTheDocument();
   });
-
   test("Clicking Add to Cart adds product and shows quantity controls", () => {
     render(<BasketControls product={mockProduct} />);
     const showControlsButton = screen.getByRole("button", {
@@ -60,7 +56,6 @@ describe("Individual Product Page Basket Experience", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
   });
-
   test("Clicking + increases product quantity", () => {
     render(<BasketControls product={mockProduct} />);
     const showControlsButton = screen.getByRole("button", {
@@ -81,7 +76,6 @@ describe("Individual Product Page Basket Experience", () => {
     expect(items[0].quantity).toBe(2);
     expect(screen.getByText("2")).toBeInTheDocument();
   });
-
   test("Clicking - decreases product quantity but not below 1", () => {
     render(<BasketControls product={mockProduct} />);
     const showControlsButton = screen.getByRole("button", {
@@ -120,7 +114,6 @@ describe("Individual Product Page Basket Experience", () => {
       }),
     ).toBeInTheDocument();
   });
-
   test("Clicking X removes product and restores Add to Cart button", () => {
     render(<BasketControls product={mockProduct} />);
     const showControlsButton = screen.getByRole("button", {
@@ -155,7 +148,6 @@ describe("Individual Product Page Basket Experience", () => {
       }),
     ).toBeInTheDocument();
   });
-
   test("Quantity controls match product listing behavior", () => {
     render(<BasketControls product={mockProduct} />);
     const showControlsButton = screen.getByRole("button", {

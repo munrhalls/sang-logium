@@ -1,20 +1,14 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
 const DEFAULT_PAGE_SIZE = 15;
-
 export default function ProductsPerPageDropdown() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  // Use the URL parameter if it exists, otherwise use the default
   const itemsPerPage = searchParams.get("size")
     ? String(searchParams.get("size"))
     : String(DEFAULT_PAGE_SIZE);
-
   const options = [5, 10, 15, 25, 50];
-
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newSize = String(e.target.value);
     const params = new URLSearchParams(searchParams);
@@ -22,7 +16,6 @@ export default function ProductsPerPageDropdown() {
     params.set("page", "1");
     router.push(`${pathname}?${params.toString()}`);
   };
-
   return (
     <div className="col-start-1 col-span-2 px-2 flex md:justify-center md:items-center ">
       <label

@@ -1,12 +1,10 @@
 "use client";
-
 import React from "react";
 import { Menu, Search, ShoppingBag, X, User } from "lucide-react";
 import { useUIStore } from "@/store";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-
 const AuthContent = dynamic(
   () => import("@/app/components/features/auth/AuthContent"),
   {
@@ -16,7 +14,6 @@ const AuthContent = dynamic(
     ssr: false,
   },
 );
-
 const MobileMenu = () => {
   const isCategoriesOpen = useUIStore((state) => state.isCategoriesDrawerOpen);
   const toggleCategoriesDrawer = useUIStore(
@@ -24,7 +21,6 @@ const MobileMenu = () => {
   );
   const isSearchDrawerOpen = useUIStore((state) => state.isSearchDrawerOpen);
   const toggleSearchDrawer = useUIStore((state) => state.toggleSearchDrawer);
-
   return (
     <>
       <div className="h-14 py-2 bg-black text-white border-t border-white lg:hidden">
@@ -42,7 +38,6 @@ const MobileMenu = () => {
               </>
             )}
           </button>
-
           <button
             className="flex flex-col items-center"
             onClick={toggleSearchDrawer}
@@ -56,24 +51,21 @@ const MobileMenu = () => {
               </>
             )}
           </button>
-
           <Link href="/basket" className="flex flex-col items-center">
             <ShoppingBag className="h-6 w-6" />
             <span className="text-xs mt-1">Basket</span>
           </Link>
-
           <SignedIn>
             <AuthContent />
           </SignedIn>
-
           <SignedOut>
-            {/* Removed the extra <button> wrapper */}
+            {}
             <SignInButton mode="modal">
-              {/* You can add your styling classes directly to SignInButton */}
-              {/* or wrap the children in a div/span for layout if needed */}
+              {}
+              {}
               <div className="flex flex-col items-center">
                 {" "}
-                {/* Using div for layout */}
+                {}
                 <User className="h-6 w-6" />
                 <span className="text-xs mt-1">Sign In</span>
               </div>
@@ -84,5 +76,4 @@ const MobileMenu = () => {
     </>
   );
 };
-
 export default MobileMenu;

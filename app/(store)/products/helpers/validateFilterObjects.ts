@@ -1,13 +1,10 @@
 const VALID_DIRECT_FIELDS = ["name", "brand", "price", "stock", "sku"];
-
-// Include "connection" as a valid field for filtering
 const VALID_FILTER_FIELDS = [
   ...VALID_DIRECT_FIELDS,
   "connection",
   "design",
   "type",
 ];
-
 const VALID_OVERVIEW_VALUES = [
   "in-ear",
   "on-ear",
@@ -18,7 +15,6 @@ const VALID_OVERVIEW_VALUES = [
   "wireless",
   "bluetooth",
 ];
-
 const SPECIAL_FIELD_MAPPINGS = {
   "in stock": {
     field: "stock",
@@ -26,7 +22,6 @@ const SPECIAL_FIELD_MAPPINGS = {
     value: 0,
   },
 };
-
 export default function validateFilterObjects(
   rawFilters: Array<{
     field: string;
@@ -35,7 +30,6 @@ export default function validateFilterObjects(
 ) {
   const validatedFilters = rawFilters
     .map((filter) => {
-      // Handle special field mappings
       const lcField = filter.field.toLowerCase();
       if (
         SPECIAL_FIELD_MAPPINGS[lcField as keyof typeof SPECIAL_FIELD_MAPPINGS]
@@ -44,12 +38,8 @@ export default function validateFilterObjects(
           lcField as keyof typeof SPECIAL_FIELD_MAPPINGS
         ];
       }
-
-      // Process filter value
       const filterValue =
         typeof filter.value === "string" ? filter.value : String(filter.value);
-
-      // Check if it's a valid overview value (case-insensitive)
       if (
         VALID_OVERVIEW_VALUES.some(
           (val) =>
@@ -64,16 +54,12 @@ export default function validateFilterObjects(
               )),
         )
       ) {
-        // Mark this as an overview field filter
         return {
           ...filter,
           type: "overviewField",
         };
       }
-
-      // Check if field is a valid direct field or a known filter field
       if (VALID_FILTER_FIELDS.includes(lcField)) {
-        // Special case for connection field - treat as overview field filter
         if (
           lcField === "connection" ||
           lcField === "design" ||
@@ -87,11 +73,9 @@ export default function validateFilterObjects(
         }
         return filter;
       }
-
       console.warn(`Invalid filter field: ${filter.field}`);
       return null;
     })
-    .filter(Boolean); // Remove null entries
-
+    .filter(Boolean); 
   return validatedFilters;
 }

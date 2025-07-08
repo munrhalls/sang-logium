@@ -7,7 +7,6 @@ import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
 import { BlockContent } from "@/sanity.types";
 import { PortableText } from "@portabletext/react";
-
 type Product = {
   _id: string;
   name: string;
@@ -16,7 +15,6 @@ type Product = {
   price: number;
   image: string;
 };
-
 function isProduct(item: unknown): item is Product {
   return (
     typeof item === "object" &&
@@ -29,16 +27,13 @@ function isProduct(item: unknown): item is Product {
     typeof (item as Product).image === "string"
   );
 }
-
 export default async function ExtremeQuality() {
   const [commercial] = await getCommercialsByFeature("extreme-quality");
   if (!commercial || !commercial.products) return null;
-
   const eqproducts = commercial?.products;
   const verified = eqproducts?.filter(isProduct);
   const keys: string[] =
     verified?.map((eqproduct) => eqproduct._id + "_eqcarousel") || [];
-
   const prebuiltCommercials = verified?.map((eqproduct) => {
     return (
       <div
@@ -82,7 +77,6 @@ export default async function ExtremeQuality() {
       </div>
     );
   });
-
   return (
     <div className="w-full grid grid-rows-[8rem_5fr]">
       <SegmentTitle title="Extreme Quality Series" />

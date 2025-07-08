@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
-
 export default function ProductImage({
   src,
   brand,

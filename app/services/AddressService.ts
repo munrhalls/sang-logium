@@ -1,8 +1,6 @@
 import { Address } from "@/sanity/lib/profiles/profileTypes";
-
 const GEOAPIFY_API_KEY = process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY;
-const GEOAPIFY_API_URL = "https://api.geoapify.com/v1/geocode/autocomplete";
-
+const GEOAPIFY_API_URL = "https:
 interface GeoapifyFeature {
   formatted: string;
   city?: string;
@@ -16,20 +14,16 @@ interface GeoapifyFeature {
   address_line2?: string;
   country_code?: string;
 }
-
 interface GeoapifyResponse {
   results: GeoapifyFeature[];
 }
-
 export async function searchAddresses(query: string): Promise<Address[]> {
   if (!GEOAPIFY_API_KEY) {
     throw new Error("Address search is not configured");
   }
-
   if (!query?.trim()) {
     return [];
   }
-
   const params = new URLSearchParams({
     text: query,
     apiKey: GEOAPIFY_API_KEY,
@@ -39,11 +33,9 @@ export async function searchAddresses(query: string): Promise<Address[]> {
     type: "city",
     filter: "countrycode:gb",
   });
-
   try {
     const response = await fetch(`${GEOAPIFY_API_URL}?${params}`);
     const data: GeoapifyResponse = await response.json();
-
     return data.results
       .filter((feature) => feature.country_code === "gb")
       .map((feature) => ({

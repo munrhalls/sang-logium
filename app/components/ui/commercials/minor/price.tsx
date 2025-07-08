@@ -19,5 +19,4 @@ const Price = function ({
     </div>
   );
 };
-
 export default Price;

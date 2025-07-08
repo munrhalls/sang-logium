@@ -1,13 +1,10 @@
 "use client";
-
-// Removed UserButton from the import
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ShoppingCartIcon, UserIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import logo from "@/public/logo.svg";
-
 const AuthContent = dynamic(
   () => import("@/app/components/features/auth/AuthContent"),
   {
@@ -17,7 +14,6 @@ const AuthContent = dynamic(
     ssr: false,
   },
 );
-
 const SearchForm = dynamic(
   () => import("@/app/components/features/homepage/search/SearchForm"),
   {
@@ -25,12 +21,10 @@ const SearchForm = dynamic(
     ssr: false,
   },
 );
-
 const ProfileSync = dynamic(
   () => import("@/app/components/features/auth/ProfileSync"),
   { ssr: false },
 );
-
 function Header() {
   return (
     <header className="bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_4fr] h-[4rem]">
@@ -44,11 +38,9 @@ function Header() {
           priority
         />
       </Link>
-
       <div className="hidden lg:grid lg:place-content-center">
         <SearchForm />
       </div>
-
       <div className="hidden lg:grid place-content-center grid-flow-col gap-8">
         <Link href="/basket" className="text-white" prefetch={false}>
           <div className="grid place-content-center">
@@ -56,12 +48,10 @@ function Header() {
           </div>
           <span>Basket</span>
         </Link>
-
         <ProfileSync />
         <SignedIn>
           <AuthContent />
         </SignedIn>
-
         <SignedOut>
           <div className="grid place-content-center text-white">
             <SignInButton mode="modal">
@@ -78,5 +68,4 @@ function Header() {
     </header>
   );
 }
-
 export default Header;

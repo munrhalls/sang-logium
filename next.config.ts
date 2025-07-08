@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-
 const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
@@ -7,7 +6,6 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["cdn.sanity.io"],
     formats: ["image/avif", "image/webp"],
-
     remotePatterns: [
       {
         protocol: "https",
@@ -15,11 +13,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-
   poweredByHeader: false,
   compress: true,
-
-  // Add security headers for production
   headers: async () => {
     return [
       {
@@ -46,5 +41,4 @@ const nextConfig: NextConfig = {
     ];
   },
 };
-
 export default nextConfig;

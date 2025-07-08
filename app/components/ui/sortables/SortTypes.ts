@@ -5,7 +5,6 @@ export interface SortOption {
   field?: string;
   defaultDirection?: "asc" | "desc";
 }
-
 export interface SortState {
   field: string;
   direction: "asc" | "desc";

@@ -1,6 +1,5 @@
 import AddressForm from "./AddressForm";
 import ContactInformationForm from "./ContactInformationForm";
-
 export default function DeliveryInformation() {
   return (
     <div className="bg-white rounded-sm shadow-sm p-6 mb-8">

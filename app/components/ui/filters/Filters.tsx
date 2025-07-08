@@ -1,12 +1,10 @@
 "use client";
-
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import FilterItem from "./FilterItem";
 import parseFilterValue from "./helpers/parseFilterValue";
 import normalizeFilters from "./helpers/normalizeFilters";
 import { FilterOptions } from "./FilterTypes";
-
 export default function Filters({
   filterOptions,
 }: {
@@ -16,11 +14,9 @@ export default function Filters({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isTransitioning, setIsTransitioning] = useState(false);
-
   if (!Array.isArray(filterOptions) || filterOptions.length === 0) {
     return <div className="filters">No filters available</div>;
   }
-
   function handleFilterChange(
     name: string,
     value:
@@ -34,7 +30,6 @@ export default function Filters({
   ) {
     setIsTransitioning(true);
     const params = new URLSearchParams(searchParams.toString());
-
     if (type === "checkbox" && value === false) {
       params.delete(name);
     } else if (!value || (Array.isArray(value) && value.length === 0)) {
@@ -53,7 +48,6 @@ export default function Filters({
       } else {
         params.delete(`${name}_min`);
       }
-
       if (
         typeof value === "object" &&
         value !== null &&
@@ -65,48 +59,35 @@ export default function Filters({
       } else {
         params.delete(`${name}_max`);
       }
-
       params.delete(name);
     } else {
       params.set(name, String(value).toLowerCase().trim());
     }
-
-    // Reset pagination to page 1 whenever filters change
     params.set("page", "1");
-
     const filterObj = Object.fromEntries(params.entries());
     const normalized = normalizeFilters(filterObj);
-
     const normalizedParams = new URLSearchParams();
     Object.entries(normalized).forEach(([key, val]) => {
       normalizedParams.set(key, String(val));
     });
-
-    // Ensure page=1 is preserved in normalized params
     if (!normalizedParams.has("page")) {
       normalizedParams.set("page", "1");
     }
-
     router.push(`${pathname}?${normalizedParams.toString()}`, {
       scroll: false,
     });
-
     setTimeout(() => setIsTransitioning(false), 600);
   }
-
   function handleFormSubmit(e: React.FormEvent) {
     e.preventDefault();
   }
-
   function handleReset() {
     setIsTransitioning(true);
-    // Clear all filters and reset to page 1
     const params = new URLSearchParams();
     params.set("page", "1");
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
     setTimeout(() => setIsTransitioning(false), 600);
   }
-
   return (
     <div className="filters p-4 relative">
       {isTransitioning && (
@@ -125,7 +106,6 @@ export default function Filters({
             | "multiselect"
             | "radio"
             | "range";
-
           const currentValue = parseFilterValue(paramValue, filterType);
           return (
             <FilterItem
@@ -144,7 +124,6 @@ export default function Filters({
             />
           );
         })}
-
         {filterOptions.length > 0 && (
           <div className="mt-4">
             <button

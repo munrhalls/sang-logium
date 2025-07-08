@@ -1,7 +1,5 @@
 "use client";
-
 import ProfileIntegrationTest from "@/app/components/features/auth/ProfileIntegrationTest";
-
 export default function ProfileTestPage() {
   return (
     <div className="container mx-auto py-10">

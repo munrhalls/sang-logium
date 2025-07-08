@@ -4,7 +4,6 @@ import TimeStamp from "./TimeStamp";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import PriceLineCross from "@/public/icons/PriceLineCross.svg";
 import Link from "next/link";
-
 const DiscountPrice = function ({
   price,
   discount,
@@ -15,7 +14,6 @@ const DiscountPrice = function ({
   priceColor: string;
 }) {
   const discountPrice = price - (discount / 100) * price;
-
   return (
     <div className="2xs:row-start-3 md:row-start-2 mx-2 grid grid-cols-5 2xs:grid-rows-2 md:grid-rows-1">
       <span className="col-start-1 col-span-2 sm:col-start-2 relative text-gray-400 text-md 2xs:row-start-1 md:text-md lg:text-lg lg:pb-2 flex justify-center items-center">
@@ -25,7 +23,6 @@ const DiscountPrice = function ({
             loading="lazy"
             src={PriceLineCross}
             alt="Price line cross"
-            // height={32}
             width={54}
             unoptimized
           />
@@ -57,7 +54,6 @@ const Title = function ({ name }: { name: string }) {
     </div>
   );
 };
-
 const CTA = function ({ id }: { id: string }) {
   return (
     <Link href={`/product/${id}`} className="h-full max-w-40">
@@ -67,7 +63,6 @@ const CTA = function ({ id }: { id: string }) {
     </Link>
   );
 };
-
 export default async function MonthProduct() {
   const [commercial] = await getCommercialsByFeature("mvp-month");
   const { products, sale } = commercial;
@@ -76,7 +71,6 @@ export default async function MonthProduct() {
   const { _id, name, image, price } = product;
   if (!sale) return null;
   const { discount, validUntil } = sale;
-
   return (
     <div className="h-[800px] py-8 md:h-[600px] lg:h-[500px] bg-black grid md:grid-cols-4 lg:p-12 lg:grid-cols-8 lg:grid-rows-3 lg:gap-1">
       <div className="md:col-start-2 md:col-span-1 md:grid md:justify-start md:row-start-3 lg:col-start-2 lg:row-start-1 lg:row-span-1">
@@ -107,7 +101,6 @@ export default async function MonthProduct() {
             <h2 className="text-xl font-bold mb-4 2xs:mb-1 2xs:row-start-2 md:row-start-1">
               {name}
             </h2>
-
             {price && discount && (
               <DiscountPrice
                 price={price}

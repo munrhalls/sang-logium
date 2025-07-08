@@ -65,10 +65,6 @@ export function ClerkAccountManager() {
       headerSubtitle: "text-gray-500",
     },
   };
-  // const handleClose = () => {
-  //   console.log("Clerk dialog closed");
-  //   setIsManagingAccount(false);
-  // };
   const handleManageAccount = () => {
     console.log("Opening Clerk account management");
     setIsManagingAccount(true);

@@ -1,12 +1,10 @@
 "use client";
-
 import { useUIStore } from "@/store";
 import { X } from "lucide-react";
 import Filters from "../../filters/Filters";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { FilterOptions } from "../../filters/FilterTypes";
-
 export default function ProductsFilterDrawer({
   filterOptions = [],
 }: {
@@ -15,15 +13,11 @@ export default function ProductsFilterDrawer({
   const { isProductsFilterDrawerOpen, toggleProductsFilterDrawer } =
     useUIStore();
   const pathname = usePathname();
-
-  // Close drawer when navigating to a new page
   useEffect(() => {
     if (isProductsFilterDrawerOpen) {
       toggleProductsFilterDrawer();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
-
   return (
     <div
       className={`md:hidden fixed inset-y-0 left-0 w-full sm:w-[85%] bg-blue-950 shadow-xl text-white transform ${
@@ -41,11 +35,9 @@ export default function ProductsFilterDrawer({
             <X className="h-6 w-6" />
           </button>
         </header>
-
         <div className="flex-1 overflow-y-auto p-4 text-white">
           <Filters filterOptions={filterOptions} />
         </div>
-
         <footer className="p-4 border-t">
           <button
             onClick={toggleProductsFilterDrawer}

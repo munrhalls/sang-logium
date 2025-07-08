@@ -7,7 +7,6 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import Link from "next/link";
-
 const ColTitle = function ({ title }: { title: string }) {
   return (
     <div className="h-auto grid justify-center content-start p-2 text-xl text-white font-black">
@@ -15,7 +14,6 @@ const ColTitle = function ({ title }: { title: string }) {
     </div>
   );
 };
-
 export default function Footer() {
   return (
     <footer className=" relative bg-black grid grid-rows-[4rem_1fr]  text-white px-4 pt-8">
@@ -96,7 +94,6 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-
         <div className=" content-start md:row-start-1 md:row-span-2 md:col-start-4 md:col-span-1 grid justify-center md:justify-content-start gap-4">
           <ColTitle title="BEST BRANDS" />
           <ul className="grid gap-2 justify-center">

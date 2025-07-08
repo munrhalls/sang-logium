@@ -3,18 +3,15 @@ import { imageUrl } from "@/lib/imageUrl";
 import TextCommercial from "@/app/components/ui/commercials/textCommercial";
 import ProductsCommercial from "@/app/components/ui/commercials/productCommercial";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
-
 type ProductDescription = NonNullable<
   NonNullable<
     GET_COMMERCIALS_BY_FEATURE_QUERYResult[0]["products"]
   >[0]["description"]
 >;
-
 type SlideProps = {
   commercial: GET_COMMERCIALS_BY_FEATURE_QUERYResult[number];
   index: number;
 };
-
 type ProductVerified = {
   _id: string;
   brand: string;
@@ -23,10 +20,8 @@ type ProductVerified = {
   price: number;
   image: string;
 };
-
 const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
   const { variant, products, text, image, sale } = commercial;
-
   const productsVerified = products?.filter(
     (product): product is ProductVerified =>
       Boolean(
@@ -36,14 +31,10 @@ const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
           product?.description,
       ),
   );
-
   if (!image) return null;
-
   const blurUrl = imageUrl(image).width(10).blur(5).quality(20).url();
-
   const discount = sale?.discount || null;
   const ctaLink = commercial.ctaLink || null;
-
   return (
     <div className="h-full relative flex-[0_0_100%]">
       <Image

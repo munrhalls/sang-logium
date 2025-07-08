@@ -1,6 +1,5 @@
 import Image from "next/image";
 import PriceLineCross from "@/public/icons/PriceLineCross.svg";
-
 const DiscountPrice = function ({
   price,
   discount,
@@ -11,7 +10,6 @@ const DiscountPrice = function ({
   priceColor: string;
 }) {
   const discountPrice = price - (discount / 100) * price;
-
   return (
     <div className="mx-2 grid grid-rows-[0.1rem_1fr]">
       <span className="text-gray-400 text-xs md:text-md lg:text-lg lg:pb-2  relative flex justify-center items-center">
@@ -21,7 +19,6 @@ const DiscountPrice = function ({
             loading="lazy"
             src={PriceLineCross}
             alt="Price line cross"
-            // height={32}
             width={54}
             unoptimized
           />
@@ -36,5 +33,4 @@ const DiscountPrice = function ({
     </div>
   );
 };
-
 export default DiscountPrice;

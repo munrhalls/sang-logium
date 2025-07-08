@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import debounce from "lodash/debounce";
-
 interface RangeFilterProps {
   name: string;
   min?: number;
@@ -14,7 +13,6 @@ interface RangeFilterProps {
   initialMin?: number;
   initialMax?: number;
 }
-
 const RangeFilter = ({
   name,
   min = 0,
@@ -23,14 +21,11 @@ const RangeFilter = ({
   onChange,
   initialMin,
   initialMax,
-  // Removed unused parameter
-  // isMinOnly = false,
 }: RangeFilterProps) => {
   const [minValue, setMinValue] = useState(initialMin || min);
   const [maxValue, setMaxValue] = useState(initialMax || max);
   const [minInputValue, setMinInputValue] = useState(String(minValue));
   const [maxInputValue, setMaxInputValue] = useState(String(maxValue));
-
   const handleMinChange = (newMin: number) => {
     const validMin = Math.min(newMin, maxValue);
     setMinValue(validMin);
@@ -38,7 +33,6 @@ const RangeFilter = ({
       onChange(name, { min: validMin, max: maxValue }, "range");
     }
   };
-
   const handleMaxChange = (newMax: number) => {
     const validMax = Math.max(newMax, minValue);
     setMaxValue(validMax);
@@ -46,19 +40,16 @@ const RangeFilter = ({
       onChange(name, { min: minValue, max: validMax }, "range");
     }
   };
-
   const handleChangeComplete = () => {
     if (onChange) {
       onChange(name, { min: minValue, max: maxValue }, "range");
     }
   };
-
   const debouncedHandleChangeComplete = debounce(handleChangeComplete, 800);
   const debouncedNumInputHandleChangeComplete = debounce(
     handleChangeComplete,
     2500,
   );
-
   useEffect(() => {
     if (initialMin !== undefined) {
       setMinValue(initialMin);
@@ -69,7 +60,6 @@ const RangeFilter = ({
       setMaxInputValue(String(initialMax));
     }
   }, [initialMin, initialMax]);
-
   return (
     <div className="flex flex-col">
       <div className="flex flex-col gap-4 mb-4">
@@ -86,7 +76,6 @@ const RangeFilter = ({
                 (/^\d*$/.test(newValue) && newValue.length <= 5)
               ) {
                 setMinInputValue(newValue);
-
                 if (newValue !== "") {
                   const numValue = parseInt(newValue, 10);
                   handleMinChange(numValue);
@@ -119,7 +108,6 @@ const RangeFilter = ({
                 (/^\d*$/.test(newValue) && newValue.length <= 5)
               ) {
                 setMaxInputValue(newValue);
-
                 if (newValue !== "") {
                   const numValue = parseInt(newValue, 10);
                   handleMaxChange(numValue);
@@ -140,7 +128,6 @@ const RangeFilter = ({
             }}
           />
         </div>
-
         <div className="relative flex flex-col gap-2">
           <label className="flex flex-col">
             <span className="text-white text-md font-black">MIN</span>
@@ -183,5 +170,4 @@ const RangeFilter = ({
     </div>
   );
 };
-
 export default RangeFilter;

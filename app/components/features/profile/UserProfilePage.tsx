@@ -1,32 +1,18 @@
 "use client";
 import React from "react";
 import { useProfileData } from "./hooks/useProfileData";
-
 export default function UserProfilePage() {
   const { profile, isLoading, error, isAuthenticated, user } = useProfileData();
-
   if (isLoading) return <LoadingState />;
   if (error) return <ErrorState error={error} />;
   if (!isAuthenticated || !user) return <AuthRequiredState />;
   if (!profile) return <ProfileNotFoundState />;
-
   return (
-    // <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-    //   <ProfileHeader user={user} />
-    //   {globalError && <ErrorDisplay error={globalError} />}
-    //   <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
-    //     <ClerkAccountManager />
-    //   </div>
-    //   <div className="bg-white shadow-sm rounded-lg p-6">
-    //     {/* <AddressForm /> */}
-    //   </div>
-    // </div>
     <div className="max-w-7xl mx-auto my-8 px-4 sm:px-6 lg:px-8 bg-slate-100 pt-8 pb-16">
       <h1>yo</h1>
     </div>
   );
 }
-
 function LoadingState() {
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
@@ -38,7 +24,6 @@ function LoadingState() {
     </div>
   );
 }
-
 function ErrorState({ error }: { error: Error }) {
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
@@ -49,7 +34,6 @@ function ErrorState({ error }: { error: Error }) {
     </div>
   );
 }
-
 function AuthRequiredState() {
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
@@ -60,7 +44,6 @@ function AuthRequiredState() {
     </div>
   );
 }
-
 function ProfileNotFoundState() {
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">

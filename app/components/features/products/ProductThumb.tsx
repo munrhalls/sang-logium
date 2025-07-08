@@ -4,13 +4,9 @@ import Link from "next/link";
 import { imageUrl } from "@/lib/imageUrl";
 import BasketControls from "../basket/BasketControls";
 import { BasketItem } from "@/store";
-
 interface ProductThumbProps {
   product: Product;
-  // saleDiscount?: number;
 }
-
-// const ProductThumb = ({ product, saleDiscount }: ProductThumbProps) => {
 const ProductThumb = ({ product }: ProductThumbProps) => {
   if (
     !product.name ||
@@ -19,15 +15,8 @@ const ProductThumb = ({ product }: ProductThumbProps) => {
     !product.price
   )
     return null;
-
   const isOutOfStock = product.stock != null && product.stock <= 0;
-
   const originalPrice = product.price ?? 0;
-  // const salePrice =
-  //   saleDiscount && originalPrice
-  //     ? originalPrice - originalPrice * (saleDiscount / 100)
-  //     : originalPrice;
-
   const basketProduct: BasketItem = {
     _id: product._id,
     name: product.name,
@@ -35,7 +24,6 @@ const ProductThumb = ({ product }: ProductThumbProps) => {
     price: product.price,
     quantity: 1,
   };
-
   return (
     <Link
       href={`/product/${product._id}`}
@@ -51,11 +39,9 @@ const ProductThumb = ({ product }: ProductThumbProps) => {
           width={300}
           className="aspect-square rounded-sm"
         />
-
         <h2 className="pt-2 text-lg font-semibold text-gray-800 ">
           {product.name}
         </h2>
-
         <p className="mt-2 text-sm text-gray-600 line-clamp-2">
           {product.description
             ?.map((block) =>
@@ -65,7 +51,6 @@ const ProductThumb = ({ product }: ProductThumbProps) => {
             )
             .join(" ") || "No description available"}
         </p>
-
         <div className="flex flex-col items-center justify-around mt-2">
           <div className="mt-2 flex flex-col items-center justify-between gap-2">
             <div className="flex items-center gap-2">
@@ -80,5 +65,4 @@ const ProductThumb = ({ product }: ProductThumbProps) => {
     </Link>
   );
 };
-
 export default ProductThumb;

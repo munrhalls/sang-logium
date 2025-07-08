@@ -12,7 +12,6 @@ export default function Controls({ onSlide }: BaseControlsProps) {
       >
         <ChevronLeft />
       </button>
-
       <button
         onClick={() => onSlide("right")}
         className="max-h-full z-50 col-start-3  text-white text-3xl lg:top-0"

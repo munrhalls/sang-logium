@@ -1,12 +1,10 @@
 "use client";
-
 import { useUIStore } from "@/store";
 import { X } from "lucide-react";
 import SortClient from "../../sortables/SortClient";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { SortOption } from "../../sortables/SortTypes";
-
 export default function ProductsSortDrawer({
   sortOptions = [],
 }: {
@@ -14,15 +12,11 @@ export default function ProductsSortDrawer({
 }) {
   const { isProductsSortDrawerOpen, toggleProductsSortDrawer } = useUIStore();
   const pathname = usePathname();
-
-  // Close drawer when navigating to a new page
   useEffect(() => {
     if (isProductsSortDrawerOpen) {
       toggleProductsSortDrawer();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
-
   return (
     <div
       className={`md:hidden fixed inset-y-0 right-0 w-full sm:w-[85%] bg-blue-950 shadow-xl text-white transform ${
@@ -40,14 +34,12 @@ export default function ProductsSortDrawer({
             <X className="h-6 w-6" />
           </button>
         </header>
-
         <div className="flex-1 overflow-y-auto p-4 text-white">
           <SortClient
             initialSortOptions={sortOptions}
             currentSort={sortOptions.length > 0 ? sortOptions[0].name : ""}
           />
         </div>
-
         <footer className="p-4 border-t">
           <button
             onClick={toggleProductsSortDrawer}

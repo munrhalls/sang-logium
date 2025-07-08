@@ -8,7 +8,6 @@ import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
 import { BlockContent } from "@/sanity.types";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
-
 type Product = {
   _id: string;
   name: string;
@@ -17,7 +16,6 @@ type Product = {
   price: number;
   image: string;
 };
-
 function isProduct(item: unknown): item is Product {
   return (
     typeof item === "object" &&
@@ -30,15 +28,12 @@ function isProduct(item: unknown): item is Product {
     typeof (item as Product).image === "string"
   );
 }
-
 export default async function FeaturedProducts() {
   const [commercial] = await getCommercialsByFeature("featured-products");
   if (!commercial || !commercial.products) return null;
-
   const products = commercial?.products;
   const verified = products?.filter(isProduct);
   const keys = verified.map((product) => product._id);
-
   const prebuilt = verified.map((product) => {
     return (
       <div
@@ -65,7 +60,6 @@ export default async function FeaturedProducts() {
       </div>
     );
   });
-
   return (
     <div className="w-full  grid grid-rows-[1fr_4fr]">
       <SegmentTitle title="Wireless Earbuds" />

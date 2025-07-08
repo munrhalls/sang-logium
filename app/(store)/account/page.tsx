@@ -1,8 +1,6 @@
 "use client";
-
 import SegmentTitle from "@/app/components/ui/segment-title/SegmentTitle";
 import { useState } from "react";
-
 function ActiveOrders() {
   const [orders] = useState([]);
   return (
@@ -18,7 +16,6 @@ function ActiveOrders() {
     </div>
   );
 }
-
 function OrdersHistory() {
   const [orders] = useState([]);
   return (
@@ -34,17 +31,14 @@ function OrdersHistory() {
     </div>
   );
 }
-
 function Preferences() {
   const [prefs, setPrefs] = useState({
     newsletter: false,
     sms: false,
   });
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setPrefs({ ...prefs, [e.target.name]: e.target.checked });
   }
-
   return (
     <div className="bg-white rounded-sm shadow-sm p-6 mb-8">
       <h2 className="text-lg font-bold mb-4 pb-2 border-b border-gray-200">
@@ -84,7 +78,6 @@ function Preferences() {
     </div>
   );
 }
-
 export default function AccountPage() {
   return (
     <div className="max-w-7xl mx-auto my-8 px-4 sm:px-6 lg:px-8 bg-slate-100 pt-8 pb-16">
@@ -94,7 +87,7 @@ export default function AccountPage() {
       <div className="space-y-8">
         <ActiveOrders />
         <OrdersHistory />
-        {/* <DeliveryInformation /> */}
+        {}
         <Preferences />
       </div>
     </div>

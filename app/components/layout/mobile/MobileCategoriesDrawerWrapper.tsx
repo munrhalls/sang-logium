@@ -4,17 +4,14 @@ import Link from "next/link";
 import { FaRegCircle } from "react-icons/fa";
 import { getCategoryIcon } from "@/lib/getCategoryIcon";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
-
 type SubCategory = {
   header?: string;
   name?: string;
   _key: string;
   subcategories?: SubCategory[];
 };
-
 export default async function MobileCategoriesDrawerWrapper() {
   const categories: ALL_CATEGORIES_QUERYResult = await getAllCategories();
-
   if (!categories || categories.length === 0) {
     return (
       <div
@@ -28,12 +25,10 @@ export default async function MobileCategoriesDrawerWrapper() {
       </div>
     );
   }
-
   const sortedCategories = [...categories].sort((a, b) => {
     if (a?.order === undefined || b?.order === undefined) return 0;
     return a?.order - b?.order;
   });
-
   const renderSubcategories = (
     subcategories: SubCategory[],
     baseUrl: string,
@@ -70,12 +65,10 @@ export default async function MobileCategoriesDrawerWrapper() {
       </div>
     ));
   };
-
   const categoriesTreeUI = (
     <div className="grid md:grid-cols-2 gap-6">
       {sortedCategories.map((category) => {
         const categoryPath = `/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`;
-
         return (
           <div key={category._id} className="space-y-2">
             <Link
@@ -91,7 +84,6 @@ export default async function MobileCategoriesDrawerWrapper() {
                 {category.name}
               </span>
             </Link>
-
             {category.subcategories && category.subcategories.length > 0 && (
               <div className="ml-6 space-y-1">
                 {renderSubcategories(category.subcategories, categoryPath)}
@@ -102,6 +94,5 @@ export default async function MobileCategoriesDrawerWrapper() {
       })}
     </div>
   );
-
   return <MobileCategoriesDrawer categoriesTreeUI={categoriesTreeUI} />;
 }

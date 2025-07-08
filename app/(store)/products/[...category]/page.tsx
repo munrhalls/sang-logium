@@ -16,11 +16,8 @@ import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSor
 import Footer from "@/app/components/layout/footer/Footer";
 import Pagination from "@/app/components/ui/pagination/Pagination";
 import getSelectedPagination from "../helpers/getSelectedPagination";
-// Import removed: FilterOptions was unused
-
 type Params = Promise<{ category: string }>;
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
-
 export default async function ProductsPage(props: {
   params: Params;
   searchParams: SearchParams;
@@ -37,7 +34,6 @@ export default async function ProductsPage(props: {
   const selectedSort = getSelectedSort(searchParamsResolved);
   const selectedPagination = getSelectedPagination(searchParamsResolved);
   console.log("Selected Pagination", selectedPagination);
-
   const sortField =
     typeof searchParamsResolved.sort === "string"
       ? searchParamsResolved.sort
@@ -46,7 +42,6 @@ export default async function ProductsPage(props: {
     typeof searchParamsResolved.dir === "string"
       ? searchParamsResolved.dir
       : "asc";
-
   const [productsResult, filterOptions, sortOptions] = await Promise.all([
     getSelectedProducts(
       path,
@@ -59,16 +54,14 @@ export default async function ProductsPage(props: {
     }),
     getFiltersForCategoryPathAction(path).catch((error) => {
       console.error("Failed to fetch filters:", error);
-      return []; // Explicitly cast to FilterOptions
+      return []; 
     }),
     getSortablesForCategoryPathAction(path.join("/")).catch((error) => {
       console.error("Failed to fetch sort options:", error);
       return [];
     }),
   ]);
-
   const { products, totalProductsCount } = productsResult;
-
   console.log("Products", products, "Total Products Count", totalProductsCount);
   return (
     <>
@@ -85,16 +78,13 @@ export default async function ProductsPage(props: {
             <Pagination totalProductsCount={totalProductsCount} />
           </div>
         </div>
-
         <AppliedFilters filterOptions={filterOptions} />
-
         <div className="grid grid-cols-[280px_1fr] gap-6 mt-4">
           <SidebarClient
             filterOptions={filterOptions}
             sortOptions={sortOptions}
             sortField={sortField}
           />
-
           <div>
             <div className="mb-1 p-1 bg-slate-200 rounded-lg shadow">
               <p className="text-md p-2 lg:text-xl text-gray-500">
@@ -103,15 +93,12 @@ export default async function ProductsPage(props: {
                 {sortField &&
                   ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
               </p>
-
               <ProductsGrid products={products} />
             </div>
           </div>
         </div>
-
         <ProductsFilterSortDrawersWrapper categoryPath={path} />
       </main>
-
       <div className="md:hidden flex flex-col h-screen overflow-hidden">
         <div className="flex-none bg-white">
           <div className="container mx-auto px-1 py-1 flex">
@@ -124,25 +111,21 @@ export default async function ProductsPage(props: {
                 </h1>
               </div>
             </div>
-
             <div className="flex-1 flex justify-center">
               <FilterSortBtns />
             </div>
           </div>
           <Pagination totalProductsCount={totalProductsCount} />
         </div>
-
         <div className="flex-grow overflow-y-auto">
           <div className="container mx-auto px-4">
             <AppliedFilters filterOptions={filterOptions} />
-
             <div className="grid grid-cols-1 gap-6 mt-4">
               <SidebarClient
                 filterOptions={filterOptions}
                 sortOptions={sortOptions}
                 sortField={sortField}
               />
-
               <div>
                 <div className="mb-1 p-1 bg-slate-200 rounded-lg shadow">
                   <p className="text-md p-2 lg:text-xl text-gray-500">
@@ -151,12 +134,10 @@ export default async function ProductsPage(props: {
                     {sortField &&
                       ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
                   </p>
-
                   <ProductsGrid products={products} />
                 </div>
               </div>
             </div>
-
             <ProductsFilterSortDrawersWrapper categoryPath={path} />
           </div>
         </div>

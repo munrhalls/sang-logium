@@ -10,7 +10,6 @@ export default function generatePageNumbers(
     ),
   );
   pagesCount = Math.max(1, Math.floor(pagesCount) || 1);
-
   const pages = new Set([1, pagesCount, currentPage]);
   if (currentPage > 1) pages.add(currentPage - 1);
   if (currentPage < pagesCount) pages.add(currentPage + 1);
@@ -21,17 +20,13 @@ export default function generatePageNumbers(
     if (Math.abs(twoThirds - currentPage) > 2 && twoThirds < pagesCount - 1)
       pages.add(twoThirds);
   }
-
   const sortedPages = Array.from(pages).sort((a, b) => a - b);
-
   const result = [];
   for (let i = 0; i < sortedPages.length; i++) {
     result.push(sortedPages[i]);
-
     if (i < sortedPages.length - 1 && sortedPages[i + 1] - sortedPages[i] > 1) {
       result.push("...");
     }
   }
-
   return result;
 }

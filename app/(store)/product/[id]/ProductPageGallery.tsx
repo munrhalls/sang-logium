@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
 import { useState } from "react";
@@ -7,18 +6,15 @@ import { Product } from "@/sanity.types";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
-
 const ProductPageGallery = ({ product }: { product: Product }) => {
   const [currentImage, setCurrentImage] = useState<string>(
     imageUrl(product.image as SanityImageSource).url(),
   );
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-
   const handleClick = (url: string, index: number) => {
     setCurrentImage(url);
     setCurrentIndex(index);
   };
-
   const handlePrev = () => {
     if (product.gallery && product.gallery.length > 0) {
       const newIndex =
@@ -30,7 +26,6 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
       setCurrentIndex(newIndex);
     }
   };
-
   const handleNext = () => {
     if (product.gallery && product.gallery.length > 0) {
       const newIndex =
@@ -42,7 +37,6 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
       setCurrentIndex(newIndex);
     }
   };
-
   return (
     <div className="max-h-[700px] grid justify-center sm:place-content-center sm:row-start-1 sm:row-span-1 sm:col-start-1 sm:col-span-1">
       {product.image && (
@@ -56,7 +50,6 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
           className="aspect-square"
         />
       )}
-
       <div className="grid grid-flow-col place-content-start gap-2 mt-4">
         {product.gallery && (
           <FaArrowLeft
@@ -67,7 +60,6 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
         {product.gallery &&
           product.gallery.map((img, index) => {
             const imgUrl = imageUrl(img as SanityImageSource).url();
-
             return (
               <div key={index} className="">
                 <Image
@@ -96,5 +88,4 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
     </div>
   );
 };
-
 export default ProductPageGallery;

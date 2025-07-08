@@ -13,10 +13,8 @@ import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSor
 import Footer from "@/app/components/layout/footer/Footer";
 import getSelectedPagination from "./helpers/getSelectedPagination";
 import Pagination from "@/app/components/ui/pagination/Pagination";
-
 type Params = Promise<{ slug: string }>;
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
-
 export default async function RootProductsPage(props: {
   params: Params;
   searchParams: SearchParams;
@@ -26,7 +24,6 @@ export default async function RootProductsPage(props: {
   const selectedFilters = getSelectedFilters(searchParamsResolved);
   const selectedSort = getSelectedSort(searchParamsResolved);
   const selectedPagination = getSelectedPagination(searchParamsResolved);
-
   const sortField =
     typeof searchParamsResolved.sort === "string"
       ? searchParamsResolved.sort
@@ -35,7 +32,6 @@ export default async function RootProductsPage(props: {
     typeof searchParamsResolved.dir === "string"
       ? searchParamsResolved.dir
       : "asc";
-
   const [productsResult, filterOptions, sortOptions] = await Promise.all([
     getSelectedProducts(
       path,
@@ -55,9 +51,7 @@ export default async function RootProductsPage(props: {
       return [];
     }),
   ]);
-
   const { products, totalProductsCount } = productsResult;
-
   return (
     <>
       <main className="hidden md:block container mx-auto px-4 py-8">
@@ -66,16 +60,13 @@ export default async function RootProductsPage(props: {
             <h1 className="text-5xl font-bold tracking-wide">All Products</h1>
           </div>
         </div>
-
         <AppliedFilters filterOptions={filterOptions} />
-
         <div className="grid grid-cols-[280px_1fr] gap-6 mt-4">
           <SidebarClient
             filterOptions={filterOptions}
             sortOptions={sortOptions}
             sortField={sortField}
           />
-
           <div>
             <div className="mb-1 p-1 bg-slate-200 rounded-lg shadow">
               <p className="text-md p-2 lg:text-xl text-gray-500">
@@ -83,15 +74,12 @@ export default async function RootProductsPage(props: {
                 {sortField &&
                   ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
               </p>
-
               <ProductsGrid products={products} />
             </div>
           </div>
         </div>
-
         <ProductsFilterSortDrawersWrapper categoryPath={path} />
       </main>
-
       <div className="md:hidden flex flex-col h-screen overflow-hidden">
         <div className="flex-none bg-white">
           <div className="container mx-auto px-4 py-1">
@@ -102,25 +90,21 @@ export default async function RootProductsPage(props: {
                 </h1>
               </div>
             </div>
-
             <div className="grid grid-cols-1 items-center bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
               <FilterSortBtns />
             </div>
             <Pagination totalProductsCount={totalProductsCount} />
           </div>
         </div>
-
         <div className="flex-grow overflow-y-auto">
           <div className="container mx-auto px-4">
             <AppliedFilters filterOptions={filterOptions} />
-
             <div className="grid grid-cols-1 gap-6 mt-4">
               <SidebarClient
                 filterOptions={filterOptions}
                 sortOptions={sortOptions}
                 sortField={sortField}
               />
-
               <div>
                 <div className="mb-1 p-1 bg-slate-200 rounded-lg shadow">
                   <p className="text-md p-2 lg:text-xl text-gray-500">
@@ -129,12 +113,10 @@ export default async function RootProductsPage(props: {
                     {sortField &&
                       ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
                   </p>
-
                   <ProductsGrid products={products} />
                 </div>
               </div>
             </div>
-
             <ProductsFilterSortDrawersWrapper categoryPath={path} />
           </div>
         </div>
