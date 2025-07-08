@@ -7,11 +7,9 @@ export default function Breadcrumbs({
   categoryParts,
   isMobile,
 }: BreadcrumbsProps) {
-  console.log(categoryParts, "categoryParts");
   const shouldSlice = isMobile && categoryParts[0] === "products";
   const partsToRender = shouldSlice ? categoryParts.slice(1) : categoryParts;
   const indexOffset = shouldSlice ? 1 : 0;
-  console.log(shouldSlice, partsToRender, "partsToRender");
   return (
     <nav className="md:px-4 flex items-center md:gap-2 text-xs md:text-sm text-gray-600 lg:row-start-1 lg:col-start-2">
       {!isMobile && <Link href="/products">Products</Link>}

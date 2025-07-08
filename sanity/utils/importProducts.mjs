@@ -80,7 +80,7 @@ async function importProducts() {
 
       // Set stock and categories
       const stock = 0; // Default stock value
-      const categories = []; // Add category references if available
+      // const categories = []; // Add category references if available
 
       // Create the product document
       // Create the product document
@@ -109,7 +109,7 @@ async function importProducts() {
       // Create the document in Sanity
       await client.create(doc);
     } catch (error) {
-      // console.error(`Error importing product ${product.title}:`, error.message);
+      console.error(`Error importing product ${product.title}:`, error.message);
     }
   }
 }

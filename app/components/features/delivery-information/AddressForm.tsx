@@ -24,7 +24,7 @@ export default function AddressForm() {
         },
       };
       const response = await fetch(
-        `https:
+        "https://addressvalidation.googleapis.com/v1:validateAddress?key=YOUR_API_KEY",
         {
           method: "POST",
           headers: {
@@ -37,7 +37,6 @@ export default function AddressForm() {
         throw new Error("Failed to verify address");
       }
       const data = await response.json();
-      console.log("Response:", data);
       const result = data.result;
       const _verdict = result?.verdict;
       const addressComponents = result?.address?.addressComponents || [];

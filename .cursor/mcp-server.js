@@ -189,6 +189,5 @@ class SangLogiumMCPServer {
   }
 }
 
-// Start the server
 const server = new SangLogiumMCPServer();
 server.start();

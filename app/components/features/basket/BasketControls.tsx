@@ -7,7 +7,6 @@ import { BasketItem } from "@/store";
 const BasketControls = React.memo(
   function BasketControls({ product }: { product: BasketItem }) {
     const _hasHydrated = useBasketStore((s) => s._hasHydrated);
-    console.log("🎯 BasketControls _hasHydrated:", _hasHydrated);
     const _id = product._id;
     const item = useBasketStore((s) =>
       s.basket.find((i) => i._id === product._id),
@@ -16,7 +15,6 @@ const BasketControls = React.memo(
     const updateQuantity = useBasketStore((s) => s.updateQuantity);
     const removeItem = useBasketStore((s) => s.removeItem);
     if (!item) {
-      console.log(product.stock, "product.stock");
       const basketItem = {
         _id: product._id,
         stock: product.stock,
@@ -52,7 +50,6 @@ const BasketControls = React.memo(
       );
     }
     const canIncrement = item.quantity < product.stock;
-    console.log("🎯 BasketControls canIncrement:", product.stock);
     const handleDecrement = (_e: React.MouseEvent) => {
       if (item.quantity === 1) {
         removeItem(_id);

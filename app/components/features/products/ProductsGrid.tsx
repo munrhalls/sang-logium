@@ -9,7 +9,6 @@ export default function ProductsGrid({
     <div className="relative">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 bg-slate-200">
         {products?.map((product) => {
-          console.log(product, "at thumb product");
           return (
             <div key={product._id}>
               <ProductThumb product={product} />

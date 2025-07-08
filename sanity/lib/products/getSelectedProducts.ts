@@ -1,4 +1,3 @@
-import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../live";
 import { FilterItem } from "@/app/components/ui/filters/FilterTypes";
 
@@ -9,7 +8,6 @@ export const getSelectedProducts = async (
   selectedPagination = { page: 0, pageSize: 12 },
 ) => {
   const [regular, overview, specifications, rangeFilters] = selectedFilters;
-  console.log("selectedPagination", selectedPagination);
 
   const filteredRegular = regular.filter(
     (item) => !(item.field === "size" && !isNaN(parseInt(String(item.value)))),
@@ -187,8 +185,6 @@ export const getSelectedProducts = async (
     assembledQuery += `] | order(name asc)`;
   }
 
-  console.log("Final GROQ query:", assembledQuery);
-
   const baseQuery = assembledQuery.substring(
     0,
     assembledQuery.lastIndexOf("]") + 1,
@@ -202,7 +198,6 @@ export const getSelectedProducts = async (
   "products": ${baseQuery}${sortPart}[${start}...${start + pageSize}],
   "totalProductsCount": count(${baseQuery})
 }`;
-  console.log("Final GROQ query:", finalQuery);
   const GET_PRODUCTS_BY_QUERY = finalQuery;
 
   try {

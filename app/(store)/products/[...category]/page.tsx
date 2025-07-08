@@ -33,7 +33,6 @@ export default async function ProductsPage(props: {
   const selectedFilters = getSelectedFilters(searchParamsResolved);
   const selectedSort = getSelectedSort(searchParamsResolved);
   const selectedPagination = getSelectedPagination(searchParamsResolved);
-  console.log("Selected Pagination", selectedPagination);
   const sortField =
     typeof searchParamsResolved.sort === "string"
       ? searchParamsResolved.sort
@@ -54,7 +53,7 @@ export default async function ProductsPage(props: {
     }),
     getFiltersForCategoryPathAction(path).catch((error) => {
       console.error("Failed to fetch filters:", error);
-      return []; 
+      return [];
     }),
     getSortablesForCategoryPathAction(path.join("/")).catch((error) => {
       console.error("Failed to fetch sort options:", error);

@@ -34,7 +34,6 @@ const rangeFiltersMap: FiltersMap = {
 export default function getSelectedFilters(searchParamsInput: {
   [key: string]: string | string[] | undefined;
 }): [FilterItem[], FilterItem[], FilterItem[], RangeFilterItem[]] {
-  console.log("searchParamsInput", searchParamsInput);
   const regularFilters: FilterItem[] = [];
   const overviewFilters: FilterItem[] = [];
   const specificationsFilters: FilterItem[] = [];
@@ -107,10 +106,7 @@ export default function getSelectedFilters(searchParamsInput: {
       continue;
     }
   }
-  console.log("regularFilters", regularFilters);
-  console.log("overviewFilters", overviewFilters);
-  console.log("specificationsFilters", specificationsFilters);
-  console.log("rangeFilters", rangeFilters);
+
   return [regularFilters, overviewFilters, specificationsFilters, rangeFilters];
 }
 function parseFilterValue(value: string | string[]): FilterValue {
