@@ -111,7 +111,7 @@ export const useBasketStore = create<BasketState>()(
     {
       name: "basket-storage",
       partialize: (state) => ({ basket: state.basket }),
-      onRehydrateStorage: (state) => {
+      onRehydrateStorage: () => {
         // ADD THIS WHOLE BLOCK
         console.log("🔄 Starting rehydration...");
         return () => {

@@ -23,7 +23,6 @@ export default class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: unknown, info: unknown) {
-    // Optionally log error
     console.log("Error: ", error, "Info: ", info);
   }
 

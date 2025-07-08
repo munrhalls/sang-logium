@@ -33,7 +33,7 @@ const filesToBackup = [
 const deployBackupDir = path.join(backupDir, `deploy-backup-${timestamp}`);
 fs.mkdirSync(deployBackupDir);
 console.log(
-  `${colors.green}Created backup directory: ${deployBackupDir}${colors.reset}`,
+  `${colors.green}Created backup directory: ${deployBackupDir}${colors.reset}`
 );
 
 // Backup each file
@@ -48,13 +48,13 @@ filesToBackup.forEach((file) => {
       backupCount++;
     } else {
       console.log(
-        `${colors.yellow}!${colors.reset} File ${file} not found, skipping backup`,
+        `${colors.yellow}!${colors.reset} File ${file} not found, skipping backup`
       );
     }
   } catch (err) {
     console.error(
       `${colors.red}✗${colors.reset} Error backing up ${file}:`,
-      err.message,
+      err.message
     );
   }
 });
@@ -71,6 +71,7 @@ try {
       .toString()
       .trim();
   } catch (e) {
+    console.log("error: ", e);
     // Git command failed, use default value
   }
 
@@ -96,10 +97,10 @@ Files backed up: ${backupCount}/${filesToBackup.length}
 } catch (err) {
   console.error(
     `${colors.red}✗${colors.reset} Error creating deployment log:`,
-    err.message,
+    err.message
   );
 }
 
 console.log(
-  `\n${colors.green}Backup complete${colors.reset}: ${backupCount} files backed up to ${path.relative(process.cwd(), deployBackupDir)}`,
+  `\n${colors.green}Backup complete${colors.reset}: ${backupCount} files backed up to ${path.relative(process.cwd(), deployBackupDir)}`
 );
