@@ -60,7 +60,7 @@
     "lodash": "^4.17.21",
     "lucide-react": "^0.456.0",
     "nanoid": "^5.0.9",
-    "next": "^15.1.6",
+    "next": "^15.3.5",
     "next-sanity": "^9.8.42",
     "node-fetch": "^3.3.2",
     "react": "^19.0.0",

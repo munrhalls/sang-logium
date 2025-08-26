@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Dots from "./dots";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
+
 const CarouselSingleSlide = ({
   prebuiltSlides,
   keys,
@@ -11,9 +12,11 @@ const CarouselSingleSlide = ({
   keys: string[];
 }) => {
   const [index, setIndex] = useState(0);
+
   const handleSetIndex = (newIndex: number) => {
     setIndex(newIndex);
   };
+
   const count = keys.length;
   const handleSlide = (direction: "left" | "right") => {
     const newIndex =
@@ -21,18 +24,16 @@ const CarouselSingleSlide = ({
     handleSetIndex(newIndex);
   };
   return (
-    <div className=" isolate relative h-full grid grid-rows-[1fr_3rem]">
+    <div className="isolate relative h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
         <div
           className="h-full w-full flex transition-transform duration-300"
-          style={{
-            transform: `translate3d(-${index * 100}%, 0, 0)`,
-          }}
+          style={{ transform: `translate3d(-${index * 100}%, 0, 0)` }}
         >
-          {prebuiltSlides.map((slide, index) => (
+          {prebuiltSlides.map((slide, slideIndex) => (
             <div
-              className={`flex-[0_0_100%]`}
-              key={keys[index] + "_prebuiltSlides"}
+              className="flex-[0_0_100%]"
+              key={keys[slideIndex] + "_prebuiltSlides"}
             >
               {slide}
             </div>

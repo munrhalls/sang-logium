@@ -2,21 +2,24 @@ import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercials
 import CarouselSingleSlide from "../../../ui/carousel-single-slide/carouselSingleSlide";
 import HeroCommercialItem from "./HeroCommercialItem";
 import HeroPerformanceMonitor from "./HeroPerformanceMonitor";
+import HeroFallback from "./HeroFallback";
 
-export default async function HeroCommercials() {
+export async function generateStaticParams() {
+  return [{ feature: "hero" }];
+}
+
+export default async function HeroCommercialsStatic() {
   try {
     const heroCommercials = await getCommercialsByFeature("hero");
 
     if (!heroCommercials || heroCommercials.length === 0) {
-      return null;
+      return <HeroFallback />;
     }
 
-    const sortedCommercials = heroCommercials
-      .sort((a, b) => (a?.displayOrder ?? 0) - (b?.displayOrder ?? 0))
-      .filter((commercial) => commercial?.image);
+    const filteredCommercials = heroCommercials.filter((commercial) => commercial?.image);
 
     const keys: string[] = [];
-    const prebuiltCommercials = sortedCommercials.map((commercial, index) => {
+    const prebuiltCommercials = filteredCommercials.map((commercial, index) => {
       keys.push(commercial._id);
       return (
         <HeroCommercialItem
@@ -35,6 +38,6 @@ export default async function HeroCommercials() {
     );
   } catch (error) {
     console.error("Error loading hero commercials:", error);
-    return null;
+    return <HeroFallback />;
   }
 }

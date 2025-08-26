@@ -11,4 +11,5 @@ export const client = createClient({
       ? `https://${process.env.VERCEL_URL}/studio`
       : "http://localhost:3000/studio",
   },
+  perspective: "published",
 });

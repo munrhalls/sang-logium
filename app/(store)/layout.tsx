@@ -6,6 +6,7 @@ import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWr
 import CategoriesWrapper from "../components/layout/categoryMenu/CategoriesWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
+import HeroImagePreloader from "../components/features/homepage/hero-commercials/HeroImagePreloader";
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
   description: "The best audio gear in the world",
@@ -24,6 +25,9 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${iceland.className} w-full h-full `}>
+      <head>
+        <HeroImagePreloader />
+      </head>
       <ClerkProvider>
         <body
           className={`${iceland.variable} font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative`}

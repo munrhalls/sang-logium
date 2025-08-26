@@ -6,7 +6,7 @@ export const imageUrl = (source: SanityImageSource) => {
   return builder.image(source).auto("format").quality(85).fit("max");
 };
 export const heroImageUrl = (source: SanityImageSource) => {
-  return imageUrl(source).width(1920).quality(85);
+  return imageUrl(source).width(1920).height(1080).quality(85).format("webp");
 };
 export const thumbnailImageUrl = (source: SanityImageSource) => {
   return imageUrl(source).width(400).quality(75);
