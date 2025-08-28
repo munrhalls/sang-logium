@@ -17,7 +17,7 @@ export default async function HeroCommercialsStatic() {
     }
 
     const filteredCommercials = heroCommercials.filter((commercial) => commercial?.image);
-
+    
     const keys: string[] = [];
     const prebuiltCommercials = filteredCommercials.map((commercial, index) => {
       keys.push(commercial._id);
@@ -29,6 +29,8 @@ export default async function HeroCommercialsStatic() {
         />
       );
     });
+
+
 
     return (
       <>
