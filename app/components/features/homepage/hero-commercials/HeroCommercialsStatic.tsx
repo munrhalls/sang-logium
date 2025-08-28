@@ -16,21 +16,27 @@ export default async function HeroCommercialsStatic() {
       return <HeroFallback />;
     }
 
-    const filteredCommercials = heroCommercials.filter((commercial) => commercial?.image);
-    
+    const filteredCommercials = heroCommercials.filter(
+      (commercial) => commercial?.image
+    );
+
+    // TODO DELETE FILTERED COMMERCIALS 2, THIS IS FOR TESTING ONLY
+    const filteredCommercials2 = [filteredCommercials[0]];
+
     const keys: string[] = [];
-    const prebuiltCommercials = filteredCommercials.map((commercial, index) => {
-      keys.push(commercial._id);
-      return (
-        <HeroCommercialItem
-          key={commercial._id + "_HeroCommercialItem"}
-          commercial={commercial}
-          index={index}
-        />
-      );
-    });
 
-
+    const prebuiltCommercials = filteredCommercials2.map(
+      (commercial, index) => {
+        keys.push(commercial._id);
+        return (
+          <HeroCommercialItem
+            key={commercial._id + "_HeroCommercialItem"}
+            commercial={commercial}
+            index={index}
+          />
+        );
+      }
+    );
 
     return (
       <>
