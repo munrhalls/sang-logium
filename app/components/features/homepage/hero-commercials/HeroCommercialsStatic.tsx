@@ -1,4 +1,5 @@
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
+import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 import CarouselSingleSlide from "../../../ui/carousel-single-slide/carouselSingleSlide";
 import HeroCommercialItem from "./HeroCommercialItem";
 import HeroPerformanceMonitor from "./HeroPerformanceMonitor";
@@ -19,18 +20,27 @@ export default async function HeroCommercialsStatic() {
     }
 
     const filteredCommercials = heroCommercials.filter(
-      (commercial) => commercial?.image
+      (commercial: GET_COMMERCIALS_BY_FEATURE_QUERYResult[number]) =>
+        commercial?.image
     );
 
-    const prebuiltCommercials = filteredCommercials.map((commercial, index) => (
-      <HeroCommercialItem
-        key={commercial._id}
-        commercial={commercial}
-        index={index}
-      />
-    ));
+    const prebuiltCommercials = filteredCommercials.map(
+      (
+        commercial: GET_COMMERCIALS_BY_FEATURE_QUERYResult[number],
+        index: number
+      ) => (
+        <HeroCommercialItem
+          key={commercial._id}
+          commercial={commercial}
+          index={index}
+        />
+      )
+    );
 
-    const keys = filteredCommercials.map((commercial) => commercial._id);
+    const keys = filteredCommercials.map(
+      (commercial: GET_COMMERCIALS_BY_FEATURE_QUERYResult[number]) =>
+        commercial._id
+    );
 
     return (
       <>
