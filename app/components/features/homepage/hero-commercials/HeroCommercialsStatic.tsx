@@ -4,13 +4,15 @@ import HeroCommercialItem from "./HeroCommercialItem";
 import HeroPerformanceMonitor from "./HeroPerformanceMonitor";
 import HeroFallback from "./HeroFallback";
 
+const HERO_FEATURE = "hero" as const;
+
 export async function generateStaticParams() {
-  return [{ feature: "hero" }];
+  return [{ feature: HERO_FEATURE }];
 }
 
 export default async function HeroCommercialsStatic() {
   try {
-    const heroCommercials = await getCommercialsByFeature("hero");
+    const heroCommercials = await getCommercialsByFeature(HERO_FEATURE);
 
     if (!heroCommercials || heroCommercials.length === 0) {
       return <HeroFallback />;
@@ -20,23 +22,15 @@ export default async function HeroCommercialsStatic() {
       (commercial) => commercial?.image
     );
 
-    // TODO DELETE FILTERED COMMERCIALS 2, THIS IS FOR TESTING ONLY
-    const filteredCommercials2 = [filteredCommercials[0]];
+    const prebuiltCommercials = filteredCommercials.map((commercial, index) => (
+      <HeroCommercialItem
+        key={commercial._id}
+        commercial={commercial}
+        index={index}
+      />
+    ));
 
-    const keys: string[] = [];
-
-    const prebuiltCommercials = filteredCommercials2.map(
-      (commercial, index) => {
-        keys.push(commercial._id);
-        return (
-          <HeroCommercialItem
-            key={commercial._id + "_HeroCommercialItem"}
-            commercial={commercial}
-            index={index}
-          />
-        );
-      }
-    );
+    const keys = filteredCommercials.map((commercial) => commercial._id);
 
     return (
       <>

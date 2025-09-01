@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { imageUrl, heroImageUrl } from "@/lib/imageUrl";
+import { useMemo } from "react";
+import { generateBlurDataURL, heroImageUrl } from "@/lib/imageUrl";
 import TextCommercial from "@/app/components/ui/commercials/textCommercial";
 import ProductsCommercial from "@/app/components/ui/commercials/productCommercial";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
@@ -24,58 +25,74 @@ type ProductVerified = {
   image: string;
 };
 
-const HeroCommercialItem = async ({ commercial, index }: SlideProps) => {
-  const { variant, products, text, image, sale } = commercial;
+const isProductVerified = (product: unknown): product is ProductVerified => {
+  if (!product || typeof product !== "object") return false;
+  const p = product as Partial<ProductVerified>;
+  return Boolean(
+    p._id && p.brand && p.name && p.description && p.price != null && p.image
+  );
+};
 
-  const productsVerified = products?.filter(
-    (product): product is ProductVerified =>
-      Boolean(
-        product?.brand &&
-          product?.price &&
-          product?.image &&
-          product?.description
-      )
+const HeroCommercialItem = ({ commercial, index }: SlideProps) => {
+  const {
+    variant,
+    products,
+    text,
+    image,
+    sale,
+    ctaLink = null,
+    title = "Hero commercial",
+  } = commercial;
+
+  const productsVerified = useMemo(
+    () => products?.filter(isProductVerified) ?? [],
+    [products]
   );
 
-  if (!image) return null;
-
   const isFirstSlide = index === 0;
-  const blurUrl = imageUrl(image).width(20).blur(10).quality(10).url();
 
-  const discount = sale?.discount || null;
-  const ctaLink = commercial.ctaLink || null;
+  const blurUrl = useMemo(
+    () => (image ? generateBlurDataURL(image) : ""),
+    [image]
+  );
+
+  const imageSrc = useMemo(
+    () => (image ? heroImageUrl(image).url() : ""),
+    [image]
+  );
+
+  const discount = sale?.discount ?? null;
+
+  if (!image) return null;
 
   return (
     <div className="h-full relative flex-[0_0_100%]">
       <Image
-        src={heroImageUrl(image).url()}
+        src={imageSrc}
         priority={isFirstSlide}
         loading={isFirstSlide ? "eager" : "lazy"}
         fetchPriority={isFirstSlide ? "high" : "auto"}
-        width={1920}
-        height={1080}
-        sizes="100vw"
-        style={{ objectPosition: "center" }}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
+        style={{ objectFit: "cover", objectPosition: "center" }}
         className={`absolute inset-0 w-full h-full object-cover ${
           isFirstSlide ? "hero-image" : ""
         }`}
-        quality={85}
+        quality={65}
         placeholder="blur"
         blurDataURL={blurUrl}
-        alt={commercial.title || "Hero commercial"}
+        alt={title || "Hero commercial"}
       />
       {variant === "text" && text ? (
         <TextCommercial text={text} ctaLink={ctaLink} />
-      ) : (
-        productsVerified && (
-          <ProductsCommercial
-            products={productsVerified}
-            discount={discount}
-            text={text}
-            ctaLink={ctaLink}
-          />
-        )
-      )}
+      ) : productsVerified.length > 0 ? (
+        <ProductsCommercial
+          products={productsVerified}
+          discount={discount}
+          text={text}
+          ctaLink={ctaLink}
+        />
+      ) : null}
     </div>
   );
 };
