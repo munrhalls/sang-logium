@@ -2,7 +2,7 @@ import { defineQuery } from "next-sanity";
 import { client } from "../client";
 
 const GET_COMMERCIALS_HERO =
-  defineQuery(`*[_type == "commercial" && feature == $feature && defined(image.asset)] | order(displayOrder asc) {
+  defineQuery(`*[_type == "commercial" && feature == "hero" && defined(image.asset)] | order(displayOrder asc) {
     _id,
     title,
     "image": image.asset->url,
@@ -25,11 +25,11 @@ const GET_COMMERCIALS_HERO =
     }
   }`);
 
-export const getCommercialsHero = async (feature: string) => {
+export const getCommercialsHero = async () => {
   try {
     const commercials = await client.fetch(
       GET_COMMERCIALS_HERO,
-      { feature },
+      { feature: "hero" },
       {
         cache: "force-cache",
         next: { revalidate: 300 },

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Dots from "./dots";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";

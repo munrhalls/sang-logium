@@ -562,8 +562,95 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
 // Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
-// Query: *[_type == "commercial" && feature == $feature] {    _id,  title,  "image": image.asset->url,  variant,  displayOrder,  text,  ctaLink,  "products": products[]-> {    _id,    brand,    name,    description,    price,    "image": image.asset->url,  },  sale-> {    discount,    validUntil,    _id  }}
+// Query: *[_type == "commercial" && feature == $feature] | order(displayOrder asc) {    _id,    title,    "image": image.asset->url,    variant,    displayOrder,    text,    ctaLink,    "products": products[]-> {      _id,      brand,      name,      description,      price,      "image": image.asset->url,    },    sale-> {      discount,      validUntil,      _id    }  }
 export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  image: string | null;
+  variant: "products" | "text" | null;
+  displayOrder: number | null;
+  text: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<
+      | ({
+          _key: string;
+        } & HighlightColor)
+      | ({
+          _key: string;
+        } & TextColor)
+    >;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  ctaLink: string | null;
+  products: Array<{
+    _id: string;
+    brand: string | null;
+    name: string | null;
+    description: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+          listItem?: "bullet";
+          markDefs?: Array<
+            | ({
+                _key: string;
+              } & HighlightColor)
+            | ({
+                _key: string;
+              } & TextColor)
+            | {
+                href?: string;
+                _type: "link";
+                _key: string;
+              }
+          >;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+          _key: string;
+        }
+    > | null;
+    price: number | null;
+    image: string | null;
+  }> | null;
+  sale: {
+    discount: number | null;
+    validUntil: string | null;
+    _id: string;
+  } | null;
+}>;
+
+// Source: ./sanity/lib/commercials/getCommercialsHero.ts
+// Variable: GET_COMMERCIALS_HERO
+// Query: *[_type == "commercial" && feature == "hero" && defined(image.asset)] | order(displayOrder asc) {    _id,    title,    "image": image.asset->url,    variant,    displayOrder,    text,    ctaLink,    "products": products[]-> {      _id,      brand,      name,      description,      price,      "image": image.asset->url,    },    sale-> {      discount,      validUntil,      _id    }  }
+export type GET_COMMERCIALS_HEROResult = Array<{
   _id: string;
   title: string | null;
   image: string | null;
@@ -1097,7 +1184,8 @@ export type SALE_BY_ID_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "commercial" && feature == $feature] {\n    _id,\n  title,\n  "image": image.asset->url,\n  variant,\n  displayOrder,\n  text,\n  ctaLink,\n  "products": products[]-> {\n    _id,\n    brand,\n    name,\n    description,\n    price,\n    "image": image.asset->url,\n  },\n  sale-> {\n    discount,\n    validUntil,\n    _id\n  }\n}': GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    '*[_type == "commercial" && feature == $feature] | order(displayOrder asc) {\n    _id,\n    title,\n    "image": image.asset->url,\n    variant,\n    displayOrder,\n    text,\n    ctaLink,\n    "products": products[]-> {\n      _id,\n      brand,\n      name,\n      description,\n      price,\n      "image": image.asset->url,\n    },\n    sale-> {\n      discount,\n      validUntil,\n      _id\n    }\n  }': GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    '*[_type == "commercial" && feature == "hero" && defined(image.asset)] | order(displayOrder asc) {\n    _id,\n    title,\n    "image": image.asset->url,\n    variant,\n    displayOrder,\n    text,\n    ctaLink,\n    "products": products[]-> {\n      _id,\n      brand,\n      name,\n      description,\n      price,\n      "image": image.asset->url,\n    },\n    sale-> {\n      discount,\n      validUntil,\n      _id\n    }\n  }': GET_COMMERCIALS_HEROResult;
     '{\n    "brands": array::unique(*[_type == "product"].brand->name)\n  }': FILTERSResult;
     '\n    *[_type == "categoryFilters" && title == $topLevelCategory][0] {\n      title,\n      "filters": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        isMinOnly,\n        step\n      },\n      "mappings": categoryMappings[path == $cleanPath]\n    }\n  ': FILTERS_BY_CATEGORY_QUERYResult;
     '\n          *[\n              _type == "category"\n          ] | order(name desc)\n      ': ALL_CATEGORIES_QUERYResult;

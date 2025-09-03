@@ -6,7 +6,7 @@ import HeroFallback from "./HeroFallback";
 
 export default async function HeroCommercials() {
   try {
-    const heroCommercials = await getCommercialsHero("hero");
+    const heroCommercials = await getCommercialsHero();
 
     const prebuiltCommercials = heroCommercials.map(
       (
