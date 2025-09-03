@@ -4,11 +4,9 @@ import CarouselSingleSlide from "../../../ui/carousel-single-slide/carouselSingl
 import HeroCommercialItem from "./HeroCommercialItem";
 import HeroFallback from "./HeroFallback";
 
-const HERO_FEATURE = "hero" as const;
-
 export default async function HeroCommercials() {
   try {
-    const heroCommercials = await getCommercialsHero(HERO_FEATURE);
+    const heroCommercials = await getCommercialsHero("hero");
 
     const prebuiltCommercials = heroCommercials.map(
       (
