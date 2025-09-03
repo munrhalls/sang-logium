@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import HeroCommercialsStatic from "../HeroCommercialsStatic";
+import HeroCommercials from "../HeroCommercials";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
 // Type alias for Commercial
@@ -29,7 +29,7 @@ jest.mock("../HeroCommercialItem", () => {
   };
 });
 
-describe("HeroCommercialsStatic", () => {
+describe("HeroCommercials", () => {
   test("should render commercials correctly with valid data", () => {
     // Prepare test commercial data
     const mockCommercials: Commercial[] = [
@@ -47,7 +47,7 @@ describe("HeroCommercialsStatic", () => {
     ];
 
     // Render the component with commercials prop
-    render(<HeroCommercialsStatic commercials={mockCommercials} />);
+    render(<HeroCommercials commercials={mockCommercials} />);
 
     // Verify the carousel is rendered
     expect(screen.getByTestId("carousel-single-slide")).toBeInTheDocument();
@@ -68,7 +68,7 @@ describe("HeroCommercialsStatic", () => {
 
   test("should render fallback message when commercials array is empty", () => {
     // Render with empty commercials array
-    render(<HeroCommercialsStatic commercials={[]} />);
+    render(<HeroCommercials commercials={[]} />);
 
     // Verify fallback message is displayed
     expect(screen.getByText("No commercials available")).toBeInTheDocument();
@@ -80,7 +80,7 @@ describe("HeroCommercialsStatic", () => {
   test("should have commercials prop typed as Commercial[]", () => {
     // This test verifies type safety at compile time
     // The component signature enforces Commercial[] type for the commercials prop
-    
+
     // Test with properly typed commercials
     const validCommercials: Commercial[] = [
       {
@@ -92,27 +92,27 @@ describe("HeroCommercialsStatic", () => {
 
     // This should compile without errors
     const { container } = render(
-      <HeroCommercialsStatic commercials={validCommercials} />
+      <HeroCommercials commercials={validCommercials} />
     );
 
     expect(container).toBeTruthy();
 
     // TypeScript would prevent passing wrong types at compile time
     // For example, these would cause TypeScript errors:
-    // <HeroCommercialsStatic commercials="not-an-array" />
-    // <HeroCommercialsStatic commercials={[{ wrongField: "value" }]} />
+    // <HeroCommercials commercials="not-an-array" />
+    // <HeroCommercials commercials={[{ wrongField: "value" }]} />
   });
 
   test("should handle null or undefined commercials gracefully", () => {
     // Test with undefined (treated as empty array by the component)
-    render(<HeroCommercialsStatic commercials={undefined as any} />);
+    render(<HeroCommercials commercials={undefined as any} />);
     expect(screen.getByText("No commercials available")).toBeInTheDocument();
 
     // Clean up
     screen.getByText("No commercials available").remove();
 
     // Test with null (treated as empty array by the component)
-    render(<HeroCommercialsStatic commercials={null as any} />);
+    render(<HeroCommercials commercials={null as any} />);
     expect(screen.getByText("No commercials available")).toBeInTheDocument();
   });
 
@@ -137,7 +137,7 @@ describe("HeroCommercialsStatic", () => {
     ];
 
     // Render with multiple commercials
-    render(<HeroCommercialsStatic commercials={mockCommercials} />);
+    render(<HeroCommercials commercials={mockCommercials} />);
 
     // Verify all commercial items are rendered
     expect(screen.getByTestId("hero-commercial-item-0")).toBeInTheDocument();
