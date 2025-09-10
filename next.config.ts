@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ["@clerk/nextjs", "sanity", "lucide-react"],
   },
   images: {
     domains: ["cdn.sanity.io"],

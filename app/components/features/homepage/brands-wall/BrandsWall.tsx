@@ -12,7 +12,7 @@ export default async function BrandsWall() {
         </h1>
       </div>
       <div className="h-full col-start-2 col-end-3 grid grid-cols-2 2xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-12">
-        {Object.entries(Brands).map(([brand, image]) => {
+        {Object.entries(Brands).map(([brand, image], index) => {
           return (
             <Link
               href={`/brand/${brand}`}
@@ -20,7 +20,8 @@ export default async function BrandsWall() {
               className="grid place-content-center"
             >
               <Image
-                loading="lazy"
+                loading={index < 6 ? "eager" : "lazy"}
+                priority={index < 3}
                 src={image.src}
                 alt={brand}
                 quality={70}
