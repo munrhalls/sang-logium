@@ -8,6 +8,7 @@ import MainCategories from "../components/features/homepage/main-categories/Main
 import HeroCommercials from "../components/features/homepage/hero-commercials/HeroCommercials";
 import Footer from "../components/layout/footer/Footer";
 export const revalidate = 300;
+export const dynamic = "force-static";
 
 export default async function Page() {
   return (

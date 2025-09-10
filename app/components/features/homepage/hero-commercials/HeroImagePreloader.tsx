@@ -1,9 +1,12 @@
-import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import { heroImageUrl } from "@/lib/imageUrl";
+import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 
-export default async function HeroImagePreloader() {
+export default function HeroImagePreloader({
+  heroCommercials
+}: {
+  heroCommercials: GET_COMMERCIALS_BY_FEATURE_QUERYResult
+}) {
   try {
-    const heroCommercials = await getCommercialsByFeature("hero");
     const firstCommercial = heroCommercials[0];
 
     if (!firstCommercial?.image) return null;
