@@ -7,12 +7,18 @@ import FeaturedProducts from "../components/features/homepage/featured-products/
 import MainCategories from "../components/features/homepage/main-categories/MainCategories";
 import HeroCommercials from "../components/features/homepage/hero-commercials/HeroCommercials";
 import Footer from "../components/layout/footer/Footer";
+import HeroImagePreloader from "../components/features/homepage/hero-commercials/HeroImagePreloader";
+import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 export const revalidate = 300;
 export const dynamic = "force-static";
 
 export default async function Page() {
+  // Fetch hero commercials for image preloading
+  const heroCommercials = await getCommercialsByFeature("hero");
   return (
-    <main className="h-full relative">
+    <>
+      <HeroImagePreloader heroCommercials={heroCommercials} />
+      <main className="h-full relative">
       {/* <HeroCommercials /> */}
       <div className="grid grid-cols-[auto_8fr_auto] xl:grid-cols-[1fr_8fr_1fr] mx-auto">
         <div className="mx-auto col-start-2 col-end-3 max-w-[1400px]">
@@ -29,5 +35,6 @@ export default async function Page() {
       </div>
       <Footer />
     </main>
+    </>
   );
 }

@@ -6,7 +6,6 @@ import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWr
 import CategoriesNav from "../components/layout/categoryMenu/CategoriesNav";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
-import HeroImagePreloader from "../components/features/homepage/hero-commercials/HeroImagePreloader";
 import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 export const metadata: Metadata = {
@@ -41,7 +40,6 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${iceland.className} w-full h-full `}>
       <head>
-        <HeroImagePreloader heroCommercials={heroCommercials} />
       </head>
       <ClerkProvider>
         <body
