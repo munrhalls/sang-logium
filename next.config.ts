@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["@clerk/nextjs", "sanity", "lucide-react"],
   },
   images: {
-    domains: ["cdn.sanity.io"],
+    // domains: ["cdn.sanity.io"],
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {

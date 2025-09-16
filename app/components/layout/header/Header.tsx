@@ -21,10 +21,7 @@ const SearchForm = dynamic(
     ssr: false,
   }
 );
-const ProfileSync = dynamic(
-  () => import("@/app/components/features/auth/ProfileSync"),
-  { ssr: false }
-);
+
 function Header() {
   return (
     <header className="bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_4fr] h-[4rem]">
@@ -41,7 +38,6 @@ function Header() {
           </div>
           <span>Basket</span>
         </Link>
-        {/* <ProfileSync /> */}
         <SignedIn>
           <AuthContent />
         </SignedIn>
