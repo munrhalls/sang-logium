@@ -13,28 +13,30 @@ export const revalidate = 300;
 export const dynamic = "force-static";
 
 export default async function Page() {
-  // Fetch hero commercials for image preloading
   const heroCommercials = await getCommercialsByFeature("hero");
   return (
     <>
       <HeroImagePreloader heroCommercials={heroCommercials} />
+
       <main className="h-full relative">
-      {/* <HeroCommercials /> */}
-      <div className="grid grid-cols-[auto_8fr_auto] xl:grid-cols-[1fr_8fr_1fr] mx-auto">
-        <div className="mx-auto col-start-2 col-end-3 max-w-[1400px]">
-          {/* <BrandsWall /> */}
-          {/* <Bestsellers /> */}
+        <HeroCommercials />
+        <div className="grid grid-cols-[auto_8fr_auto] xl:grid-cols-[1fr_8fr_1fr] mx-auto">
+          <div className="mx-auto col-start-2 col-end-3 max-w-[1400px]">
+            <BrandsWall />
+            {/* <Bestsellers /> */}
+          </div>
+          <div className="col-start-1 col-end-4">{/* <NewestRelease /> */}</div>
+          <div className="mx-auto col-start-2 col-end-3 max-w-[1400px]">
+            {/* <ExtremeQuality /> */}
+            {/* <FeaturedProducts /> */}
+          </div>
+          <div className="col-start-1 col-end-4">{/* <MonthProduct /> */}</div>
+          <div className="col-start-1 col-end-4">
+            {/* <MainCategories /> */}
+          </div>
         </div>
-        <div className="col-start-1 col-end-4">{/* <NewestRelease /> */}</div>
-        <div className="mx-auto col-start-2 col-end-3 max-w-[1400px]">
-          {/* <ExtremeQuality /> */}
-          {/* <FeaturedProducts /> */}
-        </div>
-        <div className="col-start-1 col-end-4">{/* <MonthProduct /> */}</div>
-        <div className="col-start-1 col-end-4">{/* <MainCategories /> */}</div>
-      </div>
-      <Footer />
-    </main>
+        {/* <Footer /> */}
+      </main>
     </>
   );
 }

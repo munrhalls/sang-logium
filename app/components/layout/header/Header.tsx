@@ -28,16 +28,9 @@ const ProfileSync = dynamic(
 function Header() {
   return (
     <header className="bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_4fr] h-[4rem]">
-      {/* <Link href="/" className="grid place-content-center">
-        <Image
-          src={logo}
-          alt="Logo"
-          height={50}
-          width={180}
-          unoptimized
-          priority
-        />
-      </Link> */}
+      <Link href="/" className="grid place-content-center">
+        <Image src={logo} alt="Logo" height={50} width={180} priority />
+      </Link>
       <div className="hidden lg:grid lg:place-content-center">
         <SearchForm />
       </div>
@@ -48,7 +41,7 @@ function Header() {
           </div>
           <span>Basket</span>
         </Link>
-        <ProfileSync />
+        {/* <ProfileSync /> */}
         <SignedIn>
           <AuthContent />
         </SignedIn>

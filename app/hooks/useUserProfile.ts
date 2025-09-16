@@ -39,7 +39,7 @@ export function useUserProfile() {
         }
         console.log(
           "No profile found. Creating new Sanity profile for user:",
-          user!.id,
+          user!.id
         );
         const newProfile = await createUserProfileAction({
           clerkId: user!.id,
@@ -69,6 +69,6 @@ export function useUserProfile() {
   return {
     ...state,
     isAuthenticated: isClerkLoaded && isSignedIn,
-    user: isSignedIn ? user! : null, 
+    user: isSignedIn ? user! : null,
   };
 }

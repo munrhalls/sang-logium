@@ -27,8 +27,7 @@ export default async function HeroCommercials() {
     );
 
     return (
-      // <CarouselSingleSlide prebuiltSlides={prebuiltCommercials} keys={keys} />
-      <div>hey</div>
+      <CarouselSingleSlide prebuiltSlides={prebuiltCommercials} keys={keys} />
     );
   } catch (error) {
     console.error("Error loading hero commercials:", error);

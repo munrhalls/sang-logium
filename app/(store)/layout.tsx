@@ -25,13 +25,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Fetch data concurrently to avoid waterfall
   const [categories, heroCommercials] = await Promise.all([
     getAllCategories(),
     getCommercialsByFeature("hero"),
   ]);
 
-  // Sort categories
   categories.sort((a, b) => {
     if (a?.order === undefined || b?.order === undefined) return 0;
     return a?.order - b?.order;
@@ -39,8 +37,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${iceland.className} w-full h-full `}>
-      <head>
-      </head>
+      <head></head>
       <ClerkProvider>
         <body
           className={`${iceland.variable} font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative`}

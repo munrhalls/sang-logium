@@ -6,7 +6,7 @@ export default async function BrandsWall() {
   return (
     <div className="w-full grid grid-cols-[1fr_7fr_1fr] sm:grid-cols-[1fr_5fr_1fr]">
       <div className="h-full pt-8 pb-4 col-start-2 col-end-3 flex justify-center items-center gap-4 gradient">
-        {/* <Image src={LogoOrbit} alt="Logo" width={60} unoptimized /> */}
+        {/* <Image src={LogoOrbit} alt="Logo" width={60} /> */}
         <h1 className="text-black font-black text-3xl">
           World`s best audio gear
         </h1>
@@ -28,7 +28,6 @@ export default async function BrandsWall() {
                 sizes="150px"
                 width={150}
                 height={50}
-                unoptimized
                 className="max-h-full max-w-full object-contain"
               />
             </Link>

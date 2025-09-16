@@ -58,7 +58,7 @@ export default function CategoriesNav({
 }) {
   const [activeCategory, setActiveCategory] = useState<string>();
   return (
-    <nav className="hidden h-11 lg:flex items-center justify-center bg-gray-900 ">
+    <nav className="hidden h-11 lg:flex items-center justify-center bg-black ">
       <div className="h-full max-w-7xl mx-auto lg:px-1 xl:px-4 lg:flex items-center justify-center">
         <ul className="h-full flex items-center">
           {categories.map((category, index) => {
@@ -79,7 +79,7 @@ export default function CategoriesNav({
                       {getCategoryIcon(category.icon)}
                     </span>
                   )}
-                  <span className="truncate text-sm xl:text-lg">
+                  <span className="truncate text-sm lg:text-xl">
                     {category.name}
                   </span>
                   <FaChevronDown className="ml-2 w-3 h-3" />

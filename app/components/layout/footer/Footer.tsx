@@ -1,4 +1,4 @@
-import SegmentTitle from "../../ui/segment-title/SegmentTitle";
+// import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 import {
   FaFacebook,
   FaInstagram,

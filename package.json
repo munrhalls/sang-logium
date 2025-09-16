@@ -10,6 +10,7 @@
     "deploy": "netlify deploy --prod",
     "verify": "node verify-deployment.js",
     "start": "next start",
+    "prod": "npm run build && npm run start",
     "type-check": "tsc --noEmit",
     "check-all": "npm run lint && npm run type-check",
     "lint:fix": "eslint --fix --ext .ts,.tsx .",
