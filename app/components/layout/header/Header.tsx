@@ -39,13 +39,21 @@ export default function Header() {
         {/* <SearchForm /> */}
       </div>
       <div className="hidden lg:grid place-content-center grid-flow-col gap-8">
+        <Authentication />
+        {/* This should be a nice, simple, intuitive button that clearly indicates user will end up viewing his orders */}
+
+        <Link
+          href="/orders"
+          className="text-white flex justify-center items-center"
+        >
+          ORDERS
+        </Link>
         <Link href="/basket" className="text-white" prefetch={false}>
           <div className="grid place-content-center">
             <ShoppingCartIcon height={24} width={24} />
           </div>
           <span>Basket</span>
         </Link>
-        <Authentication />
       </div>
     </header>
   );
