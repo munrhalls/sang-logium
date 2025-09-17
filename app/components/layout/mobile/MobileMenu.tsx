@@ -24,7 +24,7 @@ const MobileMenu = () => {
               <X size={24} />
             ) : (
               <>
-                <Menu className="h-6 w-6" />
+                <Menu className="h-6 w-6" />``
                 <span className="text-xs mt-1">Menu</span>
               </>
             )}
