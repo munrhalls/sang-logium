@@ -43,11 +43,17 @@ const MobileMenu = () => {
               </>
             )}
           </button>
+          <Authentication />
+          <Link
+            href="/orders"
+            className="text-white flex justify-center items-center"
+          >
+            ORDERS
+          </Link>
           <Link href="/basket" className="flex flex-col items-center">
             <ShoppingBag className="h-6 w-6" />
             <span className="text-xs mt-1">Basket</span>
           </Link>
-          <Authentication />
         </div>
       </div>
     </>
