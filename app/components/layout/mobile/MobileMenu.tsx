@@ -55,7 +55,7 @@ const MobileMenu = () => {
             <ShoppingBag className="h-6 w-6" />
             <span className="text-xs mt-1">Basket</span>
           </Link>
-          <SignedIn>
+          {/* <SignedIn>
             <AuthContent />
           </SignedIn>
           <SignedOut>
@@ -70,7 +70,7 @@ const MobileMenu = () => {
                 <span className="text-xs mt-1">Sign In</span>
               </div>
             </SignInButton>
-          </SignedOut>
+          </SignedOut> */}
         </div>
       </div>
     </>

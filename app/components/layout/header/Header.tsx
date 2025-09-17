@@ -1,35 +1,42 @@
 "use client";
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { ShoppingCartIcon, UserIcon } from "@heroicons/react/24/outline";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import logo from "@/public/logo.svg";
-const AuthContent = dynamic(
-  () => import("@/app/components/features/auth/AuthContent"),
+
+// Authentication component - dynamically imported, displays loader initially, ssr: false -> then outputs the proper authentication html based on the clerk based state of authentication
+// const AuthenticationComponent = dynamic( () => import )
+
+const Authentication = dynamic(
+  () => import("@/app/components/features/auth/Authentication"),
   {
     loading: () => (
-      <div className="w-[24px] h-[24px] mx-auto bg-gray-800 rounded-full animate-pulse" />
+      <div className="flex text-white">
+        <div className="w-[24px] h-[24px] mx-auto bg-blue-700 rounded-full animate-pulse" />
+        Loading...
+      </div>
     ),
     ssr: false,
   }
 );
-const SearchForm = dynamic(
-  () => import("@/app/components/features/homepage/search/SearchForm"),
-  {
-    loading: () => <div className="animate-pulse" />,
-    ssr: false,
-  }
-);
 
-function Header() {
+// const SearchForm = dynamic(
+//   () => import("@/app/components/features/homepage/search/SearchForm"),
+//   {
+//     loading: () => <div className="animate-pulse" />,
+//     ssr: false,
+//   }
+// );
+
+export default function Header() {
   return (
     <header className="bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_4fr] h-[4rem]">
       <Link href="/" className="grid place-content-center">
         <Image src={logo} alt="Logo" height={50} width={180} priority />
       </Link>
       <div className="hidden lg:grid lg:place-content-center">
-        <SearchForm />
+        {/* <SearchForm /> */}
       </div>
       <div className="hidden lg:grid place-content-center grid-flow-col gap-8">
         <Link href="/basket" className="text-white" prefetch={false}>
@@ -38,23 +45,8 @@ function Header() {
           </div>
           <span>Basket</span>
         </Link>
-        <SignedIn>
-          <AuthContent />
-        </SignedIn>
-        <SignedOut>
-          <div className="grid place-content-center text-white">
-            <SignInButton mode="modal">
-              <div className="flex flex-col items-center">
-                <div className="grid place-content-center">
-                  <UserIcon height={24} width={24} />
-                </div>
-                <span>Sign In</span>
-              </div>
-            </SignInButton>
-          </div>
-        </SignedOut>
+        <Authentication />
       </div>
     </header>
   );
 }
-export default Header;
