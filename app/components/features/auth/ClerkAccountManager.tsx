@@ -1,6 +1,8 @@
 "use client";
 import { useClerk, useUser } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
+
+// this component should be simple, no fluff, no extra workarounds, nothing extra - just functionality of clark 3rd party library
 export function ClerkAccountManager() {
   const { user } = useUser();
   const clerk = useClerk();
@@ -20,6 +22,7 @@ export function ClerkAccountManager() {
       }
     };
   }, [isManagingAccount]);
+  
   useEffect(() => {
     if (!isManagingAccount) return;
     const handleDocumentClick = () => {
