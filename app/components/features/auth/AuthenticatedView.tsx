@@ -1,6 +1,6 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
-import { CustomUserButton } from "./CustomUserButton";
+import { UserButton } from "@clerk/nextjs";
 
 export default function AuthenticatedView() {
   const { user, isLoaded } = useUser();
@@ -11,7 +11,7 @@ export default function AuthenticatedView() {
     <div className="flex flex-col items-center">
       <div className="grid place-content-center">
         <div className="grid place-content-center">
-          <CustomUserButton />
+          <UserButton />
         </div>
         <div
           style={{ lineHeight: "16px" }}
