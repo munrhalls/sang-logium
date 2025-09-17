@@ -36,7 +36,7 @@ export function ClerkAccountManager() {
         });
         if (!clerkDialogFound && isManagingAccount) {
           console.log(
-            "No Clerk dialog found in DOM after click, resetting state",
+            "No Clerk dialog found in DOM after click, resetting state"
           );
           setIsManagingAccount(false);
         }
