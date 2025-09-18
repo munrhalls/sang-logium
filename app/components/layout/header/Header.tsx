@@ -5,9 +5,9 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import logo from "@/public/logo.svg";
 
-// Authentication component - dynamically imported, displays loader initially, ssr: false -> then outputs the proper authentication html based on the clerk based state of authentication
-// const AuthenticationComponent = dynamic( () => import )
 
+// this should not be client side - clerk can detect auth state server-side; should utilize "use client" ssr component with hydration
+// here, this should be normal "use client" comp
 const Authentication = dynamic(
   () => import("@/app/components/features/auth/Authentication"),
   {
@@ -39,9 +39,8 @@ export default function Header() {
         {/* <SearchForm /> */}
       </div>
       <div className="hidden lg:grid place-content-center grid-flow-col gap-8">
+        {/* should not hang in load state upon refresh - once logged in, on refresh it should be instatnly visible*/}
         <Authentication />
-        {/* This should be a nice, simple, intuitive button that clearly indicates user will end up viewing his orders */}
-
         <Link
           href="/orders"
           className="text-white flex justify-center items-center"
