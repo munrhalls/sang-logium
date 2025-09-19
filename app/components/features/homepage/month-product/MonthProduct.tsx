@@ -24,8 +24,9 @@ const DiscountPrice = function ({
             loading="lazy"
             src={PriceLineCross}
             alt="Price line cross"
-            width={54}
+            width={52}
             height={4}
+            style={{ height: "auto" }}
           />
         </div>
         <SparklesIcon
@@ -41,7 +42,15 @@ const Title = function ({ name }: { name: string }) {
   return (
     <div className="lg:p-0">
       <div className="flex gap-1">
-        <Image src={LogoOrbitWhite} alt="Logo" height={30} loading="lazy" />
+        <Image
+          src={LogoOrbitWhite}
+          alt="Logo"
+          height={30}
+          width={30}
+          loading="lazy"
+          style={{ width: "auto" }}
+        />
+
         <h1 className="text-2xl sm:text-3xl">Product of the month</h1>
       </div>
       <p className="mt-1 lg:max-w-[400px]">{name}</p>
@@ -83,12 +92,12 @@ export default async function MonthProduct() {
               loading="lazy"
               src={image}
               alt={name}
-              width={300}
-              height={300}
               quality={60}
-              style={{ objectFit: "cover" }}
               sizes="(max-width: 300px) 75vw, 350px"
-              className="object-contain row-start-1 row-span-2 min-h-[300px] max-h-[350px] 2xs:row-start-1 2xs:row-span-3 2xs:col-start-2 2xs:col-span-4 2xs:gap-1"
+              width={1024}
+              height={1024}
+              style={{ width: "100%", height: "auto" }}
+              className="row-start-1 row-span-2 min-h-[300px] max-h-[350px] 2xs:row-start-1 2xs:row-span-3 2xs:col-start-2 2xs:col-span-4 2xs:gap-1"
             />
           )}
           <div className="p-4 text-black row-start-3 2xs:row-start-1 2xs:row-span-3 2xs:col-start-6 2xs:col-span-3 md:col-start-5 lg:col-start-6 grid place-items-center 2xs:grid-rows-5 md:grid-rows-2">
