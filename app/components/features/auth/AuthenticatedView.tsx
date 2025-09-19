@@ -5,7 +5,11 @@ import { UserButton } from "@clerk/nextjs";
 export default function AuthenticatedView() {
   const { user, isLoaded } = useUser();
   if (!isLoaded || !user) {
-    return <div className="text-red-700">Loading...</div>;
+    return (
+      <div className="text-white flex justify-center items-center">
+        Loading...
+      </div>
+    );
   }
   return (
     <div className="flex flex-col items-center">

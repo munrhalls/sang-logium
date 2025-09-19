@@ -3,7 +3,20 @@ import React from "react";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
 import { useUIStore } from "@/store";
 import Link from "next/link";
-import Authentication from "../../features/auth/Authentication";
+import dynamic from "next/dynamic";
+
+const Authentication = dynamic(
+  () => import("@/app/components/features/auth/Authentication"),
+  {
+    loading: () => (
+      <div className="flex text-white">
+        <div className="w-[24px] h-[24px] mx-auto bg-blue-700 rounded-full animate-pulse" />
+        <span className="pl-2">Loading...</span>
+      </div>
+    ),
+    ssr: false,
+  }
+);
 
 const MobileMenu = () => {
   const isCategoriesOpen = useUIStore((state) => state.isCategoriesDrawerOpen);
