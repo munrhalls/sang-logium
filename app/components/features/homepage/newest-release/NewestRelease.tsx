@@ -45,7 +45,7 @@ export default async function NewestRelease() {
         height={980}
         width={1280}
         alt={""}
-        quality={95}
+        quality={60}
         className="z-50 mb-12 mx-auto max-w-[300px] sm:max-w-[400px] md:max-w-[450px] lg:max-w-[600px] xl:max-w-[850px] xl:max-h-[800px] lg:col-start-1 xl:col-start-2 lg:col-span-1  object-cover rounded-lg "
       />
       <div className="h-full w-full grid md:place-content-center xl:justify-center gap-1 md:gap-2 lg:col-start-2 xl:col-start-3 lg:col-span-2 xl:col-span-1 text-blue-950">

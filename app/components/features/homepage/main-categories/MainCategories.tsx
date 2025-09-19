@@ -81,7 +81,7 @@ export default async function MainCategories() {
               loading={index === 0 ? "eager" : "lazy"}
               fill
               className="absolute inset-0 w-full h-full aspect-square"
-              quality={85}
+              quality={60}
               sizes="(max-width: 1023px) 400px, 600px"
               alt={commercial.title || "Sale"}
             />

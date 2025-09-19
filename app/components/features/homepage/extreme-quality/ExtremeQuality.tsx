@@ -46,7 +46,7 @@ export default async function ExtremeQuality() {
             <Image
               loading="lazy"
               src={imageUrl(eqproduct.image).url()}
-              quality={95}
+              quality={60}
               height={400}
               width={400}
               alt={"eqproduct.brand"}

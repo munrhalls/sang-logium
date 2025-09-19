@@ -4,6 +4,7 @@ import TimeStamp from "./TimeStamp";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import PriceLineCross from "@/public/icons/PriceLineCross.svg";
 import Link from "next/link";
+import { SparklesIcon } from "@heroicons/react/24/outline";
 const DiscountPrice = function ({
   price,
   discount,
@@ -24,14 +25,13 @@ const DiscountPrice = function ({
             src={PriceLineCross}
             alt="Price line cross"
             width={54}
-            unoptimized
+            height={4}
           />
         </div>
-      </span>
-      <span
-        className="col-start-3 ml-2 font-bold text-2xl 2xs:row-start-2 2xs:col-start-1 2xs:col-span-4 md:text-xl lg:font-black  lg:text-2xl xl:text-3xl block"
-        style={{ color: priceColor }}
-      >
+        <SparklesIcon
+          className="col-start-3 ml-2 font-bold text-2xl 2xs:row-start-2 2xs:col-start-1 2xs:col-span-4 md:text-xl lg:font-black  lg:text-2xl xl:text-3xl block"
+          style={{ color: priceColor }}
+        />
         ${discountPrice?.toFixed(2)}
       </span>
     </div>
@@ -45,7 +45,7 @@ const Title = function ({ name }: { name: string }) {
           src={LogoOrbitWhite}
           alt="Logo"
           height={30}
-          width={32}
+          // width={32}
           loading="lazy"
         />
         <h1 className="text-2xl sm:text-3xl">Product of the month</h1>
@@ -91,7 +91,7 @@ export default async function MonthProduct() {
               alt={name}
               width={300}
               height={300}
-              quality={90}
+              quality={60}
               style={{ objectFit: "cover" }}
               sizes="(max-width: 300px) 75vw, 350px"
               className="object-contain aspect-square row-start-1 row-span-2 min-h-[300px] max-h-[350px] 2xs:row-start-1 2xs:row-span-3 2xs:col-start-2 2xs:col-span-4 2xs:gap-1"

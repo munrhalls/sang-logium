@@ -44,7 +44,7 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
           src={currentImage}
           alt={product.name ?? "Product image"}
           loading="lazy"
-          quality="90"
+          quality="60"
           height={500}
           width={500}
           className="aspect-square"
