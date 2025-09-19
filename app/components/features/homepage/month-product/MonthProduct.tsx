@@ -26,7 +26,7 @@ const DiscountPrice = function ({
             alt="Price line cross"
             width={52}
             height={4}
-            style={{ height: "auto" }}
+            style={{ width: "auto" }}
           />
         </div>
         <SparklesIcon
