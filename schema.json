@@ -212,6 +212,10 @@
             {
               "type": "string",
               "value": "main-categories"
+            },
+            {
+              "type": "string",
+              "value": "inactive"
             }
           ]
         },

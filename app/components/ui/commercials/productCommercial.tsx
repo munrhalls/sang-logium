@@ -64,7 +64,7 @@ function ProductsCommercial({
             className="z-20 grid place-content-centerh-full min-h-0  max-w-[10rem] text-center text-white py-1 font-black px-6 lg:py-2 rounded-sm text-sm lg:text-xl "
             style={{ backgroundColor: `${buttonColor}` }}
           >
-            SEE MORE
+            SHOP NOW
           </Link>
         </div>
       )}

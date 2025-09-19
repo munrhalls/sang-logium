@@ -61,7 +61,7 @@ export default async function NewestRelease() {
         hover:drop-shadow-xl"
             type="button"
           >
-            SEE MORE
+            SHOP NOW
           </button>
         </Link>
       </div>

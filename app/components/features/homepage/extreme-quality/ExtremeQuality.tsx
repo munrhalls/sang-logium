@@ -70,7 +70,7 @@ export default async function ExtremeQuality() {
               type="button"
               className="bg-black  text-white px-4 py-2 rounded-sm transition-all duration-300 ease-out hover:text-black hover:bg-white hover:border-black hover:shadow-black/50"
             >
-              SEE MORE
+              SHOP NOW
             </button>
           </Link>
         </div>

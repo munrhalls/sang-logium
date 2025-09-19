@@ -51,7 +51,8 @@ export type Commercial = {
     | "mvp-month"
     | "newest-release"
     | "featured-products"
-    | "main-categories";
+    | "main-categories"
+    | "inactive";
   variant?: "text" | "products";
   displayOrder?: number;
   image?: {

@@ -74,7 +74,7 @@ const HeroCommercialItem = ({ commercial, index }: SlideProps) => {
         fetchPriority={isFirstSlide ? "high" : "auto"}
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
-        style={{ objectFit: "cover", objectPosition: "center" }}
+        style={{ objectFit: "cover", objectPosition: "right" }}
         className={`absolute inset-0 w-full h-full object-cover ${
           isFirstSlide ? "hero-image" : ""
         }`}

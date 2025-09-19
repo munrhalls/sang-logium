@@ -21,6 +21,7 @@ export const commercialType = defineType({
           { title: "Newest Release", value: "newest-release" },
           { title: "Featured Products", value: "featured-products" },
           { title: "Main Categories", value: "main-categories" },
+          { title: "inactive", value: "inactive" },
         ],
       },
       validation: (Rule) => Rule.required(),

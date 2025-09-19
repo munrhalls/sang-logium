@@ -1,6 +1,7 @@
 import "./../globals.css";
 import type { Metadata } from "next";
-import { Iceland } from "next/font/google";
+// import { Iceland } from "next/font/google";
+import { Inter, DM_Serif_Display } from "next/font/google";
 import Header from "@/app/components/layout/header/Header";
 import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWrapper";
 import CategoriesNav from "../components/layout/categoryMenu/CategoriesNav";
@@ -8,16 +9,32 @@ import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
 import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
+
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
   description: "The best audio gear in the world",
 };
-const iceland = Iceland({
-  weight: "400",
+// const iceland = Iceland({
+//   weight: "400",
+//   subsets: ["latin"],
+//   display: "swap",
+//   preload: true,
+//   variable: "--font-iceland",
+// });
+
+// Define Inter as a variable font for body text
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  preload: true,
-  variable: "--font-iceland",
+  variable: "--font-sans", // Use a generic variable name
+});
+
+// Define DM Serif Display for headlines
+const dmSerifDisplay = DM_Serif_Display({
+  weight: "400", // DM Serif Display has only one weight (400)
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-serif", // Use a separate variable for headlines
 });
 
 export default async function RootLayout({
@@ -36,13 +53,13 @@ export default async function RootLayout({
   });
 
   return (
-    <html lang="en" className={`${iceland.className} w-full h-full `}>
+    <html lang="en" className={`${inter.className} w-full h-full `}>
       <head>
         <link rel="icon" href="/logo-orbit.svg" type="image/svg+xml" />
       </head>
       <ClerkProvider>
         <body
-          className={`${iceland.variable} font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative`}
+          className={`${inter.variable} font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative`}
         >
           <Header />
           <CategoriesNav categories={categories} />
