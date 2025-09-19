@@ -37,7 +37,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${iceland.className} w-full h-full `}>
-      <head></head>
+      <head>
+        <link rel="icon" href="/logo-orbit.svg" type="image/svg+xml" />
+      </head>
       <ClerkProvider>
         <body
           className={`${iceland.variable} font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative`}
