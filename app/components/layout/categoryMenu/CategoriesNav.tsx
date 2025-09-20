@@ -79,7 +79,7 @@ export default function CategoriesNav({
                       {getCategoryIcon(category.icon)}
                     </span>
                   )}
-                  <span className="truncate text-sm lg:text-xl">
+                  <span className="truncate text-sm md:text-sm xl:text-md 2xl:text-lg">
                     {category.name}
                   </span>
                   <FaChevronDown className="ml-2 w-3 h-3" />
