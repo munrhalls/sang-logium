@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 const ColTitle = function ({ title }: { title: string }) {
   return (
-    <div className="h-auto grid justify-center content-start p-2 text-xl text-red-600 font-black">
+    <div className="h-auto grid justify-center content-start p-2 text-xl text-white-600 font-black">
       <h1>{title}</h1>
     </div>
   );
