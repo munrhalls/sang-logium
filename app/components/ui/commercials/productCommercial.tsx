@@ -61,7 +61,7 @@ function ProductsCommercial({
         <div className="z-30 h-full min-h-0  text-white grid  place-items-center md:py-4 lg:py-6 xl:py-10">
           <Link
             href={ctaLink}
-            className="z-20 grid place-content-centerh-full min-h-0  max-w-[10rem] text-center text-white py-1 font-black px-6 lg:py-2 rounded-sm text-sm lg:text-xl "
+            className=" z-20 block max-w-[15rem] sm:max-w-[35rem] text-center text-sm sm:text-3xl text-white font-black tracking-wide px-8 py-2 sm:py-4 rounded-sm  lg:mt-8"
             style={{ backgroundColor: `${buttonColor}` }}
           >
             SHOP NOW
