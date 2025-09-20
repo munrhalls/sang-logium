@@ -39,10 +39,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [categories, heroCommercials] = await Promise.all([
-    getAllCategories(),
-    getCommercialsByFeature("hero"),
-  ]);
+  const [categories] = await Promise.all([getAllCategories()]);
 
   categories.sort((a, b) => {
     if (a?.order === undefined || b?.order === undefined) return 0;

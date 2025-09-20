@@ -11,6 +11,7 @@ export const revalidate = 300;
 export const dynamic = "force-static";
 
 export default async function Page() {
+  // TODO BATCH FETCH ALL COMMERCIALS THERE
   return (
     <main className="h-full relative overflow-x-hidden">
       <HeroCommercials />
