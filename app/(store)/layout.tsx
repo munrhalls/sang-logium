@@ -22,19 +22,16 @@ export const metadata: Metadata = {
 //   variable: "--font-iceland",
 // });
 
-// Define Inter as a variable font for body text
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-sans", // Use a generic variable name
 });
 
-// Define DM Serif Display for headlines
 const dmSerifDisplay = DM_Serif_Display({
-  weight: "400", // DM Serif Display has only one weight (400)
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-serif", // Use a separate variable for headlines
+  variable: "--font-serif",
 });
 
 export default async function RootLayout({
@@ -53,7 +50,10 @@ export default async function RootLayout({
   });
 
   return (
-    <html lang="en" className={`${inter.className} w-full h-full `}>
+    <html
+      lang="en"
+      className={`${inter.className} ${dmSerifDisplay.variable} w-full h-full `}
+    >
       <head>
         <link rel="icon" href="/logo-orbit.svg" type="image/svg+xml" />
       </head>

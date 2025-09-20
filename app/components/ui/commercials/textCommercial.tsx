@@ -20,10 +20,14 @@ export default function TextCommercial({ text, ctaLink }: TextCommercialProps) {
   const components: PortableTextComponents = {
     block: {
       h1: ({ children }) => (
-        <h1 className="text-xl md:text-3xl font-black">{children}</h1>
+        <h1 className="text-xl sm:text-4xl lg:text-5xl font-black">
+          {children}
+        </h1>
       ),
       h2: ({ children }) => (
-        <h2 className="text-xl md:text-5xl font-bold">{children}</h2>
+        <h2 className="text-xl sm:text-4xl lg:text-5xl font-black">
+          {children}
+        </h2>
       ),
       normal: ({ children }) => (
         <p className="text-xl md:text-3xl">{children}</p>
@@ -37,13 +41,13 @@ export default function TextCommercial({ text, ctaLink }: TextCommercialProps) {
   };
   return (
     <div className=" h-full  z-30 text-white grid place-content-center">
-      <div className="z-20 bg-black/40 grid place-items-center p-16  space-y-2 md:space-y-30 lg:space-y-40 rounded-sm">
+      <div className="z-20 bg-black/40 grid place-items-center m-4 px-8 py-10 sm:px-12 sm:py-10  space-y-2 md:space-y-28 lg:space-y-40 rounded-sm">
         <PortableText value={text} components={components} />
       </div>
       <div className="z-20 grid place-items-center">
         <Link
           href={ctaLink}
-          className="z-20 block max-w-[35rem] text-center text-2xl sm:text-4xl text-white font-bold tracking-wide px-16 py-4 rounded-sm mt-4 md:mt-12"
+          className=" z-20 block max-w-[15rem] sm:max-w-[35rem] text-center text-sm sm:text-3xl text-white font-black tracking-wide px-8 py-2 sm:py-4 rounded-sm  lg:mt-8"
           style={{ backgroundColor: `${buttonColor}` }}
         >
           SHOP NOW
