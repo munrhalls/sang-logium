@@ -59,7 +59,7 @@ export default async function RootLayout({
       </head>
       <ClerkProvider>
         <body
-          className={`font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative`}
+          className={`font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative overflow-x-hidden`}
         >
           <Header />
           <CategoriesNav categories={categories} />
