@@ -13,6 +13,8 @@ import MonthProduct from "../components/features/homepage/month-product/MonthPro
 import MonthProductSkeleton from "../components/features/homepage/month-product/MonthProductSkeleton";
 
 import MainCategories from "../components/features/homepage/main-categories/MainCategories";
+import MainCategoriesSkeleton from "../components/features/homepage/main-categories/MainCategoriesSkeleton";
+
 import HeroCommercials from "../components/features/homepage/hero-commercials/HeroCommercials";
 import Footer from "../components/layout/footer/Footer";
 import { Suspense } from "react";
@@ -51,7 +53,9 @@ export default async function Page() {
           </Suspense>
         </div>
         <div className="col-start-1 col-end-4">
-          <MainCategories />
+          <Suspense fallback={<MainCategoriesSkeleton />}>
+            <MainCategories />
+          </Suspense>
         </div>
       </div>
       <Footer />
