@@ -4,6 +4,7 @@ import { getCategoryIcon } from "@/lib/getCategoryIcon";
 import { FaChevronDown, FaRegCircle } from "react-icons/fa";
 import { useState } from "react";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+
 type SubCategory = {
   header?: string;
   name?: string;
