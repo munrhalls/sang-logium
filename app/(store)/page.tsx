@@ -1,6 +1,7 @@
 import BrandsWall from "../components/features/homepage/brands-wall/BrandsWall";
 import ExtremeQuality from "../components/features/homepage/extreme-quality/ExtremeQuality";
 import Bestsellers from "../components/features/homepage/bestsellers/Bestsellers";
+import BestsellersSkeleton from "../components/features/homepage/bestsellers/BestsellersSkeleton";
 import MonthProduct from "../components/features/homepage/month-product/MonthProduct";
 import NewestRelease from "../components/features/homepage/newest-release/NewestRelease";
 import FeaturedProducts from "../components/features/homepage/featured-products/FeaturedProducts";
@@ -20,7 +21,7 @@ export default async function Page() {
       <div className="grid grid-cols-[auto_8fr_auto] xl:grid-cols-[1fr_8fr_1fr] mx-auto">
         <div className="mx-auto col-start-2 col-end-3 max-w-[1400px]">
           <BrandsWall />
-          <Suspense>
+          <Suspense fallback={<BestsellersSkeleton />}>
             <Bestsellers />
           </Suspense>
         </div>
