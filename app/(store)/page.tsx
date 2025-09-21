@@ -4,6 +4,8 @@ import Bestsellers from "../components/features/homepage/bestsellers/Bestsellers
 import BestsellersSkeleton from "../components/features/homepage/bestsellers/BestsellersSkeleton";
 import MonthProduct from "../components/features/homepage/month-product/MonthProduct";
 import NewestRelease from "../components/features/homepage/newest-release/NewestRelease";
+import NewestReleaseSkeleton from "../components/features/homepage/newest-release/NewestReleaseSkeleton";
+
 import FeaturedProducts from "../components/features/homepage/featured-products/FeaturedProducts";
 import MainCategories from "../components/features/homepage/main-categories/MainCategories";
 import HeroCommercials from "../components/features/homepage/hero-commercials/HeroCommercials";
@@ -26,7 +28,9 @@ export default async function Page() {
           </Suspense>
         </div>
         <div className="col-start-1 col-end-4">
-          <NewestRelease />
+          <Suspense fallback={<BestsellersSkeleton />}>
+            <NewestRelease />
+          </Suspense>
         </div>
         <div className="mx-auto col-start-2 col-end-3 max-w-[1400px]">
           <ExtremeQuality />
