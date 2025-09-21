@@ -1,12 +1,17 @@
 import BrandsWall from "../components/features/homepage/brands-wall/BrandsWall";
-import ExtremeQuality from "../components/features/homepage/extreme-quality/ExtremeQuality";
 import Bestsellers from "../components/features/homepage/bestsellers/Bestsellers";
 import BestsellersSkeleton from "../components/features/homepage/bestsellers/BestsellersSkeleton";
-import MonthProduct from "../components/features/homepage/month-product/MonthProduct";
+
 import NewestRelease from "../components/features/homepage/newest-release/NewestRelease";
 import NewestReleaseSkeleton from "../components/features/homepage/newest-release/NewestReleaseSkeleton";
+import ExtremeQuality from "../components/features/homepage/extreme-quality/ExtremeQuality";
+import ExtremeQualitySkeleton from "../components/features/homepage/extreme-quality/ExtremeQualitySkeleton";
 
 import FeaturedProducts from "../components/features/homepage/featured-products/FeaturedProducts";
+import FeaturedProductsSkeleton from "../components/features/homepage/featured-products/FeaturedProductsSkeleton";
+import MonthProduct from "../components/features/homepage/month-product/MonthProduct";
+import MonthProductSkeleton from "../components/features/homepage/month-product/MonthProductSkeleton";
+
 import MainCategories from "../components/features/homepage/main-categories/MainCategories";
 import HeroCommercials from "../components/features/homepage/hero-commercials/HeroCommercials";
 import Footer from "../components/layout/footer/Footer";
@@ -28,16 +33,22 @@ export default async function Page() {
           </Suspense>
         </div>
         <div className="col-start-1 col-end-4">
-          <Suspense fallback={<BestsellersSkeleton />}>
+          <Suspense fallback={<NewestReleaseSkeleton />}>
             <NewestRelease />
           </Suspense>
         </div>
         <div className="mx-auto col-start-2 col-end-3 max-w-[1400px]">
-          <ExtremeQuality />
-          <FeaturedProducts />
+          <Suspense fallback={<ExtremeQualitySkeleton />}>
+            <ExtremeQuality />
+          </Suspense>
+          <Suspense fallback={<FeaturedProductsSkeleton />}>
+            <FeaturedProducts />
+          </Suspense>
         </div>
         <div className="col-start-1 col-end-4">
-          <MonthProduct />
+          <Suspense fallback={<MonthProductSkeleton />}>
+            <MonthProduct />
+          </Suspense>
         </div>
         <div className="col-start-1 col-end-4">
           <MainCategories />
