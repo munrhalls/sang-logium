@@ -4,11 +4,13 @@ import type { Metadata } from "next";
 import { Inter, DM_Serif_Display } from "next/font/google";
 import Header from "@/app/components/layout/header/Header";
 import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWrapper";
-import CategoriesNav from "../components/layout/categoryMenu/CategoriesNav";
+import CategoriesWrapper from "../components/layout/categoryMenu/CategoriesWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
 import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
+import { Suspense } from "react";
+import CategoriesSkeleton from "../components/layout/categoryMenu/CategoriesSkeleton";
 
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
@@ -39,11 +41,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  categories.sort((a, b) => {
-    if (a?.order === undefined || b?.order === undefined) return 0;
-    return a?.order - b?.order;
-  });
+  // categories.sort((a, b) => {
+  //   if (a?.order === undefined || b?.order === undefined) return 0;
+  //   return a?.order - b?.order;
+  // });
 
   return (
     <html
@@ -58,7 +59,10 @@ export default async function RootLayout({
           className={`font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative overflow-x-hidden`}
         >
           <Header />
-          <CategoriesNav categories={categories} />
+          <Suspense fallback={<CategoriesSkeleton />}>
+            <CategoriesWrapper />
+          </Suspense>
+
           <div className="h-full min-h-0 overflow-hidden relative ">
             <MobileDrawersWrapper />
             <div className="h-full min-h-0 overflow-y-auto relative">
