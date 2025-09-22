@@ -2,7 +2,8 @@ import { getCommercialsHero } from "@/sanity/lib/commercials/getCommercialsHero"
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 import CarouselSingleSlide from "../../../ui/carousel-single-slide/carouselSingleSlide";
 import HeroCommercialItem from "./HeroCommercialItem";
-import HeroFallback from "./HeroFallback";
+import HeroSkeleton from "./HeroSkeleton";
+import { Suspense } from "react";
 
 export default async function HeroCommercials() {
   try {
@@ -27,10 +28,12 @@ export default async function HeroCommercials() {
     );
 
     return (
-      <CarouselSingleSlide prebuiltSlides={prebuiltCommercials} keys={keys} />
+      <Suspense fallback={<HeroSkeleton />}>
+        <CarouselSingleSlide prebuiltSlides={prebuiltCommercials} keys={keys} />
+      </Suspense>
     );
   } catch (error) {
     console.error("Error loading hero commercials:", error);
-    return <HeroFallback />;
+    return <HeroSkeleton />;
   }
 }
