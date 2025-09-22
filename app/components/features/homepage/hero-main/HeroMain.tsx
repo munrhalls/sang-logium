@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getCommercialsHeroMain } from "@/sanity/lib/commercials/getCommercialsHeroMain";
 
 export default async function HeroMain() {
-  const HeroImage = await getCommercialsHeroMain();
+  const imageSrc = await getCommercialsHeroMain();
 
   return (
     <div className="isolate relative h-full grid grid-rows-[1fr_3rem]">
@@ -10,7 +10,7 @@ export default async function HeroMain() {
         <div className="h-full w-full flex">
           {/* <HeroCommercialItem /> */}
           <Image
-            src={"/HeroMain.webp"}
+            src={imageSrc}
             priority
             loading="eager"
             fetchPriority="high"

@@ -1,7 +1,7 @@
 import { defineQuery } from "next-sanity";
 import { client } from "../client";
 
-const GET_COMMERCIALS_HERO =
+const GET_COMMERCIALS_HERO_MAIN =
   defineQuery(`*[_type == "commercial" && feature == "hero-main" && defined(image.asset)] | order(displayOrder asc) {
     _id,
     title,
@@ -25,11 +25,11 @@ const GET_COMMERCIALS_HERO =
     }
   }`);
 
-export const getCommercialsHeroSecondary = async () => {
+export const getCommercialsHeroMain = async () => {
   try {
     const commercials = await client.fetch(
-      GET_COMMERCIALS_HERO,
-      { feature: "hero" },
+      GET_COMMERCIALS_HERO_MAIN,
+      { feature: "hero-main" },
       {
         cache: "force-cache",
         next: { revalidate: 300 },
