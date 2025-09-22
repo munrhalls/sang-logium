@@ -8,7 +8,6 @@ export default async function HeroMain() {
     <div className="isolate relative h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
         <div className="h-full w-full flex">
-          {/* <HeroCommercialItem /> */}
           <Image
             src={imageSrc}
             priority
