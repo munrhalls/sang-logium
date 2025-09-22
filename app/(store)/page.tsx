@@ -1,3 +1,5 @@
+import HeroMain from "../components/features/homepage/hero-main/HeroMain";
+import HeroCommercials from "../components/features/homepage/hero-commercials/HeroCommercials";
 import BrandsWall from "../components/features/homepage/brands-wall/BrandsWall";
 import Bestsellers from "../components/features/homepage/bestsellers/Bestsellers";
 import BestsellersSkeleton from "../components/features/homepage/bestsellers/BestsellersSkeleton";
@@ -15,7 +17,6 @@ import MonthProductSkeleton from "../components/features/homepage/month-product/
 import MainCategories from "../components/features/homepage/main-categories/MainCategories";
 import MainCategoriesSkeleton from "../components/features/homepage/main-categories/MainCategoriesSkeleton";
 
-import HeroCommercials from "../components/features/homepage/hero-commercials/HeroCommercials";
 import Footer from "../components/layout/footer/Footer";
 import { Suspense } from "react";
 export const revalidate = 300;
@@ -26,6 +27,7 @@ export default async function Page() {
 
   return (
     <main className="h-full relative overflow-x-hidden">
+      {/* <HeroMain /> */}
       <HeroCommercials />
       <div className="grid grid-cols-[auto_8fr_auto] xl:grid-cols-[1fr_8fr_1fr] mx-auto">
         <div className="mx-auto col-start-2 col-end-3 max-w-[1400px]">

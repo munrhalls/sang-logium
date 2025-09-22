@@ -14,7 +14,8 @@ export const commercialType = defineType({
       type: "string",
       options: {
         list: [
-          { title: "Hero", value: "hero" },
+          { title: "Hero Main", value: "hero-main" },
+          { title: "Hero Secondary", value: "hero-secondary" },
           { title: "Bestsellers", value: "bestsellers" },
           { title: "ExtremeQuality", value: "extreme-quality" },
           { title: "MVPMonth", value: "mvp-month" },

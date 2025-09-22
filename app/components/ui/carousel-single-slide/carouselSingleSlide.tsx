@@ -30,15 +30,14 @@ const CarouselSingleSlide = ({
           className="h-full w-full flex transition-transform duration-300"
           style={{ transform: `translate3d(-${index * 100}%, 0, 0)` }}
         >
-          {/* {prebuiltSlides.map((slide, slideIndex) => (
+          {prebuiltSlides.map((slide, slideIndex) => (
             <div
               className="flex-[0_0_100%]"
               key={keys[slideIndex] + "_prebuiltSlides"}
             >
               {slide}
             </div>
-          ))} */}
-          {<div className="bg-slate-800 w-full h-full"></div>}
+          ))}
         </div>
       </div>
       <div className="z-50 h-full w-full bg-black grid grid-cols-[1fr_3fr_1fr]">

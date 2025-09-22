@@ -1,4 +1,4 @@
-import { getCommercialsHero } from "@/sanity/lib/commercials/getCommercialsHero";
+import { getCommercialsHeroSecondary } from "@/sanity/lib/commercials/getCommercialsHeroMain";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";
 import CarouselSingleSlide from "../../../ui/carousel-single-slide/carouselSingleSlide";
 import HeroCommercialItem from "./HeroCommercialItem";
@@ -7,7 +7,7 @@ import { Suspense } from "react";
 
 export default async function HeroCommercials() {
   try {
-    const heroCommercials = await getCommercialsHero();
+    const heroCommercials = await getCommercialsHeroSecondary();
 
     const prebuiltCommercials = heroCommercials.map(
       (

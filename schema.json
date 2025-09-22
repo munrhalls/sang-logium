@@ -187,7 +187,11 @@
           "of": [
             {
               "type": "string",
-              "value": "hero"
+              "value": "hero-main"
+            },
+            {
+              "type": "string",
+              "value": "hero-secondary"
             },
             {
               "type": "string",
