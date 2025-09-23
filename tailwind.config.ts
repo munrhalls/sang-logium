@@ -76,4 +76,16 @@ export default {
     },
   },
   plugins: [animatePlugin, typographyPlugin],
+  corePlugins: {
+    preflight: true,
+    container: false,
+    accessibility: false,
+  },
+  safelist: [
+    "hero-image",
+    "absolute",
+    "inset-0",
+    "object-cover",
+    "object-center",
+  ],
 } satisfies Config;
