@@ -21,10 +21,9 @@ export default async function BrandsWall() {
             >
               <Image
                 loading={index < 6 ? "eager" : "lazy"}
-                priority={index < 3}
                 src={image.src}
                 alt={brand}
-                quality={70}
+                quality={50}
                 sizes="150px"
                 width={150}
                 height={50}

@@ -6,20 +6,9 @@ const GET_COMMERCIALS_HERO_MAIN =
   | order(displayOrder asc) [0]
   {
     _id,
-    title,
     "image": image.asset->url,
-    variant,
-    displayOrder,
     text,
     ctaLink,
-    "products": products[]-> {
-      _id,
-      brand,
-      name,
-      description,
-      price,
-      "image": image.asset->url
-    },
     sale-> {
       discount,
       validUntil,

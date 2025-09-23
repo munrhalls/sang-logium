@@ -1,10 +1,6 @@
 import Image from "next/image";
 import { getCommercialHeroMain } from "@/sanity/lib/commercials/getCommercialHeroMain";
 import TextCommercial from "@/app/components/ui/commercials/textCommercial";
-import imageUrlBuilder from "@sanity/image-url";
-import { client } from "@sanity/lib/client";
-
-const builder = imageUrlBuilder(client);
 
 export default async function HeroMain() {
   const commercial = await getCommercialHeroMain();
@@ -16,26 +12,19 @@ export default async function HeroMain() {
     title = "Hero commercial",
   } = commercial;
 
-  const optimizedImage = builder
-    .image(image)
-    .width(1920)
-    .quality(75)
-    .format("webp")
-    .url();
-
   return (
-    <div className="isolate relative h-full grid grid-rows-[1fr_3rem]">
+    <div className="relative h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
         <div className="h-full relative flex-[0_0_100%]">
           <Image
-            src={optimizedImage}
+            src={image}
             priority
             fetchPriority="high"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
             style={{ objectFit: "cover", objectPosition: "right" }}
             className="hero-image"
-            quality={75}
+            quality={60}
             alt="Sang logium Hero image"
           />
           <TextCommercial text={text} ctaLink={ctaLink} />
