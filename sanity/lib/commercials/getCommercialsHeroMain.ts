@@ -35,8 +35,8 @@ export const getCommercialsHeroMain = async () => {
         next: { revalidate: 300 },
       }
     );
-
-    return commercials || [];
+    if (commercials?.length) return commercials[0];
+    return [];
   } catch (err) {
     console.error("Error fetching commercials by feature: ", err);
     return [];

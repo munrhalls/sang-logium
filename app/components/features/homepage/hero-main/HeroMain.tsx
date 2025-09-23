@@ -2,14 +2,24 @@ import Image from "next/image";
 import { getCommercialsHeroMain } from "@/sanity/lib/commercials/getCommercialsHeroMain";
 
 export default async function HeroMain() {
-  const imageSrc = await getCommercialsHeroMain();
+  const commercial = await getCommercialsHeroMain();
+  // const imageSrc = commercial.image;
+  const {
+    variant,
+    products,
+    text,
+    image,
+    sale,
+    ctaLink = null,
+    title = "Hero commercial",
+  } = commercial;
 
   return (
     <div className="isolate relative h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
         <div className="h-full w-full flex">
           <Image
-            src={imageSrc}
+            src={image}
             priority
             loading="eager"
             fetchPriority="high"
