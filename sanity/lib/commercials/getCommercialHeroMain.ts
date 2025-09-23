@@ -6,7 +6,7 @@ const GET_COMMERCIALS_HERO_MAIN =
   | order(displayOrder asc) [0]
   {
     _id,
-    "image": image.asset->url,
+    "image": image.asset->url + "?fm=webp&w=1200&q=55",
     text,
     ctaLink,
     sale-> {

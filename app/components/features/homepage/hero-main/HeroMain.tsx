@@ -21,10 +21,10 @@ export default async function HeroMain() {
             priority
             fetchPriority="high"
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             style={{ objectFit: "cover", objectPosition: "right" }}
             className="hero-image"
-            quality={60}
+            quality={50}
             alt="Sang logium Hero image"
           />
           <TextCommercial text={text} ctaLink={ctaLink} />

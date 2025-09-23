@@ -29,7 +29,7 @@ export default function Header() {
         <SearchForm />
       </div>
       <div className="hidden lg:grid place-content-center grid-flow-col gap-8">
-        <Authentication />
+        {/* <Authentication /> */}
         <Link
           href="/orders"
           className="text-white flex justify-center items-center"
