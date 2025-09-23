@@ -1,6 +1,10 @@
 import Image from "next/image";
 import { getCommercialHeroMain } from "@/sanity/lib/commercials/getCommercialHeroMain";
 import TextCommercial from "@/app/components/ui/commercials/textCommercial";
+import imageUrlBuilder from "@sanity/image-url";
+import { client } from "@sanity/lib/client";
+
+const builder = imageUrlBuilder(client);
 
 export default async function HeroMain() {
   const commercial = await getCommercialHeroMain();
@@ -12,12 +16,19 @@ export default async function HeroMain() {
     title = "Hero commercial",
   } = commercial;
 
+  const optimizedImage = builder
+    .image(image)
+    .width(1920)
+    .quality(75)
+    .format("webp")
+    .url();
+
   return (
     <div className="isolate relative h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
         <div className="h-full relative flex-[0_0_100%]">
           <Image
-            src={image}
+            src={optimizedImage}
             priority
             fetchPriority="high"
             fill
