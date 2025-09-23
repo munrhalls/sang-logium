@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getCommercialsHeroMain } from "@/sanity/lib/commercials/getCommercialsHeroMain";
+import TextCommercial from "@/app/components/ui/commercials/textCommercial";
 
 export default async function HeroMain() {
   const commercial = await getCommercialsHeroMain();
@@ -17,7 +18,7 @@ export default async function HeroMain() {
   return (
     <div className="isolate relative h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
-        <div className="h-full w-full flex">
+        <div className="h-full relative flex-[0_0_100%]">
           <Image
             src={image}
             priority
@@ -30,8 +31,10 @@ export default async function HeroMain() {
             quality={75}
             alt={""}
           />
+          <TextCommercial text={text} ctaLink={ctaLink} />
         </div>
       </div>
+
       <div className="z-50 h-full w-full bg-black  grid grid-cols-[1fr_3fr_1fr]">
         <p className="text-white font-black tracking-wide">
           Offer available only until November 30th!

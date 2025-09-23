@@ -43,7 +43,7 @@ export default function TextCommercial({ text, ctaLink }: TextCommercialProps) {
     },
   };
   return (
-    <div className=" h-full  z-30 text-white grid place-content-center">
+    <div className=" h-full z-30 text-white grid place-content-center">
       <div className="z-20 bg-black/40 grid place-items-center m-4 px-8 py-6 sm:px-12 sm:py-12 lg:py-28 sm:space-y-2 md:space-y-28 lg:space-y-40 rounded-sm">
         <PortableText value={text} components={components} />
       </div>
