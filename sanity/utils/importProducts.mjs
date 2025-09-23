@@ -1,7 +1,8 @@
 import { createClient } from "@sanity/client";
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
-import products from "../sang-logium-data/productData.json" assert { type: "json" };
+import products from "../sang-logium-data/productData.json" with { type: "json" };
+
 import dotenv from "dotenv";
 
 dotenv.config({ path: ".env.local" });
