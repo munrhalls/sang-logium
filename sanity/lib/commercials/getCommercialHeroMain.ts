@@ -2,7 +2,9 @@ import { defineQuery } from "next-sanity";
 import { client } from "../client";
 
 const GET_COMMERCIALS_HERO_MAIN =
-  defineQuery(`*[_type == "commercial" && feature == "hero-main" && defined(image.asset)] | order(displayOrder asc) {
+  defineQuery(`*[_type == "commercial" && feature == "hero-main" && defined(image.asset)]
+  | order(displayOrder asc) [0]
+  {
     _id,
     title,
     "image": image.asset->url,
@@ -16,7 +18,7 @@ const GET_COMMERCIALS_HERO_MAIN =
       name,
       description,
       price,
-      "image": image.asset->url,
+      "image": image.asset->url
     },
     sale-> {
       discount,
@@ -25,9 +27,9 @@ const GET_COMMERCIALS_HERO_MAIN =
     }
   }`);
 
-export const getCommercialsHeroMain = async () => {
+export const getCommercialHeroMain = async () => {
   try {
-    const commercials = await client.fetch(
+    const commercial = await client.fetch(
       GET_COMMERCIALS_HERO_MAIN,
       { feature: "hero-main" },
       {
@@ -35,8 +37,8 @@ export const getCommercialsHeroMain = async () => {
         next: { revalidate: 300 },
       }
     );
-    if (commercials?.length) return commercials[0];
-    return [];
+
+    return commercial || null;
   } catch (err) {
     console.error("Error fetching commercials by feature: ", err);
     return [];

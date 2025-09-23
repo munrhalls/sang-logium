@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { getCommercialsHeroMain } from "@/sanity/lib/commercials/getCommercialsHeroMain";
+import { getCommercialHeroMain } from "@/sanity/lib/commercials/getCommercialHeroMain";
 import TextCommercial from "@/app/components/ui/commercials/textCommercial";
 
 export default async function HeroMain() {
-  const commercial = await getCommercialsHeroMain();
+  const commercial = await getCommercialHeroMain();
   const {
     text,
     image,
@@ -18,15 +18,13 @@ export default async function HeroMain() {
         <div className="h-full relative flex-[0_0_100%]">
           <Image
             src={image}
-            priority
-            loading="eager"
-            fetchPriority="high"
+            fetchPriority="auto"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
             style={{ objectFit: "cover", objectPosition: "right" }}
             className={`absolute inset-0 w-full h-full object-cover hero-image`}
             quality={75}
-            alt={"Sang logium"}
+            alt={"Sang logium Hero image"}
           />
           <TextCommercial text={text} ctaLink={ctaLink} />
         </div>
