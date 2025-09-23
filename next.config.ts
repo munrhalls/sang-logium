@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  compiler: {
+    styledComponents: true,
+  },
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ["@clerk/nextjs", "sanity", "lucide-react"],
