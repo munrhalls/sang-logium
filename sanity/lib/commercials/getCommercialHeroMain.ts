@@ -7,6 +7,7 @@ const GET_COMMERCIALS_HERO_MAIN =
   {
     _id,
     "image": image.asset->url + "?fm=webp&w=1200&q=55",
+    "blurDataURL": image.asset->url + "?w=20&h=20&blur=10&q=20",
     text,
     ctaLink,
     sale-> {

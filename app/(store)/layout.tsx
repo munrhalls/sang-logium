@@ -53,6 +53,14 @@ export default async function RootLayout({
     >
       <head>
         <link rel="icon" href="/logo-orbit.svg" type="image/svg+xml" />
+        <link rel="preconnect" href="https://cdn.sanity.io" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+        {/* <link
+          rel="preload"
+          as="image"
+          href={firstImageUrl}
+          fetchPriority="high"
+        /> */}
       </head>
       <ClerkProvider>
         <body
