@@ -8,24 +8,11 @@ export default {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./sanity/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
-      fontFamily: {
-        // gruppo: ["Gruppo", "sans-serif"],
-        iceland: ["Iceland", "sans-serif"],
-        oswald: ["Oswald", "sans-serif"],
-        sans: ["var(--font-iceland)"],
-        // montserrat: ["Montserrat", "sans-serif"],
-        // playfair: ["Playfair Display", "serif"],
-        // raleway: ["Raleway", "sans-serif"],
-        // lora: ["Lora", "serif"],
-        // poppins: ["Poppins", "sans-serif"],
-        // roboto: ["Roboto", "sans-serif"],
-        // merriweather: ["Merriweather", "serif"],
-        // bebas: ["Bebas Neue", "sans-serif"],
-        // lobster: ["Lobster", "cursive"],
-      },
       screens: {
         "2xs": "450px",
         "2xl": "1600px",
