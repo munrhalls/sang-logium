@@ -69,9 +69,8 @@ const HeroCommercialItem = ({ commercial, index }: SlideProps) => {
     <div className="h-full relative flex-[0_0_100%]">
       <Image
         src={imageSrc}
-        priority={isFirstSlide}
-        loading={"lazy"}
-        fetchPriority={"auto"}
+        loading={"eager"}
+        fetchPriority={"high"}
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
         style={{ objectFit: "cover", objectPosition: "right" }}

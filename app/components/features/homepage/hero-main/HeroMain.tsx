@@ -18,13 +18,14 @@ export default async function HeroMain() {
         <div className="h-full relative flex-[0_0_100%]">
           <Image
             src={image}
-            fetchPriority="auto"
+            priority
+            fetchPriority="high"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
             style={{ objectFit: "cover", objectPosition: "right" }}
-            className={`absolute inset-0 w-full h-full object-cover hero-image`}
+            className="hero-image"
             quality={75}
-            alt={"Sang logium Hero image"}
+            alt="Sang logium Hero image"
           />
           <TextCommercial text={text} ctaLink={ctaLink} />
         </div>

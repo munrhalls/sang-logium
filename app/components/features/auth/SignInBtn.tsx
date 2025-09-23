@@ -8,7 +8,7 @@ export default function SignInBtn() {
         <div className="grid place-content-center">
           <UserIcon height={24} width={24} />
         </div>
-        <span>Sign In</span>
+        <span className="hidden sm:inline-block">Sign In</span>
       </div>
     </SignInButton>
   );

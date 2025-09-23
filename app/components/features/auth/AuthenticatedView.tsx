@@ -19,7 +19,7 @@ export default function AuthenticatedView() {
         </div>
         <div
           style={{ lineHeight: "16px" }}
-          className="flex items-center justify-center"
+          className="hidden sm:flex items-center justify-center"
         >
           <p className="text-white text-xs md:text-sm mr-1">Welcome back,</p>
           <p className="font-semibold text-xs md:text-sm text-white">

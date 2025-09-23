@@ -39,7 +39,9 @@ const MobileMenu = () => {
               <>
                 <Menu className="h-6 w-6" />
 
-                <span className="text-xs mt-1">Menu</span>
+                <span className="hidden sm:inline-block text-xs mt-1">
+                  Menu
+                </span>
               </>
             )}
           </button>
@@ -52,7 +54,9 @@ const MobileMenu = () => {
             ) : (
               <>
                 <Search className="h-6 w-6" />
-                <span className="text-xs mt-1">Search</span>
+                <span className="hidden sm:inline-block text-xs mt-1">
+                  Search
+                </span>
               </>
             )}
           </button>
@@ -65,7 +69,7 @@ const MobileMenu = () => {
           </Link>
           <Link href="/basket" className="flex flex-col items-center">
             <ShoppingBag className="h-6 w-6" />
-            <span className="text-xs mt-1">Basket</span>
+            <span className="hidden sm:inline-block text-xs mt-1">Basket</span>
           </Link>
         </div>
       </div>
