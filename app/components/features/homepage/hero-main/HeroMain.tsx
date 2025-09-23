@@ -4,10 +4,7 @@ import TextCommercial from "@/app/components/ui/commercials/textCommercial";
 
 export default async function HeroMain() {
   const commercial = await getCommercialsHeroMain();
-  // const imageSrc = commercial.image;
   const {
-    variant,
-    products,
     text,
     image,
     sale,
@@ -29,7 +26,7 @@ export default async function HeroMain() {
             style={{ objectFit: "cover", objectPosition: "right" }}
             className={`absolute inset-0 w-full h-full object-cover hero-image`}
             quality={75}
-            alt={""}
+            alt={"Sang logium"}
           />
           <TextCommercial text={text} ctaLink={ctaLink} />
         </div>
