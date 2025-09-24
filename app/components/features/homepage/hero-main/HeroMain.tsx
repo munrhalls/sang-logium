@@ -17,7 +17,7 @@ export default async function HeroMain() {
       <div className="relative h-full w-full z-30 overflow-hidden">
         <div className=" bg-black h-full relative flex-[0_0_100%]">
           <Image
-            src={image}
+            src={"/public/HeroMain.webp"}
             priority
             fetchPriority="high"
             fill

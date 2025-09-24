@@ -38,15 +38,21 @@ export default async function RootLayout({
       className={`${inter.className} ${dmSerifDisplay.variable} w-full h-full `}
     >
       <head>
-        <link rel="icon" href="/logo-orbit.svg" type="image/svg+xml" />
+        <link
+          rel="preload"
+          href="/public/HeroMain.webp"
+          as="image"
+          type="image/webp"
+          fetchPriority="high"
+        />
+        <link
+          rel="icon"
+          href="public/logo-orbit.svg"
+          type="image/svg+xml"
+          fetchPriority="high"
+        />
         <link rel="preconnect" href="https://cdn.sanity.io" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
-        {/* <link
-          rel="preload"
-          as="image"
-          href={firstImageUrl}
-          fetchPriority="high"
-        /> */}
       </head>
       <ClerkProvider>
         <body
