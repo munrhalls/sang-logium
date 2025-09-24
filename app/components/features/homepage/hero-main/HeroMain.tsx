@@ -1,23 +1,13 @@
 import Image from "next/image";
-import { getCommercialHeroMain } from "@/sanity/lib/commercials/getCommercialHeroMain";
-import TextCommercial from "@/app/components/ui/commercials/textCommercial";
+import TextCommercialWrapper from "./TextCommercialWrapper";
 
 export default async function HeroMain() {
-  const commercial = await getCommercialHeroMain();
-  const {
-    text,
-    image,
-    sale,
-    ctaLink = null,
-    title = "Hero commercial",
-  } = commercial;
-
   return (
     <div className="relative h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
-        <div className=" bg-black h-full relative flex-[0_0_100%]">
+        <div className=" h-full relative flex-[0_0_100%]">
           <Image
-            src={"/public/HeroMain.webp"}
+            src={"/HeroMain.webp"}
             priority
             fetchPriority="high"
             fill
@@ -27,9 +17,8 @@ export default async function HeroMain() {
             quality={50}
             alt="Sang logium Hero image"
           />
-          {/* // ttfb */}
-          <h1>wtf?</h1>
-          <TextCommercial text={text} ctaLink={ctaLink} />
+
+          <TextCommercialWrapper />
         </div>
       </div>
 
