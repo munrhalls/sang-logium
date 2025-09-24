@@ -15,7 +15,7 @@ export default async function HeroMain() {
   return (
     <div className="relative h-full grid grid-rows-[1fr_3rem]">
       <div className="relative h-full w-full z-30 overflow-hidden">
-        <div className="h-full relative flex-[0_0_100%]">
+        <div className=" bg-black h-full relative flex-[0_0_100%]">
           <Image
             src={image}
             priority
@@ -27,7 +27,8 @@ export default async function HeroMain() {
             quality={50}
             alt="Sang logium Hero image"
           />
-          // ttfb
+          {/* // ttfb */}
+          <h1>wtf?</h1>
           <TextCommercial text={text} ctaLink={ctaLink} />
         </div>
       </div>

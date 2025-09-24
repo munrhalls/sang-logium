@@ -7,8 +7,6 @@ import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWr
 import CategoriesWrapper from "../components/layout/categoryMenu/CategoriesWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
-import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
-import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import { Suspense } from "react";
 import CategoriesSkeleton from "../components/layout/categoryMenu/CategoriesSkeleton";
 
@@ -16,13 +14,6 @@ export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
   description: "The best audio gear in the world",
 };
-// const iceland = Iceland({
-//   weight: "400",
-//   subsets: ["latin"],
-//   display: "swap",
-//   preload: true,
-//   variable: "--font-iceland",
-// });
 
 const inter = Inter({
   subsets: ["latin"],
@@ -41,11 +32,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // categories.sort((a, b) => {
-  //   if (a?.order === undefined || b?.order === undefined) return 0;
-  //   return a?.order - b?.order;
-  // });
-
   return (
     <html
       lang="en"
