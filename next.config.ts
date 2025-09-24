@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizeCss: true,
+    inlineCss: true,
     optimizePackageImports: ["@clerk/nextjs", "sanity", "lucide-react"],
   },
   images: {

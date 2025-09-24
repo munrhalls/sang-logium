@@ -27,6 +27,7 @@ export default async function HeroMain() {
             quality={50}
             alt="Sang logium Hero image"
           />
+          // ttfb
           <TextCommercial text={text} ctaLink={ctaLink} />
         </div>
       </div>
