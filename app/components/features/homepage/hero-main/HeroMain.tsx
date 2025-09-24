@@ -17,7 +17,6 @@ export default async function HeroMain() {
             quality={50}
             alt="Sang logium Hero image"
           />
-
           <TextCommercialWrapper />
         </div>
       </div>
