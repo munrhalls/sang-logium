@@ -13,13 +13,7 @@ const Loader = function () {
 
 export default async function TextCommercialWrapper() {
   const commercial = await getCommercialHeroMain();
-  const {
-    text,
-    image,
-    sale,
-    ctaLink = null,
-    title = "Hero commercial",
-  } = commercial;
+  const { text, image, sale, ctaLink = null } = commercial;
 
   return (
     <Suspense fallback={<Loader />}>

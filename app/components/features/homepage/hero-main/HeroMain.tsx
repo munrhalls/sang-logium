@@ -11,10 +11,10 @@ export default async function HeroMain() {
             priority
             fetchPriority="high"
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
             style={{ objectFit: "cover", objectPosition: "right" }}
             className="hero-image"
-            quality={50}
+            quality={95}
             alt="Sang logium Hero image"
           />
           <TextCommercialWrapper />
