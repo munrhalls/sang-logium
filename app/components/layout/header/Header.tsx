@@ -5,6 +5,7 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import logo from "@/public/logo.svg";
 import SearchForm from "../../features/homepage/search/SearchForm";
+import { ClipboardListIcon } from "lucide-react";
 
 const Authentication = dynamic(
   () => import("@/app/components/features/auth/Authentication"),
@@ -29,12 +30,13 @@ export default function Header() {
         <SearchForm />
       </div>
       <div className="hidden lg:grid place-content-center grid-flow-col gap-8">
-        {/* <Authentication /> */}
-        <Link
-          href="/orders"
-          className="text-white flex justify-center items-center"
-        >
-          ORDERS
+        <Authentication />
+        <Link href="/orders" className="text-white" prefetch={false}>
+          <div className="grid place-content-center">
+            <ClipboardListIcon />
+          </div>
+
+          <span>Orders</span>
         </Link>
         <Link href="/basket" className="text-white" prefetch={false}>
           <div className="grid place-content-center">
