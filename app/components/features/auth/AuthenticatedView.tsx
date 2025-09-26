@@ -1,6 +1,7 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
 import { UserButton } from "@clerk/nextjs";
+import { DotIcon } from "lucide-react";
 
 export default function AuthenticatedView() {
   const { user, isLoaded } = useUser();
@@ -15,7 +16,15 @@ export default function AuthenticatedView() {
     <div className="flex flex-col items-center">
       <div className="grid place-content-center">
         <div className="grid place-content-center">
-          <UserButton />
+          <UserButton>
+            <UserButton.MenuItems>
+              <UserButton.Action
+                label="Open chat"
+                labelIcon={<DotIcon />}
+                onClick={() => alert("init chat")}
+              />
+            </UserButton.MenuItems>
+          </UserButton>
         </div>
         <div
           style={{ lineHeight: "16px" }}
