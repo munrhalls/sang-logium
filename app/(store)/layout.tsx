@@ -29,8 +29,10 @@ const dmSerifDisplay = DM_Serif_Display({
 
 export default async function RootLayout({
   children,
+  drawer,
 }: Readonly<{
   children: React.ReactNode;
+  drawer?: React.ReactNode;
 }>) {
   return (
     <html
@@ -70,6 +72,7 @@ export default async function RootLayout({
             </div>
           </div>
           <MobileMenu />
+          {drawer}
         </body>
       </ClerkProvider>
     </html>

@@ -28,10 +28,7 @@ export default function AuthMenu() {
           <button onClick={() => setIsOpen(false)}>Close</button>
           <div>
             <p>Welcome, {user?.firstName || "Guest"}!</p>
-            <button
-              onClick={() => clerk.openUserProfile()}
-              className="flex items-center space-x-2 p-2 w-full text-left hover:bg-gray-100 rounded"
-            >
+            <button className="flex items-center space-x-2 p-2 w-full text-left hover:bg-gray-100 rounded">
               <span>Manage Account</span>
             </button>
             <nav>
