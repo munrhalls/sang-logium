@@ -1,6 +1,5 @@
 import "./../globals.css";
 import type { Metadata } from "next";
-// import { Iceland } from "next/font/google";
 import { Inter, DM_Serif_Display } from "next/font/google";
 import Header from "@/app/components/layout/header/Header";
 import MobileDrawersWrapper from "@/app/components/layout/mobile/MobileDrawersWrapper";
@@ -29,10 +28,10 @@ const dmSerifDisplay = DM_Serif_Display({
 
 export default async function RootLayout({
   children,
-  drawer,
+  account,
 }: Readonly<{
   children: React.ReactNode;
-  drawer?: React.ReactNode;
+  account: React.ReactNode;
 }>) {
   return (
     <html
@@ -60,6 +59,7 @@ export default async function RootLayout({
         <body
           className={`font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative overflow-x-hidden`}
         >
+          {account}
           <Header />
           <Suspense fallback={<CategoriesSkeleton />}>
             <CategoriesWrapper />
@@ -72,7 +72,6 @@ export default async function RootLayout({
             </div>
           </div>
           <MobileMenu />
-          {drawer}
         </body>
       </ClerkProvider>
     </html>
