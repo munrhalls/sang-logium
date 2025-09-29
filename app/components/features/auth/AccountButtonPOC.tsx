@@ -2,10 +2,11 @@
 
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function AccountButtonPOC() {
   const { user, isLoaded } = useUser();
-
+  const pathname = usePathname();
   if (!isLoaded || !user) return null;
 
   return (

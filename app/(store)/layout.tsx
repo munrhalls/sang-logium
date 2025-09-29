@@ -8,7 +8,7 @@ import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
 import CategoriesSkeleton from "../components/layout/categoryMenu/CategoriesSkeleton";
-import AccountModal from "./AccountModal";
+// import AccountModal from "./AccountModal";
 
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
@@ -61,6 +61,7 @@ export default async function RootLayout({
           className={`font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative overflow-x-hidden`}
         >
           <Header />
+          {modal}
           <Suspense fallback={<CategoriesSkeleton />}>
             <CategoriesWrapper />
           </Suspense>
@@ -69,7 +70,7 @@ export default async function RootLayout({
             <MobileDrawersWrapper />
             <div className="h-full min-h-0 overflow-y-auto relative">
               {children}
-              <AccountModal />
+              {/* <AccountModal /> */}
             </div>
           </div>
           <MobileMenu />
