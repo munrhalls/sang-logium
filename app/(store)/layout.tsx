@@ -60,8 +60,9 @@ export default async function RootLayout({
         <body
           className={`font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative overflow-x-hidden`}
         >
-          <Header />
           {modal}
+          <Header />
+
           <Suspense fallback={<CategoriesSkeleton />}>
             <CategoriesWrapper />
           </Suspense>
