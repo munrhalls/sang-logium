@@ -41,7 +41,7 @@ export default function CheckoutPage() {
   ];
   const subtotal = basketItems.reduce(
     (total, item) => total + item.price * item.quantity,
-    0,
+    0
   );
   const shipping = 15.99;
   const total = subtotal + shipping;
@@ -90,8 +90,6 @@ export default function CheckoutPage() {
           onSubmit={handleSubmit}
         >
           <div>
-            {}
-            {}
             <h2 className="text-lg font-bold mb-4 pb-2 border-b border-gray-200">
               Shipping Information
             </h2>
