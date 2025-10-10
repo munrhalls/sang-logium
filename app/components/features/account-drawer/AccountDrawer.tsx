@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Package, MapPin, CreditCard, Settings, LogOut } from "lucide-react";
 
 export default function AccountDrawer() {
   const router = useRouter();
@@ -34,35 +35,38 @@ export default function AccountDrawer() {
           </div>
 
           <div className="grid h-full grid-cols-12">
-            <div className="col-span-4 flex h-full flex-col justify-around border border-r-2 border-black align-middle">
+            <div className="col-span-4 flex h-full flex-col justify-around space-y-6 border border-r-2 border-black p-6 align-middle">
               <Link
                 href="/account/orders"
-                className="rounded-sm text-center font-black"
+                className="flex flex-col items-center gap-2 rounded-sm p-4 text-center font-black transition-colors hover:bg-gray-100"
               >
-                Orders
+                <Package className="h-6 w-6 text-gray-600" />
+                <span>Orders</span>
               </Link>
               <Link
                 href="/account/addresses"
-                className="rounded-sm text-center font-black"
+                className="flex flex-col items-center gap-2 rounded-sm p-4 text-center font-black transition-colors hover:bg-gray-100"
               >
-                Addresses
+                <MapPin className="h-6 w-6 text-gray-600" />
+                <span>Addresses</span>
               </Link>
-
               <Link
                 href="/account/payment-methods"
-                className="whitespace-pre-wrap rounded-sm text-center font-black"
+                className="flex flex-col items-center gap-2 rounded-sm p-4 text-center font-black transition-colors hover:bg-gray-100"
               >
-                Payment
+                <CreditCard className="h-6 w-6 text-gray-600" />
+                <span>Payment</span>
               </Link>
-
               <Link
                 href="/account/settings"
-                className="rounded-sm text-center font-black"
+                className="flex flex-col items-center gap-2 rounded-sm p-4 text-center font-black transition-colors hover:bg-gray-100"
               >
-                Settings
+                <Settings className="h-6 w-6 text-gray-600" />
+                <span>Settings</span>
               </Link>
-              <button className="mx-auto w-[90%] rounded-sm bg-black py-3 font-medium text-white transition-colors hover:bg-gray-800">
-                Sign Out
+              <button className="flex w-full flex-col items-center gap-2 rounded-sm bg-black py-3 font-medium text-white transition-colors hover:bg-gray-800">
+                <LogOut className="h-6 w-6" />
+                <span>Sign Out</span>
               </button>
             </div>
           </div>
