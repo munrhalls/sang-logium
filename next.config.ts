@@ -14,7 +14,6 @@ const nextConfig: NextConfig = {
     inlineCss: true,
     optimizePackageImports: ["@clerk/nextjs", "sanity", "lucide-react"],
   },
-  // config
   images: {
     // domains: ["cdn.sanity.io"],
     formats: ["image/avif", "image/webp"],
