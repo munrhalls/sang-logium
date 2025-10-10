@@ -12,8 +12,10 @@ export default function AccountDrawer() {
 
       <div className="fixed bottom-0 right-0 top-[4rem] z-50 w-full bg-white shadow-lg sm:w-11/12 sm:max-w-3xl xl:max-w-6xl">
         <div className="flex h-full flex-col">
-          <div className="flex items-center justify-between border-b border-black p-6">
-            <h2 className="text-xl font-bold text-gray-900">Account</h2>
+          <div className="flex items-center justify-between border-b border-black p-2">
+            <h2 className="w-full text-center text-xl font-bold text-gray-900">
+              Account
+            </h2>
             <button
               onClick={() => router.back()}
               className="rounded-sm p-2 transition-colors hover:bg-gray-100"
@@ -33,6 +35,7 @@ export default function AccountDrawer() {
               </svg>
             </button>
           </div>
+          <div className="flex items-center justify-between border-b border-black p-6"></div>
 
           <div className="grid h-full grid-cols-12">
             <div className="col-span-4 flex h-full flex-col justify-around space-y-6 border border-r-2 border-black p-6 align-middle">
