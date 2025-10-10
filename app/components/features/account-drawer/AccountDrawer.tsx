@@ -38,35 +38,35 @@ export default function AccountDrawer() {
             <div className="col-span-4 flex h-full flex-col justify-around space-y-6 border border-r-2 border-black p-6 align-middle">
               <Link
                 href="/account/orders"
-                className="flex flex-col items-center gap-2 rounded-sm p-4 text-center font-black transition-colors hover:bg-gray-100"
+                className="flex flex-col items-center gap-2 rounded-sm text-center font-black transition-colors hover:bg-gray-100"
               >
                 <Package className="h-6 w-6 text-gray-600" />
-                <span>Orders</span>
+                <span className="hidden sm:inline">Orders</span>
               </Link>
               <Link
                 href="/account/addresses"
-                className="flex flex-col items-center gap-2 rounded-sm p-4 text-center font-black transition-colors hover:bg-gray-100"
+                className="flex flex-col items-center gap-2 rounded-sm text-center font-black transition-colors hover:bg-gray-100"
               >
                 <MapPin className="h-6 w-6 text-gray-600" />
-                <span>Addresses</span>
+                <span className="hidden sm:inline">Addresses</span>
               </Link>
               <Link
                 href="/account/payment-methods"
-                className="flex flex-col items-center gap-2 rounded-sm p-4 text-center font-black transition-colors hover:bg-gray-100"
+                className="flex flex-col items-center gap-2 rounded-sm text-center font-black transition-colors hover:bg-gray-100"
               >
                 <CreditCard className="h-6 w-6 text-gray-600" />
-                <span>Payment</span>
+                <span className="hidden sm:inline">Payment</span>
               </Link>
               <Link
                 href="/account/settings"
-                className="flex flex-col items-center gap-2 rounded-sm p-4 text-center font-black transition-colors hover:bg-gray-100"
+                className="flex flex-col items-center gap-2 rounded-sm text-center font-black transition-colors hover:bg-gray-100"
               >
                 <Settings className="h-6 w-6 text-gray-600" />
-                <span>Settings</span>
+                <span className="hidden sm:inline">Settings</span>
               </Link>
               <button className="flex w-full flex-col items-center gap-2 rounded-sm bg-black py-3 font-medium text-white transition-colors hover:bg-gray-800">
                 <LogOut className="h-6 w-6" />
-                <span>Sign Out</span>
+                <span className="hidden sm:inline">Sign Out</span>
               </button>
             </div>
           </div>
