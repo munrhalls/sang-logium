@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Package, MapPin, CreditCard, Settings, LogOut } from "lucide-react";
 
 export default function AccountLayout({
@@ -9,6 +9,12 @@ export default function AccountLayout({
   children?: React.ReactNode;
 }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const returnTo = searchParams.get("returnTo") || "/";
+
+  const handleExit = () => {
+    router.push(decodeURIComponent(returnTo));
+  };
 
   return (
     <>
@@ -70,7 +76,10 @@ export default function AccountLayout({
                 <Settings className="h-6 w-6 text-gray-600" />
                 <span className="hidden sm:inline">Settings</span>
               </Link>
-              <button className="mx-auto flex w-8 flex-col items-center rounded-lg bg-slate-800 py-2 font-medium text-white transition-colors hover:bg-gray-800 sm:w-auto sm:p-4">
+              <button
+                onClick={handleExit}
+                className="mx-auto flex w-8 flex-col items-center rounded-lg bg-slate-800 py-2 font-medium text-white transition-colors hover:bg-gray-800 sm:w-auto sm:p-4"
+              >
                 <LogOut className="h-4 w-4" />
                 <span className="hidden sm:inline">Exit</span>
               </button>
