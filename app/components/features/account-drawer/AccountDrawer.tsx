@@ -3,7 +3,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Package, MapPin, CreditCard, Settings, LogOut } from "lucide-react";
 
-export default function AccountDrawer() {
+export default function AccountDrawer({
+  children,
+}: {
+  children?: React.ReactNode;
+}) {
   const router = useRouter();
 
   return (
@@ -72,6 +76,7 @@ export default function AccountDrawer() {
                 <span className="hidden sm:inline">Sign Out</span>
               </button>
             </div>
+            <main className="col-span-8 overflow-y-auto p-6">{children}</main>
           </div>
         </div>
       </div>
