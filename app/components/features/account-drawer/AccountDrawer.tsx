@@ -10,7 +10,7 @@ export default function AccountDrawer() {
     <>
       <div className="fixed inset-0 z-40 md:bg-black/50" />
 
-      <div className="fixed bottom-0 right-0 top-[4rem] z-50 w-full bg-white shadow-lg sm:w-11/12 sm:max-w-3xl xl:max-w-6xl">
+      <div className="fixed bottom-14 right-0 top-[4rem] z-50 w-full overflow-y-scroll bg-white shadow-lg sm:w-11/12 sm:max-w-3xl xl:max-w-6xl">
         <div className="flex h-full flex-col">
           <div className="flex items-center justify-between border-b border-black p-2">
             <h2 className="w-full text-center text-xl font-bold text-gray-900">
