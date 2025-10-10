@@ -9,7 +9,7 @@ const BasketControls = React.memo(
     const _hasHydrated = useBasketStore((s) => s._hasHydrated);
     const _id = product._id;
     const item = useBasketStore((s) =>
-      s.basket.find((i) => i._id === product._id),
+      s.basket.find((i) => i._id === product._id)
     );
     const addItem = useBasketStore((s) => s.addItem);
     const updateQuantity = useBasketStore((s) => s.updateQuantity);
@@ -103,6 +103,6 @@ const BasketControls = React.memo(
   },
   (prevProps, nextProps) => {
     return prevProps.product._id === nextProps.product._id;
-  },
+  }
 );
 export default BasketControls;

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Menu, Search, ShoppingBag, X } from "lucide-react";
+import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
 import { useUIStore } from "@/store";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -61,11 +61,9 @@ const MobileMenu = () => {
             )}
           </button>
           <Authentication />
-          <Link
-            href="/orders"
-            className="text-white flex justify-center items-center"
-          >
-            ORDERS
+          <Link href="/track-orders" className="flex flex-col items-center">
+            <Truck className="h-6 w-6" />
+            <span className="hidden sm:inline-block text-xs mt-1">Track</span>
           </Link>
           <Link href="/basket" className="flex flex-col items-center">
             <ShoppingBag className="h-6 w-6" />
