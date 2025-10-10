@@ -39,10 +39,9 @@ export default function AccountLayout({
               </svg>
             </button>
           </div>
-          <div className="flex items-center justify-between border-b border-black p-6"></div>
 
           <div className="grid h-full grid-cols-12">
-            <div className="col-span-4 flex h-full flex-col justify-around space-y-6 border border-r-2 border-black p-6 align-middle">
+            <div className="col-span-2 flex h-full flex-col justify-around space-y-6 border border-r-2 border-black py-3 align-middle sm:col-span-4 sm:p-6">
               <Link
                 href="/account/orders"
                 className="flex flex-col items-center gap-2 rounded-sm text-center font-black transition-colors hover:bg-gray-100"
@@ -73,7 +72,7 @@ export default function AccountLayout({
               </Link>
               <button className="mx-auto flex w-8 flex-col items-center rounded-lg bg-slate-800 py-2 font-medium text-white transition-colors hover:bg-gray-800 sm:w-auto sm:p-4">
                 <LogOut className="h-4 w-4" />
-                <span className="hidden sm:inline">Sign Out</span>
+                <span className="hidden sm:inline">Exit</span>
               </button>
             </div>
             <main className="col-span-8 overflow-y-auto p-6">{children}</main>
