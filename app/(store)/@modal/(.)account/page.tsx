@@ -1,3 +1,7 @@
-export default function page() {
-  return <div>account page inside main div</div>;
+import { redirect } from "next/navigation";
+
+export default function Account() {
+  redirect("/account/orders");
+
+  return null;
 }
