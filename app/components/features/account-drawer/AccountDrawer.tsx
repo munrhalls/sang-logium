@@ -67,7 +67,7 @@ export default function AccountDrawer() {
                 <Settings className="h-6 w-6 text-gray-600" />
                 <span className="hidden sm:inline">Settings</span>
               </Link>
-              <button className="mx-auto flex w-8 flex-col items-center rounded-sm bg-slate-700 py-2 font-medium text-white transition-colors hover:bg-gray-800">
+              <button className="mx-auto flex w-8 flex-col items-center rounded-lg bg-slate-800 py-2 font-medium text-white transition-colors hover:bg-gray-800 sm:w-auto sm:p-4">
                 <LogOut className="h-4 w-4" />
                 <span className="hidden sm:inline">Sign Out</span>
               </button>
