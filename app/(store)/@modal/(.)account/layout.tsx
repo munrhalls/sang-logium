@@ -58,11 +58,11 @@ export default function AccountLayout({
                 <span className="hidden sm:inline">Addresses</span>
               </Link>
               <Link
-                href="/account/payment-methods"
+                href="/account/payments"
                 className="flex flex-col items-center gap-2 rounded-sm text-center font-black transition-colors hover:bg-gray-100"
               >
                 <CreditCard className="h-6 w-6 text-gray-600" />
-                <span className="hidden sm:inline">Payment</span>
+                <span className="hidden sm:inline">Payments</span>
               </Link>
               <Link
                 href="/account/settings"
