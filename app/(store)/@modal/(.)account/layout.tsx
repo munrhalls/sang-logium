@@ -74,13 +74,7 @@ export default function AccountLayout({
                 <CreditCard className="h-6 w-6 text-gray-600" />
                 <span className="hidden sm:inline">Payments</span>
               </Link>
-              <Link
-                href="/account/settings"
-                className="flex flex-col items-center gap-2 rounded-sm text-center font-black transition-colors hover:bg-gray-100"
-              >
-                <Settings className="h-6 w-6 text-gray-600" />
-                <span className="hidden sm:inline">Settings</span>
-              </Link>
+
               <div className="flex flex-col items-center gap-2 rounded-sm text-center font-black transition-colors hover:bg-gray-100">
                 <UserButton />
               </div>
