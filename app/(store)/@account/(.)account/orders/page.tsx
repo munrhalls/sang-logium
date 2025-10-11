@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Orders() {
   return (
     <div>
@@ -7,7 +9,12 @@ export default function Orders() {
 
         <div>search</div>
       </div>
-      <div> orders motherfucker</div>
+      <div>
+        orders motherfucker
+        <div>
+          <Link href="/account/orders/order-details/1">Order Details</Link>
+        </div>
+      </div>
     </div>
   );
 }
