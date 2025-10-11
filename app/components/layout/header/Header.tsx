@@ -39,9 +39,11 @@ export default function Header() {
           <span>Basket</span>
         </Link>
 
-        <Link href="/tracking" className="flex flex-col items-center">
-          <Truck className="h-6 w-6" />
-          <span className="mt-1 hidden text-xs sm:inline-block">Track</span>
+        <Link href="/tracking" className="text-white" prefetch={false}>
+          <div className="grid place-content-center">
+            <Truck className="h-6 w-6" />
+          </div>
+          <span>Track</span>
         </Link>
       </div>
     </header>
