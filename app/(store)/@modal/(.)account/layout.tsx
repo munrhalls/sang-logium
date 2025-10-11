@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Package, MapPin, CreditCard, Settings, LogOut } from "lucide-react";
+import { UserButton } from "@clerk/nextjs";
 
 export default function AccountLayout({
   children,
@@ -80,6 +81,9 @@ export default function AccountLayout({
                 <Settings className="h-6 w-6 text-gray-600" />
                 <span className="hidden sm:inline">Settings</span>
               </Link>
+              <div className="flex flex-col items-center gap-2 rounded-sm text-center font-black transition-colors hover:bg-gray-100">
+                <UserButton />
+              </div>
               <button
                 onClick={handleExit}
                 className="mx-auto flex w-8 flex-col items-center rounded-lg bg-slate-800 py-2 font-medium text-white transition-colors hover:bg-gray-800 sm:w-auto sm:p-4"
