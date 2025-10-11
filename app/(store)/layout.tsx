@@ -28,12 +28,10 @@ const dmSerifDisplay = DM_Serif_Display({
 
 export default async function RootLayout({
   children,
-  account,
-  tracking,
+  drawer,
 }: Readonly<{
   children: React.ReactNode;
-  account: React.ReactNode;
-  tracking: React.ReactNode;
+  drawer: React.ReactNode;
 }>) {
   return (
     <html
@@ -61,8 +59,7 @@ export default async function RootLayout({
         <body
           className={`relative grid w-full grid-rows-[auto_1fr_auto] overflow-x-hidden font-sans lg:grid-rows-[auto_auto_1fr_auto]`}
         >
-          {account}
-          {tracking}
+          {drawer}
           <Header />
 
           <Suspense fallback={<CategoriesSkeleton />}>
