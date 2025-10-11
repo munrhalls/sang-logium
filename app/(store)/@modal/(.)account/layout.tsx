@@ -76,11 +76,29 @@ export default function AccountLayout({
               </Link>
 
               <div className="flex flex-col items-center gap-2 rounded-sm text-center font-black transition-colors hover:bg-gray-100">
-                <UserButton />
+                <UserButton
+                  appearance={{
+                    elements: {
+                      userButtonAvatarBox: {
+                        width: "2rem",
+                        height: "2rem",
+
+                        "@media (min-width: 768px)": {
+                          width: "3.5rem",
+                          height: "3.5rem",
+                        },
+                      },
+                      userButtonPopoverCard: {
+                        right: 0,
+                        left: "unset",
+                      },
+                    },
+                  }}
+                />
               </div>
               <button
                 onClick={handleExit}
-                className="mx-auto flex w-8 flex-col items-center rounded-lg bg-slate-800 py-2 font-medium text-white transition-colors hover:bg-gray-800 sm:w-auto sm:p-4"
+                className="mx-auto flex w-8 flex-col items-center rounded-lg bg-slate-800 py-2 font-medium text-white transition-colors hover:bg-gray-800 sm:w-20 sm:py-3"
               >
                 <LogOut className="h-4 w-4" />
                 <span className="hidden sm:inline">Exit</span>
