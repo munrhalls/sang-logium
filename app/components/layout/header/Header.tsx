@@ -11,7 +11,7 @@ const Authentication = dynamic(
   {
     loading: () => (
       <div className="flex text-white">
-        <div className="w-[24px] h-[24px] mx-auto bg-blue-700 rounded-full animate-pulse" />
+        <div className="mx-auto h-[24px] w-[24px] animate-pulse rounded-full bg-blue-700" />
         <span className="pl-2">Loading...</span>
       </div>
     ),
@@ -21,14 +21,14 @@ const Authentication = dynamic(
 
 export default function Header() {
   return (
-    <header className="bg-black grid place-content-center grid-flow-col lg:grid-cols-[3fr_4fr_4fr] h-[4rem]">
+    <header className="grid h-[4rem] grid-flow-col place-content-center bg-black lg:grid-cols-[3fr_4fr_4fr]">
       <Link href="/" className="grid place-content-center">
         <Image src={logo} alt="Logo" height={50} width={180} priority />
       </Link>
       <div className="hidden lg:grid lg:place-content-center">
         <SearchForm />
       </div>
-      <div className="hidden lg:grid place-content-center grid-flow-col gap-8">
+      <div className="hidden grid-flow-col place-content-center gap-8 lg:grid">
         <Authentication />
 
         <Link href="/basket" className="text-white" prefetch={false}>

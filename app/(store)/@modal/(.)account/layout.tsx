@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Package, MapPin, CreditCard, Settings, LogOut } from "lucide-react";
 
 export default function AccountLayout({
@@ -9,11 +9,15 @@ export default function AccountLayout({
   children?: React.ReactNode;
 }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const returnTo = searchParams.get("returnTo") || "/";
+
+  const previousUrl = sessionStorage.getItem("pre_modal_url") || "/";
 
   const handleExit = () => {
-    router.push(decodeURIComponent(returnTo));
+    console.time("modal-close");
+
+    router.replace(previousUrl, { scroll: false });
+    sessionStorage.removeItem("pre_modal_url");
+    console.timeEnd("modal-close");
   };
 
   return (

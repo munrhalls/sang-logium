@@ -37,7 +37,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.className} ${dmSerifDisplay.variable} w-full h-full `}
+      className={`${inter.className} ${dmSerifDisplay.variable} h-full w-full`}
     >
       <head>
         <link
@@ -58,7 +58,7 @@ export default async function RootLayout({
       </head>
       <ClerkProvider>
         <body
-          className={`font-sans w-full grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto_auto_1fr_auto] relative overflow-x-hidden`}
+          className={`relative grid w-full grid-rows-[auto_1fr_auto] overflow-x-hidden font-sans lg:grid-rows-[auto_auto_1fr_auto]`}
         >
           {modal}
           <Header />
@@ -67,9 +67,9 @@ export default async function RootLayout({
             <CategoriesWrapper />
           </Suspense>
 
-          <div className="h-full min-h-0 overflow-hidden relative ">
+          <div className="relative h-full min-h-0 overflow-hidden">
             <MobileDrawersWrapper />
-            <div className="h-full min-h-0 overflow-y-auto relative">
+            <div className="relative h-full min-h-0 overflow-y-auto">
               {children}
               {/* <AccountModal /> */}
             </div>

@@ -8,7 +8,7 @@ export default function AuthenticatedView() {
   const { user, isLoaded } = useUser();
   if (!isLoaded || !user) {
     return (
-      <div className="text-white flex justify-center items-center">
+      <div className="flex items-center justify-center text-white">
         Loading...
       </div>
     );
@@ -16,7 +16,7 @@ export default function AuthenticatedView() {
   return (
     <div className="flex flex-col items-center">
       <div className="grid place-content-center">
-        <div className="grid place-content-center relative">
+        <div className="relative grid place-content-center">
           {/* <UserButton>
             <UserButton.MenuItems>
               <UserButton.Action
@@ -30,10 +30,10 @@ export default function AuthenticatedView() {
         </div>
         <div
           style={{ lineHeight: "16px" }}
-          className="hidden sm:flex items-center justify-center"
+          className="hidden items-center justify-center sm:flex"
         >
-          <p className="text-white text-xs md:text-sm mr-1">Welcome back,</p>
-          <p className="font-semibold text-xs md:text-sm text-white">
+          <p className="mr-1 text-xs text-white md:text-sm">Welcome back,</p>
+          <p className="text-xs font-semibold text-white md:text-sm">
             {" "}
             {` ${user?.fullName}`}
           </p>

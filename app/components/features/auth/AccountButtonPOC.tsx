@@ -1,18 +1,32 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import Link from "next/link";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+
+const STORAGE_KEY = "pre_modal_url";
 
 export default function AccountButtonPOC() {
   const { user, isLoaded } = useUser();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
   if (!isLoaded || !user) return null;
 
+  const handleAccountDrawerOpen = () => {
+    const search = searchParams.toString();
+    const currentUrl = search ? `${pathname}?${search}` : pathname;
+    sessionStorage.setItem(STORAGE_KEY, currentUrl);
+    router.prefetch(currentUrl);
+    router.push("/account");
+  };
+
   return (
-    <Link
-      href="/account"
-      className="w-10 h-10 rounded-full bg-blue-500  flex items-center justify-center hover:bg-blue-600 text-black"
+    <button
+      onClick={handleAccountDrawerOpen}
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-black hover:bg-blue-600"
     >
-      {user.firstName?.[0] || "U"}
-    </Link>
+      {user.firstName?.[0] || "dear customer"}
+    </button>
   );
 }
