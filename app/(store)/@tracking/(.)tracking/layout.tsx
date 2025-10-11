@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Package, MapPin, CreditCard, Settings, LogOut } from "lucide-react";
+import { Package, MapPin, CreditCard, LogOut } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 
 export default function AccountLayout({

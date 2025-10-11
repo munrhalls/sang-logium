@@ -25,13 +25,13 @@ export const dynamic = "force-static";
 
 export default async function Page() {
   return (
-    <main className="h-full relative overflow-x-hidden">
+    <main className="relative h-full overflow-x-hidden">
       <HeroMain />
       <Suspense fallback={<HeroCommercialsSkeleton />}>
         <HeroCommercials />
       </Suspense>
-      <div className="grid grid-cols-[auto_8fr_auto] xl:grid-cols-[1fr_8fr_1fr] mx-auto">
-        <div className="mx-auto col-start-2 col-end-3 max-w-[1400px]">
+      <div className="mx-auto grid grid-cols-[auto_8fr_auto] xl:grid-cols-[1fr_8fr_1fr]">
+        <div className="col-start-2 col-end-3 mx-auto max-w-[1400px]">
           <BrandsWall />
           <Suspense fallback={<BestsellersSkeleton />}>
             <Bestsellers />
@@ -42,7 +42,7 @@ export default async function Page() {
             <NewestRelease />
           </Suspense>
         </div>
-        <div className="mx-auto col-start-2 col-end-3 max-w-[1400px]">
+        <div className="col-start-2 col-end-3 mx-auto max-w-[1400px]">
           <Suspense fallback={<ExtremeQualitySkeleton />}>
             <ExtremeQuality />
           </Suspense>

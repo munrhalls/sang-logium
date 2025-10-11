@@ -2,6 +2,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { Truck } from "lucide-react";
 import Image from "next/image";
 import logo from "@/public/logo.svg";
 import SearchForm from "../../features/homepage/search/SearchForm";
@@ -36,6 +37,11 @@ export default function Header() {
             <ShoppingCartIcon height={24} width={24} />
           </div>
           <span>Basket</span>
+        </Link>
+
+        <Link href="/tracking" className="flex flex-col items-center">
+          <Truck className="h-6 w-6" />
+          <span className="mt-1 hidden text-xs sm:inline-block">Track</span>
         </Link>
       </div>
     </header>
