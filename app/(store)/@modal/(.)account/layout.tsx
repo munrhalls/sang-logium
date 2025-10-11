@@ -31,23 +31,13 @@ export default function AccountLayout({
             <h2 className="w-full text-center text-xl font-bold text-gray-900">
               Account
             </h2>
+
             <button
-              onClick={() => router.back()}
-              className="rounded-sm p-2 transition-colors hover:bg-gray-100"
+              onClick={handleExit}
+              className="mx-auto flex w-8 flex-col items-center rounded-lg bg-slate-800 py-2 font-medium text-white transition-colors hover:bg-gray-800 sm:w-20 sm:py-3"
             >
-              <svg
-                className="h-5 w-5 text-gray-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <LogOut className="h-4 w-4" />
+              <span className="hidden sm:inline">Exit</span>
             </button>
           </div>
 
@@ -96,13 +86,6 @@ export default function AccountLayout({
                   }}
                 />
               </div>
-              <button
-                onClick={handleExit}
-                className="mx-auto flex w-8 flex-col items-center rounded-lg bg-slate-800 py-2 font-medium text-white transition-colors hover:bg-gray-800 sm:w-20 sm:py-3"
-              >
-                <LogOut className="h-4 w-4" />
-                <span className="hidden sm:inline">Exit</span>
-              </button>
             </div>
             <main className="col-span-8 overflow-y-auto p-6">{children}</main>
           </div>
