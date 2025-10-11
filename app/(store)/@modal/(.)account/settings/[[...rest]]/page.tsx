@@ -1,10 +1,18 @@
-import { UserProfile } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
+import { DotIcon } from "lucide-react";
 
-export default function Settings() {
+export default function Header() {
   return (
-    <div className="flex flex-col items-center gap-4 align-middle">
-      <h1>Your account settings</h1>
-      <UserProfile routing="hash" />
+    <div className="flex justify-end p-4">
+      <UserButton>
+        <UserButton.MenuItems>
+          <UserButton.Action
+            label="Open chat"
+            labelIcon={<DotIcon />}
+            onClick={() => alert("init chat")}
+          />
+        </UserButton.MenuItems>
+      </UserButton>
     </div>
   );
 }
