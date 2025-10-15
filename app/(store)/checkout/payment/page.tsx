@@ -7,8 +7,6 @@ import * as z from "zod";
 import { usePaymentStore } from "@/store/checkout";
 import { useState } from "react";
 
-// Use react-hook-form and zod for form handling and validation
-// Define zod schema for payment data (e.g., cardNumber, expiry, cvv, cardholderName)
 const paymentInputSchema = z.object({
   cardholderName: z
     .string()
@@ -31,22 +29,6 @@ const paymentInputSchema = z.object({
 type PaymentInputData = z.infer<typeof paymentInputSchema>;
 
 export default function Payment() {
-  // Use react-hook-form and zod for form handling and validation
-  // Define zod schema for payment data (e.g., cardNumber, expiry, cvv, cardholderName)
-  // Use Zustand store (usePaymentStore) to manage payment data (no localStorage for security)
-  // Pre-fill form if payment data exists in store
-  // Save valid form data to store and redirect to /checkout/summary on submit
-  // Disable submit button until form is valid
-  // Display validation errors below inputs (red text, small font)
-  // Ensure form is responsive (stack on mobile, grid on desktop via Tailwind)
-  // Add accessibility: htmlFor on labels, ARIA attributes, focus management
-  // Style form with Tailwind for clean, modern design (match Shipping.tsx)
-  // Show loading state (spinner) during submission
-  // Handle submission errors (inline error message)
-  // Show success state (flash message) before redirect
-  // Simulate async submission (1s delay, 10% error chance for realism)
-  // DO NOT INTEGRATE - I REPEAT - DO NOT INTEGRATE WITH ANY PAYMENT PROCESSING GATEWAY. THAT IS FOR LATER. THAT IS OUT OF SCOPE FOR NOW.
-
   const router = useRouter();
   const { paymentInfo, setPaymentInfo } = usePaymentStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,10 +45,10 @@ export default function Payment() {
     resolver: zodResolver(paymentInputSchema),
     mode: "onChange",
     defaultValues: {
-      cardholderName: paymentInfo?.cardholderName || "",
-      cardNumber: "",
-      expiry: "",
-      cvv: "",
+      cardholderName: paymentInfo?.cardholderName || "Jane Doe",
+      cardNumber: "4242424242424242",
+      expiry: "12/30",
+      cvv: "123",
     },
   });
 
@@ -100,17 +82,6 @@ export default function Payment() {
 
   const cardNumberValue = watch("cardNumber");
   const expiryValue = watch("expiry");
-
-  const detectCardType = (cardNumber: string): string | null => {
-    const digitsOnly = cardNumber.replace(/\D/g, "");
-    if (digitsOnly.startsWith("4")) return "Visa";
-    if (digitsOnly.startsWith("5")) return "Mastercard";
-    if (digitsOnly.startsWith("37")) return "American Express";
-    if (digitsOnly.startsWith("6")) return "Discover";
-    return null;
-  };
-
-  const cardType = detectCardType(cardNumberValue || "");
 
   const onSubmit = async (data: PaymentInputData) => {
     try {
@@ -158,19 +129,6 @@ export default function Payment() {
           <h2 className="mb-4 border-b border-gray-200 pb-2 text-lg font-bold">
             Payment Information
           </h2>
-          {paymentInfo && (
-            <div className="mb-4 rounded-lg border border-blue-300 bg-blue-50 p-3">
-              <p className="text-sm font-medium text-blue-900">
-                Payment Method on File
-              </p>
-              <p className="mt-1 text-sm text-blue-700">
-                Card ending in {paymentInfo.last4}
-              </p>
-              <p className="mt-2 text-xs text-blue-600">
-                You can enter new card details below to update your payment method.
-              </p>
-            </div>
-          )}
           <div className="space-y-4">
             <div>
               <label
@@ -207,29 +165,20 @@ export default function Payment() {
               >
                 Card Number
               </label>
-              <div className="relative">
-                <input
-                  id="cardNumber"
-                  type="text"
-                  {...register("cardNumber")}
-                  onChange={handleCardNumberChange}
-                  className="w-full rounded border border-gray-300 px-3 py-2 pr-20 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                  autoComplete="cc-number"
-                  placeholder="1234 5678 1234 5678"
-                  maxLength={19}
-                  aria-invalid={errors.cardNumber ? "true" : "false"}
-                  aria-describedby={
-                    errors.cardNumber ? "cardNumber-error" : undefined
-                  }
-                />
-                {cardType && (
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                    <span className="rounded bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-700">
-                      {cardType}
-                    </span>
-                  </div>
-                )}
-              </div>
+              <input
+                id="cardNumber"
+                type="text"
+                {...register("cardNumber")}
+                onChange={handleCardNumberChange}
+                className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                autoComplete="cc-number"
+                placeholder="1234 5678 1234 5678"
+                maxLength={19}
+                aria-invalid={errors.cardNumber ? "true" : "false"}
+                aria-describedby={
+                  errors.cardNumber ? "cardNumber-error" : undefined
+                }
+              />
               {errors.cardNumber && (
                 <p
                   id="cardNumber-error"
