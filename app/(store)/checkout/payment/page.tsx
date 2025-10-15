@@ -57,6 +57,8 @@ export default function Payment() {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    setValue,
+    watch,
   } = useForm<PaymentInputData>({
     resolver: zodResolver(paymentInputSchema),
     mode: "onChange",
@@ -67,6 +69,37 @@ export default function Payment() {
       cvv: "",
     },
   });
+
+  const formatCardNumber = (value: string) => {
+    const digitsOnly = value.replace(/\D/g, "");
+    const formatted = digitsOnly.replace(/(\d{4})(?=\d)/g, "$1 ");
+    return formatted.slice(0, 19);
+  };
+
+  const formatExpiry = (value: string) => {
+    const digitsOnly = value.replace(/\D/g, "");
+    if (digitsOnly.length >= 2) {
+      return `${digitsOnly.slice(0, 2)}/${digitsOnly.slice(2, 4)}`;
+    }
+    return digitsOnly;
+  };
+
+  const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatCardNumber(e.target.value);
+    setValue("cardNumber", formatted.replace(/\s/g, ""), {
+      shouldValidate: true,
+    });
+    e.target.value = formatted;
+  };
+
+  const handleExpiryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatExpiry(e.target.value);
+    setValue("expiry", formatted.replace(/\//g, ""), { shouldValidate: true });
+    e.target.value = formatted;
+  };
+
+  const cardNumberValue = watch("cardNumber");
+  const expiryValue = watch("expiry");
 
   const onSubmit = async (data: PaymentInputData) => {
     try {
@@ -154,10 +187,11 @@ export default function Payment() {
                 id="cardNumber"
                 type="text"
                 {...register("cardNumber")}
+                onChange={handleCardNumberChange}
                 className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 autoComplete="cc-number"
-                placeholder="1234567812345678"
-                maxLength={16}
+                placeholder="1234 5678 1234 5678"
+                maxLength={19}
                 aria-invalid={errors.cardNumber ? "true" : "false"}
                 aria-describedby={
                   errors.cardNumber ? "cardNumber-error" : undefined
@@ -185,6 +219,7 @@ export default function Payment() {
                   id="expiry"
                   type="text"
                   {...register("expiry")}
+                  onChange={handleExpiryChange}
                   className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                   autoComplete="cc-exp"
                   placeholder="MM/YY"
