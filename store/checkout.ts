@@ -15,9 +15,19 @@ export interface PaymentFormData {
   last4: string;
 }
 
+export interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 interface CheckoutState {
   shippingInfo: ShippingFormData | null;
   setShippingInfo: (data: ShippingFormData) => void;
+  cartItems: CartItem[];
+  setCartItems: (items: CartItem[]) => void;
+  clearCart: () => void;
 }
 
 interface PaymentState {
@@ -28,6 +38,9 @@ interface PaymentState {
 export const useCheckoutStore = create<CheckoutState>((set) => ({
   shippingInfo: null,
   setShippingInfo: (data) => set({ shippingInfo: data }),
+  cartItems: [],
+  setCartItems: (items) => set({ cartItems: items }),
+  clearCart: () => set({ cartItems: [] }),
 }));
 
 export const usePaymentStore = create<PaymentState>((set) => ({

@@ -40,7 +40,7 @@ export default function Payment() {
     handleSubmit,
     formState: { errors, isValid },
     setValue,
-    watch,
+    // watch,
   } = useForm<PaymentInputData>({
     resolver: zodResolver(paymentInputSchema),
     mode: "onChange",
@@ -80,8 +80,8 @@ export default function Payment() {
     e.target.value = formatted;
   };
 
-  const cardNumberValue = watch("cardNumber");
-  const expiryValue = watch("expiry");
+  // const cardNumberValue = watch("cardNumber");
+  // const expiryValue = watch("expiry");
 
   const onSubmit = async (data: PaymentInputData) => {
     try {
