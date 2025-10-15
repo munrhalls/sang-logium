@@ -61,7 +61,7 @@ export default function Payment() {
     resolver: zodResolver(paymentInputSchema),
     mode: "onChange",
     defaultValues: {
-      cardholderName: "",
+      cardholderName: paymentInfo?.cardholderName || "",
       cardNumber: "",
       expiry: "",
       cvv: "",
@@ -83,7 +83,7 @@ export default function Payment() {
         }, 1000);
       });
 
-      const mockPaymentToken = `tok_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+      const mockPaymentToken = crypto.randomUUID();
       const last4 = data.cardNumber.slice(-4);
 
       setPaymentInfo({
