@@ -14,6 +14,7 @@ export default function AccountLayout({
   const previousUrl = sessionStorage.getItem("pre_drawer_url") || "/";
 
   const handleExit = () => {
+    console.log(previousUrl);
     router.replace(previousUrl, { scroll: false });
     sessionStorage.removeItem("pre_drawer_url");
   };

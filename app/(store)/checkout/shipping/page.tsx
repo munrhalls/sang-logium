@@ -1,15 +1,17 @@
 import Link from "next/link";
 
 export default function Shipping() {
+  // this form should utilize react-hook-form and zod
+
   return (
     <div>
-      <div className="p-3 border border-black rounded-lg">
-        <h2 className="text-lg font-bold mb-4 pb-2 border-b border-gray-200">
+      <div className="rounded-lg border border-black p-3">
+        <h2 className="mb-4 border-b border-gray-200 pb-2 text-lg font-bold">
           Shipping Information
         </h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="mb-1 block text-sm font-medium text-gray-700">
               Name
             </label>
             <input
@@ -18,12 +20,12 @@ export default function Shipping() {
               required
               // value={form.name}
               // onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               autoComplete="name"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="mb-1 block text-sm font-medium text-gray-700">
               Email
             </label>
             <input
@@ -32,12 +34,12 @@ export default function Shipping() {
               required
               // value={form.email}
               // onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               autoComplete="email"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="mb-1 block text-sm font-medium text-gray-700">
               Address
             </label>
             <input
@@ -46,13 +48,13 @@ export default function Shipping() {
               required
               // value={form.address}
               // onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               autoComplete="street-address"
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="mb-1 block text-sm font-medium text-gray-700">
                 City
               </label>
               <input
@@ -61,12 +63,12 @@ export default function Shipping() {
                 required
                 // value={form.city}
                 // onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 autoComplete="address-level2"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="mb-1 block text-sm font-medium text-gray-700">
                 Postal Code
               </label>
               <input
@@ -75,13 +77,13 @@ export default function Shipping() {
                 required
                 // value={form.postalCode}
                 // onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 autoComplete="postal-code"
               />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="mb-1 block text-sm font-medium text-gray-700">
               Country
             </label>
             <input
@@ -90,7 +92,7 @@ export default function Shipping() {
               required
               // value={form.country}
               // onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               autoComplete="country"
             />
           </div>
@@ -99,17 +101,7 @@ export default function Shipping() {
 
       <Link
         href="/checkout/payment"
-        className="inline-block my-8
-    w-full sm:w-auto
-    bg-black text-white
-    hover:bg-gray-800
-    py-3 px-6
-    rounded-lg
-    font-semibold
-    uppercase tracking-wider
-    transition duration-200
-    text-center
-  "
+        className="my-8 inline-block w-full rounded-lg bg-black px-6 py-3 text-center font-semibold uppercase tracking-wider text-white transition duration-200 hover:bg-gray-800 sm:w-auto"
       >
         Continue to Payment
       </Link>
