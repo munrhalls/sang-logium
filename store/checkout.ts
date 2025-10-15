@@ -10,10 +10,9 @@ export interface ShippingFormData {
 }
 
 export interface PaymentFormData {
+  mockPaymentToken: string;
   cardholderName: string;
-  cardNumber: string;
-  expiry: string;
-  cvv: string;
+  last4: string;
 }
 
 interface CheckoutState {

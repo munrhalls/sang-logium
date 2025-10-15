@@ -9,7 +9,7 @@ import { useState } from "react";
 
 // Use react-hook-form and zod for form handling and validation
 // Define zod schema for payment data (e.g., cardNumber, expiry, cvv, cardholderName)
-const paymentSchema = z.object({
+const paymentInputSchema = z.object({
   cardholderName: z
     .string()
     .min(1, "Cardholder name is required")
@@ -28,7 +28,7 @@ const paymentSchema = z.object({
     .regex(/^\d{3,4}$/, "CVV must be 3 or 4 digits"),
 });
 
-type PaymentFormData = z.infer<typeof paymentSchema>;
+type PaymentInputData = z.infer<typeof paymentInputSchema>;
 
 export default function Payment() {
   // Use react-hook-form and zod for form handling and validation
@@ -57,18 +57,18 @@ export default function Payment() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<PaymentFormData>({
-    resolver: zodResolver(paymentSchema),
+  } = useForm<PaymentInputData>({
+    resolver: zodResolver(paymentInputSchema),
     mode: "onChange",
     defaultValues: {
-      cardholderName: paymentInfo?.cardholderName || "",
-      cardNumber: paymentInfo?.cardNumber || "",
-      expiry: paymentInfo?.expiry || "",
-      cvv: paymentInfo?.cvv || "",
+      cardholderName: "",
+      cardNumber: "",
+      expiry: "",
+      cvv: "",
     },
   });
 
-  const onSubmit = async (data: PaymentFormData) => {
+  const onSubmit = async (data: PaymentInputData) => {
     try {
       setIsSubmitting(true);
       setSubmitError(null);
@@ -83,7 +83,14 @@ export default function Payment() {
         }, 1000);
       });
 
-      setPaymentInfo(data);
+      const mockPaymentToken = `tok_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+      const last4 = data.cardNumber.slice(-4);
+
+      setPaymentInfo({
+        mockPaymentToken,
+        cardholderName: data.cardholderName,
+        last4,
+      });
 
       setSubmitSuccess(true);
 
