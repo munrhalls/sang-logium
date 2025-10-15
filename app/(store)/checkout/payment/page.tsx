@@ -101,6 +101,17 @@ export default function Payment() {
   const cardNumberValue = watch("cardNumber");
   const expiryValue = watch("expiry");
 
+  const detectCardType = (cardNumber: string): string | null => {
+    const digitsOnly = cardNumber.replace(/\D/g, "");
+    if (digitsOnly.startsWith("4")) return "Visa";
+    if (digitsOnly.startsWith("5")) return "Mastercard";
+    if (digitsOnly.startsWith("37")) return "American Express";
+    if (digitsOnly.startsWith("6")) return "Discover";
+    return null;
+  };
+
+  const cardType = detectCardType(cardNumberValue || "");
+
   const onSubmit = async (data: PaymentInputData) => {
     try {
       setIsSubmitting(true);
@@ -147,6 +158,19 @@ export default function Payment() {
           <h2 className="mb-4 border-b border-gray-200 pb-2 text-lg font-bold">
             Payment Information
           </h2>
+          {paymentInfo && (
+            <div className="mb-4 rounded-lg border border-blue-300 bg-blue-50 p-3">
+              <p className="text-sm font-medium text-blue-900">
+                Payment Method on File
+              </p>
+              <p className="mt-1 text-sm text-blue-700">
+                Card ending in {paymentInfo.last4}
+              </p>
+              <p className="mt-2 text-xs text-blue-600">
+                You can enter new card details below to update your payment method.
+              </p>
+            </div>
+          )}
           <div className="space-y-4">
             <div>
               <label
@@ -183,20 +207,29 @@ export default function Payment() {
               >
                 Card Number
               </label>
-              <input
-                id="cardNumber"
-                type="text"
-                {...register("cardNumber")}
-                onChange={handleCardNumberChange}
-                className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                autoComplete="cc-number"
-                placeholder="1234 5678 1234 5678"
-                maxLength={19}
-                aria-invalid={errors.cardNumber ? "true" : "false"}
-                aria-describedby={
-                  errors.cardNumber ? "cardNumber-error" : undefined
-                }
-              />
+              <div className="relative">
+                <input
+                  id="cardNumber"
+                  type="text"
+                  {...register("cardNumber")}
+                  onChange={handleCardNumberChange}
+                  className="w-full rounded border border-gray-300 px-3 py-2 pr-20 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  autoComplete="cc-number"
+                  placeholder="1234 5678 1234 5678"
+                  maxLength={19}
+                  aria-invalid={errors.cardNumber ? "true" : "false"}
+                  aria-describedby={
+                    errors.cardNumber ? "cardNumber-error" : undefined
+                  }
+                />
+                {cardType && (
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <span className="rounded bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-700">
+                      {cardType}
+                    </span>
+                  </div>
+                )}
+              </div>
               {errors.cardNumber && (
                 <p
                   id="cardNumber-error"
