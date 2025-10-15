@@ -78,7 +78,7 @@ export const useBasketStore = create<BasketState>()(
         if (existing) {
           set({
             basket: basket.map((i) =>
-              i._id === item._id ? { ...i, quantity: i.quantity + 1 } : i,
+              i._id === item._id ? { ...i, quantity: i.quantity + 1 } : i
             ),
           });
         } else {
@@ -93,7 +93,7 @@ export const useBasketStore = create<BasketState>()(
         const basket = get().basket;
         set({
           basket: basket.map((i) =>
-            i._id === _id ? { ...i, quantity: quantity < 1 ? 1 : quantity } : i,
+            i._id === _id ? { ...i, quantity: quantity < 1 ? 1 : quantity } : i
           ),
         });
       },
@@ -117,6 +117,6 @@ export const useBasketStore = create<BasketState>()(
           // state?._hasHydrated = true;
         };
       },
-    },
-  ),
+    }
+  )
 );
