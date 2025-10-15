@@ -6,11 +6,11 @@ import { Package, MapPin, CreditCard, Settings, LogOut } from "lucide-react";
 export default function Tracking() {
   const router = useRouter();
 
-  const previousUrl = sessionStorage.getItem("pre_modal_url") || "/";
+  const previousUrl = sessionStorage.getItem("pre_drawer_url") || "/";
 
   const handleExit = () => {
     router.replace(previousUrl, { scroll: false });
-    sessionStorage.removeItem("pre_modal_url");
+    sessionStorage.removeItem("pre_drawer_url");
   };
 
   return (

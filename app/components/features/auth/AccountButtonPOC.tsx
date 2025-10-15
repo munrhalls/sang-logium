@@ -2,8 +2,7 @@
 
 import { useUser } from "@clerk/nextjs";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-
-const STORAGE_KEY = "pre_modal_url";
+import savePreDrawerUrl from "@/lib/savePreDrawerUrl";
 
 export default function AccountButtonPOC() {
   const { user, isLoaded } = useUser();
@@ -16,7 +15,7 @@ export default function AccountButtonPOC() {
   const handleAccountDrawerOpen = () => {
     const search = searchParams.toString();
     const currentUrl = search ? `${pathname}?${search}` : pathname;
-    sessionStorage.setItem(STORAGE_KEY, currentUrl);
+    savePreDrawerUrl(currentUrl);
     router.prefetch(currentUrl);
     router.push("/account");
   };

@@ -4,6 +4,8 @@ import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
 import { useUIStore } from "@/store";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import savePreDrawerUrl from "@/lib/savePreDrawerUrl";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 const Authentication = dynamic(
   () => import("@/app/components/features/auth/Authentication"),
@@ -19,12 +21,25 @@ const Authentication = dynamic(
 );
 
 const MobileMenu = () => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const handleTrackingOpen = () => {
+    const search = searchParams.toString();
+    const currentUrl = search ? `${pathname}?${search}` : pathname;
+    savePreDrawerUrl(currentUrl);
+    router.prefetch(currentUrl);
+    router.push("/tracking");
+  };
+
   const isCategoriesOpen = useUIStore((state) => state.isCategoriesDrawerOpen);
   const toggleCategoriesDrawer = useUIStore(
     (state) => state.toggleCategoriesDrawer
   );
   const isSearchDrawerOpen = useUIStore((state) => state.isSearchDrawerOpen);
   const toggleSearchDrawer = useUIStore((state) => state.toggleSearchDrawer);
+
   return (
     <>
       <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">
@@ -61,7 +76,11 @@ const MobileMenu = () => {
             )}
           </button>
           <Authentication />
-          <Link href="/tracking" className="flex flex-col items-center">
+          <Link
+            href="/tracking"
+            className="flex flex-col items-center"
+            onClick={handleTrackingOpen}
+          >
             <Truck className="h-6 w-6" />
             <span className="mt-1 hidden text-xs sm:inline-block">Track</span>
           </Link>
