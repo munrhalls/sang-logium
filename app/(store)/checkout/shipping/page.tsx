@@ -2,6 +2,17 @@ import Link from "next/link";
 
 export default function Shipping() {
   // this form should utilize react-hook-form and zod
+  // it should, then, save the data to a global state (zustand) and redirect to /checkout/payment
+  // the button should be disabled until the form is valid
+  // the form should be pre-filled if data exists in the global state
+  // the errors should be displayed below the inputs
+  // the form should be responsive and look good on mobile and desktop
+  // the form should have proper labels and accessibility features
+  // the form should have a nice design and be easy to use
+  // the form should have a loading state when submitting
+  // the form should handle errors from the submission process
+  // the form should have a success state when submission is successful
+  // the form should NOT save the data to local storage for security reasons, only to the global state
 
   return (
     <div>
