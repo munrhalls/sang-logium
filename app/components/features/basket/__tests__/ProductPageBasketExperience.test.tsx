@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import React from "react";
-import { useBasketStore } from "@/store";
+import { useBasketStore } from "@/store/store";
 import BasketControls from "@/app/components/features/basket/BasketControls";
 describe("Individual Product Page Basket Experience", () => {
   afterEach(() => {
@@ -24,7 +24,7 @@ describe("Individual Product Page Basket Experience", () => {
     expect(
       screen.getByRole("button", {
         name: /add to cart/i,
-      }),
+      })
     ).toBeInTheDocument();
   });
   test("Clicking Add to Cart adds product and shows quantity controls", () => {
@@ -42,17 +42,17 @@ describe("Individual Product Page Basket Experience", () => {
     expect(
       screen.getByRole("button", {
         name: /increase quantity/i,
-      }),
+      })
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", {
         name: /decrease quantity/i,
-      }),
+      })
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", {
         name: /remove from basket/i,
-      }),
+      })
     ).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
   });
@@ -69,7 +69,7 @@ describe("Individual Product Page Basket Experience", () => {
       fireEvent.click(
         screen.getByRole("button", {
           name: /increase quantity/i,
-        }),
+        })
       );
     });
     const items = useBasketStore.getState().basket;
@@ -89,21 +89,21 @@ describe("Individual Product Page Basket Experience", () => {
       fireEvent.click(
         screen.getByRole("button", {
           name: /increase quantity/i,
-        }),
+        })
       );
     });
     act(() => {
       fireEvent.click(
         screen.getByRole("button", {
           name: /decrease quantity/i,
-        }),
+        })
       );
     });
     act(() => {
       fireEvent.click(
         screen.getByRole("button", {
           name: /decrease quantity/i,
-        }),
+        })
       );
     });
     const items = useBasketStore.getState().basket;
@@ -111,7 +111,7 @@ describe("Individual Product Page Basket Experience", () => {
     expect(
       screen.getByRole("button", {
         name: /show basket controls/i,
-      }),
+      })
     ).toBeInTheDocument();
   });
   test("Clicking X removes product and restores Add to Cart button", () => {
@@ -127,7 +127,7 @@ describe("Individual Product Page Basket Experience", () => {
       fireEvent.click(
         screen.getByRole("button", {
           name: /remove from basket/i,
-        }),
+        })
       );
     });
     const items = useBasketStore.getState().basket;
@@ -135,17 +135,17 @@ describe("Individual Product Page Basket Experience", () => {
     expect(
       screen.getByRole("button", {
         name: /show basket controls/i,
-      }),
+      })
     ).toBeInTheDocument();
     fireEvent.click(
       screen.getByRole("button", {
         name: /show basket controls/i,
-      }),
+      })
     );
     expect(
       screen.getByRole("button", {
         name: /add to cart/i,
-      }),
+      })
     ).toBeInTheDocument();
   });
   test("Quantity controls match product listing behavior", () => {
@@ -160,17 +160,17 @@ describe("Individual Product Page Basket Experience", () => {
     expect(
       screen.getByRole("button", {
         name: /increase quantity/i,
-      }),
+      })
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", {
         name: /decrease quantity/i,
-      }),
+      })
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", {
         name: /remove from basket/i,
-      }),
+      })
     ).toBeInTheDocument();
   });
 });

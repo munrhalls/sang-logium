@@ -2,7 +2,7 @@
 import { ShoppingCartIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import SegmentTitle from "@/app/components/ui/segment-title/SegmentTitle";
-import { useBasketStore } from "@/store";
+import { useBasketStore } from "@/store/store";
 import BasketControls from "@/app/components/features/basket/BasketControls";
 export default function BasketPage() {
   const basket = useBasketStore((s) => s.basket);
@@ -12,22 +12,22 @@ export default function BasketPage() {
   const total = subtotal + shipping;
   if (basket.length === 0) {
     return (
-      <div className="max-w-7xl mx-auto my-8 px-4 sm:px-6 lg:px-8 bg-slate-100 pt-8 pb-16">
+      <div className="mx-auto my-8 max-w-7xl bg-slate-100 px-4 pb-16 pt-8 sm:px-6 lg:px-8">
         <div className="mb-8">
           <SegmentTitle title="Your Basket" />
         </div>
-        <div className="flex flex-col items-center justify-center p-12 bg-white rounded-sm shadow-sm">
-          <ShoppingCartIcon className="h-20 w-20 text-gray-400 mb-6" />
+        <div className="flex flex-col items-center justify-center rounded-sm bg-white p-12 shadow-sm">
+          <ShoppingCartIcon className="mb-6 h-20 w-20 text-gray-400" />
           <h2 className="text-2xl font-medium text-gray-800">
             Your basket is empty
           </h2>
-          <p className="text-gray-600 mt-3 mb-8 text-center max-w-md">
+          <p className="mb-8 mt-3 max-w-md text-center text-gray-600">
             Looks like you haven&apos;t added any products to your basket yet.
             Browse our collection to find something you&apos;ll love.
           </p>
           <Link
             href="/products"
-            className="flex items-center gap-2 px-8 py-3 bg-black text-white rounded-sm hover:bg-gray-800 transition-colors"
+            className="flex items-center gap-2 rounded-sm bg-black px-8 py-3 text-white transition-colors hover:bg-gray-800"
           >
             <ArrowLeftIcon className="h-4 w-4" />
             Browse Products
@@ -37,14 +37,14 @@ export default function BasketPage() {
     );
   }
   return (
-    <div className="max-w-7xl mx-auto my-8 px-4 sm:px-6 lg:px-8 bg-slate-100 pt-8 pb-16">
+    <div className="mx-auto my-8 max-w-7xl bg-slate-100 px-4 pb-16 pt-8 sm:px-6 lg:px-8">
       <div className="mb-8">
         <SegmentTitle title="Your Basket" />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-sm shadow-sm overflow-hidden">
-            <div className="hidden lg:grid grid-cols-[3fr_1fr_1fr_auto] p-5 border-b border-gray-200 text-sm font-semibold text-gray-700 bg-gray-50">
+          <div className="overflow-hidden rounded-sm bg-white shadow-sm">
+            <div className="hidden grid-cols-[3fr_1fr_1fr_auto] border-b border-gray-200 bg-gray-50 p-5 text-sm font-semibold text-gray-700 lg:grid">
               <div>Product</div>
               <div className="text-center">Price</div>
               <div className="text-center">Quantity</div>
@@ -53,19 +53,19 @@ export default function BasketPage() {
             {basket.map((item) => (
               <div
                 key={item._id + "Basket page"}
-                className="grid grid-cols-1 lg:grid-cols-[3fr_1fr_1fr_auto] p-5 border-b border-gray-200 gap-5 items-center hover:bg-gray-50 transition-colors"
+                className="grid grid-cols-1 items-center gap-5 border-b border-gray-200 p-5 transition-colors hover:bg-gray-50 lg:grid-cols-[3fr_1fr_1fr_auto]"
               >
                 <div className="flex items-center gap-5">
-                  <div className="w-24 h-24 bg-gray-100 rounded-sm flex items-center justify-center overflow-hidden">
+                  <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-sm bg-gray-100">
                     <ShoppingCartIcon className="h-10 w-10 text-gray-400" />
                   </div>
                   <div>
                     <Link href={`/product/${item._id}`}>
-                      <h3 className="font-medium text-lg text-gray-900 hover:underline">
+                      <h3 className="text-lg font-medium text-gray-900 hover:underline">
                         {item.name}
                       </h3>
                     </Link>
-                    <p className="text-sm text-gray-500 lg:hidden mt-2">
+                    <p className="mt-2 text-sm text-gray-500 lg:hidden">
                       <span className="font-medium">
                         ${item.price.toFixed(2)}
                       </span>{" "}
@@ -73,13 +73,13 @@ export default function BasketPage() {
                     </p>
                   </div>
                 </div>
-                <div className="hidden lg:flex items-center justify-center">
+                <div className="hidden items-center justify-center lg:flex">
                   <div className="font-medium text-gray-900">
                     ${item.price.toFixed(2)}
                   </div>
                 </div>
                 <div className="flex items-center lg:justify-center">
-                  <div className="lg:hidden text-sm font-medium text-gray-600 mr-3">
+                  <div className="mr-3 text-sm font-medium text-gray-600 lg:hidden">
                     Quantity:
                   </div>
                   <div className="flex items-center">
@@ -92,7 +92,7 @@ export default function BasketPage() {
           <div className="mt-6 lg:hidden">
             <Link
               href="/products"
-              className="flex items-center justify-center gap-2 w-full py-3 border border-gray-300 text-gray-700 rounded-sm hover:bg-gray-50 font-medium"
+              className="flex w-full items-center justify-center gap-2 rounded-sm border border-gray-300 py-3 font-medium text-gray-700 hover:bg-gray-50"
             >
               <ArrowLeftIcon className="h-4 w-4" />
               Continue Shopping
@@ -100,11 +100,11 @@ export default function BasketPage() {
           </div>
         </div>
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-sm shadow-sm p-6 sticky top-4">
-            <h2 className="text-lg font-bold mb-6 pb-4 border-b border-gray-200">
+          <div className="sticky top-4 rounded-sm bg-white p-6 shadow-sm">
+            <h2 className="mb-6 border-b border-gray-200 pb-4 text-lg font-bold">
               Order Summary
             </h2>
-            <div className="space-y-4 mb-6">
+            <div className="mb-6 space-y-4">
               <div className="flex justify-between text-gray-700">
                 <div>
                   Subtotal (
@@ -116,37 +116,37 @@ export default function BasketPage() {
                 <div>Shipping</div>
                 <div className="font-medium">${shipping.toFixed(2)}</div>
               </div>
-              <div className="border-t border-gray-200 pt-4 mt-4">
-                <div className="flex justify-between font-bold text-xl">
+              <div className="mt-4 border-t border-gray-200 pt-4">
+                <div className="flex justify-between text-xl font-bold">
                   <div>Total</div>
                   <div>${total.toFixed(2)}</div>
                 </div>
-                <div className="text-xs text-gray-500 mt-1">Including VAT</div>
+                <div className="mt-1 text-xs text-gray-500">Including VAT</div>
               </div>
             </div>
             <Link
               href="/checkout"
-              className="w-full py-4 bg-black text-white rounded-sm hover:bg-gray-800 transition-colors font-medium text-lg flex items-center justify-center"
+              className="flex w-full items-center justify-center rounded-sm bg-black py-4 text-lg font-medium text-white transition-colors hover:bg-gray-800"
             >
               Proceed to Checkout
             </Link>
             <div className="mt-4 hidden lg:block">
               <Link
                 href="/products"
-                className="flex items-center justify-center gap-2 w-full py-3 border border-gray-300 text-gray-700 rounded-sm hover:bg-gray-50 transition-colors font-medium"
+                className="flex w-full items-center justify-center gap-2 rounded-sm border border-gray-300 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50"
               >
                 <ArrowLeftIcon className="h-4 w-4" />
                 Continue Shopping
               </Link>
             </div>
-            <div className="mt-6 pt-6 border-t border-gray-200">
-              <div className="text-xs text-gray-500 flex flex-col gap-2">
+            <div className="mt-6 border-t border-gray-200 pt-6">
+              <div className="flex flex-col gap-2 text-xs text-gray-500">
                 <p className="font-medium text-gray-700">We Accept:</p>
                 <div className="flex items-center gap-2">
-                  <div className="w-10 h-6 bg-gray-200 rounded"></div>
-                  <div className="w-10 h-6 bg-gray-200 rounded"></div>
-                  <div className="w-10 h-6 bg-gray-200 rounded"></div>
-                  <div className="w-10 h-6 bg-gray-200 rounded"></div>
+                  <div className="h-6 w-10 rounded bg-gray-200"></div>
+                  <div className="h-6 w-10 rounded bg-gray-200"></div>
+                  <div className="h-6 w-10 rounded bg-gray-200"></div>
+                  <div className="h-6 w-10 rounded bg-gray-200"></div>
                 </div>
                 <p className="mt-2">Secure checkout powered by Stripe</p>
               </div>

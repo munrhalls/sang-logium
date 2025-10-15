@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { imageUrl } from "@/lib/imageUrl";
 import BasketControls from "../basket/BasketControls";
-import { BasketItem } from "@/store";
+import { BasketItem } from "@/store/store";
 interface ProductThumbProps {
   product: Product;
 }
@@ -27,9 +27,7 @@ const ProductThumb = ({ product }: ProductThumbProps) => {
   return (
     <Link
       href={`/product/${product._id}`}
-      className={`group flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden
-        hover:bg-gray-100 hover:border-gray-300
-        ${isOutOfStock ? "opacity-50" : ""}`}
+      className={`group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:border-gray-300 hover:bg-gray-100 hover:shadow-md ${isOutOfStock ? "opacity-50" : ""}`}
     >
       <div className="p-4">
         <Image
@@ -39,19 +37,19 @@ const ProductThumb = ({ product }: ProductThumbProps) => {
           width={300}
           className="aspect-square rounded-sm"
         />
-        <h2 className="pt-2 text-lg font-semibold text-gray-800 ">
+        <h2 className="pt-2 text-lg font-semibold text-gray-800">
           {product.name}
         </h2>
-        <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+        <p className="mt-2 line-clamp-2 text-sm text-gray-600">
           {product.description
             ?.map((block) =>
               block._type === "block"
                 ? block.children?.map((child) => child.text).join("")
-                : "",
+                : ""
             )
             .join(" ") || "No description available"}
         </p>
-        <div className="flex flex-col items-center justify-around mt-2">
+        <div className="mt-2 flex flex-col items-center justify-around">
           <div className="mt-2 flex flex-col items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <p className="text-2xl font-bold text-gray-900">

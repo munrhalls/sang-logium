@@ -1,5 +1,5 @@
 "use client";
-import { useUIStore } from "@/store";
+import { useUIStore } from "@/store/store";
 import { X } from "lucide-react";
 import SortClient from "../../sortables/SortClient";
 import { useEffect } from "react";
@@ -19,16 +19,16 @@ export default function ProductsSortDrawer({
   }, [pathname]);
   return (
     <div
-      className={`md:hidden fixed inset-y-0 right-0 w-full sm:w-[85%] bg-blue-950 shadow-xl text-white transform ${
+      className={`fixed inset-y-0 right-0 w-full transform bg-blue-950 text-white shadow-xl sm:w-[85%] md:hidden ${
         isProductsSortDrawerOpen ? "translate-x-0" : "translate-x-full"
-      } transition-transform duration-300 ease-in-out z-50`}
+      } z-50 transition-transform duration-300 ease-in-out`}
     >
-      <div className="h-full flex flex-col">
-        <header className="p-4 border-b flex justify-between items-center">
+      <div className="flex h-full flex-col">
+        <header className="flex items-center justify-between border-b p-4">
           <h2 className="text-xl font-semibold text-white">Sort Products</h2>
           <button
             onClick={toggleProductsSortDrawer}
-            className="p-2 rounded-full hover:bg-blue-900"
+            className="rounded-full p-2 hover:bg-blue-900"
             aria-label="Close sort drawer"
           >
             <X className="h-6 w-6" />
@@ -40,10 +40,10 @@ export default function ProductsSortDrawer({
             currentSort={sortOptions.length > 0 ? sortOptions[0].name : ""}
           />
         </div>
-        <footer className="p-4 border-t">
+        <footer className="border-t p-4">
           <button
             onClick={toggleProductsSortDrawer}
-            className="w-full py-2 bg-white text-blue-950 rounded-md font-medium"
+            className="w-full rounded-md bg-white py-2 font-medium text-blue-950"
           >
             Apply Sort
           </button>

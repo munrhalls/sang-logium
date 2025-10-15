@@ -1,5 +1,5 @@
 "use client";
-import { useUIStore } from "../../../../store";
+import { useUIStore } from "../../../../store/store";
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 export default function MobileSearchDrawer() {
@@ -14,16 +14,16 @@ export default function MobileSearchDrawer() {
   }
   return (
     <div
-      className={`z-50 absolute inset-0 overflow-hidden h-full w-full pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 ${
+      className={`pointer-events-auto absolute inset-0 z-50 h-full w-full overflow-hidden bg-slate-50 text-black transition-transform duration-300 ${
         isSearchDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       <div className="p-4">
-        <div className="p-2 border-b border-gray-200">
-          <div className="flex justify-end items-center">
+        <div className="border-b border-gray-200 p-2">
+          <div className="flex items-center justify-end">
             <button
               onClick={toggleSearchDrawer}
-              className="flex gap-1 items-center justify-center text-black"
+              className="flex items-center justify-center gap-1 text-black"
             >
               <span>CLOSE</span>
               <FaTimes size={14} />
@@ -35,12 +35,12 @@ export default function MobileSearchDrawer() {
             type="text"
             name="query"
             placeholder="Look for products by name..."
-            className="w-full p-2 bg-gray-800 text-white rounded"
+            className="w-full rounded bg-gray-800 p-2 text-white"
           />
-          <div className="flex justify-center mt-4 ">
+          <div className="mt-4 flex justify-center">
             <button
               type="submit"
-              className="border-gray-800 border rounded px-3 py-2"
+              className="rounded border border-gray-800 px-3 py-2"
             >
               SEARCH
             </button>

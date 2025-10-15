@@ -1,25 +1,25 @@
 "use client";
-import { useUIStore } from "@/store";
+import { useUIStore } from "@/store/store";
 import { SlidersHorizontal, ArrowUpDown } from "lucide-react";
 export default function FilterSortBtns() {
   const toggleProductsFilterDrawer = useUIStore(
-    (state) => state.toggleProductsFilterDrawer,
+    (state) => state.toggleProductsFilterDrawer
   );
   const toggleProductsSortDrawer = useUIStore(
-    (state) => state.toggleProductsSortDrawer,
+    (state) => state.toggleProductsSortDrawer
   );
   return (
-    <div className="md:hidden z-40 flex items-center flex-col 2xs:flex-row gap-1">
+    <div className="z-40 flex flex-col items-center gap-1 2xs:flex-row md:hidden">
       <button
         onClick={toggleProductsFilterDrawer}
-        className={`h-[24px] w-24 flex items-center justify-center gap-2  px-4 py-1 rounded-xl font-medium transition-colors bg-gray-100 text-gray-800 border border-gray-300`}
+        className={`flex h-[24px] w-24 items-center justify-center gap-2 rounded-xl border border-gray-300 bg-gray-100 px-4 py-1 font-medium text-gray-800 transition-colors`}
       >
         <SlidersHorizontal size={13} />
         Filter
       </button>
       <button
         onClick={toggleProductsSortDrawer}
-        className={`h-[24px] w-24 flex items-center justify-center gap-2  px-4 py-1 rounded-xl font-medium transition-colors bg-gray-100 text-gray-800 border border-gray-300`}
+        className={`flex h-[24px] w-24 items-center justify-center gap-2 rounded-xl border border-gray-300 bg-gray-100 px-4 py-1 font-medium text-gray-800 transition-colors`}
       >
         <ArrowUpDown size={13} />
         Sort

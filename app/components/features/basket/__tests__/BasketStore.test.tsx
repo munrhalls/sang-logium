@@ -1,5 +1,5 @@
-import { useBasketStore } from "@/store";
-import { BasketItem } from "@/store";
+import { useBasketStore } from "@/store/store";
+import { BasketItem } from "@/store/store";
 describe("Basket Store Business Logic", () => {
   afterEach(() => {
     useBasketStore.setState({ basket: [] });

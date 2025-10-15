@@ -1,5 +1,5 @@
 "use client";
-import { useUIStore } from "../../../../store";
+import { useUIStore } from "../../../../store/store";
 import { ReactElement } from "react";
 import { FaTimes } from "react-icons/fa";
 export default function MobileCategoriesDrawer({
@@ -8,33 +8,33 @@ export default function MobileCategoriesDrawer({
   categoriesTreeUI: ReactElement;
 }) {
   const isCategoriesDrawerOpen = useUIStore(
-    (state) => state.isCategoriesDrawerOpen,
+    (state) => state.isCategoriesDrawerOpen
   );
   const toggleCategoriesDrawer = useUIStore(
-    (state) => state.toggleCategoriesDrawer,
+    (state) => state.toggleCategoriesDrawer
   );
   const handleClick = () => {
     toggleCategoriesDrawer();
   };
   return (
     <div
-      className={`absolute inset-0 overflow-hidden h-full w-full z-50 pointer-events-auto  bg-slate-50 text-black transition-transform duration-300 flex flex-col ${
+      className={`pointer-events-auto absolute inset-0 z-50 flex h-full w-full flex-col overflow-hidden bg-slate-50 text-black transition-transform duration-300 ${
         isCategoriesDrawerOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       <div>
-        <div className="p-2 border-b border-gray-200">
-          <div className="flex justify-end items-center">
+        <div className="border-b border-gray-200 p-2">
+          <div className="flex items-center justify-end">
             <button
               onClick={toggleCategoriesDrawer}
-              className="flex gap-1 items-center justify-center text-black"
+              className="flex items-center justify-center gap-1 text-black"
             >
               <span>CLOSE</span>
               <FaTimes size={14} />
             </button>
           </div>
         </div>
-        <h1 className="text-3xl text-center my-2 ml-4">Categories</h1>
+        <h1 className="my-2 ml-4 text-center text-3xl">Categories</h1>
       </div>
       {}
       <div
@@ -42,8 +42,8 @@ export default function MobileCategoriesDrawer({
         onClick={handleClick}
       >
         <div className="p-4">
-          <div className="bg-white grid gap-6">{categoriesTreeUI}</div>
-          <p className="mt-8 flex justify-center items-center text-gray-500">
+          <div className="grid gap-6 bg-white">{categoriesTreeUI}</div>
+          <p className="mt-8 flex items-center justify-center text-gray-500">
             End.
           </p>
         </div>

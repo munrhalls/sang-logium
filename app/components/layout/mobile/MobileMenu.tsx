@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
-import { useUIStore } from "@/store";
+import { useUIStore } from "@/store/store";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import savePreDrawerUrl from "@/lib/savePreDrawerUrl";

@@ -5,7 +5,7 @@ import ProductPageGallery from "./ProductPageGallery";
 import { FaCheckCircle } from "react-icons/fa";
 import InfoTooltip from "@/app/components/ui/infoTooltip/infoTooltip";
 import BasketControls from "@/app/components/features/basket/BasketControls";
-import { BasketItem } from "@/store";
+import { BasketItem } from "@/store/store";
 export default async function ProductPage({
   params,
 }: {
@@ -30,12 +30,12 @@ export default async function ProductPage({
     quantity: 1,
   };
   return (
-    <div className="mx-auto max-w-[1400px] grid justify-center p-4 gap-4 lg:gap-12 xl:gap-16 sm:grid-cols-2 auto-rows-min">
+    <div className="mx-auto grid max-w-[1400px] auto-rows-min justify-center gap-4 p-4 sm:grid-cols-2 lg:gap-12 xl:gap-16">
       <ProductPageGallery product={product} />
       <div className="grid items-center">
         <div>
-          <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-          <div className="text-3xl font-semibold mb-4">
+          <h1 className="mb-4 text-3xl font-bold">{product.name}</h1>
+          <div className="mb-4 text-3xl font-semibold">
             ${product.price.toFixed(2)}
           </div>
         </div>
@@ -46,14 +46,14 @@ export default async function ProductPage({
         </div>
         {isOutOfStock ? (
           <div className="">
-            <span className="text-white font-bold text-lg rounded-sm">
+            <span className="rounded-sm text-lg font-bold text-white">
               Out of stock
             </span>
           </div>
         ) : (
           <div>
-            <div className="flex items-center gap-1 my-2">
-              <span className="text-green-700  font-bold text-xl rounded-sm">
+            <div className="my-2 flex items-center gap-1">
+              <span className="rounded-sm text-xl font-bold text-green-700">
                 In stock & shipping
               </span>
               <FaCheckCircle color="green" size={16} />
@@ -63,9 +63,9 @@ export default async function ProductPage({
         )}
       </div>
       {product.overviewFields && product.overviewFields.length > 0 && (
-        <div className="mb-6 md:max-w-[500px] border-l-2 border-b-2 pl-4 pb-4 border-gray-400 ">
-          <h2 className="text-2xl font-bold mb-4 text-center">Overview</h2>
-          <ul className="list-disc list-inside">
+        <div className="mb-6 border-b-2 border-l-2 border-gray-400 pb-4 pl-4 md:max-w-[500px]">
+          <h2 className="mb-4 text-center text-2xl font-bold">Overview</h2>
+          <ul className="list-inside list-disc">
             {product.overviewFields.map((field, index) => (
               <li key={index}>
                 <strong>{field.title}:</strong> {field.value}
@@ -80,11 +80,11 @@ export default async function ProductPage({
         </div>
       )}
       {product.specifications && product.specifications.length > 0 && (
-        <div className=" mb-6 md:max-w-[500px] border-l-2 border-b-2 border-gray-400 pl-4 pb-4">
-          <h2 className="text-2xl font-bold mb-4 text-center">
+        <div className="mb-6 border-b-2 border-l-2 border-gray-400 pb-4 pl-4 md:max-w-[500px]">
+          <h2 className="mb-4 text-center text-2xl font-bold">
             Specifications
           </h2>
-          <ul className="list-disc list-inside">
+          <ul className="list-inside list-disc">
             {product.specifications.map((spec, index) => (
               <li key={index}>
                 <strong>{spec.title}:</strong> {spec.value}

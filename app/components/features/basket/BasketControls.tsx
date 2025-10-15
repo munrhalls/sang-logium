@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import { useBasketStore } from "@/store";
+import { useBasketStore } from "@/store/store";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ShoppingCart } from "lucide-react";
-import { BasketItem } from "@/store";
+import { BasketItem } from "@/store/store";
 const BasketControls = React.memo(
   function BasketControls({ product }: { product: BasketItem }) {
     const _hasHydrated = useBasketStore((s) => s._hasHydrated);
@@ -24,7 +24,7 @@ const BasketControls = React.memo(
       };
       return (
         <div
-          className="flex flex-col justify-start items-center "
+          className="flex flex-col items-center justify-start"
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -37,13 +37,13 @@ const BasketControls = React.memo(
               addItem(basketItem);
             }}
             aria-label="Add to Cart"
-            className="mt-2 rounded-lg bg-black text-black h-10 w-10 flex flex-col items-center justify-center hover:bg-gray-800 transition-colors"
+            className="mt-2 flex h-10 w-10 flex-col items-center justify-center rounded-lg bg-black text-black transition-colors hover:bg-gray-800"
           >
             <span
               className="p-1"
               style={{ display: "inline-flex", lineHeight: 0 }}
             >
-              <ShoppingCart className="w-6 h-6 text-white" />
+              <ShoppingCart className="h-6 w-6 text-white" />
             </span>
           </button>
         </div>
@@ -72,28 +72,28 @@ const BasketControls = React.memo(
           e.stopPropagation();
         }}
       >
-        <div className="font-bold text-lg">Purchase quantity:</div>
+        <div className="text-lg font-bold">Purchase quantity:</div>
         <div className="flex items-center gap-x-2">
           <button
             aria-label="Increase quantity"
             onClick={handleIncrement}
             disabled={!canIncrement}
-            className="bg-black text-white rounded p-2 h-9 w-9 flex items-center justify-center hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="flex h-9 w-9 items-center justify-center rounded bg-black p-2 text-white transition-colors hover:bg-gray-800 disabled:opacity-50"
           >
             +
           </button>
-          <span className="font-black w-6 text-center">{item.quantity}</span>
+          <span className="w-6 text-center font-black">{item.quantity}</span>
           <button
             aria-label="Decrease quantity"
             onClick={handleDecrement}
-            className="bg-black text-white rounded p-2 h-9 w-9 flex items-center justify-center hover:bg-gray-800 transition-colors"
+            className="flex h-9 w-9 items-center justify-center rounded bg-black p-2 text-white transition-colors hover:bg-gray-800"
           >
             -
           </button>
           <button
             aria-label="Remove from basket"
             onClick={handleRemove}
-            className="text-gray-400 hover:text-red-500 transition-colors rounded p-2 h-9 w-9 flex items-center justify-center"
+            className="flex h-9 w-9 items-center justify-center rounded p-2 text-gray-400 transition-colors hover:text-red-500"
           >
             <XMarkIcon className="h-5 w-5" />
           </button>

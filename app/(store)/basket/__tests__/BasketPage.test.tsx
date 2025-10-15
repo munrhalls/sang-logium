@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import BasketPage from "../page";
-import { BasketItem } from "@/store";
+import { BasketItem } from "@/store/store";
 jest.mock("@/store", () => ({
   useBasketStore: jest.fn(),
 }));
-import { useBasketStore } from "@/store";
+import { useBasketStore } from "@/store/store";
 const mockUseBasketStore = useBasketStore as jest.MockedFunction<
   typeof useBasketStore
 >;
@@ -358,7 +358,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore,
+        selector ? selector(mockStore) : mockStore
       );
       render(<BasketPage />);
       expect(screen.getByText("$15.99")).toBeInTheDocument();
@@ -381,7 +381,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore,
+        selector ? selector(mockStore) : mockStore
       );
       render(<BasketPage />);
       expect(screen.getByText("$265.99")).toBeInTheDocument();
@@ -403,7 +403,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore,
+        selector ? selector(mockStore) : mockStore
       );
       render(<BasketPage />);
       const checkoutLink = screen.getByRole("link", {
@@ -428,7 +428,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore,
+        selector ? selector(mockStore) : mockStore
       );
       render(<BasketPage />);
       const continueShoppingLinks = screen.getAllByRole("link", {
@@ -456,7 +456,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore,
+        selector ? selector(mockStore) : mockStore
       );
       render(<BasketPage />);
       const productALink = screen.getByRole("link", { name: "Product A" });
@@ -481,7 +481,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore,
+        selector ? selector(mockStore) : mockStore
       );
       const { rerender } = render(<BasketPage />);
       expect(screen.getByText("Product A")).toBeInTheDocument();
@@ -515,7 +515,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore,
+        selector ? selector(mockStore) : mockStore
       );
       const { rerender, container } = render(<BasketPage />);
       expect(container.textContent).toMatch(/\b1\b/);
@@ -546,7 +546,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore,
+        selector ? selector(mockStore) : mockStore
       );
       render(<BasketPage />);
       expect(screen.getByText("Product A")).toBeInTheDocument();
@@ -571,20 +571,20 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore,
+        selector ? selector(mockStore) : mockStore
       );
       const { container } = render(<BasketPage />);
       const increaseButton = Array.from(
-        container.querySelectorAll("button"),
+        container.querySelectorAll("button")
       ).find((btn) =>
-        btn.getAttribute("aria-label")?.toLowerCase().includes("increase"),
+        btn.getAttribute("aria-label")?.toLowerCase().includes("increase")
       );
       expect(increaseButton).toBeTruthy();
       if (increaseButton) increaseButton.click();
       const removeButton = Array.from(
-        container.querySelectorAll("button"),
+        container.querySelectorAll("button")
       ).find((btn) =>
-        btn.getAttribute("aria-label")?.toLowerCase().includes("remove"),
+        btn.getAttribute("aria-label")?.toLowerCase().includes("remove")
       );
       expect(removeButton).toBeTruthy();
       if (removeButton) removeButton.click();
@@ -606,7 +606,7 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore,
+        selector ? selector(mockStore) : mockStore
       );
       render(<BasketPage />);
       const increaseBtn = screen.getByRole("button", {
@@ -644,14 +644,14 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore,
+        selector ? selector(mockStore) : mockStore
       );
       render(<BasketPage />);
       expect(
-        screen.getByRole("button", { name: /increase quantity/i }),
+        screen.getByRole("button", { name: /increase quantity/i })
       ).toBeInTheDocument();
       expect(
-        screen.getByRole("button", { name: /decrease quantity/i }),
+        screen.getByRole("button", { name: /decrease quantity/i })
       ).toBeInTheDocument();
       screen
         .getAllByLabelText("Remove item")
@@ -675,13 +675,13 @@ describe("4. Item Removal", () => {
         _hasHydrated: true,
       };
       mockUseBasketStore.mockImplementation((selector) =>
-        selector ? selector(mockStore) : mockStore,
+        selector ? selector(mockStore) : mockStore
       );
       const { container } = render(<BasketPage />);
       const increaseButton = Array.from(
-        container.querySelectorAll("button"),
+        container.querySelectorAll("button")
       ).find((btn) =>
-        btn.getAttribute("aria-label")?.toLowerCase().includes("increase"),
+        btn.getAttribute("aria-label")?.toLowerCase().includes("increase")
       );
       expect(increaseButton).toBeTruthy();
       if (increaseButton) {
