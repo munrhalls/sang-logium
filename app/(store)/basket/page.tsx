@@ -16,6 +16,7 @@ export default function BasketPage() {
   if (basket.length === 0) {
     return <Empty />;
   }
+
   return (
     <div className="mx-auto my-8 max-w-7xl bg-slate-100 px-4 pb-16 pt-8 sm:px-6 lg:px-8">
       <div className="mb-8">
