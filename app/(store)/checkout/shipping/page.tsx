@@ -6,6 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useCheckoutStore } from "@/store/checkout";
 import { useState } from "react";
+import { useEffect } from "react";
+import { useBasketStore } from "@/store/store";
+
+const { getState: get, setState: set } = useCheckoutStore;
 
 const shippingSchema = z.object({
   name: z
@@ -61,19 +65,9 @@ export default function Shipping() {
     try {
       setIsSubmitting(true);
       setSubmitError(null);
-
-      // Simulate async operation (e.g., API call)
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      // Save to global state
       setShippingInfo(data);
-
       setSubmitSuccess(true);
-
-      // Redirect to payment page
-      setTimeout(() => {
-        router.push("/checkout/payment");
-      }, 300);
+      router.push("/checkout/payment");
     } catch (error) {
       setSubmitError(
         error instanceof Error

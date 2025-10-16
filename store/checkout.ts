@@ -35,7 +35,7 @@ interface PaymentState {
   setPaymentInfo: (data: PaymentFormData) => void;
 }
 
-export const useCheckoutStore = create<CheckoutState>((set) => ({
+export const useCheckoutStore = create<CheckoutState>((set, get) => ({
   shippingInfo: null,
   setShippingInfo: (data) => set({ shippingInfo: data }),
   cartItems: [],

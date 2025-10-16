@@ -1,31 +1,45 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import { useCheckoutStore, usePaymentStore } from "@/store/checkout";
+import { useEffect } from "react";
 import { useBasketStore } from "@/store/store";
+const { getState: get, setState: set } = useCheckoutStore;
 
 export default function Summary() {
   const router = useRouter();
-  const { shippingInfo, cartItems, setCartItems, clearCart } = useCheckoutStore(
-    (s) => ({
-      shippingInfo: s.shippingInfo,
-      cartItems: s.cartItems,
-      setCartItems: s.setCartItems,
-      clearCart: s.clearCart,
-    })
-  );
+  const shippingInfo = useCheckoutStore((s) => s.shippingInfo);
+  const cartItems = useCheckoutStore((s) => s.cartItems);
+  const clearCart = useCheckoutStore((s) => s.clearCart);
   const { paymentInfo } = usePaymentStore();
-  const basketItems = useBasketStore((s) => s.basket);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  const subtotal = useMemo(() => {
-    return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  }, [cartItems]);
+  useEffect(() => {
+    const initCartFromBasket = () => {
+      const basketItems = useBasketStore.getState().basket;
+      if (basketItems.length > 0) {
+        const formattedItems = basketItems.map((item) => ({
+          id: item._id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+        }));
+        set({ cartItems: formattedItems });
+      }
+    };
+    initCartFromBasket();
+    console.log("Cart items after init:", get().cartItems);
+  }, []);
+  console.log("CART ITEMS IN SUMMARY:", cartItems);
 
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
   const tax = useMemo(() => {
     return subtotal * 0.08;
   }, [subtotal]);
@@ -34,21 +48,21 @@ export default function Summary() {
     return subtotal + tax;
   }, [subtotal, tax]);
 
-  useEffect(() => {
-    if (cartItems.length === 0 && basketItems.length > 0 && setCartItems) {
-      const formattedItems = basketItems.map((item) => ({
-        id: item._id,
-        name: item.name,
-        price: item.price,
-        quantity: item.quantity,
-      }));
-      setCartItems(formattedItems);
-    }
-
-    if (!shippingInfo || !paymentInfo || cartItems.length === 0) {
-      setError("Order data missing. Please restart checkout.");
-    }
-  }, [shippingInfo, paymentInfo, cartItems, basketItems, setCartItems]);
+  // useEffect(() => {
+  //   if (
+  //     (!shippingInfo || !paymentInfo || cartItems.length === 0) &&
+  //     error === null
+  //   ) {
+  //     setError("Order data missing. Please restart checkout.");
+  //   } else if (
+  //     shippingInfo &&
+  //     paymentInfo &&
+  //     cartItems.length > 0 &&
+  //     error !== null
+  //   ) {
+  //     setError(null);
+  //   }
+  // }, [shippingInfo, paymentInfo, cartItems, error]);
 
   const handleBuy = async () => {
     setLoading(true);
@@ -86,7 +100,8 @@ export default function Summary() {
     }
   };
 
-  const isInvalid = !shippingInfo || !paymentInfo || cartItems.length === 0;
+  const isInvalid =
+    !shippingInfo || !paymentInfo || cartItems.length === 0 || error !== null;
 
   return (
     <div className="space-y-6">
@@ -124,7 +139,7 @@ export default function Summary() {
                 <span>${tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between border-t border-gray-300 pt-2 text-lg font-bold text-gray-900">
-                <span>Grand Total:</span>
+                <span>Total:</span>
                 <span>${grandTotal.toFixed(2)}</span>
               </div>
             </div>

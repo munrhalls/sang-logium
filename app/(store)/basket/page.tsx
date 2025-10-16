@@ -1,15 +1,20 @@
 "use client";
 import { ShoppingCartIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import SegmentTitle from "@/app/components/ui/segment-title/SegmentTitle";
 import { useBasketStore } from "@/store/store";
+import { useCheckoutStore } from "@/store/checkout";
 import BasketControls from "@/app/components/features/basket/BasketControls";
+
 export default function BasketPage() {
+  const router = useRouter();
   const basket = useBasketStore((s) => s.basket);
   const getTotal = useBasketStore((s) => s.getTotal);
   const shipping = 15.99;
   const subtotal = getTotal();
   const total = subtotal + shipping;
+
   if (basket.length === 0) {
     return (
       <div className="mx-auto my-8 max-w-7xl bg-slate-100 px-4 pb-16 pt-8 sm:px-6 lg:px-8">
