@@ -8,7 +8,6 @@ import ShippingInfo from "./ShippingInfo";
 import PaymentInfo from "./PaymentInfo";
 import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
 import OrderDetails from "./OrderDetails";
-// import Loader from "./Loader";
 import BuyButton from "./BuyButton";
 
 const ErrorMessage = ({ error }: { error: string }) => (
