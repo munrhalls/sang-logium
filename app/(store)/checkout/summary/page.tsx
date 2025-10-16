@@ -74,6 +74,8 @@ export default function Summary() {
   }, []);
 
   const handleBuy = async () => {
+    // should use imported GROQ to issue GROQ query to Sanity backend
+
     setLoading(true);
     setPurchaseError(null);
 
