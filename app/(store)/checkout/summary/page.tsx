@@ -88,7 +88,10 @@ export default function Summary() {
   };
 
   const isInvalid =
-    !shippingInfo || !paymentInfo || cartItems.length === 0 || validationError !== null;
+    !shippingInfo ||
+    !paymentInfo ||
+    cartItems.length === 0 ||
+    validationError !== null;
 
   return (
     <div className="space-y-6">
