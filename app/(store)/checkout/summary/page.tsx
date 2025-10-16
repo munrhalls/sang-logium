@@ -29,7 +29,7 @@ const Success = () => (
     Purchase confirmed! Redirecting...
   </div>
 );
-``;
+
 export default function Summary() {
   const router = useRouter();
   const cartItems = useInitializeCheckoutCart();
