@@ -39,28 +39,21 @@ export default function Summary() {
   const clearCart = useCheckoutStore((s) => s.clearCart);
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const [purchaseError, setPurchaseError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    if (
-      (!shippingInfo || !paymentInfo || cartItems.length === 0) &&
-      error === null
-    ) {
-      setError("Order data missing. Please restart checkout.");
-    } else if (
-      shippingInfo &&
-      paymentInfo &&
-      cartItems.length > 0 &&
-      error !== null
-    ) {
-      setError(null);
+    if (!shippingInfo || !paymentInfo || cartItems.length === 0) {
+      setValidationError("Order data missing. Please restart checkout.");
+    } else {
+      setValidationError(null);
     }
-  }, [shippingInfo, paymentInfo, cartItems, error]);
+  }, [shippingInfo, paymentInfo, cartItems]);
 
   const handleBuy = async () => {
     setLoading(true);
-    setError(null);
+    setPurchaseError(null);
 
     try {
       if (!shippingInfo || !paymentInfo || cartItems.length === 0) {
@@ -84,7 +77,7 @@ export default function Summary() {
         router.push("/checkout/thank-you");
       }, 300);
     } catch (err) {
-      setError(
+      setPurchaseError(
         err instanceof Error
           ? err.message
           : "Purchase failed. Please try again."
@@ -95,7 +88,7 @@ export default function Summary() {
   };
 
   const isInvalid =
-    !shippingInfo || !paymentInfo || cartItems.length === 0 || error !== null;
+    !shippingInfo || !paymentInfo || cartItems.length === 0 || validationError !== null;
 
   return (
     <div className="space-y-6">
@@ -107,7 +100,8 @@ export default function Summary() {
         <PaymentInfo />
       </div>
 
-      {error && <ErrorMessage error={error} />}
+      {validationError && <ErrorMessage error={validationError} />}
+      {purchaseError && <ErrorMessage error={purchaseError} />}
 
       {success && <Success />}
 
