@@ -6,10 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useCheckoutStore } from "@/store/checkout";
 import { useState } from "react";
-import { useEffect } from "react";
-import { useBasketStore } from "@/store/store";
-
-const { getState: get, setState: set } = useCheckoutStore;
 
 const shippingSchema = z.object({
   name: z
