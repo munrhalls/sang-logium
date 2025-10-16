@@ -15,7 +15,7 @@ export default async function MobileCategoriesDrawerWrapper() {
   if (!categories || categories.length === 0) {
     return (
       <div
-        className={`h-full w-full overflow-hidden inset-0 lg:flex bg-gray-900 items-center justify-center `}
+        className={`inset-0 h-full w-full items-center justify-center overflow-hidden bg-gray-900 lg:flex`}
       >
         <p className="text-xl text-white">
           Connection issue. Could not load categories. Please refresh page. If
@@ -31,7 +31,7 @@ export default async function MobileCategoriesDrawerWrapper() {
   });
   const renderSubcategories = (
     subcategories: SubCategory[],
-    baseUrl: string,
+    baseUrl: string
   ) => {
     return subcategories.map((sub) => (
       <div key={sub._key}>
@@ -43,17 +43,17 @@ export default async function MobileCategoriesDrawerWrapper() {
             href={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}`}
             className="mt-2 flex items-center text-gray-600 hover:text-black"
           >
-            <FaRegCircle className="mr-2 w-2 h-2" />
+            <FaRegCircle className="mr-2 h-2 w-2" />
             <span className="text-lg">{sub.name}</span>
           </Link>
         )}
         {sub.subcategories && sub.subcategories.length > 0 && (
-          <ul className="pl-3 py-2 backdrop-brightness-95 rounded">
+          <ul className="rounded py-2 pl-3 backdrop-brightness-95">
             {sub.subcategories.map((child: SubCategory) => (
               <li key={child._key}>
                 <Link
                   href={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}/${child.name?.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="flex justify-start items-center px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  className="flex items-center justify-start px-4 py-2 text-gray-800 hover:bg-gray-100"
                 >
                   <FaRegCircle className="mr-2" />
                   <span className="text-md">{child.name}</span>
@@ -66,7 +66,7 @@ export default async function MobileCategoriesDrawerWrapper() {
     ));
   };
   const categoriesTreeUI = (
-    <div className="grid md:grid-cols-2 gap-6">
+    <div className="grid gap-6 md:grid-cols-2">
       {sortedCategories.map((category) => {
         const categoryPath = `/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`;
         return (

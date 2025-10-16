@@ -4,8 +4,8 @@ import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
 import { useUIStore } from "@/store/store";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import savePreDrawerUrl from "@/lib/savePreDrawerUrl";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+// import savePreDrawerUrl from "@/lib/savePreDrawerUrl";
+// import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 const Authentication = dynamic(
   () => import("@/app/components/features/auth/Authentication"),
