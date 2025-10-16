@@ -21,18 +21,6 @@ const Authentication = dynamic(
 );
 
 const MobileMenu = () => {
-  // const pathname = usePathname();
-  // const searchParams = useSearchParams();
-  // const router = useRouter();
-
-  // const handleTrackingOpen = () => {
-  //   const search = searchParams.toString();
-  //   const currentUrl = search ? `${pathname}?${search}` : pathname;
-  //   savePreDrawerUrl(currentUrl);
-  //   router.prefetch(currentUrl);
-  //   router.push("/tracking");
-  // };
-
   const isCategoriesOpen = useUIStore((state) => state.isCategoriesDrawerOpen);
   const toggleCategoriesDrawer = useUIStore(
     (state) => state.toggleCategoriesDrawer
@@ -41,56 +29,51 @@ const MobileMenu = () => {
   const toggleSearchDrawer = useUIStore((state) => state.toggleSearchDrawer);
 
   return (
-    <>
-      <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">
-        <div className="flex items-center justify-around px-4">
-          <button
-            className="flex flex-col items-center"
-            onClick={toggleCategoriesDrawer}
-          >
-            {isCategoriesOpen ? (
-              <X size={24} />
-            ) : (
-              <>
-                <Menu className="h-6 w-6" />
-
-                <span className="mt-1 hidden text-xs sm:inline-block">
-                  Menu
-                </span>
-              </>
-            )}
-          </button>
-          <button
-            className="flex flex-col items-center"
-            onClick={toggleSearchDrawer}
-          >
-            {isSearchDrawerOpen ? (
-              <X size={24} />
-            ) : (
-              <>
-                <Search className="h-6 w-6" />
-                <span className="mt-1 hidden text-xs sm:inline-block">
-                  Search
-                </span>
-              </>
-            )}
-          </button>
-          <Authentication />
-          <Link
-            href="/tracking"
-            className="flex flex-col items-center"
-            // onClick={handleTrackingOpen}
-          >
-            <Truck className="h-6 w-6" />
-            <span className="mt-1 hidden text-xs sm:inline-block">Track</span>
-          </Link>
-          <Link href="/basket" className="flex flex-col items-center">
-            <ShoppingBag className="h-6 w-6" />
-            <span className="mt-1 hidden text-xs sm:inline-block">Basket</span>
-          </Link>
-        </div>
+    <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">
+      <div className="flex items-center justify-around px-4">
+        <button
+          className="flex flex-col items-center"
+          onClick={toggleCategoriesDrawer}
+        >
+          {isCategoriesOpen ? (
+            <X size={24} />
+          ) : (
+            <>
+              <Menu className="h-6 w-6" />
+              <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
+            </>
+          )}
+        </button>
+        <button
+          className="flex flex-col items-center"
+          onClick={toggleSearchDrawer}
+        >
+          {isSearchDrawerOpen ? (
+            <X size={24} />
+          ) : (
+            <>
+              <Search className="h-6 w-6" />
+              <span className="mt-1 hidden text-xs sm:inline-block">
+                Search
+              </span>
+            </>
+          )}
+        </button>
+        <Authentication />
+        <Link
+          href="/tracking"
+          className="flex flex-col items-center"
+          // onClick={handleTrackingOpen}
+        >
+          <Truck className="h-6 w-6" />
+          <span className="mt-1 hidden text-xs sm:inline-block">Track</span>
+        </Link>
+        <Link href="/basket" className="flex flex-col items-center">
+          <ShoppingBag className="h-6 w-6" />
+          <span className="mt-1 hidden text-xs sm:inline-block">Basket</span>
+        </Link>
       </div>
-    </>
+    </div>
   );
 };
 export default MobileMenu;
