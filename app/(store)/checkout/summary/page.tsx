@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useBasketStore } from "@/store/store";
 import ShippingInfo from "./ShippingInfo";
 import PaymentInfo from "./PaymentInfo";
+import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
 
 const { getState: get, setState: set } = useCheckoutStore;
 
@@ -20,23 +21,7 @@ export default function Summary() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
-    const initCartFromBasket = () => {
-      const basketItems = useBasketStore.getState().basket;
-      if (basketItems.length > 0) {
-        const formattedItems = basketItems.map((item) => ({
-          id: item._id,
-          name: item.name,
-          price: item.price,
-          quantity: item.quantity,
-        }));
-        set({ cartItems: formattedItems });
-      }
-    };
-    initCartFromBasket();
-    console.log("Cart items after init:", get().cartItems);
-  }, []);
-  console.log("CART ITEMS IN SUMMARY:", cartItems);
+  useInitializeCheckoutCart();
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
