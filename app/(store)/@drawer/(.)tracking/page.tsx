@@ -1,31 +1,17 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
-import { useEffect, useState } from "react";
 import { Suspense } from "react";
 
 export default function Tracking() {
-  const [previousUrl, setPreviousUrl] = useState("/");
   const router = useRouter();
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.sessionStorage) {
-      const url = sessionStorage.getItem("pre_drawer_url");
-      if (url) {
-        setPreviousUrl(url);
-      }
-    }
-  }, []);
-
   const handleExit = () => {
-    router.replace(previousUrl, { scroll: false });
-    if (typeof window !== "undefined" && window.sessionStorage) {
-      sessionStorage.removeItem("pre_drawer_url");
-    }
+    router.back();
   };
 
   return (
-    <Suspense fallback={<div>Loading Tracking Drawer...</div>}>
+    <>
       <div
         onClick={handleExit}
         className="fixed inset-0 bottom-14 top-[4rem] z-40 sm:bottom-0 sm:top-[6rem] md:bg-black/50"
@@ -49,6 +35,6 @@ export default function Tracking() {
           <div></div>
         </div>
       </div>
-    </Suspense>
+    </>
   );
 }
