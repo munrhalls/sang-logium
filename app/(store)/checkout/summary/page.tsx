@@ -11,7 +11,7 @@ import OrderDetails from "./OrderDetails";
 // import Loader from "./Loader";
 import BuyButton from "./BuyButton";
 
-const Error = ({ error }: { error: string }) => (
+const ErrorMessage = ({ error }: { error: string }) => (
   <div
     className="rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-600"
     role="alert"
@@ -108,7 +108,7 @@ export default function Summary() {
         <PaymentInfo />
       </div>
 
-      {error && <Error error={error} />}
+      {error && <ErrorMessage error={error} />}
 
       {success && <Success />}
 
