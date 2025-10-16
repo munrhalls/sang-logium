@@ -163,27 +163,121 @@ export type Order = {
   _rev: string;
   orderNumber?: string;
   orderId?: string;
-  stripeCheckoutSessionId?: string;
-  stripeCustomerId?: string;
   clerkUserId?: string;
-  customerName?: string;
-  email?: string;
-  stripePaymentIntentId?: string;
-  products?: Array<{
-    product?: {
+  customerEmail?: string;
+  customerPhone?: string;
+  isGuest?: boolean;
+  items?: Array<{
+    productRef?: {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
       [internalGroqTypeReferenceTo]?: "product";
     };
+    productId?: string;
+    name?: string;
+    slug?: string;
+    imageUrl?: string;
+    variant?: {
+      size?: string;
+      color?: string;
+      sku?: string;
+    };
+    price?: number;
+    compareAtPrice?: number;
     quantity?: number;
+    subtotal?: number;
+    discount?: {
+      amount?: number;
+      code?: string;
+      type?: string;
+    };
+    returnStatus?: "none" | "requested" | "approved" | "returned" | "refunded";
+    refundedAmount?: number;
+    _type: "orderItem";
     _key: string;
   }>;
-  totalPrice?: number;
-  currency?: string;
-  amountDiscounct?: number;
-  status?: "pending" | "paid" | "shipped" | "delivered" | "cancelled";
-  orderDate?: string;
+  shippingAddress?: {
+    name?: string;
+    line1?: string;
+    line2?: string;
+    city?: string;
+    state?: string;
+    postalCode?: string;
+    country?: string;
+    phone?: string;
+  };
+  billingAddress?: {
+    name?: string;
+    line1?: string;
+    line2?: string;
+    city?: string;
+    state?: string;
+    postalCode?: string;
+    country?: string;
+  };
+  shippingMethod?: {
+    name?: string;
+    price?: number;
+    estimatedDays?: number;
+    carrier?: string;
+    trackingNumber?: string;
+    trackingUrl?: string;
+  };
+  pricing?: {
+    subtotal?: number;
+    shipping?: number;
+    tax?: number;
+    discount?: number;
+    total?: number;
+    currency?: string;
+  };
+  status?:
+    | "pending_payment"
+    | "processing"
+    | "packed"
+    | "shipped"
+    | "out_for_delivery"
+    | "delivered"
+    | "cancelled"
+    | "refunded"
+    | "failed";
+  dates?: {
+    orderedAt?: string;
+    paidAt?: string;
+    shippedAt?: string;
+    deliveredAt?: string;
+    cancelledAt?: string;
+    refundedAt?: string;
+  };
+  metadata?: {
+    source?: string;
+    ip?: string;
+    userAgent?: string;
+    discountCodes?: Array<string>;
+    notes?: string;
+    customerNotes?: string;
+    giftMessage?: string;
+    tags?: Array<string>;
+  };
+  returns?: Array<{
+    returnId?: string;
+    items?: Array<string>;
+    reason?: string;
+    status?: string;
+    refundAmount?: number;
+    requestedAt?: string;
+    processedAt?: string;
+    _key: string;
+  }>;
+  payment?: {
+    stripePaymentIntentId?: string;
+    stripeCustomerId?: string;
+    stripeCheckoutSessionId?: string;
+    method?: string;
+    last4?: string;
+    brand?: string;
+  };
 };
 
 export type Product = {
@@ -564,13 +658,11 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/commercials/getCommercialHeroMain.ts
 // Variable: GET_COMMERCIALS_HERO_MAIN
-// Query: *[_type == "commercial" && feature == "hero-main" && defined(image.asset)]  | order(displayOrder asc) [0]  {    _id,    title,    "image": image.asset->url,    variant,    displayOrder,    text,    ctaLink,    "products": products[]-> {      _id,      brand,      name,      description,      price,      "image": image.asset->url    },    sale-> {      discount,      validUntil,      _id    }  }
+// Query: *[_type == "commercial" && feature == "hero-main" && defined(image.asset)]  | order(displayOrder asc) [0]  {    _id,    "image": image.asset->url + "?fm=webp&w=1200&q=55",    "blurDataURL": image.asset->url + "?w=20&h=20&blur=10&q=20",    text,    ctaLink,    sale-> {      discount,      validUntil,      _id    }  }
 export type GET_COMMERCIALS_HERO_MAINResult = {
   _id: string;
-  title: string | null;
   image: string | null;
-  variant: "products" | "text" | null;
-  displayOrder: number | null;
+  blurDataURL: string | null;
   text: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -593,55 +685,6 @@ export type GET_COMMERCIALS_HERO_MAINResult = {
     _key: string;
   }> | null;
   ctaLink: string | null;
-  products: Array<{
-    _id: string;
-    brand: string | null;
-    name: string | null;
-    description: Array<
-      | {
-          children?: Array<{
-            marks?: Array<string>;
-            text?: string;
-            _type: "span";
-            _key: string;
-          }>;
-          style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
-          listItem?: "bullet";
-          markDefs?: Array<
-            | ({
-                _key: string;
-              } & HighlightColor)
-            | ({
-                _key: string;
-              } & TextColor)
-            | {
-                href?: string;
-                _type: "link";
-                _key: string;
-              }
-          >;
-          level?: number;
-          _type: "block";
-          _key: string;
-        }
-      | {
-          asset?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-          };
-          media?: unknown;
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          alt?: string;
-          _type: "image";
-          _key: string;
-        }
-    > | null;
-    price: number | null;
-    image: string | null;
-  }> | null;
   sale: {
     discount: number | null;
     validUntil: string | null;
@@ -1273,7 +1316,7 @@ export type SALE_BY_ID_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "commercial" && feature == "hero-main" && defined(image.asset)]\n  | order(displayOrder asc) [0]\n  {\n    _id,\n    title,\n    "image": image.asset->url,\n    variant,\n    displayOrder,\n    text,\n    ctaLink,\n    "products": products[]-> {\n      _id,\n      brand,\n      name,\n      description,\n      price,\n      "image": image.asset->url\n    },\n    sale-> {\n      discount,\n      validUntil,\n      _id\n    }\n  }': GET_COMMERCIALS_HERO_MAINResult;
+    '*[_type == "commercial" && feature == "hero-main" && defined(image.asset)]\n  | order(displayOrder asc) [0]\n  {\n    _id,\n    "image": image.asset->url + "?fm=webp&w=1200&q=55",\n    "blurDataURL": image.asset->url + "?w=20&h=20&blur=10&q=20",\n    text,\n    ctaLink,\n    sale-> {\n      discount,\n      validUntil,\n      _id\n    }\n  }': GET_COMMERCIALS_HERO_MAINResult;
     '*[_type == "commercial" && feature == $feature] | order(displayOrder asc) {\n    _id,\n    title,\n    "image": image.asset->url,\n    variant,\n    displayOrder,\n    text,\n    ctaLink,\n    "products": products[]-> {\n      _id,\n      brand,\n      name,\n      description,\n      price,\n      "image": image.asset->url,\n    },\n    sale-> {\n      discount,\n      validUntil,\n      _id\n    }\n  }': GET_COMMERCIALS_BY_FEATURE_QUERYResult;
     '*[_type == "commercial" && feature == "hero-secondary" && defined(image.asset)] | order(displayOrder asc) {\n    _id,\n    title,\n    "image": image.asset->url,\n    variant,\n    displayOrder,\n    text,\n    ctaLink,\n    "products": products[]-> {\n      _id,\n      brand,\n      name,\n      description,\n      price,\n      "image": image.asset->url,\n    },\n    sale-> {\n      discount,\n      validUntil,\n      _id\n    }\n  }': GET_COMMERCIALS_HERO_SECONDARYResult;
     '{\n    "brands": array::unique(*[_type == "product"].brand->name)\n  }': FILTERSResult;
