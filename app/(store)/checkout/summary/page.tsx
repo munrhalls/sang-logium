@@ -10,6 +10,26 @@ import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
 import OrderDetails from "./OrderDetails";
 import Loader from "./Loader";
 
+const Error = ({ error }: { error: string }) => (
+  <div
+    className="rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-600"
+    role="alert"
+    aria-live="assertive"
+  >
+    {error}
+  </div>
+);
+
+const Success = () => (
+  <div
+    className="rounded-lg border border-green-300 bg-green-50 p-3 text-sm text-green-600"
+    role="alert"
+    aria-live="polite"
+  >
+    Purchase confirmed! Redirecting...
+  </div>
+);
+``;
 export default function Summary() {
   const router = useRouter();
   const cartItems = useInitializeCheckoutCart();
@@ -87,36 +107,34 @@ export default function Summary() {
         <PaymentInfo />
       </div>
 
-      {error && (
-        <div
-          className="rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-600"
-          role="alert"
-          aria-live="assertive"
-        >
-          {error}
-        </div>
-      )}
+      {error && <Error error={error} />}
 
-      {success && (
-        <div
-          className="rounded-lg border border-green-300 bg-green-50 p-3 text-sm text-green-600"
-          role="alert"
-          aria-live="polite"
-        >
-          Purchase confirmed! Redirecting...
-        </div>
-      )}
+      {success && <Success />}
 
-      <div>
-        <button
-          onClick={handleBuy}
-          disabled={loading || isInvalid}
-          className="w-full rounded-lg bg-black px-6 py-3 text-center font-semibold uppercase tracking-wider text-white transition duration-200 hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-black sm:w-auto"
-          aria-busy={loading}
-        >
-          {loading ? <Loader /> : "Confirm Purchase"}
-        </button>
-      </div>
+      <button
+        onClick={handleBuy}
+        disabled={loading || isInvalid}
+        className="w-full rounded-lg bg-yellow-600 px-6 py-3 text-center font-black uppercase tracking-wider text-black transition duration-200 hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-black sm:w-auto"
+        aria-busy={loading}
+      >
+        <span className="flex items-center justify-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2.5}
+            stroke="currentColor"
+            className="h-5 w-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+            />
+          </svg>
+          {loading ? <Loader /> : "BUY"}
+        </span>
+      </button>
     </div>
   );
 }
