@@ -51,6 +51,22 @@ export default function Summary() {
     }
   }, [shippingInfo, paymentInfo, cartItems]);
 
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    if (success) {
+      timeoutId = setTimeout(() => {
+        router.push("/checkout/thank-you");
+      }, 300);
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [success, router]);
+
   const handleBuy = async () => {
     setLoading(true);
     setPurchaseError(null);
@@ -72,10 +88,6 @@ export default function Summary() {
 
       clearCart();
       setSuccess(true);
-
-      setTimeout(() => {
-        router.push("/checkout/thank-you");
-      }, 300);
     } catch (err) {
       setPurchaseError(
         err instanceof Error
