@@ -1,14 +1,11 @@
 "use client";
 import { ShoppingCartIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import SegmentTitle from "@/app/components/ui/segment-title/SegmentTitle";
 import { useBasketStore } from "@/store/store";
-import { useCheckoutStore } from "@/store/checkout";
 import BasketControls from "@/app/components/features/basket/BasketControls";
 
 export default function BasketPage() {
-  const router = useRouter();
   const basket = useBasketStore((s) => s.basket);
   const getTotal = useBasketStore((s) => s.getTotal);
   const shipping = 15.99;

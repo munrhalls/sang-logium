@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Package, MapPin, CreditCard, LogOut } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
 
 export default function AccountLayout({
   children,
@@ -10,13 +11,23 @@ export default function AccountLayout({
   children?: React.ReactNode;
 }) {
   const router = useRouter();
+  const [previousUrl, setPreviousUrl] = useState("/");
 
-  const previousUrl = sessionStorage.getItem("pre_drawer_url") || "/";
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.sessionStorage) {
+      const url = sessionStorage.getItem("pre_drawer_url");
+      if (url) {
+        setPreviousUrl(url);
+      }
+    }
+  }, []);
 
   const handleExit = () => {
     console.log(previousUrl);
     router.replace(previousUrl, { scroll: false });
-    sessionStorage.removeItem("pre_drawer_url");
+    if (typeof window !== "undefined" && window.sessionStorage) {
+      sessionStorage.removeItem("pre_drawer_url");
+    }
   };
 
   return (

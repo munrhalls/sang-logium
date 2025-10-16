@@ -1,16 +1,26 @@
 "use client";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Package, MapPin, CreditCard, Settings, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Tracking() {
+  const [previousUrl, setPreviousUrl] = useState("/");
   const router = useRouter();
 
-  const previousUrl = sessionStorage.getItem("pre_drawer_url") || "/";
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.sessionStorage) {
+      const url = sessionStorage.getItem("pre_drawer_url");
+      if (url) {
+        setPreviousUrl(url);
+      }
+    }
+  }, []);
 
   const handleExit = () => {
     router.replace(previousUrl, { scroll: false });
-    sessionStorage.removeItem("pre_drawer_url");
+    if (typeof window !== "undefined" && window.sessionStorage) {
+      sessionStorage.removeItem("pre_drawer_url");
+    }
   };
 
   return (
