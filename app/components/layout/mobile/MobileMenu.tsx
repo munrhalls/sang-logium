@@ -21,17 +21,17 @@ const Authentication = dynamic(
 );
 
 const MobileMenu = () => {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  // const pathname = usePathname();
+  // const searchParams = useSearchParams();
+  // const router = useRouter();
 
-  const handleTrackingOpen = () => {
-    const search = searchParams.toString();
-    const currentUrl = search ? `${pathname}?${search}` : pathname;
-    savePreDrawerUrl(currentUrl);
-    router.prefetch(currentUrl);
-    router.push("/tracking");
-  };
+  // const handleTrackingOpen = () => {
+  //   const search = searchParams.toString();
+  //   const currentUrl = search ? `${pathname}?${search}` : pathname;
+  //   savePreDrawerUrl(currentUrl);
+  //   router.prefetch(currentUrl);
+  //   router.push("/tracking");
+  // };
 
   const isCategoriesOpen = useUIStore((state) => state.isCategoriesDrawerOpen);
   const toggleCategoriesDrawer = useUIStore(
@@ -79,7 +79,7 @@ const MobileMenu = () => {
           <Link
             href="/tracking"
             className="flex flex-col items-center"
-            onClick={handleTrackingOpen}
+            // onClick={handleTrackingOpen}
           >
             <Truck className="h-6 w-6" />
             <span className="mt-1 hidden text-xs sm:inline-block">Track</span>

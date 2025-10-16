@@ -1,19 +1,18 @@
-"use client";
-import { useRouter } from "next/navigation";
+// "use client";
+// import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
-import { Suspense } from "react";
 
 export default function Tracking() {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const handleExit = () => {
-    router.back();
-  };
+  // const handleExit = () => {
+  //   router.back();
+  // };
 
   return (
     <>
       <div
-        onClick={handleExit}
+        // onClick={handleExit}
         className="fixed inset-0 bottom-14 top-[4rem] z-40 sm:bottom-0 sm:top-[6rem] md:bg-black/50"
       />
       <div className="fixed bottom-14 right-0 top-[4rem] z-50 w-full overflow-y-scroll bg-white shadow-lg sm:bottom-0 sm:top-[6rem] sm:w-11/12 sm:max-w-3xl xl:max-w-6xl">
@@ -24,7 +23,7 @@ export default function Tracking() {
             </h2>
 
             <button
-              onClick={handleExit}
+              // onClick={handleExit}
               className="mx-auto flex w-8 flex-col items-center rounded-lg bg-black py-2 font-medium text-white transition-colors hover:bg-gray-800 sm:w-10 sm:py-3"
             >
               <LogOut className="h-4 w-4" />

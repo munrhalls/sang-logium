@@ -26,7 +26,7 @@ export default function Filters({
       | { min?: number; max?: number }
       | string[]
       | null,
-    type: string,
+    type: string
   ) {
     setIsTransitioning(true);
     const params = new URLSearchParams(searchParams.toString());
@@ -89,10 +89,10 @@ export default function Filters({
     setTimeout(() => setIsTransitioning(false), 600);
   }
   return (
-    <div className="filters p-4 relative">
+    <div className="filters relative p-4">
       {isTransitioning && (
-        <div className="absolute inset-0 bg-white/50 flex items-center justify-center z-10 rounded-md">
-          <div className="w-5 h-5 border-2 border-blue-700 border-t-transparent rounded-full animate-spin"></div>
+        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-md bg-white/50">
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-700 border-t-transparent"></div>
         </div>
       )}
       <form onSubmit={handleFormSubmit} className="space-y-4">
@@ -119,7 +119,7 @@ export default function Filters({
                   | boolean
                   | { min?: number; max?: number }
                   | string[]
-                  | null,
+                  | null
               ) => handleFilterChange(normalizedName, value, filterType)}
             />
           );
@@ -129,7 +129,7 @@ export default function Filters({
             <button
               type="reset"
               onClick={handleReset}
-              className="px-4 py-2 border border-gray-300 rounded"
+              className="rounded border border-gray-300 px-4 py-2"
             >
               Clear All
             </button>

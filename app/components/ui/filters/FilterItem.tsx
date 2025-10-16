@@ -12,7 +12,7 @@ export default function FilterItem({
   value: string | number | boolean | object | string[] | null;
   onChange: (
     value: string | number | boolean | object | string[],
-    type: string,
+    type: string
   ) => void;
 }) {
   const searchParams = useSearchParams();
@@ -29,10 +29,10 @@ export default function FilterItem({
     case "checkbox":
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-bold tracking-wide mb-4 text-center uppercase text-xl">
+          <h4 className="mb-4 text-center text-xl font-bold uppercase tracking-wide">
             {name}
           </h4>
-          <label className="flex items-center cursor-pointer">
+          <label className="flex cursor-pointer items-center">
             <input
               type="checkbox"
               checked={!!value}
@@ -47,7 +47,7 @@ export default function FilterItem({
       if (isMinOnly) {
         return (
           <div className="filter-item mb-3">
-            <h4 className="mb-4 text-center font-bold tracking-wide uppercase text-xl">
+            <h4 className="mb-4 text-center text-xl font-bold uppercase tracking-wide">
               {name}
             </h4>
             <MinOnlyFilter
@@ -65,7 +65,7 @@ export default function FilterItem({
       }
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-bold tracking-wide mb-4 text-center uppercase text-xl ">
+          <h4 className="mb-4 text-center text-xl font-bold uppercase tracking-wide">
             {name}
           </h4>
           <RangeFilter
@@ -76,7 +76,7 @@ export default function FilterItem({
             onChange={(
               name: string,
               value: { min?: number; max?: number } | number,
-              type: string,
+              type: string
             ) => {
               onChange(value as FilterValue, type);
             }}
@@ -90,12 +90,12 @@ export default function FilterItem({
       const safeValue = Array.isArray(value) ? value : [];
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-bold tracking-wide mb-4 text-center uppercase text-xl">
+          <h4 className="mb-4 text-center text-xl font-bold uppercase tracking-wide">
             {name}
           </h4>
           <div className="space-y-1">
             {safeOptions.map((option, i) => (
-              <label key={i} className="flex items-center cursor-pointer">
+              <label key={i} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={safeValue.includes(option)}
@@ -105,11 +105,11 @@ export default function FilterItem({
                     } else {
                       onChange(
                         safeValue.filter((item) => item !== option),
-                        "multiselect",
+                        "multiselect"
                       );
                     }
                   }}
-                  className="w-5 h-5 mr-3 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  className="mr-3 h-5 w-5 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-blue-500"
                 />
                 <span className="text-lg">{option}</span>
               </label>
@@ -121,12 +121,12 @@ export default function FilterItem({
       const radioOptions = Array.isArray(options) ? options : [];
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-bold tracking-wide mb-4 text-center uppercase text-xl">
+          <h4 className="mb-4 text-center text-xl font-bold uppercase tracking-wide">
             {name}
           </h4>
           <div className="space-y-1">
             {radioOptions.map((option, i) => (
-              <label key={i} className="flex items-center cursor-pointer">
+              <label key={i} className="flex cursor-pointer items-center">
                 <input
                   type="radio"
                   name={name.toLowerCase()}
@@ -143,10 +143,10 @@ export default function FilterItem({
     case "boolean":
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-bold tracking-wide mb-4 text-center uppercase text-xl">
+          <h4 className="mb-4 text-center text-xl font-bold uppercase tracking-wide">
             {name}
           </h4>
-          <label className="flex items-center cursor-pointer">
+          <label className="flex cursor-pointer items-center">
             <input
               type="checkbox"
               checked={!!value}
@@ -160,7 +160,7 @@ export default function FilterItem({
     default:
       return (
         <div className="filter-item mb-3">
-          <h4 className="font-bold tracking-wide mb-4 text-center uppercase text-xl">
+          <h4 className="mb-4 text-center text-xl font-bold uppercase tracking-wide">
             {name}
           </h4>
           <p className="text-sm text-gray-500">
