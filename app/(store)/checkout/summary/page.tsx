@@ -1,9 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useCheckoutStore, usePaymentStore } from "@/store/checkout";
-import { useEffect } from "react";
 import ShippingInfo from "./ShippingInfo";
 import PaymentInfo from "./PaymentInfo";
 import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
@@ -33,6 +32,7 @@ const Success = () => (
 export default function Summary() {
   const router = useRouter();
   const cartItems = useInitializeCheckoutCart();
+  const isMountedRef = useRef(true);
 
   const shippingInfo = useCheckoutStore((s) => s.shippingInfo);
   const { paymentInfo } = usePaymentStore();
@@ -67,6 +67,12 @@ export default function Summary() {
     };
   }, [success, router]);
 
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
   const handleBuy = async () => {
     setLoading(true);
     setPurchaseError(null);
@@ -86,16 +92,22 @@ export default function Summary() {
         }, 1000);
       });
 
+      if (!isMountedRef.current) return;
+
       clearCart();
       setSuccess(true);
     } catch (err) {
+      if (!isMountedRef.current) return;
+
       setPurchaseError(
         err instanceof Error
           ? err.message
           : "Purchase failed. Please try again."
       );
     } finally {
-      setLoading(false);
+      if (isMountedRef.current) {
+        setLoading(false);
+      }
     }
   };
 
