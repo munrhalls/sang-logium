@@ -60,11 +60,7 @@ const MobileMenu = () => {
           )}
         </button>
         <Authentication />
-        <Link
-          href="/tracking"
-          className="flex flex-col items-center"
-          // onClick={handleTrackingOpen}
-        >
+        <Link href="/tracking" className="flex flex-col items-center">
           <Truck className="h-6 w-6" />
           <span className="mt-1 hidden text-xs sm:inline-block">Track</span>
         </Link>
