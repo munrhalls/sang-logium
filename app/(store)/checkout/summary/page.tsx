@@ -1,39 +1,26 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useCheckoutStore, usePaymentStore } from "@/store/checkout";
 import { useEffect } from "react";
-import { useBasketStore } from "@/store/store";
 import ShippingInfo from "./ShippingInfo";
 import PaymentInfo from "./PaymentInfo";
 import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
-
-const { getState: get, setState: set } = useCheckoutStore;
+import useOrderTotals from "@/app/hooks/useOrderTotals";
 
 export default function Summary() {
   const router = useRouter();
+  const cartItems = useInitializeCheckoutCart();
+
   const shippingInfo = useCheckoutStore((s) => s.shippingInfo);
-  const cartItems = useCheckoutStore((s) => s.cartItems);
   const clearCart = useCheckoutStore((s) => s.clearCart);
   const { paymentInfo } = usePaymentStore();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  useInitializeCheckoutCart();
-
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-  const tax = useMemo(() => {
-    return subtotal * 0.08;
-  }, [subtotal]);
-
-  const grandTotal = useMemo(() => {
-    return subtotal + tax;
-  }, [subtotal, tax]);
+  const [subtotal, tax, grandTotal] = useOrderTotals(cartItems);
 
   useEffect(() => {
     if (

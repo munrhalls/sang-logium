@@ -18,6 +18,7 @@ export default function useInitializeCheckoutCart() {
       set({ cartItems: formattedItems });
     }
   }, [basketItems]);
+  const cartItems = useCheckoutStore((s) => s.cartItems);
 
-  return null;
+  return cartItems;
 }
