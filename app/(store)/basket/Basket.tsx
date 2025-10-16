@@ -10,6 +10,12 @@ export default function Basket() {
 
   return (
     <div>
+      <div className="hidden grid-cols-[3fr_1fr_1fr_auto] border-b border-gray-200 bg-gray-50 p-5 text-sm font-semibold text-gray-700 lg:grid">
+        <div>Product</div>
+        <div className="text-center">Price</div>
+        <div className="text-center">Quantity</div>
+        <div></div>
+      </div>
       {basket.map((item) => (
         <div
           key={item._id + "Basket page"}
