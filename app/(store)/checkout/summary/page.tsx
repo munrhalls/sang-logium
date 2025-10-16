@@ -2,10 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useMemo } from "react";
-import Link from "next/link";
 import { useCheckoutStore, usePaymentStore } from "@/store/checkout";
 import { useEffect } from "react";
 import { useBasketStore } from "@/store/store";
+import ShippingInfo from "./ShippingInfo";
+import PaymentInfo from "./PaymentInfo";
+
 const { getState: get, setState: set } = useCheckoutStore;
 
 export default function Summary() {
@@ -148,54 +150,9 @@ export default function Summary() {
           <p className="font-black text-gray-700">No items in cart</p>
         )}
       </div>
-
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <div className="rounded-lg border border-black p-3">
-          <div className="mb-3 flex items-center justify-between">
-            <h3 className="font-bold text-gray-900">Shipping Information</h3>
-            <Link
-              href="/checkout/shipping"
-              className="text-sm text-blue-600 hover:underline"
-              aria-label="Edit shipping information"
-            >
-              Edit
-            </Link>
-          </div>
-          {shippingInfo ? (
-            <div className="space-y-1 text-sm text-gray-700">
-              <p>{shippingInfo.name}</p>
-              <p>{shippingInfo.email}</p>
-              <p>{shippingInfo.address}</p>
-              <p>
-                {shippingInfo.city}, {shippingInfo.postalCode}
-              </p>
-              <p>{shippingInfo.country}</p>
-            </div>
-          ) : (
-            <p className="text-sm text-red-600">Shipping information missing</p>
-          )}
-        </div>
-
-        <div className="rounded-lg border border-black p-3">
-          <div className="mb-3 flex items-center justify-between">
-            <h3 className="font-bold text-gray-900">Payment Information</h3>
-            <Link
-              href="/checkout/payment"
-              className="text-sm text-blue-600 hover:underline"
-              aria-label="Edit payment information"
-            >
-              Edit
-            </Link>
-          </div>
-          {paymentInfo ? (
-            <div className="space-y-1 text-sm text-gray-700">
-              <p>{paymentInfo.cardholderName}</p>
-              <p>**** **** **** {paymentInfo.last4}</p>
-            </div>
-          ) : (
-            <p className="text-sm text-red-600">Payment information missing</p>
-          )}
-        </div>
+        <ShippingInfo />
+        <PaymentInfo />
       </div>
 
       {error && (
