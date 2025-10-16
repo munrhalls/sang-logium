@@ -48,21 +48,21 @@ export default function Summary() {
     return subtotal + tax;
   }, [subtotal, tax]);
 
-  // useEffect(() => {
-  //   if (
-  //     (!shippingInfo || !paymentInfo || cartItems.length === 0) &&
-  //     error === null
-  //   ) {
-  //     setError("Order data missing. Please restart checkout.");
-  //   } else if (
-  //     shippingInfo &&
-  //     paymentInfo &&
-  //     cartItems.length > 0 &&
-  //     error !== null
-  //   ) {
-  //     setError(null);
-  //   }
-  // }, [shippingInfo, paymentInfo, cartItems, error]);
+  useEffect(() => {
+    if (
+      (!shippingInfo || !paymentInfo || cartItems.length === 0) &&
+      error === null
+    ) {
+      setError("Order data missing. Please restart checkout.");
+    } else if (
+      shippingInfo &&
+      paymentInfo &&
+      cartItems.length > 0 &&
+      error !== null
+    ) {
+      setError(null);
+    }
+  }, [shippingInfo, paymentInfo, cartItems, error]);
 
   const handleBuy = async () => {
     setLoading(true);
@@ -145,7 +145,7 @@ export default function Summary() {
             </div>
           </div>
         ) : (
-          <p className="text-gray-600">No items in cart</p>
+          <p className="font-black text-gray-700">No items in cart</p>
         )}
       </div>
 
