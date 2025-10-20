@@ -38,10 +38,10 @@ export default async function FeaturedProducts() {
     return (
       <div
         key={product._id + "_bestseller"}
-        className="h-full w-full p-4 grid place-items-center relative group"
+        className="group relative grid h-full w-full place-items-center p-4"
       >
         <Link
-          className="h-full w-full p-4  max-w-[300px] grid grid-rows-[auto_2fr_auto] border border-black group-hover:border-[1px] group-hover:border-orange-500"
+          className="grid h-full w-full max-w-[300px] grid-rows-[auto_2fr_auto] border border-black p-4 group-hover:border-[1px] group-hover:border-orange-500"
           href={`/product/${product._id}`}
         >
           <BrandTitle brand={product.brand} />
@@ -51,19 +51,19 @@ export default async function FeaturedProducts() {
               height={300}
               width={300}
               alt={product.brand}
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
             />
           </div>
           <ProductName name={product.name} />
-          <Price price={product.price} priceColor="#50C878" />
+          <Price price={product.displayPrice} priceColor="#50C878" />
         </Link>
       </div>
     );
   });
   return (
-    <div className="w-full  grid grid-rows-[1fr_4fr]">
+    <div className="grid w-full grid-rows-[1fr_4fr]">
       <SegmentTitle title="Wireless Earbuds" />
-      <div className="h-full min-h-[400px] w-full ">
+      <div className="h-full min-h-[400px] w-full">
         {prebuilt && (
           <CarouselMultiSlide prebuiltSlides={prebuilt} keys={keys} />
         )}

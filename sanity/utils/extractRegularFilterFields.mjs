@@ -20,7 +20,7 @@ async function extractRegularFilters() {
     // This assumes filters are stored in a "filters" array - adjust as needed based on your schema
     allProducts.forEach((product) => {
       // Price is a common regular filter
-      if (product.price !== undefined) {
+      if (product.displayPrice !== undefined) {
         regularFilterTitles.add("price");
       }
 
@@ -58,7 +58,7 @@ async function extractRegularFilters() {
     console.log("\nExample usage:");
     console.log(`Is "price" a regular filter? ${!!regularFiltersMap["price"]}`);
     console.log(
-      `Is "Unknown" a regular filter? ${!!regularFiltersMap["Unknown"]}`,
+      `Is "Unknown" a regular filter? ${!!regularFiltersMap["Unknown"]}`
     );
 
     // Return the map for export/use in other modules

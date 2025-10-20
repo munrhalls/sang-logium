@@ -7,7 +7,7 @@ import { useCheckoutStore } from "@/store/checkout";
 export function CheckoutButton() {
   const basketItems = useBasketStore((s) => s.basket);
   const items = basketItems.map((item) => ({
-    priceId: item.priceId,
+    priceId: item.stripePriceId,
     quantity: item.quantity,
   }));
 

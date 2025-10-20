@@ -38,11 +38,11 @@ export default async function ExtremeQuality() {
     return (
       <div
         key={eqproduct._id + "_eqproduct"}
-        className=" p-4 grid md:grid-cols-[5fr_2fr] relative border border-black"
+        className="relative grid border border-black p-4 md:grid-cols-[5fr_2fr]"
       >
-        <div className=" w-full grid place-items-center grid-rows-[4rem_2fr] ">
+        <div className="grid w-full grid-rows-[4rem_2fr] place-items-center">
           <BrandTitle brand={eqproduct.brand} />
-          <div className=" max-w-[600px] max-h-[600px]">
+          <div className="max-h-[600px] max-w-[600px]">
             <Image
               loading="lazy"
               src={imageUrl(eqproduct.image).url()}
@@ -50,25 +50,25 @@ export default async function ExtremeQuality() {
               height={400}
               width={400}
               alt={"eqproduct.brand"}
-              className="w-full h-full object-cover rounded-sm"
+              className="h-full w-full rounded-sm object-cover"
             />
           </div>
           <div className="my-2 grid place-content-center">
-            <span className="ml-1 font-black sm:font-black text-xs sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
-              ${eqproduct.price.toFixed(2)}
+            <span className="ml-1 text-xs font-black sm:text-lg sm:font-black md:text-xl lg:text-2xl xl:text-3xl">
+              ${eqproduct.displayPrice.toFixed(2)}
             </span>
           </div>
         </div>
-        <div className="h-full w-full grid place-content-center gap-3">
-          <h1 className="font-bold text-xl">{eqproduct.name}</h1>
+        <div className="grid h-full w-full place-content-center gap-3">
+          <h1 className="text-xl font-bold">{eqproduct.name}</h1>
           <PortableText value={eqproduct.description} />
           <Link
             href={`/product/${eqproduct._id}`}
-            className="grid place-content-center mt-3"
+            className="mt-3 grid place-content-center"
           >
             <button
               type="button"
-              className="bg-black  text-white px-4 py-2 rounded-sm transition-all duration-300 ease-out hover:text-black hover:bg-white hover:border-black hover:shadow-black/50"
+              className="rounded-sm bg-black px-4 py-2 text-white transition-all duration-300 ease-out hover:border-black hover:bg-white hover:text-black hover:shadow-black/50"
             >
               SHOP NOW
             </button>
@@ -78,7 +78,7 @@ export default async function ExtremeQuality() {
     );
   });
   return (
-    <div className="w-full grid grid-rows-[8rem_5fr]">
+    <div className="grid w-full grid-rows-[8rem_5fr]">
       <SegmentTitle title="Extreme Quality Series" />
       <div className="h-full min-h-[800px] w-full">
         <Carousel prebuiltSlides={prebuiltCommercials} keys={keys} />

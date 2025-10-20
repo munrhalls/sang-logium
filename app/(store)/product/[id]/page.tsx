@@ -17,7 +17,7 @@ export default async function ProductPage({
     !product ||
     !product.name ||
     product.stock === undefined ||
-    !product.price
+    !product.displayPrice
   ) {
     return notFound();
   }
@@ -26,7 +26,7 @@ export default async function ProductPage({
     _id: product._id,
     name: product.name,
     stock: product.stock,
-    price: product.price,
+    price: product.displayPrice,
     quantity: 1,
   };
   return (
@@ -36,7 +36,7 @@ export default async function ProductPage({
         <div>
           <h1 className="mb-4 text-3xl font-bold">{product.name}</h1>
           <div className="mb-4 text-3xl font-semibold">
-            ${product.price.toFixed(2)}
+            ${product.displayPrice.toFixed(2)}
           </div>
         </div>
         <div className="mb-6">

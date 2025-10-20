@@ -169,12 +169,12 @@ async function generateCategoryFilters() {
     `);
 
     console.log(
-      `Found ${existingDocs.length} existing categoryFilters documents`,
+      `Found ${existingDocs.length} existing categoryFilters documents`
     );
     if (existingDocs.length > 0) {
       console.log(
         "Existing documents:",
-        existingDocs.map((d) => d.title).join(", "),
+        existingDocs.map((d) => d.title).join(", ")
       );
     }
 
@@ -316,7 +316,7 @@ async function analyzeCategoryStructure(totalCount) {
               if (!categoryStructure[topLevel].specifications.has(title)) {
                 categoryStructure[topLevel].specifications.set(
                   title,
-                  new Set(),
+                  new Set()
                 );
               }
 
@@ -326,17 +326,17 @@ async function analyzeCategoryStructure(totalCount) {
 
           // Update price range
           if (
-            typeof product.price === "number" &&
-            !isNaN(product.price) &&
-            product.price > 0
+            typeof product.displayPrice === "number" &&
+            !isNaN(product.displayPrice) &&
+            product.displayPrice > 0
           ) {
             categoryStructure[topLevel].priceRange.min = Math.min(
               categoryStructure[topLevel].priceRange.min,
-              product.price,
+              product.displayPrice
             );
             categoryStructure[topLevel].priceRange.max = Math.max(
               categoryStructure[topLevel].priceRange.max,
-              product.price,
+              product.displayPrice
             );
           }
         });
@@ -345,8 +345,8 @@ async function analyzeCategoryStructure(totalCount) {
       // Progress update
       console.log(
         `Processed ${processedCount}/${totalCount} products (${Math.round(
-          (processedCount / totalCount) * 100,
-        )}%)`,
+          (processedCount / totalCount) * 100
+        )}%)`
       );
     } catch (error) {
       console.error(`Error processing batch ${i}-${i + batchSize}:`, error);
@@ -417,7 +417,7 @@ async function analyzeCategoryStructure(totalCount) {
     // Round price ranges to nice values
     result[category].priceRange.min = Math.max(
       0,
-      Math.floor(result[category].priceRange.min / 10) * 10,
+      Math.floor(result[category].priceRange.min / 10) * 10
     );
     result[category].priceRange.max =
       Math.ceil(result[category].priceRange.max / 50) * 50;
@@ -439,7 +439,7 @@ function buildFilterDocuments(categoryData) {
   for (const [category, data] of Object.entries(categoryData)) {
     try {
       console.log(
-        `Building document for "${data.exactName}" (${data.productCount} products)`,
+        `Building document for "${data.exactName}" (${data.productCount} products)`
       );
 
       // Create a sanitized document ID
@@ -488,7 +488,7 @@ function buildFilterDocuments(categoryData) {
               // Create reasonable step size (aim for about 20 steps)
               filter.step = Math.max(
                 1,
-                Math.round((filter.max - filter.min) / 20),
+                Math.round((filter.max - filter.min) / 20)
               );
             }
             break;
@@ -505,21 +505,21 @@ function buildFilterDocuments(categoryData) {
                 // Skip if no valid options remain
                 if (!filter.options.length) {
                   console.warn(
-                    `Skipping filter "${filter.name}" for ${category} - no valid options`,
+                    `Skipping filter "${filter.name}" for ${category} - no valid options`
                   );
                   continue;
                 }
               } else {
                 // Skip brand filter if no brands found
                 console.warn(
-                  `No brands found for ${category}, skipping Brand filter`,
+                  `No brands found for ${category}, skipping Brand filter`
                 );
                 continue;
               }
             } else if (filter.name === "Design" && category === "headphones") {
               // Use subcategory names for headphone design types
               const designTypes = data.pathComponents.filter((comp) =>
-                ["over-ear", "on-ear", "in-ear", "earbuds"].includes(comp),
+                ["over-ear", "on-ear", "in-ear", "earbuds"].includes(comp)
               );
 
               if (designTypes.length > 0) {
@@ -540,7 +540,7 @@ function buildFilterDocuments(categoryData) {
                   "bluetooth",
                   "smart",
                   "soundbar",
-                ].includes(comp),
+                ].includes(comp)
               );
 
               if (speakerTypes.length > 0) {
@@ -564,12 +564,12 @@ function buildFilterDocuments(categoryData) {
             } else if (filterDef.options && filterDef.options.length > 0) {
               // Use options defined in config
               filter.options = filterDef.options.filter(
-                (opt) => opt && opt.trim() !== "",
+                (opt) => opt && opt.trim() !== ""
               );
 
               if (!filter.options.length) {
                 console.warn(
-                  `Skipping filter "${filter.name}" for ${category} - no valid options`,
+                  `Skipping filter "${filter.name}" for ${category} - no valid options`
                 );
                 continue;
               }
@@ -585,13 +585,13 @@ function buildFilterDocuments(categoryData) {
             if (filterDef.options && filterDef.options.length > 0) {
               // Use options defined in config
               filter.options = filterDef.options.filter(
-                (opt) => opt && opt.trim() !== "",
+                (opt) => opt && opt.trim() !== ""
               );
 
               // Skip if no valid options remain
               if (!filter.options.length) {
                 console.warn(
-                  `Skipping filter "${filter.name}" for ${category} - no valid options`,
+                  `Skipping filter "${filter.name}" for ${category} - no valid options`
                 );
                 continue;
               }
@@ -608,7 +608,7 @@ function buildFilterDocuments(categoryData) {
             } else {
               // Skip if no options defined
               console.warn(
-                `Skipping radio filter "${filter.name}" - no options defined`,
+                `Skipping radio filter "${filter.name}" - no options defined`
               );
               continue;
             }
@@ -625,7 +625,7 @@ function buildFilterDocuments(categoryData) {
           document.filters.filterItems.push(filter);
         } else {
           console.warn(
-            `Skipping invalid filter "${filter.name}" for ${category}`,
+            `Skipping invalid filter "${filter.name}" for ${category}`
           );
         }
       }
@@ -648,7 +648,7 @@ function buildFilterDocuments(categoryData) {
         // Skip if we've reached the max number of spec filters
         if (specFilterCount >= CONFIG.maxSpecFilters) {
           console.log(
-            `Reached maximum spec filters (${CONFIG.maxSpecFilters}) for ${category}`,
+            `Reached maximum spec filters (${CONFIG.maxSpecFilters}) for ${category}`
           );
           break;
         }
@@ -656,7 +656,7 @@ function buildFilterDocuments(categoryData) {
         // Skip specs that would create duplicate filters (case-insensitive comparison)
         if (existingFilterNames.has(specTitle.toLowerCase())) {
           console.log(
-            `Skipping duplicate filter "${specTitle}" for ${category}`,
+            `Skipping duplicate filter "${specTitle}" for ${category}`
           );
           continue;
         }
@@ -784,7 +784,7 @@ async function saveFilterDocuments(documents, existingDocs) {
 
     if (CONFIG.debug) {
       console.log(
-        ` - Filters: ${doc.filters.filterItems.map((f) => f.name).join(", ")}`,
+        ` - Filters: ${doc.filters.filterItems.map((f) => f.name).join(", ")}`
       );
       console.log(` - Sample mappings (first 3):`);
       doc.categoryMappings.slice(0, 3).forEach((mapping) => {
@@ -814,7 +814,7 @@ async function saveFilterDocuments(documents, existingDocs) {
     try {
       // Check if document already exists
       const existingDoc = existingDocs.find(
-        (existing) => existing._id === doc._id,
+        (existing) => existing._id === doc._id
       );
 
       if (existingDoc) {
@@ -836,7 +836,7 @@ async function saveFilterDocuments(documents, existingDocs) {
   }
 
   console.log(
-    `\nDone! Created: ${results.created}, Updated: ${results.updated}, Errors: ${results.errors}`,
+    `\nDone! Created: ${results.created}, Updated: ${results.updated}, Errors: ${results.errors}`
   );
 }
 

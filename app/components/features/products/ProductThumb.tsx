@@ -12,16 +12,16 @@ const ProductThumb = ({ product }: ProductThumbProps) => {
     !product.name ||
     !product.image ||
     product.stock === undefined ||
-    !product.price
+    !product.displayPrice
   )
     return null;
   const isOutOfStock = product.stock != null && product.stock <= 0;
-  const originalPrice = product.price ?? 0;
+  const originalPrice = product.displayPrice ?? 0;
   const basketProduct: BasketItem = {
     _id: product._id,
     name: product.name,
     stock: product.stock,
-    price: product.price,
+    price: product.displayPrice,
     quantity: 1,
   };
   return (

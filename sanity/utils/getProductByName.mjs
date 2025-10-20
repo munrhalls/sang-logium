@@ -25,7 +25,7 @@ async function getProductByName(productName) {
         image,
         gallery
       }`,
-      { productName },
+      { productName }
     );
 
     if (exactProduct) {
@@ -50,7 +50,7 @@ async function getProductByName(productName) {
         specifications,
         image,
         gallery
-      }`,
+      }`
     );
 
     if (partialProduct) {
@@ -82,7 +82,7 @@ async function main() {
     console.log("\n=== PRODUCT FOUND ===");
     console.log(`Name: ${product.name}`);
     console.log(`Brand: ${product.brand}`);
-    console.log(`Price: $${product.price}`);
+    console.log(`Price: $${product.displayPrice}`);
     console.log(`SKU: ${product.sku}`);
     console.log(`Stock: ${product.stock}`);
 

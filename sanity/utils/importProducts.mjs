@@ -77,7 +77,7 @@ async function importProducts() {
       const description = processBlocks(paragraphs);
 
       // Parse price to number
-      const price = parseFloat(product.price) || 0;
+      const price = parseFloat(product.displayPrice) || 0;
 
       // Set stock and categories
       const stock = 0; // Default stock value

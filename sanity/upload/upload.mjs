@@ -39,7 +39,7 @@ const uploadImage = async (url) => {
   } catch (error) {
     console.error(
       `Error uploading image with url: ${url}. Error message:`,
-      error.message,
+      error.message
     );
     throw error;
   }
@@ -66,7 +66,7 @@ const transformProduct = async (product) => {
         const id = await uploadImage(img.asset._ref);
         console.log("Gallery image uploaded:", id);
         return id;
-      }),
+      })
     );
 
     return {
@@ -78,7 +78,7 @@ const transformProduct = async (product) => {
       },
       brand: product.brand,
       description: product.description,
-      price: product.price,
+      price: product.displayPrice,
       sku: product.sku,
       stock: product.stock,
       image: {
@@ -139,7 +139,7 @@ const upload = async () => {
       } catch (error) {
         console.error(
           `Error processing product ${product.name}:`,
-          error.message,
+          error.message
         );
       }
     }
