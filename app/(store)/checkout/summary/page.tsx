@@ -73,8 +73,16 @@ export default function Summary() {
     };
   }, []);
 
-  const handleBuy = async () => {
-    // should use imported GROQ to issue GROQ query to Sanity backend
+  const handlePurchase = async () => {
+    // should handle entire payment process here
+    // should integrate with payment gateway SDK
+    // createPaymentIntent
+    // confirmPayment
+    // handle errors accordingly
+    // update UI based on payment status
+    // on success, create order in Sanity
+    // clear cart and show success message
+    // redirect to thank you page
 
     setLoading(true);
     setPurchaseError(null);
@@ -135,7 +143,7 @@ export default function Summary() {
       {success && <Success />}
 
       <BuyButton
-        handleBuy={handleBuy}
+        handlePurchase={handlePurchase}
         loading={loading}
         isInvalid={isInvalid}
       />

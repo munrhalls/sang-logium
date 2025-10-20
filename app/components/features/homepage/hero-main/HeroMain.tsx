@@ -3,9 +3,9 @@ import TextCommercialWrapper from "./TextCommercialWrapper";
 
 export default async function HeroMain() {
   return (
-    <div className="relative h-full grid grid-rows-[1fr_3rem]">
-      <div className="relative h-full w-full z-30 overflow-hidden">
-        <div className=" h-full relative flex-[0_0_100%]">
+    <div className="relative grid h-full grid-rows-[1fr_3rem]">
+      <div className="relative z-30 h-full w-full overflow-hidden">
+        <div className="relative h-full flex-[0_0_100%]">
           <Image
             src={"/HeroMain.webp"}
             priority
@@ -21,8 +21,8 @@ export default async function HeroMain() {
         </div>
       </div>
 
-      <div className="z-30 h-full w-full bg-black ">
-        <p className="h-full text-xs sm:text-sm lg:text-lg text-white font-black tracking-wide lg:tracking-wider flex items-center justify-center">
+      <div className="z-30 h-full w-full bg-black">
+        <p className="flex h-full items-center justify-center text-xs font-black tracking-wide text-white sm:text-sm lg:text-lg lg:tracking-wider">
           Offer available only until November 30th!
         </p>
       </div>
