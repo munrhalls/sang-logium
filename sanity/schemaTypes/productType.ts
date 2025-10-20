@@ -43,7 +43,7 @@ export const productType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "displayPrice", // Renamed for clarity
+      name: "displayPrice",
       title: "Display Price (e.g., 19.99)",
       type: "number",
       description: "The human-readable price, must match the price on Stripe.",
@@ -142,7 +142,7 @@ export const productType = defineType({
     select: {
       title: "name",
       media: "image",
-      price: "price",
+      price: "displayPrice",
     },
     prepare(select) {
       return {
