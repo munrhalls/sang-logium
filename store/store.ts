@@ -105,12 +105,23 @@ export const useBasketStore = create<BasketState>()(
         const basket = get().basket;
         set({ basket: basket.filter((i) => i._id !== _id) });
       },
+      // Location: inside useBasketStore's persist function, replacing the existing updateQuantity
       updateQuantity: (_id, quantity) => {
         const basket = get().basket;
+
         set({
-          basket: basket.map((i) =>
-            i._id === _id ? { ...i, quantity: quantity < 1 ? 1 : quantity } : i
-          ),
+          basket: basket.map((i) => {
+            if (i._id === _id) {
+              // 1. Clamp to a minimum of 1
+              let safeQuantity = Math.max(1, quantity);
+
+              // 2. Clamp to the maximum available stock (i.stock)
+              safeQuantity = Math.min(safeQuantity, i.stock);
+
+              return { ...i, quantity: safeQuantity };
+            }
+            return i;
+          }),
         });
       },
       getTotal: () => {
@@ -123,8 +134,11 @@ export const useBasketStore = create<BasketState>()(
       },
       isCheckoutEnabled: () => {
         const basket = get().basket;
-        const enabled = basket.length > 0;
-        return enabled;
+
+        const hasValidItems = basket.every(
+          (i) => i.quantity > 0 && i.stock > 0
+        );
+        return basket.length > 0 && hasValidItems;
       },
     }),
     {
