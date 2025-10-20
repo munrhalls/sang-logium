@@ -28,7 +28,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "seedCategories.mjs",
-    "sanity.types.ts"
+    "sanity.types.ts",
+    "app/(store)/checkout/return/page.jsx",
+    "app/components/features/checkout/checkout.jsx"
   ],
   "exclude": ["node_modules"]
 }

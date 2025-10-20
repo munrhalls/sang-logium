@@ -83,42 +83,6 @@ export default function Summary() {
     // on success, create order in Sanity
     // clear cart and show success message
     // redirect to thank you page
-
-    setLoading(true);
-    setPurchaseError(null);
-
-    try {
-      if (!shippingInfo || !paymentInfo || cartItems.length === 0) {
-        throw new Error("Order data missing. Please restart checkout.");
-      }
-
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (Math.random() < 0.1) {
-            reject(new Error("Purchase failed. Please try again."));
-          } else {
-            resolve(true);
-          }
-        }, 1000);
-      });
-
-      if (!isMountedRef.current) return;
-
-      clearCart();
-      setSuccess(true);
-    } catch (err) {
-      if (!isMountedRef.current) return;
-
-      setPurchaseError(
-        err instanceof Error
-          ? err.message
-          : "Purchase failed. Please try again."
-      );
-    } finally {
-      if (isMountedRef.current) {
-        setLoading(false);
-      }
-    }
   };
 
   const isInvalid =
