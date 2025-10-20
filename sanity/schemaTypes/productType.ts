@@ -35,9 +35,18 @@ export const productType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "price",
-      title: "Price",
+      name: "stripePriceId",
+      title: "Stripe Price ID",
+      type: "string",
+      description:
+        "The unique ID for the Price object in Stripe (e.g., price_...).",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "displayPrice", // Renamed for clarity
+      title: "Display Price (e.g., 19.99)",
       type: "number",
+      description: "The human-readable price, must match the price on Stripe.",
       validation: (Rule) => Rule.required().min(0),
     }),
     defineField({
