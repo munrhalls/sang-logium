@@ -7,7 +7,7 @@ import ShippingInfo from "./ShippingInfo";
 import PaymentInfo from "./PaymentInfo";
 import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
 import OrderDetails from "./OrderDetails";
-import BuyButton from "./BuyButton";
+import CheckoutButton from "./CheckoutButton";
 
 const ErrorMessage = ({ error }: { error: string }) => (
   <div
@@ -73,18 +73,6 @@ export default function Summary() {
     };
   }, []);
 
-  const handlePurchase = async () => {
-    // should handle entire payment process here
-    // should integrate with payment gateway SDK
-    // createPaymentIntent
-    // confirmPayment
-    // handle errors accordingly
-    // update UI based on payment status
-    // on success, create order in Sanity
-    // clear cart and show success message
-    // redirect to thank you page
-  };
-
   const isInvalid =
     !shippingInfo ||
     !paymentInfo ||
@@ -106,11 +94,7 @@ export default function Summary() {
 
       {success && <Success />}
 
-      <BuyButton
-        handlePurchase={handlePurchase}
-        loading={loading}
-        isInvalid={isInvalid}
-      />
+      <CheckoutButton loading={loading} isInvalid={isInvalid} />
     </div>
   );
 }
