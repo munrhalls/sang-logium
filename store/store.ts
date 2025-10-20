@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
 export interface BasketItem {
   _id: string;
   name: string;
@@ -9,7 +8,6 @@ export interface BasketItem {
   stock: number;
   quantity: number;
 }
-
 interface UIState {
   isSearchDrawerOpen: boolean;
   toggleSearchDrawer: () => void;
@@ -20,7 +18,6 @@ interface UIState {
   isProductsSortDrawerOpen: boolean;
   toggleProductsSortDrawer: () => void;
 }
-
 interface BasketState {
   basket: BasketItem[];
   _hasHydrated: boolean;
@@ -30,7 +27,6 @@ interface BasketState {
   getTotal: () => number;
   isCheckoutEnabled: () => boolean;
 }
-
 export const useUIStore = create<UIState>((set) => ({
   isSearchDrawerOpen: false,
   toggleSearchDrawer: () =>
@@ -57,7 +53,6 @@ export const useUIStore = create<UIState>((set) => ({
       isProductsFilterDrawerOpen: false,
     })),
 }));
-
 export const useBasketStore = create<BasketState>()(
   persist(
     (set, get) => ({
@@ -70,17 +65,13 @@ export const useBasketStore = create<BasketState>()(
           !item._id ||
           !item.name ||
           typeof item.displayPrice !== "number" ||
-          typeof item.stock !== "number" // Ensure stock exists
+          typeof item.stock !== "number"
         ) {
           return;
         }
-
         const basket = get().basket;
         const existing = basket.find((i) => i._id === item._id);
-
         if (existing) {
-          // --- STOCK VALIDATION for increment ---
-          // Only increment if current quantity is less than stock
           if (existing.quantity < existing.stock) {
             set({
               basket: basket.map((i) =>
@@ -89,11 +80,7 @@ export const useBasketStore = create<BasketState>()(
             });
           }
         } else {
-          // --- STOCK VALIDATION for new item ---
-          // Only add if there is stock available (item.stock > 0)
-          // Initial quantity is clamped to 1 or the available stock if less
           const initialQuantity = Math.min(1, item.stock);
-
           if (initialQuantity > 0) {
             set({
               basket: [...basket, { ...item, quantity: initialQuantity }],
@@ -105,19 +92,13 @@ export const useBasketStore = create<BasketState>()(
         const basket = get().basket;
         set({ basket: basket.filter((i) => i._id !== _id) });
       },
-      // Location: inside useBasketStore's persist function, replacing the existing updateQuantity
       updateQuantity: (_id, quantity) => {
         const basket = get().basket;
-
         set({
           basket: basket.map((i) => {
             if (i._id === _id) {
-              // 1. Clamp to a minimum of 1
               let safeQuantity = Math.max(1, quantity);
-
-              // 2. Clamp to the maximum available stock (i.stock)
               safeQuantity = Math.min(safeQuantity, i.stock);
-
               return { ...i, quantity: safeQuantity };
             }
             return i;
@@ -134,7 +115,6 @@ export const useBasketStore = create<BasketState>()(
       },
       isCheckoutEnabled: () => {
         const basket = get().basket;
-
         const hasValidItems = basket.every(
           (i) => i.quantity > 0 && i.stock > 0
         );
@@ -147,7 +127,6 @@ export const useBasketStore = create<BasketState>()(
       onRehydrateStorage: () => {
         return () => {
           console.log("✅ Rehydration complete!");
-          // state?._hasHydrated = true;
         };
       },
     }
