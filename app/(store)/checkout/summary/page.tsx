@@ -94,7 +94,7 @@ export default function Summary() {
 
       {success && <Success />}
 
-      <CheckoutButton loading={loading} isInvalid={isInvalid} />
+      <CheckoutButton isInvalid={isInvalid} />
     </div>
   );
 }
