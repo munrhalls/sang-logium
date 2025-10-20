@@ -10,7 +10,7 @@ export default function CheckoutButton() {
     priceId: item.stripePriceId,
     quantity: item.quantity,
   }));
-  // stuff;
+
   return (
     <form action={() => createCartCheckoutSession(items)}>
       <button

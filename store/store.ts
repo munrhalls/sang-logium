@@ -69,21 +69,36 @@ export const useBasketStore = create<BasketState>()(
           typeof item !== "object" ||
           !item._id ||
           !item.name ||
-          typeof item.displayPrice !== "number"
+          typeof item.displayPrice !== "number" ||
+          typeof item.stock !== "number" // Ensure stock exists
         ) {
           return;
         }
 
         const basket = get().basket;
         const existing = basket.find((i) => i._id === item._id);
+
         if (existing) {
-          set({
-            basket: basket.map((i) =>
-              i._id === item._id ? { ...i, quantity: i.quantity + 1 } : i
-            ),
-          });
+          // --- STOCK VALIDATION for increment ---
+          // Only increment if current quantity is less than stock
+          if (existing.quantity < existing.stock) {
+            set({
+              basket: basket.map((i) =>
+                i._id === item._id ? { ...i, quantity: i.quantity + 1 } : i
+              ),
+            });
+          }
         } else {
-          set({ basket: [...basket, { ...item, quantity: 1 }] });
+          // --- STOCK VALIDATION for new item ---
+          // Only add if there is stock available (item.stock > 0)
+          // Initial quantity is clamped to 1 or the available stock if less
+          const initialQuantity = Math.min(1, item.stock);
+
+          if (initialQuantity > 0) {
+            set({
+              basket: [...basket, { ...item, quantity: initialQuantity }],
+            });
+          }
         }
       },
       removeItem: (_id) => {
