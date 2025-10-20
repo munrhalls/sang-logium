@@ -4,7 +4,8 @@ import { persist } from "zustand/middleware";
 export interface BasketItem {
   _id: string;
   name: string;
-  price: number;
+  stripePriceId: string;
+  displayPrice: number;
   stock: number;
   quantity: number;
 }
@@ -68,7 +69,7 @@ export const useBasketStore = create<BasketState>()(
           typeof item !== "object" ||
           !item._id ||
           !item.name ||
-          typeof item.price !== "number"
+          typeof item.displayPrice !== "number"
         ) {
           return;
         }
@@ -99,7 +100,10 @@ export const useBasketStore = create<BasketState>()(
       },
       getTotal: () => {
         const basket = get().basket;
-        const total = basket.reduce((sum, i) => sum + i.price * i.quantity, 0);
+        const total = basket.reduce(
+          (sum, i) => sum + i.displayPrice * i.quantity,
+          0
+        );
         return total;
       },
       isCheckoutEnabled: () => {

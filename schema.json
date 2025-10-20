@@ -2021,7 +2021,14 @@
         },
         "optional": true
       },
-      "price": {
+      "stripePriceId": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "displayPrice": {
         "type": "objectAttribute",
         "value": {
           "type": "number"

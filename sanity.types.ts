@@ -331,7 +331,8 @@ export type Product = {
   >;
   slug?: Slug;
   brand?: string;
-  price?: number;
+  stripePriceId?: string;
+  displayPrice?: number;
   stock?: number;
   sku?: string;
   image?: {
@@ -769,7 +770,7 @@ export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<{
           _key: string;
         }
     > | null;
-    price: number | null;
+    price: null;
     image: string | null;
   }> | null;
   sale: {
@@ -856,7 +857,7 @@ export type GET_COMMERCIALS_HERO_SECONDARYResult = Array<{
           _key: string;
         }
     > | null;
-    price: number | null;
+    price: null;
     image: string | null;
   }> | null;
   sale: {
@@ -976,7 +977,8 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   >;
   slug?: Slug;
   brand?: string;
-  price?: number;
+  stripePriceId?: string;
+  displayPrice?: number;
   stock?: number;
   sku?: string;
   image?: {
@@ -1076,7 +1078,8 @@ export type PRODUCT_BY_ID_QUERYResult = {
   >;
   slug?: Slug;
   brand?: string;
-  price?: number;
+  stripePriceId?: string;
+  displayPrice?: number;
   stock?: number;
   sku?: string;
   image?: {
@@ -1176,7 +1179,8 @@ export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
   >;
   slug?: Slug;
   brand?: string;
-  price?: number;
+  stripePriceId?: string;
+  displayPrice?: number;
   stock?: number;
   sku?: string;
   image?: {
