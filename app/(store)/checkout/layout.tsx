@@ -1,6 +1,5 @@
 "use client";
 import CheckoutProgress from "./CheckoutProgress";
-
 export default function CheckoutLayout({
   children,
 }: Readonly<{

@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { useCheckoutStore } from "@/store/checkout";
 const { shippingInfo } = useCheckoutStore.getState();
-
 export default function ShippingInfo() {
   return (
     <div className="rounded-lg border border-black p-3">

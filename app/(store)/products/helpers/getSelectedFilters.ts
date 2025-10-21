@@ -106,7 +106,6 @@ export default function getSelectedFilters(searchParamsInput: {
       continue;
     }
   }
-
   return [regularFilters, overviewFilters, specificationsFilters, rangeFilters];
 }
 function parseFilterValue(value: string | string[]): FilterValue {

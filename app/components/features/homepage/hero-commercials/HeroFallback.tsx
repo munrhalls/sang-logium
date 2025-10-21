@@ -1,5 +1,4 @@
 import Image from "next/image";
-
 export default function HeroFallback() {
   return (
     <div className="isolate relative h-full grid grid-rows-[1fr_3rem]">

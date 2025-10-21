@@ -6,7 +6,6 @@ import { Truck } from "lucide-react";
 import Image from "next/image";
 import logo from "@/public/logo.svg";
 import SearchForm from "../../features/homepage/search/SearchForm";
-
 const Authentication = dynamic(
   () => import("@/app/components/features/auth/Authentication"),
   {
@@ -19,7 +18,6 @@ const Authentication = dynamic(
     ssr: false,
   }
 );
-
 export default function Header() {
   return (
     <header className="grid h-[4rem] grid-flow-col place-content-center bg-black lg:grid-cols-[3fr_4fr_4fr]">
@@ -31,14 +29,12 @@ export default function Header() {
       </div>
       <div className="hidden grid-flow-col place-content-center gap-8 lg:grid">
         <Authentication />
-
         <Link href="/basket" className="text-white" prefetch={false}>
           <div className="grid place-content-center">
             <ShoppingCartIcon height={24} width={24} />
           </div>
           <span>Basket</span>
         </Link>
-
         <Link href="/tracking" className="text-white" prefetch={false}>
           <div className="grid place-content-center">
             <Truck className="h-6 w-6" />

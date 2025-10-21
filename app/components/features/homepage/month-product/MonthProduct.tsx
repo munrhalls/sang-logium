@@ -50,7 +50,6 @@ const Title = function ({ name }: { name: string }) {
           loading="lazy"
           style={{ width: "auto" }}
         />
-
         <h1 className="text-2xl sm:text-3xl">Product of the month</h1>
       </div>
       <p className="mt-1 lg:max-w-[400px]">{name}</p>

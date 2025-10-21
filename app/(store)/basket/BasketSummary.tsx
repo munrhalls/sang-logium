@@ -3,14 +3,12 @@ import React from "react";
 import { useBasketStore } from "@/store/store";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-
 export default function BasketSummary() {
   const basket = useBasketStore((s) => s.basket);
   const getTotal = useBasketStore((s) => s.getTotal);
   const shipping = 15.99;
   const subtotal = getTotal();
   const total = subtotal + shipping;
-
   return (
     <>
       <h2 className="mb-6 border-b border-gray-200 pb-4 text-lg font-bold">

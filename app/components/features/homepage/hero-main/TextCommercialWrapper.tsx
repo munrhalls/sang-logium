@@ -2,7 +2,6 @@ import React from "react";
 import { Suspense } from "react";
 import { getCommercialHeroMain } from "@/sanity/lib/commercials/getCommercialHeroMain";
 import TextCommercial from "@/app/components/ui/commercials/textCommercial";
-
 const Loader = function () {
   return (
     <div className="h-full flex items-center justify-center gap-2 text-sm text-gray-500">
@@ -10,11 +9,9 @@ const Loader = function () {
     </div>
   );
 };
-
 export default async function TextCommercialWrapper() {
   const commercial = await getCommercialHeroMain();
   const { text, image, sale, ctaLink = null } = commercial;
-
   return (
     <Suspense fallback={<Loader />}>
       <TextCommercial text={text} ctaLink={ctaLink} />

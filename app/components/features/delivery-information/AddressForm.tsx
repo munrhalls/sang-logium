@@ -24,7 +24,7 @@ export default function AddressForm() {
         },
       };
       const response = await fetch(
-        "https://addressvalidation.googleapis.com/v1:validateAddress?key=YOUR_API_KEY",
+        "https:
         {
           method: "POST",
           headers: {

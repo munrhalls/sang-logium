@@ -4,9 +4,6 @@ import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
 import { useUIStore } from "@/store/store";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-// import savePreDrawerUrl from "@/lib/savePreDrawerUrl";
-// import { usePathname, useSearchParams, useRouter } from "next/navigation";
-
 const Authentication = dynamic(
   () => import("@/app/components/features/auth/Authentication"),
   {
@@ -19,7 +16,6 @@ const Authentication = dynamic(
     ssr: false,
   }
 );
-
 const MobileMenu = () => {
   const isCategoriesOpen = useUIStore((state) => state.isCategoriesDrawerOpen);
   const toggleCategoriesDrawer = useUIStore(
@@ -27,7 +23,6 @@ const MobileMenu = () => {
   );
   const isSearchDrawerOpen = useUIStore((state) => state.isSearchDrawerOpen);
   const toggleSearchDrawer = useUIStore((state) => state.toggleSearchDrawer);
-
   return (
     <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">
       <div className="flex items-center justify-around px-4">

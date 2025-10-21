@@ -1,12 +1,10 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useCheckoutStore } from "@/store/checkout";
 import { useState } from "react";
-
 const shippingSchema = z.object({
   name: z
     .string()
@@ -30,16 +28,13 @@ const shippingSchema = z.object({
     .min(1, "Country is required")
     .min(2, "Country must be at least 2 characters"),
 });
-
 type ShippingFormData = z.infer<typeof shippingSchema>;
-
 export default function CheckoutInfo() {
   const router = useRouter();
   const { shippingInfo, setShippingInfo } = useCheckoutStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -56,7 +51,6 @@ export default function CheckoutInfo() {
       country: shippingInfo?.country || "",
     },
   });
-
   const onSubmit = async (data: ShippingFormData) => {
     try {
       setIsSubmitting(true);
@@ -73,7 +67,6 @@ export default function CheckoutInfo() {
       setIsSubmitting(false);
     }
   };
-
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -244,7 +237,6 @@ export default function CheckoutInfo() {
             </div>
           </div>
         </div>
-
         {submitError && (
           <div
             className="my-4 rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-600"
@@ -253,7 +245,6 @@ export default function CheckoutInfo() {
             {submitError}
           </div>
         )}
-
         {submitSuccess && (
           <div
             className="my-4 rounded-lg border border-green-300 bg-green-50 p-3 text-sm text-green-600"
@@ -262,7 +253,6 @@ export default function CheckoutInfo() {
             Shipping information saved successfully! Redirecting...
           </div>
         )}
-
         <button
           type="submit"
           disabled={!isValid || isSubmitting}

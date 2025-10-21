@@ -1,5 +1,4 @@
 import React from "react";
-
 export default function BestsellersSkeleton() {
   return (
     <div className="w-full  grid grid-rows-[1fr_4fr]">

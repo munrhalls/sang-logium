@@ -1,4 +1,3 @@
-// import SegmentTitle from "../../ui/segment-title/SegmentTitle";
 import {
   FaFacebook,
   FaInstagram,
@@ -17,7 +16,7 @@ const ColTitle = function ({ title }: { title: string }) {
 export default function Footer() {
   return (
     <footer className="relative bg-black grid grid-rows-[auto_4rem_1fr]  text-white px-4 pt-8">
-      {/* <SegmentTitle title="Sang Logium" white={true} /> */}
+      {}
       <div className=" w-full max-w-[600px] md:max-w-[1400px] mx-auto grid md:grid-cols-4 gap-6 justify-content-center py-8">
         <div className=" grid content-start gap-4">
           <ColTitle title="PURCHASES" />

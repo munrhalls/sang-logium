@@ -7,6 +7,5 @@ export default function useOrderTotals(
   );
   const tax = subtotal * 0.08;
   const total = subtotal + tax;
-
   return [subtotal, tax, total];
 }

@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useCheckoutStore } from "@/store/checkout";
 import ShippingInfo from "./ShippingInfo";
@@ -11,7 +10,6 @@ import { processPaymentWithSavedMethod } from "@/app/actions/checkout";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useBasketStore } from "@/store/store";
-
 const ErrorMessage = ({ error }: { error: string }) => (
   <div
     className="rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-600"
@@ -21,15 +19,12 @@ const ErrorMessage = ({ error }: { error: string }) => (
     {error}
   </div>
 );
-
 export default function Summary() {
   const { isSignedIn } = useAuth();
   const router = useRouter();
   const cartItems = useInitializeCheckoutCart();
   const basketItems = useBasketStore((s) => s.basket);
-
   const shippingInfo = useCheckoutStore((s) => s.shippingInfo);
-
   const [validationError, setValidationError] = useState<string | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
   const [savePaymentMethod, setSavePaymentMethod] = useState(false);
@@ -49,7 +44,6 @@ export default function Summary() {
   >(null);
   const [processingPayment, setProcessingPayment] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
-
   useEffect(() => {
     if (!shippingInfo || cartItems.length === 0) {
       setValidationError("Order data missing. Please restart checkout.");
@@ -58,22 +52,16 @@ export default function Summary() {
       setValidationError(null);
     }
   }, [shippingInfo, cartItems]);
-
   const isInvalid =
     !shippingInfo || cartItems.length === 0 || validationError !== null;
-
-  // Load saved payment methods when user proceeds to payment
   const handleProceedToPayment = async () => {
     setShowCheckout(true);
-
-    // Only check for saved payment methods if user is logged in
     if (isSignedIn) {
+      console.log("signed in", isSignedIn);
       setLoadingPaymentMethods(true);
       try {
         const methods = await getUserPaymentMethods();
         setSavedPaymentMethods(methods);
-
-        // Auto-select default payment method if exists
         const defaultMethod = methods.find(
           (m: { isDefault?: boolean }) => m.isDefault
         );
@@ -87,32 +75,23 @@ export default function Summary() {
       }
     }
   };
-
-  // Process payment with selected saved payment method
   const handlePayWithSavedCard = async () => {
     if (!selectedPaymentMethodId) {
       setPaymentError("Please select a payment method");
       return;
     }
-
     setProcessingPayment(true);
     setPaymentError(null);
-
     try {
-      // Prepare cart items for payment (use basket items which have stripePriceId)
       const items = basketItems.map((item) => ({
         priceId: item.stripePriceId,
         quantity: item.quantity,
       }));
-
-      // Process payment
       const result = await processPaymentWithSavedMethod(
         items,
         selectedPaymentMethodId
       );
-
       if (result.success) {
-        // Payment successful - redirect to success page
         router.push(`/success?payment_intent=${result.paymentIntentId}`);
       } else {
         throw new Error("Payment processing failed");
@@ -128,26 +107,21 @@ export default function Summary() {
       setProcessingPayment(false);
     }
   };
-
   return (
     <div className="space-y-6">
-      {/* Order Summary */}
+      {}
       <div className="rounded-lg border border-black p-3">
         <OrderDetails cartItems={cartItems} />
       </div>
-
-      {/* Shipping & Payment Info */}
+      {}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <ShippingInfo />
       </div>
-
-      {/* Validation Error */}
+      {}
       {validationError && <ErrorMessage error={validationError} />}
-
-      {/* Payment Error */}
+      {}
       {paymentError && <ErrorMessage error={paymentError} />}
-
-      {/* Proceed to Payment Button */}
+      {}
       {!showCheckout && !isInvalid && (
         <button
           onClick={handleProceedToPayment}
@@ -156,8 +130,7 @@ export default function Summary() {
           Proceed to Payment
         </button>
       )}
-
-      {/* Embedded Stripe Checkout */}
+      {}
       {showCheckout && !isInvalid && (
         <div className="space-y-4">
           <div className="flex items-center justify-between border-b pb-4">
@@ -169,15 +142,13 @@ export default function Summary() {
               ← Back to Summary
             </button>
           </div>
-
-          {/* Saved Payment Methods (if user has any) */}
+          {}
           {isSignedIn && savedPaymentMethods.length > 0 && (
             <div className="space-y-3">
               <h3 className="font-semibold text-gray-900">
                 Select Payment Method
               </h3>
-
-              {/* List of saved payment methods */}
+              {}
               {savedPaymentMethods.map((method) => (
                 <div
                   key={method.stripePaymentMethodId}
@@ -222,8 +193,7 @@ export default function Summary() {
                   </div>
                 </div>
               ))}
-
-              {/* Option to add new card */}
+              {}
               <div
                 onClick={() => setSelectedPaymentMethodId(null)}
                 className={`cursor-pointer rounded-lg border-2 p-4 transition-all ${
@@ -251,20 +221,18 @@ export default function Summary() {
               </div>
             </div>
           )}
-
-          {/* Loading state */}
+          {}
           {loadingPaymentMethods && (
             <div className="py-8 text-center text-gray-600">
               Loading payment methods...
             </div>
           )}
-
-          {/* Show new card form if: no saved methods, or user selected "Add New Card" */}
+          {}
           {!loadingPaymentMethods &&
             (savedPaymentMethods.length === 0 ||
               selectedPaymentMethodId === null) && (
               <>
-                {/* Save Payment Method Checkbox (only for new cards) */}
+                {}
                 {isSignedIn && (
                   <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
                     <label className="flex cursor-pointer items-start gap-3">
@@ -287,12 +255,10 @@ export default function Summary() {
                     </label>
                   </div>
                 )}
-
                 <EmbeddedCheckout savePaymentMethod={savePaymentMethod} />
               </>
             )}
-
-          {/* Show confirmation button for saved payment method */}
+          {}
           {!loadingPaymentMethods &&
             selectedPaymentMethodId !== null &&
             savedPaymentMethods.length > 0 && (

@@ -1,9 +1,7 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
-// import { UserButton } from "@clerk/nextjs";
 import { DotIcon } from "lucide-react";
 import AccountButtonPOC from "./AccountButtonPOC";
-
 export default function AuthenticatedView() {
   const { user, isLoaded } = useUser();
   if (!isLoaded || !user) {
@@ -17,15 +15,7 @@ export default function AuthenticatedView() {
     <div className="flex flex-col items-center">
       <div className="grid place-content-center">
         <div className="relative grid place-content-center">
-          {/* <UserButton>
-            <UserButton.MenuItems>
-              <UserButton.Action
-                label="Open chat"
-                labelIcon={<DotIcon />}
-                onClick={() => alert("init chat")}
-              />
-            </UserButton.MenuItems>
-          </UserButton> */}
+          {}
           <AccountButtonPOC />
         </div>
         <div

@@ -1,16 +1,13 @@
 "use client";
-
 import { createCartCheckoutSession } from "@/app/actions/checkout";
 import { useBasketStore } from "@/store/store";
 import { ShoppingCart } from "lucide-react";
-
 export default function CheckoutButton() {
   const basketItems = useBasketStore((s) => s.basket);
   const items = basketItems.map((item) => ({
     priceId: item.stripePriceId,
     quantity: item.quantity,
   }));
-
   return (
     <form action={() => createCartCheckoutSession(items)}>
       <button

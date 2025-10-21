@@ -4,10 +4,8 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useBasketStore } from "@/store/store";
 import BasketControls from "@/app/components/features/basket/BasketControls";
-
 export default function Basket() {
   const basket = useBasketStore((s) => s.basket);
-
   console.log("Basket items:", basket);
   return (
     <div>

@@ -4,25 +4,20 @@ import HeroCommercials from "../components/features/homepage/hero-commercials/He
 import BrandsWall from "../components/features/homepage/brands-wall/BrandsWall";
 import BestsellersSkeleton from "../components/features/homepage/bestsellers/BestsellersSkeleton";
 import Bestsellers from "../components/features/homepage/bestsellers/Bestsellers";
-
 import NewestReleaseSkeleton from "../components/features/homepage/newest-release/NewestReleaseSkeleton";
 import NewestRelease from "../components/features/homepage/newest-release/NewestRelease";
 import ExtremeQualitySkeleton from "../components/features/homepage/extreme-quality/ExtremeQualitySkeleton";
 import ExtremeQuality from "../components/features/homepage/extreme-quality/ExtremeQuality";
-
 import FeaturedProductsSkeleton from "../components/features/homepage/featured-products/FeaturedProductsSkeleton";
 import FeaturedProducts from "../components/features/homepage/featured-products/FeaturedProducts";
 import MonthProductSkeleton from "../components/features/homepage/month-product/MonthProductSkeleton";
 import MonthProduct from "../components/features/homepage/month-product/MonthProduct";
-
 import MainCategoriesSkeleton from "../components/features/homepage/main-categories/MainCategoriesSkeleton";
 import MainCategories from "../components/features/homepage/main-categories/MainCategories";
-
 import Footer from "../components/layout/footer/Footer";
 import { Suspense } from "react";
 export const revalidate = 5400;
 export const dynamic = "force-static";
-
 export default async function Page() {
   return (
     <main className="relative h-full overflow-x-hidden">

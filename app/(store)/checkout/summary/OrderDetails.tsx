@@ -1,19 +1,15 @@
 import useOrderTotals from "@/app/hooks/useOrderTotals";
-
 interface Item {
   id: string;
   name: string;
   price: number;
   quantity: number;
 }
-
 interface OrderDetailsProps {
   cartItems: Item[];
 }
-
 export default function OrderDetails({ cartItems }: OrderDetailsProps) {
   const [subtotal, tax, total] = useOrderTotals(cartItems);
-
   return (
     <>
       <h2 className="mb-4 border-b border-gray-200 pb-2 text-lg font-bold">
@@ -38,7 +34,6 @@ export default function OrderDetails({ cartItems }: OrderDetailsProps) {
                 </p>
               </div>
             ))}
-
             <div className="space-y-2 pt-3">
               <div className="flex justify-between text-gray-700">
                 <span>Subtotal:</span>

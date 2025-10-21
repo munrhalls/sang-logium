@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useMemo, useEffect, useRef } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -8,11 +7,6 @@ import {
 } from "@stripe/react-stripe-js";
 import { createEmbeddedCheckoutSession } from "@/app/actions/checkout";
 import { useBasketStore } from "@/store/store";
-
-/**
- * Embedded Stripe Checkout Component
- * Keeps users on your site during checkout
- */
 export default function EmbeddedCheckout({
   savePaymentMethod = false,
 }: {
@@ -23,14 +17,10 @@ export default function EmbeddedCheckout({
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const hasInitialized = useRef(false);
-
-  // Memoize Stripe promise to prevent recreating on every render
   const stripePromise = useMemo(
     () => loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!),
     []
   );
-
-  // Memoize items to prevent unnecessary re-renders
   const items = useMemo(
     () =>
       basketItems.map((item) => ({
@@ -39,31 +29,21 @@ export default function EmbeddedCheckout({
       })),
     [basketItems]
   );
-
-  /**
-   * Fetch the client secret ONCE when component mounts
-   */
   useEffect(() => {
-    // Only fetch if we haven't initialized yet and don't have a client secret
     if (hasInitialized.current || clientSecret) {
       return;
     }
-
     hasInitialized.current = true;
-
     const initCheckout = async () => {
       try {
         setLoading(true);
         setError(null);
-
         const result = await createEmbeddedCheckoutSession(items, {
           savePaymentMethod,
         });
-
         if (!result.clientSecret) {
           throw new Error("Failed to create checkout session");
         }
-
         setClientSecret(result.clientSecret);
         setLoading(false);
       } catch (err) {
@@ -71,27 +51,22 @@ export default function EmbeddedCheckout({
           err instanceof Error ? err.message : "Failed to initialize checkout";
         setError(errorMessage);
         setLoading(false);
-        hasInitialized.current = false; // Allow retry
+        hasInitialized.current = false;
       }
     };
-
     initCheckout();
   }, [items, clientSecret, savePaymentMethod]);
-
-  // Cleanup: reset client secret when component unmounts
   useEffect(() => {
     return () => {
       setClientSecret(null);
     };
   }, []);
-
   const options = useMemo(
     () => ({
       clientSecret: clientSecret || "",
     }),
     [clientSecret]
   );
-
   if (error) {
     return (
       <div className="rounded-lg border border-red-300 bg-red-50 p-6">
@@ -104,7 +79,6 @@ export default function EmbeddedCheckout({
             setError(null);
             setClientSecret(null);
             hasInitialized.current = false;
-            // Re-trigger initialization
             window.location.reload();
           }}
           className="mt-4 rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700"
@@ -114,7 +88,6 @@ export default function EmbeddedCheckout({
       </div>
     );
   }
-
   if (loading || !clientSecret) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
@@ -125,7 +98,6 @@ export default function EmbeddedCheckout({
       </div>
     );
   }
-
   return (
     <div className="rounded-lg border border-gray-200 bg-white p-6 text-black">
       <EmbeddedCheckoutProvider stripe={stripePromise} options={options}>

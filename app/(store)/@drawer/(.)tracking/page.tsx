@@ -1,14 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
-
 export default function Tracking() {
   const router = useRouter();
-
   const handleExit = () => {
     router.back();
   };
-
   return (
     <>
       <div
@@ -21,7 +18,6 @@ export default function Tracking() {
             <h2 className="w-full text-center text-xl font-bold text-gray-900">
               Tracking
             </h2>
-
             <button
               onClick={handleExit}
               className="mx-auto flex w-8 flex-col items-center rounded-lg bg-black py-2 font-medium text-white transition-colors hover:bg-gray-800 sm:w-10 sm:py-3"

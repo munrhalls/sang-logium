@@ -52,7 +52,6 @@ export default async function RootProductsPage(props: {
     }),
   ]);
   const { products, totalProductsCount } = productsResult;
-
   return (
     <>
       <main className="container mx-auto hidden px-4 py-8 md:block">

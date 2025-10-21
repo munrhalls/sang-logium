@@ -1,12 +1,9 @@
 import { useBasketStore } from "@/store/store";
 import { useCheckoutStore } from "@/store/checkout";
 import { useEffect } from "react";
-
 const { setState: set } = useCheckoutStore;
-
 export default function useInitializeCheckoutCart() {
   const basketItems = useBasketStore((state) => state.basket);
-
   useEffect(() => {
     if (basketItems.length > 0) {
       const formattedItems = basketItems.map((item) => ({
@@ -19,6 +16,5 @@ export default function useInitializeCheckoutCart() {
     }
   }, [basketItems]);
   const cartItems = useCheckoutStore((s) => s.cartItems);
-
   return cartItems;
 }

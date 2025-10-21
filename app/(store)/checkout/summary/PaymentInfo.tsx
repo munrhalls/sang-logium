@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { usePaymentStore } from "@/store/checkout";
 const { paymentInfo } = usePaymentStore.getState();
-
 export default function PaymentInfo() {
   return (
     <div className="rounded-lg border border-black p-3">

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Dots from "./dots";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
-
 const CarouselSingleSlide = ({
   prebuiltSlides,
   keys,
@@ -12,11 +11,9 @@ const CarouselSingleSlide = ({
   keys: string[];
 }) => {
   const [index, setIndex] = useState(0);
-
   const handleSetIndex = (newIndex: number) => {
     setIndex(newIndex);
   };
-
   const count = keys.length;
   const handleSlide = (direction: "left" | "right") => {
     const newIndex =

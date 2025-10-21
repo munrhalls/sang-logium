@@ -1,6 +1,5 @@
 import Image from "next/image";
 import TextCommercialWrapper from "./TextCommercialWrapper";
-
 export default async function HeroMain() {
   return (
     <div className="relative grid h-full grid-rows-[1fr_3rem]">
@@ -20,7 +19,6 @@ export default async function HeroMain() {
           <TextCommercialWrapper />
         </div>
       </div>
-
       <div className="z-30 h-full w-full bg-black">
         <p className="flex h-full items-center justify-center text-xs font-black tracking-wide text-white sm:text-sm lg:text-lg lg:tracking-wider">
           Offer available only until November 30th!

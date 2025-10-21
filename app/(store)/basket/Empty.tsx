@@ -1,7 +1,6 @@
 import { ArrowLeftIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import SegmentTitle from "@/app/components/ui/segment-title/SegmentTitle";
-
 export default function Empty() {
   return (
     <div className="mx-auto my-8 max-w-7xl bg-slate-100 px-4 pb-16 pt-8 sm:px-6 lg:px-8">

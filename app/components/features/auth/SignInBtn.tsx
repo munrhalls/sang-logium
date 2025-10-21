@@ -1,6 +1,5 @@
 import { SignInButton } from "@clerk/nextjs";
 import { UserIcon } from "lucide-react";
-
 export default function SignInBtn() {
   return (
     <SignInButton mode="modal">

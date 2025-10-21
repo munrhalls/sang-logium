@@ -4,14 +4,11 @@ import Empty from "./Empty";
 import Basket from "./Basket";
 import BasketSummary from "./BasketSummary";
 import { useBasketStore } from "@/store/store";
-
 export default function BasketPage() {
   const basket = useBasketStore((s) => s.basket);
-
   if (basket?.length === 0) {
     return <Empty />;
   }
-
   return (
     <div className="mx-auto my-8 max-w-7xl bg-slate-100 px-4 pb-16 pt-8 sm:px-6 lg:px-8">
       <div className="mb-8">

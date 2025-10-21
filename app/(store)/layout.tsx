@@ -8,24 +8,20 @@ import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
 import CategoriesSkeleton from "../components/layout/categoryMenu/CategoriesSkeleton";
-
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
   description: "The best audio gear in the world",
 };
-
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
 });
-
 const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
   subsets: ["latin"],
   display: "swap",
   variable: "--font-serif",
 });
-
 export default async function RootLayout({
   children,
   drawer,
@@ -52,8 +48,8 @@ export default async function RootLayout({
           type="image/svg+xml"
           fetchPriority="high"
         />
-        <link rel="preconnect" href="https://cdn.sanity.io" />
-        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+        <link rel="preconnect" href="https:
+        <link rel="dns-prefetch" href="https:
       </head>
       <ClerkProvider>
         <body
@@ -61,11 +57,9 @@ export default async function RootLayout({
         >
           {drawer}
           <Header />
-
           <Suspense fallback={<CategoriesSkeleton />}>
             <CategoriesWrapper />
           </Suspense>
-
           <div className="relative h-full min-h-0 overflow-hidden">
             <MobileDrawersWrapper />
             <div className="relative h-full min-h-0 overflow-y-auto">
