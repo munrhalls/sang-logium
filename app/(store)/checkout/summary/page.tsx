@@ -61,10 +61,12 @@ export default function Summary() {
       setLoadingPaymentMethods(true);
       try {
         const methods = await getUserPaymentMethods();
+        console.log("Fetched payment methods:", methods);
         setSavedPaymentMethods(methods);
         const defaultMethod = methods.find(
           (m: { isDefault?: boolean }) => m.isDefault
         );
+        console.log("defaultMethod", defaultMethod);
         if (defaultMethod) {
           setSelectedPaymentMethodId(defaultMethod.stripePaymentMethodId);
         }

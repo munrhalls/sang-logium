@@ -2,6 +2,7 @@
 import { stripe } from "@/lib/stripe";
 import { auth } from "@clerk/nextjs/server";
 import { client } from "@/sanity/lib/client";
+
 export async function getOrCreateStripeCustomer(): Promise<string> {
   const { userId } = await auth();
   if (!userId) {
@@ -269,3 +270,42 @@ export async function validatePaymentMethodOwnership(
   );
   return methodExists || false;
 }
+
+// all of these should be inside /payments folder as separate files
+// Suggested File Structure for Payment Actions
+
+// The monolithic file can be split into smaller, more focused files under a dedicated directory like app/actions/payment_methods.
+
+// This approach ensures each file contains functions related to a single domain action (e.g., managing the customer ID, saving/deleting cards).
+
+// New Structure:
+
+// Filepath
+
+// Functions Contained
+
+// Purpose
+
+// customer.ts
+
+// getOrCreateStripeCustomer
+
+// Handles the creation and retrieval of the Stripe Customer ID, which is a prerequisite for all other payment actions.
+
+// methods_get.ts
+
+// getUserPaymentMethods, getDefaultPaymentMethod, validatePaymentMethodOwnership
+
+// Provides read-only access and validation for saved payment methods.
+
+// methods_save.ts
+
+// savePaymentMethod
+
+// Handles the core logic of attaching a new payment method to a customer and saving its metadata to Sanity.
+
+// methods_manage.ts
+
+// deletePaymentMethod, setDefaultPaymentMethod
+
+// Handles modification operations (deleting and setting the default card).
