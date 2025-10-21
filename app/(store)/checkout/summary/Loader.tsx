@@ -1,9 +1,9 @@
 export default function Loader() {
   return (
-    <span className="flex items-center justify-center gap-2">
+    <span className="flex items-center justify-center gap-2 text-gray-700">
       <svg
-        className="h-5 w-5 animate-spin"
-        xmlns="http:
+        className="h-5 w-5 animate-spin text-indigo-500"
+        xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         aria-hidden="true"
