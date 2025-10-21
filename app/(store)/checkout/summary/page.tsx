@@ -7,7 +7,10 @@ import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
 import OrderDetails from "./OrderDetails";
 import EmbeddedCheckout from "@/app/components/checkout/EmbeddedCheckout";
 import { getUserPaymentMethods } from "@/app/actions/paymentMethods";
+import { processPaymentWithSavedMethod } from "@/app/actions/checkout";
 import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useBasketStore } from "@/store/store";
 
 const ErrorMessage = ({ error }: { error: string }) => (
   <div
@@ -21,7 +24,9 @@ const ErrorMessage = ({ error }: { error: string }) => (
 
 export default function Summary() {
   const { isSignedIn } = useAuth();
+  const router = useRouter();
   const cartItems = useInitializeCheckoutCart();
+  const basketItems = useBasketStore((s) => s.basket);
 
   const shippingInfo = useCheckoutStore((s) => s.shippingInfo);
 
@@ -42,6 +47,8 @@ export default function Summary() {
   const [selectedPaymentMethodId, setSelectedPaymentMethodId] = useState<
     string | null
   >(null);
+  const [processingPayment, setProcessingPayment] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!shippingInfo || cartItems.length === 0) {
@@ -81,6 +88,47 @@ export default function Summary() {
     }
   };
 
+  // Process payment with selected saved payment method
+  const handlePayWithSavedCard = async () => {
+    if (!selectedPaymentMethodId) {
+      setPaymentError("Please select a payment method");
+      return;
+    }
+
+    setProcessingPayment(true);
+    setPaymentError(null);
+
+    try {
+      // Prepare cart items for payment (use basket items which have stripePriceId)
+      const items = basketItems.map((item) => ({
+        priceId: item.stripePriceId,
+        quantity: item.quantity,
+      }));
+
+      // Process payment
+      const result = await processPaymentWithSavedMethod(
+        items,
+        selectedPaymentMethodId
+      );
+
+      if (result.success) {
+        // Payment successful - redirect to success page
+        router.push(`/success?payment_intent=${result.paymentIntentId}`);
+      } else {
+        throw new Error("Payment processing failed");
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      setPaymentError(
+        error instanceof Error
+          ? error.message
+          : "Payment failed. Please try again or use a different payment method."
+      );
+    } finally {
+      setProcessingPayment(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Order Summary */}
@@ -95,6 +143,9 @@ export default function Summary() {
 
       {/* Validation Error */}
       {validationError && <ErrorMessage error={validationError} />}
+
+      {/* Payment Error */}
+      {paymentError && <ErrorMessage error={paymentError} />}
 
       {/* Proceed to Payment Button */}
       {!showCheckout && !isInvalid && (
@@ -246,10 +297,18 @@ export default function Summary() {
             selectedPaymentMethodId !== null &&
             savedPaymentMethods.length > 0 && (
               <button
-                onClick={() => alert("TODO: Process payment with saved card")}
-                className="w-full rounded-lg bg-blue-600 py-4 text-lg font-semibold text-white transition-colors hover:bg-blue-700"
+                onClick={handlePayWithSavedCard}
+                disabled={processingPayment}
+                className="w-full rounded-lg bg-blue-600 py-4 text-lg font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                Pay with Selected Card
+                {processingPayment ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+                    Processing Payment...
+                  </span>
+                ) : (
+                  "Pay with Selected Card"
+                )}
               </button>
             )}
         </div>
