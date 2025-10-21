@@ -46,7 +46,7 @@ export default async function ProductsPage(props: {
       path,
       selectedFilters,
       selectedSort,
-      selectedPagination,
+      selectedPagination
     ).catch((error) => {
       console.error("Failed to fetch products:", error);
       return { products: [], totalProductsCount: 0 };
@@ -61,31 +61,33 @@ export default async function ProductsPage(props: {
     }),
   ]);
   const { products, totalProductsCount } = productsResult;
+  console.log("Products fetched:", products.length);
+  console.log(products);
   return (
     <>
-      <main className="hidden md:block container mx-auto px-4 py-8">
+      <main className="container mx-auto hidden px-4 py-8 md:block">
         <div className="mb-6">
           <CategoryBreadcrumbs categoryParts={path} isMobile={false} />
-          <div className="flex justify-center items-center gap-3 mt-8 mb-6  pb-12">
+          <div className="mb-6 mt-8 flex items-center justify-center gap-3 pb-12">
             <CategoryTitleIcon category={root} />
             <h1 className="text-5xl font-bold tracking-wide">
               {categoryTitle}
             </h1>
           </div>
-          <div className="hidden md:flex  items-center justify-start md:ml-auto border-b border-gray-300">
+          <div className="hidden items-center justify-start border-b border-gray-300 md:ml-auto md:flex">
             <Pagination totalProductsCount={totalProductsCount} />
           </div>
         </div>
         <AppliedFilters filterOptions={filterOptions} />
-        <div className="grid grid-cols-[280px_1fr] gap-6 mt-4">
+        <div className="mt-4 grid grid-cols-[280px_1fr] gap-6">
           <SidebarClient
             filterOptions={filterOptions}
             sortOptions={sortOptions}
             sortField={sortField}
           />
           <div>
-            <div className="mb-1 p-1 bg-slate-200 rounded-lg shadow">
-              <p className="text-md p-2 lg:text-xl text-gray-500">
+            <div className="mb-1 rounded-lg bg-slate-200 p-1 shadow">
+              <p className="text-md p-2 text-gray-500 lg:text-xl">
                 Showing {products.length} product
                 {products.length !== 1 && "s"}
                 {sortField &&
@@ -97,19 +99,19 @@ export default async function ProductsPage(props: {
         </div>
         <ProductsFilterSortDrawersWrapper categoryPath={path} />
       </main>
-      <div className="md:hidden flex flex-col h-screen overflow-hidden">
+      <div className="flex h-screen flex-col overflow-hidden md:hidden">
         <div className="flex-none bg-white">
-          <div className="container mx-auto px-1 py-1 flex">
+          <div className="container mx-auto flex px-1 py-1">
             <div className="mb-1">
               <CategoryBreadcrumbs categoryParts={path} isMobile={true} />
-              <div className="flex justify-start items-center m-1 gap-1">
+              <div className="m-1 flex items-center justify-start gap-1">
                 <CategoryTitleIcon category={root} />
                 <h1 className="text-lg font-bold tracking-wide">
                   {categoryTitle}
                 </h1>
               </div>
             </div>
-            <div className="flex-1 flex justify-center">
+            <div className="flex flex-1 justify-center">
               <FilterSortBtns />
             </div>
           </div>
@@ -118,15 +120,15 @@ export default async function ProductsPage(props: {
         <div className="flex-grow overflow-y-auto">
           <div className="container mx-auto px-4">
             <AppliedFilters filterOptions={filterOptions} />
-            <div className="grid grid-cols-1 gap-6 mt-4">
+            <div className="mt-4 grid grid-cols-1 gap-6">
               <SidebarClient
                 filterOptions={filterOptions}
                 sortOptions={sortOptions}
                 sortField={sortField}
               />
               <div>
-                <div className="mb-1 p-1 bg-slate-200 rounded-lg shadow">
-                  <p className="text-md p-2 lg:text-xl text-gray-500">
+                <div className="mb-1 rounded-lg bg-slate-200 p-1 shadow">
+                  <p className="text-md p-2 text-gray-500 lg:text-xl">
                     Showing {products.length} product
                     {products.length !== 1 && "s"}
                     {sortField &&
