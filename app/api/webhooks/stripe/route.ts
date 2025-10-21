@@ -66,6 +66,7 @@ async function handleCheckoutSessionCompleted(
   console.log("Customer email:", session.customer_email);
   console.log("Amount:", session.amount_total);
   console.log("User ID:", session.metadata?.userId);
+
   try {
     const existingOrder = await client.fetch(
       `*[_type == "order" && payment.stripeCheckoutSessionId == $sessionId][0]._id`,
@@ -141,6 +142,7 @@ async function handleCheckoutSessionCompleted(
     throw error;
   }
 }
+
 async function generateOrderNumber(): Promise<string> {
   const year = new Date().getFullYear();
   const orderCount = await client.fetch<number>(
@@ -174,7 +176,13 @@ async function savePaymentMethodIfRequested(session: Stripe.Checkout.Session) {
       return;
     }
     console.log("💳 Saving payment method:", paymentMethodId);
-    await savePaymentMethodDirectly(session.metadata.userId, paymentMethodId);
+
+    const stripeCustomerId = session.customer as string;
+    await savePaymentMethodDirectly(
+      session.metadata.userId,
+      paymentMethodId,
+      stripeCustomerId
+    );
     console.log("✅ Payment method saved successfully");
   } catch (error) {
     console.error("⚠️  Failed to save payment method:", error);
@@ -182,46 +190,75 @@ async function savePaymentMethodIfRequested(session: Stripe.Checkout.Session) {
 }
 async function savePaymentMethodDirectly(
   clerkUserId: string,
-  paymentMethodId: string
+  paymentMethodId: string,
+  stripeCustomerId: string
 ) {
+  // 1. Fetch Payment Method details and validate type
   const paymentMethod = await stripe.paymentMethods.retrieve(paymentMethodId);
   if (paymentMethod.type !== "card") {
     throw new Error("Only card payment methods are supported");
   }
+
+  // 2. Fetch User document from Sanity
+  // NOTE: You must include 'stripeCustomerId' in the GROQ projection
+  // to check if it exists in the user object.
   const user = await client.fetch(
     `*[_type == "user" && clerkUserId == $clerkUserId][0]{
       _id,
-      paymentMethods
+      paymentMethods,
+      stripeCustomerId // 👈 MUST BE ADDED TO PROJECTION
     }`,
     { clerkUserId }
   );
   if (!user) {
     throw new Error("User not found");
   }
+
+  // 3. Start building the patch
+  const patches = backendClient.patch(user._id);
+
+  // 4. CRITICAL FIX: Conditionally set Stripe Customer ID
+  // This ensures the Customer ID is saved only once.
+  if (!user.stripeCustomerId) {
+    patches.set({ stripeCustomerId: stripeCustomerId });
+    console.log("💳 Saved new Stripe Customer ID to user.");
+  }
+
+  // 5. Check if Payment Method already exists
   const methodExists = user.paymentMethods?.some(
     (pm: { stripePaymentMethodId: string }) =>
       pm.stripePaymentMethodId === paymentMethodId
   );
   if (methodExists) {
-    console.log("ℹ️  Payment method already saved");
-    return;
+    console.log("ℹ️  Payment method already saved, no append needed.");
+    // If only the payment method exists, but the customer ID was missing
+    // and was set above, we still need to commit the customer ID patch.
+  } else {
+    // 6. Define new Payment Method data
+    const isFirstMethod =
+      !user.paymentMethods || user.paymentMethods.length === 0;
+    const paymentMethodData = {
+      stripePaymentMethodId: paymentMethod.id,
+      type: paymentMethod.type,
+      last4: paymentMethod.card?.last4 || "",
+      brand: paymentMethod.card?.brand || "",
+      expMonth: paymentMethod.card?.exp_month || 0,
+      expYear: paymentMethod.card?.exp_year || 0,
+      isDefault: isFirstMethod,
+      addedAt: new Date().toISOString(),
+    };
+
+    // 7. Add patch for Payment Method
+    patches
+      .setIfMissing({ paymentMethods: [] })
+      .append("paymentMethods", [paymentMethodData]);
+
+    console.log("✅ New payment method data added to patch.");
   }
-  const isFirstMethod =
-    !user.paymentMethods || user.paymentMethods.length === 0;
-  const paymentMethodData = {
-    stripePaymentMethodId: paymentMethod.id,
-    type: paymentMethod.type,
-    last4: paymentMethod.card?.last4 || "",
-    brand: paymentMethod.card?.brand || "",
-    expMonth: paymentMethod.card?.exp_month || 0,
-    expYear: paymentMethod.card?.exp_year || 0,
-    isDefault: isFirstMethod,
-    addedAt: new Date().toISOString(),
-  };
-  await backendClient
-    .patch(user._id)
-    .setIfMissing({ paymentMethods: [] })
-    .append("paymentMethods", [paymentMethodData])
-    .set({ "metadata.updatedAt": new Date().toISOString() })
-    .commit();
+
+  // 8. Add final metadata update
+  patches.set({ "metadata.updatedAt": new Date().toISOString() });
+
+  // 9. FINAL STEP: Commit ALL changes at once
+  await patches.commit(); // 👈 ONLY ONE COMMIT IS REQUIRED
 }
