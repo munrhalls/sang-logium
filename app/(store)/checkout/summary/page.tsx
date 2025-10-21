@@ -14,6 +14,7 @@ export default function Summary() {
   const shippingInfo = useCheckoutStore((s) => s.shippingInfo);
   const [validationError, setValidationError] = useState<string | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
+
   useEffect(() => {
     if (!shippingInfo || cartItems.length === 0) {
       setValidationError("Order data missing. Please restart checkout.");
@@ -26,9 +27,6 @@ export default function Summary() {
   const isInvalid =
     !shippingInfo || cartItems.length === 0 || validationError !== null;
 
-  const handleProceedToPayment = () => {
-    setShowCheckout(true);
-  };
   return (
     <div className="space-y-6">
       <div className="rounded-lg border border-black p-3">
@@ -43,7 +41,7 @@ export default function Summary() {
 
       {!showCheckout && !isInvalid && (
         <button
-          onClick={handleProceedToPayment}
+          onClick={() => setShowCheckout(true)}
           className="w-full rounded-lg bg-blue-600 py-4 text-lg font-semibold text-white transition-colors hover:bg-blue-700"
         >
           Proceed to Payment
