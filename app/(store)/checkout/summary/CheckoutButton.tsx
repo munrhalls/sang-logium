@@ -1,5 +1,5 @@
 "use client";
-import { createCartCheckoutSession } from "@/app/actions/checkout";
+import { createCartCheckoutSession } from "@/app/actions/checkout/checkout";
 import { useBasketStore } from "@/store/store";
 import { ShoppingCart } from "lucide-react";
 export default function CheckoutButton() {

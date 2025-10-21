@@ -99,7 +99,7 @@ export async function processPaymentWithSavedMethod(
     throw new Error("Basket is empty.");
   }
   const { validatePaymentMethodOwnership } = await import(
-    "./payment_methods/methods_get"
+    "../payment_methods/methods_get"
   );
   const isOwner = await validatePaymentMethodOwnership(paymentMethodId);
   if (!isOwner) {
@@ -163,7 +163,7 @@ export async function processPaymentWithSavedMethod(
     throw new Error("No valid items in basket.");
   }
   const { getOrCreateStripeCustomer } = await import(
-    "./payment_methods/customer"
+    "../payment_methods/customer"
   );
   const customerId = await getOrCreateStripeCustomer();
   const paymentIntent = await stripe.paymentIntents.create({
