@@ -98,7 +98,9 @@ export async function processPaymentWithSavedMethod(
   if (!items || items.length === 0) {
     throw new Error("Basket is empty.");
   }
-  const { validatePaymentMethodOwnership } = await import("./paymentMethods");
+  const { validatePaymentMethodOwnership } = await import(
+    "./payment_methods/methods_get"
+  );
   const isOwner = await validatePaymentMethodOwnership(paymentMethodId);
   if (!isOwner) {
     throw new Error("Payment method not found or access denied");
@@ -160,7 +162,9 @@ export async function processPaymentWithSavedMethod(
   if (validatedLineItems.length === 0) {
     throw new Error("No valid items in basket.");
   }
-  const { getOrCreateStripeCustomer } = await import("./paymentMethods");
+  const { getOrCreateStripeCustomer } = await import(
+    "./payment_methods/customer"
+  );
   const customerId = await getOrCreateStripeCustomer();
   const paymentIntent = await stripe.paymentIntents.create({
     amount: Math.round(totalAmount * 100),

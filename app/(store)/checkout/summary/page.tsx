@@ -5,7 +5,7 @@ import ShippingInfo from "./ShippingInfo";
 import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
 import OrderDetails from "./OrderDetails";
 import EmbeddedCheckout from "@/app/components/checkout/EmbeddedCheckout";
-import { getUserPaymentMethods } from "@/app/actions/paymentMethods";
+import { getUserPaymentMethods } from "@/app/actions/payment_methods/methods_get";
 import { processPaymentWithSavedMethod } from "@/app/actions/checkout";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
