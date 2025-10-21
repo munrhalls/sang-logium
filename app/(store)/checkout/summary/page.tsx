@@ -10,18 +10,55 @@ import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useBasketStore } from "@/store/store";
 import PaymentSegment from "./PaymentSegment";
-
-const ErrorMessage = ({ error }: { error: string }) => (
-  <div
-    className="rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-600"
-    role="alert"
-    aria-live="assertive"
-  >
-    {error}
-  </div>
-);
+import ErrorMessage from "@/app/components/common/ErrorMessage";
 
 export default function Summary() {
+  //   Where Each Piece Should Go
+  // Keep in Summary Component:
+
+  // cartItems from useInitializeCheckoutCart
+  // shippingInfo from useCheckoutStore
+  // validationError state and its useEffect validation logic
+  // showCheckout state (true/false toggle)
+  // isInvalid computed value
+  // "Proceed to Payment" button that sets showCheckout(true)
+  // Rendering of OrderDetails and ShippingInfo components
+  // Rendering of ErrorMessage for validation errors
+
+  // Move to New PaymentView Component:
+
+  // isSignedIn from useAuth
+  // router from useRouter
+  // basketItems from useBasketStore
+  // selectedPaymentMethodId state
+  // paymentError state
+  // Rendering of PaymentSegment component
+  // Pass basketItems as prop from Summary
+
+  // Move to New usePaymentMethods Hook:
+
+  // savedPaymentMethods state (currently missing declaration)
+  // loadingPaymentMethods state (currently missing declaration)
+  // The fetching logic inside handleProceedToPayment (getUserPaymentMethods call)
+  // Logic to find and return the default payment method
+  // Error handling for failed fetches
+  // Return: { methods, isLoading, error, defaultMethodId }
+
+  // Move to New usePaymentProcessor Hook:
+
+  // processingPayment state (currently missing declaration)
+  // All logic from handlePayWithSavedCard
+  // The processPaymentWithSavedMethod server action call
+  // Success redirect logic using router
+  // Error handling and setting
+  // Return: { processPayment, isProcessing, error, clearError }
+
+  // Delete/Simplify:
+
+  // handleProceedToPayment - becomes just setShowCheckout(true)
+  // handlePayWithSavedCard - gets replaced by hook's processPayment function
+  // All payment-related state from Summary - moves to <PaymentView></PaymentView>
+
   const { isSignedIn } = useAuth();
   const router = useRouter();
   const cartItems = useInitializeCheckoutCart();
@@ -47,6 +84,7 @@ export default function Summary() {
 
   const handleProceedToPayment = async () => {
     setShowCheckout(true);
+    // all this logic should be in useHandleSavedPaymentMethods hook
     if (isSignedIn) {
       console.log("signed in", isSignedIn);
       setLoadingPaymentMethods(true);
