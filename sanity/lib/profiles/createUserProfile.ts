@@ -8,14 +8,14 @@ import { UserProfile, CreateProfileOptions } from "./profileTypes";
  * @returns The created user profile or null if creation failed
  */
 export async function createUserProfile(
-  options: CreateProfileOptions,
+  options: CreateProfileOptions
 ): Promise<UserProfile | null> {
   const { clerkId, primaryAddress, preferences } = options;
 
   // Check if profile already exists
   const existingProfile = await backendClient.fetch(
     `*[_type == "userProfile" && clerkId == $clerkId][0]._id`,
-    { clerkId },
+    { clerkId }
   );
 
   if (existingProfile) {

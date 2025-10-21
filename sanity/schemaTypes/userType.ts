@@ -286,6 +286,14 @@ export const userType = defineType({
 
     // ============ PAYMENT METHODS (References) ============
     defineField({
+      name: "stripeCustomerId",
+      title: "Stripe Customer ID",
+      type: "string",
+      description:
+        "The ID of the customer record in Stripe. Required for saved payment methods.",
+      readOnly: true,
+    }),
+    defineField({
       name: "paymentMethods",
       title: "Saved Payment Methods",
       type: "array",

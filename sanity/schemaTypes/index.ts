@@ -7,7 +7,7 @@ import { exhibitionType } from "./exhibitionType";
 import { commercialType } from "./commercialType";
 import { categoryFiltersType } from "./categoryFiltersType";
 import { categorySortablesType } from "./categorySortablesType";
-import { userProfileType } from "./userProfileType";
+import { userType } from "./userType";
 
 export const schema = {
   types: [
@@ -20,6 +20,6 @@ export const schema = {
     saleType,
     exhibitionType,
     commercialType,
-    userProfileType,
+    userType,
   ],
 };
