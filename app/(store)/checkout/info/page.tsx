@@ -33,7 +33,7 @@ const shippingSchema = z.object({
 
 type ShippingFormData = z.infer<typeof shippingSchema>;
 
-export default function Shipping() {
+export default function CheckoutInfo() {
   const router = useRouter();
   const { shippingInfo, setShippingInfo } = useCheckoutStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,7 +63,7 @@ export default function Shipping() {
       setSubmitError(null);
       setShippingInfo(data);
       setSubmitSuccess(true);
-      router.push("/checkout/payment");
+      router.push("/checkout/summary");
     } catch (error) {
       setSubmitError(
         error instanceof Error

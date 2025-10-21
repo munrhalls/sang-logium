@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useCheckoutStore, usePaymentStore } from "@/store/checkout";
 import ShippingInfo from "./ShippingInfo";
-import PaymentInfo from "./PaymentInfo";
 import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
 import OrderDetails from "./OrderDetails";
 import EmbeddedCheckout from "@/app/components/checkout/EmbeddedCheckout";
@@ -22,25 +21,21 @@ export default function Summary() {
   const cartItems = useInitializeCheckoutCart();
 
   const shippingInfo = useCheckoutStore((s) => s.shippingInfo);
-  const { paymentInfo } = usePaymentStore();
 
   const [validationError, setValidationError] = useState<string | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
 
   useEffect(() => {
-    if (!shippingInfo || !paymentInfo || cartItems.length === 0) {
+    if (!shippingInfo || cartItems.length === 0) {
       setValidationError("Order data missing. Please restart checkout.");
       setShowCheckout(false);
     } else {
       setValidationError(null);
     }
-  }, [shippingInfo, paymentInfo, cartItems]);
+  }, [shippingInfo, cartItems]);
 
   const isInvalid =
-    !shippingInfo ||
-    !paymentInfo ||
-    cartItems.length === 0 ||
-    validationError !== null;
+    !shippingInfo || cartItems.length === 0 || validationError !== null;
 
   return (
     <div className="space-y-6">
@@ -52,7 +47,6 @@ export default function Summary() {
       {/* Shipping & Payment Info */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <ShippingInfo />
-        <PaymentInfo />
       </div>
 
       {/* Validation Error */}
