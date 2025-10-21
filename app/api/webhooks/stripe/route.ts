@@ -197,6 +197,9 @@ async function handleCheckoutSessionCompleted(
       console.log(`  ✓ Decremented stock for ${item.name} by ${item.quantity}`);
     }
 
+    // STEP 17: Save payment method if user opted in
+    await savePaymentMethodIfRequested(session);
+
     console.log("🎉 Order processing complete!");
   } catch (error) {
     console.error("💥 Error processing order:", error);
@@ -217,4 +220,111 @@ async function generateOrderNumber(): Promise<string> {
   );
   const orderNum = String(orderCount + 1).padStart(4, "0");
   return `ORD-${year}-${orderNum}`;
+}
+
+/**
+ * STEP 18: Save payment method if user opted to save it
+ */
+async function savePaymentMethodIfRequested(session: Stripe.Checkout.Session) {
+  try {
+    // Only proceed if user is logged in
+    if (!session.metadata?.userId) {
+      console.log("⏭️  Guest checkout - skipping payment method save");
+      return;
+    }
+
+    // Retrieve the payment intent to get the payment method
+    const paymentIntentId = session.payment_intent as string;
+    if (!paymentIntentId) {
+      console.log("⚠️  No payment intent found");
+      return;
+    }
+
+    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+
+    // Check if payment method should be saved (setup_future_usage was set)
+    if (!paymentIntent.setup_future_usage) {
+      console.log("⏭️  User did not opt to save payment method");
+      return;
+    }
+
+    const paymentMethodId = paymentIntent.payment_method as string;
+    if (!paymentMethodId) {
+      console.log("⚠️  No payment method ID found");
+      return;
+    }
+
+    console.log("💳 Saving payment method:", paymentMethodId);
+
+    // Save payment method directly to Sanity (webhook context, no auth)
+    await savePaymentMethodDirectly(session.metadata.userId, paymentMethodId);
+
+    console.log("✅ Payment method saved successfully");
+  } catch (error) {
+    // Don't fail the entire order if payment method saving fails
+    console.error("⚠️  Failed to save payment method:", error);
+  }
+}
+
+/**
+ * Helper: Save payment method directly to Sanity (bypass auth requirement)
+ */
+async function savePaymentMethodDirectly(
+  clerkUserId: string,
+  paymentMethodId: string
+) {
+  // Retrieve payment method details from Stripe
+  const paymentMethod = await stripe.paymentMethods.retrieve(paymentMethodId);
+
+  if (paymentMethod.type !== "card") {
+    throw new Error("Only card payment methods are supported");
+  }
+
+  // Get user document
+  const user = await client.fetch(
+    `*[_type == "user" && clerkUserId == $clerkUserId][0]{
+      _id,
+      paymentMethods
+    }`,
+    { clerkUserId }
+  );
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  // Check if payment method already exists
+  const methodExists = user.paymentMethods?.some(
+    (pm: { stripePaymentMethodId: string }) =>
+      pm.stripePaymentMethodId === paymentMethodId
+  );
+
+  if (methodExists) {
+    console.log("ℹ️  Payment method already saved");
+    return;
+  }
+
+  // Check if this is the first payment method (make it default)
+  const isFirstMethod =
+    !user.paymentMethods || user.paymentMethods.length === 0;
+
+  // Prepare payment method data
+  const paymentMethodData = {
+    stripePaymentMethodId: paymentMethod.id,
+    type: paymentMethod.type,
+    last4: paymentMethod.card?.last4 || "",
+    brand: paymentMethod.card?.brand || "",
+    expMonth: paymentMethod.card?.exp_month || 0,
+    expYear: paymentMethod.card?.exp_year || 0,
+    isDefault: isFirstMethod,
+    addedAt: new Date().toISOString(),
+  };
+
+  // Save to Sanity
+  await backendClient
+    .patch(user._id)
+    .setIfMissing({ paymentMethods: [] })
+    .append("paymentMethods", [paymentMethodData])
+    .set({ "metadata.updatedAt": new Date().toISOString() })
+    .commit();
 }
