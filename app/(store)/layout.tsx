@@ -48,8 +48,8 @@ export default async function RootLayout({
           type="image/svg+xml"
           fetchPriority="high"
         />
-        <link rel="preconnect" href="https:
-        <link rel="dns-prefetch" href="https:
+        <link rel="preconnect" href="https://cdn.sanity.io" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
       </head>
       <ClerkProvider>
         <body
