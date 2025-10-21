@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   EmbeddedCheckoutProvider,
@@ -9,53 +9,82 @@ import {
 import { createEmbeddedCheckoutSession } from "@/app/actions/checkout";
 import { useBasketStore } from "@/store/store";
 
-// Initialize Stripe
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-);
-
 /**
  * Embedded Stripe Checkout Component
  * Keeps users on your site during checkout
  */
 export default function EmbeddedCheckout() {
   const basketItems = useBasketStore((s) => s.basket);
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const hasInitialized = useRef(false);
 
-  // Prepare items for checkout
-  const items = basketItems.map((item) => ({
-    priceId: item.stripePriceId,
-    quantity: item.quantity,
-  }));
+  // Memoize Stripe promise to prevent recreating on every render
+  const stripePromise = useMemo(
+    () => loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!),
+    []
+  );
+
+  // Memoize items to prevent unnecessary re-renders
+  const items = useMemo(
+    () =>
+      basketItems.map((item) => ({
+        priceId: item.stripePriceId,
+        quantity: item.quantity,
+      })),
+    [basketItems]
+  );
 
   /**
-   * Fetch the client secret when component mounts
-   * This is called automatically by EmbeddedCheckoutProvider
+   * Fetch the client secret ONCE when component mounts
    */
-  const fetchClientSecret = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const result = await createEmbeddedCheckoutSession(items);
-
-      if (!result.clientSecret) {
-        throw new Error("Failed to create checkout session");
-      }
-      setLoading(false);
-      return result.clientSecret;
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : "Failed to initialize checkout";
-      setError(errorMessage);
-      throw err;
+  useEffect(() => {
+    // Only fetch if we haven't initialized yet and don't have a client secret
+    if (hasInitialized.current || clientSecret) {
+      return;
     }
-  };
 
-  const options = {
-    fetchClientSecret,
-  };
+    hasInitialized.current = true;
+
+    const initCheckout = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const result = await createEmbeddedCheckoutSession(items);
+
+        if (!result.clientSecret) {
+          throw new Error("Failed to create checkout session");
+        }
+
+        setClientSecret(result.clientSecret);
+        setLoading(false);
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : "Failed to initialize checkout";
+        setError(errorMessage);
+        setLoading(false);
+        hasInitialized.current = false; // Allow retry
+      }
+    };
+
+    initCheckout();
+  }, [items, clientSecret]);
+
+  // Cleanup: reset client secret when component unmounts
+  useEffect(() => {
+    return () => {
+      setClientSecret(null);
+    };
+  }, []);
+
+  const options = useMemo(
+    () => ({
+      clientSecret: clientSecret || "",
+    }),
+    [clientSecret]
+  );
 
   if (error) {
     return (
@@ -67,6 +96,9 @@ export default function EmbeddedCheckout() {
         <button
           onClick={() => {
             setError(null);
+            setClientSecret(null);
+            hasInitialized.current = false;
+            // Re-trigger initialization
             window.location.reload();
           }}
           className="mt-4 rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700"
@@ -77,7 +109,7 @@ export default function EmbeddedCheckout() {
     );
   }
 
-  if (loading) {
+  if (loading || !clientSecret) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
