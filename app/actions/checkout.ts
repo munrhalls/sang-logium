@@ -1,5 +1,4 @@
 "use server";
-import { redirect } from "next/navigation";
 import { stripe } from "@/lib/stripe";
 import { auth } from "@clerk/nextjs/server";
 import { client } from "@/sanity/lib/client";
@@ -15,7 +14,11 @@ type InventoryItem = {
   name: string;
 };
 
-export async function createCartCheckoutSession(items: CartItem[]) {
+/**
+ * Creates an embedded Stripe Checkout session
+ * Returns client secret for rendering checkout on your site
+ */
+export async function createEmbeddedCheckoutSession(items: CartItem[]) {
   const { userId } = await auth();
   if (!userId) {
     throw new Error("Not authenticated");
@@ -78,15 +81,20 @@ export async function createCartCheckoutSession(items: CartItem[]) {
     throw new Error("No valid items in basket.");
   }
 
+  // Key difference: ui_mode: 'embedded' and return_url instead of success_url
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "payment",
+    ui_mode: "embedded", // ← This makes it embedded!
     line_items: validatedLineItems,
-    success_url: `${process.env.NEXT_PUBLIC_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.NEXT_PUBLIC_URL}/basket`,
+    return_url: `${process.env.NEXT_PUBLIC_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
     metadata: {
       userId: userId,
     },
   });
 
-  redirect(checkoutSession.url!);
+  // Return the client secret instead of redirecting
+  return {
+    clientSecret: checkoutSession.client_secret,
+    sessionId: checkoutSession.id,
+  };
 }
