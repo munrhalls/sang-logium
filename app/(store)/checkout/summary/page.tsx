@@ -28,7 +28,16 @@ export default function Summary() {
   const [validationError, setValidationError] = useState<string | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
   const [savePaymentMethod, setSavePaymentMethod] = useState(false);
-  const [savedPaymentMethods, setSavedPaymentMethods] = useState<any[]>([]);
+  const [savedPaymentMethods, setSavedPaymentMethods] = useState<
+    Array<{
+      stripePaymentMethodId: string;
+      brand: string;
+      last4: string;
+      expMonth: number;
+      expYear: number;
+      isDefault?: boolean;
+    }>
+  >([]);
   const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
   const [selectedPaymentMethodId, setSelectedPaymentMethodId] = useState<
     string | null
@@ -58,7 +67,9 @@ export default function Summary() {
         setSavedPaymentMethods(methods);
 
         // Auto-select default payment method if exists
-        const defaultMethod = methods.find((m: any) => m.isDefault);
+        const defaultMethod = methods.find(
+          (m: { isDefault?: boolean }) => m.isDefault
+        );
         if (defaultMethod) {
           setSelectedPaymentMethodId(defaultMethod.stripePaymentMethodId);
         }
@@ -108,28 +119,139 @@ export default function Summary() {
             </button>
           </div>
 
-          {/* Save Payment Method Checkbox */}
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-            <label className="flex cursor-pointer items-start gap-3">
-              <input
-                type="checkbox"
-                checked={savePaymentMethod}
-                onChange={(e) => setSavePaymentMethod(e.target.checked)}
-                className="mt-1 h-4 w-4 cursor-pointer rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
-              />
-              <div className="flex-1">
-                <span className="font-medium text-gray-900">
-                  Save payment method for future purchases
-                </span>
-                <p className="mt-1 text-sm text-gray-600">
-                  Securely save this card to make checkout faster next time. You
-                  can manage saved cards in your account settings.
-                </p>
-              </div>
-            </label>
-          </div>
+          {/* Saved Payment Methods (if user has any) */}
+          {isSignedIn && savedPaymentMethods.length > 0 && (
+            <div className="space-y-3">
+              <h3 className="font-semibold text-gray-900">
+                Select Payment Method
+              </h3>
 
-          <EmbeddedCheckout savePaymentMethod={savePaymentMethod} />
+              {/* List of saved payment methods */}
+              {savedPaymentMethods.map((method) => (
+                <div
+                  key={method.stripePaymentMethodId}
+                  onClick={() =>
+                    setSelectedPaymentMethodId(method.stripePaymentMethodId)
+                  }
+                  className={`cursor-pointer rounded-lg border-2 p-4 transition-all ${
+                    selectedPaymentMethodId === method.stripePaymentMethodId
+                      ? "border-blue-600 bg-blue-50"
+                      : "border-gray-200 bg-white hover:border-gray-300"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        checked={
+                          selectedPaymentMethodId ===
+                          method.stripePaymentMethodId
+                        }
+                        onChange={() =>
+                          setSelectedPaymentMethodId(
+                            method.stripePaymentMethodId
+                          )
+                        }
+                        className="h-4 w-4 text-blue-600"
+                      />
+                      <div>
+                        <div className="font-medium text-gray-900">
+                          {method.brand.toUpperCase()} •••• {method.last4}
+                          {method.isDefault && (
+                            <span className="ml-2 text-xs text-blue-600">
+                              ⭐ Default
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          Expires {method.expMonth}/{method.expYear}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {/* Option to add new card */}
+              <div
+                onClick={() => setSelectedPaymentMethodId(null)}
+                className={`cursor-pointer rounded-lg border-2 p-4 transition-all ${
+                  selectedPaymentMethodId === null
+                    ? "border-blue-600 bg-blue-50"
+                    : "border-gray-200 bg-white hover:border-gray-300"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    checked={selectedPaymentMethodId === null}
+                    onChange={() => setSelectedPaymentMethodId(null)}
+                    className="h-4 w-4 text-blue-600"
+                  />
+                  <div>
+                    <div className="font-medium text-gray-900">
+                      + Add New Card
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      Use a different payment method
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Loading state */}
+          {loadingPaymentMethods && (
+            <div className="py-8 text-center text-gray-600">
+              Loading payment methods...
+            </div>
+          )}
+
+          {/* Show new card form if: no saved methods, or user selected "Add New Card" */}
+          {!loadingPaymentMethods &&
+            (savedPaymentMethods.length === 0 ||
+              selectedPaymentMethodId === null) && (
+              <>
+                {/* Save Payment Method Checkbox (only for new cards) */}
+                {isSignedIn && (
+                  <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+                    <label className="flex cursor-pointer items-start gap-3">
+                      <input
+                        type="checkbox"
+                        checked={savePaymentMethod}
+                        onChange={(e) => setSavePaymentMethod(e.target.checked)}
+                        className="mt-1 h-4 w-4 cursor-pointer rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                      />
+                      <div className="flex-1">
+                        <span className="font-medium text-gray-900">
+                          Save payment method for future purchases
+                        </span>
+                        <p className="mt-1 text-sm text-gray-600">
+                          Securely save this card to make checkout faster next
+                          time. You can manage saved cards in your account
+                          settings.
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+                )}
+
+                <EmbeddedCheckout savePaymentMethod={savePaymentMethod} />
+              </>
+            )}
+
+          {/* Show confirmation button for saved payment method */}
+          {!loadingPaymentMethods &&
+            selectedPaymentMethodId !== null &&
+            savedPaymentMethods.length > 0 && (
+              <button
+                onClick={() => alert("TODO: Process payment with saved card")}
+                className="w-full rounded-lg bg-blue-600 py-4 text-lg font-semibold text-white transition-colors hover:bg-blue-700"
+              >
+                Pay with Selected Card
+              </button>
+            )}
         </div>
       )}
     </div>
