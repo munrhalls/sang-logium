@@ -82,7 +82,7 @@ async function main() {
     console.log("\n=== PRODUCT FOUND ===");
     console.log(`Name: ${product.name}`);
     console.log(`Brand: ${product.brand}`);
-    console.log(`Price: $${product.displayPrice}`);
+    console.log(`Price: $${product.price}`);
     console.log(`SKU: ${product.sku}`);
     console.log(`Stock: ${product.stock}`);
 

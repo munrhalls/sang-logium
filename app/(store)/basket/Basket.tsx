@@ -8,6 +8,7 @@ import BasketControls from "@/app/components/features/basket/BasketControls";
 export default function Basket() {
   const basket = useBasketStore((s) => s.basket);
 
+  console.log("Basket items:", basket);
   return (
     <div>
       <div className="hidden grid-cols-[3fr_1fr_1fr_auto] border-b border-gray-200 bg-gray-50 p-5 text-sm font-semibold text-gray-700 lg:grid">
@@ -32,14 +33,16 @@ export default function Basket() {
                 </h3>
               </Link>
               <p className="mt-2 text-sm text-gray-500 lg:hidden">
-                <span className="font-medium">${item.price.toFixed(2)}</span> ×{" "}
-                {item.quantity}
+                <span className="font-medium">
+                  ${item.displayPrice.toFixed(2)}
+                </span>{" "}
+                × {item.quantity}
               </p>
             </div>
           </div>
           <div className="hidden items-center justify-center lg:flex">
             <div className="font-medium text-gray-900">
-              ${item.price.toFixed(2)}
+              ${item.displayPrice.toFixed(2)}
             </div>
           </div>
           <div className="flex items-center lg:justify-center">

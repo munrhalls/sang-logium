@@ -103,7 +103,7 @@ function analyzeNumericFields(products) {
   // Check main product fields
   products.forEach((product) => {
     // Check direct numeric fields
-    if (typeof product.displayPrice === "number") numericFields.add("price");
+    if (typeof product.price === "number") numericFields.add("price");
     if (typeof product.rating === "number") numericFields.add("rating");
 
     // Check specifications for numeric values

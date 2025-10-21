@@ -8,25 +8,25 @@ import client from "./getClient.mjs";
 async function createSortablesDocument(topLevelCategory, dryRun = false) {
   if (!topLevelCategory || typeof topLevelCategory !== "string") {
     console.error(
-      "Error: Please provide a valid top-level category name as a string",
+      "Error: Please provide a valid top-level category name as a string"
     );
     process.exit(1);
   }
 
   try {
     console.log(
-      `\n===== CREATING SORTABLES DOCUMENT FOR: ${topLevelCategory} =====`,
+      `\n===== CREATING SORTABLES DOCUMENT FOR: ${topLevelCategory} =====`
     );
 
     // 1. Check if document already exists to avoid duplicates
     const existingDocuments = await client.fetch(
       `*[_type == "categorySortables" && name == $categoryName][0]`,
-      { categoryName: topLevelCategory },
+      { categoryName: topLevelCategory }
     );
 
     if (existingDocuments) {
       console.log(
-        `Warning: A categorySortables document already exists for ${topLevelCategory}`,
+        `Warning: A categorySortables document already exists for ${topLevelCategory}`
       );
       console.log("Document ID:", existingDocuments._id);
 
@@ -50,14 +50,14 @@ async function createSortablesDocument(topLevelCategory, dryRun = false) {
         specifications,
         overviewFields
       }`,
-      { categoryPattern: `${topLevelCategory}/*` },
+      { categoryPattern: `${topLevelCategory}/*` }
     );
 
     console.log(`Found ${products.length} products in this category.`);
 
     if (products.length === 0) {
       console.log(
-        "Error: No products found in this category. Unable to analyze sortables.",
+        "Error: No products found in this category. Unable to analyze sortables."
       );
       return;
     }
@@ -65,7 +65,7 @@ async function createSortablesDocument(topLevelCategory, dryRun = false) {
     // 3. Analyze products and generate recommended sortables
     const recommendedSortables = analyzeCategoryForSortables(
       products,
-      topLevelCategory,
+      topLevelCategory
     );
 
     // 4. Get all subcategories for this top-level category
@@ -125,7 +125,7 @@ async function createSortablesDocument(topLevelCategory, dryRun = false) {
   } catch (error) {
     console.error(
       `Error creating sortables document for ${topLevelCategory}:`,
-      error,
+      error
     );
     process.exit(1);
   }
@@ -139,7 +139,7 @@ async function createSortablesDocument(topLevelCategory, dryRun = false) {
  */
 function analyzeCategoryForSortables(products, categoryName) {
   console.log(
-    "\nAnalyzing products to determine appropriate sortable fields...",
+    "\nAnalyzing products to determine appropriate sortable fields..."
   );
 
   const totalProducts = products.length;
@@ -285,7 +285,7 @@ function analyzeCategoryForSortables(products, categoryName) {
   // 5. Add category-specific numeric specifications
   Object.entries(numericSpecs)
     .filter(
-      ([_, count]) => (count / totalProducts) * 100 >= THRESHOLD_PERCENTAGE,
+      ([_, count]) => (count / totalProducts) * 100 >= THRESHOLD_PERCENTAGE
     )
     .sort((a, b) => b[1] - a[1])
     .slice(0, 2) // Limit to top 2 numeric specs
@@ -308,7 +308,7 @@ function analyzeCategoryForSortables(products, categoryName) {
   // 6. Add category-specific date specifications
   Object.entries(dateSpecs)
     .filter(
-      ([_, count]) => (count / totalProducts) * 100 >= THRESHOLD_PERCENTAGE,
+      ([_, count]) => (count / totalProducts) * 100 >= THRESHOLD_PERCENTAGE
     )
     .sort((a, b) => b[1] - a[1])
     .slice(0, 1) // Limit to top 1 date spec
@@ -351,7 +351,7 @@ async function getSubcategories(topLevelCategory) {
       `*[_type == "product" && categoryPath match $categoryPattern]{
         "categoryPath": categoryPath
       }`,
-      { categoryPattern: `${topLevelCategory}/*` },
+      { categoryPattern: `${topLevelCategory}/*` }
     );
 
     // Extract unique paths
@@ -383,7 +383,7 @@ async function confirmOverwrite() {
 
   return new Promise((resolve) => {
     process.stdout.write(
-      "Do you want to overwrite the existing document? (y/N): ",
+      "Do you want to overwrite the existing document? (y/N): "
     );
 
     process.stdin.once("data", (data) => {
@@ -414,7 +414,7 @@ const categoryArg = args.find((arg) => !arg.startsWith("-"));
 if (!categoryArg) {
   console.error("Please provide a top-level category name");
   console.error(
-    "Usage: node createSortablesDocument.mjs <category> [--dry-run]",
+    "Usage: node createSortablesDocument.mjs <category> [--dry-run]"
   );
   process.exit(1);
 }

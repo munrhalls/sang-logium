@@ -17,7 +17,7 @@ export default async function ProductPage({
     !product ||
     !product.name ||
     product.stock === undefined ||
-    !product.displayPrice
+    !product.price
   ) {
     return notFound();
   }
@@ -26,7 +26,7 @@ export default async function ProductPage({
     _id: product._id,
     name: product.name,
     stock: product.stock,
-    price: product.displayPrice,
+    price: product.price,
     quantity: 1,
   };
   return (

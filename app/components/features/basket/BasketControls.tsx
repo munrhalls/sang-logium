@@ -19,7 +19,8 @@ const BasketControls = React.memo(
         _id: product._id,
         stock: product.stock,
         name: product.name,
-        price: product.displayPrice,
+        stripePriceId: product.stripePriceId,
+        displayPrice: product.displayPrice,
         quantity: 1,
       };
       return (

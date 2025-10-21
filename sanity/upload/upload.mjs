@@ -78,7 +78,7 @@ const transformProduct = async (product) => {
       },
       brand: product.brand,
       description: product.description,
-      price: product.displayPrice,
+      price: product.price,
       sku: product.sku,
       stock: product.stock,
       image: {

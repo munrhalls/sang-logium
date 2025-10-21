@@ -55,7 +55,7 @@ export default async function FeaturedProducts() {
             />
           </div>
           <ProductName name={product.name} />
-          <Price price={product.displayPrice} priceColor="#50C878" />
+          <Price price={product.price} priceColor="#50C878" />
         </Link>
       </div>
     );

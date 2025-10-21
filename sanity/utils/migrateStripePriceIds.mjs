@@ -125,15 +125,14 @@ async function migrateStripePriceIds() {
 
     // Validation: Check for products with invalid data
     const invalidProducts = productsToMigrate.filter(
-      (p) =>
-        !p.name || typeof p.displayPrice !== "number" || p.displayPrice <= 0
+      (p) => !p.name || typeof p.price !== "number" || p.price <= 0
     );
 
     if (invalidProducts.length > 0) {
       console.error("❌ Found products with invalid data:");
       invalidProducts.forEach((p) => {
         console.error(
-          `   - ${p._id}: name="${p.name}", displayPrice=${p.displayPrice}`
+          `   - ${p._id}: name="${p.name}", displayPrice=${p.price}`
         );
       });
       console.error(
@@ -152,7 +151,7 @@ async function migrateStripePriceIds() {
 
       console.log(`\n${progress} Processing: "${product.name}"`);
       console.log(`   Sanity ID: ${product._id}`);
-      console.log(`   Price: $${product.displayPrice}`);
+      console.log(`   Price: $${product.price}`);
 
       try {
         // Create Stripe Product and Price

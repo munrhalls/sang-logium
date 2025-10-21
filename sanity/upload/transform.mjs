@@ -93,7 +93,7 @@ const transformProduct = (product) => {
     },
     brand: product.brand || "",
     description: description,
-    price: product.displayPrice || 0,
+    price: product.price || 0,
     sku: product.sku || "",
     stock: product.stock || 0,
     image: {

@@ -20,7 +20,7 @@ export type FilterConfig = {
  * Parses URL search parameters into a validated filter configuration
  */
 export function parseUrlToFilterConfig(
-  searchParams: URLSearchParams | Record<string, string | string[]>,
+  searchParams: URLSearchParams | Record<string, string | string[]>
 ): FilterConfig {
   // Normalize searchParams to handle both URLSearchParams and NextJS searchParams
   const params =
@@ -50,8 +50,8 @@ export function parseUrlToFilterConfig(
 
   if (priceMin !== undefined || priceMax !== undefined) {
     config.price = {};
-    if (priceMin !== undefined) config.price.min = priceMin;
-    if (priceMax !== undefined) config.price.max = priceMax;
+    if (priceMin !== undefined) config.displayPrice.min = priceMin;
+    if (priceMax !== undefined) config.displayPrice.max = priceMax;
   }
 
   // Handle colors

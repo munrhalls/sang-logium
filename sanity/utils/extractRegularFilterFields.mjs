@@ -20,7 +20,7 @@ async function extractRegularFilters() {
     // This assumes filters are stored in a "filters" array - adjust as needed based on your schema
     allProducts.forEach((product) => {
       // Price is a common regular filter
-      if (product.displayPrice !== undefined) {
+      if (product.price !== undefined) {
         regularFilterTitles.add("price");
       }
 

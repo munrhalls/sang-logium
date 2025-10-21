@@ -326,17 +326,17 @@ async function analyzeCategoryStructure(totalCount) {
 
           // Update price range
           if (
-            typeof product.displayPrice === "number" &&
-            !isNaN(product.displayPrice) &&
-            product.displayPrice > 0
+            typeof product.price === "number" &&
+            !isNaN(product.price) &&
+            product.price > 0
           ) {
             categoryStructure[topLevel].priceRange.min = Math.min(
               categoryStructure[topLevel].priceRange.min,
-              product.displayPrice
+              product.price
             );
             categoryStructure[topLevel].priceRange.max = Math.max(
               categoryStructure[topLevel].priceRange.max,
-              product.displayPrice
+              product.price
             );
           }
         });

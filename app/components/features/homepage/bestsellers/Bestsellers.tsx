@@ -39,10 +39,10 @@ export default async function Bestsellers() {
     return (
       <div
         key={bestseller._id + "_bestseller"}
-        className="h-full w-full p-4 grid place-items-center relative group"
+        className="group relative grid h-full w-full place-items-center p-4"
       >
         <Link
-          className="h-full w-full max-w-[300px] grid grid-rows-[auto_2fr_auto] border border-black group-hover:border-[1px] group-hover:border-orange-500"
+          className="grid h-full w-full max-w-[300px] grid-rows-[auto_2fr_auto] border border-black group-hover:border-[1px] group-hover:border-orange-500"
           href={`/product/${bestseller._id}`}
         >
           <BrandTitle brand={bestseller.brand} />
@@ -52,7 +52,7 @@ export default async function Bestsellers() {
               height={300}
               width={300}
               alt={bestseller.brand}
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
             />
           </div>
           <ProductName name={bestseller.name} />
@@ -62,9 +62,9 @@ export default async function Bestsellers() {
     );
   });
   return (
-    <div className="w-full  grid grid-rows-[1fr_4fr]">
+    <div className="grid w-full grid-rows-[1fr_4fr]">
       <SegmentTitle title="Bestsellers" />
-      <div className="h-full min-h-[400px] w-full ">
+      <div className="h-full min-h-[400px] w-full">
         {prebuilt && (
           <CarouselMultiSlide prebuiltSlides={prebuilt} keys={keys} />
         )}

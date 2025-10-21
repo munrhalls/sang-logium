@@ -66,7 +66,7 @@ const HeroCommercialItem = ({ commercial, index }: SlideProps) => {
   if (!image) return null;
 
   return (
-    <div className="h-full relative flex-[0_0_100%]">
+    <div className="relative h-full flex-[0_0_100%]">
       <Image
         src={imageSrc}
         loading={"eager"}
@@ -74,7 +74,7 @@ const HeroCommercialItem = ({ commercial, index }: SlideProps) => {
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
         style={{ objectFit: "cover", objectPosition: "right" }}
-        className={`absolute inset-0 w-full h-full object-cover`}
+        className={`absolute inset-0 h-full w-full object-cover`}
         quality={65}
         placeholder="blur"
         blurDataURL={blurUrl}

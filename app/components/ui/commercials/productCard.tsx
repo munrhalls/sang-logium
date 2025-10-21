@@ -25,12 +25,12 @@ export const ProductCard = ({ product, discount, priceColor }: Props) => {
       <div className="z-40 grid place-content-center">
         {discount ? (
           <DiscountPrice
-            price={product.displayPrice}
+            price={product.price}
             discount={discount}
             priceColor={priceColor}
           />
         ) : (
-          <Price price={product.displayPrice} priceColor={priceColor} />
+          <Price price={product.price} priceColor={priceColor} />
         )}
       </div>
     </Link>
