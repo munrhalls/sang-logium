@@ -6,6 +6,8 @@ import ShippingInfo from "./ShippingInfo";
 import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
 import OrderDetails from "./OrderDetails";
 import EmbeddedCheckout from "@/app/components/checkout/EmbeddedCheckout";
+import { getUserPaymentMethods } from "@/app/actions/paymentMethods";
+import { useAuth } from "@clerk/nextjs";
 
 const ErrorMessage = ({ error }: { error: string }) => (
   <div
@@ -18,6 +20,7 @@ const ErrorMessage = ({ error }: { error: string }) => (
 );
 
 export default function Summary() {
+  const { isSignedIn } = useAuth();
   const cartItems = useInitializeCheckoutCart();
 
   const shippingInfo = useCheckoutStore((s) => s.shippingInfo);
@@ -25,6 +28,11 @@ export default function Summary() {
   const [validationError, setValidationError] = useState<string | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
   const [savePaymentMethod, setSavePaymentMethod] = useState(false);
+  const [savedPaymentMethods, setSavedPaymentMethods] = useState<any[]>([]);
+  const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
+  const [selectedPaymentMethodId, setSelectedPaymentMethodId] = useState<
+    string | null
+  >(null);
 
   useEffect(() => {
     if (!shippingInfo || cartItems.length === 0) {
@@ -37,6 +45,30 @@ export default function Summary() {
 
   const isInvalid =
     !shippingInfo || cartItems.length === 0 || validationError !== null;
+
+  // Load saved payment methods when user proceeds to payment
+  const handleProceedToPayment = async () => {
+    setShowCheckout(true);
+
+    // Only check for saved payment methods if user is logged in
+    if (isSignedIn) {
+      setLoadingPaymentMethods(true);
+      try {
+        const methods = await getUserPaymentMethods();
+        setSavedPaymentMethods(methods);
+
+        // Auto-select default payment method if exists
+        const defaultMethod = methods.find((m: any) => m.isDefault);
+        if (defaultMethod) {
+          setSelectedPaymentMethodId(defaultMethod.stripePaymentMethodId);
+        }
+      } catch (error) {
+        console.error("Failed to load payment methods:", error);
+      } finally {
+        setLoadingPaymentMethods(false);
+      }
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -56,7 +88,7 @@ export default function Summary() {
       {/* Proceed to Payment Button */}
       {!showCheckout && !isInvalid && (
         <button
-          onClick={() => setShowCheckout(true)}
+          onClick={handleProceedToPayment}
           className="w-full rounded-lg bg-blue-600 py-4 text-lg font-semibold text-white transition-colors hover:bg-blue-700"
         >
           Proceed to Payment
