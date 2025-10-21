@@ -48,7 +48,12 @@ export default function Summary() {
         </button>
       )}
 
-      {showCheckout && !isInvalid && <PaymentView basketItems={basketItems} />}
+      {showCheckout && !isInvalid && (
+        <PaymentView
+          basketItems={basketItems}
+          onBack={() => setShowCheckout(false)}
+        />
+      )}
     </div>
   );
 }
