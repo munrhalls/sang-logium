@@ -24,6 +24,7 @@ export default function Summary() {
 
   const [validationError, setValidationError] = useState<string | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
+  const [savePaymentMethod, setSavePaymentMethod] = useState(false);
 
   useEffect(() => {
     if (!shippingInfo || cartItems.length === 0) {
