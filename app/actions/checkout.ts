@@ -18,7 +18,12 @@ type InventoryItem = {
  * Creates an embedded Stripe Checkout session
  * Returns client secret for rendering checkout on your site
  */
-export async function createEmbeddedCheckoutSession(items: CartItem[]) {
+export async function createEmbeddedCheckoutSession(
+  items: CartItem[],
+  options?: {
+    savePaymentMethod?: boolean;
+  }
+) {
   const { userId } = await auth();
   if (!userId) {
     throw new Error("Not authenticated");

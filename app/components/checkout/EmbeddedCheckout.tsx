@@ -56,7 +56,9 @@ export default function EmbeddedCheckout({
         setLoading(true);
         setError(null);
 
-        const result = await createEmbeddedCheckoutSession(items);
+        const result = await createEmbeddedCheckoutSession(items, {
+          savePaymentMethod,
+        });
 
         if (!result.clientSecret) {
           throw new Error("Failed to create checkout session");
@@ -74,7 +76,7 @@ export default function EmbeddedCheckout({
     };
 
     initCheckout();
-  }, [items, clientSecret]);
+  }, [items, clientSecret, savePaymentMethod]);
 
   // Cleanup: reset client secret when component unmounts
   useEffect(() => {
