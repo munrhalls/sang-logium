@@ -4,7 +4,6 @@ import { useCheckoutStore } from "@/store/checkout";
 import ShippingInfo from "./ShippingInfo";
 import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
 import OrderDetails from "./OrderDetails";
-import EmbeddedCheckout from "@/app/components/checkout/EmbeddedCheckout";
 import { getUserPaymentMethods } from "@/app/actions/payment_methods/methods_get";
 import { processPaymentWithSavedMethod } from "@/app/actions/checkout/saved_payment";
 import { useAuth } from "@clerk/nextjs";
@@ -45,6 +44,7 @@ export default function Summary() {
   }, [shippingInfo, cartItems]);
   const isInvalid =
     !shippingInfo || cartItems.length === 0 || validationError !== null;
+
   const handleProceedToPayment = async () => {
     setShowCheckout(true);
     if (isSignedIn) {

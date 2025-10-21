@@ -12,12 +12,15 @@ import { useBasketStore } from "@/store/store";
 export default function PaymentSegment() {
   const { isSignedIn } = useAuth();
   const router = useRouter();
+
   const cartItems = useInitializeCheckoutCart();
   const basketItems = useBasketStore((s) => s.basket);
   const shippingInfo = useCheckoutStore((s) => s.shippingInfo);
+
   const [validationError, setValidationError] = useState<string | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
   const [savePaymentMethod, setSavePaymentMethod] = useState(false);
+  const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
   const [savedPaymentMethods, setSavedPaymentMethods] = useState<
     Array<{
       stripePaymentMethodId: string;
