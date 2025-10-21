@@ -5,7 +5,7 @@ import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout as StripeEmbeddedCheckout,
 } from "@stripe/react-stripe-js";
-import { createEmbeddedCheckoutSession } from "@/app/actions/checkout/checkout";
+import { createEmbeddedCheckoutSession } from "@/app/actions/checkout/session";
 import { useBasketStore } from "@/store/store";
 export default function EmbeddedCheckout({
   savePaymentMethod = false,
