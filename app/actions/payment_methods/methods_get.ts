@@ -1,10 +1,19 @@
 "use server";
 import { auth } from "@clerk/nextjs/server";
 import { client } from "@/sanity/lib/client";
+import { stripe } from "@/lib/stripe";
 
 interface SanityUserPaymentData {
-  stripeCustomerId?: string; // We must project this!
-  paymentMethods?: any[];
+  stripeCustomerId?: string;
+  paymentMethods?: Array<{
+    stripePaymentMethodId: string;
+    type?: string;
+    last4?: string;
+    brand?: string;
+    expMonth?: number;
+    expYear?: number;
+    isDefault?: boolean;
+  }>;
 }
 
 export async function getUserPaymentMethods() {
@@ -19,20 +28,47 @@ export async function getUserPaymentMethods() {
         }`,
     { userId }
   );
-  if (!user || !user.paymentMethods) {
+
+  if (!user) {
     return [];
   }
-  // *** IMPORTANT NEXT STEP LOGIC (Must be implemented here,
-  // but missing from your current code) ***
-  // 1. If user.stripeCustomerId exists, you need to use the Stripe API
-  //    to fetch the *live* status of those payment methods.
-  // 2. Your current code only returns the *Sanity cached* data, which
-  //    can quickly become out of date (e.g., if a card expires).
-  // 3. For a proper, full solution, the Server Action must:
-  //    a) Check if user.stripeCustomerId exists.
-  //    b) If yes, call the Stripe API: `stripe.paymentMethods.list({ customer: user.stripeCustomerId, type: 'card' })`
-  //    c) Merge/use the live data from Stripe instead of just the cached Sanity data.
-  return user.paymentMethods;
+
+  // If user has a Stripe Customer ID, fetch live payment methods from Stripe
+  if (user.stripeCustomerId) {
+    try {
+      const stripePaymentMethods = await stripe.paymentMethods.list({
+        customer: user.stripeCustomerId,
+        type: "card",
+      });
+
+      // Map Stripe payment methods to our expected format
+      const livePaymentMethods = stripePaymentMethods.data.map((pm) => {
+        // Find if this payment method is marked as default in Sanity
+        const sanityMethod = user.paymentMethods?.find(
+          (spm) => spm.stripePaymentMethodId === pm.id
+        );
+
+        return {
+          stripePaymentMethodId: pm.id,
+          type: pm.type,
+          last4: pm.card?.last4 || "",
+          brand: pm.card?.brand || "",
+          expMonth: pm.card?.exp_month || 0,
+          expYear: pm.card?.exp_year || 0,
+          isDefault: sanityMethod?.isDefault || false,
+        };
+      });
+
+      return livePaymentMethods;
+    } catch (error) {
+      console.error("Failed to fetch payment methods from Stripe:", error);
+      // Fall back to cached Sanity data if Stripe call fails
+      return user.paymentMethods || [];
+    }
+  }
+
+  // If no Stripe Customer ID, return cached Sanity data
+  return user.paymentMethods || [];
 }
 
 export async function getDefaultPaymentMethod() {
