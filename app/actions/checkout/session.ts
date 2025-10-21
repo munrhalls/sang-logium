@@ -75,7 +75,7 @@ export async function createEmbeddedCheckoutSession(
     return_url: `${process.env.NEXT_PUBLIC_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
     customer_creation: "always",
     ...(options?.savePaymentMethod && {
-      setup_future_usage: "off_session", // This is the correct placement
+      setup_future_usage: "off_session",
     }),
     metadata: {
       userId: userId,
