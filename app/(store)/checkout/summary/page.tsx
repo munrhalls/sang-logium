@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useCheckoutStore, usePaymentStore } from "@/store/checkout";
+import { useCheckoutStore } from "@/store/checkout";
 import ShippingInfo from "./ShippingInfo";
 import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
 import OrderDetails from "./OrderDetails";
@@ -75,7 +75,29 @@ export default function Summary() {
               ← Back to Summary
             </button>
           </div>
-          <EmbeddedCheckout />
+
+          {/* Save Payment Method Checkbox */}
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <label className="flex cursor-pointer items-start gap-3">
+              <input
+                type="checkbox"
+                checked={savePaymentMethod}
+                onChange={(e) => setSavePaymentMethod(e.target.checked)}
+                className="mt-1 h-4 w-4 cursor-pointer rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
+              />
+              <div className="flex-1">
+                <span className="font-medium text-gray-900">
+                  Save payment method for future purchases
+                </span>
+                <p className="mt-1 text-sm text-gray-600">
+                  Securely save this card to make checkout faster next time. You
+                  can manage saved cards in your account settings.
+                </p>
+              </div>
+            </label>
+          </div>
+
+          <EmbeddedCheckout savePaymentMethod={savePaymentMethod} />
         </div>
       )}
     </div>

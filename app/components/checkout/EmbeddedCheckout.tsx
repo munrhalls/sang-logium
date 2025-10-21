@@ -13,7 +13,11 @@ import { useBasketStore } from "@/store/store";
  * Embedded Stripe Checkout Component
  * Keeps users on your site during checkout
  */
-export default function EmbeddedCheckout() {
+export default function EmbeddedCheckout({
+  savePaymentMethod = false,
+}: {
+  savePaymentMethod?: boolean;
+}) {
   const basketItems = useBasketStore((s) => s.basket);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
