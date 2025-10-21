@@ -95,6 +95,12 @@ export async function createEmbeddedCheckoutSession(
     metadata: {
       userId: userId,
     },
+    // If user wants to save payment method, configure Stripe to save it
+    ...(options?.savePaymentMethod && {
+      payment_intent_data: {
+        setup_future_usage: "off_session",
+      },
+    }),
   });
 
   // Return the client secret instead of redirecting
