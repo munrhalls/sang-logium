@@ -5,7 +5,9 @@ import Stripe from "stripe";
 import { client } from "@/sanity/lib/client";
 import { backendClient } from "@/sanity/lib/backendClient";
 import { fetchStripeLineItems, mapLineItemsToOrderItems } from "./helpers";
+
 export const runtime = "nodejs";
+
 export async function POST(request: NextRequest) {
   console.log("🔔 Webhook received");
   try {
@@ -53,7 +55,7 @@ export async function POST(request: NextRequest) {
     console.error("💥 Webhook error:", error);
     return NextResponse.json(
       { error: "Webhook handler failed", details: String(error) },
-      { status: 200 } 
+      { status: 200 }
     );
   }
 }
@@ -71,7 +73,7 @@ async function handleCheckoutSessionCompleted(
     );
     if (existingOrder) {
       console.log("✅ Order already exists for this session:", existingOrder);
-      return; 
+      return;
     }
     const lineItems = await fetchStripeLineItems(session.id);
     if (!lineItems || lineItems.length === 0) {
@@ -136,7 +138,7 @@ async function handleCheckoutSessionCompleted(
     console.log("🎉 Order processing complete!");
   } catch (error) {
     console.error("💥 Error processing order:", error);
-    throw error; 
+    throw error;
   }
 }
 async function generateOrderNumber(): Promise<string> {

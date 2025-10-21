@@ -4,7 +4,7 @@ import Stripe from "stripe";
 export async function fetchStripeLineItems(sessionId: string) {
   console.log("📦 Fetching line items for session:", sessionId);
   const lineItems = await stripe.checkout.sessions.listLineItems(sessionId, {
-    expand: ["data.price.product"], 
+    expand: ["data.price.product"],
   });
   console.log(`✅ Found ${lineItems.data.length} line items`);
   return lineItems.data;
