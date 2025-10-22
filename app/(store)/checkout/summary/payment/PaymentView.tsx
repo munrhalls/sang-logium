@@ -14,10 +14,9 @@ interface BasketItem {
 
 interface PaymentViewProps {
   basketItems: BasketItem[];
-  onBack: () => void;
 }
 
-export default function PaymentView({ basketItems, onBack }: PaymentViewProps) {
+export default function PaymentView({ basketItems }: PaymentViewProps) {
   const { isSignedIn } = useAuth();
   const { methods, isLoading } = usePaymentMethods({
     isSignedIn: isSignedIn ?? false,
@@ -41,12 +40,6 @@ export default function PaymentView({ basketItems, onBack }: PaymentViewProps) {
     <div className="space-y-4">
       <div className="flex items-center justify-between border-b pb-4">
         <h2 className="text-2xl font-bold">Complete Payment</h2>
-        <button
-          onClick={onBack}
-          className="text-sm text-gray-600 hover:text-gray-900"
-        >
-          ← Back to Summary
-        </button>
       </div>
 
       {isLoading && (
