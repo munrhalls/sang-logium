@@ -120,6 +120,7 @@ export const useBasketStore = create<BasketState>()(
         );
         return basket.length > 0 && hasValidItems;
       },
+      clearBasket: () => set({ basket: [] }),
     }),
     {
       name: "basket-storage",

@@ -2,6 +2,7 @@
 import { useUIStore } from "../../../../store/store";
 import { ReactElement } from "react";
 import { FaTimes } from "react-icons/fa";
+
 export default function MobileCategoriesDrawer({
   categoriesTreeUI,
 }: {

@@ -297,7 +297,8 @@ export const userType = defineType({
       name: "paymentMethods",
       title: "Saved Payment Methods",
       type: "array",
-      description: "References to Stripe payment methods",
+      description:
+        "References to Stripe payment methods. Card details (last4, brand, expiry) are fetched live from Stripe API.",
       of: [
         defineArrayMember({
           type: "object",
@@ -306,69 +307,37 @@ export const userType = defineType({
               name: "stripePaymentMethodId",
               type: "string",
               title: "Stripe Payment Method ID",
+              description:
+                "The token/ID to fetch live card details from Stripe",
               validation: (Rule) => Rule.required(),
               readOnly: true,
-            },
-            {
-              name: "type",
-              type: "string",
-              title: "Payment Type",
-              options: {
-                list: [
-                  { title: "Card", value: "card" },
-                  { title: "Bank Account", value: "bank" },
-                  { title: "PayPal", value: "paypal" },
-                ],
-              },
-            },
-            {
-              name: "last4",
-              type: "string",
-              title: "Last 4 Digits",
-              validation: (Rule) => Rule.length(4),
-            },
-            {
-              name: "brand",
-              type: "string",
-              title: "Card Brand",
-            },
-            {
-              name: "expMonth",
-              type: "number",
-              title: "Expiry Month",
-              validation: (Rule) => Rule.integer().min(1).max(12),
-            },
-            {
-              name: "expYear",
-              type: "number",
-              title: "Expiry Year",
-              validation: (Rule) =>
-                Rule.integer().min(new Date().getFullYear()),
             },
             {
               name: "isDefault",
               type: "boolean",
               title: "Default Payment Method",
+              description:
+                "User's preferred default card for checkout. Consider using Stripe's native default instead.",
               initialValue: false,
             },
             {
               name: "addedAt",
               type: "datetime",
               title: "Added Date",
+              description: "When this payment method was first saved",
+              readOnly: true,
             },
           ],
           preview: {
             select: {
-              type: "type",
-              last4: "last4",
-              brand: "brand",
+              methodId: "stripePaymentMethodId",
               isDefault: "isDefault",
             },
             prepare(selection) {
-              const { type, last4, brand, isDefault } = selection;
+              const { methodId, isDefault } = selection;
               return {
-                title: `${brand || type} •••• ${last4}${isDefault ? " ⭐" : ""}`,
-                subtitle: isDefault ? "Default" : "",
+                title: `${methodId}${isDefault ? " ⭐" : ""}`,
+                subtitle: isDefault ? "Default" : "Payment Method",
               };
             },
           },
