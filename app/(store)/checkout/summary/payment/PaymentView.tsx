@@ -12,15 +12,12 @@ interface BasketItem {
   quantity: number;
 }
 
-interface PaymentSegmentProps {
+interface PaymentViewProps {
   basketItems: BasketItem[];
   onBack: () => void;
 }
 
-export default function PaymentSegment({
-  basketItems,
-  onBack,
-}: PaymentSegmentProps) {
+export default function PaymentView({ basketItems, onBack }: PaymentViewProps) {
   const { isSignedIn } = useAuth();
   const { methods, isLoading } = usePaymentMethods({
     isSignedIn: isSignedIn ?? false,

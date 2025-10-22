@@ -5,7 +5,7 @@ import ShippingInfo from "./ShippingInfo";
 import useInitializeCheckoutCart from "@/app/hooks/useInitializeCheckoutCart";
 import OrderDetails from "./OrderDetails";
 import { useBasketStore } from "@/store/store";
-import PaymentView from "./PaymentView";
+import PaymentView from "./payment/PaymentView";
 import ErrorMessage from "@/app/components/common/ErrorMessage";
 
 export default function Summary() {
