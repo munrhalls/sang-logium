@@ -3,16 +3,22 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { CheckCircle, Package, ArrowRight } from "lucide-react";
+import { useBasketStore } from "@/store/store";
+
 export default function SuccessPage() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const [loading, setLoading] = useState(true);
+  const clearBasket = useBasketStore((s) => s.clearBasket);
+
   useEffect(() => {
+    clearBasket();
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1500);
     return () => clearTimeout(timer);
-  }, []);
+  }, [clearBasket]);
+
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">

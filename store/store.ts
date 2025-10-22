@@ -26,6 +26,7 @@ interface BasketState {
   updateQuantity: (_id: string, quantity: number) => void;
   getTotal: () => number;
   isCheckoutEnabled: () => boolean;
+  clearBasket: () => void;
 }
 export const useUIStore = create<UIState>((set) => ({
   isSearchDrawerOpen: false,
