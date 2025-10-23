@@ -5,11 +5,17 @@ import { stripe } from "@/lib/stripe";
 // - user selects a method, pays, payment goes through via stripe, customer id is saved here, if customer is logged & checked checkbox then the customer id is saved to sanity cms to his user doc and only customer id
 // - if customer comes back his default payment method is retrieved from stripe and used to auto-fill, along with all his other methods - if he doesn't have any methods, he can add them - and he can change the default payment method - all of this is done via requests to stripe and is stored on stripe only - sanity cms (my whole app) - only has access to stripe customer id, nothing else
 
-// BIG CHUNKS
-// 1 DATA READ & ADAPT PAYMENT INTERFACE
-// 2 SETUP PAYMENT INTENT /W PROMISE AND CLIENT SECRET
-// 3 DISPLAY ADAPTED PAYMENT INTERFACE
-// 4 WEBHOOK PROCESS AND STORE AFTER PAYMENT DATA, REDIRECT TO /REVIEW
+// BIG CODE CHUNKS
+// 1 HANDLE LOGGED IN VS GUEST
+// - if !auth skip; else request customer id payment meyhods and default payment method from stripe
+// 2 SETUP STRIPE ACCORDINGLY
+// - payment intent create:
+// - if guest, normal payment intent create
+// - setup, if stripe customer id - also pass customer id payment methods and default payment, so it ends up in the resulting client secret
+// - else, if logged in - pass what's needed to create stripe customer id + enable saving payment methods
+// 3 FRONTEND STRIPE REACT & INITIALIZE
+// -
+// 4 HANDLE AFTER PAYMENT
 
 export default async function PaymentsPage() {
   const calculateOrderAmount = (items) => {

@@ -283,67 +283,6 @@ export const userType = defineType({
         },
       ],
     }),
-
-    // ============ PAYMENT METHODS (References) ============
-    defineField({
-      name: "stripeCustomerId",
-      title: "Stripe Customer ID",
-      type: "string",
-      description:
-        "The ID of the customer record in Stripe. Required for saved payment methods.",
-      readOnly: true,
-    }),
-    defineField({
-      name: "paymentMethods",
-      title: "Saved Payment Methods",
-      type: "array",
-      description:
-        "References to Stripe payment methods. Card details (last4, brand, expiry) are fetched live from Stripe API.",
-      of: [
-        defineArrayMember({
-          type: "object",
-          fields: [
-            {
-              name: "stripePaymentMethodId",
-              type: "string",
-              title: "Stripe Payment Method ID",
-              description:
-                "The token/ID to fetch live card details from Stripe",
-              validation: (Rule) => Rule.required(),
-              readOnly: true,
-            },
-            {
-              name: "isDefault",
-              type: "boolean",
-              title: "Default Payment Method",
-              description:
-                "User's preferred default card for checkout. Consider using Stripe's native default instead.",
-              initialValue: false,
-            },
-            {
-              name: "addedAt",
-              type: "datetime",
-              title: "Added Date",
-              description: "When this payment method was first saved",
-              readOnly: true,
-            },
-          ],
-          preview: {
-            select: {
-              methodId: "stripePaymentMethodId",
-              isDefault: "isDefault",
-            },
-            prepare(selection) {
-              const { methodId, isDefault } = selection;
-              return {
-                title: `${methodId}${isDefault ? " ⭐" : ""}`,
-                subtitle: isDefault ? "Default" : "Payment Method",
-              };
-            },
-          },
-        }),
-      ],
-    }),
   ],
 
   // ============ PREVIEW CONFIG ============
