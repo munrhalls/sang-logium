@@ -4,7 +4,7 @@
 
 // BIG CODE CHUNKS
 // 1 HANDLE LOGGED IN VS GUEST
-// - if !auth skip; else request customer id payment meyhods and default payment method from stripe
+// - if !auth skip adding client stripe id and their payments methods and default payment method to clientSecret; else request customer id payment meyhods and default payment method from stripe and add them to clientSecret
 // 2 SETUP STRIPE ACCORDINGLY
 // - payment intent create:
 // - if guest, normal payment intent create
@@ -24,7 +24,7 @@ import { getAuth } from "clerk/nextjs/server";
 
 export default async function PaymentsPage() {
   // 1 HANDLE LOGGED IN VS GUEST
-  // - if !auth skip; else request customer id payment meyhods and default payment method from stripe
+  // - // - if !auth skip adding client stripe id and their payments methods and default payment method to clientSecret; else request customer id payment meyhods and default payment method from stripe and add them to clientSecret
   const { userId } = getAuth();
   let stripeCustomerId = null;
 
