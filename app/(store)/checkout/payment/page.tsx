@@ -76,7 +76,6 @@ export default async function PaymentsPage() {
       }
     } catch (error) {
       console.error("Error retrieving customer or payment methods:", error);
-      // Handle errors appropriately
     }
   }
 
