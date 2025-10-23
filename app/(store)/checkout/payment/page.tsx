@@ -20,10 +20,10 @@
 // - IF CHECKED 'MAKE DEFAULT' -> MAKE DEFAULT @STRIPE
 import CheckoutForm from "@/app/components/features/checkout/Checkout";
 import { stripe } from "@/lib/stripe";
-import { getAuth } from "clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 
 const createStripeCustomer = async (userId) => {
-  const { user } = await getAuth({ userId });
+  const { user } = await auth({ userId });
   const stripeCustomer = await stripe.customers.create({
     email: user.emailAddresses[0].emailAddress,
     metadata: {
@@ -33,9 +33,16 @@ const createStripeCustomer = async (userId) => {
   return stripeCustomer.id;
 };
 
+const saveStripeCustomerIdToClerk = async (userId, stripeCustomerId) => {
+  await clerkClient.users.updateUserMetadata(user.id, {
+    privateMetadata: {
+      stripeCustomerId: stripeCustomer.id,
+    },
+  });
+};
+
 export default async function PaymentsPage() {
-  // 1 HANDLE LOGGED IN VS GUEST
-  // -  if auth request customer id payment meyhods and default payment method from stripe and add them to clientSecret if these exist; if not, display checkbox to save method + make default
+  const { userId } = await auth();
   const calculateOrderAmount = (items) => {
     return 1400;
   };
@@ -43,10 +50,25 @@ export default async function PaymentsPage() {
     amount: calculateOrderAmount([{ id: "xl-tshirt" }]),
     currency: "eur",
   };
-  const { userId } = getAuth();
 
   if (userId) {
-    // get user's stripe customer id from
+    const user = await clerkClient.users.getUser(clerkUserId);
+    const stripeCustomerId = user.privateMetadata.stripeCustomerId;
+    // query stripe to check if customer exists and is not deleted
+    const stripeCustomer = await stripe.customers.retrieve(stripeCustomerId);
+    if (stripeCustomer || !stripeCustomer?.deleted) {
+      paymentIntentParams.customer = stripeCustomerId;
+      // query stripe to get his payment methods
+      const paymentMethods = await stripe.paymentMethods.list({
+        customer: stripeCustomerId,
+        type: "card",
+      });
+      // query stripe to get his default payment method
+      if (stripeCustomer.invoice_settings.default_payment_method) {
+        paymentIntentParams.payment_method =
+          stripeCustomer.invoice_settings.default_payment_method;
+      }
+    }
   }
 
   const { client_secret: clientSecret } =
