@@ -29,6 +29,7 @@ export default async function PaymentsPage() {
   let stripeCustomerId = null;
 
   if (!userId) {
+    // Guest user - create a payment intent without saving payment methods
   } else {
     const customer = await stripe.customers.list({
       email: userId,
@@ -38,6 +39,7 @@ export default async function PaymentsPage() {
       stripeCustomerId = customer.data[0].id;
     }
   }
+  debugger;
 
   const calculateOrderAmount = (items) => {
     // Replace this constant with a calculation of the order's amount
