@@ -1,6 +1,3 @@
-import CheckoutForm from "@/app/components/features/checkout/Checkout";
-import { stripe } from "@/lib/stripe";
-
 // REQUIREMENTS
 // - user selects a method, pays, payment goes through via stripe, customer id is saved here, if customer is logged & checked checkbox then the customer id is saved to sanity cms to his user doc and only customer id
 // - if customer comes back his default payment method is retrieved from stripe and used to auto-fill, along with all his other methods - if he doesn't have any methods, he can add them - and he can change the default payment method - all of this is done via requests to stripe and is stored on stripe only - sanity cms (my whole app) - only has access to stripe customer id, nothing else
@@ -21,8 +18,27 @@ import { stripe } from "@/lib/stripe";
 // - GUEST? JUST PROCESS PAYMENT NORMALLY // IF HE CLICKS SIGN UP FROM /REVIEW PAGE -> CREATE HIS CLERK ACC -> THEN USE THAT TO CR8 CUSTOMER STRIPE ID -> ADD THAT PAYMENT'S DATA METHOD TO HIS LIST & MAKE DEFAULT -> DISPLAY CONFIRMATION TOAST
 // - IF LOGGED & CHECKED 'SAVE METHOD' -> ADD METHOD TO HIS STRIPE LIST
 // - IF CHECKED 'MAKE DEFAULT' -> MAKE DEFAULT @STRIPE
+import CheckoutForm from "@/app/components/features/checkout/Checkout";
+import { stripe } from "@/lib/stripe";
+import { getAuth } from "clerk/nextjs/server";
 
 export default async function PaymentsPage() {
+  // 1 HANDLE LOGGED IN VS GUEST
+  // - if !auth skip; else request customer id payment meyhods and default payment method from stripe
+  const { userId } = getAuth();
+  let stripeCustomerId = null;
+
+  if (!userId) {
+  } else {
+    const customer = await stripe.customers.list({
+      email: userId,
+    });
+
+    if (customer.data.length > 0) {
+      stripeCustomerId = customer.data[0].id;
+    }
+  }
+
   const calculateOrderAmount = (items) => {
     // Replace this constant with a calculation of the order's amount
     // Calculate the order total on the server to prevent
