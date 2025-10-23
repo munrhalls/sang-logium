@@ -13,9 +13,14 @@ import { stripe } from "@/lib/stripe";
 // - if guest, normal payment intent create
 // - setup, if stripe customer id - also pass customer id payment methods and default payment, so it ends up in the resulting client secret
 // - else, if logged in - pass what's needed to create stripe customer id + enable saving payment methods
-// 3 FRONTEND STRIPE REACT & INITIALIZE
-// -
+// 3 FRONTEND STRIPE COMPS & INITIALIZE
+// - payments page - return CheckoutForm top lvl comp, it takes clientSecret props
+// - inside CheckoutForm - return Elements top lvl provider which takes both clientSecret BUT ALSO stripePromise from loadStripe
+// - enable PAYMENT METHOD SELECTION + FILL + SEND PAYMENT
 // 4 HANDLE AFTER PAYMENT
+// - GUEST? JUST PROCESS PAYMENT NORMALLY
+// - IF LOGGED & CHECKED 'SAVE METHOD' -> ADD METHOD TO HIS STRIPE LIST
+// - IF CHECKED 'MAKE DEFAULT' -> MAKE DEFAULT @STRIPE
 
 export default async function PaymentsPage() {
   const calculateOrderAmount = (items) => {
