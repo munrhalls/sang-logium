@@ -1,7 +1,7 @@
 import CheckoutForm from "@/app/components/features/checkout/Checkout";
 import { stripe } from "@/lib/stripe";
 
-export default async function IndexPage() {
+export default async function PaymentsPage() {
   const calculateOrderAmount = (items) => {
     // Replace this constant with a calculation of the order's amount
     // Calculate the order total on the server to prevent
