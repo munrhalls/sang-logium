@@ -11,7 +11,12 @@
       "name": "Next.js: debug client-side",
       "type": "chrome",
       "request": "launch",
-      "url": "https://localhost:3000"
+      "url": "https://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "userDataDir": false,
+      "sourceMapPathOverrides": {
+        "webpack://_N_E/*": "${webRoot}/*"
+      }
     },
     {
       "name": "Next.js: debug client-side (Firefox)",
@@ -38,8 +43,7 @@
         "killOnServerStop": true,
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
-        "webRoot": "${workspaceFolder}",
-        "userDataDir": false
+        "webRoot": "${workspaceFolder}"
       }
     }
   ]
