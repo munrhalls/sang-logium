@@ -52,22 +52,31 @@ export default async function PaymentsPage() {
   };
 
   if (userId) {
-    const user = await clerkClient.users.getUser(clerkUserId);
-    const stripeCustomerId = user.privateMetadata.stripeCustomerId;
-    // query stripe to check if customer exists and is not deleted
-    const stripeCustomer = await stripe.customers.retrieve(stripeCustomerId);
-    if (stripeCustomer || !stripeCustomer?.deleted) {
-      paymentIntentParams.customer = stripeCustomerId;
-      // query stripe to get his payment methods
-      const paymentMethods = await stripe.paymentMethods.list({
-        customer: stripeCustomerId,
-        type: "card",
-      });
-      // query stripe to get his default payment method
-      if (stripeCustomer.invoice_settings.default_payment_method) {
-        paymentIntentParams.payment_method =
-          stripeCustomer.invoice_settings.default_payment_method;
+    try {
+      const user = await clerkClient.users.getUser(userId);
+      const stripeCustomerId = user.privateMetadata.stripeCustomerId;
+
+      if (stripeCustomerId) {
+        const stripeCustomer =
+          await stripe.customers.retrieve(stripeCustomerId);
+
+        if (stripeCustomer && !stripeCustomer.deleted) {
+          paymentIntentParams.customer = stripeCustomerId;
+
+          const paymentMethods = await stripe.paymentMethods.list({
+            customer: stripeCustomerId,
+            type: "card",
+          });
+
+          if (stripeCustomer.invoice_settings?.default_payment_method) {
+            paymentIntentParams.payment_method =
+              stripeCustomer.invoice_settings.default_payment_method;
+          }
+        }
       }
+    } catch (error) {
+      console.error("Error retrieving customer or payment methods:", error);
+      // Handle errors appropriately
     }
   }
 
