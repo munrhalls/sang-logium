@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+
 export interface BasketItem {
   _id: string;
   name: string;
@@ -28,6 +29,7 @@ interface BasketState {
   isCheckoutEnabled: () => boolean;
   clearBasket: () => void;
 }
+
 export const useUIStore = create<UIState>((set) => ({
   isSearchDrawerOpen: false,
   toggleSearchDrawer: () =>
@@ -54,6 +56,7 @@ export const useUIStore = create<UIState>((set) => ({
       isProductsFilterDrawerOpen: false,
     })),
 }));
+
 export const useBasketStore = create<BasketState>()(
   persist(
     (set, get) => ({
