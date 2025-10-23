@@ -22,41 +22,35 @@ import CheckoutForm from "@/app/components/features/checkout/Checkout";
 import { stripe } from "@/lib/stripe";
 import { getAuth } from "clerk/nextjs/server";
 
-export default async function PaymentsPage() {
-  // 1 HANDLE LOGGED IN VS GUEST
-  // - // - if !auth skip adding client stripe id and their payments methods and default payment method to clientSecret; else request customer id payment meyhods and default payment method from stripe and add them to clientSecret
-  const { userId } = getAuth();
-  let stripeCustomerId = null;
-
-  if (!userId) {
-    // Guest user - create a payment intent without saving payment methods
-  } else {
-    const customer = await stripe.customers.list({
-      email: userId,
-    });
-
-    if (customer.data.length > 0) {
-      stripeCustomerId = customer.data[0].id;
-    }
-  }
-  debugger;
-
-  const calculateOrderAmount = (items) => {
-    // Replace this constant with a calculation of the order's amount
-    // Calculate the order total on the server to prevent
-    // people from directly manipulating the amount on the client
-    return 1400;
-  };
-
-  // Create PaymentIntent as soon as the page loads
-  const { client_secret: clientSecret } = await stripe.paymentIntents.create({
-    amount: calculateOrderAmount([{ id: "xl-tshirt" }]),
-    currency: "eur",
-    // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
-    automatic_payment_methods: {
-      enabled: true,
+const createStripeCustomer = async (userId) => {
+  const { user } = await getAuth({ userId });
+  const stripeCustomer = await stripe.customers.create({
+    email: user.emailAddresses[0].emailAddress,
+    metadata: {
+      clerkUserId: user.id,
     },
   });
+  return stripeCustomer.id;
+};
+
+export default async function PaymentsPage() {
+  // 1 HANDLE LOGGED IN VS GUEST
+  // -  if auth request customer id payment meyhods and default payment method from stripe and add them to clientSecret if these exist; if not, display checkbox to save method + make default
+  const calculateOrderAmount = (items) => {
+    return 1400;
+  };
+  const paymentIntentParams = {
+    amount: calculateOrderAmount([{ id: "xl-tshirt" }]),
+    currency: "eur",
+  };
+  const { userId } = getAuth();
+
+  if (userId) {
+    // get user's stripe customer id from
+  }
+
+  const { client_secret: clientSecret } =
+    await stripe.paymentIntents.create(paymentIntentParams);
 
   return (
     <div
