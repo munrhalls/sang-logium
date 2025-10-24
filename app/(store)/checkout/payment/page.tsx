@@ -23,25 +23,45 @@ import CheckoutForm from "@/app/components/features/checkout/Checkout";
 import { stripe } from "@/lib/stripe";
 import { currentUser } from "@clerk/nextjs/server";
 
+interface PaymentIntentData {
+  amount: number;
+  currency: string;
+  metadata: Record<string, string>;
+  customer?: string;
+  setup_future_usage?: "off_session";
+}
+
 export default async function PaymentsPage() {
   // HANDLE LOGGED IN VS GUEST
   // if user is logged in we would retrieve his stripe customer id from sanity cms and pass it to payment intent create
   // then we would also retrieve his payment methods and default payment method from stripe and pass them to payment intent create
   // this way the client secret would be setup to handle returning customer with saved methods
-  const { user } = await currentUser();
-
-  const data = {
+  const user = await currentUser();
+  const data: PaymentIntentData = {
     amount: 1400,
     currency: "eur",
-    automatic_payment_methods: {
-      enabled: true,
-    },
-    metadata: {
-      orderType: "guest",
-    },
+    metadata: {},
+    customer: undefined as string | undefined,
   };
-  if (userId) {
+
+  if (user) {
     // TODO retrieve stripe customer id from clerk metadata
+    const stripeCustomerId = user.privateMetadata?.stripeCustomerId as
+      | string
+      | undefined;
+
+    if (stripeCustomerId) {
+      data.setup_future_usage = "off_session";
+      data.metadata = {
+        ...data.metadata,
+        clerkUserId: user.id,
+      };
+      data.customer = stripeCustomerId;
+    } else {
+      data.metadata = {
+        orderType: "guest",
+      };
+    }
     // clerk user metadata -> stripeCustomerId
     // access clerkClient, retrieve user by userId, get stripeCustomerId from pr
   }
