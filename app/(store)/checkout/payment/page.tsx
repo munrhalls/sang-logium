@@ -21,13 +21,16 @@
 
 import CheckoutForm from "@/app/components/features/checkout/Checkout";
 import { stripe } from "@/lib/stripe";
+import { currentUser } from "@clerk/nextjs/server";
 
 export default async function PaymentsPage() {
+  // HANDLE LOGGED IN VS GUEST
   // if user is logged in we would retrieve his stripe customer id from sanity cms and pass it to payment intent create
   // then we would also retrieve his payment methods and default payment method from stripe and pass them to payment intent create
   // this way the client secret would be setup to handle returning customer with saved methods
+  const { user } = await currentUser();
 
-  const paymentIntent = await stripe.paymentIntents.create({
+  const data = {
     amount: 1400,
     currency: "eur",
     automatic_payment_methods: {
@@ -36,7 +39,14 @@ export default async function PaymentsPage() {
     metadata: {
       orderType: "guest",
     },
-  });
+  };
+  if (userId) {
+    // TODO retrieve stripe customer id from clerk metadata
+    // clerk user metadata -> stripeCustomerId
+    // access clerkClient, retrieve user by userId, get stripeCustomerId from pr
+  }
+
+  const paymentIntent = await stripe.paymentIntents.create(data);
 
   const { client_secret: clientSecret } = paymentIntent;
 
