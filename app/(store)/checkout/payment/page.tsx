@@ -43,14 +43,15 @@ export default async function PaymentsPage() {
 
   let stripeCustomerId: string | undefined;
 
-  if (user) {
+  // CRITICAL: Only attach customer ID if user is authenticated AND has valid session
+  if (user && user.id) {
     // User is logged in - check if they have a Stripe customer ID
     stripeCustomerId = user.privateMetadata?.stripeCustomerId as
       | string
       | undefined;
 
     if (stripeCustomerId) {
-      // Returning customer: attach customer ID
+      // Returning customer: attach customer ID only if it exists and is valid
       // Payment method saving will be handled by frontend checkbox
       data.customer = stripeCustomerId;
       data.metadata = {
@@ -80,7 +81,8 @@ export default async function PaymentsPage() {
       };
     }
   } else {
-    // Guest checkout: no customer ID, no payment method saving
+    // Guest checkout: CRITICAL - No customer parameter means no saved payment methods
+    // This forces Stripe to treat this as a completely new, unauthenticated session
     data.metadata = {
       orderType: "guest",
     };
