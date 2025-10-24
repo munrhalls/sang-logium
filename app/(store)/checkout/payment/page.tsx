@@ -43,39 +43,41 @@ const saveStripeCustomerIdToClerk = async (userId, stripeCustomerId) => {
 
 export default async function PaymentsPage() {
   const { userId } = await auth();
-  const calculateOrderAmount = (items) => {
-    return 1400;
-  };
+
   const paymentIntentParams = {
-    amount: calculateOrderAmount([{ id: "xl-tshirt" }]),
+    amount: 1400,
     currency: "eur",
   };
 
   if (userId) {
     try {
       const user = await clerkClient.users.getUser(userId);
-      const stripeCustomerId = user.privateMetadata.stripeCustomerId;
+      let stripeCustomerId = user.privateMetadata.stripeCustomerId;
 
-      if (stripeCustomerId) {
-        const stripeCustomer =
-          await stripe.customers.retrieve(stripeCustomerId);
+      // Create Stripe customer if doesn't exist
+      if (!stripeCustomerId) {
+        const stripeCustomer = await stripe.customers.create({
+          email: user.emailAddresses[0].emailAddress,
+          metadata: { clerkUserId: userId },
+        });
+        stripeCustomerId = stripeCustomer.id;
 
-        if (stripeCustomer && !stripeCustomer.deleted) {
-          paymentIntentParams.customer = stripeCustomerId;
+        await clerkClient.users.updateUserMetadata(userId, {
+          privateMetadata: { stripeCustomerId },
+        });
+      }
 
-          const paymentMethods = await stripe.paymentMethods.list({
-            customer: stripeCustomerId,
-            type: "card",
-          });
+      // Associate payment with customer & enable saving methods
+      paymentIntentParams.customer = stripeCustomerId;
+      paymentIntentParams.setup_future_usage = "off_session"; // KEY LINE
 
-          if (stripeCustomer.invoice_settings?.default_payment_method) {
-            paymentIntentParams.payment_method =
-              stripeCustomer.invoice_settings.default_payment_method;
-          }
-        }
+      // Verify customer still exists in Stripe
+      const stripeCustomer = await stripe.customers.retrieve(stripeCustomerId);
+      if (stripeCustomer.deleted) {
+        throw new Error("Customer was deleted");
       }
     } catch (error) {
-      console.error("Error retrieving customer or payment methods:", error);
+      console.error("Error with Stripe customer:", error);
     }
   }
 
@@ -83,10 +85,7 @@ export default async function PaymentsPage() {
     await stripe.paymentIntents.create(paymentIntentParams);
 
   return (
-    <div
-      id="checkout"
-      className="flex min-h-screen flex-col items-center justify-center py-2"
-    >
+    <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <CheckoutForm clientSecret={clientSecret} />
     </div>
   );
