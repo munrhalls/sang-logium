@@ -23,66 +23,7 @@ import CheckoutForm from "@/app/components/features/checkout/Checkout";
 import { stripe } from "@/lib/stripe";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 
-const createStripeCustomer = async (userId) => {
-  const { user } = await auth({ userId });
-  const stripeCustomer = await stripe.customers.create({
-    email: user.emailAddresses[0].emailAddress,
-    metadata: {
-      clerkUserId: user.id,
-    },
-  });
-  return stripeCustomer.id;
-};
-
-const saveStripeCustomerIdToClerk = async (userId, stripeCustomerId) => {
-  await clerkClient.users.updateUserMetadata(user.id, {
-    privateMetadata: {
-      stripeCustomerId: stripeCustomer.id,
-    },
-  });
-};
-
 export default async function PaymentsPage() {
-  const { userId } = await auth();
-  const client = await clerkClient();
-  const paymentIntentParams = {
-    amount: 1400,
-    currency: "eur",
-  };
-
-  if (userId) {
-    try {
-      const user = await client.users.getUser(userId);
-      let stripeCustomerId = user.privateMetadata.stripeCustomerId;
-
-      // Create Stripe customer if doesn't exist
-      if (!stripeCustomerId) {
-        const stripeCustomer = await stripe.customers.create({
-          email: user.emailAddresses[0].emailAddress,
-          metadata: { clerkUserId: userId },
-        });
-        stripeCustomerId = stripeCustomer.id;
-
-        const user = await (await clerkClient()).users.getUser(userId);
-      }
-
-      // Associate payment with customer & enable saving methods
-      paymentIntentParams.customer = stripeCustomerId;
-      paymentIntentParams.setup_future_usage = "off_session"; // KEY LINE
-
-      // Verify customer still exists in Stripe
-      const stripeCustomer = await stripe.customers.retrieve(stripeCustomerId);
-      if (stripeCustomer.deleted) {
-        throw new Error("Customer was deleted");
-      }
-    } catch (error) {
-      console.error("Error with Stripe customer:", error);
-    }
-  }
-
-  const { client_secret: clientSecret } =
-    await stripe.paymentIntents.create(paymentIntentParams);
-
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <CheckoutForm clientSecret={clientSecret} />
