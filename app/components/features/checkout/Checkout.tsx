@@ -23,6 +23,7 @@ function PaymentForm({ isLoggedIn }: PaymentFormProps) {
 
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [savePaymentMethod, setSavePaymentMethod] = useState(isLoggedIn);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,22 +34,28 @@ function PaymentForm({ isLoggedIn }: PaymentFormProps) {
 
     setIsLoading(true);
 
-    const { error } = await stripe.confirmPayment({
+    // Configure save options based on user preference
+    const confirmOptions = {
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/checkout/review`,
+        return_url: `${window.location.origin}/checkout/success`,
+        payment_method_data:
+          savePaymentMethod && isLoggedIn
+            ? {
+                allow_redisplay: "always" as const,
+              }
+            : undefined,
       },
-    });
+    };
 
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message ?? "An error occurred");
-    } else {
-      setMessage("An unexpected error occurred.");
+    const { error } = await stripe.confirmPayment(confirmOptions);
+
+    if (error) {
+      if (error.type === "card_error" || error.type === "validation_error") {
+        setMessage(error.message ?? "An error occurred");
+      } else {
+        setMessage("An unexpected error occurred.");
+      }
     }
 
     setIsLoading(false);
@@ -56,17 +63,35 @@ function PaymentForm({ isLoggedIn }: PaymentFormProps) {
 
   const paymentElementOptions = {
     layout: "accordion" as const,
+    defaultValues: {
+      billingDetails: {
+        email: "",
+      },
+    },
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit} className="w-full max-w-md">
-      {isLoggedIn && (
-        <div className="mb-4 rounded-md bg-blue-50 p-3 text-sm text-blue-800">
-          💳 Your payment method will be securely saved for faster checkout next
-          time.
-        </div>
-      )}
+    <form
+      id="payment-form"
+      onSubmit={handleSubmit}
+      className="w-full max-w-md space-y-4"
+    >
       <PaymentElement id="payment-element" options={paymentElementOptions} />
+
+      {isLoggedIn && (
+        <label className="flex items-center gap-2 rounded-md border border-gray-200 bg-gray-50 p-3">
+          <input
+            type="checkbox"
+            checked={savePaymentMethod}
+            onChange={(e) => setSavePaymentMethod(e.target.checked)}
+            className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          />
+          <span className="text-sm text-gray-700">
+            💳 Save payment method for future purchases
+          </span>
+        </label>
+      )}
+
       <button
         disabled={isLoading || !stripe || !elements}
         id="submit"

@@ -50,9 +50,9 @@ export default async function PaymentsPage() {
       | undefined;
 
     if (stripeCustomerId) {
-      // Returning customer: attach customer ID and enable payment method saving
+      // Returning customer: attach customer ID
+      // Payment method saving will be handled by frontend checkbox
       data.customer = stripeCustomerId;
-      data.setup_future_usage = "off_session"; // Allow saving payment methods
       data.metadata = {
         clerkUserId: user.id,
         orderType: "logged_in_returning",
@@ -73,7 +73,6 @@ export default async function PaymentsPage() {
       // });
 
       data.customer = stripeCustomerId;
-      data.setup_future_usage = "off_session"; // Allow saving payment methods
       data.metadata = {
         clerkUserId: user.id,
         stripeCustomerId,
