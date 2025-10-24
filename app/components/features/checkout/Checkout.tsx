@@ -38,7 +38,7 @@ function PaymentForm({ isLoggedIn }: PaymentFormProps) {
     const confirmOptions = {
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/checkout/success`,
+        return_url: `${window.location.origin}/checkout/review`,
         payment_method_data:
           savePaymentMethod && isLoggedIn
             ? {
