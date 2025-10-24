@@ -32,40 +32,44 @@ interface PaymentIntentData {
 }
 
 export default async function PaymentsPage() {
-  // HANDLE LOGGED IN VS GUEST
-  // if user is logged in we would retrieve his stripe customer id from sanity cms and pass it to payment intent create
-  // then we would also retrieve his payment methods and default payment method from stripe and pass them to payment intent create
-  // this way the client secret would be setup to handle returning customer with saved methods
+  // PHASE 1 & 2: HANDLE LOGGED IN VS GUEST + SETUP STRIPE ACCORDINGLY
   const user = await currentUser();
+
   const data: PaymentIntentData = {
     amount: 1400,
     currency: "eur",
     metadata: {},
-    customer: undefined as string | undefined,
   };
 
   if (user) {
-    // TODO retrieve stripe customer id from clerk metadata
+    // User is logged in - check if they have a Stripe customer ID
     const stripeCustomerId = user.privateMetadata?.stripeCustomerId as
       | string
       | undefined;
 
     if (stripeCustomerId) {
-      data.setup_future_usage = "off_session";
-      data.metadata = {
-        ...data.metadata,
-        clerkUserId: user.id,
-      };
+      // Returning customer: attach customer ID and enable payment method saving
       data.customer = stripeCustomerId;
-    } else {
+      data.setup_future_usage = "off_session"; // Allow saving payment methods
       data.metadata = {
-        orderType: "guest",
+        clerkUserId: user.id,
+        orderType: "logged_in_returning",
+      };
+    } else {
+      // Logged in but no Stripe customer yet: will create customer ID after payment
+      data.metadata = {
+        clerkUserId: user.id,
+        orderType: "logged_in_first_time",
       };
     }
-    // clerk user metadata -> stripeCustomerId
-    // access clerkClient, retrieve user by userId, get stripeCustomerId from pr
+  } else {
+    // Guest checkout: no customer ID, no payment method saving
+    data.metadata = {
+      orderType: "guest",
+    };
   }
 
+  // Create PaymentIntent with appropriate configuration
   const paymentIntent = await stripe.paymentIntents.create(data);
 
   const { client_secret: clientSecret } = paymentIntent;
@@ -74,9 +78,21 @@ export default async function PaymentsPage() {
     throw new Error("No client secret returned from payment intent");
   }
 
+  // PHASE 3: FRONTEND STRIPE COMPS & INITIALIZE
+  // Return CheckoutForm with clientSecret
+  // CheckoutForm wraps PaymentElement in Elements provider with stripePromise
+  // User can select payment method, fill details, and submit payment
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <CheckoutForm clientSecret={clientSecret} />
     </div>
   );
 }
+
+// PHASE 4: HANDLE AFTER PAYMENT - Implementation needed:
+// - GUEST: Payment processed normally
+//   - Optional: If user signs up from success page, create Stripe customer ID and save payment method
+// - LOGGED IN USER:
+//   - If user checked "save payment method": method is saved to their Stripe customer
+//   - If user checked "make default": set as default payment method in Stripe
+//   - Next visit: retrieve and display saved payment methods via Stripe API
