@@ -5,20 +5,24 @@
 **Problem:** Saved payment methods were persisting after user logout, potentially showing previous user's payment information to logged-out or new users.
 
 **Root Cause:** Two-fold issue:
+
 1. Stripe Link session data stored in browser localStorage/sessionStorage was not cleared on logout
 2. Backend customer ID validation could be more explicit
 
 ## ✅ Implemented Solutions
 
 ### 1. Backend: Strict Customer ID Validation
+
 **File:** `app/(store)/checkout/payment/page.tsx`
 
 **Changes:**
+
 - Added explicit check: `if (user && user.id)` to ensure user is authenticated
 - Added CRITICAL comment explaining that omitting `customer` parameter forces Stripe to treat session as completely new
 - Ensures guest checkouts never attach customer ID, preventing any saved payment method display
 
 **Code:**
+
 ```typescript
 // CRITICAL: Only attach customer ID if user is authenticated AND has valid session
 if (user && user.id) {
@@ -34,15 +38,18 @@ if (user && user.id) {
 ```
 
 ### 2. Frontend: Stripe Link Session Clearing
+
 **File:** `app/components/features/auth/AuthMenu.tsx`
 
 **Changes:**
+
 - Created `handleSignOut()` function that executes before Clerk logout
 - Clears all Stripe-related data from localStorage and sessionStorage
 - Specifically targets keys starting with "stripe" or containing "Link"
 - Maintains error handling to ensure Clerk logout always proceeds
 
 **Code:**
+
 ```typescript
 const handleSignOut = async () => {
   try {
@@ -110,13 +117,17 @@ To verify the fix works:
 ## 📝 Technical Details
 
 ### Why Not Use `stripe.logout()`?
+
 The Stripe JS SDK (`@stripe/stripe-js`) does not expose a `logout()` method. Stripe Link authentication is managed through browser storage (localStorage/sessionStorage), so we directly clear the relevant keys.
 
 ### localStorage vs sessionStorage
+
 Stripe Link may use either storage mechanism depending on user preferences and browser settings. We clear both to ensure complete session cleanup.
 
 ### Backend Safety Net
+
 Even if frontend storage clearing fails, the backend validation ensures that:
+
 - If Clerk reports user as logged out (`!user` or `!user.id`)
 - Then `customer` parameter is omitted from PaymentIntent
 - Result: Stripe treats it as a new, unauthenticated session
@@ -145,6 +156,6 @@ Even if frontend storage clearing fails, the backend validation ensures that:
 
 ---
 
-**Implementation Date:** October 24, 2025  
-**Priority:** CRITICAL - Security & UX Issue  
+**Implementation Date:** October 24, 2025
+**Priority:** CRITICAL - Security & UX Issue
 **Impact:** Prevents payment information leakage between user sessions
