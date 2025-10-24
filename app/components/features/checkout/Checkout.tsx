@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import {
   PaymentElement,
   useStripe,
   useElements,
   Elements,
 } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -17,10 +17,10 @@ function PaymentForm() {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
@@ -32,7 +32,7 @@ function PaymentForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:3000/checkout/review",
+        return_url: `${window.location.origin}/checkout/success`,
       },
     });
 
@@ -42,7 +42,7 @@ function PaymentForm() {
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
     if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error?.message);
+      setMessage(error.message ?? "An error occurred");
     } else {
       setMessage("An unexpected error occurred.");
     }
@@ -51,32 +51,46 @@ function PaymentForm() {
   };
 
   const paymentElementOptions = {
-    layout: "accordion",
+    layout: "accordion" as const,
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form id="payment-form" onSubmit={handleSubmit} className="w-full max-w-md">
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <button
         disabled={isLoading || !stripe || !elements}
         id="submit"
-        className="mt-4 rounded bg-blue-500 px-4 py-2 text-white"
+        className="mt-4 w-full rounded bg-blue-500 px-4 py-2 text-white disabled:bg-gray-400"
       >
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
         </span>
       </button>
-      {message && <div id="payment-message">{message}</div>}
+      {message && (
+        <div id="payment-message" className="mt-4 text-red-600">
+          {message}
+        </div>
+      )}
     </form>
   );
 }
 
-export default function CheckoutForm({ clientSecret }) {
+interface CheckoutFormProps {
+  clientSecret: string;
+}
+
+export default function CheckoutForm({ clientSecret }: CheckoutFormProps) {
   const appearance = {
-    theme: "stripe",
+    theme: "stripe" as const,
   };
+
+  const options: StripeElementsOptions = {
+    clientSecret,
+    appearance,
+  };
+
   return (
-    <Elements stripe={stripePromise} options={{ appearance, clientSecret }}>
+    <Elements stripe={stripePromise} options={options}>
       <PaymentForm />
     </Elements>
   );

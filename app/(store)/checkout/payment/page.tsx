@@ -22,26 +22,30 @@
 import CheckoutForm from "@/app/components/features/checkout/Checkout";
 import { stripe } from "@/lib/stripe";
 
-export default async function IndexPage() {
-  const calculateOrderAmount = (items) => {
-    // Replace this constant with a calculation of the order's amount
-    // Calculate the order total on the server to prevent
-    // people from directly manipulating the amount on the client
-    return 1400;
-  };
+export default async function PaymentsPage() {
+  // if user is logged in we would retrieve his stripe customer id from sanity cms and pass it to payment intent create
+  // then we would also retrieve his payment methods and default payment method from stripe and pass them to payment intent create
+  // this way the client secret would be setup to handle returning customer with saved methods
 
-  // Create PaymentIntent as soon as the page loads
-  const { client_secret: clientSecret } = await stripe.paymentIntents.create({
-    amount: calculateOrderAmount([{ id: "xl-tshirt" }]),
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 1400,
     currency: "eur",
-    // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
     automatic_payment_methods: {
       enabled: true,
     },
+    metadata: {
+      orderType: "guest",
+    },
   });
 
+  const { client_secret: clientSecret } = paymentIntent;
+
+  if (!clientSecret) {
+    throw new Error("No client secret returned from payment intent");
+  }
+
   return (
-    <div id="checkout">
+    <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <CheckoutForm clientSecret={clientSecret} />
     </div>
   );
