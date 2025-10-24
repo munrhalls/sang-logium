@@ -15,9 +15,10 @@ const stripePromise = loadStripe(
 
 interface PaymentFormProps {
   isLoggedIn: boolean;
+  userEmail?: string;
 }
 
-function PaymentForm({ isLoggedIn }: PaymentFormProps) {
+function PaymentForm({ isLoggedIn, userEmail }: PaymentFormProps) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -65,7 +66,7 @@ function PaymentForm({ isLoggedIn }: PaymentFormProps) {
     layout: "accordion" as const,
     defaultValues: {
       billingDetails: {
-        email: "",
+        email: userEmail || "",
       },
     },
   };
@@ -113,11 +114,13 @@ function PaymentForm({ isLoggedIn }: PaymentFormProps) {
 interface CheckoutFormProps {
   clientSecret: string;
   isLoggedIn: boolean;
+  userEmail?: string;
 }
 
 export default function CheckoutForm({
   clientSecret,
   isLoggedIn,
+  userEmail,
 }: CheckoutFormProps) {
   const appearance = {
     theme: "stripe" as const,
@@ -130,7 +133,7 @@ export default function CheckoutForm({
 
   return (
     <Elements stripe={stripePromise} options={options}>
-      <PaymentForm isLoggedIn={isLoggedIn} />
+      <PaymentForm isLoggedIn={isLoggedIn} userEmail={userEmail} />
     </Elements>
   );
 }

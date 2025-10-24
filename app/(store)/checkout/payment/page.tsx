@@ -21,7 +21,7 @@
 
 import CheckoutForm from "@/app/components/features/checkout/Checkout";
 import { stripe } from "@/lib/stripe";
-import { currentUser } from "@clerk/nextjs/server";
+import { clerkClient, currentUser } from "@clerk/nextjs/server";
 
 interface PaymentIntentData {
   amount: number;
@@ -54,6 +54,7 @@ export default async function PaymentsPage() {
       // Returning customer: attach customer ID only if it exists and is valid
       // Payment method saving will be handled by frontend checkbox
       data.customer = stripeCustomerId;
+      data.setup_future_usage = "off_session"; // Enable payment method reusability
       data.metadata = {
         clerkUserId: user.id,
         orderType: "logged_in_returning",
@@ -68,12 +69,14 @@ export default async function PaymentsPage() {
       });
       stripeCustomerId = customer.id;
 
-      // TODO: Save stripeCustomerId to Clerk user metadata
-      // await clerkClient.users.updateUserMetadata(user.id, {
-      //   privateMetadata: { stripeCustomerId }
-      // });
+      // Save stripeCustomerId to Clerk user metadata for future visits
+      const clerk = await clerkClient();
+      await clerk.users.updateUserMetadata(user.id, {
+        privateMetadata: { stripeCustomerId },
+      });
 
       data.customer = stripeCustomerId;
+      data.setup_future_usage = "off_session"; // Enable payment method reusability
       data.metadata = {
         clerkUserId: user.id,
         stripeCustomerId,
@@ -108,7 +111,11 @@ export default async function PaymentsPage() {
   // User can select payment method, fill details, and submit payment
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <CheckoutForm clientSecret={clientSecret} isLoggedIn={!!user} />
+      <CheckoutForm
+        clientSecret={clientSecret}
+        isLoggedIn={!!user}
+        userEmail={user?.emailAddresses[0]?.emailAddress}
+      />
     </div>
   );
 }
