@@ -13,7 +13,11 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 
-function PaymentForm() {
+interface PaymentFormProps {
+  isLoggedIn: boolean;
+}
+
+function PaymentForm({ isLoggedIn }: PaymentFormProps) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -56,6 +60,12 @@ function PaymentForm() {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit} className="w-full max-w-md">
+      {isLoggedIn && (
+        <div className="mb-4 rounded-md bg-blue-50 p-3 text-sm text-blue-800">
+          💳 Your payment method will be securely saved for faster checkout next
+          time.
+        </div>
+      )}
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <button
         disabled={isLoading || !stripe || !elements}
@@ -77,9 +87,13 @@ function PaymentForm() {
 
 interface CheckoutFormProps {
   clientSecret: string;
+  isLoggedIn: boolean;
 }
 
-export default function CheckoutForm({ clientSecret }: CheckoutFormProps) {
+export default function CheckoutForm({
+  clientSecret,
+  isLoggedIn,
+}: CheckoutFormProps) {
   const appearance = {
     theme: "stripe" as const,
   };
@@ -91,7 +105,7 @@ export default function CheckoutForm({ clientSecret }: CheckoutFormProps) {
 
   return (
     <Elements stripe={stripePromise} options={options}>
-      <PaymentForm />
+      <PaymentForm isLoggedIn={isLoggedIn} />
     </Elements>
   );
 }

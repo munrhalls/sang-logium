@@ -41,9 +41,11 @@ export default async function PaymentsPage() {
     metadata: {},
   };
 
+  let stripeCustomerId: string | undefined;
+
   if (user) {
     // User is logged in - check if they have a Stripe customer ID
-    const stripeCustomerId = user.privateMetadata?.stripeCustomerId as
+    stripeCustomerId = user.privateMetadata?.stripeCustomerId as
       | string
       | undefined;
 
@@ -56,9 +58,25 @@ export default async function PaymentsPage() {
         orderType: "logged_in_returning",
       };
     } else {
-      // Logged in but no Stripe customer yet: will create customer ID after payment
+      // Logged in but no Stripe customer yet: create one now
+      const customer = await stripe.customers.create({
+        email: user.emailAddresses[0]?.emailAddress,
+        metadata: {
+          clerkUserId: user.id,
+        },
+      });
+      stripeCustomerId = customer.id;
+
+      // TODO: Save stripeCustomerId to Clerk user metadata
+      // await clerkClient.users.updateUserMetadata(user.id, {
+      //   privateMetadata: { stripeCustomerId }
+      // });
+
+      data.customer = stripeCustomerId;
+      data.setup_future_usage = "off_session"; // Allow saving payment methods
       data.metadata = {
         clerkUserId: user.id,
+        stripeCustomerId,
         orderType: "logged_in_first_time",
       };
     }
@@ -70,7 +88,12 @@ export default async function PaymentsPage() {
   }
 
   // Create PaymentIntent with appropriate configuration
-  const paymentIntent = await stripe.paymentIntents.create(data);
+  const paymentIntent = await stripe.paymentIntents.create({
+    ...data,
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
 
   const { client_secret: clientSecret } = paymentIntent;
 
@@ -84,7 +107,7 @@ export default async function PaymentsPage() {
   // User can select payment method, fill details, and submit payment
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <CheckoutForm clientSecret={clientSecret} />
+      <CheckoutForm clientSecret={clientSecret} isLoggedIn={!!user} />
     </div>
   );
 }
