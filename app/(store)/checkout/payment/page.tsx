@@ -24,6 +24,16 @@ import { stripe } from "@/lib/stripe";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 
 export default async function PaymentsPage() {
+  const paymentIntentParams = {
+    amount: 1400, // €14.00
+    currency: "eur",
+  };
+  const paymentIntent = await stripe.paymentIntents.create(paymentIntentParams);
+  const clientSecret = paymentIntent.client_secret;
+
+  if (!clientSecret) {
+    throw new Error("Failed to create PaymentIntent.");
+  }
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <CheckoutForm clientSecret={clientSecret} />
