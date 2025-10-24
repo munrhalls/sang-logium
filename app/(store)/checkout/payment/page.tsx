@@ -18,6 +18,7 @@
 // - GUEST? JUST PROCESS PAYMENT NORMALLY // IF HE CLICKS SIGN UP FROM /REVIEW PAGE -> CREATE HIS CLERK ACC -> THEN USE THAT TO CR8 CUSTOMER STRIPE ID -> ADD THAT PAYMENT'S DATA METHOD TO HIS LIST & MAKE DEFAULT -> DISPLAY CONFIRMATION TOAST
 // - IF LOGGED & CHECKED 'SAVE METHOD' -> ADD METHOD TO HIS STRIPE LIST
 // - IF CHECKED 'MAKE DEFAULT' -> MAKE DEFAULT @STRIPE
+
 import CheckoutForm from "@/app/components/features/checkout/Checkout";
 import { stripe } from "@/lib/stripe";
 import { auth, clerkClient } from "@clerk/nextjs/server";
@@ -43,7 +44,7 @@ const saveStripeCustomerIdToClerk = async (userId, stripeCustomerId) => {
 
 export default async function PaymentsPage() {
   const { userId } = await auth();
-
+  const client = await clerkClient();
   const paymentIntentParams = {
     amount: 1400,
     currency: "eur",
@@ -51,7 +52,7 @@ export default async function PaymentsPage() {
 
   if (userId) {
     try {
-      const user = await clerkClient.users.getUser(userId);
+      const user = await client.users.getUser(userId);
       let stripeCustomerId = user.privateMetadata.stripeCustomerId;
 
       // Create Stripe customer if doesn't exist
@@ -62,9 +63,7 @@ export default async function PaymentsPage() {
         });
         stripeCustomerId = stripeCustomer.id;
 
-        await clerkClient.users.updateUserMetadata(userId, {
-          privateMetadata: { stripeCustomerId },
-        });
+        const user = await (await clerkClient()).users.getUser(userId);
       }
 
       // Associate payment with customer & enable saving methods
