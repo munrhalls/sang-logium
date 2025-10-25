@@ -1,8 +1,11 @@
 "use server";
+import { createSafeActionClient } from "next-safe-action";
 
 import { headers } from "next/headers";
 
 import { stripe } from "../../lib/stripe";
+
+export const actionClient = createSafeActionClient();
 
 export async function fetchClientSecret() {
   const origin = (await headers()).get("origin");

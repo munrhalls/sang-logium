@@ -50,3 +50,7 @@ next-env.d.ts
 # Local Netlify folder
 .netlify
 # Deployment backups\nbackups/
+
+
+# ngrok configuration
+ngrok.yml
