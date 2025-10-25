@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import { stripe } from "@/lib/stripe";
+import stripe from "@/lib/stripe";
 
 export default async function Return({ searchParams }) {
   const { session_id } = await searchParams;
