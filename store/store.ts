@@ -8,6 +8,7 @@ export interface BasketItem {
   displayPrice: number;
   stock: number;
   quantity: number;
+  image: string;
 }
 interface UIState {
   isSearchDrawerOpen: boolean;

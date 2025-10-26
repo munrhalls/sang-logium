@@ -56,7 +56,7 @@ export async function createCheckoutSession(
             name: item.product.name || "Unnamed Product",
             description: item.product.description || undefined,
             metadata: {
-              id: item.product.id,
+              id: item.product._id,
             },
             images: item.product.image
               ? [imageUrl(item.product.image.url())]
