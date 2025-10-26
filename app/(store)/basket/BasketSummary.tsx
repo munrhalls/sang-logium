@@ -29,6 +29,7 @@ export default function BasketSummary() {
   if (!isClient) {
     return <Loader />;
   }
+
   const shipping = 15.99;
   const subtotal = getTotal();
   const total = subtotal + shipping;
@@ -90,12 +91,17 @@ export default function BasketSummary() {
           <div className="mt-1 text-xs text-gray-500">Including VAT</div>
         </div>
       </div>
-      <button
-        onClick={handleCheckout}
-        className="flex w-full items-center justify-center rounded-sm bg-black py-4 text-lg font-medium text-white transition-colors hover:bg-gray-800"
-      >
-        Proceed to Checkout
-      </button>
+
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <button
+          onClick={handleCheckout}
+          className="flex w-full items-center justify-center rounded-sm bg-black py-4 text-lg font-medium text-white transition-colors hover:bg-gray-800"
+        >
+          Proceed to Checkout
+        </button>
+      )}
 
       <div className="mt-4 hidden lg:block">
         <Link
@@ -106,6 +112,7 @@ export default function BasketSummary() {
           Continue Shopping
         </Link>
       </div>
+
       <div className="mt-6 border-t border-gray-200 pt-6">
         <div className="flex flex-col gap-2 text-xs text-gray-500">
           <p className="font-medium text-gray-700">We Accept:</p>
