@@ -16,10 +16,11 @@ type Metadata = {
 };
 
 export default function BasketSummary() {
-  const { user, isSignedIn: signedIn } = useUser();
-
   const [isLoading, setIsLoading] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const { user, isSignedIn: signedIn } = useUser();
+  const basket = useBasketStore((s) => s.basket);
+  const getTotal = useBasketStore((s) => s.getTotal);
 
   useEffect(() => {
     setIsClient(true);
@@ -28,8 +29,6 @@ export default function BasketSummary() {
   if (!isClient) {
     return <Loader />;
   }
-  const basket = useBasketStore((s) => s.basket);
-  const getTotal = useBasketStore((s) => s.getTotal);
   const shipping = 15.99;
   const subtotal = getTotal();
   const total = subtotal + shipping;
@@ -42,7 +41,7 @@ export default function BasketSummary() {
       const metadata: Metadata = {
         orderNumber: crypto.randomUUID(),
         customerName: user?.fullName ?? "Uknown",
-        customerEmail: user?.emailAddresses ?? "Unknown",
+        customerEmail: user?.emailAddresses[0] ?? "Unknown",
         clerkUserId: user!.id,
       };
 
