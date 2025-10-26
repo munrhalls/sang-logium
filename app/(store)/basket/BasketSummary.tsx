@@ -3,12 +3,69 @@ import React from "react";
 import { useBasketStore } from "@/store/store";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { createCheckoutSession } from "@/app/actions/createCheckoutSession";
+import { useUser } from "@clerk/nextjs";
+import Loader from "@/app/components/common/Loader";
+
+type Metadata = {
+  orderNumber: string;
+  customerName: string;
+  customerEmail: string;
+  clerkUserId: string;
+};
+
 export default function BasketSummary() {
+  const { user, isSignedIn: signedIn } = useUser();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return <Loader />;
+  }
   const basket = useBasketStore((s) => s.basket);
   const getTotal = useBasketStore((s) => s.getTotal);
   const shipping = 15.99;
   const subtotal = getTotal();
   const total = subtotal + shipping;
+
+  const handleCheckout = async () => {
+    if (!signedIn) return;
+    setIsLoading(true);
+
+    try {
+      const metadata: Metadata = {
+        orderNumber: crypto.randomUUID(),
+        customerName: user?.fullName ?? "Uknown",
+        customerEmail: user?.emailAddresses ?? "Unknown",
+        clerkUserId: user!.id,
+      };
+
+      const groupedBasketItems = basket.map((item) => ({
+        product: item,
+        quantity: item.quantity,
+      }));
+
+      const checkoutUrl = await createCheckoutSession(
+        groupedBasketItems,
+        metadata
+      );
+
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
+      }
+    } catch (error) {
+      console.error("Error creating checkout session:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       <h2 className="mb-6 border-b border-gray-200 pb-4 text-lg font-bold">
@@ -34,12 +91,13 @@ export default function BasketSummary() {
           <div className="mt-1 text-xs text-gray-500">Including VAT</div>
         </div>
       </div>
-      <Link
-        href="/checkout"
+      <button
+        onClick={handleCheckout}
         className="flex w-full items-center justify-center rounded-sm bg-black py-4 text-lg font-medium text-white transition-colors hover:bg-gray-800"
       >
         Proceed to Checkout
-      </Link>
+      </button>
+
       <div className="mt-4 hidden lg:block">
         <Link
           href="/products"

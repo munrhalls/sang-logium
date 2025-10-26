@@ -7,7 +7,6 @@ import { BasketItem } from "@/store/store";
 
 const BasketControls = React.memo(
   function BasketControls({ product }: { product: BasketItem }) {
-    const _hasHydrated = useBasketStore((s) => s._hasHydrated);
     const _id = product._id;
     const item = useBasketStore((s) =>
       s.basket.find((i) => i._id === product._id)
