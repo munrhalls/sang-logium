@@ -6,7 +6,7 @@ import { imageUrl } from "@/lib/imageUrl";
 
 // export const actionClient = createSafeActionClient();
 
-type Metadata = {
+export type Metadata = {
   orderNumber: string;
   customerName: string;
   customerEmail: string;
@@ -50,25 +50,11 @@ export async function createCheckoutSession(
       cancel_url: `${`https://${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_BASE_URL}`}/basket`,
       line_items: items.map((item) => ({
         price: item.product.stripePriceId,
-        price_data: {
-          currency: "usd",
-          unit_amount: Math.round(item.product.price! * 100),
-          product_data: {
-            name: item.product.name || "Unnamed Product",
-            description: item.product.description || undefined,
-            metadata: {
-              id: item.product._id,
-            },
-            images: item.product.image
-              ? [imageUrl(item.product.image).url()]
-              : undefined,
-          },
-        },
         quantity: item.quantity,
       })),
     });
 
-    return session;
+    return session.url;
   } catch (error) {
     console.error("Error creating checkout session:", error);
   }

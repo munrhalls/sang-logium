@@ -35,6 +35,7 @@ export default function BasketSummary() {
   const total = subtotal + shipping;
 
   const handleCheckout = async () => {
+    console.log("proceed to checkout click");
     if (!signedIn) return;
     setIsLoading(true);
 
