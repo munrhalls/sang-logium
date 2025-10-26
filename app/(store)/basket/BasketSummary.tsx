@@ -3,7 +3,7 @@ import React from "react";
 import { useBasketStore } from "@/store/store";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createCheckoutSession } from "@/app/actions/createCheckoutSession";
 import { useUser } from "@clerk/nextjs";
 import Loader from "@/app/components/common/Loader";
@@ -17,18 +17,9 @@ type Metadata = {
 
 export default function BasketSummary() {
   const [isLoading, setIsLoading] = useState(false);
-  const [isClient, setIsClient] = useState(false);
   const { user, isSignedIn: signedIn } = useUser();
   const basket = useBasketStore((s) => s.basket);
   const getTotal = useBasketStore((s) => s.getTotal);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return <Loader />;
-  }
 
   const shipping = 15.99;
   const subtotal = getTotal();
@@ -36,7 +27,7 @@ export default function BasketSummary() {
 
   const handleCheckout = async () => {
     console.log("proceed to checkout click");
-    if (!signedIn) return;
+    // if (!signedIn) return;
     console.log("proceed to checkout click after sign in");
 
     setIsLoading(true);
@@ -53,7 +44,6 @@ export default function BasketSummary() {
         product: item,
         quantity: item.quantity,
       }));
-      alert("wtf");
       const checkoutUrl = await createCheckoutSession(
         groupedBasketItems,
         metadata
