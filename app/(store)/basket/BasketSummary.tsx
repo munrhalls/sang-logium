@@ -53,12 +53,13 @@ export default function BasketSummary() {
         product: item,
         quantity: item.quantity,
       }));
-
+      alert("wtf");
       const checkoutUrl = await createCheckoutSession(
         groupedBasketItems,
         metadata
       );
 
+      console.log("checkoutUrl", checkoutUrl);
       if (checkoutUrl) {
         console.log("??");
         window.location.href = checkoutUrl;

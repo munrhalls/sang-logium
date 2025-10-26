@@ -21,6 +21,7 @@ export async function createCheckoutSession(
   items: GroupedBasketItem[],
   metadata: Metadata
 ) {
+  console.log("creating checkout session");
   try {
     const itemsWithoutPrice = items.filter(
       (item) => !item.product.displayPrice
@@ -29,7 +30,6 @@ export async function createCheckoutSession(
     if (itemsWithoutPrice.length > 0) {
       throw Error("Some items do not have price");
     }
-
     const customers = await stripe.customers.list({
       email: metadata.customerEmail,
       limit: 1,
@@ -40,6 +40,12 @@ export async function createCheckoutSession(
       customerId = customers.data[0].id;
     }
 
+    console.log(
+      `https://${process.env.NEXT_PUBLIC_URL || process.env.NEXT_PUBLIC_BASE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`
+    );
+    console.log(
+      `https://${process.env.NEXT_PUBLIC_URL || process.env.NEXT_PUBLIC_BASE_URL}/basket`
+    );
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_creation: customerId ? undefined : "always",
