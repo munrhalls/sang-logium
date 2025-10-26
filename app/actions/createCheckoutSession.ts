@@ -49,6 +49,7 @@ export async function createCheckoutSession(
       success_url: `${`https://${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_BASE_URL}`}/checkout/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`,
       cancel_url: `${`https://${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_BASE_URL}`}/basket`,
       line_items: items.map((item) => ({
+        price: item.product.stripePriceId,
         price_data: {
           currency: "usd",
           unit_amount: Math.round(item.product.price! * 100),
@@ -59,7 +60,7 @@ export async function createCheckoutSession(
               id: item.product._id,
             },
             images: item.product.image
-              ? [imageUrl(item.product.image.url())]
+              ? [imageUrl(item.product.image).url()]
               : undefined,
           },
         },
@@ -67,7 +68,7 @@ export async function createCheckoutSession(
       })),
     });
 
-    return session.url;
+    return session;
   } catch (error) {
     console.error("Error creating checkout session:", error);
   }
