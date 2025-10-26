@@ -46,8 +46,8 @@ export async function createCheckoutSession(
       customer_creation: customerId ? undefined : "always",
       customer_email: !customerId ? metadata.customerEmail : undefined,
       mode: "payment",
-      success_url: `${`https://${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_BASE_URL}`}/checkout/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`,
-      cancel_url: `${`https://${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_BASE_URL}`}/basket`,
+      success_url: `${`https://${process.env.NEXT_PUBLIC_URL || process.env.NEXT_PUBLIC_BASE_URL}`}/checkout/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`,
+      cancel_url: `${`https://${process.env.NEXT_PUBLIC_URL || process.env.NEXT_PUBLIC_BASE_URL}`}/basket`,
       line_items: items.map((item) => ({
         price: item.product.stripePriceId,
         quantity: item.quantity,
