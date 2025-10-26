@@ -4,6 +4,7 @@ import { useBasketStore } from "@/store/store";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ShoppingCart } from "lucide-react";
 import { BasketItem } from "@/store/store";
+
 const BasketControls = React.memo(
   function BasketControls({ product }: { product: BasketItem }) {
     const _hasHydrated = useBasketStore((s) => s._hasHydrated);
