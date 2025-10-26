@@ -37,6 +37,8 @@ export default function BasketSummary() {
   const handleCheckout = async () => {
     console.log("proceed to checkout click");
     if (!signedIn) return;
+    console.log("proceed to checkout click after sign in");
+
     setIsLoading(true);
 
     try {
@@ -58,6 +60,7 @@ export default function BasketSummary() {
       );
 
       if (checkoutUrl) {
+        console.log("??");
         window.location.href = checkoutUrl;
       }
     } catch (error) {

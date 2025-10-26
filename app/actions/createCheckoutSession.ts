@@ -53,6 +53,7 @@ export async function createCheckoutSession(
       })),
     });
 
+    console.log("wtf");
     return session.url;
   } catch (error) {
     console.error("Error creating checkout session:", error);
