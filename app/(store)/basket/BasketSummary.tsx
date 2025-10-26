@@ -45,7 +45,7 @@ export default function BasketSummary() {
       const metadata: Metadata = {
         orderNumber: crypto.randomUUID(),
         customerName: user?.fullName ?? "Uknown",
-        customerEmail: user?.primaryEmailAddress?.emailAddress ?? "Unknown",
+        customerEmail: user?.emailAddresses[0]?.emailAddress ?? "Unknown",
         clerkUserId: user!.id,
       };
 
