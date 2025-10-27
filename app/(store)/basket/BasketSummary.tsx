@@ -31,34 +31,6 @@ export default function BasketSummary() {
     console.log("proceed to checkout click after sign in");
 
     setIsLoading(true);
-
-    try {
-      const metadata: Metadata = {
-        orderNumber: crypto.randomUUID(),
-        customerName: user?.fullName ?? "Uknown",
-        customerEmail: user?.emailAddresses[0]?.emailAddress ?? "Unknown",
-        clerkUserId: user!.id,
-      };
-
-      const groupedBasketItems = basket.map((item) => ({
-        product: item,
-        quantity: item.quantity,
-      }));
-      const checkoutUrl = await createCheckoutSession(
-        groupedBasketItems,
-        metadata
-      );
-
-      console.log("checkoutUrl", checkoutUrl);
-      if (checkoutUrl) {
-        console.log("??");
-        window.location.href = checkoutUrl;
-      }
-    } catch (error) {
-      console.error("Error creating checkout session:", error);
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   return (
