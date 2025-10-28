@@ -25,14 +25,6 @@ export default function BasketSummary() {
   const subtotal = getTotal();
   const total = subtotal + shipping;
 
-  const handleCheckout = async () => {
-    console.log("proceed to checkout click");
-    // if (!signedIn) return;
-    console.log("proceed to checkout click after sign in");
-
-    setIsLoading(true);
-  };
-
   return (
     <>
       <h2 className="mb-6 border-b border-gray-200 pb-4 text-lg font-bold">
@@ -62,12 +54,12 @@ export default function BasketSummary() {
       {isLoading ? (
         <Loader />
       ) : (
-        <button
-          onClick={handleCheckout}
+        <Link
+          href="/checkout"
           className="flex w-full items-center justify-center rounded-sm bg-black py-4 text-lg font-medium text-white transition-colors hover:bg-gray-800"
         >
           Proceed to Checkout
-        </button>
+        </Link>
       )}
 
       <div className="mt-4 hidden lg:block">
