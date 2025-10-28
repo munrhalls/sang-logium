@@ -11,10 +11,7 @@ export default function CheckoutButton({ setIsCheckoutOpen, setIsLoading }) {
   }));
 
   const handleCheckout = async () => {
-    setIsLoading(true);
-    await fetchClientSecret(publicBasket);
-    setIsLoading(false);
-    setIsCheckoutOpen(true);
+    await createSessionAndRedirect(publicBasket);
   };
 
   return (
