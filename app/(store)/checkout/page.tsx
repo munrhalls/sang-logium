@@ -14,18 +14,12 @@ export default async function CheckoutPage() {
   if (!user) {
     redirect("/login");
   }
-
   const session = await stripe.checkout.sessions.create({
-    ui_mode: "custom",
-    line_items: [
-      {
-        // Provide the exact Price ID (e.g. price_1234) of the product you want to sell
-        price: "{{PRICE_ID}}",
-        quantity: 1,
-      },
-    ],
-    mode: "payment",
-    return_url: `${NEXT_PUBLIC_URL}/review.html?session_id={CHECKOUT_SESSION_ID}`,
+    // Set mode to 'payment' for a one-time purchase.
+    // Define the array of line items (products, quantities, and price IDs).
+    // Specify the required countries for shipping address collection.
+    // URL to redirect the user to upon successful payment.
+    // URL to redirect the user to if they cancel or abandon checkout.
   });
 
   if (!session || !session.client_secret) {
@@ -34,3 +28,4 @@ export default async function CheckoutPage() {
 
   return <CheckoutForm clientSecret={session.client_secret} />;
 }
+const session = await stripe.checkout.sessions.create({
