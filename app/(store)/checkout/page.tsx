@@ -14,13 +14,11 @@ export default async function CheckoutPage() {
   if (!user) {
     redirect("/login");
   }
-  const session = await stripe.checkout.sessions.create({
-    // Set mode to 'payment' for a one-time purchase.
-    // Define the array of line items (products, quantities, and price IDs).
-    // Specify the required countries for shipping address collection.
-    // URL to redirect the user to upon successful payment.
-    // URL to redirect the user to if they cancel or abandon checkout.
-  });
+  // how should we get the line items for the checkout session?
+
+  // perhaps server action on the checkout button?
+
+  const session = await stripe.checkout.sessions.create({});
 
   if (!session || !session.client_secret) {
     throw new Error("Failed to create checkout session");
@@ -28,4 +26,3 @@ export default async function CheckoutPage() {
 
   return <CheckoutForm clientSecret={session.client_secret} />;
 }
-const session = await stripe.checkout.sessions.create({
