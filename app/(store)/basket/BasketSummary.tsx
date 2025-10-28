@@ -4,10 +4,10 @@ import { useBasketStore } from "@/store/store";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useState } from "react";
-import { createCheckoutSession } from "@/app/actions/fetchClientSecret";
 import { useUser } from "@clerk/nextjs";
 import Loader from "@/app/components/common/Loader";
 import CheckoutButton from "@/app/components/features/checkout/CheckoutButton";
+import Checkout from "@/app/components/features/checkout/Checkout";
 
 type Metadata = {
   orderNumber: string;
@@ -17,6 +17,7 @@ type Metadata = {
 };
 
 export default function BasketSummary() {
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { user, isSignedIn: signedIn } = useUser();
   const basket = useBasketStore((s) => s.basket);
@@ -52,7 +53,7 @@ export default function BasketSummary() {
         </div>
       </div>
 
-      {isLoading ? <Loader /> : <CheckoutButton />}
+      <CheckoutButton setIsCheckoutOpen={setIsCheckoutOpen} />
 
       <div className="mt-4 hidden lg:block">
         <Link

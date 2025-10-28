@@ -4,20 +4,19 @@ import { headers } from "next/headers";
 
 import { stripe } from "@/lib/stripe";
 
-export async function fetchClientSecret() {
+export async function fetchClientSecret(publicBasket) {
   const origin = (await headers()).get("origin");
 
   // Create Checkout Sessions from body params.
+  console.log(publicBasket, "BASKET ");
+  const lineItems = publicBasket.map((item) => ({
+    price: item.stripePriceId,
+    quantity: item.quantity,
+  }));
+
   const session = await stripe.checkout.sessions.create({
     ui_mode: "embedded",
-    line_items: [
-      {
-        // Provide the exact Price ID (for example, price_1234) of
-        // the product you want to sell
-        price: "{{PRICE_ID}}",
-        quantity: 1,
-      },
-    ],
+    line_items: lineItems,
     mode: "payment",
     return_url: `${origin}/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
   });

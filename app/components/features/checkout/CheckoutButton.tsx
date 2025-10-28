@@ -1,14 +1,20 @@
 "use client";
 import { useBasketStore } from "@/store/store";
+import { fetchClientSecret } from "@/app/actions/fetchClientSecret";
+import { useRouter } from "next/navigation";
 
-export default function CheckoutButton() {
+export default function CheckoutButton({ setIsCheckoutOpen }) {
   const basket = useBasketStore((s) => s.basket);
+  const router = useRouter();
+
+  const publicBasket = basket.map((item) => ({
+    stripePriceId: item.stripePriceId,
+    quantity: item.quantity,
+  }));
 
   const handleCheckout = async () => {
-    if (basket.length === 0) {
-      console.error("Basket is empty and checkout btn enabled.");
-    }
-    // needs to go to /checkout server page and transport basket data to /checkout server page
+    fetchClientSecret(publicBasket);
+    setIsCheckoutOpen(true);
   };
 
   return (
