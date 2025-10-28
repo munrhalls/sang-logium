@@ -5,7 +5,6 @@ import {
   EmbeddedCheckoutProvider,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-
 import { fetchClientSecret } from "@/app/actions/fetchClientSecret";
 
 const stripePromise = loadStripe(
