@@ -17,7 +17,7 @@
 //   try {
 //     // Invoke the Server Action
 //     const result = await createEmbeddedCheckoutSession();
-    
+
 //     // Extract the client secret from the result
 //     clientSecret = result.clientSecret;
 //   } catch (err) {
@@ -42,10 +42,10 @@
 //   return (
 //     <div>
 //       <h1>Complete Your Purchase</h1>
-      
+
 //       {/* Render the CheckoutForm with the clientSecret */}
 //       <CheckoutForm clientSecret={clientSecret} />
-      
+
 //       {/* Optional: Add additional UI elements */}
 //       <div>
 //         {/* Security badges, trust indicators, etc. */}

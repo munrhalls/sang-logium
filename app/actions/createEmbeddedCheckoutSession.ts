@@ -25,7 +25,7 @@
 //     const session = await stripe.checkout.sessions.create({
 //       // Set UI mode to embedded for the embedded checkout experience
 //       ui_mode: 'embedded',
-      
+
 //       // Define the line items (products/prices) for the checkout
 //       line_items: [
 //         {
@@ -34,10 +34,10 @@
 //           quantity: 1,
 //         },
 //       ],
-      
+
 //       // Set the payment mode (payment, subscription, or setup)
 //       mode: 'payment',
-      
+
 //       // Define the return URL after successful payment
 //       // For embedded checkout, user stays on your site but you provide a completion page
 //       return_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
