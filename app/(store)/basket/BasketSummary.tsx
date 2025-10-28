@@ -4,9 +4,10 @@ import { useBasketStore } from "@/store/store";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useState } from "react";
-import { createCheckoutSession } from "@/app/actions/createCheckoutSession";
+import { createCheckoutSession } from "@/app/actions/fetchClientSecret";
 import { useUser } from "@clerk/nextjs";
 import Loader from "@/app/components/common/Loader";
+import CheckoutButton from "@/app/components/features/checkout/CheckoutButton";
 
 type Metadata = {
   orderNumber: string;
@@ -51,16 +52,7 @@ export default function BasketSummary() {
         </div>
       </div>
 
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <Link
-          href="/checkout"
-          className="flex w-full items-center justify-center rounded-sm bg-black py-4 text-lg font-medium text-white transition-colors hover:bg-gray-800"
-        >
-          Proceed to Checkout
-        </Link>
-      )}
+      {isLoading ? <Loader /> : <CheckoutButton />}
 
       <div className="mt-4 hidden lg:block">
         <Link

@@ -1,6 +1,3 @@
-// run stripe functions to create checkout session
-// run react stripe embedded checkout component with client secret from session
-
 import { redirect } from "next/navigation";
 import CheckoutForm from "@/app/components/CheckoutForm";
 import { currentUser } from "@clerk/nextjs/server";
@@ -14,11 +11,8 @@ export default async function CheckoutPage() {
   if (!user) {
     redirect("/login");
   }
-  // how should we get the line items for the checkout session?
 
-  // perhaps server action on the checkout button?
-
-  const session = await stripe.checkout.sessions.create({});
+  // how should we get server action session to here?
 
   if (!session || !session.client_secret) {
     throw new Error("Failed to create checkout session");
