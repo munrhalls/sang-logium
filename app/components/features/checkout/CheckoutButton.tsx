@@ -1,11 +1,9 @@
 "use client";
 import { useBasketStore } from "@/store/store";
 import { fetchClientSecret } from "@/app/actions/fetchClientSecret";
-import { useRouter } from "next/navigation";
 
-export default function CheckoutButton({ setIsCheckoutOpen }) {
+export default function CheckoutButton({ setIsCheckoutOpen, setIsLoading }) {
   const basket = useBasketStore((s) => s.basket);
-  const router = useRouter();
 
   const publicBasket = basket.map((item) => ({
     stripePriceId: item.stripePriceId,
@@ -13,7 +11,9 @@ export default function CheckoutButton({ setIsCheckoutOpen }) {
   }));
 
   const handleCheckout = async () => {
-    fetchClientSecret(publicBasket);
+    setIsLoading(true);
+    await fetchClientSecret(publicBasket);
+    setIsLoading(false);
     setIsCheckoutOpen(true);
   };
 
