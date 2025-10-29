@@ -7,8 +7,6 @@ import { stripe } from "@/lib/stripe";
 export async function fetchClientSecret(publicBasket) {
   const origin = (await headers()).get("origin");
 
-  // Create Checkout Sessions from body params.
-  console.log(publicBasket, "BASKET ");
   const lineItems = publicBasket.map((item) => ({
     price: item.stripePriceId,
     quantity: item.quantity,

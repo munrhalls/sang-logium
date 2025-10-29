@@ -17,9 +17,7 @@ interface EmbeddedCheckoutFormProps {
 export default function EmbeddedCheckoutForm({
   publicBasket,
 }: EmbeddedCheckoutFormProps) {
-  // This function is called by Stripe's EmbeddedCheckoutProvider
   const fetchClientSecret = async () => {
-    // Make POST request to our API route
     const response = await fetch("/api/checkout", {
       method: "POST",
       headers: {

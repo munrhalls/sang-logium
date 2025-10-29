@@ -7,7 +7,6 @@ export default function CheckoutButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const basket = useBasketStore((s) => s.basket);
 
-  // Prepare public basket data
   const publicBasket = basket.map((item) => ({
     stripePriceId: item.stripePriceId,
     quantity: item.quantity,
