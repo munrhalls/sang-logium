@@ -26,12 +26,23 @@ export default function EmbeddedCheckoutForm({
       body: JSON.stringify({ publicBasket }),
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to create checkout session");
-    }
+    try {
+      if (!response.ok) {
+        const errorDetail = response.statusText || `Status: ${response.status}`;
+        throw new Error(
+          `Checkout session failed: Server responded with ${errorDetail}`
+        );
+      }
 
-    const data = await response.json();
-    return data.client_secret;
+      const data = await response.json();
+      return data.client_secret;
+    } catch (error) {
+      console.error("Critical error in fetchClientSecret:", error);
+
+      throw new Error(
+        "Checkout service temporarily unavailable. Please try again later."
+      );
+    }
   };
 
   return (
