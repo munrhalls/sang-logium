@@ -18,15 +18,15 @@ export default function EmbeddedCheckoutForm({
   publicBasket,
 }: EmbeddedCheckoutFormProps) {
   const fetchClientSecret = async () => {
-    const response = await fetch("/api/checkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ publicBasket }),
-    });
-
     try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ publicBasket }),
+      });
+
       if (!response.ok) {
         const errorDetail = response.statusText || `Status: ${response.status}`;
         throw new Error(
