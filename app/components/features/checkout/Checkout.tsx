@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useBasketStore } from "@/store/store";
 import EmbeddedCheckoutForm from "./EmbeddedCheckoutForm";
 
-export default function CheckoutButton() {
+export default function Checkout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const basket = useBasketStore((s) => s.basket);
 

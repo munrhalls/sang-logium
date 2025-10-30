@@ -3,7 +3,7 @@ import React from "react";
 import { useBasketStore } from "@/store/store";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import CheckoutButton from "@/app/components/features/checkout/CheckoutButton";
+import Checkout from "@/app/components/features/checkout/Checkout";
 
 export default function BasketSummary() {
   const basket = useBasketStore((s) => s.basket);
@@ -39,7 +39,7 @@ export default function BasketSummary() {
         </div>
       </div>
 
-      <CheckoutButton />
+      <Checkout />
 
       <div className="mt-4 hidden lg:block">
         <Link
