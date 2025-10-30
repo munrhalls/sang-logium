@@ -25,7 +25,12 @@ export default function Checkout() {
         {`Checkout (${basket.length} items)`}
       </button>
 
-      {isModalOpen && <EmbeddedCheckoutForm publicBasket={publicBasket} />}
+      {isModalOpen && (
+        <EmbeddedCheckoutForm
+          publicBasket={publicBasket}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </>
   );
 }
