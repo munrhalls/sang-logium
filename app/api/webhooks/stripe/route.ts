@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-
 import stripe from "@/lib/stripe";
 
 export async function POST(req) {
