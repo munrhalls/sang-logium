@@ -54,13 +54,11 @@ export default function EmbeddedCheckoutForm({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative h-full w-full max-w-4xl overflow-auto bg-white p-6">
-        {/* // close button */}
         <button
           onClick={handleClose}
-          className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
+          className="absolute right-4 top-4 flex items-center justify-center text-gray-500 hover:text-gray-700"
         >
-          <span className="sr-only">Close</span>
-          <FaTimes size={20} color="gray" />
+          <FaTimes size={24} color="gray" />
         </button>
         <div id="checkout">
           <EmbeddedCheckoutProvider
