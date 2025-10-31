@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
+import { currentUser } from "@clerk/nextjs/server";
 
 export async function POST(req: NextRequest) {
   try {
     const { publicBasket } = await req.json();
+    const user = await currentUser();
+    const userEmail = user?.primaryEmailAddress?.emailAddress;
 
     if (!publicBasket || !Array.isArray(publicBasket)) {
       return NextResponse.json(
@@ -26,8 +29,8 @@ export async function POST(req: NextRequest) {
       line_items: lineItems,
       mode: "payment",
       return_url: `${origin}/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
-      ...(userId && {
-        customer_email: user.email,
+      ...(userEmail && {
+        customer_email: userEmail,
         customer_creation: "always",
       }),
     });
