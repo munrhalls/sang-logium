@@ -1,40 +1,23 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { CheckCircle, Package, ArrowRight } from "lucide-react";
 import { useBasketStore } from "@/store/store";
 
 export default function SuccessPage() {
-  const [loading, setLoading] = useState(true);
   const clearBasket = useBasketStore((s) => s.clearBasket);
 
   useEffect(() => {
-    clearBasket();
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-    return () => clearTimeout(timer);
+    clearBasket(); // Just this
   }, [clearBasket]);
 
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div>
-          <p className="text-gray-600">Processing your order...</p>
-        </div>
-      </div>
-    );
-  }
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-12">
       <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
         <div className="rounded-lg bg-white p-8 shadow-lg">
-          {}
           <div className="mb-6 flex justify-center">
             <CheckCircle className="h-20 w-20 text-green-500" />
           </div>
-          {}
           <h1 className="mb-4 text-center text-3xl font-bold text-gray-900">
             Payment Successful!
           </h1>

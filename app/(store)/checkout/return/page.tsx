@@ -23,6 +23,11 @@ export default async function ReturnPage({ searchParams }: ReturnPageProps) {
   const isComplete = session.status === "complete";
   const isPaid = session.payment_status === "paid";
 
+  // Redirect to success page if payment is complete
+  if (isComplete && isPaid) {
+    redirect(`/success?session_id=${sessionId}`);
+  }
+
   return (
     <div className="container mx-auto max-w-2xl px-4 py-16">
       <div className="rounded-lg bg-white p-8 shadow-md">
