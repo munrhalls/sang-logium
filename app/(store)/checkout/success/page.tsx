@@ -1,13 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { CheckCircle, Package, ArrowRight } from "lucide-react";
 import { useBasketStore } from "@/store/store";
 
 export default function SuccessPage() {
-  const searchParams = useSearchParams();
-  const sessionId = searchParams.get("session_id");
   const [loading, setLoading] = useState(true);
   const clearBasket = useBasketStore((s) => s.clearBasket);
 
@@ -45,18 +42,6 @@ export default function SuccessPage() {
             Thank you for your order. We've received your payment and are
             processing your order.
           </p>
-          {}
-          {sessionId && (
-            <div className="mb-6 rounded-md bg-gray-50 p-4">
-              <p className="text-sm text-gray-600">
-                <strong>Session ID:</strong>
-              </p>
-              <p className="break-all font-mono text-xs text-gray-800">
-                {sessionId}
-              </p>
-            </div>
-          )}
-          {}
           <div className="mb-8 rounded-lg border border-gray-200 p-6">
             <h2 className="mb-4 flex items-center text-xl font-semibold text-gray-900">
               <Package className="mr-2 h-6 w-6" />
@@ -106,12 +91,12 @@ export default function SuccessPage() {
         </div>
         {}
         <p className="mt-8 text-center text-sm text-gray-600">
-          Need help? Contact us at{" "}
+          Need help? Contact us at
           <a
-            href="mailto:support@yourstore.com"
+            href="mailto:support@sang-logium.com"
             className="text-blue-600 hover:underline"
           >
-            support@yourstore.com
+            support@sang-logium.com
           </a>
         </p>
       </div>
