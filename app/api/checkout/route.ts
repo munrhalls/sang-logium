@@ -29,9 +29,9 @@ export async function POST(req: NextRequest) {
       line_items: lineItems,
       mode: "payment",
       return_url: `${origin}/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
-      customer_creation: userEmail ? "always" : "never",
       ...(userEmail && {
         customer_email: userEmail,
+        customer_creation: "always",
       }),
     });
 
