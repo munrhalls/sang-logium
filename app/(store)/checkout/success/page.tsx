@@ -39,7 +39,7 @@ export default function SuccessPage() {
             Payment Successful!
           </h1>
           <p className="mb-8 text-center text-lg text-gray-600">
-            Thank you for your order. We've received your payment and are
+            Thank you for your order. We&apos;ve received your payment and are
             processing your order.
           </p>
           <div className="mb-8 rounded-lg border border-gray-200 p-6">
@@ -52,14 +52,17 @@ export default function SuccessPage() {
                 <span className="mr-2 mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-xs font-bold text-green-600">
                   1
                 </span>
-                <span>You'll receive an order confirmation email shortly</span>
+                <span>
+                  You&apos;ll receive an order confirmation email shortly
+                </span>
               </li>
               <li className="flex items-start">
                 <span className="mr-2 mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-xs font-bold text-green-600">
                   2
                 </span>
                 <span>
-                  We'll process and pack your order within 1-2 business days
+                  We&apos;ll process and pack your order within 1-2 business
+                  days
                 </span>
               </li>
               <li className="flex items-start">
@@ -67,7 +70,8 @@ export default function SuccessPage() {
                   3
                 </span>
                 <span>
-                  You'll receive a shipping notification with tracking details
+                  You&apos;ll receive a shipping notification with tracking
+                  details
                 </span>
               </li>
             </ul>
