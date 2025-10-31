@@ -14,7 +14,6 @@ export default async function ReturnPage({ searchParams }: ReturnPageProps) {
     redirect("/basket");
   }
 
-  // Retrieve the session from Stripe
   const session = await stripe.checkout.sessions.retrieve(sessionId);
 
   const isComplete = session.status === "complete";
