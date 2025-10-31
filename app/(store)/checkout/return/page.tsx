@@ -1,122 +1,91 @@
-import { stripe } from "@/lib/stripe";
+"use client";
+import { useEffect } from "react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { CheckCircle, Package, ArrowRight } from "lucide-react";
+import { useBasketStore } from "@/store/store";
 
-interface ReturnPageProps {
-  searchParams: Promise<{ session_id?: string }>;
-}
+export default function SuccessPage() {
+  const clearBasket = useBasketStore((s) => s.clearBasket);
 
-export default async function ReturnPage({ searchParams }: ReturnPageProps) {
-  const params = await searchParams;
-  const sessionId = params.session_id;
-
-  if (!sessionId) {
-    redirect("/basket");
-  }
-
-  const session = await stripe.checkout.sessions.retrieve(sessionId, {
-    expand: ["line_items", "line_items.data.price.product"],
-  });
-
-  const lineItems = session.line_items?.data || [];
-
-  const isComplete = session.status === "complete";
-  const isPaid = session.payment_status === "paid";
-
-  // Redirect to success page if payment is complete
-  if (isComplete && isPaid) {
-    redirect(`/success?session_id=${sessionId}`);
-  }
+  useEffect(() => {
+    clearBasket(); // Just this
+  }, [clearBasket]);
 
   return (
-    <div className="container mx-auto max-w-2xl px-4 py-16">
-      <div className="rounded-lg bg-white p-8 shadow-md">
-        {isComplete && isPaid ? (
-          <>
-            <div className="mb-6 flex items-center justify-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                <svg
-                  className="h-8 w-8 text-green-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-            </div>
-            <h1 className="mb-4 text-center text-3xl font-bold text-gray-900">
-              Payment Successful!
-            </h1>
-            <p className="mb-8 text-center text-gray-600">
-              Thank you for your purchase. Your order has been confirmed.
-            </p>
-            <div className="mb-6 rounded-md bg-gray-50 p-4">
-              {/* <p className="text-sm text-gray-700">
-                <span className="font-semibold">Session ID:</span> {sessionId}
-              </p> */}
-              <p className="text-sm text-gray-700">
-                <span className="font-semibold">Status:</span> {session.status}
-              </p>
-              <p className="text-sm text-gray-700">
-                <span className="font-semibold">Payment Status:</span>{" "}
-                {session.payment_status}
-              </p>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="mb-6 flex items-center justify-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-yellow-100">
-                <svg
-                  className="h-8 w-8 text-yellow-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <h1 className="mb-4 text-center text-3xl font-bold text-gray-900">
-              Payment Processing
-            </h1>
-            <p className="mb-8 text-center text-gray-600">
-              Your payment is being processed. Please check back later.
-            </p>
-            <div className="mb-6 rounded-md bg-gray-50 p-4">
-              <p className="text-sm text-gray-700">
-                <span className="font-semibold">Session ID:</span> {sessionId}
-              </p>
-              <p className="text-sm text-gray-700">
-                <span className="font-semibold">Status:</span> {session.status}
-              </p>
-              <p className="text-sm text-gray-700">
-                <span className="font-semibold">Payment Status:</span>{" "}
-                {session.payment_status}
-              </p>
-            </div>
-          </>
-        )}
-
-        <div className="flex justify-center gap-4">
-          <Link
-            href="/products"
-            className="rounded-sm bg-black px-6 py-3 font-medium text-white transition-colors hover:bg-gray-800"
-          >
-            Continue Shopping
-          </Link>
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-12">
+      <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+        <div className="rounded-lg bg-white p-8 shadow-lg">
+          <div className="mb-6 flex justify-center">
+            <CheckCircle className="h-20 w-20 text-green-500" />
+          </div>
+          <h1 className="mb-4 text-center text-3xl font-bold text-gray-900">
+            Payment Successful!
+          </h1>
+          <p className="mb-8 text-center text-lg text-gray-600">
+            Thank you for your order. We&apos;ve received your payment and are
+            processing your order.
+          </p>
+          <div className="mb-8 rounded-lg border border-gray-200 p-6">
+            <h2 className="mb-4 flex items-center text-xl font-semibold text-gray-900">
+              <Package className="mr-2 h-6 w-6" />
+              What happens next?
+            </h2>
+            <ul className="space-y-3 text-gray-700">
+              <li className="flex items-start">
+                <span className="mr-2 mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-xs font-bold text-green-600">
+                  1
+                </span>
+                <span>
+                  You&apos;ll receive an order confirmation email shortly
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="mr-2 mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-xs font-bold text-green-600">
+                  2
+                </span>
+                <span>
+                  We&apos;ll process and pack your order within 1-2 business
+                  days
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="mr-2 mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-xs font-bold text-green-600">
+                  3
+                </span>
+                <span>
+                  You&apos;ll receive a shipping notification with tracking
+                  details
+                </span>
+              </li>
+            </ul>
+          </div>
+          {}
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <Link
+              href="/account/orders"
+              className="flex flex-1 items-center justify-center rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700"
+            >
+              View My Orders
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+            <Link
+              href="/"
+              className="flex flex-1 items-center justify-center rounded-lg border border-gray-300 px-6 py-3 font-semibold text-gray-700 transition-colors hover:bg-gray-50"
+            >
+              Continue Shopping
+            </Link>
+          </div>
         </div>
+        {}
+        <p className="mt-8 text-center text-sm text-gray-600">
+          Need help? Contact us at
+          <a
+            href="mailto:support@sang-logium.com"
+            className="text-blue-600 hover:underline"
+          >
+            support@sang-logium.com
+          </a>
+        </p>
       </div>
     </div>
   );
