@@ -26,6 +26,10 @@ export async function POST(req: NextRequest) {
       line_items: lineItems,
       mode: "payment",
       return_url: `${origin}/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
+      ...(userId && {
+        customer_email: user.email,
+        customer_creation: "always",
+      }),
     });
 
     return NextResponse.json({ client_secret: session.client_secret });
