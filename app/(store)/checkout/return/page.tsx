@@ -14,7 +14,11 @@ export default async function ReturnPage({ searchParams }: ReturnPageProps) {
     redirect("/basket");
   }
 
-  const session = await stripe.checkout.sessions.retrieve(sessionId);
+  const session = await stripe.checkout.sessions.retrieve(sessionId, {
+    expand: ["line_items", "line_items.data.price.product"],
+  });
+
+  const lineItems = session.line_items?.data || [];
 
   const isComplete = session.status === "complete";
   const isPaid = session.payment_status === "paid";
