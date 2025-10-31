@@ -48,9 +48,9 @@ export default async function ReturnPage({ searchParams }: ReturnPageProps) {
               Thank you for your purchase. Your order has been confirmed.
             </p>
             <div className="mb-6 rounded-md bg-gray-50 p-4">
-              <p className="text-sm text-gray-700">
+              {/* <p className="text-sm text-gray-700">
                 <span className="font-semibold">Session ID:</span> {sessionId}
-              </p>
+              </p> */}
               <p className="text-sm text-gray-700">
                 <span className="font-semibold">Status:</span> {session.status}
               </p>
