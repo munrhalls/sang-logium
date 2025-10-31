@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
           id: item?.id,
           name:
             typeof item.price?.product === "object"
-              ? item?.price?.product?.name,
+              ? item?.price?.product?.name
               : "Product",
           quantity: item?.quantity || 1,
           price: item?.price?.unit_amount ? item?.price?.unit_amount / 100 : 0,
