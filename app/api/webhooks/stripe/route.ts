@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { stripe } from "@/lib/stripe";
+import { backendClient } from "@/sanity/lib/backendClient";
 
 export async function POST(req: Request) {
   let event;
@@ -33,7 +34,59 @@ export async function POST(req: Request) {
           console.log(`✅ Payment completed! Session: ${data.id}`);
           console.log(`📧 Customer: ${data.customer_details?.email}`);
           console.log(`💰 Amount: $${(data.amount_total || 0) / 100}`);
-          // TODO: Create order in database here
+
+          // Fetch full session with line items
+          const session = await stripe.checkout.sessions.retrieve(data.id, {
+            expand: ["line_items", "line_items.data.price.product"],
+          });
+
+          // Verify amount matches line items (security check)
+          const calculatedTotal =
+            session.line_items?.data.reduce(
+              (sum, item) => sum + item.amount_total,
+              0
+            ) || 0;
+
+          if (calculatedTotal !== session.amount_total) {
+            console.error(
+              `❌ Amount mismatch! Calculated: ${calculatedTotal}, Session: ${session.amount_total}`
+            );
+            throw new Error("Amount verification failed");
+          }
+
+          console.log(`✅ Amount verified: $${calculatedTotal / 100}`);
+
+          // Create order in Sanity
+          const orderNumber = `ORD-${Date.now()}`;
+          await backendClient.create({
+            _type: "order",
+            orderNumber,
+            orderId: data.id,
+            stripeSessionId: data.id,
+            customerEmail: session.customer_details?.email || "unknown",
+            isGuest: !session.metadata?.userId,
+            clerkUserId: session.metadata?.userId || null,
+            orderStatus: "pending",
+            items:
+              session.line_items?.data.map((item) => ({
+                _type: "orderItem",
+                productId:
+                  typeof item.price?.product === "object"
+                    ? item.price.product.id
+                    : item.price?.product,
+                name:
+                  typeof item.price?.product === "object"
+                    ? item.price.product.name
+                    : "Product",
+                quantity: item.quantity || 1,
+                priceAtPurchase: (item.price?.unit_amount || 0) / 100,
+                totalPrice: item.amount_total / 100,
+              })) || [],
+            totalAmount: (session.amount_total || 0) / 100,
+            currency: session.currency || "usd",
+          });
+
+          console.log(`📦 Order created: ${orderNumber}`);
           break;
         default:
           throw new Error(`Unhandled event: ${event.type}`);
