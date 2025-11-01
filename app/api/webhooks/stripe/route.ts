@@ -56,6 +56,20 @@ export async function POST(req: Request) {
 
           console.log(`✅ Amount verified: $${calculatedTotal / 100}`);
 
+          // Check if order already exists (idempotency)
+          //TODO Coded before orders existed, check later
+          const existingOrder = await backendClient.fetch(
+            `*[_type == "order" && stripeSessionId == $sessionId][0]`,
+            { sessionId: data.id }
+          );
+
+          if (existingOrder) {
+            console.log(
+              `⚠️ Order already exists: ${existingOrder.orderNumber}`
+            );
+            break; // Skip duplicate creation
+          }
+
           // Create order in Sanity
           const orderNumber = `ORD-${Date.now()}`;
           await backendClient.create({
