@@ -40,6 +40,20 @@ export async function POST(req: Request) {
             expand: ["line_items", "line_items.data.price.product"],
           });
 
+          const shippingAddress = session.shipping_details?.address;
+
+          const shippingAddress = {
+            shippingAddress: {
+              line1: shippingAddress?.line1,
+              line2: shippingAddress?.line2,
+              city: shippingAddress?.city,
+              state: shippingAddress?.state,
+              postalCode: shippingAddress?.postal_code,
+              country: shippingAddress?.country,
+            },
+            shippingName: session.shipping_details?.name,
+          };
+
           // Verify amount matches line items (security check)
           const calculatedTotal =
             session.line_items?.data.reduce(
@@ -81,6 +95,7 @@ export async function POST(req: Request) {
             isGuest: !session.metadata?.userId,
             clerkUserId: session.metadata?.userId || null,
             orderStatus: "pending",
+            shippingAddress: shippingAddress,
             items:
               session.line_items?.data.map((item) => ({
                 _type: "orderItem",
