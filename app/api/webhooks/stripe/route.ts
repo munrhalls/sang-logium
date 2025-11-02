@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { stripe } from "@/lib/stripe";
 import { backendClient } from "@/sanity/lib/backendClient";
+import Stripe from "stripe";
 
 export async function POST(req: Request) {
   let event;
@@ -24,6 +25,9 @@ export async function POST(req: Request) {
 
   const permittedEvents = ["checkout.session.completed"];
 
+  console.log(
+    "???????????????????????????????????????????????? CHECKOUT WEBHOOK"
+  );
   if (permittedEvents.includes(event.type)) {
     let data;
 
@@ -36,12 +40,21 @@ export async function POST(req: Request) {
           console.log(`💰 Amount: $${(data.amount_total || 0) / 100}`);
 
           // Fetch full session with line items
-          const session = await stripe.checkout.sessions.retrieve(data.id, {
+          const session = (await stripe.checkout.sessions.retrieve(data.id, {
             expand: ["line_items", "line_items.data.price.product"],
-          });
+          })) as Stripe.Checkout.Session;
+
+          console.log(
+            "🔍 FULL SESSION OBJECT:",
+            JSON.stringify(session, null, 2)
+          );
+          console.log(
+            "📦 RAW SHIPPING DETAILS:",
+            JSON.stringify(session.shipping_details, null, 2)
+          );
 
           const shippingAddress = session.shipping_details?.address;
-          console.log(shippingAddress, " --- SHIPPING");
+          console.log(shippingAddress, " --- SHIPPING ADDRESS ONLY");
           const shippingAddressOrder = {
             shippingAddress: {
               line1: shippingAddress?.line1,
