@@ -33,6 +33,9 @@ export async function POST(req: NextRequest) {
         customer_email: userEmail,
         customer_creation: "always",
       }),
+      shipping_address_collection: {
+        allowed_countries: ["PL", "GB"],
+      },
     });
 
     return NextResponse.json({ client_secret: session.client_secret });
