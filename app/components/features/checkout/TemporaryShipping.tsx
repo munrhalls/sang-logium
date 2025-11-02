@@ -6,8 +6,11 @@ import { useState } from "react";
 // On success, shifts view to the next step and passes validated address to Checkout component, which passes it to Stripe Checkout Session creation
 // On failure, shows error message and allows user to re-enter address
 
+// the form should involve basic validation pre-submission (e.g., required fields, proper format)
+
 export default function Shipping() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({
     street: "",
     city: "",
@@ -49,6 +52,7 @@ export default function Shipping() {
                 <h2 className="mb-4 text-lg font-bold">
                   Enter Shipping Address
                 </h2>
+
                 <input
                   onChange={(e) => setForm({ ...form, street: e.target.value })}
                   type="text"
