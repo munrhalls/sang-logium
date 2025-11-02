@@ -61,8 +61,6 @@ export default async function ProductsPage(props: {
     }),
   ]);
   const { products, totalProductsCount } = productsResult;
-  console.log("Products fetched:", products.length);
-  console.log(products);
   return (
     <>
       <main className="container mx-auto hidden px-4 py-8 md:block">
