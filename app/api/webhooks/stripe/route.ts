@@ -41,8 +41,8 @@ export async function POST(req: Request) {
           });
 
           const shippingAddress = session.shipping_details?.address;
-
-          const shippingAddress = {
+          console.log(shippingAddress, " --- SHIPPING");
+          const shippingAddressOrder = {
             shippingAddress: {
               line1: shippingAddress?.line1,
               line2: shippingAddress?.line2,
