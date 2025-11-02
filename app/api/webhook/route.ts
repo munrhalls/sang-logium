@@ -48,32 +48,18 @@ export async function POST(req: Request) {
             session.collected_information?.shipping_details;
 
           console.log(shippingDetails, " --- FULL SHIPPING DETAILS");
-//                     [0] {
-// [0]   address: {
-// [0]     city: 'asadsads',
-// [0]     country: 'PL',
-// [0]     line1: 'zxczxasdas',
-// [0]     line2: null,
-// [0]     postal_code: 'asdadsdas',
-// [0]     state: null
-// [0]   },
-// [0]   name: 'asdasdads'
+          //                     [0] {
+          // [0]   address: {
+          // [0]     city: 'asadsads',
+          // [0]     country: 'PL',
+          // [0]     line1: 'zxczxasdas',
+          // [0]     line2: null,
+          // [0]     postal_code: 'asdadsdas',
+          // [0]     state: null
+          // [0]   },
 
-          const shippingAddress = shippingDetails?.address;
-
-          const shippingAddressOrder = {
-            address: {
-
-            }
-            line1: shippingAddress?.line1,
-            line2: shippingAddress?.line2,
-            city: shippingAddress?.city,
-            state: shippingAddress?.state,
-            postalCode: shippingAddress?.postal_code,
-            country: shippingAddress?.country,
-          };
-
-
+          // [0]   name: 'asdasdads'
+          const shippingData = shippingDetails;
 
           // Verify amount matches line items (security check)
           const calculatedTotal =
