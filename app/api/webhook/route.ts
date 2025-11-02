@@ -50,18 +50,14 @@ export async function POST(req: Request) {
           console.log(shippingDetails, " --- FULL SHIPPING DETAILS");
 
           const shippingAddress = shippingDetails?.address;
-          const shippingName = shippingDetails?.name;
 
           const shippingAddressOrder = {
-            shippingAddress: {
-              line1: shippingAddress?.line1,
-              line2: shippingAddress?.line2,
-              city: shippingAddress?.city,
-              state: shippingAddress?.state,
-              postalCode: shippingAddress?.postal_code,
-              country: shippingAddress?.country,
-            },
-            shippingName: shippingName, // Use the extracted name
+            line1: shippingAddress?.line1,
+            line2: shippingAddress?.line2,
+            city: shippingAddress?.city,
+            state: shippingAddress?.state,
+            postalCode: shippingAddress?.postal_code,
+            country: shippingAddress?.country,
           };
 
           // Verify amount matches line items (security check)
@@ -105,7 +101,7 @@ export async function POST(req: Request) {
             isGuest: !session.metadata?.userId,
             clerkUserId: session.metadata?.userId || null,
             orderStatus: "pending",
-            shippingAddress: shippingAddress,
+            shippingAddress: shippingAddressOrder,
             items:
               session.line_items?.data.map((item) => ({
                 _type: "orderItem",
