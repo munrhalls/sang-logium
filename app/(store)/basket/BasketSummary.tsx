@@ -40,6 +40,7 @@ export default function BasketSummary() {
       </div>
 
       <Checkout />
+      <TemporaryShipping />
 
       <div className="mt-4 hidden lg:block">
         <Link
