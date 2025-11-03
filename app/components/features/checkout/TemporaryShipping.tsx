@@ -49,14 +49,7 @@ export default function Shipping() {
   // const ValidatedInput = withValidation(Input)
 
   const withValidation = (InputComponent: React.FC<Node>) => {
-    interface ValidationProps {
-      required?: boolean;
-      minLength?: number;
-      maxLength?: number;
-      handleChange: Function(e: React.ChangeEvent<HTMLInputElement>): void;
-    }
-
-    return function Validated(props: ValidationProps) {
+    return function Validated({ value, ...props }) {
       const [touched, setTouched] = useState(false);
       const [value, setValue] = useState("");
 
