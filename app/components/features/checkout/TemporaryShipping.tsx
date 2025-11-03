@@ -60,7 +60,7 @@ export default function Shipping() {
                   className="mb-4 w-full border border-gray-300 p-2"
                 >
                   <option value="PL">Poland</option>
-                  <option value="GB">United Kingdom</option>
+                  <option value="EN">England</option>
                 </select>
                 <p className="text-sm font-black tracking-wide">Postal code</p>
                 <input
