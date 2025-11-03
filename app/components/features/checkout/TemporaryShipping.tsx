@@ -12,6 +12,7 @@ export default function Shipping() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState({
+    streetNumber: number,
     street: "",
     city: "",
     state: "",
@@ -51,11 +52,36 @@ export default function Shipping() {
                 <h2 className="mb-4 text-lg font-bold">
                   Enter Shipping Address
                 </h2>
+                <select
+                  onChange={(e) =>
+                    setForm({ ...form, country: e.target.value })
+                  }
+                  className="mb-4 w-full border border-gray-300 p-2"
+                >
+                  <option value="PL">Poland</option>
+                  <option value="GB">United Kingdom</option>
+                </select>
+                <input
+                  onChange={(e) =>
+                    setForm({ ...form, postalCode: e.target.value })
+                  }
+                  type="text"
+                  placeholder="Postal Code"
+                  className="mb-2 w-full border border-gray-300 p-2"
+                />
 
                 <input
                   onChange={(e) => setForm({ ...form, street: e.target.value })}
                   type="text"
-                  placeholder="Street Address"
+                  placeholder="Street"
+                  className="mb-2 w-full border border-gray-300 p-2"
+                />
+                <input
+                  onChange={(e) =>
+                    setForm({ ...form, streetNumber: e.target.value })
+                  }
+                  type="text"
+                  placeholder="Street Number"
                   className="mb-2 w-full border border-gray-300 p-2"
                 />
                 <input
@@ -71,22 +97,8 @@ export default function Shipping() {
                   className="mb-2 w-full border border-gray-300 p-2"
                 />
 
-                <input
-                  onChange={(e) =>
-                    setForm({ ...form, postalCode: e.target.value })
-                  }
-                  type="text"
-                  placeholder="Postal Code"
-                  className="mb-2 w-full border border-gray-300 p-2"
-                />
-                <input
-                  onChange={(e) =>
-                    setForm({ ...form, country: e.target.value })
-                  }
-                  type="text"
-                  placeholder="Country"
-                  className="mb-4 w-full border border-gray-300 p-2"
-                />
+                {/* instead, this should be selectable dropdown with default value for countries and there should only be two countries to select from: GB and PL */}
+
                 <button
                   onClick={handleAddressValidation}
                   type="submit"
