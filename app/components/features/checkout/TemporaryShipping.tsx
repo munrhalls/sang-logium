@@ -36,15 +36,11 @@ export default function Shipping() {
 
     const data = await response.json();
     console.log(data, " --- ADDRESS VALIDATION RESPONSE");
-    // save
     // Handle response (show success or error to user)
     // If success, close modal and pass address to Checkout component
     // If error, show error message
   };
 
-  // save
-
-  const bla = ";";
   return (
     <>
       <div>
