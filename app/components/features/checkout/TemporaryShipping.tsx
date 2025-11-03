@@ -1,12 +1,10 @@
 import { useState } from "react";
-// Shipping component
-// Collects and validates shipping address
-// Makes post request to /api/shipping to validate address with google maps address validation API
-// receives RESPONSE and shows validation result to user
-// On success, shifts view to the next step and passes validated address to Checkout component, which passes it to Stripe Checkout Session creation
-// On failure, shows error message and allows user to re-enter address
 
-// the form should involve basic validation pre-submission (e.g., required fields, proper format)
+// basic client validation
+// at first, empty fields DO NOT trigger error messages
+// once user types in a field, the field is basic validated
+// if the field is left empty or fails basic length validation, it's marked as error until user types something that makes it valid
+// form submission is disabled until all basic validation passes
 
 export default function Shipping() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,17 +35,59 @@ export default function Shipping() {
 
     const data = await response.json();
     console.log(data, " --- ADDRESS VALIDATION RESPONSE");
-
-    // extract verdict from response
-    // extract unconfirmedComponentTypes from verdict
-
-    // Handle response (show success or error to user)
-    // If success, close modal and pass address to Checkout component
-    // If error, show error message
+    // if (data.verdict && data.verdict.possibleNextAction === "FIX") {
+    //   setError(
+    //     "This address cannot be found. Please make sure the address is correct and try again."
+    //   );
+    // }
   };
 
-  // If address if validated, display FinalConfirmation component with validated address and update as well as proceed to payment buttons
-  // if there are errors, display them and allow user to re-enter address
+  // HoC - takes Input and enhances it with functionality:
+    // if the input has not been touched, no validation
+    // once touched, basic validation against Input's prop validation rules
+  // Input - this component takes validation props and just returns input
+  // const ValidatedInput = withValidation(Input)
+
+  const withValidation = (InputComponent: React.FC<Node>) => {
+    return (props) => {
+      const [touched, setTouched] = useState(false);
+      const [value, setValue] = useState("");
+
+      const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value);
+        if (!touched) setTouched(true);
+      };
+
+      let errorMessage = "";
+      if (touched) {
+        if (props.required && value.trim() === "") {
+          errorMessage = "This field is required.";
+        } else if (
+          props.minLength &&
+          value.length < props.minLength
+        ) {
+          errorMessage = `Minimum length is ${props.minLength} characters.`;
+        } else if (
+          props.maxLength &&
+          value.length > props.maxLength
+        ) {
+          errorMessage = `Maximum length is ${props.maxLength} characters.`;
+        }
+      }
+
+      return (
+        <div>
+          <InputComponent
+            {...props}
+            value={value}
+            onChange={handleChange}
+          />
+          {errorMessage && (
+            <div className="text-sm text-red-500">{errorMessage}</div>
+          )}
+        </div>
+      );
+    }
 
   return (
     <>
