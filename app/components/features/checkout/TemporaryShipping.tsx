@@ -17,7 +17,7 @@ export default function Shipping() {
     city: "",
     state: "",
     postalCode: "",
-    country: "",
+    regionCode: "PL",
   });
 
   const handleShipping = () => {
@@ -54,7 +54,7 @@ export default function Shipping() {
                 </h2>
                 <select
                   onChange={(e) =>
-                    setForm({ ...form, country: e.target.value })
+                    setForm({ ...form, regionCode: e.target.value })
                   }
                   className="mb-4 w-full border border-gray-300 p-2"
                 >
@@ -78,7 +78,7 @@ export default function Shipping() {
                 />
                 <input
                   onChange={(e) =>
-                    setForm({ ...form, streetNumber: e.target.value })
+                    setForm({ ...form, streetNumber: parseInt(e.target.value) })
                   }
                   type="number"
                   placeholder="Street Number"

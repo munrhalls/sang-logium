@@ -21,7 +21,7 @@ export async function POST(req: Request) {
 
   const validationRequestBody: GoogleValidationAPIRequest = {
     address: {
-      regionCode: address.country,
+      regionCode: address.regionCode,
       locality: address.city,
       addressLines: [addressLines],
     },
