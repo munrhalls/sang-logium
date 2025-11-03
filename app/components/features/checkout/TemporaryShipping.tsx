@@ -12,7 +12,7 @@ export default function Shipping() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState({
-    streetNumber: number,
+    streetNumber: 0,
     street: "",
     city: "",
     state: "",
@@ -80,7 +80,7 @@ export default function Shipping() {
                   onChange={(e) =>
                     setForm({ ...form, streetNumber: e.target.value })
                   }
-                  type="text"
+                  type="number"
                   placeholder="Street Number"
                   className="mb-2 w-full border border-gray-300 p-2"
                 />
