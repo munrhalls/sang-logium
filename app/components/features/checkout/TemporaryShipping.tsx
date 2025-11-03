@@ -77,8 +77,8 @@ export default function Shipping() {
     };
   };
 
-  const InputComponent = function () {
-    return <input />;
+  const InputComponent = function (props) {
+    return <input {...props} />;
   };
 
   const ValidatedInput = withValidation(InputComponent);
