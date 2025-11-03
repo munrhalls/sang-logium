@@ -28,13 +28,13 @@ export async function POST(req: Request) {
   };
   console.log(validationRequestBody);
 
-  // const validationResponse = await fetch(validationURL, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(validationRequestBody),
-  // });
+  const validationResponse = await fetch(validationURL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(validationRequestBody),
+  });
 
   console.log("Address validation response:", validationResponse);
 

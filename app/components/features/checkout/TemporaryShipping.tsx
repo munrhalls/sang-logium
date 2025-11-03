@@ -52,6 +52,7 @@ export default function Shipping() {
                 <h2 className="mb-4 text-lg font-bold">
                   Enter Shipping Address
                 </h2>
+                <p>Country</p>
                 <select
                   onChange={(e) =>
                     setForm({ ...form, regionCode: e.target.value })
@@ -61,6 +62,7 @@ export default function Shipping() {
                   <option value="PL">Poland</option>
                   <option value="GB">United Kingdom</option>
                 </select>
+                <p className="text-sm font-black tracking-wide">Postal code</p>
                 <input
                   onChange={(e) =>
                     setForm({ ...form, postalCode: e.target.value })
@@ -69,36 +71,48 @@ export default function Shipping() {
                   placeholder="Postal Code"
                   className="mb-2 w-full border border-gray-300 p-2"
                 />
-
-                <input
-                  onChange={(e) => setForm({ ...form, street: e.target.value })}
-                  type="text"
-                  placeholder="Street"
-                  className="mb-2 w-full border border-gray-300 p-2"
-                />
-                <input
-                  onChange={(e) =>
-                    setForm({ ...form, streetNumber: parseInt(e.target.value) })
-                  }
-                  type="number"
-                  placeholder="Street Number"
-                  className="mb-2 w-full border border-gray-300 p-2"
-                />
+                <div className="grid grid-cols-8 gap-2">
+                  <div className="col-span-6">
+                    <p className="text-sm font-black tracking-wide">Street</p>
+                    <input
+                      onChange={(e) =>
+                        setForm({ ...form, street: e.target.value })
+                      }
+                      type="text"
+                      placeholder="Street"
+                      className="mb-2 w-full border border-gray-300 p-2"
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <p className="text-sm font-black tracking-wide">Number</p>
+                    <input
+                      onChange={(e) =>
+                        setForm({
+                          ...form,
+                          streetNumber: parseInt(e.target.value),
+                        })
+                      }
+                      type="number"
+                      placeholder="..."
+                      className="mb-2 flex w-full items-center justify-center border border-gray-300 p-2"
+                    />
+                  </div>
+                </div>
+                <p className="text-sm font-black tracking-wide">Title</p>
                 <input
                   onChange={(e) => setForm({ ...form, city: e.target.value })}
                   type="text"
                   placeholder="City"
                   className="mb-2 w-full border border-gray-300 p-2"
-                />
+                />{" "}
+                <p className="text-sm font-black tracking-wide">Title</p>
                 <input
                   onChange={(e) => setForm({ ...form, state: e.target.value })}
                   type="text"
                   placeholder="State/Province"
                   className="mb-2 w-full border border-gray-300 p-2"
                 />
-
                 {/* instead, this should be selectable dropdown with default value for countries and there should only be two countries to select from: GB and PL */}
-
                 <button
                   onClick={handleAddressValidation}
                   type="submit"
