@@ -52,7 +52,7 @@ export default function Shipping() {
                 <h2 className="mb-4 text-lg font-bold">
                   Enter Shipping Address
                 </h2>
-                <p>Country</p>
+                <p className="text-sm font-black tracking-wide">Country</p>
                 <select
                   onChange={(e) =>
                     setForm({ ...form, regionCode: e.target.value })
@@ -98,21 +98,13 @@ export default function Shipping() {
                     />
                   </div>
                 </div>
-                <p className="text-sm font-black tracking-wide">Title</p>
+                <p className="text-sm font-black tracking-wide">City</p>
                 <input
                   onChange={(e) => setForm({ ...form, city: e.target.value })}
                   type="text"
                   placeholder="City"
                   className="mb-2 w-full border border-gray-300 p-2"
-                />{" "}
-                <p className="text-sm font-black tracking-wide">Title</p>
-                <input
-                  onChange={(e) => setForm({ ...form, state: e.target.value })}
-                  type="text"
-                  placeholder="State/Province"
-                  className="mb-2 w-full border border-gray-300 p-2"
                 />
-                {/* instead, this should be selectable dropdown with default value for countries and there should only be two countries to select from: GB and PL */}
                 <button
                   onClick={handleAddressValidation}
                   type="submit"
