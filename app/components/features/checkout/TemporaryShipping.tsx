@@ -48,15 +48,12 @@ export default function Shipping() {
   // Input - this component takes validation props and just returns input
   // const ValidatedInput = withValidation(Input)
 
-  const withValidation = (InputComponent: React.FC<Node>) => {
-    return function Validated({ value, ...props }) {
+  const withValidation = (
+    InputComponent: React.FC<React.InputHTMLAttributes<HTMLInputElement>>
+  ) => {
+    return function Validated({ ...props }) {
       const [touched, setTouched] = useState(false);
-      const [value, setValue] = useState("");
-
-      const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value);
-        if (!touched) setTouched(true);
-      };
+      const { value } = props;
 
       let errorMessage = "";
       if (touched) {
@@ -71,7 +68,7 @@ export default function Shipping() {
 
       return (
         <div>
-          <InputComponent {...props} value={value} onChange={handleChange} />
+          <InputComponent {...props} onBlur={() => setTouched(true)} />
           {errorMessage && (
             <div className="text-sm text-red-500">{errorMessage}</div>
           )}
@@ -79,6 +76,12 @@ export default function Shipping() {
       );
     };
   };
+
+  const InputComponent = function () {
+    return <input />;
+  };
+
+  const ValidatedInput = withValidation(InputComponent);
 
   return (
     <>
@@ -101,7 +104,7 @@ export default function Shipping() {
                   <option value="EN">England</option>
                 </select>
                 <p className="text-sm font-black tracking-wide">Postal code</p>
-                <input
+                <ValidatedInput
                   onChange={(e) =>
                     setForm({ ...form, postalCode: e.target.value })
                   }
@@ -112,7 +115,7 @@ export default function Shipping() {
                 <div className="grid grid-cols-8 gap-2">
                   <div className="col-span-6">
                     <p className="text-sm font-black tracking-wide">Street</p>
-                    <input
+                    <ValidatedInput
                       onChange={(e) =>
                         setForm({ ...form, street: e.target.value })
                       }
@@ -123,7 +126,7 @@ export default function Shipping() {
                   </div>
                   <div className="col-span-2">
                     <p className="text-sm font-black tracking-wide">Number</p>
-                    <input
+                    <ValidatedInput
                       onChange={(e) =>
                         setForm({
                           ...form,
@@ -137,7 +140,7 @@ export default function Shipping() {
                   </div>
                 </div>
                 <p className="text-sm font-black tracking-wide">City</p>
-                <input
+                <ValidatedInput
                   onChange={(e) => setForm({ ...form, city: e.target.value })}
                   type="text"
                   placeholder="City"
