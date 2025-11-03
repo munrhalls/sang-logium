@@ -37,10 +37,17 @@ export default function Shipping() {
 
     const data = await response.json();
     console.log(data, " --- ADDRESS VALIDATION RESPONSE");
+
+    // extract verdict from response
+    // extract unconfirmedComponentTypes from verdict
+
     // Handle response (show success or error to user)
     // If success, close modal and pass address to Checkout component
     // If error, show error message
   };
+
+  // If address if validated, display FinalConfirmation component with validated address and update as well as proceed to payment buttons
+  // if there are errors, display them and allow user to re-enter address
 
   return (
     <>
@@ -110,7 +117,7 @@ export default function Shipping() {
                   type="submit"
                   className="w-full rounded bg-black px-4 py-2 text-white"
                 >
-                  Validate Address
+                  Submit Address
                 </button>
               </form>
 
