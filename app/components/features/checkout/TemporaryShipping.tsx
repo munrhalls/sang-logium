@@ -43,13 +43,20 @@ export default function Shipping() {
   };
 
   // HoC - takes Input and enhances it with functionality:
-    // if the input has not been touched, no validation
-    // once touched, basic validation against Input's prop validation rules
+  // if the input has not been touched, no validation
+  // once touched, basic validation against Input's prop validation rules
   // Input - this component takes validation props and just returns input
   // const ValidatedInput = withValidation(Input)
 
   const withValidation = (InputComponent: React.FC<Node>) => {
-    return (props) => {
+    interface ValidationProps {
+      required?: boolean;
+      minLength?: number;
+      maxLength?: number;
+      handleChange: Function(e: React.ChangeEvent<HTMLInputElement>): void;
+    }
+
+    return function Validated(props: ValidationProps) {
       const [touched, setTouched] = useState(false);
       const [value, setValue] = useState("");
 
@@ -62,32 +69,23 @@ export default function Shipping() {
       if (touched) {
         if (props.required && value.trim() === "") {
           errorMessage = "This field is required.";
-        } else if (
-          props.minLength &&
-          value.length < props.minLength
-        ) {
+        } else if (props.minLength && value.length < props.minLength) {
           errorMessage = `Minimum length is ${props.minLength} characters.`;
-        } else if (
-          props.maxLength &&
-          value.length > props.maxLength
-        ) {
+        } else if (props.maxLength && value.length > props.maxLength) {
           errorMessage = `Maximum length is ${props.maxLength} characters.`;
         }
       }
 
       return (
         <div>
-          <InputComponent
-            {...props}
-            value={value}
-            onChange={handleChange}
-          />
+          <InputComponent {...props} value={value} onChange={handleChange} />
           {errorMessage && (
             <div className="text-sm text-red-500">{errorMessage}</div>
           )}
         </div>
       );
-    }
+    };
+  };
 
   return (
     <>
