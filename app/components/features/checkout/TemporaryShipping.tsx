@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FaTimes } from "react-icons/fa";
 import ShippingModal from "./ShippingModal";
 
 export default function Shipping() {
@@ -11,19 +10,7 @@ export default function Shipping() {
 
   return (
     <>
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="relative rounded bg-white p-4">
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute right-3 top-3 rounded px-4 py-2 text-black"
-            >
-              <FaTimes className="h-6 w-6" />
-            </button>
-            <ShippingModal />
-          </div>
-        </div>
-      )}
+      {isModalOpen && <ShippingModal onClose={() => setIsModalOpen(false)} />}
 
       <button
         onClick={openShippingModal}
