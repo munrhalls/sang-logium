@@ -8,22 +8,6 @@ interface GoogleValidationAPIRequest {
   address: AddressLines;
 }
 
-// Example request body:
-//   address: {
-//     regionCode: 'PL',
-//     locality: 'Warszawa',
-//     addressLines: [ '45-841 Dworska' ]
-//   }
-
-// vs
-
-// completely wrong
-// address: {
-//     regionCode: 'PL',
-//     locality: 'adsfafszxxzxc',
-//     addressLines: [ 'cvbvcbvdgs 523erydhfcxvzss' ]
-//   }
-
 export async function POST(req: Request) {
   const body = await req.json();
   const address = body;
@@ -31,7 +15,11 @@ export async function POST(req: Request) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const validationURL = `https://addressvalidation.googleapis.com/v1:validateAddress?key=${apiKey}`;
 
-  const addressLines = [address.postalCode, address.street].join(" ");
+  const addressLines = [
+    address.postalCode,
+    address.street,
+    address.streetNumber,
+  ].join(" ");
 
   const validationRequestBody: GoogleValidationAPIRequest = {
     address: {
@@ -54,20 +42,24 @@ export async function POST(req: Request) {
   const map = {
     FIX: "Address could not be found on map. Please check and edit.",
     CONFIRM_ADD_SUBPREMISES:
-      "Address found but not fully confirmed. Are you sure it's correct?",
+      "Address found but not fully confirmed. If you are sure it's correct, please proceed.",
     NULL: "Address successfully validated.",
     ACCEPT: "Address successfully validated.",
   };
 
   const validationData = await validationResponse.json();
-  const verdict: "FIX" | "CONFIRM_ADD_SUBPREMISES" | "NULL" | "ACCEPT" =
-    validationData.verdict;
-
-  const apiValidationMessage = map[verdict?.possibleNextAction];
-
   console.log("Address validation data:", validationData);
+  const verdict = validationData.result?.verdict;
+  const possibleNextAction:
+    | "FIX"
+    | "CONFIRM_ADD_SUBPREMISES"
+    | "NULL"
+    | "ACCEPT" = verdict?.possibleNextAction || "NULL";
 
-  return new Response(JSON.stringify(validationData), {
+  const apiValidationMessage = map[possibleNextAction];
+  console.log("API Validation Message:", apiValidationMessage);
+
+  return new Response(JSON.stringify(apiValidationMessage), {
     status: 200,
     headers: {
       "Content-Type": "application/json",

@@ -35,20 +35,6 @@ export default function Shipping() {
 
     const apiValidationData = await apiValidation.json();
     console.log(apiValidationData, " --- ADDRESS VALIDATION RESPONSE");
-
-    const addressActions = {
-      EDIT: "Please edit your address. A required component is missing or incorrect.",
-      CONFIRM: "We couldn't fully confirm this address. Is it correct?",
-      NULL: "Address successfully validated.",
-    };
-    if (
-      apiValidationData.verdict &&
-      apiValidationData.verdict.possibleNextAction === "FIX"
-    ) {
-      setApiValidationError(
-        "This address cannot be found. Please make sure the address is correct and try again."
-      );
-    }
   };
 
   return (
