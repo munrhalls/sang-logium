@@ -15,13 +15,6 @@ interface ShippingModalProps {
 }
 
 export default function ShippingModal({ onClose }: ShippingModalProps) {
-  const [apiValidationError, setApiValidationError] = useState<string | null>(
-    null
-  );
-  const [status, setStatus] = useState<
-    "idle" | "validating" | "confirmed" | "partial" | "invalid"
-  >("idle");
-  const [message, setMessage] = useState("");
   const {
     register,
     handleSubmit,
