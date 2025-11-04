@@ -51,13 +51,20 @@ export async function POST(req: Request) {
     body: JSON.stringify(validationRequestBody),
   });
 
-  const addressActions = {
-    EDIT: "Please edit your address. A required component is missing or incorrect.",
-    CONFIRM: "We couldn't fully confirm this address. Is it correct?",
+  const map = {
+    FIX: "Address could not be found on map. Please check and edit.",
+    CONFIRM_ADD_SUBPREMISES:
+      "Address found but not fully confirmed. Are you sure it's correct?",
     NULL: "Address successfully validated.",
+    ACCEPT: "Address successfully validated.",
   };
 
   const validationData = await validationResponse.json();
+  const verdict: "FIX" | "CONFIRM_ADD_SUBPREMISES" | "NULL" | "ACCEPT" =
+    validationData.verdict;
+
+  const apiValidationMessage = map[verdict?.possibleNextAction];
+
   console.log("Address validation data:", validationData);
 
   return new Response(JSON.stringify(validationData), {
