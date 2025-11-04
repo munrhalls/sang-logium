@@ -26,7 +26,7 @@ export default function ShippingModal({ onClose }: ShippingModalProps) {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FormData>({ mode: "onChange" });
+  } = useForm<FormData>({ mode: "onBlur" });
 
   const handleAddressSubmit = async (data: FormData) => {
     const apiValidation = await fetch("/api/shipping", {

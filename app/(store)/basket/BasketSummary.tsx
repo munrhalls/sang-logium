@@ -4,7 +4,7 @@ import { useBasketStore } from "@/store/store";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Checkout from "@/app/components/features/checkout/Checkout";
-import TemporaryShipping from "@/app/components/features/checkout/TemporaryShipping";
+import Shipping from "@/app/components/features/checkout/Shipping";
 
 export default function BasketSummary() {
   const basket = useBasketStore((s) => s.basket);
@@ -41,7 +41,7 @@ export default function BasketSummary() {
       </div>
 
       {/* <Checkout /> */}
-      <TemporaryShipping />
+      <Shipping />
 
       <div className="mt-4 hidden lg:block">
         <Link
