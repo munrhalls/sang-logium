@@ -33,7 +33,7 @@ export default function Shipping() {
       body: JSON.stringify(data),
     });
 
-    const apiValidationData = await response.json();
+    const apiValidationData = await apiValidation.json();
     console.log(apiValidationData, " --- ADDRESS VALIDATION RESPONSE");
 
     const addressActions = {
