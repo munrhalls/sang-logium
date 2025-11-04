@@ -108,6 +108,7 @@ export default function Shipping() {
                   onChange={(e) =>
                     setForm({ ...form, postalCode: e.target.value })
                   }
+                  value={form.postalCode}
                   type="text"
                   placeholder="Postal Code"
                   className="mb-2 w-full border border-gray-300 p-2"
