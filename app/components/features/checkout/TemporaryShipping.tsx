@@ -1,30 +1,26 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-// basic client validation
-// at first, empty fields DO NOT trigger error messages
-// once user types in a field, the field is basic validated
-// if the field is left empty or fails basic length validation, it's marked as error until user types something that makes it valid
-// form submission is disabled until all basic validation passes
+type FormData = {
+  postalCode: string;
+  street: string;
+  streetNumber: number;
+  city: string;
+};
 
 export default function Shipping() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [error, setError] = useState("");
-  const [form, setForm] = useState({
-    streetNumber: 0,
-    street: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    regionCode: "PL",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
 
   const handleShipping = () => {
     setIsModalOpen(true);
   };
 
-  const handleAddressValidation = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleAddressSubmit = async (data: FormData) => {
     const response = await fetch("/api/shipping", {
       method: "POST",
       headers: {
@@ -33,55 +29,21 @@ export default function Shipping() {
       body: JSON.stringify(form),
     });
 
-    const data = await response.json();
-    console.log(data, " --- ADDRESS VALIDATION RESPONSE");
+    const responseData = await response.json();
+    console.log(responseData, " --- ADDRESS VALIDATION RESPONSE");
+
+    // const addressActions = {
+    //   EDIT: "Please edit your address. A required component is missing or incorrect.",
+    //   CONFIRM: "We couldn't fully confirm this address. Is it correct?",
+    //   NULL: "Address successfully validated.",
+    // };
     // if (data.verdict && data.verdict.possibleNextAction === "FIX") {
+
     //   setError(
     //     "This address cannot be found. Please make sure the address is correct and try again."
     //   );
     // }
   };
-
-  // HoC - takes Input and enhances it with functionality:
-  // if the input has not been touched, no validation
-  // once touched, basic validation against Input's prop validation rules
-  // Input - this component takes validation props and just returns input
-  // const ValidatedInput = withValidation(Input)
-
-  const withValidation = (
-    InputComponent: React.FC<React.InputHTMLAttributes<HTMLInputElement>>
-  ) => {
-    return function Validated({ ...props }) {
-      const [touched, setTouched] = useState(false);
-      const { value } = props;
-
-      let errorMessage = "";
-      if (touched) {
-        if (props.required && value.trim() === "") {
-          errorMessage = "This field is required.";
-        } else if (props.minLength && value.length < props.minLength) {
-          errorMessage = `Minimum length is ${props.minLength} characters.`;
-        } else if (props.maxLength && value.length > props.maxLength) {
-          errorMessage = `Maximum length is ${props.maxLength} characters.`;
-        }
-      }
-
-      return (
-        <div>
-          <InputComponent {...props} onBlur={() => setTouched(true)} />
-          {errorMessage && (
-            <div className="text-sm text-red-500">{errorMessage}</div>
-          )}
-        </div>
-      );
-    };
-  };
-
-  const InputComponent = function (props) {
-    return <input {...props} />;
-  };
-
-  const ValidatedInput = withValidation(InputComponent);
 
   return (
     <>
@@ -89,12 +51,15 @@ export default function Shipping() {
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="rounded bg-white p-4">
-              <form>
+              <form
+                onSubmit={handleSubmit((data) => handleAddressSubmit(data))}
+                className="w-80"
+              >
                 <h2 className="mb-4 text-lg font-bold">
                   Enter Shipping Address
                 </h2>
                 <p className="text-sm font-black tracking-wide">Country</p>
-                <select
+                {/* <select
                   onChange={(e) =>
                     setForm({ ...form, regionCode: e.target.value })
                   }
@@ -102,13 +67,10 @@ export default function Shipping() {
                 >
                   <option value="PL">Poland</option>
                   <option value="EN">England</option>
-                </select>
+                </select> */}
                 <p className="text-sm font-black tracking-wide">Postal code</p>
-                <ValidatedInput
-                  onChange={(e) =>
-                    setForm({ ...form, postalCode: e.target.value })
-                  }
-                  value={form.postalCode}
+                <input
+                  {...register("postalCode", { required: true })}
                   type="text"
                   placeholder="Postal Code"
                   className="mb-2 w-full border border-gray-300 p-2"
@@ -116,10 +78,8 @@ export default function Shipping() {
                 <div className="grid grid-cols-8 gap-2">
                   <div className="col-span-6">
                     <p className="text-sm font-black tracking-wide">Street</p>
-                    <ValidatedInput
-                      onChange={(e) =>
-                        setForm({ ...form, street: e.target.value })
-                      }
+                    <input
+                      {...register("street", { required: true })}
                       type="text"
                       placeholder="Street"
                       className="mb-2 w-full border border-gray-300 p-2"
@@ -127,13 +87,8 @@ export default function Shipping() {
                   </div>
                   <div className="col-span-2">
                     <p className="text-sm font-black tracking-wide">Number</p>
-                    <ValidatedInput
-                      onChange={(e) =>
-                        setForm({
-                          ...form,
-                          streetNumber: parseInt(e.target.value),
-                        })
-                      }
+                    <input
+                      {...register("streetNumber", { required: true })}
                       type="number"
                       placeholder="..."
                       className="mb-2 flex w-full items-center justify-center border border-gray-300 p-2"
@@ -141,19 +96,18 @@ export default function Shipping() {
                   </div>
                 </div>
                 <p className="text-sm font-black tracking-wide">City</p>
-                <ValidatedInput
-                  onChange={(e) => setForm({ ...form, city: e.target.value })}
+                <input
+                  {...register("city", { required: true })}
                   type="text"
                   placeholder="City"
                   className="mb-2 w-full border border-gray-300 p-2"
                 />
-                <button
-                  onClick={handleAddressValidation}
+                <input
                   type="submit"
                   className="w-full rounded bg-black px-4 py-2 text-white"
                 >
                   Submit Address
-                </button>
+                </input>
               </form>
 
               <button

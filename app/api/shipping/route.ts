@@ -51,14 +51,11 @@ export async function POST(req: Request) {
     body: JSON.stringify(validationRequestBody),
   });
 
-  //   if (verdict.possibleNextAction == FIX)
-  //     Prompt the user to fix the address.
-  // else if (verdict.possibleNextAction == CONFIRM_ADD_SUBPREMISES)
-  //     Prompt the user to add a unit number.
-  // else if (verdict.possibleNextAction == CONFIRM)
-  //     Confirm with the user that the address is correct.
-  // else
-  //     Continue with the address returned by the API.
+  const addressActions = {
+    EDIT: "Please edit your address. A required component is missing or incorrect.",
+    CONFIRM: "We couldn't fully confirm this address. Is it correct?",
+    NULL: "Address successfully validated.",
+  };
 
   const validationData = await validationResponse.json();
   console.log("Address validation data:", validationData);
