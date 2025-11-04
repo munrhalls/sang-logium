@@ -43,6 +43,12 @@ export default function Shipping() {
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="rounded bg-white p-4">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="mt-4 rounded bg-black px-4 py-2 text-white"
+              >
+                Close
+              </button>
               <form
                 onSubmit={handleSubmit(handleAddressSubmit)}
                 className="w-80"
@@ -104,13 +110,6 @@ export default function Shipping() {
                   Submit Address
                 </button>
               </form>
-
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="mt-4 rounded bg-black px-4 py-2 text-white"
-              >
-                Close
-              </button>
             </div>
           </div>
         )}
