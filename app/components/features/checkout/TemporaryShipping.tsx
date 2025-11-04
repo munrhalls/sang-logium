@@ -11,6 +11,9 @@ type FormData = {
 
 export default function Shipping() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [apiValidationError, setApiValidationError] = useState<string | null>(
+    null
+  );
   const {
     register,
     handleSubmit,
@@ -22,7 +25,7 @@ export default function Shipping() {
   };
 
   const handleAddressSubmit = async (data: FormData) => {
-    const response = await fetch("/api/shipping", {
+    const apiValidation = await fetch("/api/shipping", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,20 +33,22 @@ export default function Shipping() {
       body: JSON.stringify(data),
     });
 
-    const responseData = await response.json();
-    console.log(responseData, " --- ADDRESS VALIDATION RESPONSE");
+    const apiValidationData = await response.json();
+    console.log(apiValidationData, " --- ADDRESS VALIDATION RESPONSE");
 
-    // const addressActions = {
-    //   EDIT: "Please edit your address. A required component is missing or incorrect.",
-    //   CONFIRM: "We couldn't fully confirm this address. Is it correct?",
-    //   NULL: "Address successfully validated.",
-    // };
-    // if (data.verdict && data.verdict.possibleNextAction === "FIX") {
-
-    //   setError(
-    //     "This address cannot be found. Please make sure the address is correct and try again."
-    //   );
-    // }
+    const addressActions = {
+      EDIT: "Please edit your address. A required component is missing or incorrect.",
+      CONFIRM: "We couldn't fully confirm this address. Is it correct?",
+      NULL: "Address successfully validated.",
+    };
+    if (
+      apiValidationData.verdict &&
+      apiValidationData.verdict.possibleNextAction === "FIX"
+    ) {
+      setApiValidationError(
+        "This address cannot be found. Please make sure the address is correct and try again."
+      );
+    }
   };
 
   return (
