@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 type FormData = {
+  regionCode: string;
   postalCode: string;
   street: string;
   streetNumber: number;
@@ -59,15 +60,13 @@ export default function Shipping() {
                   Enter Shipping Address
                 </h2>
                 <p className="text-sm font-black tracking-wide">Country</p>
-                {/* <select
-                  onChange={(e) =>
-                    setForm({ ...form, regionCode: e.target.value })
-                  }
+                <select
+                  {...register("regionCode", { required: true })}
                   className="mb-4 w-full border border-gray-300 p-2"
                 >
                   <option value="PL">Poland</option>
                   <option value="EN">England</option>
-                </select> */}
+                </select>
                 <p className="text-sm font-black tracking-wide">Postal code</p>
                 <input
                   {...register("postalCode", { required: true })}
