@@ -26,7 +26,7 @@ export default function Shipping() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(form),
+      body: JSON.stringify(data),
     });
 
     const responseData = await response.json();
@@ -52,7 +52,7 @@ export default function Shipping() {
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="rounded bg-white p-4">
               <form
-                onSubmit={handleSubmit((data) => handleAddressSubmit(data))}
+                onSubmit={handleSubmit(handleAddressSubmit)}
                 className="w-80"
               >
                 <h2 className="mb-4 text-lg font-bold">
@@ -102,12 +102,17 @@ export default function Shipping() {
                   placeholder="City"
                   className="mb-2 w-full border border-gray-300 p-2"
                 />
-                <input
+                <button
+                  disabled={Object.keys(errors).length > 0}
                   type="submit"
-                  className="w-full rounded bg-black px-4 py-2 text-white"
+                  className={`w-full rounded px-4 py-2 ${
+                    Object.keys(errors).length > 0
+                      ? "cursor-not-allowed bg-gray-400 text-gray-600"
+                      : "bg-black text-white"
+                  }`}
                 >
                   Submit Address
-                </input>
+                </button>
               </form>
 
               <button
