@@ -22,8 +22,8 @@ export default function Shipping() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+    formState: { errors, isValid },
+  } = useForm<FormData>({ mode: "onChange" });
 
   const handleShipping = () => {
     setIsModalOpen(true);
@@ -104,10 +104,10 @@ export default function Shipping() {
                   className="mb-2 w-full border border-gray-300 p-2"
                 />
                 <button
-                  disabled={Object.keys(errors).length > 0}
+                  disabled={!isValid}
                   type="submit"
                   className={`w-full rounded px-4 py-2 ${
-                    Object.keys(errors).length > 0
+                    !isValid
                       ? "cursor-not-allowed bg-gray-400 text-gray-600"
                       : "bg-black text-white"
                   }`}
