@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaTimes } from "react-icons/fa";
 
 type FormData = {
   regionCode: string;
@@ -14,6 +15,10 @@ export default function Shipping() {
   const [apiValidationError, setApiValidationError] = useState<string | null>(
     null
   );
+  const [status, setStatus] = useState<
+    "idle" | "validating" | "confirmed" | "partial" | "invalid"
+  >("idle");
+  const [message, setMessage] = useState("");
   const {
     register,
     handleSubmit,
@@ -42,12 +47,12 @@ export default function Shipping() {
       <div>
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="rounded bg-white p-4">
+            <div className="relative rounded bg-white p-4">
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="mt-4 rounded bg-black px-4 py-2 text-white"
+                className="absolute right-3 top-3 rounded px-4 py-2 text-black"
               >
-                Close
+                <FaTimes className="h-6 w-6" />
               </button>
               <form
                 onSubmit={handleSubmit(handleAddressSubmit)}
