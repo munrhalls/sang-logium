@@ -39,30 +39,18 @@ export async function POST(req: Request) {
     body: JSON.stringify(validationRequestBody),
   });
 
-  const map = {
-    FIX: "Address could not be found on map. Please check and edit.",
-    CONFIRM_ADD_SUBPREMISES:
-      "Address found but not fully confirmed. If you are sure it's correct, please proceed.",
-    NULL: "Address successfully validated.",
-    ACCEPT: "Address successfully validated.",
-  };
-
   const validationData = await validationResponse.json();
-  console.log("Address validation data:", validationData);
   const verdict = validationData.result?.verdict;
-  const possibleNextAction:
-    | "FIX"
-    | "CONFIRM_ADD_SUBPREMISES"
-    | "NULL"
-    | "ACCEPT" = verdict?.possibleNextAction || "NULL";
+  const action = verdict?.possibleNextAction || "NULL";
 
-  const apiValidationMessage = map[possibleNextAction];
-  console.log("API Validation Message:", apiValidationMessage);
+  let status: "FIX" | "PARTIAL" | "CONFIRMED";
+  if (action === "FIX") {
+    status = "FIX";
+  } else if (action === "CONFIRM_ADD_SUBPREMISES") {
+    status = "PARTIAL";
+  } else {
+    status = "CONFIRMED";
+  }
 
-  return new Response(JSON.stringify(apiValidationMessage), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  return Response.json({ status });
 }
