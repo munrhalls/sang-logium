@@ -1,15 +1,6 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { FaTimes } from "react-icons/fa";
 import ShippingModal from "./ShippingModal";
-
-type FormData = {
-  regionCode: string;
-  postalCode: string;
-  street: string;
-  streetNumber: number;
-  city: string;
-};
 
 export default function Shipping() {
   const [isModalOpen, setIsModalOpen] = useState(false);
