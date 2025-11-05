@@ -24,7 +24,7 @@ export default function ShippingModal({ onClose }: ShippingModalProps) {
   } = useForm<FormData>({ mode: "onBlur" });
   const [apiResponse, setApiResponse] = useState<any>(null);
   const [status, setStatus] = useState<"form" | "loading" | "confirmation">(
-    "loading"
+    "form"
   );
 
   const handleAddressSubmit = async (data: FormData) => {
@@ -46,12 +46,14 @@ export default function ShippingModal({ onClose }: ShippingModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative rounded bg-white p-4">
-        <button
-          onClick={onClose}
-          className="absolute right-3 top-3 z-50 rounded px-4 py-2 text-black"
-        >
-          <FaTimes className="h-6 w-6" />
-        </button>
+        {status !== "loading" && (
+          <button
+            onClick={onClose}
+            className="absolute right-3 top-3 z-50 rounded px-4 py-2 text-black"
+          >
+            <FaTimes className="h-6 w-6" />
+          </button>
+        )}
         <div className="relative min-h-96 w-80">
           {status === "form" && (
             <form onSubmit={handleSubmit(handleAddressSubmit)}>
