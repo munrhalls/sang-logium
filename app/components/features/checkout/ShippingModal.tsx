@@ -22,27 +22,36 @@ export default function ShippingModal() {
     formState: { errors, isValid },
   } = useForm<FormData>({ mode: "onBlur" });
   const [apiResponse, setApiResponse] = useState<any>(null);
-  const [status, setStatus] = useState<"form" | "loading" | "confirmation">(
+  const [status, setStatus] = useState<"form" | "loading" | "api-error">(
     "form"
   );
   const router = useRouter();
 
+  // TODO determine if user is logged in and has saved addresses - if so, re-direct to confirmation directly
+
   const handleAddressSubmit = async (data: FormData) => {
     setStatus("loading");
-    const apiValidation = await fetch("/api/shipping", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const apiValidation = await fetch("/api/shipping", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    const apiValidationData = await apiValidation.json();
-    setStatus("confirmation");
-    setApiResponse(apiValidationData);
-    console.log(apiValidationData, " --- ADDRESS VALIDATION RESPONSE");
+      const apiValidationData = await apiValidation.json();
+      setStatus("confirmation");
+      setApiResponse(apiValidationData);
+      console.log(apiValidationData, " --- ADDRESS VALIDATION RESPONSE");
+    } catch (error) {
+      console.error("Error validating address:", error);
+      setStatus("api-error");
+    }
   };
 
+  // TODO handle API error state in the UI
+  // TODO prevent DDOS etc. by disabling submit button while loading and by limiting amount submits per minute / hour / day
   return (
     <div className="flex items-center justify-center">
       <div className="relative rounded bg-white p-4">
@@ -116,7 +125,6 @@ export default function ShippingModal() {
           {status === "loading" && (
             <Loader message="Processing..." color="border-t-black" />
           )}
-          {status === "confirmation" && <ShippingConfirmation />}
         </div>
       </div>
     </div>
