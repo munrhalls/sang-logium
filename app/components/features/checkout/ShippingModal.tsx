@@ -1,9 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaTimes } from "react-icons/fa";
 import Loader from "@/app/components/common/Loader";
-import ShippingConfirmation from "./ShippingConfirmation";
 import { useRouter } from "next/navigation";
 import { Link } from "lucide-react";
 
@@ -21,33 +20,16 @@ export default function ShippingModal() {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<FormData>({ mode: "onBlur" });
-  const [apiResponse, setApiResponse] = useState<any>(null);
   const [status, setStatus] = useState<"form" | "loading" | "api-error">(
     "form"
   );
   const router = useRouter();
+  const { validateShipping, isLoading } = useContext(CheckoutContext);
 
   // TODO determine if user is logged in and has saved addresses - if so, re-direct to confirmation directly
 
-  const handleAddressSubmit = async (data: FormData) => {
-    setStatus("loading");
-    try {
-      const apiValidation = await fetch("/api/shipping", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const apiValidationData = await apiValidation.json();
-      setStatus("confirmation");
-      setApiResponse(apiValidationData);
-      console.log(apiValidationData, " --- ADDRESS VALIDATION RESPONSE");
-    } catch (error) {
-      console.error("Error validating address:", error);
-      setStatus("api-error");
-    }
+  const handleAddressSubmit = (data: FormData) => {
+    validateShipping(data);
   };
 
   // TODO handle API error state in the UI
