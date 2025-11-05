@@ -1,7 +1,8 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 const CheckoutContext = createContext<any>(null);
 
@@ -17,6 +18,13 @@ export default function CheckoutLayout({
   const [shippingAPIValidation, setShippingAPIValidation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user?.publicMetadata?.shippingAddress) {
+      router.push("/checkout/shipping/confirmation");
+    }
+  }, [user, router]);
 
   const validateShipping = async (formData) => {
     setIsLoading(true);
