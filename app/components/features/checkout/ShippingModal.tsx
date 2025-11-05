@@ -5,6 +5,7 @@ import { FaTimes } from "react-icons/fa";
 import Loader from "@/app/components/common/Loader";
 import { useRouter } from "next/navigation";
 import { Link } from "lucide-react";
+import { useCheckout } from "@/app/(store)/checkout/layout";
 
 type FormData = {
   regionCode: string;
@@ -24,7 +25,7 @@ export default function ShippingModal() {
     "form"
   );
   const router = useRouter();
-  const { validateShipping, isLoading } = useContext(CheckoutContext);
+  const { validateShipping, isLoading } = useCheckout();
 
   // TODO determine if user is logged in and has saved addresses - if so, re-direct to confirmation directly
 
@@ -37,7 +38,7 @@ export default function ShippingModal() {
   return (
     <div className="flex items-center justify-center">
       <div className="relative rounded bg-white p-4">
-        {status !== "loading" && (
+        {!isLoading && (
           <Link
             onClick={() => router.back()}
             className="absolute right-3 top-3 z-50 rounded px-4 py-2 text-black"
@@ -46,7 +47,7 @@ export default function ShippingModal() {
           </Link>
         )}
         <div className="relative min-h-96 w-80">
-          {status === "form" && (
+          {!isLoading && (
             <form onSubmit={handleSubmit(handleAddressSubmit)}>
               <h2 className="mb-4 text-lg font-bold">Enter Shipping Address</h2>
               <p className="text-sm font-black tracking-wide">Country</p>
@@ -104,7 +105,7 @@ export default function ShippingModal() {
               </button>
             </form>
           )}
-          {status === "loading" && (
+          {isLoading && (
             <Loader message="Processing..." color="border-t-black" />
           )}
         </div>
