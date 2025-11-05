@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const CheckoutContext = createContext<any>(null);
 
@@ -15,6 +16,7 @@ export default function CheckoutLayout({
 }) {
   const [shippingAPIValidation, setShippingAPIValidation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const validateShipping = async (formData) => {
     setIsLoading(true);
@@ -26,6 +28,11 @@ export default function CheckoutLayout({
       const data = await res.json();
       setShippingAPIValidation(data);
       setIsLoading(false);
+      if (data.status === "CONFIRMED" || data.status === "PARTIAL") {
+        router.push("/checkout/shipping/confirmation");
+      } else {
+        router.push("/checkout/shipping");
+      }
     } catch (error) {
       console.error("Error validating shipping address:", error);
       setIsLoading(false);

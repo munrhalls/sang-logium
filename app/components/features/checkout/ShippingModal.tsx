@@ -22,7 +22,7 @@ export default function ShippingModal() {
     formState: { errors, isValid },
   } = useForm<FormData>({ mode: "onBlur" });
   const router = useRouter();
-  const { validateShipping, isLoading } = useCheckout();
+  const { validateShipping, isLoading, shippingAPIValidation } = useCheckout();
 
   const handleAddressSubmit = (data: FormData) => {
     validateShipping(data);
@@ -99,6 +99,12 @@ export default function ShippingModal() {
                 Submit Address
               </button>
             </form>
+          )}
+          {shippingAPIValidation?.status === "FIX" && (
+            <p className="mt-4 text-sm text-red-600">
+              Could not locate provided address on the map. Please review and
+              make sure it is correct.
+            </p>
           )}
           {isLoading && (
             <Loader message="Processing..." color="border-t-black" />
