@@ -21,13 +21,8 @@ export default function ShippingModal() {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<FormData>({ mode: "onBlur" });
-  const [status, setStatus] = useState<"form" | "loading" | "api-error">(
-    "form"
-  );
   const router = useRouter();
   const { validateShipping, isLoading } = useCheckout();
-
-  // TODO determine if user is logged in and has saved addresses - if so, re-direct to confirmation directly
 
   const handleAddressSubmit = (data: FormData) => {
     validateShipping(data);
