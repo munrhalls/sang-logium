@@ -38,7 +38,7 @@ export default function CheckoutLayout({
         shippingAPIValidation,
         setShippingAPIValidation,
         validateShipping,
-        isLoading: false,
+        isLoading,
       }}
     >
       <div>{children}</div>
