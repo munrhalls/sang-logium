@@ -24,7 +24,7 @@ export default function ShippingModal({ onClose }: ShippingModalProps) {
   } = useForm<FormData>({ mode: "onBlur" });
   const [apiResponse, setApiResponse] = useState<any>(null);
   const [status, setStatus] = useState<"form" | "loading" | "confirmation">(
-    "form"
+    "loading"
   );
 
   const handleAddressSubmit = async (data: FormData) => {
