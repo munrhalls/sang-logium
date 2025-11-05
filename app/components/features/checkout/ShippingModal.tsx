@@ -48,7 +48,7 @@ export default function ShippingModal({ onClose }: ShippingModalProps) {
       <div className="relative rounded bg-white p-4">
         <button
           onClick={onClose}
-          className="absolute right-3 top-3 rounded px-4 py-2 text-black"
+          className="absolute right-3 top-3 z-50 rounded px-4 py-2 text-black"
         >
           <FaTimes className="h-6 w-6" />
         </button>
