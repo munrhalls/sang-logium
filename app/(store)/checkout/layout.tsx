@@ -27,12 +27,12 @@ export default function CheckoutLayout({
       });
       const data = await res.json();
       setShippingAPIValidation(data);
-      setIsLoading(false);
       if (data.status === "CONFIRMED" || data.status === "PARTIAL") {
         router.push("/checkout/shipping/confirmation");
       } else {
         router.push("/checkout/shipping");
       }
+      setIsLoading(false);
     } catch (error) {
       console.error("Error validating shipping address:", error);
       setIsLoading(false);
