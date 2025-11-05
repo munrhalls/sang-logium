@@ -1,5 +1,5 @@
-import Checkout from "@/app/components/features/checkout/Checkout";
+import { redirect } from "next/navigation";
 
 export default function page() {
-  return <Checkout />;
+  redirect("/checkout/shipping");
 }

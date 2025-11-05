@@ -41,8 +41,14 @@ export default function BasketSummary() {
       </div>
 
       {/* <Checkout /> */}
-      <Shipping />
+      {/* <Shipping /> */}
 
+      <Link
+        href="/checkout"
+        className="flex w-full items-center justify-center rounded-sm bg-black py-4 text-lg font-medium text-white transition-colors hover:bg-gray-800"
+      >
+        Checkout
+      </Link>
       <div className="mt-4 hidden lg:block">
         <Link
           href="/products"
