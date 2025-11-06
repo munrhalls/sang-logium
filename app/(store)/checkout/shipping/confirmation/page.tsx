@@ -13,8 +13,8 @@ export default function Page() {
 
   console.log("shipping address", shippingAddress);
 
-  // const status = shippingAPIValidation.status;
-  const status = "PARTIAL";
+  const status = shippingAPIValidation.status;
+  // const status = "PARTIAL";
 
   return (
     <div className="flex flex-col gap-4">
