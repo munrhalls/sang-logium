@@ -30,7 +30,7 @@ export default function Page() {
   // TODO handle API error state in the UI
   // TODO prevent DDOS etc. by disabling submit button while loading and by limiting amount submits per minute / hour / day
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex min-h-screen justify-center">
       <div className="relative rounded bg-white p-4">
         {!isLoading && (
           <Link
