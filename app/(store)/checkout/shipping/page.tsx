@@ -68,17 +68,34 @@ export default function Page() {
                   Postal Code is required.
                 </p>
               )}
-              {/* // display error if there is error */}
+
               <div className="grid grid-cols-8 gap-2">
                 <div className="col-span-6">
                   <p className="text-sm font-black tracking-wide">Street</p>
                   <input
-                    {...register("street", { required: true })}
+                    {...register("street", {
+                      required: "Street is required.", // Custom message for required
+                      minLength: {
+                        value: 3, // A safer minimum length
+                        message: "Street name must be at least 3 characters.",
+                      },
+                      maxLength: {
+                        value: 70, // A safe maximum length
+                        message: "Street name must be under 70 characters.",
+                      },
+                    })}
                     type="text"
                     placeholder="Street"
                     className="mb-2 w-full border border-gray-300 p-2"
                   />
+                  {errors.street && (
+                    <p className="mb-4 text-xs font-semibold text-red-500">
+                      {/* Display the dynamic message from the validation rule */}
+                      {errors.street.message}
+                    </p>
+                  )}
                 </div>
+
                 <div className="col-span-2">
                   <p className="text-sm font-black tracking-wide">Number</p>
                   <input
