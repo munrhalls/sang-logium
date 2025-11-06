@@ -27,7 +27,7 @@ export default function Page() {
       ) : (
         <div className="flex flex-col items-center justify-center gap-4 rounded-lg border border-yellow-300 bg-yellow-50 p-3">
           <p className="text-sm text-yellow-800">
-            Address partially confirmed on the map. Are you sure it's
+            Address partially confirmed on the map. Are you sure it&apos;s
             correct?{" "}
           </p>
           <Link
