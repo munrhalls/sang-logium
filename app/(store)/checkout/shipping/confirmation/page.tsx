@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useCheckout } from "@/app/(store)/checkout/layout";
 import { redirect } from "next/navigation";
 import DisplayAddress from "./DisplayAddress";
-import { Check, X, Edit3 } from "lucide-react";
+import { Check, Edit3 } from "lucide-react";
 
 export default function Page() {
   const { addressApiValidation, shippingAddress } = useCheckout();
@@ -11,10 +11,8 @@ export default function Page() {
     redirect("/checkout/shipping");
   }
 
-  // startstart
   return (
     <div className="flex flex-col gap-4">
-      {/* Address Card - Condensed */}
       <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-md">
         <DisplayAddress shippingAddress={shippingAddress} />
       </div>

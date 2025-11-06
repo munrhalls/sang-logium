@@ -74,7 +74,8 @@ export default function CheckoutLayout({
         };
         console.log(parsedApiCorrectedAddress, "parsed API corrected address");
         setShippingAddress(parsedApiCorrectedAddress);
-        console.log("redirect");
+        setIsLoading(false);
+
         router.push("/checkout/shipping/confirmation");
         return;
       } else {
