@@ -145,11 +145,32 @@ export default function Page() {
               </div>
               <p className="text-sm font-black tracking-wide">City</p>
               <input
-                {...register("city", { required: true })}
+                {...register("city", {
+                  required: "City name is required.",
+                  minLength: {
+                    value: 3,
+                    message: "City name must be at least 3 characters long.",
+                  },
+                  maxLength: {
+                    value: 50, // 50 characters is a safe maximum for city names
+                    message: "City name cannot exceed 50 characters.",
+                  },
+                  pattern: {
+                    // Allows letters (basic Latin alphabet), spaces, and hyphens
+                    value: /^[a-zA-Z\s-]+$/,
+                    message:
+                      "Invalid format. City name can only contain letters, spaces, or hyphens.",
+                  },
+                })}
                 type="text"
                 placeholder="City"
                 className="mb-2 w-full border border-gray-300 p-2"
               />
+              {errors.city && (
+                <p className="mb-4 text-xs font-semibold text-red-500">
+                  {errors.city.message}
+                </p>
+              )}
               <button
                 disabled={!isValid}
                 type="submit"
