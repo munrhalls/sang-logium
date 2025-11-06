@@ -12,9 +12,13 @@ export type ShippingAddress = {
   city: string;
 };
 
-// e.g.
-// {regionCode: 'EN', postalCode: 'EC1Y 8SY', street: 'Featherstone Street', streetNumber: '49', city: 'LONDON'}
-
+type CheckoutContextType = {
+  shippingAPIValidation: string | null;
+  setShippingAPIValidation: (status: string | null) => void;
+  validateShipping: (formData: ShippingAddress) => Promise<void>;
+  isLoading: boolean;
+  shippingAddress: ShippingAddress | null;
+};
 const CheckoutContext = createContext<any>(null);
 
 export function useCheckout() {
@@ -27,7 +31,8 @@ export default function CheckoutLayout({
   children: React.ReactNode;
 }) {
   const [shippingAPIValidation, setShippingAPIValidation] = useState(null);
-  const [shippingAddress, setShippingAddress] = useState(null);
+  const [shippingAddress, setShippingAddress] =
+    useState<ShippingAddress | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { user } = useUser();
@@ -37,7 +42,8 @@ export default function CheckoutLayout({
       router.push("/checkout/shipping/confirmation");
     }
   }, [user, router]);
-  const validateShipping = async (formData) => {
+
+  const validateShipping = async (formData: ShippingAddress) => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/shipping", {
@@ -54,12 +60,14 @@ export default function CheckoutLayout({
 
       if (apiAddressStatus === "CONFIRMED" || apiAddressStatus === "PARTIAL") {
         const parsedApiCorrectedAddress: ShippingAddress = {
-          street: apiCorrectedAddress.street, // Extracted from route component
-          streetNumber: apiCorrectedAddress.streetNumber, // Extracted from street_number component
-          city: apiCorrectedAddress.city, // From locality
-          postalCode: apiCorrectedAddress.postalCode, // From postalAddress
-          regionCode: apiCorrectedAddress.regionCode, // From regionCode
+          street: apiCorrectedAddress.street,
+          streetNumber: apiCorrectedAddress.streetNumber,
+          city: apiCorrectedAddress.city,
+          postalCode: apiCorrectedAddress.postalCode,
+          regionCode: apiCorrectedAddress.regionCode,
         };
+
+        console.log("Parsed Corrected Address:", parsedApiCorrectedAddress);
         setShippingAddress(parsedApiCorrectedAddress);
         router.push("/checkout/shipping/confirmation");
       } else {
