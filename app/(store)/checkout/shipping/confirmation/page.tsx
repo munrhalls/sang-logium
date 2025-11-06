@@ -14,7 +14,7 @@ export default function Page() {
   console.log("shipping address", shippingAddress);
 
   // const status = shippingAPIValidation.status;
-  const status = "PARTIAL";
+  const status = "CONFIRMED";
 
   return (
     <div className="flex flex-col gap-6">
