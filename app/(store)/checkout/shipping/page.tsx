@@ -10,7 +10,7 @@ type FormData = {
   regionCode: string;
   postalCode: string;
   street: string;
-  streetNumber: number;
+  streetNumber: string;
   city: string;
 };
 
@@ -74,7 +74,7 @@ export default function Page() {
                   <p className="text-sm font-black tracking-wide">Number</p>
                   <input
                     {...register("streetNumber", { required: true })}
-                    type="number"
+                    type="text"
                     placeholder="..."
                     className="mb-2 flex w-full items-center justify-center border border-gray-300 p-2"
                   />
