@@ -43,12 +43,16 @@ export default function CheckoutLayout({
         method: "POST",
         body: JSON.stringify(formData),
       });
-      const data = await res.json();
-      console.log("Shipping validation response:", data);
-      setShippingAPIValidation(data);
+      const {
+        status: apiAddressStatus,
+        correctedAddress: apiCorrectedAddress,
+      } = await res.json();
 
-      if (data.status === "CONFIRMED" || data.status === "PARTIAL") {
-        setShippingAddress(() => formData);
+      console.log("Shipping validation response:", apiCorrectedAddress);
+      setShippingAPIValidation(apiAddressStatus);
+
+      if (apiAddressStatus === "CONFIRMED" || apiAddressStatus === "PARTIAL") {
+        setShippingAddress(apiCorrectedAddress);
         router.push("/checkout/shipping/confirmation");
       } else {
         setIsLoading(false);
