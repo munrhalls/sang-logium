@@ -19,7 +19,8 @@ type CheckoutContextType = {
   isLoading: boolean;
   shippingAddress: ShippingAddress | null;
 };
-const CheckoutContext = createContext<any>(null);
+
+const CheckoutContext = createContext<CheckoutContextType | null>(null);
 
 export function useCheckout() {
   return useContext(CheckoutContext);
@@ -30,7 +31,9 @@ export default function CheckoutLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [shippingAPIValidation, setShippingAPIValidation] = useState(null);
+  const [shippingAPIValidation, setShippingAPIValidation] = useState<
+    string | null
+  >(null);
   const [shippingAddress, setShippingAddress] =
     useState<ShippingAddress | null>(null);
   const [isLoading, setIsLoading] = useState(false);
