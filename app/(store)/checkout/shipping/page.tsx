@@ -23,7 +23,7 @@ export default function Page() {
     formState: { errors, isValid },
   } = useForm<FormData>({
     mode: "onBlur",
-    defaultValues: shippingAddress ? shippingAddress : ({} as FormData),
+    defaultValues: shippingAddress || undefined,
   });
   const router = useRouter();
 
