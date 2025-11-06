@@ -21,7 +21,10 @@ export default function Page() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FormData>({ mode: "onBlur", defaultValues: shippingAddress });
+  } = useForm<FormData>({
+    mode: "onBlur",
+    defaultValues: shippingAddress ? shippingAddress : ({} as FormData),
+  });
   const router = useRouter();
 
   const handleAddressSubmit = (data: FormData) => {
