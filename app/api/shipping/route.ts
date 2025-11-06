@@ -51,5 +51,17 @@ export async function POST(req: Request) {
     status = "CONFIRMED";
   }
 
-  return Response.json({ status });
+  const cleanAddress = validationData.result?.address?.postalAddress;
+
+  return Response.json({
+    status,
+    correctedAddress: cleanAddress
+      ? {
+          street: cleanAddress.addressLines?.[0] || "",
+          city: cleanAddress.locality || "",
+          postalCode: cleanAddress.postalCode || "",
+          regionCode: cleanAddress.regionCode || regionCode,
+        }
+      : null,
+  });
 }
