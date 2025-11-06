@@ -1,8 +1,10 @@
-import { useCheckout } from "@/app/(store)/checkout/layout";
+import { ShippingAddress } from "../../layout";
 
-const DisplayAddress = function () {
-  const { shippingAddress } = useCheckout();
-
+const DisplayAddress = function ({
+  shippingAddress,
+}: {
+  shippingAddress: ShippingAddress;
+}) {
   const countryMap: Record<string, string> = {
     EN: "England",
     PL: "Poland",
