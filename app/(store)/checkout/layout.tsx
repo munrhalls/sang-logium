@@ -4,11 +4,11 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 
-type ShippingAddress = {
+export type ShippingAddress = {
   regionCode: string;
   postalCode: string;
   street: string;
-  streetNumber: number;
+  streetNumber: string;
   city: string;
 };
 // e.g.

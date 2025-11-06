@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useCheckout } from "@/app/(store)/checkout/layout";
 import { redirect } from "next/navigation";
+import { ShippingAddress } from "@/app/(store)/checkout/layout";
+import DisplayAddress from "./DisplayAddress";
 
 export default function Page() {
   const { shippingAPIValidation, shippingAddress } = useCheckout();
@@ -14,9 +16,7 @@ export default function Page() {
 
   return (
     <div>
-      <div className="rounded-lg border-2 border-gray-800 bg-slate-500">
-        <h2 className="text-lg font-bold">Your Shipping Address</h2>
-      </div>
+      <DisplayAddress />
       <Link href="/checkout/payment">Payment</Link>
     </div>
   );
