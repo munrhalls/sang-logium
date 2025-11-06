@@ -11,10 +11,7 @@ export default function Page() {
     redirect("/checkout/shipping");
   }
 
-  console.log("shipping address", shippingAddress);
-
   const status = shippingAPIValidation.status;
-  // const status = "PARTIAL";
 
   return (
     <div className="flex flex-col gap-4">
@@ -23,7 +20,6 @@ export default function Page() {
         <DisplayAddress shippingAddress={shippingAddress} />
       </div>
 
-      {/* Status Alert - Condensed with Edit Link Inside */}
       {status === "CONFIRMED" ? (
         <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3">
           <Check className="text-green-600" size={18} />
@@ -47,7 +43,6 @@ export default function Page() {
         </div>
       )}
 
-      {/* Primary Button */}
       <Link
         href="/checkout/payment"
         className="rounded-lg bg-indigo-600 px-6 py-3 text-center font-semibold text-white shadow-sm transition hover:bg-indigo-700"
