@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { useCheckout } from "@/app/(store)/checkout/layout";
 
