@@ -14,7 +14,7 @@ export default function Page() {
   console.log("shipping address", shippingAddress);
 
   // const status = shippingAPIValidation.status;
-  const status = "CONFIRMED";
+  const status = "PARTIAL";
 
   return (
     <div className="flex flex-col gap-4">
@@ -34,12 +34,12 @@ export default function Page() {
       ) : (
         <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-3">
           <p className="text-sm text-yellow-800">
-            Address partially confirmed. Are you sure?{" "}
+            Address partially confirmed on the map. Are you sure it's correct?{" "}
             <Link
               href="/checkout/shipping"
-              className="inline-flex items-center gap-1 font-semibold text-yellow-900 underline hover:text-yellow-950"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-yellow-900 underline hover:text-yellow-950"
             >
-              <Edit3 size={14} />
+              <Edit3 size={16} />
               Edit
             </Link>
           </p>
