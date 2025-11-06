@@ -10,10 +10,17 @@ interface GoogleValidationAPIRequest {
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const address = body;
-
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const validationURL = `https://addressvalidation.googleapis.com/v1:validateAddress?key=${apiKey}`;
+
+  const address = body;
+  const { regionCode, locality } = address;
+
+  const regionCodeMap = {
+    EN: "GB",
+    PL: "PL",
+  } as const;
+  const regionCodePrased: string = regionCodeMap[regionCode];
 
   const addressLines = [
     address.postalCode,
@@ -23,13 +30,11 @@ export async function POST(req: Request) {
 
   const validationRequestBody: GoogleValidationAPIRequest = {
     address: {
-      regionCode: address.regionCode,
-      locality: address.city,
+      regionCode: regionCodePrased,
+      locality: locality,
       addressLines: [addressLines],
     },
   };
-
-  console.log(validationRequestBody);
 
   const validationResponse = await fetch(validationURL, {
     method: "POST",
@@ -40,6 +45,26 @@ export async function POST(req: Request) {
   });
 
   const validationData = await validationResponse.json();
+  console.log("VALIDATION DATA:");
+  console.log(validationData, "validation data @api");
+  const cleanAddress = validationData.result?.address;
+
+  let validatedAddress = null;
+  if (cleanAddress) {
+    validatedAddress = {
+      regionCode: cleanAddress.regionCode,
+      postalCode: cleanAddress.postalCode || "",
+      street: cleanAddress.addressLines
+        ? cleanAddress.addressLines[0].split(" ")[0] || ""
+        : "",
+      streetNumber: cleanAddress.addressLines
+        ? parseInt(cleanAddress.addressLines[0].split(" ")[1]) || 0
+        : 0,
+      city: cleanAddress.locality || "",
+    };
+  }
+
+  console.log(validatedAddress, "vadliated address @api");
   const verdict = validationData.result?.verdict;
   const action = verdict?.possibleNextAction || "NULL";
 
@@ -52,5 +77,5 @@ export async function POST(req: Request) {
     status = "CONFIRMED";
   }
 
-  return Response.json({ status });
+  return Response.json({ status, validatedAddress });
 }

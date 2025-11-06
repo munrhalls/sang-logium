@@ -36,7 +36,6 @@ export default function CheckoutLayout({
       router.push("/checkout/shipping/confirmation");
     }
   }, [user, router]);
-  // for debrief - data
   const validateShipping = async (formData) => {
     setIsLoading(true);
     try {
