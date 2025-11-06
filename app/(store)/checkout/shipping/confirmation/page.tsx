@@ -15,7 +15,7 @@ export default function Page() {
 
   // const status = shippingAPIValidation.status;
   const status = "PARTIAL";
-
+  // make it look nice
   return (
     <div className="flex flex-col gap-4">
       <DisplayAddress shippingAddress={shippingAddress} />
