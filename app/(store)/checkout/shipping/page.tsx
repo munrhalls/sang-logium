@@ -115,11 +115,32 @@ export default function Page() {
                 <div className="col-span-2">
                   <p className="text-sm font-black tracking-wide">Number</p>
                   <input
-                    {...register("streetNumber", { required: true })}
+                    {...register("streetNumber", {
+                      required: "Number is required.",
+                      minLength: {
+                        value: 1,
+                        message: "Must be at least 1 character.",
+                      },
+                      maxLength: {
+                        value: 10, // Sufficient for complex numbers (e.g., 145/23B)
+                        message: "Number cannot exceed 10 characters.",
+                      },
+                      pattern: {
+                        // Allows numbers, letters (for suffixes), hyphens, and slashes
+                        value: /^[a-zA-Z0-9\-\/]+$/,
+                        message:
+                          "Invalid format. Use numbers, letters, -, or /.",
+                      },
+                    })}
                     type="text"
                     placeholder="..."
                     className="mb-2 flex w-full items-center justify-center border border-gray-300 p-2"
                   />
+                  {errors.streetNumber && (
+                    <p className="mb-4 text-xs font-semibold text-red-500">
+                      {errors.streetNumber.message}
+                    </p>
+                  )}
                 </div>
               </div>
               <p className="text-sm font-black tracking-wide">City</p>
