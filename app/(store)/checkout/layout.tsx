@@ -4,6 +4,16 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 
+type ShippingAddress = {
+  regionCode: string;
+  postalCode: string;
+  street: string;
+  streetNumber: number;
+  city: string;
+};
+// e.g.
+// {regionCode: 'EN', postalCode: 'EC1Y 8SY', street: 'Featherstone Street', streetNumber: '49', city: 'LONDON'}
+
 const CheckoutContext = createContext<any>(null);
 
 export function useCheckout() {
@@ -16,6 +26,7 @@ export default function CheckoutLayout({
   children: React.ReactNode;
 }) {
   const [shippingAPIValidation, setShippingAPIValidation] = useState(null);
+  const [shippingAddress, setShippingAddress] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { user } = useUser();
@@ -37,6 +48,7 @@ export default function CheckoutLayout({
       setShippingAPIValidation(data);
 
       if (data.status === "CONFIRMED" || data.status === "PARTIAL") {
+        setShippingAddress(() => formData);
         router.push("/checkout/shipping/confirmation");
       } else {
         setIsLoading(false);
@@ -54,6 +66,7 @@ export default function CheckoutLayout({
         setShippingAPIValidation,
         validateShipping,
         isLoading,
+        shippingAddress,
       }}
     >
       <div className="mx-auto max-w-4xl p-6">
