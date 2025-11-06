@@ -13,16 +13,11 @@ const stripePromise = loadStripe(
 
 interface EmbeddedCheckoutFormProps {
   publicBasket: Array<{ stripePriceId: string; quantity: number }>;
-  onClose: () => void;
 }
 
 export default function EmbeddedCheckoutForm({
   publicBasket,
-  onClose,
 }: EmbeddedCheckoutFormProps) {
-  const handleClose = () => {
-    onClose();
-  };
   const fetchClientSecret = async () => {
     try {
       const response = await fetch("/api/checkout", {
