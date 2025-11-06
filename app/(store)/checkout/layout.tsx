@@ -13,8 +13,8 @@ export type ShippingAddress = {
 };
 
 export type CheckoutContextType = {
-  shippingAPIValidation: string | null;
-  setShippingAPIValidation: (status: string | null) => void;
+  addressApiValidation: string | null;
+  setAddressApiValidation: (status: string | null) => void;
   validateShipping: (formData: ShippingAddress) => Promise<void>;
   isLoading: boolean;
   shippingAddress: ShippingAddress | null;
@@ -31,7 +31,7 @@ export default function CheckoutLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [shippingAPIValidation, setShippingAPIValidation] = useState<
+  const [addressApiValidation, setAddressApiValidation] = useState<
     string | null
   >(null);
   const [shippingAddress, setShippingAddress] =
@@ -61,7 +61,7 @@ export default function CheckoutLayout({
       if (!apiCorrectedAddress) {
         throw new Error("No corrected address returned from API");
       }
-      setShippingAPIValidation(apiAddressStatus);
+      setAddressApiValidation(apiAddressStatus);
       console.log(apiAddressStatus, "api address status @layout");
 
       if (apiAddressStatus === "CONFIRMED" || apiAddressStatus === "PARTIAL") {
@@ -88,8 +88,8 @@ export default function CheckoutLayout({
   return (
     <CheckoutContext.Provider
       value={{
-        shippingAPIValidation,
-        setShippingAPIValidation,
+        addressApiValidation,
+        setAddressApiValidation,
         validateShipping,
         isLoading,
         shippingAddress,

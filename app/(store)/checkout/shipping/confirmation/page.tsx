@@ -6,12 +6,12 @@ import DisplayAddress from "./DisplayAddress";
 import { Check, X, Edit3 } from "lucide-react";
 
 export default function Page() {
-  const { shippingAPIValidation, shippingAddress } = useCheckout();
-  if (shippingAPIValidation?.status == null || shippingAddress == null) {
+  const { addressApiValidation, shippingAddress } = useCheckout();
+  if (addressApiValidation?.status == null || shippingAddress == null) {
     redirect("/checkout/shipping");
   }
 
-  const status = shippingAPIValidation.status;
+  const status = addressApiValidation.status;
   // startstart
   return (
     <div className="flex flex-col gap-4">

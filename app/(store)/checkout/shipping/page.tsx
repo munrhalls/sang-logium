@@ -22,7 +22,7 @@ export default function Page() {
     formState: { errors, isValid },
   } = useForm<FormData>({ mode: "onBlur" });
   const router = useRouter();
-  const { validateShipping, isLoading, shippingAPIValidation } = useCheckout();
+  const { validateShipping, isLoading, addressApiValidation } = useCheckout();
 
   const handleAddressSubmit = (data: FormData) => {
     validateShipping(data);
@@ -100,7 +100,7 @@ export default function Page() {
               </button>
             </form>
           )}
-          {shippingAPIValidation === "FIX" && (
+          {addressApiValidation === "FIX" && (
             <p className="mt-4 text-sm text-red-600">
               Could not locate provided address on the map. Please review and
               make sure it is correct.
