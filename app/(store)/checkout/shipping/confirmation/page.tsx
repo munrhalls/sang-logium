@@ -15,13 +15,9 @@ export default function Page() {
 
   return (
     <div>
-      <div className="bg-slate-600">
-        <h2 className="text-lg font-bold">
-          Shipping Address CONFIRMATION STATUS
-        </h2>
-        <p className="text-white">
-          Status: {shippingAPIValidation.status || "Loading..."}
-        </p>
+      <div className="rounded-lg border-2 border-gray-800 bg-slate-600">
+        <h2 className="text-lg font-bold">Your Shipping Address</h2>
+        <p className="text-white">Status: {shippingAPIValidation.status}</p>
       </div>
       <Link href="/checkout/payment">Payment</Link>
     </div>
