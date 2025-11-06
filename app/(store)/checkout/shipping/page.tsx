@@ -100,7 +100,7 @@ export default function Page() {
               </button>
             </form>
           )}
-          {shippingAPIValidation?.status === "FIX" && (
+          {shippingAPIValidation === "FIX" && (
             <p className="mt-4 text-sm text-red-600">
               Could not locate provided address on the map. Please review and
               make sure it is correct.
