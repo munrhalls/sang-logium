@@ -63,6 +63,12 @@ export default function Page() {
                 placeholder="Postal Code"
                 className="mb-2 w-full border border-gray-300 p-2"
               />
+              {errors.postalCode && (
+                <p className="mb-4 text-xs font-semibold text-red-500">
+                  Postal Code is required.
+                </p>
+              )}
+              {/* // display error if there is error */}
               <div className="grid grid-cols-8 gap-2">
                 <div className="col-span-6">
                   <p className="text-sm font-black tracking-wide">Street</p>
