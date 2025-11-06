@@ -14,6 +14,10 @@ type FormData = {
   city: string;
 };
 
+// TODO handle API error state in the UI
+
+// TODO prevent DDOS etc. by disabling submit button while loading and by limiting amount submits per minute / hour / day
+
 export default function Page() {
   const { validateShipping, isLoading, addressApiValidation, shippingAddress } =
     useCheckout();
@@ -31,8 +35,6 @@ export default function Page() {
     validateShipping(data);
   };
 
-  // TODO handle API error state in the UI
-  // TODO prevent DDOS etc. by disabling submit button while loading and by limiting amount submits per minute / hour / day
   return (
     <div className="flex min-h-screen justify-center">
       <div className="relative rounded bg-white p-4">
@@ -61,15 +63,14 @@ export default function Page() {
                 {...register("postalCode", {
                   required: "Postal Code is required.",
                   minLength: {
-                    value: 5, // Minimum length for many EU/International codes (e.g., 5 digits in PL)
+                    value: 5,
                     message: "Postal Code must be at least 5 characters.",
                   },
                   maxLength: {
-                    value: 10, // Max length to prevent extreme input
+                    value: 10,
                     message: "Postal Code cannot exceed 10 characters.",
                   },
                   pattern: {
-                    // Basic pattern for alphanumeric/spaces/hyphens common in many formats
                     value: /^[a-zA-Z0-9\s-]+$/,
                     message:
                       "Invalid format. Use letters, numbers, and spaces/hyphens.",
@@ -90,13 +91,13 @@ export default function Page() {
                   <p className="text-sm font-black tracking-wide">Street</p>
                   <input
                     {...register("street", {
-                      required: "Street is required.", // Custom message for required
+                      required: "Street is required.",
                       minLength: {
-                        value: 3, // A safer minimum length
+                        value: 3,
                         message: "Street name must be at least 3 characters.",
                       },
                       maxLength: {
-                        value: 70, // A safe maximum length
+                        value: 70,
                         message: "Street name must be under 70 characters.",
                       },
                     })}
@@ -106,7 +107,6 @@ export default function Page() {
                   />
                   {errors.street && (
                     <p className="mb-4 text-xs font-semibold text-red-500">
-                      {/* Display the dynamic message from the validation rule */}
                       {errors.street.message}
                     </p>
                   )}
@@ -122,11 +122,10 @@ export default function Page() {
                         message: "Must be at least 1 character.",
                       },
                       maxLength: {
-                        value: 10, // Sufficient for complex numbers (e.g., 145/23B)
+                        value: 10,
                         message: "Number cannot exceed 10 characters.",
                       },
                       pattern: {
-                        // Allows numbers, letters (for suffixes), hyphens, and slashes
                         value: /^[a-zA-Z0-9\-\/]+$/,
                         message:
                           "Invalid format. Use numbers, letters, -, or /.",
@@ -152,11 +151,10 @@ export default function Page() {
                     message: "City name must be at least 3 characters long.",
                   },
                   maxLength: {
-                    value: 50, // 50 characters is a safe maximum for city names
+                    value: 50,
                     message: "City name cannot exceed 50 characters.",
                   },
                   pattern: {
-                    // Allows letters (basic Latin alphabet), spaces, and hyphens
                     value: /^[a-zA-Z\s-]+$/,
                     message:
                       "Invalid format. City name can only contain letters, spaces, or hyphens.",
