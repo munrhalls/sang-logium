@@ -2,13 +2,6 @@ import { useCheckout } from "@/app/(store)/checkout/layout";
 
 const DisplayAddress = function () {
   const { shippingAddress } = useCheckout();
-  //   const shippingAddress: ShippingAddress = {
-  //     regionCode: "EN",
-  //     postalCode: "EC1Y 8SY",
-  //     street: "Featherstone Street",
-  //     streetNumber: "49",
-  //     city: "LONDON",
-  //   };
 
   const countryMap: Record<string, string> = {
     EN: "England",
