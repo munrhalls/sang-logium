@@ -56,8 +56,8 @@ export default function CheckoutLayout({
         isLoading,
       }}
     >
-      <div>
-        <h1 className="text-xl">Checkout</h1>
+      <div className="mx-auto max-w-4xl p-6">
+        <h1 className="mb-8 text-3xl font-bold">Checkout</h1>
         {children}
       </div>
     </CheckoutContext.Provider>
