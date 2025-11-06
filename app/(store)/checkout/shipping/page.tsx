@@ -58,14 +58,30 @@ export default function Page() {
               </select>
               <p className="text-sm font-black tracking-wide">Postal code</p>
               <input
-                {...register("postalCode", { required: true })}
+                {...register("postalCode", {
+                  required: "Postal Code is required.",
+                  minLength: {
+                    value: 5, // Minimum length for many EU/International codes (e.g., 5 digits in PL)
+                    message: "Postal Code must be at least 5 characters.",
+                  },
+                  maxLength: {
+                    value: 10, // Max length to prevent extreme input
+                    message: "Postal Code cannot exceed 10 characters.",
+                  },
+                  pattern: {
+                    // Basic pattern for alphanumeric/spaces/hyphens common in many formats
+                    value: /^[a-zA-Z0-9\s-]+$/,
+                    message:
+                      "Invalid format. Use letters, numbers, and spaces/hyphens.",
+                  },
+                })}
                 type="text"
                 placeholder="Postal Code"
                 className="mb-2 w-full border border-gray-300 p-2"
               />
               {errors.postalCode && (
                 <p className="mb-4 text-xs font-semibold text-red-500">
-                  Postal Code is required.
+                  {errors.postalCode.message || "Invalid Postal Code."}
                 </p>
               )}
 
