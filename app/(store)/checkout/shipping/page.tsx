@@ -5,7 +5,6 @@ import Loader from "@/app/components/common/Loader";
 import { useRouter } from "next/navigation";
 import { Link } from "lucide-react";
 import { useCheckout } from "@/app/(store)/checkout/layout";
-import CheckoutContextType from "@/app/(store)/checkout/layout";
 
 type FormData = {
   regionCode: string;
