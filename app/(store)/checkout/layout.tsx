@@ -44,6 +44,7 @@ export default function CheckoutLayout({
         body: JSON.stringify(formData),
       });
       const data = await res.json();
+      console.log("Shipping validation response:", data);
       setShippingAPIValidation(data);
 
       if (data.status === "CONFIRMED" || data.status === "PARTIAL") {

@@ -52,7 +52,7 @@ export async function POST(req: Request) {
   }
 
   const cleanAddress = validationData.result?.address?.postalAddress;
-
+  console.log(cleanAddress, "clean address @api");
   return Response.json({
     status,
     correctedAddress: cleanAddress
