@@ -13,14 +13,16 @@ export async function POST(req: Request) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const validationURL = `https://addressvalidation.googleapis.com/v1:validateAddress?key=${apiKey}`;
 
-  const address = body;
+  const address = body as { regionCode: string; locality: string };
   const { regionCode, locality } = address;
 
   const regionCodeMap = {
     EN: "GB",
     PL: "PL",
   } as const;
-  const regionCodePrased: string = regionCodeMap[regionCode];
+
+  const regionCodeParsed: string =
+    regionCodeMap[regionCode as keyof typeof regionCodeMap] ?? regionCode;
 
   const addressLines = [
     address.postalCode,
@@ -30,7 +32,7 @@ export async function POST(req: Request) {
 
   const validationRequestBody: GoogleValidationAPIRequest = {
     address: {
-      regionCode: regionCodePrased,
+      regionCode: regionCodeParsed,
       locality: locality,
       addressLines: [addressLines],
     },
