@@ -32,17 +32,18 @@ export default function Page() {
           </p>
         </div>
       ) : (
-        <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-3">
+        <div className="flex flex-col items-center justify-center gap-4 rounded-lg border border-yellow-300 bg-yellow-50 p-3">
           <p className="text-sm text-yellow-800">
-            Address partially confirmed on the map. Are you sure it's correct?{" "}
-            <Link
-              href="/checkout/shipping"
-              className="inline-flex items-center gap-1 text-sm font-semibold text-yellow-900 underline hover:text-yellow-950"
-            >
-              <Edit3 size={16} />
-              Edit
-            </Link>
+            Address partially confirmed on the map. Are you sure it's
+            correct?{" "}
           </p>
+          <Link
+            href="/checkout/shipping"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-yellow-900 hover:text-yellow-950"
+          >
+            <Edit3 size={16} />
+            Edit
+          </Link>
         </div>
       )}
 

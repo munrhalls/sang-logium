@@ -14,7 +14,7 @@ const DisplayAddress = function ({
   return (
     <div>
       <h2 className="mb-1 text-base font-bold">Shipping Address</h2>
-      <div className="text-sm leading-tight text-gray-700">
+      <div className="text-base leading-tight text-gray-700">
         <p className="flex gap-1">
           <span>{shippingAddress.street}</span>
           <span>{shippingAddress.streetNumber}</span>
