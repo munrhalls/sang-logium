@@ -17,44 +17,42 @@ export default function Page() {
   const status = "CONFIRMED";
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* Address Card */}
-      <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-md">
+    <div className="flex flex-col gap-4">
+      {/* Address Card - Condensed */}
+      <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-md">
         <DisplayAddress shippingAddress={shippingAddress} />
-        <Link
-          href="/checkout/shipping"
-          className="mt-6 flex items-center justify-center gap-2 text-sm text-gray-700 transition hover:text-gray-900"
-        >
-          <Edit3 size={18} />
-          Edit Address
-        </Link>
       </div>
 
+      {/* Status Alert - Condensed with Edit Link Inside */}
       {status === "CONFIRMED" ? (
-        <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-4">
-          <Check className="text-green-600" size={20} />
-          <p className="font-semibold text-green-800">
+        <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3">
+          <Check className="text-green-600" size={18} />
+          <p className="text-sm font-semibold text-green-800">
             Address confirmed on map
           </p>
         </div>
       ) : (
-        <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-4">
+        <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-3">
           <p className="text-sm text-yellow-800">
-            Address partially confirmed on map. Are you sure you want to use
-            this address for shipping?
+            Address partially confirmed. Are you sure?{" "}
+            <Link
+              href="/checkout/shipping"
+              className="inline-flex items-center gap-1 font-semibold text-yellow-900 underline hover:text-yellow-950"
+            >
+              <Edit3 size={14} />
+              Edit
+            </Link>
           </p>
         </div>
       )}
 
-      {/* Action Buttons */}
-      <div className="flex flex-col gap-6">
-        <Link
-          href="/checkout/payment"
-          className="rounded-lg bg-indigo-600 px-6 py-3 text-center font-semibold text-white shadow-sm transition hover:bg-indigo-700"
-        >
-          Proceed to Payment
-        </Link>
-      </div>
+      {/* Primary Button */}
+      <Link
+        href="/checkout/payment"
+        className="rounded-lg bg-indigo-600 px-6 py-3 text-center font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+      >
+        Proceed to Payment
+      </Link>
     </div>
   );
 }

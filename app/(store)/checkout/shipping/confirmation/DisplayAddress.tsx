@@ -12,15 +12,19 @@ const DisplayAddress = function ({
   const countryName = countryMap[shippingAddress.regionCode];
 
   return (
-    <div className="max-w-[325px] rounded-lg border-2 border-gray-800 bg-slate-100 p-6">
-      <h2 className="text-lg font-bold">Shipping Address</h2>{" "}
-      <p>{shippingAddress.postalCode}</p>
-      <div className="flex gap-2">
-        <p>{shippingAddress.street}</p>
-        <p>{shippingAddress.streetNumber}</p>
+    <div>
+      <h2 className="mb-1 text-base font-bold">Shipping Address</h2>
+      <div className="text-sm leading-tight text-gray-700">
+        <p className="flex gap-1">
+          <span>{shippingAddress.street}</span>
+          <span>{shippingAddress.streetNumber}</span>
+        </p>
+        <p className="flex gap-1">
+          <span>{shippingAddress.city}</span>
+          <span>{shippingAddress.postalCode}</span>
+        </p>
+        <p>{countryName}</p>
       </div>
-      <p>{shippingAddress.city}</p>
-      <p>{countryName}</p>
     </div>
   );
 };
