@@ -57,7 +57,9 @@ export default function CheckoutLayout({
       }}
     >
       <div className="mx-auto max-w-4xl p-6">
-        <h1 className="mb-8 text-3xl font-bold">Checkout</h1>
+        <h1 className="mb-8 flex justify-center text-3xl font-black uppercase">
+          Checkout
+        </h1>
         {children}
       </div>
     </CheckoutContext.Provider>
