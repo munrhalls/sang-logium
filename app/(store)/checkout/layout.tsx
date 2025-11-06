@@ -20,7 +20,9 @@ export type CheckoutContextType = {
   shippingAddress: ShippingAddress | null;
 };
 
-const CheckoutContext = createContext<CheckoutContextType | null>(null);
+const CheckoutContext = createContext<CheckoutContextType>(
+  {} as CheckoutContextType
+);
 
 export function useCheckout() {
   return useContext(CheckoutContext);
