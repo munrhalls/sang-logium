@@ -17,7 +17,7 @@ export default function Page() {
         <DisplayAddress shippingAddress={shippingAddress} />
       </div>
 
-      {!addressApiValidation === "CONFIRMED" ? (
+      {addressApiValidation === "CONFIRMED" ? (
         <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3">
           <Check className="text-green-600" size={18} />
           <p className="text-sm font-semibold text-green-800">

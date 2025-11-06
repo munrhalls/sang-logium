@@ -16,13 +16,14 @@ type FormData = {
 };
 
 export default function Page() {
+  const { validateShipping, isLoading, addressApiValidation, shippingAddress } =
+    useCheckout();
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FormData>({ mode: "onBlur" });
+  } = useForm<FormData>({ mode: "onBlur", defaultValues: shippingAddress });
   const router = useRouter();
-  const { validateShipping, isLoading, addressApiValidation } = useCheckout();
 
   const handleAddressSubmit = (data: FormData) => {
     validateShipping(data);
