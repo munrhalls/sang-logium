@@ -11,6 +11,7 @@ export type ShippingAddress = {
   streetNumber: string;
   city: string;
 };
+
 // e.g.
 // {regionCode: 'EN', postalCode: 'EC1Y 8SY', street: 'Featherstone Street', streetNumber: '49', city: 'LONDON'}
 
@@ -52,7 +53,14 @@ export default function CheckoutLayout({
       setShippingAPIValidation(apiAddressStatus);
 
       if (apiAddressStatus === "CONFIRMED" || apiAddressStatus === "PARTIAL") {
-        setShippingAddress(apiCorrectedAddress);
+        const parsedApiCorrectedAddress: ShippingAddress = {
+          street: apiCorrectedAddress.street, // Extracted from route component
+          streetNumber: apiCorrectedAddress.streetNumber, // Extracted from street_number component
+          city: apiCorrectedAddress.city, // From locality
+          postalCode: apiCorrectedAddress.postalCode, // From postalAddress
+          regionCode: apiCorrectedAddress.regionCode, // From regionCode
+        };
+        setShippingAddress(parsedApiCorrectedAddress);
         router.push("/checkout/shipping/confirmation");
       } else {
         setIsLoading(false);

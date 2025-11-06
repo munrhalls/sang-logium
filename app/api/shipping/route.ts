@@ -51,17 +51,30 @@ export async function POST(req: Request) {
     status = "CONFIRMED";
   }
 
-  const cleanAddress = validationData.result?.address?.postalAddress;
-  console.log(cleanAddress, "clean address @api");
+  // Use addressComponents for structured data
+  const components = validationData.result?.address?.addressComponents || [];
+  const postalAddress = validationData.result?.address?.postalAddress;
+
+  // Extract components by type
+  const getComponent = (type: string) => {
+    const comp = components.find((c: any) => c.componentType === type);
+    return comp?.componentName?.text || "";
+  };
+
+  const correctedAddress = postalAddress
+    ? {
+        street: getComponent("route") || "",
+        streetNumber: getComponent("street_number") || "",
+        city: getComponent("locality") || postalAddress.locality || "",
+        postalCode: postalAddress.postalCode || "",
+        regionCode: postalAddress.regionCode || regionCode,
+      }
+    : null;
+
+  console.log(correctedAddress, "corrected address @api");
+
   return Response.json({
     status,
-    correctedAddress: cleanAddress
-      ? {
-          street: cleanAddress.addressLines?.[0] || "",
-          city: cleanAddress.locality || "",
-          postalCode: cleanAddress.postalCode || "",
-          regionCode: cleanAddress.regionCode || regionCode,
-        }
-      : null,
+    correctedAddress,
   });
 }
