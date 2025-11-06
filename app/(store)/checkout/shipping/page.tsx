@@ -14,6 +14,8 @@ type FormData = {
   city: string;
 };
 
+// TODO FIX FLICKER UPON REDIRECT TO //checkout/shipping/confirmation
+
 // TODO handle API error state in the UI
 
 // TODO prevent DDOS etc. by disabling submit button while loading and by limiting amount submits per minute / hour / day
