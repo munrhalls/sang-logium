@@ -10,7 +10,6 @@ const DisplayAddress = function ({
     PL: "Poland",
   };
   const countryName = countryMap[shippingAddress.regionCode];
-  //   good enough for now
   return (
     <div>
       <h2 className="mb-1 text-base font-bold">Shipping Address</h2>
