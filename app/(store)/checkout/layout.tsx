@@ -72,8 +72,9 @@ export default function CheckoutLayout({
           postalCode: apiCorrectedAddress.postalCode,
           regionCode: apiCorrectedAddress.regionCode,
         };
-
+        console.log(parsedApiCorrectedAddress, "parsed API corrected address");
         setShippingAddress(parsedApiCorrectedAddress);
+        console.log("redirect");
         router.push("/checkout/shipping/confirmation");
         return;
       } else {

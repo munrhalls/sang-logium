@@ -7,11 +7,10 @@ import { Check, X, Edit3 } from "lucide-react";
 
 export default function Page() {
   const { addressApiValidation, shippingAddress } = useCheckout();
-  if (addressApiValidation?.status == null || shippingAddress == null) {
+  if (addressApiValidation == null || shippingAddress == null) {
     redirect("/checkout/shipping");
   }
 
-  const status = addressApiValidation.status;
   // startstart
   return (
     <div className="flex flex-col gap-4">
@@ -20,7 +19,7 @@ export default function Page() {
         <DisplayAddress shippingAddress={shippingAddress} />
       </div>
 
-      {status === "CONFIRMED" ? (
+      {addressApiValidation === "CONFIRMED" ? (
         <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3">
           <Check className="text-green-600" size={18} />
           <p className="text-sm font-semibold text-green-800">
