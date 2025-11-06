@@ -12,7 +12,7 @@ export type ShippingAddress = {
   city: string;
 };
 
-type CheckoutContextType = {
+export type CheckoutContextType = {
   shippingAPIValidation: string | null;
   setShippingAPIValidation: (status: string | null) => void;
   validateShipping: (formData: ShippingAddress) => Promise<void>;
@@ -58,8 +58,11 @@ export default function CheckoutLayout({
         correctedAddress: apiCorrectedAddress,
       } = await res.json();
 
-      console.log("Shipping validation response:", apiCorrectedAddress);
+      if (!apiCorrectedAddress) {
+        throw new Error("No corrected address returned from API");
+      }
       setShippingAPIValidation(apiAddressStatus);
+      console.log(apiAddressStatus, "api address status @layout");
 
       if (apiAddressStatus === "CONFIRMED" || apiAddressStatus === "PARTIAL") {
         const parsedApiCorrectedAddress: ShippingAddress = {
@@ -70,7 +73,6 @@ export default function CheckoutLayout({
           regionCode: apiCorrectedAddress.regionCode,
         };
 
-        console.log("Parsed Corrected Address:", parsedApiCorrectedAddress);
         setShippingAddress(parsedApiCorrectedAddress);
         router.push("/checkout/shipping/confirmation");
       } else {

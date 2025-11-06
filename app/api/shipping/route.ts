@@ -51,11 +51,9 @@ export async function POST(req: Request) {
     status = "CONFIRMED";
   }
 
-  // Use addressComponents for structured data
   const components = validationData.result?.address?.addressComponents || [];
   const postalAddress = validationData.result?.address?.postalAddress;
 
-  // Extract components by type
   const getComponent = (type: string) => {
     const comp = components.find((c: any) => c.componentType === type);
     return comp?.componentName?.text || "";
