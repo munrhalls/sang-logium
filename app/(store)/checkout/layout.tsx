@@ -16,7 +16,6 @@ export type CheckoutContextType = {
   addressApiValidation: string | null;
   setAddressApiValidation: (status: string | null) => void;
   validateShipping: (formData: ShippingAddress) => Promise<void>;
-  isLoading: boolean;
   shippingAddress: ShippingAddress | null;
 };
 
@@ -38,23 +37,22 @@ export default function CheckoutLayout({
   >(null);
   const [shippingAddress, setShippingAddress] =
     useState<ShippingAddress | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { user } = useUser();
 
-  useEffect(() => {
-    if (user?.publicMetadata?.shippingAddress) {
-      router.push("/checkout/shipping/confirmation");
-    }
-  }, [user, router]);
+  // useEffect(() => {
+  //   if (user?.publicMetadata?.shippingAddress) {
+  //     router.push("/checkout/shipping/confirmation");
+  //   }
+  // }, [user, router]);
 
   const validateShipping = async (formData: ShippingAddress) => {
-    setIsLoading(true);
     try {
       const res = await fetch("/api/shipping", {
         method: "POST",
         body: JSON.stringify(formData),
       });
+
       const {
         status: apiAddressStatus,
         correctedAddress: apiCorrectedAddress,
@@ -64,7 +62,6 @@ export default function CheckoutLayout({
         throw new Error("No corrected address returned from API");
       }
       setAddressApiValidation(apiAddressStatus);
-      console.log(apiAddressStatus, "api address status @layout");
 
       if (apiAddressStatus === "CONFIRMED" || apiAddressStatus === "PARTIAL") {
         const parsedApiCorrectedAddress: ShippingAddress = {
@@ -74,18 +71,14 @@ export default function CheckoutLayout({
           postalCode: apiCorrectedAddress.postalCode,
           regionCode: apiCorrectedAddress.regionCode,
         };
-        console.log(parsedApiCorrectedAddress, "parsed API corrected address");
-        setShippingAddress(parsedApiCorrectedAddress);
-        router.push("/checkout/shipping/confirmation");
-        setIsLoading(false);
 
+        setShippingAddress(parsedApiCorrectedAddress);
+        // router.push("/checkout/shipping/confirmation");
         return;
       } else {
-        setIsLoading(false);
       }
     } catch (error) {
       console.error("Error validating shipping address:", error);
-      setIsLoading(false);
     }
   };
 
@@ -95,7 +88,6 @@ export default function CheckoutLayout({
         addressApiValidation,
         setAddressApiValidation,
         validateShipping,
-        isLoading,
         shippingAddress,
       }}
     >

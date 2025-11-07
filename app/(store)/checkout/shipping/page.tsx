@@ -5,6 +5,8 @@ import Loader from "@/app/components/common/Loader";
 import { useRouter } from "next/navigation";
 import { Link } from "lucide-react";
 import { useCheckout } from "@/app/(store)/checkout/layout";
+import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 type FormData = {
   regionCode: string;
@@ -14,15 +16,10 @@ type FormData = {
   city: string;
 };
 
-// TODO FIX FLICKER UPON REDIRECT TO //checkout/shipping/confirmation
-
-// TODO handle API error state in the UI
-
-// TODO prevent DDOS etc. by disabling submit button while loading and by limiting amount submits per minute / hour / day
-
-export default function Page() {
-  const { validateShipping, isLoading, addressApiValidation, shippingAddress } =
+const FormView = function () {
+  const { validateShipping, addressApiValidation, shippingAddress } =
     useCheckout();
+
   const {
     register,
     handleSubmit,
@@ -31,23 +28,16 @@ export default function Page() {
     mode: "onBlur",
     defaultValues: shippingAddress ?? undefined,
   });
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleAddressSubmit = (data: FormData) => {
-    validateShipping(data);
+  const handleAddressSubmit = async (data: FormData) => {
+    setIsLoading(true);
+    await validateShipping(data);
   };
 
   return (
     <div className="flex min-h-screen justify-center">
       <div className="relative rounded bg-white p-4">
-        {!isLoading && (
-          <Link
-            onClick={() => router.back()}
-            className="absolute right-3 top-3 z-50 rounded px-4 py-2 text-black"
-          >
-            <FaTimes className="h-6 w-6" />
-          </Link>
-        )}
         <div className="relative min-h-96 w-80">
           {!isLoading && (
             <form onSubmit={handleSubmit(handleAddressSubmit)}>
@@ -194,6 +184,37 @@ export default function Page() {
             <Loader message="Processing..." color="border-t-black" />
           )}
         </div>
+      </div>
+    </div>
+  );
+};
+// TODO FIX FLICKER UPON REDIRECT TO //checkout/shipping/confirmation
+
+// TODO handle API error state in the UI
+
+// TODO prevent DDOS etc. by disabling submit button while loading and by limiting amount submits per minute / hour / day
+
+export default function Page() {
+  const { validateShipping, addressApiValidation, shippingAddress } =
+    useCheckout();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    mode: "onBlur",
+    defaultValues: shippingAddress ?? undefined,
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const step = searchParams.get("step");
+
+  return (
+    <div className="flex min-h-screen justify-center">
+      <div className="relative rounded bg-white p-4">
+        <FormView />
       </div>
     </div>
   );
