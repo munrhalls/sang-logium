@@ -7,6 +7,7 @@ import { Link } from "lucide-react";
 import { useCheckout } from "@/app/(store)/checkout/layout";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import ConfirmationView from "./confirmation/ConfirmationView";
 
 type FormData = {
   regionCode: string;
@@ -211,11 +212,5 @@ export default function Page() {
   const searchParams = useSearchParams();
   const step = searchParams.get("step");
 
-  return (
-    <div className="flex min-h-screen justify-center">
-      <div className="relative rounded bg-white p-4">
-        <FormView />
-      </div>
-    </div>
-  );
+  return step === "confirmation" ? <FormView /> : <ConfirmationView />;
 }

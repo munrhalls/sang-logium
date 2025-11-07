@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import DisplayAddress from "./DisplayAddress";
 import { Check, Edit3 } from "lucide-react";
 
-export default function Page() {
+export default function ConfirmationView() {
   const { addressApiValidation, shippingAddress } = useCheckout();
   if (addressApiValidation == null || shippingAddress == null) {
     redirect("/checkout/shipping");
