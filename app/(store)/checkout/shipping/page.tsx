@@ -17,7 +17,13 @@ type FormData = {
   city: string;
 };
 
-const FormView = function () {
+const FormView = function ({
+  handleAddressSubmit,
+  isLoading,
+}: {
+  handleAddressSubmit: (data: FormData) => void;
+  isLoading: boolean;
+}) {
   const { validateShipping, addressApiValidation, shippingAddress } =
     useCheckout();
 
@@ -29,12 +35,6 @@ const FormView = function () {
     mode: "onBlur",
     defaultValues: shippingAddress ?? undefined,
   });
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleAddressSubmit = async (data: FormData) => {
-    setIsLoading(true);
-    await validateShipping(data);
-  };
 
   return (
     <div className="flex min-h-screen justify-center">
@@ -212,5 +212,20 @@ export default function Page() {
   const searchParams = useSearchParams();
   const step = searchParams.get("step");
 
-  return step === "confirmation" ? <FormView /> : <ConfirmationView />;
+  const handleAddressSubmit = async (data: FormData) => {
+    setIsLoading(true);
+    await validateShipping(data);
+    if (addressApiValidation === "FIX") {
+      setIsLoading(false);
+    } else {
+      router.push("/checkout/shipping?step=confirmation");
+      setIsLoading(false);
+    }
+  };
+
+  return step === "confirmation" ? (
+    <ConfirmationView />
+  ) : (
+    <FormView handleAddressSubmit={handleAddressSubmit} isLoading={isLoading} />
+  );
 }

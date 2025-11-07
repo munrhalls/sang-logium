@@ -73,7 +73,6 @@ export default function CheckoutLayout({
         };
 
         setShippingAddress(parsedApiCorrectedAddress);
-        // router.push("/checkout/shipping/confirmation");
         return;
       } else {
       }
