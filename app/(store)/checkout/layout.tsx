@@ -15,7 +15,7 @@ export type CheckoutContextType = {
   addressApiValidation: string | null;
   setAddressApiValidation: (status: string | null) => void;
   validateShipping: (formData: ShippingAddress) => Promise<string | null>;
-  handleAddressSubmit: (data: FormData) => void;
+  handleAddressSubmit: (data: ShippingAddress) => void;
   shippingAddress: ShippingAddress | null;
   isLoading: boolean;
 };
@@ -100,6 +100,7 @@ export default function CheckoutLayout({
         validateShipping,
         shippingAddress,
         handleAddressSubmit,
+        isLoading,
       }}
     >
       <div className="mx-auto max-w-4xl p-6">

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useCheckout } from "@/app/(store)/checkout/layout";
-import ShippingAddress from "@/app/(store)/checkout/layout";
+import { ShippingAddress } from "@/app/(store)/checkout/layout";
 
 export default function ShippingFormView() {
   const { handleAddressSubmit, addressApiValidation, shippingAddress } =
