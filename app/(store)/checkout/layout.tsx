@@ -1,8 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
+import { createContext, useContext, useState } from "react";
 
 export type ShippingAddress = {
   regionCode: string;
@@ -15,7 +13,7 @@ export type ShippingAddress = {
 export type CheckoutContextType = {
   addressApiValidation: string | null;
   setAddressApiValidation: (status: string | null) => void;
-  validateShipping: (formData: ShippingAddress) => Promise<void>;
+  validateShipping: (formData: ShippingAddress) => Promise<string | null>;
   shippingAddress: ShippingAddress | null;
 };
 
@@ -37,8 +35,6 @@ export default function CheckoutLayout({
   >(null);
   const [shippingAddress, setShippingAddress] =
     useState<ShippingAddress | null>(null);
-  const router = useRouter();
-  const { user } = useUser();
 
   // useEffect(() => {
   //   if (user?.publicMetadata?.shippingAddress) {
@@ -46,7 +42,9 @@ export default function CheckoutLayout({
   //   }
   // }, [user, router]);
 
-  const validateShipping = async (formData: ShippingAddress) => {
+  const validateShipping = async (
+    formData: ShippingAddress
+  ): Promise<string | null> => {
     try {
       const res = await fetch("/api/shipping", {
         method: "POST",
@@ -73,11 +71,13 @@ export default function CheckoutLayout({
         };
 
         setShippingAddress(parsedApiCorrectedAddress);
-        return;
-      } else {
       }
+
+      return apiAddressStatus;
     } catch (error) {
       console.error("Error validating shipping address:", error);
+      setAddressApiValidation("ERROR");
+      return "ERROR";
     }
   };
 

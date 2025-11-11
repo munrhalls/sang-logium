@@ -1,9 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { FaTimes } from "react-icons/fa";
 import Loader from "@/app/components/common/Loader";
 import { useRouter } from "next/navigation";
-import { Link } from "lucide-react";
 import { useCheckout } from "@/app/(store)/checkout/layout";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -24,8 +22,7 @@ const FormView = function ({
   handleAddressSubmit: (data: FormData) => void;
   isLoading: boolean;
 }) {
-  const { validateShipping, addressApiValidation, shippingAddress } =
-    useCheckout();
+  const { addressApiValidation, shippingAddress } = useCheckout();
 
   const {
     register,
@@ -181,6 +178,11 @@ const FormView = function ({
               make sure it is correct.
             </p>
           )}
+          {addressApiValidation === "ERROR" && (
+            <p className="mt-4 text-sm text-red-600">
+              An error occurred while validating your address. Please try again.
+            </p>
+          )}
           {isLoading && (
             <Loader message="Processing..." color="border-t-black" />
           )}
@@ -196,17 +198,7 @@ const FormView = function ({
 // TODO prevent DDOS etc. by disabling submit button while loading and by limiting amount submits per minute / hour / day
 
 export default function Page() {
-  const { validateShipping, addressApiValidation, shippingAddress } =
-    useCheckout();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<FormData>({
-    mode: "onBlur",
-    defaultValues: shippingAddress ?? undefined,
-  });
+  const { validateShipping } = useCheckout();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -214,13 +206,13 @@ export default function Page() {
 
   const handleAddressSubmit = async (data: FormData) => {
     setIsLoading(true);
-    await validateShipping(data);
-    if (addressApiValidation === "FIX") {
-      setIsLoading(false);
-    } else {
+    const validationResult = await validateShipping(data);
+    setIsLoading(false);
+
+    if (validationResult === "CONFIRMED" || validationResult === "PARTIAL") {
       router.push("/checkout/shipping?step=confirmation");
-      setIsLoading(false);
     }
+    // If validationResult is "FIX" or "ERROR", stay on form to show error
   };
 
   return step === "confirmation" ? (
