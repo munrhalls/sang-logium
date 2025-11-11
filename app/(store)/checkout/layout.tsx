@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export type ShippingAddress = {
   regionCode: string;
@@ -14,7 +15,9 @@ export type CheckoutContextType = {
   addressApiValidation: string | null;
   setAddressApiValidation: (status: string | null) => void;
   validateShipping: (formData: ShippingAddress) => Promise<string | null>;
+  handleAddressSubmit: (data: FormData) => void;
   shippingAddress: ShippingAddress | null;
+  isLoading: boolean;
 };
 
 const CheckoutContext = createContext<CheckoutContextType>(
@@ -35,6 +38,20 @@ export default function CheckoutLayout({
   >(null);
   const [shippingAddress, setShippingAddress] =
     useState<ShippingAddress | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const router = useRouter();
+
+  const handleAddressSubmit = async (data: ShippingAddress) => {
+    setIsLoading(true);
+    const validationResult = await validateShipping(data);
+
+    setIsLoading(false);
+    if (validationResult === "CONFIRMED" || validationResult === "PARTIAL") {
+      router.push("/checkout/shipping?step=confirmation");
+      return;
+    }
+  };
 
   const validateShipping = async (
     formData: ShippingAddress
@@ -82,6 +99,7 @@ export default function CheckoutLayout({
         setAddressApiValidation,
         validateShipping,
         shippingAddress,
+        handleAddressSubmit,
       }}
     >
       <div className="mx-auto max-w-4xl p-6">

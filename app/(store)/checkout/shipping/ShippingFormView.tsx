@@ -1,26 +1,16 @@
 import { useForm } from "react-hook-form";
 import { useCheckout } from "@/app/(store)/checkout/layout";
+import ShippingAddress from "@/app/(store)/checkout/layout";
 
-type FormData = {
-  regionCode: string;
-  postalCode: string;
-  street: string;
-  streetNumber: string;
-  city: string;
-};
-
-export default function ShippingFormView({
-  handleAddressSubmit,
-}: {
-  handleAddressSubmit: (data: FormData) => void;
-}) {
-  const { addressApiValidation, shippingAddress } = useCheckout();
+export default function ShippingFormView() {
+  const { handleAddressSubmit, addressApiValidation, shippingAddress } =
+    useCheckout();
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FormData>({
+  } = useForm<ShippingAddress>({
     mode: "onBlur",
     defaultValues: shippingAddress ?? undefined,
   });
