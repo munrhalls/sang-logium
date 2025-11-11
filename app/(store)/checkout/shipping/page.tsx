@@ -209,12 +209,9 @@ export default function Page() {
     const validationResult = await validateShipping(data);
 
     if (validationResult === "CONFIRMED" || validationResult === "PARTIAL") {
-      // Keep loading state while navigating to prevent form flash
       router.push("/checkout/shipping?step=confirmation");
-      return; // Exit early - don't setIsLoading(false) when navigating away
+      return;
     }
-
-    // Only set loading to false if staying on the form (error state)
     setIsLoading(false);
   };
 
