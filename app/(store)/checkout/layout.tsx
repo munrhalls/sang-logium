@@ -36,12 +36,6 @@ export default function CheckoutLayout({
   const [shippingAddress, setShippingAddress] =
     useState<ShippingAddress | null>(null);
 
-  // useEffect(() => {
-  //   if (user?.publicMetadata?.shippingAddress) {
-  //     router.push("/checkout/shipping/confirmation");
-  //   }
-  // }, [user, router]);
-
   const validateShipping = async (
     formData: ShippingAddress
   ): Promise<string | null> => {

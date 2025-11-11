@@ -207,12 +207,15 @@ export default function Page() {
   const handleAddressSubmit = async (data: FormData) => {
     setIsLoading(true);
     const validationResult = await validateShipping(data);
-    setIsLoading(false);
 
     if (validationResult === "CONFIRMED" || validationResult === "PARTIAL") {
+      // Keep loading state while navigating to prevent form flash
       router.push("/checkout/shipping?step=confirmation");
+      return; // Exit early - don't setIsLoading(false) when navigating away
     }
-    // If validationResult is "FIX" or "ERROR", stay on form to show error
+
+    // Only set loading to false if staying on the form (error state)
+    setIsLoading(false);
   };
 
   return step === "confirmation" ? (
