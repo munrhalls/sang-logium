@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ConfirmationView from "./confirmation/ConfirmationView";
 import ShippingFormView from "./ShippingFormView";
+import Loader from "@/app/components/common/Loader";
 
 type FormData = {
   regionCode: string;
@@ -26,18 +27,29 @@ export default function Page() {
     const validationResult = await validateShipping(data);
 
     if (validationResult === "CONFIRMED" || validationResult === "PARTIAL") {
+      setIsLoading(false);
       router.push("/checkout/shipping?step=confirmation");
       return;
     }
-    setIsLoading(false);
   };
 
-  return step === "confirmation" ? (
-    <ConfirmationView />
-  ) : (
-    <ShippingFormView
-      handleAddressSubmit={handleAddressSubmit}
-      isLoading={isLoading}
-    />
+  return (
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : step === "confirmation" ? (
+        <ConfirmationView />
+      ) : (
+        <ShippingFormView handleAddressSubmit={handleAddressSubmit} />
+      )}
+    </>
   );
+  // return step === "confirmation" ? (
+  //   <ConfirmationView />
+  // ) : (
+  //   <ShippingFormView
+  //     handleAddressSubmit={handleAddressSubmit}
+  //     isLoading={isLoading}
+  //   />
+  // );
 }
