@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
+import Loader from "@/app/components/common/Loader";
 
 export type ShippingAddress = {
   regionCode: string;
@@ -18,6 +19,7 @@ export type CheckoutContextType = {
   handleAddressSubmit: (data: ShippingAddress) => void;
   shippingAddress: ShippingAddress | null;
   isLoading: boolean;
+  setIsLoading: (value: boolean) => void;
 };
 
 const CheckoutContext = createContext<CheckoutContextType>(
@@ -48,9 +50,9 @@ export default function CheckoutLayout({
       const validationResult = await validateShipping(data);
 
       if (validationResult === "CONFIRMED" || validationResult === "PARTIAL") {
-        router.push("/checkout/shipping?step=confirmation");
+        await router.push("/checkout/shipping?step=confirmation");
+        return;
       }
-      setIsLoading(false);
     } catch (error) {
       console.error("Error during address submission:", error);
       setIsLoading(false);
@@ -104,6 +106,7 @@ export default function CheckoutLayout({
         validateShipping,
         shippingAddress,
         handleAddressSubmit,
+        setIsLoading,
         isLoading,
       }}
     >
@@ -111,7 +114,7 @@ export default function CheckoutLayout({
         <h1 className="mb-8 flex justify-center text-3xl font-black uppercase">
           Checkout
         </h1>
-        {children}
+        {isLoading ? <Loader /> : children}
       </div>
     </CheckoutContext.Provider>
   );
