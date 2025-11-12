@@ -46,7 +46,7 @@ export default function CheckoutLayout({
 
   const handleAddressSubmit = async (data: ShippingAddress) => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       const validationResult = await validateShipping(data);
 
       if (validationResult === "CONFIRMED" || validationResult === "PARTIAL") {
@@ -55,7 +55,7 @@ export default function CheckoutLayout({
       }
     } catch (error) {
       console.error("Error during address submission:", error);
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
