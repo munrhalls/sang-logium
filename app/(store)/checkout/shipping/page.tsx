@@ -9,6 +9,7 @@ export default function Page() {
   const { isLoading } = useCheckout();
   const searchParams = useSearchParams();
   const step = searchParams.get("step");
+  console.log(step, "step");
 
   return (
     <>

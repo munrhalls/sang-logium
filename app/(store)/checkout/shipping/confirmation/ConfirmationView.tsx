@@ -7,6 +7,7 @@ import { Check, Edit3 } from "lucide-react";
 
 export default function ConfirmationView() {
   const { addressApiValidation, shippingAddress } = useCheckout();
+  console.log(addressApiValidation, "api validation");
   if (addressApiValidation == null || shippingAddress == null) {
     redirect("/checkout/shipping");
   }

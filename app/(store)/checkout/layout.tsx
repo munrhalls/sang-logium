@@ -43,13 +43,14 @@ export default function CheckoutLayout({
   const router = useRouter();
 
   const handleAddressSubmit = async (data: ShippingAddress) => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       const validationResult = await validateShipping(data);
 
       if (validationResult === "CONFIRMED" || validationResult === "PARTIAL") {
         router.push("/checkout/shipping?step=confirmation");
       }
+      setIsLoading(false);
     } catch (error) {
       console.error("Error during address submission:", error);
       setIsLoading(false);
