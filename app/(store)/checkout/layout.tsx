@@ -45,9 +45,9 @@ export default function CheckoutLayout({
   const [isAddressValidated, setIsAddressValidated] = useState<boolean>(false);
 
   const handleAddressSubmit = async (data: ShippingAddress) => {
-    console.log(data, "submit data");
     setIsLoading(true);
     try {
+      console.log("Submitting address:", data);
       const validationResult = await validateShipping(data);
 
       if (validationResult === "CONFIRMED" || validationResult === "PARTIAL") {
@@ -73,6 +73,8 @@ export default function CheckoutLayout({
         status: apiAddressStatus,
         correctedAddress: apiCorrectedAddress,
       } = await res.json();
+      console.log("status from api", apiAddressStatus);
+      console.log("corrected address from api", apiCorrectedAddress);
 
       if (!apiCorrectedAddress) {
         throw new Error("No corrected address returned from API");
@@ -89,6 +91,8 @@ export default function CheckoutLayout({
         };
 
         setShippingAddress(parsedApiCorrectedAddress);
+      } else {
+        setShippingAddress(formData);
       }
 
       return apiAddressStatus;

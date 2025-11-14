@@ -21,16 +21,10 @@ export default function ShippingFormView() {
   useEffect(() => {
     console.log("MOUNT RESET EVEN RUNS?????:", shippingAddress);
     if (shippingAddress) {
-      reset(shippingAddress);
+      reset({ ...shippingAddress });
       trigger();
     }
   }, [shippingAddress, reset, trigger]); //
-
-  useEffect(() => {
-    if (!isValid) {
-      console.log("Form Errors:", errors);
-    }
-  }, [isValid, errors]);
 
   return (
     <div className="flex min-h-screen justify-center">

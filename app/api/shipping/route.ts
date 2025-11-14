@@ -1,6 +1,7 @@
 interface AddressLines {
   regionCode: string;
   locality: string;
+  postalCode: string;
   addressLines: [string];
 }
 
@@ -24,7 +25,8 @@ export async function POST(req: Request) {
     address: {
       regionCode: regionCodeMap[regionCode] || regionCode,
       locality: city,
-      addressLines: [`${postalCode} ${street} ${streetNumber}`],
+      postalCode: postalCode,
+      addressLines: [`${street} ${streetNumber}`],
     },
   };
 
@@ -71,6 +73,8 @@ export async function POST(req: Request) {
       }
     : null;
 
+  console.log(correctedAddress, "correctedAddress @ API ROUTE ");
+  console.log(status, "status @ API ROUTE ");
   return Response.json({
     status,
     correctedAddress,
