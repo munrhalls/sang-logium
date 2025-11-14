@@ -45,6 +45,7 @@ export default function CheckoutLayout({
   const [isAddressValidated, setIsAddressValidated] = useState<boolean>(false);
 
   const handleAddressSubmit = async (data: ShippingAddress) => {
+    console.log(data, "submit data");
     setIsLoading(true);
     try {
       const validationResult = await validateShipping(data);

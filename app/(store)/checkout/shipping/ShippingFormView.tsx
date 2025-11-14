@@ -11,17 +11,26 @@ export default function ShippingFormView() {
     register,
     handleSubmit,
     reset,
+    trigger,
     formState: { errors, isValid },
   } = useForm<ShippingAddress>({
-    mode: "onBlur",
+    mode: "onChange",
     defaultValues: shippingAddress ?? undefined,
   });
 
   useEffect(() => {
+    console.log("MOUNT RESET EVEN RUNS?????:", shippingAddress);
     if (shippingAddress) {
       reset(shippingAddress);
+      trigger();
     }
-  }, [shippingAddress, reset]); //
+  }, [shippingAddress, reset, trigger]); //
+
+  useEffect(() => {
+    if (!isValid) {
+      console.log("Form Errors:", errors);
+    }
+  }, [isValid, errors]);
 
   return (
     <div className="flex min-h-screen justify-center">
@@ -35,7 +44,7 @@ export default function ShippingFormView() {
               className="mb-4 w-full border border-gray-300 p-2"
             >
               <option value="PL">Poland</option>
-              <option value="EN">England</option>
+              <option value="GB">England</option>
             </select>
             <p className="text-sm font-black tracking-wide">Postal code</p>
             <input
@@ -105,7 +114,7 @@ export default function ShippingFormView() {
                       message: "Number cannot exceed 10 characters.",
                     },
                     pattern: {
-                      value: /^[a-zA-Z0-9\-\/]+$/,
+                      value: /^[a-zA-Z0-9\-\/\s]+$/,
                       message: "Invalid format. Use numbers, letters, -, or /.",
                     },
                   })}
