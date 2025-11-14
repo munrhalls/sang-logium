@@ -56,6 +56,7 @@ export async function POST(req: Request) {
   const postalAddress = validationData.result?.address?.postalAddress;
 
   const getGoogleAPIAddressComponent = (type: string) => {
+    // @ts-nocheck
     const comp = components.find((c: any) => c.componentType === type);
     return comp?.componentName?.text || "";
   };
