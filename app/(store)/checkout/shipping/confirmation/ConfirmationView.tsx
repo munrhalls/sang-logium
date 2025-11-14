@@ -7,7 +7,6 @@ import { Check, Edit3 } from "lucide-react";
 export default function ConfirmationView() {
   const { addressApiValidation, shippingAddress, setIsAddressValidated } =
     useCheckout();
-  console.log(addressApiValidation, "api validation");
 
   if (addressApiValidation == null || shippingAddress == null) {
     setIsAddressValidated(false);
@@ -16,10 +15,17 @@ export default function ConfirmationView() {
   return (
     <div className="flex flex-col gap-4">
       <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-md">
-        <DisplayAddress shippingAddress={shippingAddress} />
+        <DisplayAddress shippingAddress={shippingAddress!} />
+        <button
+          onClick={() => setIsAddressValidated(false)}
+          className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-yellow-900 hover:text-yellow-950"
+        >
+          <Edit3 size={16} />
+          Edit
+        </button>
       </div>
 
-      {addressApiValidation === "CONFIRMED" ? (
+      {addressApiValidation === "CONFIRMED BLABLAQWEQWEQWQEWQEWQEWQEWQEW" ? (
         <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3">
           <Check className="text-green-600" size={18} />
           <p className="text-sm font-semibold text-green-800">
@@ -32,13 +38,6 @@ export default function ConfirmationView() {
             Address partially confirmed on the map. Are you sure it&apos;s
             correct?{" "}
           </p>
-          <Link
-            href="/checkout/shipping"
-            className="inline-flex items-center gap-1 text-sm font-semibold text-yellow-900 hover:text-yellow-950"
-          >
-            <Edit3 size={16} />
-            Edit
-          </Link>
         </div>
       )}
 

@@ -52,8 +52,8 @@ export default function CheckoutLayout({
       if (validationResult === "CONFIRMED" || validationResult === "PARTIAL") {
         console.log(isAddressValidated, "validated");
         setIsAddressValidated(true);
-        setIsLoading(false);
       }
+      setIsLoading(false);
     } catch (error) {
       console.error("Error during address submission:", error);
       setIsLoading(false);

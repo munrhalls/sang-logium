@@ -5,7 +5,7 @@ import { useCheckout } from "../layout";
 
 export default function Page() {
   const { isAddressValidated, shippingAddress } = useCheckout();
-  console.log(isAddressValidated, "page");
+  console.log(isAddressValidated, "isAddressValidated in page");
 
   return (
     <>
