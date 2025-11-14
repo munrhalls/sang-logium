@@ -50,7 +50,6 @@ export default function CheckoutLayout({
       const validationResult = await validateShipping(data);
 
       if (validationResult === "CONFIRMED" || validationResult === "PARTIAL") {
-        console.log(isAddressValidated, "validated");
         setIsAddressValidated(true);
       }
       setIsLoading(false);

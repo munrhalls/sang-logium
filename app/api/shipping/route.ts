@@ -37,7 +37,6 @@ export async function POST(req: Request) {
   });
 
   const validationData = await validationResponse.json();
-  console.log(validationData, "validation data @api");
 
   const verdict = validationData.result?.verdict;
   const action = verdict?.possibleNextAction || "NULL";
@@ -54,22 +53,23 @@ export async function POST(req: Request) {
   const components = validationData.result?.address?.addressComponents || [];
   const postalAddress = validationData.result?.address?.postalAddress;
 
-  const getComponent = (type: string) => {
+  const getGoogleAPIAddressComponent = (type: string) => {
     const comp = components.find((c: any) => c.componentType === type);
     return comp?.componentName?.text || "";
   };
 
   const correctedAddress = postalAddress
     ? {
-        street: getComponent("route") || "",
-        streetNumber: getComponent("street_number") || "",
-        city: getComponent("locality") || postalAddress.locality || "",
+        street: getGoogleAPIAddressComponent("route") || "",
+        streetNumber: getGoogleAPIAddressComponent("street_number") || "",
+        city:
+          getGoogleAPIAddressComponent("locality") ||
+          postalAddress.locality ||
+          "",
         postalCode: postalAddress.postalCode || "",
         regionCode: postalAddress.regionCode || regionCode,
       }
     : null;
-
-  console.log(correctedAddress, "corrected address @api");
 
   return Response.json({
     status,
