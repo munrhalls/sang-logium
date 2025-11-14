@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useCheckout } from "@/app/(store)/checkout/layout";
 import { ShippingAddress } from "@/app/(store)/checkout/layout";
+import { useEffect } from "react";
 
 export default function ShippingFormView() {
   const { handleAddressSubmit, addressApiValidation, shippingAddress } =
@@ -9,11 +10,18 @@ export default function ShippingFormView() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
   } = useForm<ShippingAddress>({
     mode: "onBlur",
     defaultValues: shippingAddress ?? undefined,
   });
+
+  useEffect(() => {
+    if (shippingAddress) {
+      reset(shippingAddress);
+    }
+  }, [shippingAddress, reset]); //
 
   return (
     <div className="flex min-h-screen justify-center">
