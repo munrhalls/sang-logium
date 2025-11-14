@@ -1,7 +1,6 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { useRouter } from "next/navigation";
 import Loader from "@/app/components/common/Loader";
 
 export type ShippingAddress = {
@@ -20,6 +19,8 @@ export type CheckoutContextType = {
   shippingAddress: ShippingAddress | null;
   isLoading: boolean;
   setIsLoading: (value: boolean) => void;
+  setIsAddressValidated: (value: boolean) => void;
+  isAddressValidated: boolean;
 };
 
 const CheckoutContext = createContext<CheckoutContextType>(
@@ -41,21 +42,21 @@ export default function CheckoutLayout({
   const [shippingAddress, setShippingAddress] =
     useState<ShippingAddress | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const router = useRouter();
+  const [isAddressValidated, setIsAddressValidated] = useState<boolean>(false);
 
   const handleAddressSubmit = async (data: ShippingAddress) => {
+    setIsLoading(true);
     try {
-      // setIsLoading(true);
       const validationResult = await validateShipping(data);
 
       if (validationResult === "CONFIRMED" || validationResult === "PARTIAL") {
-        await router.push("/checkout/shipping?step=confirmation");
-        return;
+        console.log(isAddressValidated, "validated");
+        setIsAddressValidated(true);
+        setIsLoading(false);
       }
     } catch (error) {
       console.error("Error during address submission:", error);
-      // setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -108,6 +109,8 @@ export default function CheckoutLayout({
         handleAddressSubmit,
         setIsLoading,
         isLoading,
+        setIsAddressValidated,
+        isAddressValidated,
       }}
     >
       <div className="mx-auto max-w-4xl p-6">

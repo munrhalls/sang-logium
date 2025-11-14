@@ -1,22 +1,17 @@
 "use client";
 import Link from "next/link";
 import { useCheckout } from "@/app/(store)/checkout/layout";
-import { redirect } from "next/navigation";
 import DisplayAddress from "./DisplayAddress";
 import { Check, Edit3 } from "lucide-react";
-import { useEffect } from "react";
 
 export default function ConfirmationView() {
-  const { addressApiValidation, shippingAddress, setIsLoading } = useCheckout();
+  const { addressApiValidation, shippingAddress, setIsAddressValidated } =
+    useCheckout();
   console.log(addressApiValidation, "api validation");
 
   if (addressApiValidation == null || shippingAddress == null) {
-    redirect("/checkout/shipping");
+    setIsAddressValidated(false);
   }
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, [setIsLoading]);
 
   return (
     <div className="flex flex-col gap-4">

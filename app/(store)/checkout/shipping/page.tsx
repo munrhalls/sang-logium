@@ -1,13 +1,19 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 import ConfirmationView from "./confirmation/ConfirmationView";
 import ShippingFormView from "./ShippingFormView";
+import { useCheckout } from "../layout";
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const step = searchParams.get("step");
+  const { isAddressValidated, shippingAddress } = useCheckout();
+  console.log(isAddressValidated, "page");
 
   return (
-    <>{step === "confirmation" ? <ConfirmationView /> : <ShippingFormView />}</>
+    <>
+      {shippingAddress && isAddressValidated ? (
+        <ConfirmationView />
+      ) : (
+        <ShippingFormView />
+      )}
+    </>
   );
 }
