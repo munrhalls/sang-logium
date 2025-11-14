@@ -3,10 +3,14 @@ import Link from "next/link";
 import { useCheckout } from "@/app/(store)/checkout/layout";
 import DisplayAddress from "./DisplayAddress";
 import { Check, Edit3 } from "lucide-react";
+import { ShippingAddress } from "@/app/(store)/checkout/layout";
 
-export default function ConfirmationView() {
-  const { addressApiValidation, shippingAddress, setIsAddressValidated } =
-    useCheckout();
+export default function ConfirmationView({
+  shippingAddress,
+}: {
+  shippingAddress: ShippingAddress;
+}) {
+  const { addressApiValidation, setIsAddressValidated } = useCheckout();
 
   if (addressApiValidation == null || shippingAddress == null) {
     setIsAddressValidated(false);
@@ -15,7 +19,7 @@ export default function ConfirmationView() {
   return (
     <div className="flex flex-col gap-4">
       <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-md">
-        <DisplayAddress shippingAddress={shippingAddress!} />
+        <DisplayAddress shippingAddress={shippingAddress} />
         <button
           onClick={() => setIsAddressValidated(false)}
           className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-yellow-900 hover:text-yellow-950"

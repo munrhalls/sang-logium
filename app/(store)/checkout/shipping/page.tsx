@@ -10,7 +10,7 @@ export default function Page() {
   return (
     <>
       {shippingAddress && isAddressValidated ? (
-        <ConfirmationView />
+        <ConfirmationView shippingAddress={shippingAddress} />
       ) : (
         <ShippingFormView />
       )}
