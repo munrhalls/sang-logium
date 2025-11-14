@@ -73,8 +73,6 @@ export async function POST(req: Request) {
       }
     : null;
 
-  console.log(correctedAddress, "correctedAddress @ API ROUTE ");
-  console.log(status, "status @ API ROUTE ");
   return Response.json({
     status,
     correctedAddress,

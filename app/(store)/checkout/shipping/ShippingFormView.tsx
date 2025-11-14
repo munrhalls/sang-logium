@@ -19,7 +19,6 @@ export default function ShippingFormView() {
   });
 
   useEffect(() => {
-    console.log("MOUNT RESET EVEN RUNS?????:", shippingAddress);
     if (shippingAddress) {
       reset({ ...shippingAddress });
       trigger();
