@@ -1,3 +1,7 @@
+// TODO preloading where it fits
+// TODO font to WOFF2, add font to public/fonts
+// TODO In app/global.css, apply the font-sans and font-mono font families to different elements:
+
 import "./../globals.css";
 import type { Metadata } from "next";
 import { Inter, DM_Serif_Display } from "next/font/google";
@@ -32,7 +36,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.className} ${dmSerifDisplay.variable} h-full w-full`}
+      className={`${inter.className} antialiased ${dmSerifDisplay.variable} h-full w-full`}
     >
       <head>
         <link
