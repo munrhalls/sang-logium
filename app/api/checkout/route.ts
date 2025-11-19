@@ -2,19 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { currentUser } from "@clerk/nextjs/server";
 import { backendClient } from "@/sanity/lib/backendClient";
-
-type ServerProduct {
-    _id: string;
-    name: string;
-    price: number;
-    stock: number;
-    stripePriceId: string;
-    _rev: string;
-}
+import type {
+  ServerProduct,
+  PublicBasketItem,
+} from "@/app/(store)/checkout/checkout.types";
 
 export async function POST(req: NextRequest) {
   try {
-    const { publicBasket } = await req.json();
+    const { publicBasket }: { publicBasket: PublicBasketItem[] } =
+      await req.json();
     const user = await currentUser();
     const userEmail = user?.primaryEmailAddress?.emailAddress;
 
@@ -36,7 +32,7 @@ export async function POST(req: NextRequest) {
 
     const productIds = publicBasket.map((item) => item._id);
 
-    const serverProducts: ServerProduct[]  = await backendClient.fetch(
+    const serverProducts: ServerProduct[] = await backendClient.fetch(
       `*[_type == "product" && _id in $productIds] {
         _id,
         name,
@@ -108,11 +104,8 @@ export async function POST(req: NextRequest) {
         customer_creation: "always",
       }),
       metadata: {
-        productsIntent: serverProducts
-          .map(
-            (item: { _id: string; quantity: number }) =>
-              `${item._id}:${item.quantity}`
-          )
+        productsIntent: publicBasket
+          .map((item: PublicBasketItem) => `${item._id}:${item.quantity}`)
           .join(","),
         clerkUserId: user?.id || "guest",
       },
