@@ -10,6 +10,11 @@ export async function POST(req: NextRequest) {
     const user = await currentUser();
     const userEmail = user?.primaryEmailAddress?.emailAddress;
 
+    // TODO decrement sanity stock intantly in order to prevent race conditions
+    // TODO only after failed payment / unsuccessful checkout - perform stock check and rollback safely (another customer might have bought in the meantime)
+    // TODO validate publicBasket structure more thoroughly
+    // TODO type it properly
+    // TODO after checkout session is completed, send order data to sanity and only then decrement stock
     if (
       !publicBasket ||
       !Array.isArray(publicBasket) ||
@@ -29,6 +34,7 @@ export async function POST(req: NextRequest) {
       price: number;
       stock: number;
       stripePriceId: string;
+      _rev: string;
     }> = await backendClient.fetch(
       `*[_type == "product" && _id in $productIds] {
         _id,
@@ -36,6 +42,7 @@ export async function POST(req: NextRequest) {
         price,
         stock,
         stripePriceId
+        _rev,
       }`,
       { productIds }
     );
@@ -46,6 +53,7 @@ export async function POST(req: NextRequest) {
     // TODO frontend - restrict edge case where user adds more items to basket than available in stock
     // TODO frontend - handle edge case where two users try to checkout their basket but have the same last item at the same time (the first request should go through, the second should get an out-of-stock error)
     const lineItems: Array<{ price: string; quantity: number }> = [];
+    const sanityTransaction = backendClient.transaction();
 
     for (const clientItem of publicBasket) {
       const serverProduct = serverProducts.find(
@@ -56,6 +64,13 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(
           { error: `Product with ID ${clientItem._id} no longer exists.` },
           { status: 400 }
+        );
+      }
+
+      if (serverProduct.stock <= 0) {
+        return NextResponse.json(
+          { error: `Sorry, ${serverProduct.name} is out of stock.` },
+          { status: 409 }
         );
       }
 
@@ -72,7 +87,12 @@ export async function POST(req: NextRequest) {
         price: serverProduct.stripePriceId,
         quantity: clientItem.quantity,
       });
+      sanityTransaction.patch(serverProduct._id, (p) =>
+        p.dec({ stock: clientItem.quantity }).ifRevisionId(serverProduct._rev)
+      );
     }
+
+    await sanityTransaction.commit();
 
     const session = await stripe.checkout.sessions.create({
       ui_mode: "embedded",
@@ -83,14 +103,20 @@ export async function POST(req: NextRequest) {
         customer_email: userEmail,
         customer_creation: "always",
       }),
-      shipping_address_collection: {
-        allowed_countries: ["PL", "GB"],
+      metadata: {
+        inventory_lock: publicBasket
+          .map((i: any) => `${i._id}:${i.quantity}`)
+          .join(","),
+        clerkUserId: user?.id || "guest",
       },
+      expires_at: Math.floor(Date.now() / 1000) + 25 * 60,
     });
 
     return NextResponse.json({ client_secret: session.client_secret });
   } catch (error) {
     console.error("Checkout session creation error:", error);
+    // TODO: Technically, if Stripe creation fails here but Sanity succeeded,
+    // we have a phantom decrement. In a perfect world, we would rollback Sanity here.
     return NextResponse.json(
       { error: "Failed to create checkout session" },
       { status: 500 }
