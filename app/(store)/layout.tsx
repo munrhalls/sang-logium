@@ -1,8 +1,14 @@
 // TODO preloading where it fits
 // TODO font to WOFF2, add font to public/fonts
 // TODO In app/global.css, apply the font-sans and font-mono font families to different elements:
+// TODO run @next/bundle-analyzer to see bundle size
+// TODO make sure prefetching and code-splitting based on routes is fairly optimal
+// TODO use template in the products grid for filter sorts (auto reset)
+
+// TODO #1 !!! DOCS - You should not manually add <head> tags such as <title> and <meta> to root layouts. Instead, you should use the Metadata API which automatically handles advanced requirements such as streaming and de-duplicating <head> elements.
 
 import "./../globals.css";
+
 import type { Metadata } from "next";
 import { Inter, DM_Serif_Display } from "next/font/google";
 import Header from "@/app/components/layout/header/Header";
@@ -26,6 +32,10 @@ const dmSerifDisplay = DM_Serif_Display({
   display: "swap",
   variable: "--font-serif",
 });
+
+// export const metadata: Metadata = {
+//   title: 'Next.js',
+// }
 export default async function RootLayout({
   children,
   drawer,
@@ -38,7 +48,7 @@ export default async function RootLayout({
       lang="en"
       className={`${inter.className} antialiased ${dmSerifDisplay.variable} h-full w-full`}
     >
-      <head>
+      {/* <head>
         <link
           rel="preload"
           href="/public/HeroMain.webp"
@@ -54,7 +64,7 @@ export default async function RootLayout({
         />
         <link rel="preconnect" href="https://cdn.sanity.io" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
-      </head>
+      </head> */}
       <ClerkProvider>
         <body
           className={`relative grid w-full grid-rows-[auto_1fr_auto] overflow-x-hidden font-sans lg:grid-rows-[auto_auto_1fr_auto]`}

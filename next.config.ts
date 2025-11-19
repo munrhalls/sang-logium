@@ -10,7 +10,6 @@ const nextConfig: NextConfig = {
     styledComponents: true,
   },
   experimental: {
-    ppr: "incremental",
     optimizeCss: true,
     inlineCss: true,
     optimizePackageImports: ["@clerk/nextjs", "sanity", "lucide-react"],
