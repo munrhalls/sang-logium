@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { imageUrl } from "@/lib/imageUrl";
 import BasketControls from "../basket/BasketControls";
-import { BasketItem } from "@/store/store";
+import { BasketItem } from "../basket/basket.types";
 interface ProductThumbProps {
   product: Product;
 }
@@ -16,15 +16,20 @@ const ProductThumb = ({ product }: ProductThumbProps) => {
     !product.stripePriceId
   )
     return null;
+  // TODO there's some kinda issue with how it's all organized, this whole products feature NEEDS REWORK TO MINIMIZE CLIENT COMPONENTS USE AND MAX SERVER COMPONENTS USAGE
+
   const isOutOfStock = product.stock != null && product.stock <= 0;
   const originalPrice = product.displayPrice ?? 0;
+  // TODO fix types properly, add types file for the basket feature
+
   const basketProduct: BasketItem = {
     _id: product._id,
     name: product.name,
     stock: product.stock,
     displayPrice: product.displayPrice,
-    stripePriceId: product.stripePriceId,
     quantity: 1,
+    description: product.description,
+    image: product.image,
   };
   return (
     <Link

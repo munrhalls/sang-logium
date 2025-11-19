@@ -1,16 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { BasketItem } from "@/app/(store)/basket/basket.types";
 
-export interface BasketItem {
-  _id: string;
-  name: string;
-  stripePriceId: string;
-  displayPrice: number;
-  stock: number;
-  quantity: number;
-  description: string;
-  image: string;
-}
 interface UIState {
   isSearchDrawerOpen: boolean;
   toggleSearchDrawer: () => void;

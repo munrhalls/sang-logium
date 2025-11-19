@@ -9,6 +9,7 @@ export default function BasketSummary() {
   const getTotal = useBasketStore((s) => s.getTotal);
 
   const shipping = 15.99;
+  // TODO calculate shipping based on address / items / promotions etc. - for now it's a flat rate
   const subtotal = getTotal();
   const total = subtotal + shipping;
 

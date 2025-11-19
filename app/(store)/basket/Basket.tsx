@@ -4,8 +4,10 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useBasketStore } from "@/store/store";
 import BasketControls from "@/app/components/features/basket/BasketControls";
+
 export default function Basket() {
   const basket = useBasketStore((s) => s.basket);
+
   return (
     <div>
       <div className="hidden grid-cols-[3fr_1fr_1fr_auto] border-b border-gray-200 bg-gray-50 p-5 text-sm font-semibold text-gray-700 lg:grid">
