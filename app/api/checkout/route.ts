@@ -110,6 +110,7 @@ export async function POST(req: NextRequest) {
         // inventory_lock: publicBasket
         //   .map((i: any) => `${i._id}:${i.quantity}`)
         //   .join(","),
+        // TODO save stock info for rollback later if session expired or payment failed
         clerkUserId: user?.id || "guest",
       },
       expires_at: Math.floor(Date.now() / 1000) + 25 * 60,
@@ -137,6 +138,4 @@ export async function handleExpiredSession(req: NextRequest) {
 // webhook handler for failed payments
 export async function handleFailedPayment(req: NextRequest) {
   const { session_id } = await req.json();
-
-  // TODO: Rollback stock using session metadata
 }
