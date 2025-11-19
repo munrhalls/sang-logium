@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
         name,
         price,
         stock,
-        stripePriceId
+        stripePriceId,
         _rev,
       }`,
       { productIds }
@@ -52,6 +52,9 @@ export async function POST(req: NextRequest) {
     // if stock 1 and potentially two requests come in at the same time, then what? (that should be impossible btw)
     // TODO frontend - restrict edge case where user adds more items to basket than available in stock
     // TODO frontend - handle edge case where two users try to checkout their basket but have the same last item at the same time (the first request should go through, the second should get an out-of-stock error)
+    // TODO backend - double check stock here before creating the session
+    // TODO handle AFTER checkout - if session expired, rollback stock SAFELY (that is don't set stock count, simply increment by the amount previously decremented)
+
     const lineItems: Array<{ price: string; quantity: number }> = [];
     const sanityTransaction = backendClient.transaction();
 
@@ -104,9 +107,9 @@ export async function POST(req: NextRequest) {
         customer_creation: "always",
       }),
       metadata: {
-        inventory_lock: publicBasket
-          .map((i: any) => `${i._id}:${i.quantity}`)
-          .join(","),
+        // inventory_lock: publicBasket
+        //   .map((i: any) => `${i._id}:${i.quantity}`)
+        //   .join(","),
         clerkUserId: user?.id || "guest",
       },
       expires_at: Math.floor(Date.now() / 1000) + 25 * 60,
@@ -122,4 +125,18 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+// webhook handler for expired sessions
+export async function handleExpiredSession(req: NextRequest) {
+  const { session_id } = await req.json();
+
+  // TODO: Rollback stock using session metadata
+}
+
+// webhook handler for failed payments
+export async function handleFailedPayment(req: NextRequest) {
+  const { session_id } = await req.json();
+
+  // TODO: Rollback stock using session metadata
 }
