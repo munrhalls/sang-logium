@@ -167,3 +167,9 @@ export async function handleExpiredSession(req: NextRequest) {
 export async function handleFailedPayment(req: NextRequest) {
   const { session_id } = await req.json();
 }
+
+// TODO also handle random error, e.g. network dc etc. - it's almost the same as failed payment but need to ensure the customer was NOT charged or if they were, that it's impossible the order was not created
+// TODO if payment is successful but order creation in sanity fails - need to handle that too (maybe retry order creation a few times, then alert admin?)
+// TODO if order creation fails, still need to rollback stock properly
+// TODO if payment is successful but order creation fails, need to ensure reservedStock is decremented properly
+// TODO if payment is successful but network dc'd or some error went down, need to ensure the customer isn't screwed over - the order still needs to be created so their payment doesn't go to waste
