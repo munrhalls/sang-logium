@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { imageUrl } from "@/lib/imageUrl";
 import BasketControls from "../basket/BasketControls";
-import { BasketItem } from "../basket/basket.types";
+import { BasketItem } from "@/app/(store)/basket/basket.types";
 interface ProductThumbProps {
   product: Product;
 }
@@ -22,14 +22,17 @@ const ProductThumb = ({ product }: ProductThumbProps) => {
   const originalPrice = product.displayPrice ?? 0;
   // TODO fix types properly, add types file for the basket feature
 
+  const stockImage = "";
+  const image = product.image.asset?._ref ?? stockImage;
+  // TODO add generic product image unavailable stock image url
+
   const basketProduct: BasketItem = {
     _id: product._id,
     name: product.name,
     stock: product.stock,
     displayPrice: product.displayPrice,
     quantity: 1,
-    description: product.description,
-    image: product.image,
+    image: image,
   };
   return (
     <Link

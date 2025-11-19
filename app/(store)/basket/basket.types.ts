@@ -4,6 +4,5 @@ export interface BasketItem {
   displayPrice: number;
   stock: number;
   quantity: number;
-  description: string;
   image: string;
 }
