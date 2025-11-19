@@ -9,6 +9,16 @@ interface GoogleValidationAPIRequest {
   address: AddressLines;
 }
 
+interface AddressComponentName {
+  text: string;
+  languageCode?: string;
+}
+
+interface GoogleAddressComponent {
+  componentType: string;
+  componentName: AddressComponentName;
+}
+
 export async function POST(req: Request) {
   const body = await req.json();
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -57,7 +67,9 @@ export async function POST(req: Request) {
 
   const getGoogleAPIAddressComponent = (type: string) => {
     // @ts-nocheck
-    const comp = components.find((c: any) => c.componentType === type);
+    const comp = components.find(
+      (c: GoogleAddressComponent) => c.componentType === type
+    );
     return comp?.componentName?.text || "";
   };
 
