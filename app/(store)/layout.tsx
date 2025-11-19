@@ -7,6 +7,7 @@
 
 // TODO #1 !!! DOCS - You should not manually add <head> tags such as <title> and <meta> to root layouts. Instead, you should use the Metadata API which automatically handles advanced requirements such as streaming and de-duplicating <head> elements.
 
+// @ts-expect-error: Type declarations for CSS imports are not present in this project
 import "./../globals.css";
 
 import type { Metadata } from "next";
