@@ -7,7 +7,7 @@ export type ServerProduct = {
   _rev: string;
 };
 
-export type PublicBasketItem = {
+export type BasketCheckoutItem = {
   _id: string;
   quantity: number;
 };
