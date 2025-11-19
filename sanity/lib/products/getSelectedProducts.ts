@@ -5,12 +5,12 @@ export const getSelectedProducts = async (
   path: string[] | string,
   selectedFilters: [FilterItem[], FilterItem[], FilterItem[], FilterItem[]],
   selectedSort: { field: string; direction: string } | null,
-  selectedPagination = { page: 0, pageSize: 12 },
+  selectedPagination = { page: 0, pageSize: 12 }
 ) => {
   const [regular, overview, specifications, rangeFilters] = selectedFilters;
 
   const filteredRegular = regular.filter(
-    (item) => !(item.field === "size" && !isNaN(parseInt(String(item.value)))),
+    (item) => !(item.field === "size" && !isNaN(parseInt(String(item.value))))
   );
 
   const regularQuery =
@@ -56,7 +56,7 @@ export const getSelectedProducts = async (
 
             return `(${values
               .map(
-                (value) => `count(overviewFields[value match "${value}"]) > 0`,
+                (value) => `count(overviewFields[value match "${value}"]) > 0`
               )
               .join(" || ")})`;
           })
@@ -83,7 +83,7 @@ export const getSelectedProducts = async (
 
             return `(${values
               .map(
-                (value) => `count(specifications[value match "${value}"]) > 0`,
+                (value) => `count(specifications[value match "${value}"]) > 0`
               )
               .join(" || ")})`;
           })
@@ -187,11 +187,11 @@ export const getSelectedProducts = async (
 
   const baseQuery = assembledQuery.substring(
     0,
-    assembledQuery.lastIndexOf("]") + 1,
+    assembledQuery.lastIndexOf("]") + 1
   );
 
   const sortPart = assembledQuery.substring(
-    assembledQuery.lastIndexOf("]") + 1,
+    assembledQuery.lastIndexOf("]") + 1
   );
 
   const finalQuery = `{

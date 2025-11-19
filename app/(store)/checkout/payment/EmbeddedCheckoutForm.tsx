@@ -13,7 +13,7 @@ const stripePromise = loadStripe(
 );
 
 interface EmbeddedCheckoutFormProps {
-  publicBasket: Array<{ stripePriceId: string; quantity: number }>;
+  publicBasket: Array<{ _id: string; quantity: number }>;
 }
 
 export default function EmbeddedCheckoutForm({

@@ -6,7 +6,7 @@ export default function Checkout() {
   const basket = useBasketStore((s) => s.basket);
 
   const publicBasket = basket.map((item) => ({
-    stripePriceId: item.stripePriceId,
+    _id: item._id,
     quantity: item.quantity,
   }));
 
