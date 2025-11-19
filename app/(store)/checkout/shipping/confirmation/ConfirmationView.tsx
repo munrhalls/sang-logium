@@ -5,6 +5,12 @@ import DisplayAddress from "./DisplayAddress";
 import { Check, Edit3 } from "lucide-react";
 import { ShippingAddress } from "@/app/(store)/checkout/layout";
 
+// TODO earlier, need to create guest account that'll live inside cookie / session
+// TODO upon "proceed to payment" click, the address needs to be safely saved to cookie and sealed via JWT
+// TODO then that info needs ot somehow end up in the payment page
+// TODO if this is guest account, checkout session consumes their address information from cookie/JWT
+// TODO otherwise, if logged in, it uses their saved address info from their clerk user acc
+
 export default function ConfirmationView({
   shippingAddress,
 }: {

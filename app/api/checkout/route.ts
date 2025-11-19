@@ -79,8 +79,6 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      // TODO: Replace with: availableStock = serverProduct.stock - serverProduct.reservedStock
-      // TODO: Check availableStock <= 0 instead of stock <= 0
       if (serverProduct.stock <= 0) {
         return NextResponse.json(
           { error: `Sorry, ${serverProduct.name} is out of stock.` },
@@ -88,9 +86,9 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      // TODO: Replace with: availableStock < clientItem.quantity
-      // TODO: Add additional check: if (stock >= quantity but availableStock < quantity)
-      //       Return: "Item currently being purchased by another customer. Please try again shortly."
+      // TODO: Replace with: stock < clientItem.quantity
+      // TODO handle gracefully - the client should get back payload intel so client can deduce how much stock is left and update UI accordingly
+
       if (serverProduct.stock < clientItem.quantity) {
         return NextResponse.json(
           {
