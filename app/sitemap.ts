@@ -3,13 +3,11 @@ import { client } from "@/sanity/lib/client";
 
 const SITE_URL = "https://sang-logium.com";
 
-// Strongly-typed Sanity document shape used by this sitemap generator
 interface SanityDocument {
   slug: string;
   _updatedAt?: string;
 }
 
-// Allowed changefreq values used by sitemaps
 type ChangeFreq =
   | "always"
   | "hourly"
@@ -19,7 +17,6 @@ type ChangeFreq =
   | "yearly"
   | "never";
 
-// Extend Next's sitemap entry element to allow optional changeFrequency/priority
 type SitemapEntry = MetadataRoute.Sitemap[number] & {
   changeFrequency?: ChangeFreq;
   priority?: number;
@@ -27,7 +24,6 @@ type SitemapEntry = MetadataRoute.Sitemap[number] & {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
-    // 1. Fetch Products AND Categories in parallel for speed
     const [products, categories] = await Promise.all<
       [SanityDocument[], SanityDocument[]]
     >([
@@ -39,7 +35,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ),
     ]);
 
-    // 2. Map Products
     const productUrls = (products || []).map((p: any) => {
       const safeSlug = encodeURIComponent(p.slug);
 
@@ -51,7 +46,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       };
     });
 
-    // 3. Map Categories
     const categoryUrls = (categories || []).map((c: any) => {
       const safeSlug = encodeURIComponent(c.slug);
 
@@ -63,7 +57,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       };
     });
 
-    // 4. Define Static Pages (The "Skeleton" of your app)
     const staticRoutes: SitemapEntry[] = [
       "", // Homepage
       "/basket", // Cart Page
@@ -79,7 +72,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: route === "" ? 1.0 : 0.5,
     }));
 
-    // Return as MetadataRoute.Sitemap — SitemapEntry is compatible with the expected shape.
     return [
       ...staticRoutes,
       ...productUrls,
