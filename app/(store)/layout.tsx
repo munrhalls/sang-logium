@@ -19,10 +19,23 @@ import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
 import CategoriesSkeleton from "../components/layout/categoryMenu/CategoriesSkeleton";
+
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
-  description: "The best audio gear in the world",
+  description: "E-commerce store",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
+
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
