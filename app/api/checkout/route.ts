@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
     const user = await currentUser();
     const userEmail = user?.primaryEmailAddress?.emailAddress;
 
+    // TODO check What about shipping data? Not needed in the payment?
     // TODO decrement sanity stock intantly in order to prevent race conditions
     // TODO only after failed payment / unsuccessful checkout - perform stock check and rollback safely (another customer might have bought in the meantime)
     // TODO validate publicBasket structure more thoroughly
@@ -32,6 +33,15 @@ export async function POST(req: NextRequest) {
 
     const productIds = publicBasket.map((item) => item._id);
 
+    // STOCK RESERVATION SYSTEM:
+    // Available Stock = stock - reservedStock
+    // 1. Fetch products with: stock, reservedStock, _rev
+    // 2. Check: (stock - reservedStock) >= requestedQuantity
+    // 3. If YES: Atomically increment reservedStock using _rev
+    // 4. If NO: Return error "Item being purchased by another user"
+    // 5. On payment success: Decrement both stock AND reservedStock
+    // 6. On payment failure/expiry: Only decrement reservedStock after 15-30min timeout
+    // 7. Race condition handled by _rev - first transaction wins, second fails
     const serverProducts: ServerProduct[] = await backendClient.fetch(
       `*[_type == "product" && _id in $productIds] {
         _id,
@@ -45,13 +55,15 @@ export async function POST(req: NextRequest) {
     );
 
     const origin = req.headers.get("origin") || req.nextUrl.origin;
-    // if stock is 0, then what?
-    // if stock 1 and potentially two requests come in at the same time, then what? (that should be impossible btw)
-    // TODO frontend - restrict edge case where user adds more items to basket than available in stock
-    // TODO frontend - handle edge case where two users try to checkout their basket but have the same last item at the same time (the first request should go through, the second should get an out-of-stock error)
-    // TODO backend - double check stock here before creating the session
-    // TODO handle AFTER checkout - if session expired, rollback stock SAFELY (that is don't set stock count, simply increment by the amount previously decremented)
 
+    // STOCK VALIDATION LOGIC:
+    // TODO: Add reservedStock field to Product schema in Sanity
+    // TODO: Fetch reservedStock along with stock in the query above
+    // TODO: Calculate availableStock = stock - reservedStock
+    // TODO: Check if availableStock >= clientItem.quantity (not just stock)
+    // TODO: If availableStock < quantity but stock >= quantity: Return 409 "Item being purchased"
+    // TODO: Use transaction to atomically: increment reservedStock + check _rev
+    // TODO: Frontend should display: stock - reservedStock as "Available Now"
     const lineItems: Array<{ price: string; quantity: number }> = [];
     const sanityTransaction = backendClient.transaction();
 
@@ -67,6 +79,8 @@ export async function POST(req: NextRequest) {
         );
       }
 
+      // TODO: Replace with: availableStock = serverProduct.stock - serverProduct.reservedStock
+      // TODO: Check availableStock <= 0 instead of stock <= 0
       if (serverProduct.stock <= 0) {
         return NextResponse.json(
           { error: `Sorry, ${serverProduct.name} is out of stock.` },
@@ -74,6 +88,9 @@ export async function POST(req: NextRequest) {
         );
       }
 
+      // TODO: Replace with: availableStock < clientItem.quantity
+      // TODO: Add additional check: if (stock >= quantity but availableStock < quantity)
+      //       Return: "Item currently being purchased by another customer. Please try again shortly."
       if (serverProduct.stock < clientItem.quantity) {
         return NextResponse.json(
           {
@@ -87,6 +104,11 @@ export async function POST(req: NextRequest) {
         price: serverProduct.stripePriceId,
         quantity: clientItem.quantity,
       });
+
+      // CURRENT: Decrementing stock immediately (causes race conditions)
+      // TODO: Change to increment reservedStock instead: p.inc({ reservedStock: clientItem.quantity })
+      // TODO: Keep stock unchanged at this stage (only reserve, don't decrement)
+      // TODO: Stock will be decremented later in webhook on successful payment
       sanityTransaction.patch(serverProduct._id, (p) =>
         p.dec({ stock: clientItem.quantity }).ifRevisionId(serverProduct._rev)
       );
@@ -124,14 +146,24 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// webhook handler for expired sessions
+// WEBHOOK HANDLER: Expired Sessions
+// TODO: Listen for 'checkout.session.expired' event
+// TODO: Parse metadata.productsIntent to get productId:quantity pairs
+// TODO: Wait 15-30 minutes before rollback (grace period for user to retry)
+// TODO: Decrement reservedStock for each product (release reservation)
+// TODO: Do NOT touch stock field (it was never decremented from total inventory)
+// TODO: Use inc() not set() to safely handle concurrent operations
 export async function handleExpiredSession(req: NextRequest) {
   const { session_id } = await req.json();
 
   // TODO: Rollback stock using session metadata
 }
 
-// webhook handler for failed payments
+// WEBHOOK HANDLER: Failed Payments
+// TODO: Listen for 'checkout.session.async_payment_failed' event
+// TODO: Parse metadata.productsIntent to get productId:quantity pairs
+// TODO: Immediately decrement reservedStock (no grace period needed)
+// TODO: Do NOT touch stock field
 export async function handleFailedPayment(req: NextRequest) {
   const { session_id } = await req.json();
 }
