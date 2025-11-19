@@ -2,7 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { currentUser } from "@clerk/nextjs/server";
 import { backendClient } from "@/sanity/lib/backendClient";
-import type { Product } from "@/types/product";
+
+type ServerProduct {
+    _id: string;
+    name: string;
+    price: number;
+    stock: number;
+    stripePriceId: string;
+    _rev: string;
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -28,14 +36,7 @@ export async function POST(req: NextRequest) {
 
     const productIds = publicBasket.map((item) => item._id);
 
-    const serverProducts: Array<{
-      _id: string;
-      name: string;
-      price: number;
-      stock: number;
-      stripePriceId: string;
-      _rev: string;
-    }> = await backendClient.fetch(
+    const serverProducts: ServerProduct[]  = await backendClient.fetch(
       `*[_type == "product" && _id in $productIds] {
         _id,
         name,
@@ -107,10 +108,12 @@ export async function POST(req: NextRequest) {
         customer_creation: "always",
       }),
       metadata: {
-        // inventory_lock: publicBasket
-        //   .map((i: any) => `${i._id}:${i.quantity}`)
-        //   .join(","),
-        // TODO save stock info for rollback later if session expired or payment failed
+        productsIntent: serverProducts
+          .map(
+            (item: { _id: string; quantity: number }) =>
+              `${item._id}:${item.quantity}`
+          )
+          .join(","),
         clerkUserId: user?.id || "guest",
       },
       expires_at: Math.floor(Date.now() / 1000) + 25 * 60,
