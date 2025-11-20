@@ -23,7 +23,7 @@ export default function ConfirmationView({ address }: { address: Address }) {
       <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-md">
         <DisplayAddress address={address} />
         <button
-          onClick={() => setStatus("EDITING")}
+          onClick={() => editAddress()}
           className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-yellow-900 hover:text-yellow-950"
         >
           <Edit3 size={16} />
@@ -31,7 +31,7 @@ export default function ConfirmationView({ address }: { address: Address }) {
         </button>
       </div>
 
-      {addressApiValidation === "CONFIRMED" ? (
+      {status === "CONFIRMED" ? (
         <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3">
           <Check className="text-green-600" size={18} />
           <p className="text-sm font-semibold text-green-800">
