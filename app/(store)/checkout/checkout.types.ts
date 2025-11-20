@@ -1,3 +1,18 @@
+export type ShippingAddress = {
+  regionCode: string;
+  postalCode: string;
+  street: string;
+  streetNumber: string;
+  city: string;
+};
+
+export type ValidationStatus =
+  | "IDLE"
+  | "LOADING"
+  | "FIX"
+  | "PARTIAL"
+  | "CONFIRMED";
+
 export type ServerProduct = {
   _id: string;
   name: string;

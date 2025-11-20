@@ -1,4 +1,4 @@
-import { ShippingAddress } from "../../layout";
+import { ShippingAddress } from "../layout";
 
 const DisplayAddress = function ({
   shippingAddress,

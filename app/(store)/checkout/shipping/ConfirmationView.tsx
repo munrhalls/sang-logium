@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useCheckout } from "@/app/(store)/checkout/layout";
-import DisplayAddress from "./DisplayAddress";
+import DisplayAddress from "./confirmation/DisplayAddress";
 import { Check, Edit3 } from "lucide-react";
 import { ShippingAddress } from "@/app/(store)/checkout/layout";
 

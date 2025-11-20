@@ -1,5 +1,5 @@
 "use client";
-import ConfirmationView from "./confirmation/ConfirmationView";
+import ConfirmationView from "./ConfirmationView";
 import ShippingFormView from "./ShippingFormView";
 import { useCheckout } from "../layout";
 
