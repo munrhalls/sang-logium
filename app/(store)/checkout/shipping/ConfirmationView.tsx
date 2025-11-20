@@ -4,12 +4,18 @@ import Link from "next/link";
 import { useCheckout } from "../CheckoutProvider"; // Import from the new provider
 import DisplayAddress from "./DisplayAddress";
 import { Check, Edit3 } from "lucide-react";
+import { useEffect } from "react";
 
 export default function ConfirmationView() {
   const { address, status, editAddress } = useCheckout();
 
+  useEffect(() => {
+    if (!address) {
+      editAddress();
+    }
+  }, [address, editAddress]);
+
   if (!address) {
-    editAddress();
     return null;
   }
 

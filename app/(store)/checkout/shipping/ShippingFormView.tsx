@@ -1,184 +1,121 @@
+"use client";
+
 import { useForm } from "react-hook-form";
-import { useCheckout } from "@/app/(store)/checkout/archived_layout";
-import { Address } from "@/app/(store)/checkout/archived_layout";
+import { useCheckout } from "../CheckoutProvider";
+import { Address } from "../checkout.types";
 import { useEffect } from "react";
 
-// TODO CRITICAL - DESIGN ISSUE - if user is logged in and has address, should be instantly moved to the confirmation view but at the same time, UX should be seamless and smooth - not unnecessary step over...
-// TODO CRITICAL - if user is logged in and has saved address, prefill the form with that data
-// TODO the country selector should have a nice flag (minor)
-// TODO this useEffect stuff smells, try to re-design and refactor
-
 export default function ShippingFormView() {
-  const { handleAddressSubmit, addressApiValidation, shippingAddress } =
-    useCheckout();
+  const { submitAddress, status, address } = useCheckout();
 
   const {
     register,
     handleSubmit,
     reset,
-    trigger,
     formState: { errors, isValid },
   } = useForm<Address>({
     mode: "onBlur",
-    defaultValues: shippingAddress ?? undefined,
+    defaultValues: address || undefined,
   });
 
   useEffect(() => {
-    if (shippingAddress) {
-      reset({ ...shippingAddress });
-      trigger();
+    if (address) {
+      reset(address);
     }
-  }, [shippingAddress, reset, trigger]);
+  }, [address, reset]);
 
   return (
-    <div className="flex min-h-screen justify-center">
-      <div className="relative rounded bg-white p-4">
-        <div className="relative min-h-96 w-80">
-          <form onSubmit={handleSubmit(handleAddressSubmit)}>
-            <h2 className="mb-4 text-lg font-bold">Enter Shipping Address</h2>
-            <p className="text-sm font-black tracking-wide">Country</p>
+    <div className="flex justify-center">
+      <div className="relative w-full max-w-md rounded bg-white p-4">
+        <form onSubmit={handleSubmit(submitAddress)}>
+          <h2 className="mb-4 text-lg font-bold">Enter Shipping Address</h2>
+
+          <div className="mb-4">
+            <label className="mb-1 block text-sm font-bold">Country</label>
             <select
               {...register("regionCode", { required: true })}
-              className="mb-4 w-full border border-gray-300 p-2"
+              className="w-full rounded border border-gray-300 p-2"
             >
               <option value="PL">Poland</option>
-              <option value="GB">England</option>
+              <option value="GB">United Kingdom</option>
+              <option value="US">United States</option>
             </select>
-            <p className="text-sm font-black tracking-wide">Postal code</p>
+          </div>
+
+          <div className="mb-4">
+            <label className="mb-1 block text-sm font-bold">Postal Code</label>
             <input
               {...register("postalCode", {
                 required: "Postal Code is required.",
-                minLength: {
-                  value: 5,
-                  message: "Postal Code must be at least 5 characters.",
-                },
-                maxLength: {
-                  value: 10,
-                  message: "Postal Code cannot exceed 10 characters.",
-                },
-                pattern: {
-                  value: /^[a-zA-Z0-9\s-]+$/,
-                  message:
-                    "Invalid format. Use letters, numbers, and spaces/hyphens.",
-                },
+                minLength: { value: 5, message: "Min 5 chars." },
               })}
-              type="text"
+              className="w-full rounded border border-gray-300 p-2"
               placeholder="Postal Code"
-              className="mb-2 w-full border border-gray-300 p-2"
             />
             {errors.postalCode && (
-              <p className="mb-4 text-xs font-semibold text-red-500">
-                {errors.postalCode.message || "Invalid Postal Code."}
+              <p className="mt-1 text-xs text-red-500">
+                {errors.postalCode.message}
               </p>
             )}
+          </div>
 
-            <div className="grid grid-cols-8 gap-2">
-              <div className="col-span-6">
-                <p className="text-sm font-black tracking-wide">Street</p>
-                <input
-                  {...register("street", {
-                    required: "Street is required.",
-                    minLength: {
-                      value: 3,
-                      message: "Street name must be at least 3 characters.",
-                    },
-                    maxLength: {
-                      value: 70,
-                      message: "Street name must be under 70 characters.",
-                    },
-                  })}
-                  type="text"
-                  placeholder="Street"
-                  className="mb-2 w-full border border-gray-300 p-2"
-                />
-                {errors.street && (
-                  <p className="mb-4 text-xs font-semibold text-red-500">
-                    {errors.street.message}
-                  </p>
-                )}
-              </div>
-
-              <div className="col-span-2">
-                <p className="text-sm font-black tracking-wide">Number</p>
-                <input
-                  {...register("streetNumber", {
-                    required: "Number is required.",
-                    minLength: {
-                      value: 1,
-                      message: "Must be at least 1 character.",
-                    },
-                    maxLength: {
-                      value: 10,
-                      message: "Number cannot exceed 10 characters.",
-                    },
-                    pattern: {
-                      value: /^[a-zA-Z0-9\-\/\s]+$/,
-                      message: "Invalid format. Use numbers, letters, -, or /.",
-                    },
-                  })}
-                  type="text"
-                  placeholder="..."
-                  className="mb-2 flex w-full items-center justify-center border border-gray-300 p-2"
-                />
-                {errors.streetNumber && (
-                  <p className="mb-4 text-xs font-semibold text-red-500">
-                    {errors.streetNumber.message}
-                  </p>
-                )}
-              </div>
+          <div className="mb-4 grid grid-cols-4 gap-2">
+            <div className="col-span-3">
+              <label className="mb-1 block text-sm font-bold">Street</label>
+              <input
+                {...register("street", { required: "Street is required." })}
+                className="w-full rounded border border-gray-300 p-2"
+                placeholder="Street Name"
+              />
             </div>
-            <p className="text-sm font-black tracking-wide">City</p>
+            <div className="col-span-1">
+              <label className="mb-1 block text-sm font-bold">No.</label>
+              <input
+                {...register("streetNumber", { required: "Req" })}
+                className="w-full rounded border border-gray-300 p-2"
+                placeholder="#"
+              />
+            </div>
+          </div>
+
+          {/* Street/Number errors combined for cleanliness */}
+          {(errors.street || errors.streetNumber) && (
+            <p className="mb-4 text-xs text-red-500">
+              Street and Number are required.
+            </p>
+          )}
+
+          <div className="mb-6">
+            <label className="mb-1 block text-sm font-bold">City</label>
             <input
-              {...register("city", {
-                required: "City name is required.",
-                minLength: {
-                  value: 3,
-                  message: "City name must be at least 3 characters long.",
-                },
-                maxLength: {
-                  value: 50,
-                  message: "City name cannot exceed 50 characters.",
-                },
-                pattern: {
-                  value: /^[a-zA-Z\s-]+$/,
-                  message:
-                    "Invalid format. City name can only contain letters, spaces, or hyphens.",
-                },
-              })}
-              type="text"
+              {...register("city", { required: "City is required." })}
+              className="w-full rounded border border-gray-300 p-2"
               placeholder="City"
-              className="mb-2 w-full border border-gray-300 p-2"
             />
             {errors.city && (
-              <p className="mb-4 text-xs font-semibold text-red-500">
-                {errors.city.message}
-              </p>
+              <p className="mt-1 text-xs text-red-500">{errors.city.message}</p>
             )}
-            <button
-              disabled={!isValid}
-              type="submit"
-              className={`w-full rounded px-4 py-2 ${
-                !isValid
-                  ? "cursor-not-allowed bg-gray-400 text-gray-600"
-                  : "bg-black text-white"
-              }`}
-            >
-              Submit Address
-            </button>
-          </form>
+          </div>
 
-          {addressApiValidation === "FIX" && (
-            <p className="mt-4 text-sm text-red-600">
-              Could not locate provided address on the map. Please review and
-              make sure it is correct.
-            </p>
+          <button
+            disabled={!isValid}
+            type="submit"
+            className={`w-full rounded px-4 py-3 font-bold transition-colors ${
+              !isValid
+                ? "cursor-not-allowed bg-gray-300 text-gray-500"
+                : "bg-black text-white hover:bg-gray-800"
+            }`}
+          >
+            Continue to Payment
+          </button>
+
+          {status === "FIX" && (
+            <div className="mt-4 rounded bg-red-50 p-3 text-sm text-red-600">
+              We couldn&apos;t locate that address on the map. Please
+              double-check your details.
+            </div>
           )}
-          {addressApiValidation === "ERROR" && (
-            <p className="mt-4 text-sm text-red-600">
-              An error occurred while validating your address. Please try again.
-            </p>
-          )}
-        </div>
+        </form>
       </div>
     </div>
   );

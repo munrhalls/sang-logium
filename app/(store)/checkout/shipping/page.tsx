@@ -17,7 +17,7 @@ export default function ShippingPage() {
   }
 
   if ((status === "CONFIRMED" || status === "PARTIAL") && address) {
-    return <ConfirmationView address={address} />;
+    return <ConfirmationView />;
   }
 
   return <ShippingFormView />;
