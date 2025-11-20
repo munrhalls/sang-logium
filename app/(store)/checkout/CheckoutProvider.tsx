@@ -13,7 +13,7 @@ type CheckoutContextType = {
 
 const CheckoutContext = createContext<CheckoutContextType | null>(null);
 
-export function CheckoutProvider({
+export default function CheckoutProvider({
   children,
   initialAddress,
   initialStatus,
