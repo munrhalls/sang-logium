@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: "./tests",
 
   use: {
-    baseURL: "https://localhost:3000",
+    baseURL: "http://localhost:3000",
   },
 
   projects: [
