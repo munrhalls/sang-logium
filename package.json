@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:test": "next dev --turbopack -p 3001",
     "webhook": "stripe listen --forward-to localhost:3000/api/webhook",
     "dev:stripe": "concurrently \"npm run dev\" \"npm run webhook\"",
     "build": "next build",
@@ -13,7 +14,7 @@
     "verify": "node verify-deployment.js",
     "start": "next start",
     "prod": "npm run build && npm run start",
-    "lint-strict": "eslint . --ext ts,tsx --max-warnings 0",
+    "lint-strict": "eslint . --ext ts,tsx --maVersion Mismatch: Your app uses Next.js 14 but your test project might drift to checking for things that don't exist yet.x-warnings 0",
     "test:ci": "jest --ci --coverage",
     "backup": "node backup-env.js",
     "predeploy": "node verify-env.js",
