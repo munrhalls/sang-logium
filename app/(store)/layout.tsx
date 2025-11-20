@@ -1,3 +1,5 @@
+// TODO CRITICAL!!! ADD SPECULATION API FOR BLAZING FAST PREFETCH AND LOADS
+// TODO CRITICAL!!! ADD SPECULATION API Speculation API  Speculation API  Speculation API
 // TODO preloading where it fits
 // TODO font to WOFF2, add font to public/fonts
 // TODO In app/global.css, apply the font-sans and font-mono font families to different elements:
