@@ -1,4 +1,3 @@
-// schemas/user.js
 import { UserIcon } from "@sanity/icons";
 import { defineType, defineField, defineArrayMember } from "sanity";
 
@@ -8,41 +7,34 @@ export const userType = defineType({
   type: "document",
   icon: UserIcon,
   fields: [
-    // ============ IDENTITY (Links to Clerk) ============
+    // --- IDENTITY ---
     defineField({
       name: "clerkUserId",
       title: "Clerk User ID",
       type: "string",
-      description: "Links to Clerk authentication system",
       validation: (Rule) => Rule.required(),
-      readOnly: true, // Set programmatically
-      hidden: false, // Visible for debugging
-    }),
-
-    // ============ DISPLAY INFO (Cached from Clerk) ============
-    defineField({
-      name: "displayName",
-      title: "Display Name",
-      type: "string",
-      description: "Cached from Clerk for display purposes",
-      validation: (Rule) => Rule.required(),
+      readOnly: true,
+      description: "The immutable link to Clerk.",
     }),
     defineField({
       name: "email",
       title: "Email",
       type: "string",
-      description: "Cached from Clerk for queries (not source of truth)",
       validation: (Rule) => Rule.required().email(),
-      readOnly: true,
+      readOnly: true, // Email management should happen in Clerk
+    }),
+    defineField({
+      name: "displayName",
+      title: "Display Name",
+      type: "string",
     }),
     defineField({
       name: "avatarUrl",
       title: "Avatar URL",
       type: "url",
-      description: "Profile picture from Clerk or social login",
     }),
 
-    // ============ ADDRESSES ============
+    // --- DATA ---
     defineField({
       name: "addresses",
       title: "Saved Addresses",
@@ -50,109 +42,32 @@ export const userType = defineType({
       of: [
         defineArrayMember({
           type: "object",
-          name: "address",
-          title: "Address",
           fields: [
             {
-              name: "id",
-              type: "string",
-              title: "Address ID",
-              validation: (Rule) => Rule.required(),
-              hidden: true, // Auto-generated
-            },
-            {
-              name: "label",
-              type: "string",
-              title: "Label",
-              description: "e.g., Home, Work, Mom's House",
-              validation: (Rule) => Rule.required(),
-            },
-            {
               name: "isDefault",
+              title: "Default?",
               type: "boolean",
-              title: "Default Address",
-              description: "Use this address by default",
               initialValue: false,
             },
-            {
-              name: "type",
-              type: "string",
-              title: "Address Type",
-              options: {
-                list: [
-                  { title: "Both", value: "both" },
-                  { title: "Shipping Only", value: "shipping" },
-                  { title: "Billing Only", value: "billing" },
-                ],
-              },
-              initialValue: "both",
-            },
-            {
-              name: "fullName",
-              type: "string",
-              title: "Full Name",
-              validation: (Rule) => Rule.required(),
-            },
-            {
-              name: "line1",
-              type: "string",
-              title: "Address Line 1",
-              validation: (Rule) => Rule.required(),
-            },
-            {
-              name: "line2",
-              type: "string",
-              title: "Address Line 2",
-            },
-            {
-              name: "city",
-              type: "string",
-              title: "City",
-              validation: (Rule) => Rule.required(),
-            },
-            {
-              name: "state",
-              type: "string",
-              title: "State/Province",
-              validation: (Rule) => Rule.required(),
-            },
-            {
-              name: "postalCode",
-              type: "string",
-              title: "Postal/ZIP Code",
-              validation: (Rule) => Rule.required(),
-            },
-            {
-              name: "country",
-              type: "string",
-              title: "Country",
-              validation: (Rule) => Rule.required(),
-              initialValue: "US",
-            },
-            {
-              name: "phone",
-              type: "string",
-              title: "Phone Number",
-            },
-            {
-              name: "instructions",
-              type: "text",
-              title: "Delivery Instructions",
-              description: "Gate code, apartment number, etc.",
-              rows: 2,
-            },
+            { name: "name", title: "Full Name", type: "string" },
+            { name: "line1", title: "Address Line 1", type: "string" },
+            { name: "line2", title: "Address Line 2", type: "string" },
+            { name: "city", title: "City", type: "string" },
+            { name: "state", title: "State", type: "string" },
+            { name: "postalCode", title: "Postal Code", type: "string" },
+            { name: "country", title: "Country", type: "string" },
+            { name: "phone", title: "Phone", type: "string" },
           ],
           preview: {
             select: {
-              title: "label",
-              line1: "line1",
-              city: "city",
+              title: "name",
+              subtitle: "line1",
               isDefault: "isDefault",
             },
-            prepare(selection) {
+            prepare({ title, subtitle, isDefault }) {
               return {
-                title: selection.title + (selection.isDefault ? " ⭐" : ""),
-                subtitle: `${selection.line1}, ${selection.city}`,
+                title: isDefault ? `${title} (Default)` : title,
+                subtitle: subtitle,
               };
             },
           },
@@ -160,147 +75,25 @@ export const userType = defineType({
       ],
     }),
 
-    // ============ CACHED STATISTICS ============
+    // --- METADATA ---
     defineField({
-      name: "stats",
-      title: "User Statistics",
-      type: "object",
-      description: "Cached for performance, recalculated periodically",
-      fields: [
-        {
-          name: "orderCount",
-          type: "number",
-          title: "Total Orders",
-          validation: (Rule) => Rule.integer().min(0),
-          readOnly: true,
-        },
-        {
-          name: "totalSpent",
-          type: "number",
-          title: "Total Spent",
-          validation: (Rule) => Rule.min(0),
-          readOnly: true,
-        },
-        {
-          name: "averageOrderValue",
-          type: "number",
-          title: "Average Order Value",
-          readOnly: true,
-        },
-        {
-          name: "lastOrderDate",
-          type: "datetime",
-          title: "Last Order Date",
-          readOnly: true,
-        },
-        {
-          name: "reviewCount",
-          type: "number",
-          title: "Reviews Written",
-          validation: (Rule) => Rule.integer().min(0),
-          readOnly: true,
-        },
-        {
-          name: "wishlistItemCount",
-          type: "number",
-          title: "Wishlist Items",
-          validation: (Rule) => Rule.integer().min(0),
-          readOnly: true,
-        },
-      ],
+      name: "lastSynced",
+      title: "Last Synced with Clerk",
+      type: "datetime",
+      readOnly: true,
     }),
-
-    // ============ METADATA ============
     defineField({
-      name: "metadata",
-      title: "Metadata",
-      type: "object",
-      fields: [
-        {
-          name: "createdAt",
-          type: "datetime",
-          title: "Account Created",
-          validation: (Rule) => Rule.required(),
-          readOnly: true,
-        },
-        {
-          name: "updatedAt",
-          type: "datetime",
-          title: "Last Updated",
-          readOnly: true,
-        },
-        {
-          name: "lastSyncedWithClerk",
-          type: "datetime",
-          title: "Last Clerk Sync",
-          description: "When user data was last synced from Clerk",
-          readOnly: true,
-        },
-        {
-          name: "source",
-          type: "string",
-          title: "Registration Source",
-          options: {
-            list: [
-              { title: "Website", value: "web" },
-              { title: "Mobile App", value: "mobile" },
-              { title: "Guest Conversion", value: "guest_conversion" },
-              { title: "Social Login", value: "social" },
-              { title: "Admin Created", value: "admin" },
-            ],
-          },
-        },
-        {
-          name: "tags",
-          type: "array",
-          of: [{ type: "string" }],
-          title: "User Tags",
-          description: "VIP, wholesale, staff, etc.",
-        },
-        {
-          name: "notes",
-          type: "text",
-          title: "Internal Notes",
-          description: "Customer service notes (not visible to user)",
-          rows: 3,
-        },
-        {
-          name: "isActive",
-          type: "boolean",
-          title: "Account Active",
-          description: "False if suspended or deleted",
-          initialValue: true,
-        },
-        {
-          name: "gdprConsent",
-          type: "object",
-          title: "GDPR Consent",
-          fields: [
-            { name: "accepted", type: "boolean", title: "Accepted Terms" },
-            { name: "acceptedAt", type: "datetime", title: "Acceptance Date" },
-            { name: "ip", type: "string", title: "IP Address" },
-          ],
-        },
-      ],
+      name: "isActive",
+      title: "Account Active",
+      type: "boolean",
+      initialValue: true,
     }),
   ],
 
-  // ============ PREVIEW CONFIG ============
   preview: {
     select: {
-      displayName: "displayName",
-      email: "email",
-      orderCount: "stats.orderCount",
-      tier: "loyalty.tier",
-      isActive: "metadata.isActive",
-    },
-    prepare(selection) {
-      const { displayName, email, orderCount, tier, isActive } = selection;
-      return {
-        title: `${displayName}${!isActive ? " (Inactive)" : ""}`,
-        subtitle: `${email} • ${orderCount || 0} orders • ${tier || "Bronze"}`,
-        media: UserIcon,
-      };
+      title: "displayName",
+      subtitle: "email",
     },
   },
 });
