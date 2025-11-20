@@ -21,7 +21,7 @@ export const userType = defineType({
       title: "Email",
       type: "string",
       validation: (Rule) => Rule.required().email(),
-      readOnly: true, // Email management should happen in Clerk
+      readOnly: true,
     }),
     defineField({
       name: "displayName",
