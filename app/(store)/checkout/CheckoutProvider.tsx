@@ -22,7 +22,7 @@ export function CheckoutProvider({
   initialAddress: Address | null;
   initialStatus: Status | null;
 }) {
-  const [status, setStatus] = useState<Status>(initialStatus || "IDLE");
+  const [status, setStatus] = useState<Status>(initialStatus || "EDITING");
 
   const [address, setAddress] = useState<Address | null>(initialAddress);
 
