@@ -2,7 +2,7 @@
 
 import { useCheckout } from "../CheckoutProvider";
 import ConfirmationView from "./ConfirmationView";
-import ShippingFormView from "./ShippingFormView";
+import FormView from "./FormView";
 import Loader from "@/app/components/common/Loader";
 
 export default function ShippingPage() {
@@ -20,5 +20,5 @@ export default function ShippingPage() {
     return <ConfirmationView />;
   }
 
-  return <ShippingFormView />;
+  return <FormView />;
 }
