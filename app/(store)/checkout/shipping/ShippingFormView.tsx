@@ -3,6 +3,11 @@ import { useCheckout } from "@/app/(store)/checkout/layout";
 import { ShippingAddress } from "@/app/(store)/checkout/layout";
 import { useEffect } from "react";
 
+// TODO CRITICAL - DESIGN ISSUE - if user is logged in and has address, should be instantly moved to the confirmation view but at the same time, UX should be seamless and smooth - not unnecessary step over...
+// TODO CRITICAL - if user is logged in and has saved address, prefill the form with that data
+// TODO the country selector should have a nice flag (minor)
+// TODO this useEffect stuff smells, try to re-design and refactor
+
 export default function ShippingFormView() {
   const { handleAddressSubmit, addressApiValidation, shippingAddress } =
     useCheckout();
@@ -23,7 +28,7 @@ export default function ShippingFormView() {
       reset({ ...shippingAddress });
       trigger();
     }
-  }, [shippingAddress, reset, trigger]); //
+  }, [shippingAddress, reset, trigger]);
 
   return (
     <div className="flex min-h-screen justify-center">
