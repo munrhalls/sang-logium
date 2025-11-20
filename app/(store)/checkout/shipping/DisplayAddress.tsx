@@ -1,4 +1,4 @@
-import { ShippingAddress } from "../layout";
+import { ShippingAddress } from "../archived_layout";
 
 const DisplayAddress = function ({
   shippingAddress,

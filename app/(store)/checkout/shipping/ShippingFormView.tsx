@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useCheckout } from "@/app/(store)/checkout/layout";
-import { ShippingAddress } from "@/app/(store)/checkout/layout";
+import { useCheckout } from "@/app/(store)/checkout/archived_layout";
+import { Address } from "@/app/(store)/checkout/archived_layout";
 import { useEffect } from "react";
 
 // TODO CRITICAL - DESIGN ISSUE - if user is logged in and has address, should be instantly moved to the confirmation view but at the same time, UX should be seamless and smooth - not unnecessary step over...
@@ -18,7 +18,7 @@ export default function ShippingFormView() {
     reset,
     trigger,
     formState: { errors, isValid },
-  } = useForm<ShippingAddress>({
+  } = useForm<Address>({
     mode: "onBlur",
     defaultValues: shippingAddress ?? undefined,
   });

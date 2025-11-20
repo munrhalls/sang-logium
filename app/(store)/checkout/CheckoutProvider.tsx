@@ -1,14 +1,13 @@
-import { createContext, useContext } from "react";
-import { CheckoutContextType } from "./checkout.types";
+"use client";
+import { createContext } from "react";
+import { useContext } from "react";
+import { Address, Status } from "./checkout.types";
+import CheckoutProvider from "./CheckoutProvider";
 
-const CheckoutContext = createContext<CheckoutContextType>(
-  {} as CheckoutContextType
-);
-
-export function useCheckout() {
-  return useContext(CheckoutContext);
-}
-
-export default function CheckoutProvider() {
-  return <div>CheckoutProvider</div>;
-}
+const CheckoutContext = createContext<{
+  address: Address | null;
+  status: Status;
+}>({
+  address: null,
+  status: "EDITING",
+});

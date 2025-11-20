@@ -1,4 +1,4 @@
-export type ShippingAddress = {
+export type Address = {
   regionCode: string;
   postalCode: string;
   street: string;
@@ -6,12 +6,7 @@ export type ShippingAddress = {
   city: string;
 };
 
-export type ValidationStatus =
-  | "IDLE"
-  | "LOADING"
-  | "FIX"
-  | "PARTIAL"
-  | "CONFIRMED";
+export type Status = "EDITING" | "LOADING" | "FIX" | "PARTIAL" | "CONFIRMED";
 
 export type ServerProduct = {
   _id: string;

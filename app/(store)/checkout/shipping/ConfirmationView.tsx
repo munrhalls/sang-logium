@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
-import { useCheckout } from "@/app/(store)/checkout/layout";
+import { useCheckout } from "@/app/(store)/checkout/archived_layout";
 import DisplayAddress from "./confirmation/DisplayAddress";
 import { Check, Edit3 } from "lucide-react";
-import { ShippingAddress } from "@/app/(store)/checkout/layout";
+import { ShippingAddress } from "@/app/(store)/checkout/archived_layout";
 
 // TODO earlier, need to create guest account that'll live inside cookie / session
 // TODO upon "proceed to payment" click, the address needs to be safely saved to cookie and sealed via JWT
