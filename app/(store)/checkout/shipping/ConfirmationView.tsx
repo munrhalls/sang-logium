@@ -1,29 +1,25 @@
 "use client";
+
 import Link from "next/link";
-import { useCheckout } from "@/app/(store)/checkout/archived_layout";
+import { useCheckout } from "../CheckoutProvider"; // Import from the new provider
 import DisplayAddress from "./DisplayAddress";
 import { Check, Edit3 } from "lucide-react";
-import { Address } from "../checkout.types";
 
-// TODO earlier, need to create guest account that'll live inside cookie / session
-// TODO upon "proceed to payment" click, the address needs to be safely saved to cookie and sealed via JWT
-// TODO then that info needs ot somehow end up in the payment page
-// TODO if this is guest account, checkout session consumes their address information from cookie/JWT
-// TODO otherwise, if logged in, it uses their saved address info from their clerk user acc
+export default function ConfirmationView() {
+  const { address, status, editAddress } = useCheckout();
 
-export default function ConfirmationView({ address }: { address: Address }) {
-  const { editAddress } = useCheckout();
-
-  if (address === null) {
+  if (!address) {
     editAddress();
+    return null;
   }
 
   return (
     <div className="flex flex-col gap-4">
       <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-md">
         <DisplayAddress address={address} />
+
         <button
-          onClick={() => editAddress()}
+          onClick={editAddress}
           className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-yellow-900 hover:text-yellow-950"
         >
           <Edit3 size={16} />
