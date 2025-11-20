@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useCheckout } from "@/app/(store)/checkout/archived_layout";
-import DisplayAddress from "./confirmation/DisplayAddress";
+import DisplayAddress from "./DisplayAddress";
 import { Check, Edit3 } from "lucide-react";
-import { ShippingAddress } from "@/app/(store)/checkout/archived_layout";
+import { Address } from "../checkout.types";
 
 // TODO earlier, need to create guest account that'll live inside cookie / session
 // TODO upon "proceed to payment" click, the address needs to be safely saved to cookie and sealed via JWT
@@ -11,23 +11,19 @@ import { ShippingAddress } from "@/app/(store)/checkout/archived_layout";
 // TODO if this is guest account, checkout session consumes their address information from cookie/JWT
 // TODO otherwise, if logged in, it uses their saved address info from their clerk user acc
 
-export default function ConfirmationView({
-  shippingAddress,
-}: {
-  shippingAddress: ShippingAddress;
-}) {
-  const { addressApiValidation, setIsAddressValidated } = useCheckout();
+export default function ConfirmationView({ address }: { address: Address }) {
+  const { editAddress } = useCheckout();
 
-  if (addressApiValidation == null || shippingAddress == null) {
-    setIsAddressValidated(false);
+  if (address === null) {
+    editAddress();
   }
 
   return (
     <div className="flex flex-col gap-4">
       <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-md">
-        <DisplayAddress shippingAddress={shippingAddress} />
+        <DisplayAddress address={address} />
         <button
-          onClick={() => setIsAddressValidated(false)}
+          onClick={() => setStatus("EDITING")}
           className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-yellow-900 hover:text-yellow-950"
         >
           <Edit3 size={16} />
