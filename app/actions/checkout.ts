@@ -7,7 +7,36 @@ import { Address, Status } from "@/app/(store)/checkout/checkout.types";
 const SECRET = new TextEncoder().encode(
   process.env.CHECKOUT_JWT_SECRET || "dev-secret-key"
 );
-const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+const GOOGLE_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+
+export interface ComponentDetail {
+  componentType: string;
+  componentName: {
+    text: string;
+  };
+}
+
+export interface SimpleVerdict {
+  addressComplete: boolean;
+  validationGranularity: string;
+  possibleNextAction: string;
+}
+
+export interface SimpleAddressComponent {
+  postalAddress: {
+    locality: string;
+    postalCode: string;
+    regionCode: string;
+  };
+  addressComponents: ComponentDetail[];
+}
+
+export interface SimpleValidationResult {
+  result: {
+    verdict: SimpleVerdict;
+    address: SimpleAddressComponent;
+  };
+}
 
 export async function submitShippingAction(formData: Address): Promise<{
   status: Status;
@@ -40,7 +69,7 @@ export async function submitShippingAction(formData: Address): Promise<{
       throw new Error("Address validation service failed");
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as SimpleValidationResult;
     const verdict = data.result?.verdict;
     const action = verdict?.possibleNextAction;
 
@@ -55,7 +84,9 @@ export async function submitShippingAction(formData: Address): Promise<{
     const postalAddress = data.result?.address?.postalAddress;
 
     const getComponent = (type: string) => {
-      const comp = components.find((c: any) => c.componentType === type);
+      const comp = components.find(
+        (c: ComponentDetail) => c.componentType === type
+      );
       return comp?.componentName?.text || "";
     };
 
