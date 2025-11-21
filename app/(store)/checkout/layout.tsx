@@ -30,14 +30,29 @@ export default async function CheckoutLayout({
           sanityUser.addresses[0];
 
         if (savedAddr) {
-          initialAddress = {
-            street: savedAddr.line1,
-            streetNumber: savedAddr.line2,
-            city: savedAddr.city,
-            postalCode: savedAddr.postalCode,
-            regionCode: savedAddr.country,
-          };
-          initialStatus = "CONFIRMED";
+          const hasRequiredFields =
+            savedAddr.line1?.trim() &&
+            savedAddr.city?.trim() &&
+            savedAddr.postalCode?.trim() &&
+            savedAddr.country?.trim();
+
+          if (hasRequiredFields) {
+            initialAddress = {
+              street: savedAddr.line1!,
+              streetNumber: savedAddr.line2!,
+              city: savedAddr.city!,
+              postalCode: savedAddr.postalCode!,
+              regionCode: savedAddr.country!,
+            };
+            initialStatus = "CONFIRMED";
+          } else {
+            console.warn("Incomplete address data in Sanity:", {
+              hasLine1: !!savedAddr.line1,
+              hasCity: !!savedAddr.city,
+              hasPostalCode: !!savedAddr.postalCode,
+              hasCountry: !!savedAddr.country,
+            });
+          }
         }
       }
     } catch (error) {
