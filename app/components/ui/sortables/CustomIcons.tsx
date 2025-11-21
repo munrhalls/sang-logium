@@ -1,7 +1,7 @@
 export const ChevronUp = function () {
   return (
     <svg
-      xmlns="http:
+      xmlns="http://www.w3.org/2000/svg"
       className="h-4 w-4 text-white"
       fill="none"
       viewBox="0 0 24 24"
@@ -16,10 +16,11 @@ export const ChevronUp = function () {
     </svg>
   );
 };
+
 export const ChevronDown = function () {
   return (
     <svg
-      xmlns="http:
+      xmlns="http://www.w3.org/2000/svg"
       className="h-4 w-4 text-white"
       fill="none"
       viewBox="0 0 24 24"
@@ -37,7 +38,7 @@ export const ChevronDown = function () {
 export const OptionIcon = function () {
   return (
     <svg
-      xmlns="http:
+      xmlns="http://www.w3.org/2000/svg"
       className="h-3.5 w-3.5 text-white"
       viewBox="0 0 20 20"
       fill="currentColor"
