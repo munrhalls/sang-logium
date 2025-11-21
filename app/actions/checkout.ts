@@ -71,12 +71,10 @@ export async function submitShippingAction(formData: Address): Promise<{
         regionCode: postalAddress?.regionCode || formData.regionCode,
       };
 
-      // 2. Seal Address into Signed Cookie (JWT)
-      // This creates the "Source of Truth" for the Guest User
       const token = await new SignJWT(correctedAddress)
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
-        .setExpirationTime("1h") // Context expires in 1 hour
+        .setExpirationTime("1h")
         .sign(SECRET);
 
       const cookieStore = await cookies();
@@ -91,7 +89,6 @@ export async function submitShippingAction(formData: Address): Promise<{
     return { status, correctedAddress };
   } catch (error) {
     console.error("Shipping submission error:", error);
-    // On system error, default to FIX so user stays on form
     return { status: "FIX", correctedAddress: formData };
   }
 }

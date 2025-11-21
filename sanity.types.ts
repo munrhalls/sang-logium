@@ -13,28 +13,27 @@
  */
 
 // Source: schema.json
-export type UserProfile = {
+export type User = {
   _id: string;
-  _type: "userProfile";
+  _type: "user";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  clerkId?: string;
+  clerkUserId?: string;
+  email?: string;
   displayName?: string;
-  primaryAddress?: {
-    streetAddress?: string;
+  avatarUrl?: string;
+  addresses?: Array<{
+    isDefault?: boolean;
+    line1?: string;
+    line2?: string;
     city?: string;
-    state?: string;
     postalCode?: string;
     country?: string;
-  };
-  preferences?: {
-    receiveMarketingEmails?: boolean;
-    darkMode?: boolean;
-    savePaymentInfo?: boolean;
-  };
-  createdAt?: string;
-  updatedAt?: string;
+    _key: string;
+  }>;
+  lastSynced?: string;
+  isActive?: boolean;
 };
 
 export type Commercial = {
@@ -632,7 +631,7 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
-  | UserProfile
+  | User
   | Commercial
   | Exhibition
   | Sale
@@ -1248,26 +1247,7 @@ export type SORTABLES_BY_CATEGORY_QUERYResult = {
 // Source: ./sanity/lib/profiles/fetchProfileByClerkId.ts
 // Variable: FETCH_PROFILE_QUERY
 // Query: *[_type == "userProfile" && clerkId == $clerkId][0] {      _id,      _type,      clerkId,      displayName,      primaryAddress {        streetAddress,        city,        state,        postalCode,        country      },      preferences {        receiveMarketingEmails,        darkMode,        savePaymentInfo      },      createdAt,      updatedAt    }
-export type FETCH_PROFILE_QUERYResult = {
-  _id: string;
-  _type: "userProfile";
-  clerkId: string | null;
-  displayName: string | null;
-  primaryAddress: {
-    streetAddress: string | null;
-    city: string | null;
-    state: string | null;
-    postalCode: string | null;
-    country: string | null;
-  } | null;
-  preferences: {
-    receiveMarketingEmails: boolean | null;
-    darkMode: boolean | null;
-    savePaymentInfo: boolean | null;
-  } | null;
-  createdAt: string | null;
-  updatedAt: string | null;
-} | null;
+export type FETCH_PROFILE_QUERYResult = null;
 
 // Source: ./sanity/lib/sales/getAllActiveSales.ts
 // Variable: GET_ACTIVE_SALES_QUERY

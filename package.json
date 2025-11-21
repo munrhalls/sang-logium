@@ -19,7 +19,7 @@
     "backup": "node backup-env.js",
     "predeploy": "node verify-env.js",
     "seed": "ts-node --esm seedCategories.ts",
-    "typegen": "npx -y sanity@latest schema extract && npx -y sanity@latest typegen generate",
+    "typegen": "sanity schema extract && sanity typegen generate",
     "test": "jest",
     "test:api": "CONFIRM_API_TESTS=true jest",
     "test:watch": "jest --watch",
