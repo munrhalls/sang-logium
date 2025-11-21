@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { getCategoryIcon } from "@/app/components/ui/AdaptiveCategoryIcon";
+import { AdaptiveCategoryIcon } from "@/app/components/ui/AdaptiveCategoryIcon";
 import { FaChevronDown, FaRegCircle } from "react-icons/fa";
 import { useState } from "react";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
@@ -73,7 +73,7 @@ export default function CategoriesNav({
                 >
                   {category.icon && (
                     <span className="mr-2">
-                      {getCategoryIcon(category.icon)}
+                      <AdaptiveCategoryIcon title={category.icon} />
                     </span>
                   )}
                   <span className="xl:text-md truncate text-sm md:text-sm 2xl:text-lg">

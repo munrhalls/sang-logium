@@ -2,7 +2,7 @@ import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import MobileCategoriesDrawer from "./MobileCategoriesDrawer";
 import Link from "next/link";
 import { FaRegCircle } from "react-icons/fa";
-import { getCategoryIcon } from "@/app/components/ui/AdaptiveCategoryIcon";
+import { AdaptiveCategoryIcon } from "@/app/components/ui/AdaptiveCategoryIcon";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 type SubCategory = {
   header?: string;
@@ -76,7 +76,9 @@ export default async function MobileCategoriesDrawerWrapper() {
               className="flex items-center text-2xl font-semibold hover:text-gray-600"
             >
               {category.icon && (
-                <span className="mr-3">{getCategoryIcon(category.icon)}</span>
+                <span className="mr-3">
+                  <AdaptiveCategoryIcon title={category.icon} />
+                </span>
               )}
               <span
                 className={`${category.name === "On Sale" ? "text-orange-500" : ""}`}
