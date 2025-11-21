@@ -56,12 +56,6 @@ export const productType = defineType({
       validation: (Rule) => Rule.min(0),
     }),
     defineField({
-      name: "reservedStock ",
-      title: "Reserved Stock",
-      type: "number",
-      validation: (Rule) => Rule.min(0),
-    }),
-    defineField({
       name: "sku",
       title: "SKU",
       type: "string",

@@ -49,14 +49,11 @@ export const userType = defineType({
               type: "boolean",
               initialValue: false,
             },
-            { name: "name", title: "Full Name", type: "string" },
             { name: "line1", title: "Address Line 1", type: "string" },
             { name: "line2", title: "Address Line 2", type: "string" },
             { name: "city", title: "City", type: "string" },
-            { name: "state", title: "State", type: "string" },
             { name: "postalCode", title: "Postal Code", type: "string" },
             { name: "country", title: "Country", type: "string" },
-            { name: "phone", title: "Phone", type: "string" },
           ],
           preview: {
             select: {
