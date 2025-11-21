@@ -1,6 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { backendClient } from "@/sanity/lib/backendClient";
-import { getCheckoutCookie } from "@/lib/cookies";
+import { getCheckoutCookie } from "@/lib/utils/cookies";
 import CheckoutProvider from "./CheckoutProvider";
 import { Address, Status } from "./checkout.types";
 import { User } from "@/sanity.types";
