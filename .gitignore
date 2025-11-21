@@ -32,6 +32,7 @@ yarn-error.log*
 # env files (added redundancy to be sure)
 .env*
 .env.Local
+.env.local
 .env.local.*
 .env.development.Local
 .env.test.Local
