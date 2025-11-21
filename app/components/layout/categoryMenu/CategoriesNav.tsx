@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { getCategoryIcon } from "@/lib/getCategoryIcon";
+import { getCategoryIcon } from "@/app/components/ui/AdaptiveCategoryIcon";
 import { FaChevronDown, FaRegCircle } from "react-icons/fa";
 import { useState } from "react";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
@@ -25,14 +25,12 @@ function SubcategoryList({
       {items.map((sub) => (
         <div key={sub._key}>
           {sub.header && (
-            <h3 className="px-4 py-2  font-black text-gray-500">
-              {sub.header}
-            </h3>
+            <h3 className="px-4 py-2 font-black text-gray-500">{sub.header}</h3>
           )}
           {sub.name && (
             <Link
               href={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}`}
-              className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-300 hover:text-yellow-600 transition-all duration-100 rounded-md group min-w-0"
+              className="group flex min-w-0 items-center rounded-md px-4 py-2 text-gray-800 transition-all duration-100 hover:bg-gray-300 hover:text-yellow-600"
             >
               <FaRegCircle className="mr-2 text-sm" />
               <span className="block overflow-hidden whitespace-nowrap">
@@ -58,34 +56,33 @@ export default function CategoriesNav({
 }) {
   const [activeCategory, setActiveCategory] = useState<string>();
   return (
-    <nav className="hidden h-11 lg:flex items-center justify-center bg-black ">
-      <div className="h-full max-w-7xl mx-auto lg:px-1 xl:px-4 lg:flex items-center justify-center">
-        <ul className="h-full flex items-center">
+    <nav className="hidden h-11 items-center justify-center bg-black lg:flex">
+      <div className="mx-auto h-full max-w-7xl items-center justify-center lg:flex lg:px-1 xl:px-4">
+        <ul className="flex h-full items-center">
           {categories.map((category, index) => {
             return (
               <li
                 key={category._id}
-                className="relative h-full "
+                className="relative h-full"
                 onMouseEnter={() => setActiveCategory(category.name)}
                 onMouseLeave={() => setActiveCategory(undefined)}
               >
                 <Link
                   href={`/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`}
-                  className={`h-full flex justify-around items-center lg:px-1 xl:px-4 text-white hover:text-yellow-600 transition-colors
-                ${activeCategory === category.name ? "text-yellow-400" : ""} ${index === 6 ? "text-orange-600 font-black" : ""}`}
+                  className={`flex h-full items-center justify-around text-white transition-colors hover:text-yellow-600 lg:px-1 xl:px-4 ${activeCategory === category.name ? "text-yellow-400" : ""} ${index === 6 ? "font-black text-orange-600" : ""}`}
                 >
                   {category.icon && (
-                    <span className="mr-2 ">
+                    <span className="mr-2">
                       {getCategoryIcon(category.icon)}
                     </span>
                   )}
-                  <span className="truncate text-sm md:text-sm xl:text-md 2xl:text-lg">
+                  <span className="xl:text-md truncate text-sm md:text-sm 2xl:text-lg">
                     {category.name}
                   </span>
-                  <FaChevronDown className="ml-2 w-3 h-3" />
+                  <FaChevronDown className="ml-2 h-3 w-3" />
                 </Link>
                 {activeCategory === category.name && category.subcategories && (
-                  <div className="absolute z-50 left-0 w-72 bg-white shadow-lg rounded-b-lg">
+                  <div className="absolute left-0 z-50 w-72 rounded-b-lg bg-white shadow-lg">
                     <div className="py-2">
                       <SubcategoryList
                         items={category.subcategories}

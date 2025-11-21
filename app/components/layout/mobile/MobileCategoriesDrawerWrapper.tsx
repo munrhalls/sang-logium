@@ -2,7 +2,7 @@ import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import MobileCategoriesDrawer from "./MobileCategoriesDrawer";
 import Link from "next/link";
 import { FaRegCircle } from "react-icons/fa";
-import { getCategoryIcon } from "@/lib/getCategoryIcon";
+import { getCategoryIcon } from "@/app/components/ui/AdaptiveCategoryIcon";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 type SubCategory = {
   header?: string;

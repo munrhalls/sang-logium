@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useMemo } from "react";
-import { generateBlurDataURL, heroImageUrl } from "@/lib/imageUrl";
+import { generateBlurDataURL, heroImageUrl } from "@/lib/sanity/imageUrl";
 import TextCommercial from "@/app/components/ui/commercials/textCommercial";
 import ProductsCommercial from "@/app/components/ui/commercials/productCommercial";
 import { GET_COMMERCIALS_BY_FEATURE_QUERYResult } from "@/sanity.types";

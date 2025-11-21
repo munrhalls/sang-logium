@@ -1,7 +1,7 @@
 import { Product } from "@/sanity.types";
 import Image from "next/image";
 import Link from "next/link";
-import { imageUrl } from "@/lib/imageUrl";
+import { imageUrl } from "@/lib/sanity/imageUrl";
 import BasketControls from "../basket/BasketControls";
 import { BasketItem } from "@/app/(store)/basket/basket.types";
 interface ProductThumbProps {

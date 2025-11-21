@@ -4,7 +4,7 @@ import BrandTitle from "../../../ui/commercials/minor/brandTitle";
 import Link from "next/link";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import Image from "next/image";
-import { imageUrl } from "@/lib/imageUrl";
+import { imageUrl } from "@/lib/sanity/imageUrl";
 import { BlockContent } from "@/sanity.types";
 import { PortableText } from "@portabletext/react";
 type Product = {

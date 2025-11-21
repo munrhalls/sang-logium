@@ -21,7 +21,7 @@ export const flatToTree = function (list: CategoryWithMetadata[], depth = 1) {
 };
 const transformToTree = function (
   item: CategoryWithMetadata,
-  list: CategoryWithMetadata[],
+  list: CategoryWithMetadata[]
 ) {
   const depth = item?.metadata?.depth;
   const path = item?.metadata?.path;
@@ -33,15 +33,15 @@ const transformToTree = function (
   const children = list.filter(
     (child) =>
       child?.metadata?.path?.startsWith(path) &&
-      child?.metadata?.depth === depth + 1,
+      child?.metadata?.depth === depth + 1
   );
   const transformedChildren = children.map((child) =>
-    transformToTree(child, list),
+    transformToTree(child, list)
   );
   const filledGroups = initialGroups.map((group: string, index: number) => {
     if (index === 0) {
       const childrenGroup = transformedChildren.filter(
-        (child) => !child?.metadata?.group,
+        (child) => !child?.metadata?.group
       );
       if (childrenGroup.length) {
         return {
@@ -53,7 +53,7 @@ const transformToTree = function (
       }
     }
     const childrenGroup = transformedChildren.filter(
-      (child) => child?.metadata?.group === group,
+      (child) => child?.metadata?.group === group
     );
     if (childrenGroup.length) {
       return {
@@ -65,7 +65,7 @@ const transformToTree = function (
     }
   });
   const filledGroupsOnly = filledGroups.filter(
-    (groupItem: GroupItem | null) => groupItem !== null,
+    (groupItem: GroupItem | null) => groupItem !== null
   );
   item.groups = filledGroupsOnly;
   return item;

@@ -1,6 +1,6 @@
 import { FaHeadphones } from "react-icons/fa";
 import { Mic2, Radio, Cable, Headset, Speaker } from "lucide-react";
-export const getCategoryIcon = (title: string | undefined) => {
+export const AdaptiveCategoryIcon = (title: string | undefined) => {
   const iconSize = 18;
   switch (title?.toLowerCase()) {
     case "mic2":

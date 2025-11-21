@@ -42,7 +42,6 @@ export default async function CheckoutLayout({
       }
     } catch (error) {
       console.error("Failed to fetch user address from Sanity:", error);
-      // Fallback to empty form (IDLE)
     }
   }
 
@@ -52,7 +51,7 @@ export default async function CheckoutLayout({
     if (guestContext?.address) {
       initialAddress = {
         street: guestContext.address.line1,
-        streetNumber: "",
+        streetNumber: guestContext.address.line2,
         city: guestContext.address.city,
         postalCode: guestContext.address.postal_code,
         regionCode: guestContext.address.country,

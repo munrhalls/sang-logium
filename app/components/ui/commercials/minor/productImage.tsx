@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { imageUrl } from "@/lib/imageUrl";
+import { imageUrl } from "@/lib/sanity/imageUrl";
 export default function ProductImage({
   src,
   brand,
@@ -8,7 +8,7 @@ export default function ProductImage({
   brand: string;
 }) {
   return (
-    <div className="h-full w-full relative mx-auto">
+    <div className="relative mx-auto h-full w-full">
       <Image
         loading="lazy"
         decoding="async"
@@ -18,7 +18,7 @@ export default function ProductImage({
         alt={brand}
         height={60}
         width={60}
-        className="z-40 h-full w-full absolute inset-0 aspect-square object-contain rounded-sm"
+        className="absolute inset-0 z-40 aspect-square h-full w-full rounded-sm object-contain"
       />
     </div>
   );
