@@ -3,7 +3,7 @@ import { backendClient } from "@/sanity/lib/backendClient";
 import { getCheckoutCookie } from "@/lib/checkoutToken";
 import CheckoutProvider from "./CheckoutProvider";
 import { Address, Status } from "./checkout.types";
-import { UserProfile } from "@/sanity.types";
+import { User } from "@/sanity.types";
 
 export default async function CheckoutLayout({
   children,
@@ -17,7 +17,7 @@ export default async function CheckoutLayout({
 
   if (user) {
     try {
-      const sanityUser: UserProfile | null = await backendClient.fetch(
+      const sanityUser: User | null = await backendClient.fetch(
         `*[_type == "user" && clerkUserId == $id][0]{
             addresses
         }`,
@@ -32,7 +32,7 @@ export default async function CheckoutLayout({
         if (savedAddr) {
           initialAddress = {
             street: savedAddr.line1,
-            streetNumber: "",
+            streetNumber: savedAddr.line2,
             city: savedAddr.city,
             postalCode: savedAddr.postalCode,
             regionCode: savedAddr.country,
@@ -46,7 +46,7 @@ export default async function CheckoutLayout({
     }
   }
 
-  if (!initialAddress) {
+  if (initialAddress === null || initialAddress === undefined) {
     const guestContext = await getCheckoutCookie();
 
     if (guestContext?.address) {
