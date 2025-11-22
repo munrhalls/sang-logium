@@ -12,6 +12,7 @@ export default function ShippingFormView() {
     register,
     handleSubmit,
     reset,
+    trigger,
     formState: { errors, isValid },
   } = useForm<Address>({
     mode: "onBlur",
@@ -21,8 +22,9 @@ export default function ShippingFormView() {
   useEffect(() => {
     if (address) {
       reset(address);
+      trigger();
     }
-  }, [address, reset]);
+  }, [address, reset, trigger]);
 
   return (
     <div className="flex justify-center">
@@ -38,7 +40,6 @@ export default function ShippingFormView() {
             >
               <option value="PL">Poland</option>
               <option value="GB">United Kingdom</option>
-              <option value="US">United States</option>
             </select>
           </div>
 
@@ -78,7 +79,6 @@ export default function ShippingFormView() {
             </div>
           </div>
 
-          {/* Street/Number errors combined for cleanliness */}
           {(errors.street || errors.streetNumber) && (
             <p className="mb-4 text-xs text-red-500">
               Street and Number are required.

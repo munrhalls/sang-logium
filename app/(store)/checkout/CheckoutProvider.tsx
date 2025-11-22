@@ -31,6 +31,7 @@ export default function CheckoutProvider({
 
     try {
       const result = await submitShippingAction(data);
+      console.log("Address submission result:", result);
 
       if (result.status === "FIX") {
         setStatus("FIX");

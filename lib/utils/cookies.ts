@@ -23,7 +23,6 @@ export async function getCheckoutCookie(): Promise<GuestContext | null> {
 
   try {
     const { payload } = await jwtVerify(token, SECRET);
-    // Cast the payload to our expected shape
     return payload as unknown as GuestContext;
   } catch (error) {
     console.error("Invalid checkout cookie:", error);

@@ -1,0 +1,27 @@
+ Address validation response: {
+[0]   result: {
+[0]     verdict: {
+[0]       inputGranularity: 'PREMISE_PROXIMITY',
+[0]       validationGranularity: 'PREMISE_PROXIMITY',
+[0]       geocodeGranularity: 'PREMISE',
+[0]       hasUnconfirmedComponents: true,
+[0]       possibleNextAction: 'FIX',
+[0]       hasSpellCorrectedComponents: true
+[0]     },
+[0]     address: {
+[0]       formattedAddress: 'Featherstone Street, 49 EC1Y 8SY, UK',
+[0]       postalAddress: [Object],
+[0]       addressComponents: [Array],
+[0]       missingComponentTypes: [Array],
+[0]       unconfirmedComponentTypes: [Array]
+[0]     },
+[0]     geocode: {
+[0]       location: [Object],
+[0]       plusCode: [Object],
+[0]       bounds: [Object],
+[0]       placeId: 'ChIJD3l5S68cdkgRsxjCoDENGPI',
+[0]       placeTypes: [Array]
+[0]     }
+[0]   },
+[0]   responseId: 'e94a0a34-0684-4706-afbd-a1c67b243220'
+[0] }
