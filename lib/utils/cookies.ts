@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { jwtVerify } from "jose";
+import { jwtVerify, errors } from "jose";
 
 const SECRET = new TextEncoder().encode(
   process.env.CHECKOUT_JWT_SECRET || "dev-secret-key"
@@ -25,7 +25,10 @@ export async function getCheckoutCookie(): Promise<GuestContext | null> {
     const { payload } = await jwtVerify(token, SECRET);
     return payload as unknown as GuestContext;
   } catch (error) {
-    console.error("Invalid checkout cookie:", error);
+    if (!(error instanceof errors.JWTExpired)) {
+      console.error("Invalid checkout cookie:", error);
+    }
+
     return null;
   }
 }
