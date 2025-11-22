@@ -4,35 +4,6 @@ import { cookies } from "next/headers";
 import { SignJWT } from "jose";
 import { Address, Status } from "@/app/(store)/checkout/checkout.types";
 
-function extractAddressComponents(rawComponents: AddressComponent[]) {
-  const findComp = (types: string[]): AddressComponent | undefined => {
-    return rawComponents.find((c) => types.includes(c.componentType));
-  };
-
-  const extracted = {
-    route: findComp(["route"]),
-    streetNumber: findComp(["street_number"]),
-    postalCode: findComp(["postal_code"]),
-    country: findComp(["country"]),
-    city: findComp(["postal_town", "locality"]),
-  };
-
-  const missingFields = Object.entries(extracted)
-    .filter(([_, value]) => value === undefined)
-    .map(([key]) => key);
-
-  return {
-    ...extracted,
-    missingFields,
-    isComplete: missingFields.length === 0,
-  };
-}
-
-const SECRET = new TextEncoder().encode(
-  process.env.CHECKOUT_JWT_SECRET || "dev-secret-key"
-);
-const GOOGLE_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
-
 export interface ComponentDetail {
   componentType: string;
   componentName: {
@@ -67,7 +38,52 @@ const REQUIRED_TYPES: AddressComponent["componentType"][] = [
 ];
 
 const CITY_TYPES = ["locality", "postal_town"];
-const VALID_LEVELS = ["CONFIRMED", "UNCONFIRMED_BUT_PLAUSIBLE"];
+const VALID_LEVELS = ["CONFIRMED", "UNCONFIRMED_BUT_PLAUSIBLE". "UNCONFIRMED_AND_SUSPICIOUS", "UNRECOGNIZED"];
+
+type ValidationLevel =
+  | "CONFIRMED"
+  | "UNCONFIRMED_BUT_PLAUSIBLE"
+  | "UNCONFIRMED_AND_SUSPICIOUS"
+  | "UNRECOGNIZED"
+  | "MISSING";
+
+  interface FieldResult {
+  value: string;
+  level: ValidationLevel;
+}
+
+function extractValidatedFields(addressComponents: AddressComponent[]) {
+  const componentMap = new Map(
+    addressComponents.map((component) => [component.componentType, component])
+  );
+
+  const getField = (...validTypes: string[]): FieldResult => {
+    for (const type of validTypes) {
+      if (componentMap.has(type)) {
+        const component = componentMap.get(type)!;
+        return {
+          value: component.componentName.text,
+          level: component.confirmationLevel,
+        };
+      }
+    }
+
+    return { value: "", level: "MISSING" };
+  };
+
+  return {
+    route: getField("route"),
+    streetNumber: getField("street_number", "premise"),
+    postalCode: getField("postal_code"),
+    country: getField("country"),
+    city: getField("postal_town", "locality"),
+  };
+}
+
+const SECRET = new TextEncoder().encode(
+  process.env.CHECKOUT_JWT_SECRET || "dev-secret-key"
+);
+const GOOGLE_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
 // TODO first, extract each component type from the google api response
 // handle complication (don't overdo it, we just have GB and PL and no other country) - a type can be under more than one form, e.g. postal_code might called postal_town
