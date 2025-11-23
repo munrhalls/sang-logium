@@ -13,6 +13,13 @@ import { Address, Status } from "@/app/(store)/checkout/checkout.types";
 
 // core idea - determine all possible inputs set, delete all that can be deleted from it but keep 100% coverage of all possible inputs -> use that to generate all possible input types -> get all possible api responses based on input types -> determine proper output per each response -> determine set of variables to track and immediately live render on the "chain sequence path" from <input-response> pair all the way to <input-response-PROPER OUTPUT>
 
+// U P D A T E
+
+// THIS LIKE FUNCTION F (X) -> Y
+// F (5 INPUT FIELD VALUES, API REQUEST) -> (API RESPONSE) -> PROCESSING LOGIC -> (FINAL OUTPUT)
+
+// I NEED TO TYPE SOME INPUT - AND IMMEDIATELY SEE OUTPUT - AND THEN CODE THE PROCESSING LOGIC
+
 type ValidationLevel =
   | "CONFIRMED"
   | "UNCONFIRMED_BUT_PLAUSIBLE"
