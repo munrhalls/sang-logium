@@ -4,41 +4,14 @@ import { cookies } from "next/headers";
 import { SignJWT } from "jose";
 import { Address, Status } from "@/app/(store)/checkout/checkout.types";
 
-export interface ComponentDetail {
-  componentType: string;
-  componentName: {
-    text: string;
-  };
-}
+// workflow with API's (MY WORKFLOW)
+// get ALL possible responses from api into file
+// mark all variables to track
+// mark chain of variables to output
+// NOW THE CRITICAL - render that chain so as I code, i can see EVERY VALUE in order clearly
+// code out each possible pathway logic to its proper output, while seeing live full feedback from above step
 
-interface Verdict {
-  possibleNextAction: "FIX" | "CONFIRM_ADD_SUBPREMISES" | "CONFIRM" | "ACCEPT";
-}
-
-type AddressComponent = {
-  confirmationLevel:
-    | "CONFIRMED"
-    | "UNCONFIRMED_BUT_PLAUSIBLE"
-    | "UNCONFIRMED_AND_SUSPICIOUS"
-    | "UNRECOGNIZED";
-  componentType:
-    | "route"
-    | "street_number"
-    | "postal_code"
-    | "postal_town"
-    | "locality"
-    | "country";
-};
-
-const REQUIRED_TYPES: AddressComponent["componentType"][] = [
-  "route",
-  "street_number",
-  "postal_code",
-  "country",
-];
-
-const CITY_TYPES = ["locality", "postal_town"];
-const VALID_LEVELS = ["CONFIRMED", "UNCONFIRMED_BUT_PLAUSIBLE". "UNCONFIRMED_AND_SUSPICIOUS", "UNRECOGNIZED"];
+// core idea - determine all possible inputs set, delete all that can be deleted from it but keep 100% coverage of all possible inputs -> use that to generate all possible input types -> get all possible api responses based on input types -> determine proper output per each response -> determine set of variables to track and immediately live render on the "chain sequence path" from <input-response> pair all the way to <input-response-PROPER OUTPUT>
 
 type ValidationLevel =
   | "CONFIRMED"
@@ -47,36 +20,41 @@ type ValidationLevel =
   | "UNRECOGNIZED"
   | "MISSING";
 
-  interface FieldResult {
+interface FieldResult {
   value: string;
   level: ValidationLevel;
 }
 
-function extractValidatedFields(addressComponents: AddressComponent[]) {
-  const componentMap = new Map(
-    addressComponents.map((component) => [component.componentType, component])
-  );
+interface ValidatedAddress {
+  route: FieldResult;
+  streetNumber: FieldResult;
+  postalCode: FieldResult;
+  city: FieldResult;
+  country: FieldResult;
+}
 
-  const getField = (...validTypes: string[]): FieldResult => {
-    for (const type of validTypes) {
-      if (componentMap.has(type)) {
-        const component = componentMap.get(type)!;
+function extractValidatedFields(rawComponents: any[]): ValidatedAddress {
+  const map = new Map(rawComponents.map((c) => [c.componentType, c]));
+
+  const get = (...types: string[]): FieldResult => {
+    for (const t of types) {
+      if (map.has(t)) {
+        const comp = map.get(t);
         return {
-          value: component.componentName.text,
-          level: component.confirmationLevel,
+          value: comp.componentName.text,
+          level: comp.confirmationLevel as ValidationLevel,
         };
       }
     }
-
     return { value: "", level: "MISSING" };
   };
 
   return {
-    route: getField("route"),
-    streetNumber: getField("street_number", "premise"),
-    postalCode: getField("postal_code"),
-    country: getField("country"),
-    city: getField("postal_town", "locality"),
+    route: get("route"),
+    streetNumber: get("street_number", "premise"),
+    postalCode: get("postal_code"),
+    country: get("country"),
+    city: get("postal_town", "locality"),
   };
 }
 
@@ -85,108 +63,68 @@ const SECRET = new TextEncoder().encode(
 );
 const GOOGLE_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
-// TODO first, extract each component type from the google api response
-// handle complication (don't overdo it, we just have GB and PL and no other country) - a type can be under more than one form, e.g. postal_code might called postal_town
-// confirm we extracted each component by its type, should have 4 components
-
-export async function submitShippingAction(formData: Address): Promise<{
-  status: Status;
-  correctedAddress: Address;
-}> {
+export async function submitShippingAction(formData: Address) {
   try {
     const validationURL = `https://addressvalidation.googleapis.com/v1:validateAddress?key=${GOOGLE_API_KEY}`;
-
-    const regionCodeMap: Record<string, string> = {
-      EN: "GB",
-      PL: "PL",
-    };
-
-    const requestBody = {
-      address: {
-        regionCode: regionCodeMap[formData.regionCode] || formData.regionCode,
-        locality: formData.city,
-        postalCode: formData.postalCode,
-        addressLines: [`${formData.street} ${formData.streetNumber}`],
-      },
-    };
+    const regionCodeMap: Record<string, string> = { EN: "GB", PL: "PL" };
 
     const response = await fetch(validationURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(requestBody),
+      body: JSON.stringify({
+        address: {
+          regionCode: regionCodeMap[formData.regionCode] || formData.regionCode,
+          locality: formData.city,
+          postalCode: formData.postalCode,
+          addressLines: [`${formData.street} ${formData.streetNumber}`],
+        },
+      }),
     });
 
-    if (!response.ok) {
-      throw new Error("Address validation service failed");
-    }
-    // TODO this validation logic is very crude - build better one
-    // key field - verdict.possibleNextAction
-    // from docs:
-    // if (verdict.possibleNextAction == FIX)
-    //     Prompt the user to fix the address.
-    // else if (verdict.possibleNextAction == CONFIRM_ADD_SUBPREMISES)
-    //     Prompt the user to add a unit number.
-    // else if (verdict.possibleNextAction == CONFIRM)
-    //     Confirm with the user that the address is correct.
-    // else
-    //     Continue with the address returned by the API.
+    if (!response.ok) throw new Error("Address validation service failed");
+
     const data = await response.json();
-    const addressComponents = extractAddressComponents(data);
-    console.dir(addressComponents, { depth: null });
 
-    const address = data.address;
-    const addressComps = address?.addressComponents;
-    const unconfirmedComponents = address.unconfirmedComponentTypes;
-    const missingComponentTypes = address.missingComponentTypes;
-    console.log("Unconfirmed Components:", unconfirmedComponents);
-    console.log("Missing Component Types:", missingComponentTypes);
-    console.log("Address Components", addressComps);
-    // TODO start here, we have the response <data>
-    //
+    const validatedFields = extractValidatedFields(
+      data.result?.address?.addressComponents || []
+    );
 
-    const verdict = data.result?.verdict;
-    const action: Verdict["possibleNextAction"] = verdict?.possibleNextAction;
+    const ACCEPTED_LEVELS = new Set(["CONFIRMED", "UNCONFIRMED_BUT_PLAUSIBLE"]);
 
-    let status: Status = "CONFIRMED";
+    const isRouteValid = ACCEPTED_LEVELS.has(validatedFields.route.level);
+    const isStreetNumValid = ACCEPTED_LEVELS.has(
+      validatedFields.streetNumber.level
+    );
+    const isCityValid = ACCEPTED_LEVELS.has(validatedFields.city.level);
+    const isPostalValid = ACCEPTED_LEVELS.has(validatedFields.postalCode.level);
 
-    if (action === "CONFIRM_ADD_SUBPREMISES") {
-      status = "PARTIAL";
-    } else if (action === "CONFIRM") {
-      status = "CONFIRM";
-    } else {
-      status = "FIX";
-    }
+    const isCountryValid = ACCEPTED_LEVELS.has(validatedFields.country.level);
 
-    const components = data.result?.address?.addressComponents || [];
-    const postalAddress = data.result?.address?.postalAddress;
+    const isAddressValid =
+      isRouteValid &&
+      isStreetNumValid &&
+      isCityValid &&
+      isPostalValid &&
+      isCountryValid;
 
-    const getComponent = (type: string) => {
-      const comp = components.find(
-        (c: ComponentDetail) => c.componentType === type
-      );
-      return comp?.componentName?.text || "";
-    };
+    const status: Status = isAddressValid ? "CONFIRM" : "FIX";
 
-    let correctedAddress = formData;
-
-    if (status === "CONFIRM" || status === "PARTIAL") {
-      correctedAddress = {
-        street: getComponent("route") || formData.street,
-        streetNumber: getComponent("street_number") || formData.streetNumber,
-        city:
-          getComponent("locality") || postalAddress?.locality || formData.city,
-        postalCode: postalAddress?.postalCode || formData.postalCode,
-        regionCode: postalAddress?.regionCode || formData.regionCode,
+    if (status === "CONFIRM") {
+      const cleanAddress = {
+        street: validatedFields.route.value,
+        streetNumber: validatedFields.streetNumber.value,
+        city: validatedFields.city.value,
+        postalCode: validatedFields.postalCode.value,
+        regionCode: formData.regionCode,
       };
 
-      const token = await new SignJWT(correctedAddress)
+      const token = await new SignJWT(cleanAddress)
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
         .setExpirationTime("1h")
         .sign(SECRET);
 
-      const cookieStore = await cookies();
-      cookieStore.set("checkout_context", token, {
+      (await cookies()).set("checkout_context", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
@@ -194,9 +132,9 @@ export async function submitShippingAction(formData: Address): Promise<{
       });
     }
 
-    return { status, correctedAddress };
+    return { status, validatedFields };
   } catch (error) {
     console.error("Shipping submission error:", error);
-    return { status: "FIX", correctedAddress: formData };
+    return { status: "FIX", validatedFields: null };
   }
 }
