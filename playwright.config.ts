@@ -1,13 +1,12 @@
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
-  testDir: "./",
+  testDir: "./tests",
   testIgnore: "**/jest/**",
 
   use: {
-    baseURL: "https://localhost:3000",
+    baseURL: "http://localhost:3000",
     trace: "on",
-    // ignoreHTTPSErrors: true,
   },
 
   projects: [
