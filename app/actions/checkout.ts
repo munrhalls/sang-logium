@@ -2,6 +2,50 @@
 
 import { Address, ServerResponse } from "@/app/(store)/checkout/checkout.types";
 
+interface GoogleAddressComponent {
+  componentType: string;
+  componentName: {
+    text: string;
+  };
+}
+
+interface GoogleAddress {
+  addressComponents: GoogleAddressComponent[];
+  postalAddress?: {
+    regionCode: string;
+  };
+  missingComponentTypes?: string[];
+}
+
+interface GoogleValidationResponse {
+  result?: {
+    verdict?: {
+      validationGranularity: string;
+      hasReplacedComponents: boolean;
+    };
+    address?: GoogleAddress;
+  };
+}
+
+// helper
+function formatCleanAddress(
+  googleAddress: GoogleAddress,
+  input: Address
+): Address {
+  const getComp = (type: string) =>
+    googleAddress.addressComponents.find((c) => c.componentType === type)
+      ?.componentName?.text || "";
+
+  return {
+    street: getComp("route") || input.street,
+    streetNumber:
+      getComp("street_number") || getComp("subpremise") || input.streetNumber,
+    city: getComp("locality") || getComp("postal_town") || input.city,
+    postalCode: getComp("postal_code") || input.postalCode,
+    regionCode: googleAddress.postalAddress?.regionCode || input.regionCode,
+  };
+}
+
 export async function submitShippingAction(
   input: Address
 ): Promise<ServerResponse> {
@@ -21,15 +65,18 @@ export async function submitShippingAction(
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
-    const data = await response.json();
-    console.log(data, "data");
-    if (!response.ok || !data.result || !data.result.verdict) {
+    const data = (await response.json()) as GoogleValidationResponse;
+
+    if (
+      !response.ok ||
+      !data.result ||
+      !data.result.verdict ||
+      !data.result.address
+    ) {
       console.error("Google Validation API Error:", data);
       return {
         status: "FIX",
@@ -39,60 +86,56 @@ export async function submitShippingAction(
 
     const verdict = data.result.verdict;
     const address = data.result.address;
+    const components = address.addressComponents;
 
-    const getComp = (type: string) =>
-      address?.addressComponents?.find((c: any) => c.componentType === type)
-        ?.componentName?.text || "";
+    const isPrecise =
+      verdict.validationGranularity === "PREMISE" ||
+      verdict.validationGranularity === "SUB_PREMISE";
 
-    const cleanAddress: Address = {
-      street: getComp("route") || input.street,
-      streetNumber:
-        getComp("street_number") || getComp("subpremise") || input.streetNumber,
-      city: getComp("locality") || input.city,
-      postalCode: getComp("postal_code") || input.postalCode,
-      regionCode: address?.postalAddress?.regionCode || input.regionCode,
-    };
+    const countryComponent = components.find(
+      (c) => c.componentType === "country"
+    );
+    const returnedRegionCode = countryComponent?.componentName?.text;
+    const isCountryMatch = returnedRegionCode === input.regionCode;
 
-    // validation logic table.md @/checkout/shipping
-    if (
-      verdict.validationGranularity === "OTHER" ||
-      verdict.validationGranularity === "ROUTE"
-    ) {
-      if (verdict.validationGranularity === "ROUTE") {
-        return {
-          status: "FIX",
-          errors: { streetNumber: "Please include a house/apartment number." },
-        };
-      }
+    const hasMajorReplacements = verdict.hasReplacedComponents;
 
+    const isMissingSubpremise =
+      address.missingComponentTypes?.includes("subpremise");
+
+    if (isPrecise && (!isCountryMatch || hasMajorReplacements)) {
       return {
         status: "FIX",
-        errors: { street: "We could not locate this address." },
+        errors: {
+          regionCode: `We found this address in ${returnedRegionCode}, not ${input.regionCode}. Please check the country.`,
+        },
       };
     }
 
-    if (address?.missingComponentTypes?.includes("subpremise")) {
+    if (!isPrecise) {
       return {
-        status: "CONFIRM",
-        address: cleanAddress,
-        errors: { streetNumber: "Missing apartment or suite number?" },
+        status: "FIX",
+        errors: {
+          street:
+            "We could not locate this specific building. Please check the street number.",
+        },
       };
     }
 
-    if (
-      verdict.hasInferredComponents ||
-      verdict.hasSpellCorrectedComponents ||
-      verdict.hasReplacedComponents
-    ) {
+    if (isMissingSubpremise) {
       return {
         status: "CONFIRM",
-        address: cleanAddress,
+        address: formatCleanAddress(address, input),
+        errors: {
+          streetNumber:
+            "It looks like this building might need an apartment/suite number.",
+        },
       };
     }
 
     return {
       status: "ACCEPT",
-      address: cleanAddress,
+      address: formatCleanAddress(address, input),
     };
   } catch (error) {
     console.error("Critical Fetch Error:", error);
