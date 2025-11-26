@@ -6,7 +6,7 @@ export type Address = {
   city: string;
 };
 
-export type Status = "EDITING" | "LOADING" | "FIX" | "PARTIAL" | "CONFIRMED";
+export type Status = "EDITING" | "LOADING" | "FIX" | "PARTIAL" | "CONFIRM";
 
 export type ServerProduct = {
   _id: string;

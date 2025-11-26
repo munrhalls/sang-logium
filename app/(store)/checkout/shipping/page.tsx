@@ -19,7 +19,7 @@ export default function ShippingPage() {
     );
   }
 
-  if ((status === "CONFIRMED" || status === "PARTIAL") && address) {
+  if ((status === "CONFIRM" || status === "PARTIAL") && address) {
     return <ConfirmationView />;
   }
 

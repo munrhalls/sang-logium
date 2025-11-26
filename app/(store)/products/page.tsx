@@ -13,8 +13,10 @@ import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSor
 import Footer from "@/app/components/layout/footer/Footer";
 import getSelectedPagination from "./helpers/getSelectedPagination";
 import Pagination from "@/app/components/ui/pagination/Pagination";
+
 type Params = Promise<{ slug: string }>;
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
 export default async function RootProductsPage(props: {
   params: Params;
   searchParams: SearchParams;

@@ -26,9 +26,56 @@ export default function ShippingFormView() {
     }
   }, [address, reset, trigger]);
 
+  const DXfillScenario = (scenario: "valid" | "invalid_zip" | "partial") => {
+    const scenarios = {
+      valid: {
+        regionCode: "PL",
+        postalCode: "50-100",
+        street: "Rynek",
+        streetNumber: "1",
+        city: "Wroclaw",
+      },
+      invalid_zip: {
+        regionCode: "PL",
+        postalCode: "00-000",
+        street: "Nowhere",
+        streetNumber: "99",
+        city: "Ghost Town",
+      },
+      partial: {
+        regionCode: "GB",
+        postalCode: "SW1A 1AA",
+        street: "Buckingham",
+        streetNumber: "",
+        city: "London",
+      },
+    };
+    reset(scenarios[scenario]);
+    trigger();
+  };
+
   return (
     <div className="flex justify-center">
       <div className="relative w-full max-w-md rounded bg-white p-4">
+        {process.env.NODE_ENV === "development" && (
+          <div className="mb-4 flex gap-2">
+            <button
+              type="button"
+              onClick={() => DXfillScenario("valid")}
+              className="bg-green-100 px-2 py-1 text-xs text-green-800"
+            >
+              Fill Valid
+            </button>
+            <button
+              type="button"
+              onClick={() => DXfillScenario("invalid_zip")}
+              className="bg-red-100 px-2 py-1 text-xs text-red-800"
+            >
+              Fill Invalid
+            </button>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit(submitAddress)}>
           <h2 className="mb-4 text-lg font-bold">Enter Shipping Address</h2>
 

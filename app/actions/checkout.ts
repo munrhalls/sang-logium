@@ -117,7 +117,7 @@ export async function submitShippingAction(formData: Address) {
     const status: Status = isAddressValid ? "CONFIRM" : "FIX";
 
     if (status === "CONFIRM") {
-      const cleanAddress = {
+      const cleanAddress: Address = {
         street: validatedFields.route.value,
         streetNumber: validatedFields.streetNumber.value,
         city: validatedFields.city.value,
@@ -137,11 +137,13 @@ export async function submitShippingAction(formData: Address) {
         sameSite: "strict",
         path: "/",
       });
-    }
 
-    return { status, validatedFields };
+      return { status, address: cleanAddress };
+    }
+    // TODO fix return types
+    return { status: status, address: null };
   } catch (error) {
     console.error("Shipping submission error:", error);
-    return { status: "FIX", validatedFields: null };
+    return { status: "FIX", address: null };
   }
 }
