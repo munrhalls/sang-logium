@@ -1,17 +1,15 @@
 "use server";
 
-import { AddressValidationClient } from "@googlemaps/addressvalidation";
 import { Address, ServerResponse } from "@/app/(store)/checkout/checkout.types";
-
-const client = new AddressValidationClient({
-  fallback: "rest",
-});
 
 export async function submitShippingAction(
   input: Address
 ): Promise<ServerResponse> {
-  const request = {
-    parent: `projects/${process.env.GOOGLE_CLOUD_PROJECT_ID}`,
+  // 1. Setup the Fetch Request
+  const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+  const url = `https://addressvalidation.googleapis.com/v1:validateAddress?key=${apiKey}`;
+
+  const payload = {
     address: {
       regionCode: input.regionCode,
       postalCode: input.postalCode,
@@ -22,20 +20,31 @@ export async function submitShippingAction(
   };
 
   try {
-    const [response] = await client.validateAddress(request);
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
-    if (!response.result || !response.result.verdict) {
+    const data = await response.json();
+
+    // 2. Safety Check: Did Google fail or return garbage?
+    if (!response.ok || !data.result || !data.result.verdict) {
+      console.error("Google Validation API Error:", data);
       return {
         status: "FIX",
         errors: { city: "Address validation service unavailable." },
       };
     }
 
-    const verdict = response.result.verdict;
-    const address = response.result.address;
+    const verdict = data.result.verdict;
+    const address = data.result.address;
 
+    // 3. Helper to extract clean address data
     const getComp = (type: string) =>
-      address?.addressComponents?.find((c) => c.componentType === type)
+      address?.addressComponents?.find((c: any) => c.componentType === type)
         ?.componentName?.text || "";
 
     const cleanAddress: Address = {
@@ -47,6 +56,9 @@ export async function submitShippingAction(
       regionCode: address?.postalAddress?.regionCode || input.regionCode,
     };
 
+    // --- LOGIC GATES (Same as before) ---
+
+    // GATE 1: NONSENSE or MISSING STREET
     if (
       verdict.validationGranularity === "OTHER" ||
       verdict.validationGranularity === "ROUTE"
@@ -64,6 +76,7 @@ export async function submitShippingAction(
       };
     }
 
+    // GATE 2: MISSING SUBPREMISE (Apt/Suite)
     if (address?.missingComponentTypes?.includes("subpremise")) {
       return {
         status: "PARTIAL",
@@ -72,6 +85,7 @@ export async function submitShippingAction(
       };
     }
 
+    // GATE 3: CORRECTIONS / INFERENCES
     if (
       verdict.hasInferredComponents ||
       verdict.hasSpellCorrectedComponents ||
@@ -83,12 +97,13 @@ export async function submitShippingAction(
       };
     }
 
+    // GATE 4: PERFECT
     return {
       status: "CONFIRM",
       address: cleanAddress,
     };
   } catch (error) {
-    console.error(error);
+    console.error("Critical Fetch Error:", error);
     return {
       status: "FIX",
       errors: { city: "Validation failed. Please check details." },
