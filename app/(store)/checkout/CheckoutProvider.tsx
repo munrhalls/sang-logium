@@ -69,6 +69,14 @@ export default function CheckoutProvider({
     </div>
   );
 
+  // Force visible debug output
+  if (typeof window !== "undefined") {
+    console.log("🔥 CHECKOUT PROVIDER RENDERED 🔥");
+    console.log("NODE_ENV:", process.env.NODE_ENV);
+    console.log("Status:", status);
+    console.log("Address:", address);
+  }
+
   const submitAddress = async (data: Address) => {
     setStatus("LOADING");
 
@@ -101,8 +109,8 @@ export default function CheckoutProvider({
         editAddress,
       }}
     >
+      <DevHUD />
       {children}
-      {process.env.NODE_ENV === "development" && <DevHUD />}
     </CheckoutContext.Provider>
   );
 }
