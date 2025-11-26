@@ -3,44 +3,41 @@
 import { cookies } from "next/headers";
 import { SignJWT } from "jose";
 import { Address, Status } from "@/app/(store)/checkout/checkout.types";
+import {
+  ValidatedAddress,
+  FieldResult,
+  ValidationLevel,
+} from "@/app/(store)/checkout/checkout.types";
 
-// workflow with API's (MY WORKFLOW)
-// get ALL possible responses from api into file
-// mark all variables to track
-// mark chain of variables to output
-// NOW THE CRITICAL - render that chain so as I code, i can see EVERY VALUE in order clearly
-// code out each possible pathway logic to its proper output, while seeing live full feedback from above step
+// Possible inputs from frontend:
+// - Full address entered by user
+// - Partial address entered by user (missing unit number, missing street number, etc.) - frontend will not allow to send it but it's worth to check for it and return error instantly should that be the case
+// - Malformed address (typos, wrong formatting, etc.)
+// - Address with suspicious components (e.g., invalid street name, non-existent city, etc.)
+// - clearly very bad address (e.g., random strings, gibberish, etc.)
+// - address with good looking nonsense e.g. "1234 Imaginary St, Faketown, ZZ 99999"
+// - address with one stealthy bad tweak - e.g. some building from london in manchester...
+// - Non-existent address
 
-// core idea - determine all possible inputs set, delete all that can be deleted from it but keep 100% coverage of all possible inputs -> use that to generate all possible input types -> get all possible api responses based on input types -> determine proper output per each response -> determine set of variables to track and immediately live render on the "chain sequence path" from <input-response> pair all the way to <input-response-PROPER OUTPUT>
+// Risk-averse checkout flow example
+// If you want to reduce the risk of failed deliveries, you might customize your logic to prompt your customers more often. For example, rather than use the logic described in the Key purpose section, you could use the following logic.
 
-// U P D A T E
+// Risk-averse checkout flow example - this is the one I choose to implement because audio gear store really doesn't want failed deliveries
+// if (verdict.possibleNextAction == FIX or verdict.validationGranularity
+// == OTHER or verdict.validationGranularity == ROUTE)
+//   Prompt customer to fix their address.
+// else if (verdict.possibleNextAction == CONFIRM_ADD_SUBPREMISES)
+//   Prompt customer to add a unit number.
+// else if (verdict.possibleNextAction == CONFIRM or verdict.validationGranularity
+// == PREMISE_PROXIMITY or verdict.hasSpellCorrectedComponents or
+// verdict.hasReplacedComponents or verdict.hasInferredComponents)
+//   Prompt customer to confirm their address.
+// else
+//   Proceed with the returned address.
 
-// THIS LIKE FUNCTION F (X) -> Y
-// F (5 INPUT FIELD VALUES, API REQUEST) -> (API RESPONSE) -> PROCESSING LOGIC -> (FINAL OUTPUT)
+//
 
-// I NEED TO TYPE SOME INPUT - AND IMMEDIATELY SEE OUTPUT - AND THEN CODE THE PROCESSING LOGIC
-
-type ValidationLevel =
-  | "CONFIRMED"
-  | "UNCONFIRMED_BUT_PLAUSIBLE"
-  | "UNCONFIRMED_AND_SUSPICIOUS"
-  | "UNRECOGNIZED"
-  | "MISSING";
-
-interface FieldResult {
-  value: string;
-  level: ValidationLevel;
-}
-
-interface ValidatedAddress {
-  route: FieldResult;
-  streetNumber: FieldResult;
-  postalCode: FieldResult;
-  city: FieldResult;
-  country: FieldResult;
-}
-
-function extractValidatedFields(rawComponents: any[]): ValidatedAddress {
+function getResponseFields(rawComponents: any[]): ValidatedAddress {
   const map = new Map(rawComponents.map((c) => [c.componentType, c]));
 
   const get = (...types: string[]): FieldResult => {
@@ -92,7 +89,7 @@ export async function submitShippingAction(formData: Address) {
 
     const data = await response.json();
 
-    const validatedFields = extractValidatedFields(
+    const validatedFields = getResponseFields(
       data.result?.address?.addressComponents || []
     );
 

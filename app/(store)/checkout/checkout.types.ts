@@ -21,3 +21,24 @@ export type BasketCheckoutItem = {
   _id: string;
   quantity: number;
 };
+
+// Server-side action
+export type ValidationLevel =
+  | "CONFIRMED"
+  | "UNCONFIRMED_BUT_PLAUSIBLE"
+  | "UNCONFIRMED_AND_SUSPICIOUS"
+  | "UNRECOGNIZED"
+  | "MISSING";
+
+export interface FieldResult {
+  value: string;
+  level: ValidationLevel;
+}
+
+export interface ValidatedAddress {
+  route: FieldResult;
+  streetNumber: FieldResult;
+  postalCode: FieldResult;
+  city: FieldResult;
+  country: FieldResult;
+}
