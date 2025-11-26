@@ -1,3 +1,8 @@
+WHY THIS DOCUMENT:
+
+- Google response is a collection of validation signals. It's not a simple VALID/INVALID.
+- Response needs parsing and validation logic.
+
 THE STRATEGY
 
 - Filter by Granularity First: If it's not a building (NO), it's immediate garbage. FIX.
