@@ -77,22 +77,23 @@ export default function CheckoutProvider({
     setErrors({});
 
     try {
-      const result = await submitShippingAction(data);
+      const response = await submitShippingAction(data);
+      const responseStatus = response.status;
 
-      if (result.status === "CONFIRM") {
+      if (responseStatus === "CONFIRM") {
+        setStatus("ACCEPT");
+      } else if (responseStatus === "CONFIRM") {
         setStatus("CONFIRM");
-      } else if (result.status === "PARTIAL") {
-        setStatus("PARTIAL");
       } else {
         setStatus("FIX");
       }
 
-      if (result.address) {
-        setAddress(result.address);
+      if (response.address) {
+        setAddress(response.address);
       }
 
-      if (result.errors) {
-        setErrors(result.errors);
+      if (response.errors) {
+        setErrors(response.errors);
       }
     } catch (error) {
       console.error("Submission error:", error);

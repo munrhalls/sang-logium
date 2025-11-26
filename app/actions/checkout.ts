@@ -5,7 +5,6 @@ import { Address, ServerResponse } from "@/app/(store)/checkout/checkout.types";
 export async function submitShippingAction(
   input: Address
 ): Promise<ServerResponse> {
-  // 1. Setup the Fetch Request
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
   const url = `https://addressvalidation.googleapis.com/v1:validateAddress?key=${apiKey}`;
 
@@ -29,8 +28,7 @@ export async function submitShippingAction(
     });
 
     const data = await response.json();
-
-    // 2. Safety Check: Did Google fail or return garbage?
+    console.log(data, "data");
     if (!response.ok || !data.result || !data.result.verdict) {
       console.error("Google Validation API Error:", data);
       return {
@@ -42,7 +40,6 @@ export async function submitShippingAction(
     const verdict = data.result.verdict;
     const address = data.result.address;
 
-    // 3. Helper to extract clean address data
     const getComp = (type: string) =>
       address?.addressComponents?.find((c: any) => c.componentType === type)
         ?.componentName?.text || "";
@@ -56,9 +53,6 @@ export async function submitShippingAction(
       regionCode: address?.postalAddress?.regionCode || input.regionCode,
     };
 
-    // --- LOGIC GATES (Same as before) ---
-
-    // GATE 1: NONSENSE or MISSING STREET
     if (
       verdict.validationGranularity === "OTHER" ||
       verdict.validationGranularity === "ROUTE"
@@ -76,16 +70,14 @@ export async function submitShippingAction(
       };
     }
 
-    // GATE 2: MISSING SUBPREMISE (Apt/Suite)
     if (address?.missingComponentTypes?.includes("subpremise")) {
       return {
-        status: "PARTIAL",
+        status: "CONFIRM",
         address: cleanAddress,
         errors: { streetNumber: "Missing apartment or suite number?" },
       };
     }
 
-    // GATE 3: CORRECTIONS / INFERENCES
     if (
       verdict.hasInferredComponents ||
       verdict.hasSpellCorrectedComponents ||
@@ -97,9 +89,8 @@ export async function submitShippingAction(
       };
     }
 
-    // GATE 4: PERFECT
     return {
-      status: "CONFIRM",
+      status: "ACCEPT",
       address: cleanAddress,
     };
   } catch (error) {
