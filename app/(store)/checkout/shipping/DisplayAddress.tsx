@@ -2,7 +2,7 @@ import { Address } from "../checkout.types";
 
 const DisplayAddress = function ({ address }: { address: Address }) {
   const countryMap: Record<string, string> = {
-    GB: "United Kingdom",
+    GB: "Great Britain",
     PL: "Poland",
   };
   const countryName = countryMap[address.regionCode];

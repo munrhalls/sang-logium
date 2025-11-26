@@ -27,24 +27,29 @@ interface GoogleValidationResponse {
   };
 }
 
-// helper
-function formatCleanAddress(
-  googleAddress: GoogleAddress,
-  input: Address
-): Address {
-  const getComp = (type: string) =>
-    googleAddress.addressComponents.find((c) => c.componentType === type)
-      ?.componentName?.text || "";
+const getComp = (googleAddress: GoogleAddress, type: string) =>
+  googleAddress.addressComponents.find((c) => c.componentType === type)
+    ?.componentName?.text || "";
 
+const formatCleanAddress = (
+  googleAddress: GoogleAddress,
+  input: Address,
+  normalizedRegion: string
+): Address => {
   return {
-    street: getComp("route") || input.street,
+    street: getComp(googleAddress, "route") || input.street,
     streetNumber:
-      getComp("street_number") || getComp("subpremise") || input.streetNumber,
-    city: getComp("locality") || getComp("postal_town") || input.city,
-    postalCode: getComp("postal_code") || input.postalCode,
-    regionCode: googleAddress.postalAddress?.regionCode || input.regionCode,
+      getComp(googleAddress, "street_number") ||
+      getComp(googleAddress, "subpremise") ||
+      input.streetNumber,
+    city:
+      getComp(googleAddress, "locality") ||
+      getComp(googleAddress, "postal_town") ||
+      input.city,
+    postalCode: getComp(googleAddress, "postal_code") || input.postalCode,
+    regionCode: googleAddress.postalAddress?.regionCode || normalizedRegion,
   };
-}
+};
 
 export async function submitShippingAction(
   input: Address
@@ -52,9 +57,11 @@ export async function submitShippingAction(
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
   const url = `https://addressvalidation.googleapis.com/v1:validateAddress?key=${apiKey}`;
 
+  const regionCode = input.regionCode === "UK" ? "GB" : input.regionCode;
+
   const payload = {
     address: {
-      regionCode: input.regionCode,
+      regionCode: regionCode,
       postalCode: input.postalCode,
       locality: input.city,
       addressLines: [`${input.street} ${input.streetNumber}`],
@@ -96,18 +103,29 @@ export async function submitShippingAction(
       (c) => c.componentType === "country"
     );
     const returnedRegionCode = countryComponent?.componentName?.text;
-    const isCountryMatch = returnedRegionCode === input.regionCode;
+    const isCountryMatch = returnedRegionCode === regionCode;
 
     const hasMajorReplacements = verdict.hasReplacedComponents;
-
     const isMissingSubpremise =
       address.missingComponentTypes?.includes("subpremise");
 
     if (isPrecise && (!isCountryMatch || hasMajorReplacements)) {
+      const foundRegion = returnedRegionCode || "another region";
+
+      if (isCountryMatch) {
+        return {
+          status: "FIX",
+          errors: {
+            street:
+              "We identified significant discrepancies in this address. Please verify the street and number.",
+          },
+        };
+      }
+
       return {
         status: "FIX",
         errors: {
-          regionCode: `We found this address in ${returnedRegionCode}, not ${input.regionCode}. Please check the country.`,
+          regionCode: `We found this address in ${foundRegion}, not ${regionCode}. Please check the country.`,
         },
       };
     }
@@ -125,7 +143,7 @@ export async function submitShippingAction(
     if (isMissingSubpremise) {
       return {
         status: "CONFIRM",
-        address: formatCleanAddress(address, input),
+        address: formatCleanAddress(address, input, regionCode),
         errors: {
           streetNumber:
             "It looks like this building might need an apartment/suite number.",
@@ -135,7 +153,7 @@ export async function submitShippingAction(
 
     return {
       status: "ACCEPT",
-      address: formatCleanAddress(address, input),
+      address: formatCleanAddress(address, input, regionCode),
     };
   } catch (error) {
     console.error("Critical Fetch Error:", error);

@@ -6,7 +6,7 @@ import { Address } from "../checkout.types";
 import { useEffect } from "react";
 
 export default function ShippingFormView() {
-  const { submitAddress, status, address } = useCheckout();
+  const { submitAddress, status, address, apiErrors } = useCheckout();
 
   const {
     register,
@@ -86,7 +86,7 @@ export default function ShippingFormView() {
               className="w-full rounded border border-gray-300 p-2"
             >
               <option value="PL">Poland</option>
-              <option value="GB">United Kingdom</option>
+              <option value="GB">Great Britain</option>
             </select>
           </div>
 
@@ -158,8 +158,8 @@ export default function ShippingFormView() {
 
           {status === "FIX" && (
             <div className="mt-4 rounded bg-red-50 p-3 text-sm text-red-600">
-              We couldn&apos;t locate that address on the map. Please
-              double-check your details.
+              {apiErrors.form ||
+                "We couldn't locate that address on the map. Please double-check your details."}
             </div>
           )}
         </form>
