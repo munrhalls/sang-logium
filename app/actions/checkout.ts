@@ -53,6 +53,7 @@ export async function submitShippingAction(
       regionCode: address?.postalAddress?.regionCode || input.regionCode,
     };
 
+    // validation logic table.md @/checkout/shipping
     if (
       verdict.validationGranularity === "OTHER" ||
       verdict.validationGranularity === "ROUTE"
