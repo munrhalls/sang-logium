@@ -8,6 +8,12 @@ export type Address = {
 
 export type Status = "EDITING" | "LOADING" | "FIX" | "PARTIAL" | "CONFIRM";
 
+export type ServerResponse = {
+  status: Status;
+  address?: Address;
+  errors?: Record<string, string>;
+};
+
 export type ServerProduct = {
   _id: string;
   name: string;
@@ -21,24 +27,3 @@ export type BasketCheckoutItem = {
   _id: string;
   quantity: number;
 };
-
-// Server-side action
-export type ValidationLevel =
-  | "CONFIRMED"
-  | "UNCONFIRMED_BUT_PLAUSIBLE"
-  | "UNCONFIRMED_AND_SUSPICIOUS"
-  | "UNRECOGNIZED"
-  | "MISSING";
-
-export interface FieldResult {
-  value: string;
-  level: ValidationLevel;
-}
-
-export interface ValidatedAddress {
-  route: FieldResult;
-  streetNumber: FieldResult;
-  postalCode: FieldResult;
-  city: FieldResult;
-  country: FieldResult;
-}
