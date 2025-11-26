@@ -23,7 +23,6 @@ export default function CheckoutProvider({
   initialStatus: Status | null;
 }) {
   const [status, setStatus] = useState<Status>(initialStatus || "EDITING");
-
   const [address, setAddress] = useState<Address | null>(initialAddress);
 
   const submitAddress = async (data: Address) => {
@@ -59,6 +58,7 @@ export default function CheckoutProvider({
       }}
     >
       {children}
+      {/* {process.env.NODE_ENV === "development" && <DevHUD />} */}
     </CheckoutContext.Provider>
   );
 }

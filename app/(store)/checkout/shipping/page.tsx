@@ -5,6 +5,9 @@ import ConfirmationView from "./ConfirmationView";
 import FormView from "./FormView";
 import Loader from "@/app/components/common/Loader";
 
+// in all 3 cases, return something that retains feedback on status, address
+// dx hoc?
+
 export default function ShippingPage() {
   const { status, address } = useCheckout();
 

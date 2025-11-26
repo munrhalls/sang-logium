@@ -1,0 +1,4 @@
+{
+    "github.copilot.chat.anthropic.thinking.enabled": true,
+    "github.copilot.chat.codeGeneration.useInstructionFiles": false
+}
