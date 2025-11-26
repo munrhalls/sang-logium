@@ -80,7 +80,7 @@ export default function CheckoutProvider({
       const response = await submitShippingAction(data);
       const responseStatus = response.status;
 
-      if (responseStatus === "CONFIRM") {
+      if (responseStatus === "ACCEPT") {
         setStatus("ACCEPT");
       } else if (responseStatus === "CONFIRM") {
         setStatus("CONFIRM");
