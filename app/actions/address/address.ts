@@ -112,6 +112,10 @@ export async function submitShippingAction(
         address: cleanAddress,
       };
     }
+
+    throw new Error(
+      "//DEVELOPMENT// Outside of current tracer code, PURPOSEFUL ERROR THROW"
+    );
   } catch (error) {
     console.error("Critical Fetch Error:", error);
     return {

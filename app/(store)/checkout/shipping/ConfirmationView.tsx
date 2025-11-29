@@ -50,6 +50,7 @@ export default function ConfirmationView() {
       )}
 
       <Link
+        data-testid="proceed-to-payment-btn"
         href="/checkout/payment"
         className="rounded-lg bg-indigo-600 px-6 py-3 text-center font-semibold text-white shadow-sm transition hover:bg-indigo-700"
       >
