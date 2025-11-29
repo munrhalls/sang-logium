@@ -79,6 +79,9 @@ export async function submitShippingAction(
     const data = (await response.json()) as GoogleValidationResponse;
 
     console.log("Google Validation Response:", data);
+    // TODO tracer - happy path
+    // let's see what that data is
+
     if (
       !response.ok ||
       !data.result ||
