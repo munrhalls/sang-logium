@@ -10,7 +10,7 @@
 //   - Valid address shows enabled "proceed-to-payment-btn" within 3500ms
 
 import { test, expect } from "@playwright/test";
-import validAddresses from "../../Valid Weird Addresses:weird_valid_addresses.json";
+import validAddresses from "./valid-addresses-edge-cases.json";
 
 test.describe("Tracer Code: Accept Path (Robust)", () => {
   for (const entry of validAddresses) {
