@@ -1,0 +1,56 @@
+[
+  {
+    "address": {
+      "regionCode": "PL",
+      "postalCode": "00-901",
+      "locality": "Warszawa",
+      "addressLines": ["Plac Defilad 1"]
+    },
+    "enableUspsCass": false
+  },
+  {
+    "address": {
+      "regionCode": "PL",
+      "postalCode": "31-001",
+      "locality": "Kraków",
+      "addressLines": ["Wawel 5"]
+    },
+    "enableUspsCass": false
+  },
+  {
+    "address": {
+      "regionCode": "PL",
+      "postalCode": "50-106",
+      "locality": "Wrocław",
+      "addressLines": ["Rynek 1"]
+    },
+    "enableUspsCass": false
+  },
+  {
+    "address": {
+      "regionCode": "GB",
+      "postalCode": "SW1A 1AA",
+      "locality": "London",
+      "addressLines": ["Buckingham Palace"]
+    },
+    "enableUspsCass": false
+  },
+  {
+    "address": {
+      "regionCode": "GB",
+      "postalCode": "EH1 2NG",
+      "locality": "Edinburgh",
+      "addressLines": ["Castlehill"]
+    },
+    "enableUspsCass": false
+  },
+  {
+    "address": {
+      "regionCode": "GB",
+      "postalCode": "CF10 3RB",
+      "locality": "Cardiff",
+      "addressLines": ["Castle Street"]
+    },
+    "enableUspsCass": false
+  }
+]

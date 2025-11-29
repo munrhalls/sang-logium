@@ -78,6 +78,7 @@ export async function submitShippingAction(
 
     const data = (await response.json()) as GoogleValidationResponse;
 
+    console.log("Google Validation Response:", data);
     if (
       !response.ok ||
       !data.result ||
