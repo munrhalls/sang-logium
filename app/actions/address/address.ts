@@ -27,26 +27,27 @@ interface GoogleValidationResponse {
   };
 }
 
-const getComp = (googleAddress: GoogleAddress, type: string) =>
-  googleAddress.addressComponents.find((c) => c.componentType === type)
-    ?.componentName?.text || "";
-
 const formatCleanAddress = (
   googleAddress: GoogleAddress,
   input: Address,
   normalizedRegion: string
 ): Address => {
+  const components = new Map(
+    googleAddress.addressComponents.map((c) => [
+      c.componentType,
+      c.componentName.text,
+    ])
+  );
+
+  const get = (type: string) => components.get(type);
+
   return {
-    street: getComp(googleAddress, "route") || input.street,
+    street: get("route") || input.street,
     streetNumber:
-      getComp(googleAddress, "street_number") ||
-      getComp(googleAddress, "subpremise") ||
+      [get("street_number"), get("subpremise")].filter(Boolean).join("/") ||
       input.streetNumber,
-    city:
-      getComp(googleAddress, "locality") ||
-      getComp(googleAddress, "postal_town") ||
-      input.city,
-    postalCode: getComp(googleAddress, "postal_code") || input.postalCode,
+    city: get("locality") || get("postal_town") || input.city,
+    postalCode: get("postal_code") || input.postalCode,
     regionCode: googleAddress.postalAddress?.regionCode || normalizedRegion,
   };
 };
@@ -77,88 +78,6 @@ export async function submitShippingAction(
     });
 
     const data = (await response.json()) as GoogleValidationResponse;
-
-    console.log("Google Validation Response:", data);
-    // TODO tracer - happy path
-    // let's see what that data is
-
-    if (
-      !response.ok ||
-      !data.result ||
-      !data.result.verdict ||
-      !data.result.address
-    ) {
-      console.error("Google Validation API Error:", data);
-      return {
-        status: "FIX",
-        errors: { city: "Address validation service unavailable." },
-      };
-    }
-
-    const verdict = data.result.verdict;
-    const address = data.result.address;
-    const components = address.addressComponents;
-
-    const isPrecise =
-      verdict.validationGranularity === "PREMISE" ||
-      verdict.validationGranularity === "SUB_PREMISE";
-
-    const countryComponent = components.find(
-      (c) => c.componentType === "country"
-    );
-    const returnedRegionCode = countryComponent?.componentName?.text;
-    const isCountryMatch = returnedRegionCode === regionCode;
-
-    const hasMajorReplacements = verdict.hasReplacedComponents;
-    const isMissingSubpremise =
-      address.missingComponentTypes?.includes("subpremise");
-
-    if (isPrecise && (!isCountryMatch || hasMajorReplacements)) {
-      const foundRegion = returnedRegionCode || "another region";
-
-      if (isCountryMatch) {
-        return {
-          status: "FIX",
-          errors: {
-            street:
-              "We identified significant discrepancies in this address. Please verify the street and number.",
-          },
-        };
-      }
-
-      return {
-        status: "FIX",
-        errors: {
-          regionCode: `We found this address in ${foundRegion}, not ${regionCode}. Please check the country.`,
-        },
-      };
-    }
-
-    if (!isPrecise) {
-      return {
-        status: "FIX",
-        errors: {
-          street:
-            "We could not locate this specific building. Please check the street number.",
-        },
-      };
-    }
-
-    if (isMissingSubpremise) {
-      return {
-        status: "CONFIRM",
-        address: formatCleanAddress(address, input, regionCode),
-        errors: {
-          streetNumber:
-            "It looks like this building might need an apartment/suite number.",
-        },
-      };
-    }
-
-    return {
-      status: "ACCEPT",
-      address: formatCleanAddress(address, input, regionCode),
-    };
   } catch (error) {
     console.error("Critical Fetch Error:", error);
     return {

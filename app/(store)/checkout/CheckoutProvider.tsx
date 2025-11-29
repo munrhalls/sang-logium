@@ -85,21 +85,13 @@ export default function CheckoutProvider({
     try {
       const response = await submitShippingAction(data);
       const responseStatus = response.status;
+      const responseAddress = response.address;
 
-      if (responseStatus === "ACCEPT") {
+      console.log("Submit Address Response:", response);
+
+      if (responseStatus === "ACCEPT" && responseAddress) {
+        setAddress(responseAddress);
         setStatus("ACCEPT");
-      } else if (responseStatus === "CONFIRM") {
-        setStatus("CONFIRM");
-      } else {
-        setStatus("FIX");
-      }
-
-      if (response.address) {
-        setAddress(response.address);
-      }
-
-      if (response.errors) {
-        setAPIErrors(response.errors);
       }
     } catch (error) {
       console.error("Submission error:", error);
