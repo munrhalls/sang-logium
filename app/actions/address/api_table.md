@@ -21,6 +21,41 @@ https://developers.google.com/maps/documentation/address-validation/reference/re
         ]
     }
 
+// Waterfall (Funnel) Approach
+Check for "Deal Breakers" first, then "Auto-Accepts," and whatever is left falls into "Review."
+
+1. The "Hard Reject" (Red Light)
+   Logic: If any of these are true, the address is undeliverable.
+   Granularity Check: validationGranularity is ROUTE, BLOCK, OTHER, or PREMISE_PROXIMITY.
+   Completeness Check: addressComplete is false.
+   Suspicion Check: Any component has confirmationLevel of UNCONFIRMED_AND_SUSPICIOUS.
+   Return: STATUS: REJECTED
+
+2. The "Happy Path" (Green Light)
+   Logic: If it passed the Red Light, check if it is perfect.
+   Granularity: validationGranularity is SUB_PREMISE (Apartment) OR PREMISE (House/Building). Note: PREMISE must be accepted, otherwise people in houses cannot buy.
+   Zero Noise: All has... flags (Unconfirmed, Inferred, Replaced, SpellCorrected) are false.
+   Confidence: All route | street_number | postal_code | locality | country have confirmationLevel: CONFIRMED.
+   Return: STATUS: ACCEPT (Proceed to checkout).
+
+3. The "Did You Mean?" (Auto-Correction)
+   Logic: It’s a deliverable address, but the API changed something significant (fixed a typo, swapped Street for Avenue).
+
+Triggers: hasSpellCorrectedComponents is true OR hasReplacedComponents is true.
+
+Safety Net: Ensure validationGranularity is still PREMISE or SUB_PREMISE.
+
+Return: STATUS: SPELL_CORRECTED, ORIGINAL ADDRESS OBJECT, SPELL_CORRECTED ADDRESS OBJECT
+
+4. The "Are You Sure?" (Confirmation Needed)
+   Logic: The address technically exists, but something is fuzzy. This is the catch-all for "Almost Perfect."
+
+Scenario A (The Missing Apartment): inputGranularity was SUB_PREMISE (User typed Apt 5) BUT validationGranularity is PREMISE (Google found the building but not Apt 5).
+
+Scenario B (New Construction): A component is UNCONFIRMED_BUT_PLAUSIBLE. (The street number looks correct mathematically, but Google hasn't driven a car past it yet).
+
+Return: STATUS: CONFIRMATION_NEEDED, ORIGINAL ADDRESS OBJ
+
 // <GRANULARITY ENUM>
 SUB_PREMISE Below-building level result, such as an apartment.
 PREMISE Building-level result.
@@ -35,34 +70,3 @@ In short: SUB_PREMISE means google could validate down to apartment number in a 
 CONFIRMED We were able to verify that this component exists and makes sense in the context of the rest of the address.
 UNCONFIRMED_BUT_PLAUSIBLE This component could not be confirmed, but it is plausible that it exists. For example, a street number within a known valid range of numbers on a street where specific house numbers are not known.
 This component was not confirmed and is likely to be wrong. For example, a neighborhood that does not fit the rest of the address.
-
-// TRUTH TABLE - API RESPONSE TYPE TO ROUTE VALIDATION LOGIC OUTPUT
-
-1 HAPPY PATH CASE, PERFECT ADDRESS
-"inputGranularity": "SUB_PREMISE",
-"validationGranularity": "SUB_PREMISE",
-"geocodeGranularity": "SUB_PREMISE",
-"addressComplete": true,
-
-"hasUnconfirmedComponents": false,
-"hasInferredComponents": false,
-"hasReplacedComponents": false,
-"hasSpellCorrectedComponents": false
-
-For each individual address component: <route | street_number | postal_code | locality | country>
-"confirmationLevel": "CONFIRMED"
-
-RETURN {STATUS: "ACCEPT", ADDRESS OBJ}
-
-// I AM NOT SURE WHAT NOW...
-2 ALMOST PERFECT CASES - NO CORRECTION, ONLY CONFIRMATION NEEDED
-DETECT: PERFECT MATCH TO HAPPY PATH EXCEPT geocodeGranularity: "PREMISE"
-RETURN {STATUS: "CONFIRMATION_NEEDED", ORIGINAL ADDRESS}
-
-3 ALMOST PERFECT CASE - CONTAINS SPELL CORRECTED COMPONENTS
-DETECT: PERFECT MATCH TO HAPPY PATH EXCEPT hasSpellCorrectedComponents: true
-
-RETURN { STATUS: "SPELL_CORRECTED", ORIGINAL ADDRESS, CORRECTED ADDRESS }
-
-4 CORRECTED CASE -
-DETECT: PERFECT MATCH TO HAPPY PATH EXCEPT "hasReplacedComponents": true,
