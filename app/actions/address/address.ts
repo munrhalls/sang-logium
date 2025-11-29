@@ -14,15 +14,20 @@ interface GoogleAddress {
   postalAddress?: {
     regionCode: string;
   };
-  missingComponentTypes?: string[];
+}
+
+interface GoogleValidationVerdict {
+  inputGranularity: string;
+  validationGranularity: string;
+  geocodeGranularity: string;
+  addressComplete: boolean;
+  hasReplacedComponents: boolean;
+  hasSpellCorrectedComponents: boolean;
 }
 
 interface GoogleValidationResponse {
   result?: {
-    verdict?: {
-      validationGranularity: string;
-      hasReplacedComponents: boolean;
-    };
+    verdict?: GoogleValidationVerdict;
     address?: GoogleAddress;
   };
 }
@@ -52,6 +57,21 @@ const formatCleanAddress = (
   };
 };
 
+const ALLOWED_GRANULARITY = new Set(["PREMISE", "SUB_PREMISE"]);
+
+function isAcceptedAddress(verdict: GoogleValidationVerdict): boolean {
+  if (!verdict.addressComplete) return false;
+  if (verdict.hasReplacedComponents || verdict.hasSpellCorrectedComponents) {
+    return false;
+  }
+
+  return (
+    ALLOWED_GRANULARITY.has(verdict.inputGranularity) &&
+    ALLOWED_GRANULARITY.has(verdict.validationGranularity) &&
+    ALLOWED_GRANULARITY.has(verdict.geocodeGranularity)
+  );
+}
+
 export async function submitShippingAction(
   input: Address
 ): Promise<ServerResponse> {
@@ -78,6 +98,21 @@ export async function submitShippingAction(
     });
 
     const data = (await response.json()) as GoogleValidationResponse;
+    const verdict = data.result?.verdict;
+    if (!verdict) throw new Error("No verdict in Google API response");
+
+    if (isAcceptedAddress(verdict)) {
+      const googleAddress = data.result?.address;
+      if (!googleAddress)
+        throw new Error("No address in Google API response despite acceptance");
+
+      const cleanAddress = formatCleanAddress(googleAddress, input, regionCode);
+
+      return {
+        status: "ACCEPT",
+        address: cleanAddress,
+      };
+    }
   } catch (error) {
     console.error("Critical Fetch Error:", error);
     return {
