@@ -67,8 +67,7 @@ function isAcceptedAddress(verdict: GoogleValidationVerdict): boolean {
 
   return (
     ALLOWED_GRANULARITY.has(verdict.inputGranularity) &&
-    ALLOWED_GRANULARITY.has(verdict.validationGranularity) &&
-    ALLOWED_GRANULARITY.has(verdict.geocodeGranularity)
+    ALLOWED_GRANULARITY.has(verdict.validationGranularity)
   );
 }
 
