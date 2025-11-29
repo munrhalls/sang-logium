@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 import { Address, Status } from "./checkout.types";
-import { submitShippingAction } from "@/app/actions/checkout/address";
+import { submitShippingAction } from "@/app/actions/address/address";
 
 type CheckoutContextType = {
   status: Status;
