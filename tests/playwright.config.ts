@@ -5,7 +5,7 @@ export default defineConfig({
   testIgnore: "**/jest/**",
 
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL: "http://localhost:3000/",
     trace: "on",
   },
 

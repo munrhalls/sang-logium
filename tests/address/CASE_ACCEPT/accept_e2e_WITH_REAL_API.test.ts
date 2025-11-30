@@ -12,10 +12,15 @@
 //   - No navigation occurs (user stays on checkout/shipping page)
 //   - Valid address shows enabled "proceed-to-payment-btn" within 3500ms
 
-import { test, expect } from "@playwright/test";
-import validAddresses from "./cases_valid.json";
+import dotenv from "dotenv";
+import path from "path";
+
+dotenv.config({ path: path.resolve(process.cwd(), "tests", ".env.test") });
 
 const shouldRunRealApiTests = process.env.TESTS_WITH_REAL_API === "true";
+
+import { test, expect } from "@playwright/test";
+import validAddresses from "./cases_valid.json" assert { type: "json" };
 
 test.describe("Tracer Code: Accept Path", () => {
   test.skip(
