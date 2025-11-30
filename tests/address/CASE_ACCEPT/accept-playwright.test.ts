@@ -10,7 +10,7 @@
 //   - Valid address shows enabled "proceed-to-payment-btn" within 3500ms
 
 import { test, expect } from "@playwright/test";
-import validAddresses from "./valid-addresses-edge-cases.json";
+import validAddresses from "./cases_valid.json";
 
 test.describe("Tracer Code: Accept Path (Robust)", () => {
   for (const entry of validAddresses) {
@@ -30,12 +30,8 @@ test.describe("Tracer Code: Accept Path (Robust)", () => {
       await expect(proceedButton).toBeVisible({ timeout: 3500 });
       await expect(proceedButton).toBeEnabled();
 
-      await expect(page.locator('input[name="city"]')).toHaveValue(
-        address.locality
-      );
-      await expect(page.locator('input[name="postalCode"]')).toHaveValue(
-        address.postalCode
-      );
+      await expect(page.getByText(address.locality)).toBeVisible();
+      await expect(page.getByText(address.postalCode)).toBeVisible();
     });
   }
 });

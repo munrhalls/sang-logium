@@ -2,6 +2,16 @@
 
 import { Address, ServerResponse } from "@/app/(store)/checkout/checkout.types";
 
+interface RequestBody {
+  address: {
+    regionCode: string;
+    postalCode: string;
+    locality: string;
+    addressLines: string[];
+  };
+  enableUspsCass: boolean;
+}
+
 interface GoogleAddressComponent {
   componentType: string;
   componentName: {
@@ -60,8 +70,9 @@ const formatCleanAddress = (
 const ALLOWED_GRANULARITY = new Set(["PREMISE", "SUB_PREMISE"]);
 
 function isAcceptedAddress(verdict: GoogleValidationVerdict): boolean {
+  console.log("Validation Verdict:", verdict);
   if (!verdict.addressComplete) return false;
-  if (verdict.hasReplacedComponents || verdict.hasSpellCorrectedComponents) {
+  if (verdict?.hasReplacedComponents || verdict?.hasSpellCorrectedComponents) {
     return false;
   }
 
@@ -79,7 +90,7 @@ export async function submitShippingAction(
 
   const regionCode = input.regionCode === "UK" ? "GB" : input.regionCode;
 
-  const payload = {
+  const payload: RequestBody = {
     address: {
       regionCode: regionCode,
       postalCode: input.postalCode,
@@ -120,7 +131,7 @@ export async function submitShippingAction(
     console.error("Critical Fetch Error:", error);
     return {
       status: "FIX",
-      errors: { city: "Validation failed. Please check details." },
+      errors: { message: "Validation failed. Please check details." },
     };
   }
 }

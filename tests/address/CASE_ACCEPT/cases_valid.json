@@ -11,18 +11,18 @@
   {
     "address": {
       "regionCode": "PL",
-      "postalCode": "31-001",
-      "locality": "Kraków",
-      "addressLines": ["Wawel 5"]
+      "postalCode": "00-017",
+      "locality": "Warszawa",
+      "addressLines": ["ul. Marszałkowska 100/15"]
     },
     "enableUspsCass": false
   },
   {
     "address": {
       "regionCode": "PL",
-      "postalCode": "50-106",
-      "locality": "Wrocław",
-      "addressLines": ["Rynek 1"]
+      "postalCode": "60-101",
+      "locality": "Poznań",
+      "addressLines": ["ul. Głogowska 10"]
     },
     "enableUspsCass": false
   },
@@ -38,18 +38,18 @@
   {
     "address": {
       "regionCode": "GB",
-      "postalCode": "EH1 2NG",
-      "locality": "Edinburgh",
-      "addressLines": ["Castlehill"]
+      "postalCode": "W4 5RA",
+      "locality": "London",
+      "addressLines": ["28 Woodstock Road"]
     },
     "enableUspsCass": false
   },
   {
     "address": {
       "regionCode": "GB",
-      "postalCode": "CF10 3RB",
-      "locality": "Cardiff",
-      "addressLines": ["Castle Street"]
+      "postalCode": "M1 6DD",
+      "locality": "Manchester",
+      "addressLines": ["Flat 20, 10 Whitworth Street"]
     },
     "enableUspsCass": false
   }

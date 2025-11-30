@@ -29,7 +29,7 @@ export default function CheckoutProvider({
 
   const DevHUD = () => (
     <div className="absolute h-full w-full">
-      <div className="absolute left-4 top-4 z-[9999] max-w-sm rounded-lg border border-gray-800 bg-black/90 p-4 font-mono text-xs text-green-400 shadow-2xl">
+      <div className="absolute bottom-4 left-4 z-[9999] max-w-sm rounded-lg border border-gray-800 bg-black/90 p-4 font-mono text-xs text-green-400 shadow-2xl">
         <div className="mb-2 border-b border-gray-700 pb-1 font-bold text-white">
           DEV STATE (Bret Victor Mode)
         </div>

@@ -57,16 +57,15 @@ Check for "Deal Breakers" first, then "Auto-Accepts," and whatever is left falls
    Granularity: validationGranularity is SUB_PREMISE (Apartment) OR PREMISE (House/Building). Note: PREMISE must be accepted, otherwise people in houses cannot buy.
    Zero Noise: All has... flags (Unconfirmed, Inferred, Replaced, SpellCorrected) are false.
    Confidence: All route | street_number | postal_code | locality | country have confirmationLevel: CONFIRMED.
-   Return: STATUS: ACCEPT (Proceed to checkout).
+   Return: STATUS: ACCEPT
 
 3. The "Did You Mean?" (Auto-Correction)
    Logic: It’s a deliverable address, but the API changed something significant (fixed a typo, swapped Street for Avenue).
 
 Triggers: hasSpellCorrectedComponents is true OR hasReplacedComponents is true.
 
-Safety Net: Ensure validationGranularity is still PREMISE or SUB_PREMISE.
-
-Return: STATUS: SPELL_CORRECTED, ORIGINAL ADDRESS OBJECT, SPELL_CORRECTED ADDRESS OBJECT
+Safety Net: Ensure validationGrngAction from "@/app/actions/
+T, SPELL_CORRECTED ADDRESS OBJECT
 
 4. The "Are You Sure?" (Confirmation Needed)
    Logic: The address technically exists, but something is fuzzy. This is the catch-all for "Almost Perfect."
