@@ -1,4 +1,7 @@
 // CONTRACT
+// PURPOSE - TEST IT WORKS ON VARIOUS OS PLATFORMS AND BROWSERS
+// - ANDROID/IOS/MAC OS/WINDOWS/LNUX
+// - CHROME, SAFARI, FIREFOX, EDGE, OPERA
 
 // Required pre-conditions:
 //   - validAddresses entry has address.addressLines[0], address.locality, address.postalCode
@@ -12,14 +15,33 @@
 import { test, expect } from "@playwright/test";
 import validAddresses from "./cases_valid.json";
 
-test.describe("Tracer Code: Accept Path (Robust)", () => {
+const shouldRunRealApiTests = process.env.TESTS_WITH_REAL_API === "true";
+
+test.describe("Tracer Code: Accept Path", () => {
+  test.skip(
+    !shouldRunRealApiTests,
+    "Skipping: TESTS_WITH_REAL_API not enabled"
+  );
+
   for (const entry of validAddresses) {
     const { address } = entry;
 
-    test(`Should ACCEPT: ${address.addressLines[0]}`, async ({ page }) => {
-      await page.goto("/checkout");
+    test(`Should ACCEPT valid address: ${address.regionCode} ${address.locality} ${address.addressLines[0]}`, async ({
+      page,
+    }) => {
+      await page.goto("/checkout/shipping");
 
-      await page.fill('input[name="street"]', address.addressLines[0]);
+      // Why? Google Address API vs UI
+      // E.g.: "Plac Defilad 1" → street: "Plac Defilad", number: "1"
+      const fullAddress = address.addressLines[0];
+      const lastSpaceIndex = fullAddress.lastIndexOf(" ");
+      const street =
+        lastSpaceIndex > 0 ? fullAddress.slice(0, lastSpaceIndex) : fullAddress;
+      const streetNumber =
+        lastSpaceIndex > 0 ? fullAddress.slice(lastSpaceIndex + 1) : "1";
+
+      await page.fill('input[name="street"]', street);
+      await page.fill('input[name="streetNumber"]', streetNumber);
       await page.fill('input[name="city"]', address.locality);
       await page.fill('input[name="postalCode"]', address.postalCode);
 
