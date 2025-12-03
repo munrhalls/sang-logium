@@ -13,8 +13,6 @@ describe("submitShippingAction Live Integration", () => {
     };
 
     const result: ServerResponse = await submitShippingAction(validAddress);
-    console.log("RESULT //////////////////////////////////// ", result);
-    // TODO 4. IMPROVE FEEDBACK, MAKE EASY TO FIX IN CASE OF ERROR
     expect(result.status).toBe("ACCEPT");
     expect(result.address?.postalCode).toBe("W4 5RA");
     expect(result.geocode).toBeDefined();

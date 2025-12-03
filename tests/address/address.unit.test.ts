@@ -35,10 +35,9 @@ describe("GOOGLE ADDRESS VALIDATE API - ACCEPT case", () => {
       postalCode: "W4 5RA",
       regionCode: "GB",
     });
-    // TODO 3. ADAPT TO NEW SERVER RESPONSE TYPE
     expect(result.geocode).toBeDefined();
-    expect(result.geocode?.location.latitude).toBeTypeOf("number");
-    expect(result.geocode?.location.longitude).toBeTypeOf("number");
+    expect(result.geocode?.latitude).toBeTypeOf("number");
+    expect(result.geocode?.longitude).toBeTypeOf("number");
     expect(result.placeId).toBeTypeOf("string");
     expect(result.errors).toBeUndefined();
   });
