@@ -161,7 +161,7 @@ export async function submitShippingAction(
     return {
       status: "FIX",
       errors: {
-        message: "Validation service temporarily unavailable.",
+        message: "Address validation service temporarily unavailable.",
       },
     };
   }
