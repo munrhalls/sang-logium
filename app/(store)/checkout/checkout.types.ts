@@ -12,11 +12,11 @@ export type Status = "EDITING" | "LOADING" | "FIX" | "CONFIRM" | "ACCEPT";
 export type ServerResponse = {
   status: Status;
   address?: Address;
-  geocode: {
+  geocode?: {
     latitude: number;
     longitude: number;
   };
-  placeId: string;
+  placeId?: string;
   errors?: Record<string, string>;
 };
 

@@ -42,7 +42,7 @@ interface GoogleValidationVerdict {
   hasSpellCorrectedComponents: boolean;
 }
 
-interface GoogleValidationResponse {
+export interface GoogleValidationResponse {
   result?: {
     verdict?: GoogleValidationVerdict;
     address?: GoogleAddress;

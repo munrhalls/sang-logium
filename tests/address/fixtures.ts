@@ -1,9 +1,12 @@
-const MOCK_GOOGLE_SUCCESS = {
+import { GoogleValidationResponse } from "@/app/actions/address/address";
+
+const MOCK_GOOGLE_SUCCESS: GoogleValidationResponse = {
   result: {
     verdict: {
       addressComplete: true,
       inputGranularity: "PREMISE",
       validationGranularity: "PREMISE",
+      geocodeGranularity: "PREMISE",
       hasReplacedComponents: false,
       hasSpellCorrectedComponents: false,
     },
@@ -15,11 +18,11 @@ const MOCK_GOOGLE_SUCCESS = {
         { componentType: "postal_code", componentName: { text: "W4 5RA" } },
       ],
       postalAddress: { regionCode: "GB" },
-      geocode: {
-        location: {
-          latitude: 51.4934,
-          longitude: -0.2678,
-        },
+    },
+    geocode: {
+      location: {
+        latitude: 51.4934,
+        longitude: -0.2678,
       },
       placeId: "ChIJdd4hrwug2EcRmSrV3Vo6llI",
     },
