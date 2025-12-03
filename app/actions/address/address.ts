@@ -1,8 +1,6 @@
 "use server";
-
-// TODO NEXT - MAKE SURE TO MAKE THIS ACTION PUBLICALLY UNAVAILABLE AND HIDE GOOGLE MAPS KEY SO NO ONE ELSE CAN HIT IT
-
 import { Address, ServerResponse } from "@/app/(store)/checkout/checkout.types";
+import Error from "next/error";
 
 // TODO 1. ou are using throw new Error to handle valid logic branches (when an address is not accepted). This is an anti-pattern; simple conditional returns are more performant and readable.
 // TODO 2 Payload Construction: Concatenating street and streetNumber into a single string inside addressLines is risky. If the user inputs a complex street name, this concatenation might confuse the validation engine.
@@ -30,13 +28,6 @@ interface GoogleAddress {
   postalAddress?: {
     regionCode: string;
   };
-  geocode?: {
-    location: {
-      latitude: number;
-      longitude: number;
-    };
-    placeId?: string;
-  };
 }
 
 interface GoogleValidationVerdict {
@@ -61,6 +52,8 @@ export interface GoogleValidationResponse {
     };
   };
 }
+
+const ALLOWED_GRANULARITY = new Set(["PREMISE", "SUB_PREMISE"]);
 
 const formatCleanAddress = (
   googleAddress: GoogleAddress,
@@ -87,12 +80,10 @@ const formatCleanAddress = (
   };
 };
 
-const ALLOWED_GRANULARITY = new Set(["PREMISE", "SUB_PREMISE"]);
-
 function isAcceptedAddress(verdict: GoogleValidationVerdict): boolean {
-  console.log("Validation Verdict:", verdict);
   if (!verdict.addressComplete) return false;
-  if (verdict?.hasReplacedComponents || verdict?.hasSpellCorrectedComponents) {
+
+  if (verdict.hasReplacedComponents || verdict.hasSpellCorrectedComponents) {
     return false;
   }
 
@@ -106,10 +97,15 @@ export async function submitShippingAction(
   input: Address
 ): Promise<ServerResponse> {
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
-  const url = `https://addressvalidation.googleapis.com/v1:validateAddress?key=${apiKey}`;
+  if (!apiKey) {
+    return {
+      status: "FIX",
+      errors: { message: "Internal configuration error." },
+    };
+  }
 
+  const url = `https://addressvalidation.googleapis.com/v1:validateAddress?key=${apiKey}`;
   const regionCode = input.regionCode === "UK" ? "GB" : input.regionCode;
-  console.log(input, "input");
 
   const payload: RequestBody = {
     address: {
@@ -128,22 +124,21 @@ export async function submitShippingAction(
       body: JSON.stringify(payload),
     });
 
-    const data = (await response.json()) as GoogleValidationResponse;
-
-    const verdict = data.result?.verdict;
-    if (!verdict) {
-      console.error("Google API Response:", JSON.stringify(data, null, 2));
-      throw new Error("No verdict in Google API response");
+    if (!response.ok) {
+      return {
+        status: "FIX",
+        errors: { message: `Google API Error: ${response.statusText}` },
+      };
     }
 
-    if (isAcceptedAddress(verdict)) {
-      const googleAddress = data.result?.address;
-      if (!googleAddress)
-        throw new Error("No address in Google API response despite acceptance");
+    const data = (await response.json()) as GoogleValidationResponse;
+    const verdict = data.result?.verdict;
+    const googleAddress = data.result?.address;
 
+    if (verdict && googleAddress && isAcceptedAddress(verdict)) {
       const cleanAddress = formatCleanAddress(googleAddress, input, regionCode);
 
-      return <ServerResponse>{
+      return {
         status: "ACCEPT",
         address: cleanAddress,
         geocode: data.result?.geocode?.location,
@@ -151,15 +146,18 @@ export async function submitShippingAction(
       };
     }
 
-    throw new Error(
-      "//DEVELOPMENT// Outside of current tracer code, PURPOSEFUL ERROR THROW"
-    );
-  } catch (error) {
-    console.error("Critical Fetch Error:", error);
-    // TODO LATER. Properly type error response
     return {
       status: "FIX",
-      errors: { message: "Validation failed. Please check details." },
+      errors: { message: "Address could not be strictly validated." },
+    };
+    // TODO annotate error type properly in catch
+  } catch (err) {
+    return {
+      status: "FIX",
+      errors: {
+        err,
+        message: "Validation service temporarily unavailable.",
+      },
     };
   }
 }
