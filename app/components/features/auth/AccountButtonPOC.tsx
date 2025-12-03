@@ -8,6 +8,7 @@ export default function AccountButtonPOC() {
   const searchParams = useSearchParams();
   const router = useRouter();
   if (!isLoaded || !user) return null;
+
   const handleAccountDrawerOpen = () => {
     const search = searchParams.toString();
     const currentUrl = search ? `${pathname}?${search}` : pathname;
