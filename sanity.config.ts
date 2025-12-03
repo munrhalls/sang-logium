@@ -1,5 +1,3 @@
-"use client";
-
 import { structureTool } from "sanity/structure";
 import { dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";

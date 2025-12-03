@@ -1,4 +1,5 @@
 "use client";
+// TODO fix use client
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Package, MapPin, CreditCard, LogOut } from "lucide-react";
