@@ -14,16 +14,12 @@ describe("submitShippingAction Live Integration", () => {
 
     const result: ServerResponse = await submitShippingAction(validAddress);
 
-    expect(result).toMatchObject({
-      status: "ACCEPT",
-      address: {
-        postalCode: "W4 5RA",
-      },
-      geocode: {
-        latitude: expect.any(Number),
-        longitude: expect.any(Number),
-      },
-      placeId: expect.any(String),
-    });
+    expect(result.status).toBe("ACCEPT");
+    expect(result.address).toBeDefined();
+    expect(result.address?.postalCode).toBe("W4 5RA");
+    expect(result.geocode).toBeDefined();
+    expect(result.geocode?.latitude).toEqual(expect.any(Number));
+    expect(result.geocode?.longitude).toEqual(expect.any(Number));
+    expect(result.placeId).toEqual(expect.any(String));
   });
 });
