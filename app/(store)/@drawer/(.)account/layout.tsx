@@ -5,6 +5,5 @@ export default function AccountLayout({
 }: {
   children?: React.ReactNode;
 }) {
-  // TODO extract onto account shell component and import
   return <AccountShell>{children}</AccountShell>;
 }

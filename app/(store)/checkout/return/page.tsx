@@ -1,4 +1,5 @@
 "use client";
+// TODO refactor to move "use client" as far down as possible and minimize performance suboptimalities
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
