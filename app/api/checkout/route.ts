@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
+import { stripe } from "@/lib/stripe/stripe";
 import { currentUser } from "@clerk/nextjs/server";
 import { backendClient } from "@/sanity/lib/backendClient";
 import type {
   ServerProduct,
-  PublicBasketItem,
+  BasketCheckoutItem,
 } from "@/app/(store)/checkout/checkout.types";
 
 export async function POST(req: NextRequest) {
   try {
-    const { publicBasket }: { publicBasket: PublicBasketItem[] } =
+    const { publicBasket }: { publicBasket: BasketCheckoutItem[] } =
       await req.json();
     const user = await currentUser();
     const userEmail = user?.primaryEmailAddress?.emailAddress;

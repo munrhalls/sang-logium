@@ -14,7 +14,9 @@ describe("GOOGLE ADDRESS VALIDATE API - ACCEPT case", () => {
 
   it("returns ACCEPT status when Google verdict is valid", async () => {
     vi.spyOn(global, "fetch").mockResolvedValue({
+      ok: true,
       json: async () => MOCK_GOOGLE_SUCCESS,
+      statusText: "OK",
     } as Response);
 
     const input = {
@@ -41,4 +43,5 @@ describe("GOOGLE ADDRESS VALIDATE API - ACCEPT case", () => {
     expect(result.placeId).toBeTypeOf("string");
     expect(result.errors).toBeUndefined();
   });
+  // TODO Zero Negative Coverage: Your code has critical logic in isAcceptedAddress (checking addressComplete, hasReplacedComponents, and Granularity). None of this is tested. You don't know if your code actually rejects a "Route" level address or an address with typos.
 });

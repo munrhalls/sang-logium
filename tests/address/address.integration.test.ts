@@ -22,4 +22,6 @@ describe("submitShippingAction Live Integration", () => {
     expect(result.geocode?.longitude).toEqual(expect.any(Number));
     expect(result.placeId).toEqual(expect.any(String));
   });
+
+  // TODO Zero Negative Coverage: Your code has critical logic in isAcceptedAddress (checking addressComplete, hasReplacedComponents, and Granularity). None of this is tested. You don't know if your code actually rejects a "Route" level address or an address with typos.
 });

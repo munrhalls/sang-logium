@@ -107,6 +107,7 @@ export async function submitShippingAction(
     .filter(Boolean)
     .join(" ")
     .trim();
+  console.log("Address Line:", addressLine);
 
   const payload: RequestBody = {
     address: {
