@@ -97,6 +97,7 @@ export async function submitShippingAction(
   input: Address
 ): Promise<ServerResponse> {
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+
   if (!apiKey) {
     return {
       status: "FIX",
@@ -107,12 +108,17 @@ export async function submitShippingAction(
   const url = `https://addressvalidation.googleapis.com/v1:validateAddress?key=${apiKey}`;
   const regionCode = input.regionCode === "UK" ? "GB" : input.regionCode;
 
+  const addressLine = [input.street, input.streetNumber]
+    .filter(Boolean)
+    .join(" ")
+    .trim();
+
   const payload: RequestBody = {
     address: {
       regionCode: regionCode,
       postalCode: input.postalCode,
       locality: input.city,
-      addressLines: [`${input.street} ${input.streetNumber}`],
+      addressLines: [addressLine],
     },
     enableUspsCass: false,
   };
@@ -150,12 +156,11 @@ export async function submitShippingAction(
       status: "FIX",
       errors: { message: "Address could not be strictly validated." },
     };
-    // TODO annotate error type properly in catch
   } catch (err) {
+    console.error("Address Validation Error:", err);
     return {
       status: "FIX",
       errors: {
-        err,
         message: "Validation service temporarily unavailable.",
       },
     };
