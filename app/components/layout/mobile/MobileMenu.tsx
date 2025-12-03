@@ -1,9 +1,9 @@
-"use client";
 import React from "react";
 import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
-import { useUIStore } from "@/store/store";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { DrawerToggleLink } from "./DrawerToggleLink";
+
 const Authentication = dynamic(
   () => import("@/app/components/features/auth/Authentication"),
   {
@@ -16,44 +16,46 @@ const Authentication = dynamic(
     ssr: false,
   }
 );
-const MobileMenu = () => {
-  const isCategoriesOpen = useUIStore((state) => state.isCategoriesDrawerOpen);
-  const toggleCategoriesDrawer = useUIStore(
-    (state) => state.toggleCategoriesDrawer
-  );
-  const isSearchDrawerOpen = useUIStore((state) => state.isSearchDrawerOpen);
-  const toggleSearchDrawer = useUIStore((state) => state.toggleSearchDrawer);
+
+const MobileMenu = ({
+  searchParams,
+}: {
+  searchParams?: { menu?: string; search?: string };
+}) => {
+  const isSearchOpen =
+    searchParams?.search === "true" && searchParams?.menu !== "true";
+  const isMenuOpen =
+    searchParams?.menu === "true" && searchParams?.search !== "true";
+
   return (
     <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">
       <div className="flex items-center justify-around px-4">
-        <button
-          className="flex flex-col items-center"
-          onClick={toggleCategoriesDrawer}
-        >
-          {isCategoriesOpen ? (
-            <X size={24} />
-          ) : (
+        <DrawerToggleLink
+          isOpen={isMenuOpen}
+          param="menu"
+          openIcon={
             <>
               <Menu className="h-6 w-6" />
               <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
             </>
-          )}
-        </button>
-        <button
-          className="flex flex-col items-center"
-          onClick={toggleSearchDrawer}
-        >
-          {isSearchDrawerOpen ? (
-            <X size={24} />
-          ) : (
+          }
+          closeIcon={<X size={24} />}
+          label="Menu"
+        />
+        <DrawerToggleLink
+          isOpen={isSearchOpen}
+          param="search"
+          openIcon={
             <>
               <Search className="h-6 w-6" />
               <span className="mt-1 hidden text-xs sm:inline-block">
                 Search
               </span>
             </>
-          )}
-        </button>
+          }
+          closeIcon={<X size={24} />}
+          label="Search"
+        />
         <Authentication />
         <Link href="/tracking" className="flex flex-col items-center">
           <Truck className="h-6 w-6" />

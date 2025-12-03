@@ -55,9 +55,11 @@ const dmSerifDisplay = DM_Serif_Display({
 export default async function RootLayout({
   children,
   drawer,
+  searchParams,
 }: Readonly<{
   children: React.ReactNode;
   drawer: React.ReactNode;
+  searchParams?: { menu?: string; search?: string };
 }>) {
   return (
     <html
@@ -91,12 +93,12 @@ export default async function RootLayout({
             <CategoriesWrapper />
           </Suspense>
           <div className="relative h-full min-h-0 overflow-hidden">
-            <MobileDrawersWrapper />
+            <MobileDrawersWrapper searchParams={searchParams} />
             <div className="relative h-full min-h-0 overflow-y-auto">
               {children}
             </div>
           </div>
-          <MobileMenu />
+          <MobileMenu searchParams={searchParams} />
         </body>
       </ClerkProvider>
     </html>

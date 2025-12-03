@@ -1,33 +1,16 @@
-"use client";
-import { useUIStore } from "../../../../store/store";
-import { useEffect, useState } from "react";
-import { FaTimes } from "react-icons/fa";
-export default function MobileSearchDrawer() {
-  const isSearchDrawerOpen = useUIStore((state) => state.isSearchDrawerOpen);
-  const toggleSearchDrawer = useUIStore((state) => state.toggleSearchDrawer);
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-  if (!isMounted) {
-    return null;
-  }
+import { CloseDrawerButton } from "./CloseDrawerButton";
+
+export default function MobileSearchDrawer({ isOpen }: { isOpen: boolean }) {
   return (
     <div
       className={`pointer-events-auto absolute inset-0 z-50 h-full w-full overflow-hidden bg-slate-50 text-black transition-transform duration-300 ${
-        isSearchDrawerOpen ? "translate-x-0" : "-translate-x-full"
+        isOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       <div className="p-4">
         <div className="border-b border-gray-200 p-2">
           <div className="flex items-center justify-end">
-            <button
-              onClick={toggleSearchDrawer}
-              className="flex items-center justify-center gap-1 text-black"
-            >
-              <span>CLOSE</span>
-              <FaTimes size={14} />
-            </button>
+            <CloseDrawerButton />
           </div>
         </div>
         <form action="/search" className="mt-4">

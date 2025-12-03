@@ -1,38 +1,26 @@
-"use client";
-import { useUIStore } from "../../../../store/store";
 import { ReactElement } from "react";
-import { FaTimes } from "react-icons/fa";
+import { CloseDrawerButton } from "./CloseDrawerButton";
 
 export default function MobileCategoriesDrawer({
   categoriesTreeUI,
+  isOpen,
 }: {
   categoriesTreeUI: ReactElement;
+  isOpen: boolean;
 }) {
-  const isCategoriesDrawerOpen = useUIStore(
-    (state) => state.isCategoriesDrawerOpen
-  );
-  const toggleCategoriesDrawer = useUIStore(
-    (state) => state.toggleCategoriesDrawer
-  );
   const handleClick = () => {
-    toggleCategoriesDrawer();
+    // Navigation handled by Link in categoriesTreeUI
   };
   return (
     <div
       className={`pointer-events-auto absolute inset-0 z-50 flex h-full w-full flex-col overflow-hidden bg-slate-50 text-black transition-transform duration-300 ${
-        isCategoriesDrawerOpen ? "translate-x-0" : "-translate-x-full"
+        isOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       <div>
         <div className="border-b border-gray-200 p-2">
           <div className="flex items-center justify-end">
-            <button
-              onClick={toggleCategoriesDrawer}
-              className="flex items-center justify-center gap-1 text-black"
-            >
-              <span>CLOSE</span>
-              <FaTimes size={14} />
-            </button>
+            <CloseDrawerButton />
           </div>
         </div>
         <h1 className="my-2 ml-4 text-center text-3xl">Categories</h1>

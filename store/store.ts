@@ -3,10 +3,6 @@ import { persist } from "zustand/middleware";
 import { BasketItem } from "@/app/(store)/basket/basket.types";
 
 interface UIState {
-  isSearchDrawerOpen: boolean;
-  toggleSearchDrawer: () => void;
-  isCategoriesDrawerOpen: boolean;
-  toggleCategoriesDrawer: () => void;
   isProductsFilterDrawerOpen: boolean;
   toggleProductsFilterDrawer: () => void;
   isProductsSortDrawerOpen: boolean;
@@ -24,18 +20,6 @@ interface BasketState {
 }
 
 export const useUIStore = create<UIState>((set) => ({
-  isSearchDrawerOpen: false,
-  toggleSearchDrawer: () =>
-    set((state) => ({
-      isSearchDrawerOpen: !state.isSearchDrawerOpen,
-      isCategoriesDrawerOpen: false,
-    })),
-  isCategoriesDrawerOpen: false,
-  toggleCategoriesDrawer: () =>
-    set((state) => ({
-      isCategoriesDrawerOpen: !state.isCategoriesDrawerOpen,
-      isSearchDrawerOpen: false,
-    })),
   isProductsFilterDrawerOpen: false,
   toggleProductsFilterDrawer: () =>
     set((state) => ({

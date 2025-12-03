@@ -10,7 +10,11 @@ type SubCategory = {
   _key: string;
   subcategories?: SubCategory[];
 };
-export default async function MobileCategoriesDrawerWrapper() {
+export default async function MobileCategoriesDrawerWrapper({
+  isOpen,
+}: {
+  isOpen: boolean;
+}) {
   const categories: ALL_CATEGORIES_QUERYResult = await getAllCategories();
   if (!categories || categories.length === 0) {
     return (
@@ -96,5 +100,10 @@ export default async function MobileCategoriesDrawerWrapper() {
       })}
     </div>
   );
-  return <MobileCategoriesDrawer categoriesTreeUI={categoriesTreeUI} />;
+  return (
+    <MobileCategoriesDrawer
+      categoriesTreeUI={categoriesTreeUI}
+      isOpen={isOpen}
+    />
+  );
 }
