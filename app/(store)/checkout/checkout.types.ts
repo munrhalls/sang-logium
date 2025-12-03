@@ -8,16 +8,15 @@ export type Address = {
 
 export type Status = "EDITING" | "LOADING" | "FIX" | "CONFIRM" | "ACCEPT";
 
+// TODO LATER - better naming
 export type ServerResponse = {
   status: Status;
   address?: Address;
-  geocode?: {
-    location: {
-      latitude: number;
-      longitude: number;
-    };
+  geocode: {
+    latitude: number;
+    longitude: number;
   };
-  placeId?: string;
+  placeId: string;
   errors?: Record<string, string>;
 };
 

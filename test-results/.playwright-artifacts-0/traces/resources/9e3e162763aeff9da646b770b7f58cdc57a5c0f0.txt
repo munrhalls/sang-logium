@@ -1,1 +1,0 @@
-[{"regionCode":"PL","postalCode":"00-901","street":"Plac Defilad","streetNumber":"1","city":"Warszawa"}]

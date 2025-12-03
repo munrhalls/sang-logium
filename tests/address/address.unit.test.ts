@@ -1,33 +1,6 @@
 import { describe, it, expect, vi, beforeAll, afterEach } from "vitest";
 import { submitShippingAction } from "@/app/actions/address/address";
-
-const MOCK_GOOGLE_SUCCESS = {
-  result: {
-    verdict: {
-      addressComplete: true,
-      inputGranularity: "PREMISE",
-      validationGranularity: "PREMISE",
-      hasReplacedComponents: false,
-      hasSpellCorrectedComponents: false,
-    },
-    address: {
-      addressComponents: [
-        { componentType: "route", componentName: { text: "Woodstock Road" } },
-        { componentType: "street_number", componentName: { text: "28" } },
-        { componentType: "locality", componentName: { text: "London" } },
-        { componentType: "postal_code", componentName: { text: "W4 5RA" } },
-      ],
-      postalAddress: { regionCode: "GB" },
-      geocode: {
-        location: {
-          latitude: 51.4934,
-          longitude: -0.2678,
-        },
-      },
-      placeId: "ChIJdd4hrwug2EcRmSrV3Vo6llI",
-    },
-  },
-};
+import { MOCK_GOOGLE_SUCCESS } from "./fixtures";
 
 describe("GOOGLE ADDRESS VALIDATE API - ACCEPT case", () => {
   const originalEnv = process.env;
@@ -62,6 +35,7 @@ describe("GOOGLE ADDRESS VALIDATE API - ACCEPT case", () => {
       postalCode: "W4 5RA",
       regionCode: "GB",
     });
+    // TODO 3. ADAPT TO NEW SERVER RESPONSE TYPE
     expect(result.geocode).toBeDefined();
     expect(result.geocode?.location.latitude).toBeTypeOf("number");
     expect(result.geocode?.location.longitude).toBeTypeOf("number");

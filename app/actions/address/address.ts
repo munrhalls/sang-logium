@@ -29,8 +29,8 @@ interface GoogleAddress {
       latitude: number;
       longitude: number;
     };
+    placeId?: string;
   };
-  placeId?: string;
 }
 
 interface GoogleValidationVerdict {
@@ -96,6 +96,7 @@ export async function submitShippingAction(
   const url = `https://addressvalidation.googleapis.com/v1:validateAddress?key=${apiKey}`;
 
   const regionCode = input.regionCode === "UK" ? "GB" : input.regionCode;
+  console.log(input, "input");
 
   const payload: RequestBody = {
     address: {
@@ -115,8 +116,16 @@ export async function submitShippingAction(
     });
 
     const data = (await response.json()) as GoogleValidationResponse;
+    console.log("Google API Response Data:", JSON.stringify(data, null, 2));
+
     const verdict = data.result?.verdict;
-    if (!verdict) throw new Error("No verdict in Google API response");
+    if (!verdict) {
+      console.error("Google API Response:", JSON.stringify(data, null, 2));
+      throw new Error("No verdict in Google API response");
+    }
+
+    console.log("Full verdict:", JSON.stringify(verdict, null, 2));
+    console.log("Is accepted?", isAcceptedAddress(verdict));
 
     if (isAcceptedAddress(verdict)) {
       const googleAddress = data.result?.address;
@@ -125,11 +134,16 @@ export async function submitShippingAction(
 
       const cleanAddress = formatCleanAddress(googleAddress, input, regionCode);
 
-      return {
+      console.log("Cleaned Address:", cleanAddress);
+      // TODO 5. FIX Typescript typing, geo outside address
+      console.log("Geocode Info:", data.result?.geocode);
+      console.log("Place ID:", data.result?.geocode?.placeId);
+
+      return <ServerResponse>{
         status: "ACCEPT",
         address: cleanAddress,
-        geocode: data.result?.address?.geocode,
-        placeId: data.result?.address?.placeId,
+        geocode: data.result?.geocode?.location,
+        placeId: data.result?.geocode?.placeId,
       };
     }
 
@@ -138,6 +152,7 @@ export async function submitShippingAction(
     );
   } catch (error) {
     console.error("Critical Fetch Error:", error);
+    // TODO 5. Properly type error response
     return {
       status: "FIX",
       errors: { message: "Validation failed. Please check details." },
