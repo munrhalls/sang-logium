@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe/stripe";
-import { currentUser } from "@clerk/nextjs/server";
+// import { stripe } from "@/lib/stripe/stripe";
+// import { currentUser } from "@clerk/nextjs/server";
 import { backendClient } from "@/sanity/lib/backendClient";
 import type {
   ServerProduct,
@@ -11,8 +11,8 @@ export async function POST(req: NextRequest) {
   try {
     const { publicBasket }: { publicBasket: BasketCheckoutItem[] } =
       await req.json();
-    const user = await currentUser();
-    const userEmail = user?.primaryEmailAddress?.emailAddress;
+    // const user = await currentUser();
+    // const userEmail = user?.primaryEmailAddress?.emailAddress;
 
     // TODO check What about shipping data? Not needed in the payment?
     // TODO decrement sanity stock intantly in order to prevent race conditions
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
       { productIds }
     );
 
-    const origin = req.headers.get("origin") || req.nextUrl.origin;
+    // const origin = req.headers.get("origin") || req.nextUrl.origin;
 
     // STOCK VALIDATION LOGIC:
     // TODO: Add reservedStock field to Product schema in Sanity
@@ -114,25 +114,25 @@ export async function POST(req: NextRequest) {
 
     await sanityTransaction.commit();
 
-    const session = await stripe.checkout.sessions.create({
-      ui_mode: "embedded",
-      line_items: lineItems,
-      mode: "payment",
-      return_url: `${origin}/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
-      ...(userEmail && {
-        customer_email: userEmail,
-        customer_creation: "always",
-      }),
-      metadata: {
-        productsIntent: publicBasket
-          .map((item: PublicBasketItem) => `${item._id}:${item.quantity}`)
-          .join(","),
-        clerkUserId: user?.id || "guest",
-      },
-      expires_at: Math.floor(Date.now() / 1000) + 25 * 60,
-    });
+    // const session = await stripe.checkout.sessions.create({
+    //   ui_mode: "embedded",
+    //   line_items: lineItems,
+    //   mode: "payment",
+    //   return_url: `${origin}/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
+    //   ...(userEmail && {
+    //     customer_email: userEmail,
+    //     customer_creation: "always",
+    //   }),
+    //   metadata: {
+    //     productsIntent: publicBasket
+    //       .map((item: PublicBasketItem) => `${item._id}:${item.quantity}`)
+    //       .join(","),
+    //     clerkUserId: user?.id || "guest",
+    //   },
+    //   expires_at: Math.floor(Date.now() / 1000) + 25 * 60,
+    // });
 
-    return NextResponse.json({ client_secret: session.client_secret });
+    // return NextResponse.json({ client_secret: session.client_secret });
   } catch (error) {
     console.error("Checkout session creation error:", error);
     // TODO: Technically, if Stripe creation fails here but Sanity succeeded,
@@ -151,20 +151,19 @@ export async function POST(req: NextRequest) {
 // TODO: Decrement reservedStock for each product (release reservation)
 // TODO: Do NOT touch stock field (it was never decremented from total inventory)
 // TODO: Use inc() not set() to safely handle concurrent operations
-export async function handleExpiredSession(req: NextRequest) {
-  const { session_id } = await req.json();
-
-  // TODO: Rollback stock using session metadata
-}
+// export async function handleExpiredSession(req: NextRequest) {
+// const { session_id } = await req.json();
+// TODO: Rollback stock using session metadata
+// }
 
 // WEBHOOK HANDLER: Failed Payments
 // TODO: Listen for 'checkout.session.async_payment_failed' event
 // TODO: Parse metadata.productsIntent to get productId:quantity pairs
 // TODO: Immediately decrement reservedStock (no grace period needed)
 // TODO: Do NOT touch stock field
-export async function handleFailedPayment(req: NextRequest) {
-  const { session_id } = await req.json();
-}
+// export async function handleFailedPayment(req: NextRequest) {
+// const { session_id } = await req.json();
+// }
 
 // TODO also handle random error, e.g. network dc etc. - it's almost the same as failed payment but need to ensure the customer was NOT charged or if they were, that it's impossible the order was not created
 // TODO if payment is successful but order creation in sanity fails - need to handle that too (maybe retry order creation a few times, then alert admin?)
