@@ -61,17 +61,12 @@ Check for "Deal Breakers" first, then "Auto-Accepts," and whatever is left falls
 
 3. The "Did You Mean?" (Auto-Correction)
    Logic: It’s a deliverable address, but the API changed something significant (fixed a typo, swapped Street for Avenue).
-
-Triggers: hasSpellCorrectedComponents is true OR hasReplacedComponents is true.
-
-Safety Net: Ensure validationGrngAction from "@/app/actions/
-T, SPELL_CORRECTED ADDRESS OBJECT
+   Triggers: hasSpellCorrectedComponents is true OR hasReplacedComponents is true.
+   Safety Net: Ensure validationGrngAction from "@/app/actions/
+   T, SPELL_CORRECTED ADDRESS OBJECT
 
 4. The "Are You Sure?" (Confirmation Needed)
    Logic: The address technically exists, but something is fuzzy. This is the catch-all for "Almost Perfect."
-
-Scenario A (The Missing Apartment): inputGranularity was SUB_PREMISE (User typed Apt 5) BUT validationGranularity is PREMISE (Google found the building but not Apt 5).
-
-Scenario B (New Construction): A component is UNCONFIRMED_BUT_PLAUSIBLE. (The street number looks correct mathematically, but Google hasn't driven a car past it yet).
-
-Return: STATUS: CONFIRMATION_NEEDED, ORIGINAL ADDRESS OBJ
+   Scenario A (The Missing Apartment): inputGranularity was SUB_PREMISE (User typed Apt 5) BUT validationGranularity is PREMISE (Google found the building but not Apt 5).
+   Scenario B (New Construction): A component is UNCONFIRMED_BUT_PLAUSIBLE. (The street number looks correct mathematically, but Google hasn't driven a car past it yet).
+   Return: STATUS: CONFIRMATION_NEEDED, ORIGINAL ADDRESS OBJ

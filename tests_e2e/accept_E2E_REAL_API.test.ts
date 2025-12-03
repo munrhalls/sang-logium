@@ -15,7 +15,7 @@
 import dotenv from "dotenv";
 import path from "path";
 import { test, expect } from "@playwright/test";
-import validAddresses from "./cases_valid.json" assert { type: "json" };
+import validAddresses from "../tests/address/CASE_ACCEPT/cases_valid.json" assert { type: "json" };
 
 dotenv.config({ path: path.resolve(process.cwd(), "tests", ".env.test") });
 
