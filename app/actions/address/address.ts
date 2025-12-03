@@ -1,10 +1,6 @@
 "use server";
 import { Address, ServerResponse } from "@/app/(store)/checkout/checkout.types";
 
-// TODO 1. ou are using throw new Error to handle valid logic branches (when an address is not accepted). This is an anti-pattern; simple conditional returns are more performant and readable.
-// TODO 2 Payload Construction: Concatenating street and streetNumber into a single string inside addressLines is risky. If the user inputs a complex street name, this concatenation might confuse the validation engine.
-// TODO 3 Safety: The try/catch block is too broad. It catches both network errors and your intentional logic errors, making debugging difficult.
-
 interface RequestBody {
   address: {
     regionCode: string;
@@ -130,9 +126,22 @@ export async function submitShippingAction(
     });
 
     if (!response.ok) {
+      const errorBody = await response.text();
+      console.error(
+        `Address validation failed: ${response.status} ${response.statusText}`,
+        errorBody
+      );
+
+      const message =
+        response.status === 400
+          ? "Invalid address format. Please check your input."
+          : response.status === 401
+            ? "Address validation service authentication error."
+            : "Address validation service temporarily unavailable.";
+
       return {
         status: "FIX",
-        errors: { message: `Google API Error: ${response.statusText}` },
+        errors: { message },
       };
     }
 
