@@ -1,0 +1,1 @@
+[{"regionCode":"PL","postalCode":"60-101","street":"ul. Głogowska","streetNumber":"10","city":"Poznań"}]

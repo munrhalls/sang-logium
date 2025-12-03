@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeAll } from "vitest";
-import { submitShippingAction } from "./address";
+import { describe, it, expect, vi, beforeAll, afterEach } from "vitest";
+import { submitShippingAction } from "@/app/actions/address/address";
 
 const MOCK_GOOGLE_SUCCESS = {
   result: {
@@ -12,19 +12,31 @@ const MOCK_GOOGLE_SUCCESS = {
     },
     address: {
       addressComponents: [
-        { componentType: "route", componentName: { text: "Main St" } },
-        { componentType: "street_number", componentName: { text: "123" } },
-        { componentType: "locality", componentName: { text: "New York" } },
-        { componentType: "postal_code", componentName: { text: "10001" } },
+        { componentType: "route", componentName: { text: "Woodstock Road" } },
+        { componentType: "street_number", componentName: { text: "28" } },
+        { componentType: "locality", componentName: { text: "London" } },
+        { componentType: "postal_code", componentName: { text: "W4 5RA" } },
       ],
-      postalAddress: { regionCode: "US" },
+      postalAddress: { regionCode: "GB" },
+      geocode: {
+        location: {
+          latitude: 51.4934,
+          longitude: -0.2678,
+        },
+      },
+      placeId: "ChIJdd4hrwug2EcRmSrV3Vo6llI",
     },
   },
 };
 
-describe("submitShippingAction - ACCEPT case", () => {
+describe("GOOGLE ADDRESS VALIDATE API - ACCEPT case", () => {
+  const originalEnv = process.env;
   beforeAll(() => {
     process.env.GOOGLE_MAPS_API_KEY = "TEST_KEY";
+  });
+  afterEach(() => {
+    vi.restoreAllMocks();
+    process.env = originalEnv;
   });
 
   it("returns ACCEPT status when Google verdict is valid", async () => {
@@ -33,15 +45,27 @@ describe("submitShippingAction - ACCEPT case", () => {
     } as Response);
 
     const input = {
-      street: "123 Main St",
-      streetNumber: "",
-      city: "New York",
-      postalCode: "10001",
-      regionCode: "US",
+      street: "Woodstock Road",
+      streetNumber: "28",
+      city: "London",
+      postalCode: "W4 5RA",
+      regionCode: "GB",
     };
 
     const result = await submitShippingAction(input);
 
     expect(result.status).toBe("ACCEPT");
+    expect(result.address).toEqual({
+      street: "Woodstock Road",
+      streetNumber: "28",
+      city: "London",
+      postalCode: "W4 5RA",
+      regionCode: "GB",
+    });
+    expect(result.geocode).toBeDefined();
+    expect(result.geocode?.location.latitude).toBeTypeOf("number");
+    expect(result.geocode?.location.longitude).toBeTypeOf("number");
+    expect(result.placeId).toBeTypeOf("string");
+    expect(result.errors).toBeUndefined();
   });
 });

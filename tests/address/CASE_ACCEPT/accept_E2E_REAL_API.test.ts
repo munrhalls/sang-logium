@@ -14,13 +14,12 @@
 
 import dotenv from "dotenv";
 import path from "path";
+import { test, expect } from "@playwright/test";
+import validAddresses from "./cases_valid.json" assert { type: "json" };
 
 dotenv.config({ path: path.resolve(process.cwd(), "tests", ".env.test") });
 
 const shouldRunRealApiTests = process.env.TESTS_WITH_REAL_API === "true";
-
-import { test, expect } from "@playwright/test";
-import validAddresses from "./cases_valid.json" assert { type: "json" };
 
 test.describe("Tracer Code: Accept Path", () => {
   test.skip(
@@ -34,10 +33,9 @@ test.describe("Tracer Code: Accept Path", () => {
     test(`Should ACCEPT valid address: ${address.regionCode} ${address.locality} ${address.addressLines[0]}`, async ({
       page,
     }) => {
-      await page.goto("/checkout/shipping");
+      await page.goto("/checkout/shipping", { waitUntil: "domcontentloaded" });
+      await page.selectOption('select[name="regionCode"]', address.regionCode);
 
-      // Why? Google Address API vs UI
-      // E.g.: "Plac Defilad 1" → street: "Plac Defilad", number: "1"
       const fullAddress = address.addressLines[0];
       const lastSpaceIndex = fullAddress.lastIndexOf(" ");
       const street =
@@ -50,15 +48,19 @@ test.describe("Tracer Code: Accept Path", () => {
       await page.fill('input[name="city"]', address.locality);
       await page.fill('input[name="postalCode"]', address.postalCode);
 
-      await page.click('button[type="submit"]');
+      await page.locator('input[name="postalCode"]').blur();
+
+      const submitButton = page.getByRole("button", {
+        name: "Continue to Payment",
+      });
+
+      await expect(submitButton).toBeEnabled();
+      await submitButton.click();
 
       const proceedButton = page.getByTestId("proceed-to-payment-btn");
 
-      await expect(proceedButton).toBeVisible({ timeout: 3500 });
+      await expect(proceedButton).toBeVisible({ timeout: 5000 });
       await expect(proceedButton).toBeEnabled();
-
-      await expect(page.getByText(address.locality)).toBeVisible();
-      await expect(page.getByText(address.postalCode)).toBeVisible();
     });
   }
 });

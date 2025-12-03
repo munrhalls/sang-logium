@@ -1,0 +1,1 @@
+[{"regionCode":"PL","postalCode":"00-017","street":"ul. Marszałkowska","streetNumber":"100/15","city":"Warszawa"}]

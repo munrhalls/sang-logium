@@ -15,7 +15,7 @@ export default function ShippingFormView() {
     trigger,
     formState: { errors, isValid },
   } = useForm<Address>({
-    mode: "onBlur",
+    mode: "onChange",
     defaultValues: address || undefined,
   });
 

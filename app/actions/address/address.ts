@@ -24,6 +24,13 @@ interface GoogleAddress {
   postalAddress?: {
     regionCode: string;
   };
+  geocode?: {
+    location: {
+      latitude: number;
+      longitude: number;
+    };
+  };
+  placeId?: string;
 }
 
 interface GoogleValidationVerdict {
@@ -121,6 +128,8 @@ export async function submitShippingAction(
       return {
         status: "ACCEPT",
         address: cleanAddress,
+        geocode: data.result?.address?.geocode,
+        placeId: data.result?.address?.placeId,
       };
     }
 

@@ -11,6 +11,13 @@ export type Status = "EDITING" | "LOADING" | "FIX" | "CONFIRM" | "ACCEPT";
 export type ServerResponse = {
   status: Status;
   address?: Address;
+  geocode?: {
+    location: {
+      latitude: number;
+      longitude: number;
+    };
+  };
+  placeId?: string;
   errors?: Record<string, string>;
 };
 

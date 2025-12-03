@@ -1,0 +1,350 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "Logo" [ref=e3] [cursor=pointer]:
+      - /url: /
+      - img "Logo" [ref=e4]
+    - generic [ref=e6]:
+      - img [ref=e8]
+      - textbox "Search products..." [ref=e10]
+    - generic [ref=e11]:
+      - generic [ref=e13]:
+        - img [ref=e15]
+        - generic [ref=e18]: Sign In
+      - link "Basket" [ref=e19] [cursor=pointer]:
+        - /url: /basket
+        - img [ref=e21]
+        - text: Basket
+      - link "Track" [ref=e23] [cursor=pointer]:
+        - /url: /tracking
+        - img [ref=e25]
+        - text: Track
+  - navigation [ref=e30]:
+    - list [ref=e32]:
+      - listitem [ref=e33]:
+        - link "Headphones" [ref=e34] [cursor=pointer]:
+          - /url: /products/headphones
+          - img [ref=e36]
+          - generic [ref=e38]: Headphones
+          - img [ref=e39]
+      - listitem [ref=e41]:
+        - link "Speakers" [ref=e42] [cursor=pointer]:
+          - /url: /products/speakers
+          - img [ref=e44]
+          - generic [ref=e47]: Speakers
+          - img [ref=e48]
+      - listitem [ref=e50]:
+        - link "Personal Audio" [ref=e51] [cursor=pointer]:
+          - /url: /products/personal-audio
+          - img [ref=e53]
+          - generic [ref=e56]: Personal Audio
+          - img [ref=e57]
+      - listitem [ref=e59]:
+        - link "Home Audio" [ref=e60] [cursor=pointer]:
+          - /url: /products/home-audio
+          - img [ref=e62]
+          - generic [ref=e68]: Home Audio
+          - img [ref=e69]
+      - listitem [ref=e71]:
+        - link "Studio Equipment" [ref=e72] [cursor=pointer]:
+          - /url: /products/studio-equipment
+          - img [ref=e74]
+          - generic [ref=e78]: Studio Equipment
+          - img [ref=e79]
+      - listitem [ref=e81]:
+        - link "Accessories" [ref=e82] [cursor=pointer]:
+          - /url: /products/accessories
+          - img [ref=e84]
+          - generic [ref=e90]: Accessories
+          - img [ref=e91]
+      - listitem [ref=e93]:
+        - link "On Sale" [ref=e94] [cursor=pointer]:
+          - /url: /products/on-sale
+          - generic [ref=e95]: On Sale
+          - img [ref=e96]
+  - generic [ref=e98]:
+    - generic [ref=e99]:
+      - generic [ref=e100]:
+        - button "CLOSE" [ref=e103] [cursor=pointer]:
+          - generic [ref=e104]: CLOSE
+          - img [ref=e105]
+        - heading "Categories" [level=1] [ref=e107]
+      - generic [ref=e109]:
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - link "Headphones" [ref=e113] [cursor=pointer]:
+              - /url: /products/headphones
+              - img [ref=e115]
+              - generic [ref=e117]: Headphones
+            - generic [ref=e118]:
+              - generic [ref=e119]:
+                - heading "By category" [level=3] [ref=e120]
+                - link "Wired" [ref=e121] [cursor=pointer]:
+                  - /url: /products/headphones/wired
+                  - img [ref=e122]
+                  - generic [ref=e124]: Wired
+              - link "Wireless" [ref=e126] [cursor=pointer]:
+                - /url: /products/headphones/wireless
+                - img [ref=e127]
+                - generic [ref=e129]: Wireless
+              - link "Noise cancelling" [ref=e131] [cursor=pointer]:
+                - /url: /products/headphones/noise-cancelling
+                - img [ref=e132]
+                - generic [ref=e134]: Noise cancelling
+              - link "Earbuds" [ref=e136] [cursor=pointer]:
+                - /url: /products/headphones/earbuds
+                - img [ref=e137]
+                - generic [ref=e139]: Earbuds
+              - heading "By fit" [level=3] [ref=e141]
+              - link "Over ear" [ref=e143] [cursor=pointer]:
+                - /url: /products/headphones/over-ear
+                - img [ref=e144]
+                - generic [ref=e146]: Over ear
+              - link "In ear" [ref=e148] [cursor=pointer]:
+                - /url: /products/headphones/in-ear
+                - img [ref=e149]
+                - generic [ref=e151]: In ear
+              - generic [ref=e152]:
+                - heading "By use" [level=3] [ref=e153]
+                - link "Studio and recording" [ref=e154] [cursor=pointer]:
+                  - /url: /products/headphones/studio-and-recording
+                  - img [ref=e155]
+                  - generic [ref=e157]: Studio and recording
+              - link "Gaming" [ref=e159] [cursor=pointer]:
+                - /url: /products/headphones/gaming
+                - img [ref=e160]
+                - generic [ref=e162]: Gaming
+              - link "Travel" [ref=e164] [cursor=pointer]:
+                - /url: /products/headphones/travel
+                - img [ref=e165]
+                - generic [ref=e167]: Travel
+          - generic [ref=e168]:
+            - link "Speakers" [ref=e169] [cursor=pointer]:
+              - /url: /products/speakers
+              - img [ref=e171]
+              - generic [ref=e174]: Speakers
+            - generic [ref=e175]:
+              - heading "Home theater" [level=3] [ref=e177]
+              - link "Floor standing speakers" [ref=e179] [cursor=pointer]:
+                - /url: /products/speakers/floor-standing-speakers
+                - img [ref=e180]
+                - generic [ref=e182]: Floor standing speakers
+              - link "Subwoofers" [ref=e184] [cursor=pointer]:
+                - /url: /products/speakers/subwoofers
+                - img [ref=e185]
+                - generic [ref=e187]: Subwoofers
+              - link "Soundbars" [ref=e189] [cursor=pointer]:
+                - /url: /products/speakers/soundbars
+                - img [ref=e190]
+                - generic [ref=e192]: Soundbars
+              - heading "Home Audio" [level=3] [ref=e194]
+              - link "Bookshelf speakers" [ref=e196] [cursor=pointer]:
+                - /url: /products/speakers/bookshelf-speakers
+                - img [ref=e197]
+                - generic [ref=e199]: Bookshelf speakers
+              - link "Powered speakers" [ref=e201] [cursor=pointer]:
+                - /url: /products/speakers/powered-speakers
+                - img [ref=e202]
+                - generic [ref=e204]: Powered speakers
+              - heading "Portable & Outdoor" [level=3] [ref=e206]
+              - link "Bluetooth speakers" [ref=e208] [cursor=pointer]:
+                - /url: /products/speakers/bluetooth-speakers
+                - img [ref=e209]
+                - generic [ref=e211]: Bluetooth speakers
+              - link "Outdoor speakers" [ref=e213] [cursor=pointer]:
+                - /url: /products/speakers/outdoor-speakers
+                - img [ref=e214]
+                - generic [ref=e216]: Outdoor speakers
+          - generic [ref=e217]:
+            - link "Personal Audio" [ref=e218] [cursor=pointer]:
+              - /url: /products/personal-audio
+              - img [ref=e220]
+              - generic [ref=e223]: Personal Audio
+            - generic [ref=e224]:
+              - heading "Audio Players & Devices" [level=3] [ref=e226]
+              - link "Digital Audio Players" [ref=e228] [cursor=pointer]:
+                - /url: /products/personal-audio/digital-audio-players
+                - img [ref=e229]
+                - generic [ref=e231]: Digital Audio Players
+              - link "Bluetooth receivers and transmitters" [ref=e233] [cursor=pointer]:
+                - /url: /products/personal-audio/bluetooth-receivers-and-transmitters
+                - img [ref=e234]
+                - generic [ref=e236]: Bluetooth receivers and transmitters
+              - heading "Amplification" [level=3] [ref=e238]
+              - link "Portable DACs and Amps" [ref=e240] [cursor=pointer]:
+                - /url: /products/personal-audio/portable-dacs-and-amps
+                - img [ref=e241]
+                - generic [ref=e243]: Portable DACs and Amps
+              - link "Headphone amplifiers" [ref=e245] [cursor=pointer]:
+                - /url: /products/personal-audio/headphone-amplifiers
+                - img [ref=e246]
+                - generic [ref=e248]: Headphone amplifiers
+              - heading "Accessories & Parts" [level=3] [ref=e250]
+              - link "Phone and Tablet Accessories" [ref=e252] [cursor=pointer]:
+                - /url: /products/personal-audio/phone-and-tablet-accessories
+                - img [ref=e253]
+                - generic [ref=e255]: Phone and Tablet Accessories
+              - link "Carrying Cases and Protection" [ref=e257] [cursor=pointer]:
+                - /url: /products/personal-audio/carrying-cases-and-protection
+                - img [ref=e258]
+                - generic [ref=e260]: Carrying Cases and Protection
+              - link "Replacement Parts" [ref=e262] [cursor=pointer]:
+                - /url: /products/personal-audio/replacement-parts
+                - img [ref=e263]
+                - generic [ref=e265]: Replacement Parts
+          - generic [ref=e266]:
+            - link "Home Audio" [ref=e267] [cursor=pointer]:
+              - /url: /products/home-audio
+              - img [ref=e269]
+              - generic [ref=e275]: Home Audio
+            - generic [ref=e276]:
+              - heading "Core components" [level=3] [ref=e278]
+              - link "Amplifiers" [ref=e280] [cursor=pointer]:
+                - /url: /products/home-audio/amplifiers
+                - img [ref=e281]
+                - generic [ref=e283]: Amplifiers
+              - link "Receivers" [ref=e285] [cursor=pointer]:
+                - /url: /products/home-audio/receivers
+                - img [ref=e286]
+                - generic [ref=e288]: Receivers
+              - link "Preamps" [ref=e290] [cursor=pointer]:
+                - /url: /products/home-audio/preamps
+                - img [ref=e291]
+                - generic [ref=e293]: Preamps
+              - heading "Source devices" [level=3] [ref=e295]
+              - link "Turntables" [ref=e297] [cursor=pointer]:
+                - /url: /products/home-audio/turntables
+                - img [ref=e298]
+                - generic [ref=e300]: Turntables
+              - link "CD players" [ref=e302] [cursor=pointer]:
+                - /url: /products/home-audio/cd-players
+                - img [ref=e303]
+                - generic [ref=e305]: CD players
+              - heading "Signal processing" [level=3] [ref=e307]
+              - link "DACs (Digital-to-Analog Converters)" [ref=e309] [cursor=pointer]:
+                - /url: /products/home-audio/dacs-(digital-to-analog-converters)
+                - img [ref=e310]
+                - generic [ref=e312]: DACs (Digital-to-Analog Converters)
+          - generic [ref=e313]:
+            - link "Studio Equipment" [ref=e314] [cursor=pointer]:
+              - /url: /products/studio-equipment
+              - img [ref=e316]
+              - generic [ref=e320]: Studio Equipment
+            - generic [ref=e321]:
+              - heading "Recording Essentials" [level=3] [ref=e323]
+              - link "Microphones" [ref=e325] [cursor=pointer]:
+                - /url: /products/studio-equipment/microphones
+                - img [ref=e326]
+                - generic [ref=e328]: Microphones
+              - link "Studio monitors" [ref=e330] [cursor=pointer]:
+                - /url: /products/studio-equipment/studio-monitors
+                - img [ref=e331]
+                - generic [ref=e333]: Studio monitors
+              - link "Audio interfaces" [ref=e335] [cursor=pointer]:
+                - /url: /products/studio-equipment/audio-interfaces
+                - img [ref=e336]
+                - generic [ref=e338]: Audio interfaces
+              - heading "Processing & Accessories" [level=3] [ref=e340]
+              - link "Studio Processors" [ref=e342] [cursor=pointer]:
+                - /url: /products/studio-equipment/studio-processors
+                - img [ref=e343]
+                - generic [ref=e345]: Studio Processors
+              - link "Recording accessories" [ref=e347] [cursor=pointer]:
+                - /url: /products/studio-equipment/recording-accessories
+                - img [ref=e348]
+                - generic [ref=e350]: Recording accessories
+          - generic [ref=e351]:
+            - link "Accessories" [ref=e352] [cursor=pointer]:
+              - /url: /products/accessories
+              - img [ref=e354]
+              - generic [ref=e360]: Accessories
+            - generic [ref=e361]:
+              - heading "Cables & Wiring" [level=3] [ref=e363]
+              - link "Audio cables" [ref=e365] [cursor=pointer]:
+                - /url: /products/accessories/audio-cables
+                - img [ref=e366]
+                - generic [ref=e368]: Audio cables
+              - link "Power cables" [ref=e370] [cursor=pointer]:
+                - /url: /products/accessories/power-cables
+                - img [ref=e371]
+                - generic [ref=e373]: Power cables
+              - link "HDMI Cables" [ref=e375] [cursor=pointer]:
+                - /url: /products/accessories/hdmi-cables
+                - img [ref=e376]
+                - generic [ref=e378]: HDMI Cables
+              - link "RCA Cables" [ref=e380] [cursor=pointer]:
+                - /url: /products/accessories/rca-cables
+                - img [ref=e381]
+                - generic [ref=e383]: RCA Cables
+              - link "USB Cables" [ref=e385] [cursor=pointer]:
+                - /url: /products/accessories/usb-cables
+                - img [ref=e386]
+                - generic [ref=e388]: USB Cables
+              - link "Headphone Cables" [ref=e390] [cursor=pointer]:
+                - /url: /products/accessories/headphone-cables
+                - img [ref=e391]
+                - generic [ref=e393]: Headphone Cables
+              - link "Ethernet Cables" [ref=e395] [cursor=pointer]:
+                - /url: /products/accessories/ethernet-cables
+                - img [ref=e396]
+                - generic [ref=e398]: Ethernet Cables
+              - heading "Mounting & Support" [level=3] [ref=e400]
+              - link "Wall mounts" [ref=e402] [cursor=pointer]:
+                - /url: /products/accessories/wall-mounts
+                - img [ref=e403]
+                - generic [ref=e405]: Wall mounts
+              - link "Speaker stands" [ref=e407] [cursor=pointer]:
+                - /url: /products/accessories/speaker-stands
+                - img [ref=e408]
+                - generic [ref=e410]: Speaker stands
+              - heading "Audio Equipment Accessories" [level=3] [ref=e412]
+              - link "Phono Cartridges" [ref=e414] [cursor=pointer]:
+                - /url: /products/accessories/phono-cartridges
+                - img [ref=e415]
+                - generic [ref=e417]: Phono Cartridges
+              - link "Speaker and Subwoofer accessories" [ref=e419] [cursor=pointer]:
+                - /url: /products/accessories/speaker-and-subwoofer-accessories
+                - img [ref=e420]
+                - generic [ref=e422]: Speaker and Subwoofer accessories
+              - link "Microphone Accessories" [ref=e424] [cursor=pointer]:
+                - /url: /products/accessories/microphone-accessories
+                - img [ref=e425]
+                - generic [ref=e427]: Microphone Accessories
+              - heading "Power Management" [level=3] [ref=e429]
+              - link "Power Management" [ref=e431] [cursor=pointer]:
+                - /url: /products/accessories/power-management
+                - img [ref=e432]
+                - generic [ref=e434]: Power Management
+          - link "On Sale" [ref=e436] [cursor=pointer]:
+            - /url: /products/on-sale
+            - generic [ref=e437]: On Sale
+        - paragraph [ref=e438]: End.
+    - generic [ref=e440]:
+      - button "CLOSE" [ref=e443] [cursor=pointer]:
+        - generic [ref=e444]: CLOSE
+        - img [ref=e445]
+      - generic [ref=e447]:
+        - textbox "Look for products by name..." [ref=e448]
+        - button "SEARCH" [ref=e450] [cursor=pointer]
+    - generic [ref=e451]:
+      - generic [ref=e453]:
+        - generic [ref=e454]: DEV STATE (Bret Victor Mode)
+        - generic [ref=e455]:
+          - generic [ref=e456]: "Status:"
+          - generic [ref=e457]: LOADING
+          - generic [ref=e458]: "Address:"
+          - generic [ref=e459]: "null"
+        - generic [ref=e460]:
+          - generic [ref=e461]: "API Errors:"
+          - generic [ref=e462]: "{}"
+        - generic [ref=e463]:
+          - button "Force FIX" [ref=e464] [cursor=pointer]
+          - button "Force CONFIRM" [ref=e465] [cursor=pointer]
+          - button "Clear Addr" [ref=e466] [cursor=pointer]
+      - paragraph [ref=e470]: Validating address...
+  - button "Open Next.js Dev Tools" [ref=e476] [cursor=pointer]:
+    - img [ref=e477]
+  - alert [ref=e480]
+```
