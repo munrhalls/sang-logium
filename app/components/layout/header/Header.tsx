@@ -4,7 +4,7 @@ import { Truck } from "lucide-react";
 import Image from "next/image";
 import logo from "@/public/logo.svg";
 import SearchForm from "../../features/homepage/search/SearchForm";
-import AuthenticationWrapper from "./AuthenticationWrapper";
+import AuthenticationWrapper from "@/app/components/features/auth/AuthenticationWrapper";
 
 export default function Header() {
   return (
