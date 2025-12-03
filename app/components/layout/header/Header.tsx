@@ -6,6 +6,7 @@ import { Truck } from "lucide-react";
 import Image from "next/image";
 import logo from "@/public/logo.svg";
 import SearchForm from "../../features/homepage/search/SearchForm";
+
 const Authentication = dynamic(
   () => import("@/app/components/features/auth/Authentication"),
   {
