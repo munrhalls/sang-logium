@@ -46,6 +46,13 @@ interface GoogleValidationResponse {
   result?: {
     verdict?: GoogleValidationVerdict;
     address?: GoogleAddress;
+    geocode?: {
+      location: {
+        latitude: number;
+        longitude: number;
+      };
+      placeId?: string;
+    };
   };
 }
 
@@ -116,7 +123,6 @@ export async function submitShippingAction(
     });
 
     const data = (await response.json()) as GoogleValidationResponse;
-    console.log("Google API Response Data:", JSON.stringify(data, null, 2));
 
     const verdict = data.result?.verdict;
     if (!verdict) {
@@ -124,20 +130,12 @@ export async function submitShippingAction(
       throw new Error("No verdict in Google API response");
     }
 
-    console.log("Full verdict:", JSON.stringify(verdict, null, 2));
-    console.log("Is accepted?", isAcceptedAddress(verdict));
-
     if (isAcceptedAddress(verdict)) {
       const googleAddress = data.result?.address;
       if (!googleAddress)
         throw new Error("No address in Google API response despite acceptance");
 
       const cleanAddress = formatCleanAddress(googleAddress, input, regionCode);
-
-      console.log("Cleaned Address:", cleanAddress);
-      // TODO 5. FIX Typescript typing, geo outside address
-      console.log("Geocode Info:", data.result?.geocode);
-      console.log("Place ID:", data.result?.geocode?.placeId);
 
       return <ServerResponse>{
         status: "ACCEPT",
@@ -152,7 +150,7 @@ export async function submitShippingAction(
     );
   } catch (error) {
     console.error("Critical Fetch Error:", error);
-    // TODO 5. Properly type error response
+    // TODO LATER. Properly type error response
     return {
       status: "FIX",
       errors: { message: "Validation failed. Please check details." },
