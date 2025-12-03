@@ -1,6 +1,5 @@
 "use server";
 import { Address, ServerResponse } from "@/app/(store)/checkout/checkout.types";
-import Error from "next/error";
 
 // TODO 1. ou are using throw new Error to handle valid logic branches (when an address is not accepted). This is an anti-pattern; simple conditional returns are more performant and readable.
 // TODO 2 Payload Construction: Concatenating street and streetNumber into a single string inside addressLines is risky. If the user inputs a complex street name, this concatenation might confuse the validation engine.
@@ -161,7 +160,8 @@ export async function submitShippingAction(
     return {
       status: "FIX",
       errors: {
-        message: "Address validation service temporarily unavailable.",
+        message:
+          "Address validation service temporarily unavailable. Please return later.",
       },
     };
   }
