@@ -28,3 +28,11 @@
 //  Works when switching between ?menu=true and ?search=true
 //  Works when navigating between pages with drawer open
 //  Drawer state resets properly on page navigation
+
+// npm run build succeeds without async component errors
+//  Navigate to /?menu=true - categories drawer opens
+//  Navigate to /?search=true - search drawer opens
+//  Navigate to / - both drawers closed
+//  Click category links - navigation works
+//  No console errors or hydration warnings
+//  Server/Client boundaries respected

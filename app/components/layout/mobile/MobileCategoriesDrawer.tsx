@@ -5,6 +5,7 @@ import { FaRegCircle } from "react-icons/fa";
 import { AdaptiveCategoryIcon } from "@/app/components/ui/AdaptiveCategoryIcon";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 import { CloseDrawerButton } from "./CloseDrawerButton";
+import { useSearchParams } from "next/navigation";
 
 type SubCategory = {
   header?: string;
@@ -15,14 +16,14 @@ type SubCategory = {
 
 export default function MobileCategoriesDrawer({
   categories,
-  isOpen,
 }: {
   categories: ALL_CATEGORIES_QUERYResult;
-  isOpen: boolean;
 }) {
-  const handleClick = () => {
-    // Navigation handled by Link in categoriesTreeUI
-  };
+  const searchParams = useSearchParams();
+  const isOpen =
+    searchParams.get("menu") === "true" &&
+    searchParams.get("search") !== "true";
+  const handleClick = () => {};
 
   const renderSubcategories = (
     subcategories: SubCategory[],

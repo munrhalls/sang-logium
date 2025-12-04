@@ -1,6 +1,13 @@
-import { CloseDrawerButton } from "./CloseDrawerButton";
+"use client";
 
-export default function MobileSearchDrawer({ isOpen }: { isOpen: boolean }) {
+import { CloseDrawerButton } from "./CloseDrawerButton";
+import { useSearchParams } from "next/navigation";
+
+export default function MobileSearchDrawer() {
+  const searchParams = useSearchParams();
+  const isOpen =
+    searchParams.get("search") === "true" &&
+    searchParams.get("menu") !== "true";
   return (
     <div
       className={`pointer-events-auto absolute inset-0 z-50 h-full w-full overflow-hidden bg-slate-50 text-black transition-transform duration-300 ${

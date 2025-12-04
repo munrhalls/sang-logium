@@ -15,7 +15,8 @@ import "./../globals.css";
 import type { Metadata } from "next";
 import { Inter, DM_Serif_Display } from "next/font/google";
 import Header from "@/app/components/layout/header/Header";
-import MobileDrawersController from "@/app/components/layout/mobile/MobileDrawersController";
+import MobileCategoriesDrawerWrapper from "@/app/components/layout/mobile/MobileCategoriesDrawerWrapper";
+import MobileSearchDrawer from "@/app/components/layout/mobile/MobileSearchDrawer";
 import CategoriesWrapper from "../components/layout/categoryMenu/CategoriesWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -91,7 +92,12 @@ export default async function RootLayout({
             <CategoriesWrapper />
           </Suspense>
           <div className="relative h-full min-h-0 overflow-hidden">
-            <MobileDrawersController />
+            <Suspense fallback={null}>
+              <MobileCategoriesDrawerWrapper />
+            </Suspense>
+            <Suspense fallback={null}>
+              <MobileSearchDrawer />
+            </Suspense>
             <div className="relative h-full min-h-0 overflow-y-auto">
               {children}
             </div>

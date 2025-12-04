@@ -2,11 +2,7 @@ import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import MobileCategoriesDrawer from "./MobileCategoriesDrawer";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 
-export default async function MobileCategoriesDrawerWrapper({
-  isOpen,
-}: {
-  isOpen: boolean;
-}) {
+export default async function MobileCategoriesDrawerWrapper() {
   const categories: ALL_CATEGORIES_QUERYResult = await getAllCategories();
   if (!categories || categories.length === 0) {
     return (
@@ -26,7 +22,5 @@ export default async function MobileCategoriesDrawerWrapper({
     return a?.order - b?.order;
   });
 
-  return (
-    <MobileCategoriesDrawer categories={sortedCategories} isOpen={isOpen} />
-  );
+  return <MobileCategoriesDrawer categories={sortedCategories} />;
 }
