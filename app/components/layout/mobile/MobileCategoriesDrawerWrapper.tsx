@@ -4,6 +4,7 @@ import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 
 export default async function MobileCategoriesDrawerWrapper() {
   const categories: ALL_CATEGORIES_QUERYResult = await getAllCategories();
+
   if (!categories || categories.length === 0) {
     return (
       <div
