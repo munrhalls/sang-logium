@@ -1,6 +1,6 @@
 LIVE: https://sang-logium.com
 
-E-commerce retail store selling audio gear. Fictional (albeit with full functionality, including payments) project intended for my web development portfolio, for the purpose of showcasing my skills.
+E-commerce retail store selling audio gear. It's fully real professional e-commerce web application, complete with checkout and payments. It's not a real shop, though. This is project for portfolio, to demonstrate skill of building largest scale, real-world project.
 
 Tech stack:
 
@@ -8,17 +8,128 @@ Tech stack:
 - react (19+)
 - typescript (both for sanity, using typegen and frontend app)
 - sanity CMS for backend
-- GROQ for communication CMS-FRONTEND
+- GROQ for communication CMS<->FRONTEND
 - tailwind
 - clerk.dev for authentication and user management
 - Google Maps Platform's Address Validation API for address verification
 
 Project structure:
 
+1. Server-First Routing Architecture
+Primary pages are Server Components (no "use client" directive)
+Homepage (page.tsx) - async server component
+Product listing (page.tsx) - async with parallel data fetching
+Individual product (page.tsx) - async server component
+All product pages use server-side data fetching
+Example (Homepage):
+export const revalidate = 5400;
+export const dynamic = "force-static";
+export default async function Page() {
+// Server component with async data fetching
+return (
+   <main>
+   <Suspense fallback={<Skeleton />}>
+   <ServerComponent />
+   </Suspense>
+   </main>
+   );
+   }
+export default async function ProductsPage(props: {
+  params: Params;
+  searchParams: SearchParams;
+}) {
+  const [productsResult, filterOptions, sortOptions] = await Promise.all([
+    getSelectedProducts(...),
+    getFiltersForCategoryPathAction(...),
+    getSortablesForCategoryPathAction(...)
+  ]);
+  // Server-side parallel data fetching ✅
+}
+
 - pages constructed from /features and /layout
   -- /features constructed from /components
   --- components constructed from individual re-usable entities such as carousel, product card, text or product commercial etc.
 
+Strategic Client Component Usage
+"use client" Distribution
+
+Pages with "use client": 5 out of 24 total pages (21%)
+page.tsx ✅
+page.tsx ✅ (form interactions)
+page.tsx ✅ (payment processing)
+page.tsx ✅ (modal)
+page.tsx ✅ (modal)
+Client components are strategically limited to:
+
+Interactive UI elements (carousels, modals, drawers)
+Form controls (filters, sort, pagination)
+State management wrappers (basket, checkout)
+User interaction handlers
+
+Modern Data Fetching Patterns
+Server-Side Data Fetching:
+// Bestsellers.tsx - Server Component
+export default async function Bestsellers() {
+const [commercial] = await getCommercialsByFeature("bestsellers");
+// Direct async/await in server component ✅
+}
+
+// CategoriesWrapper.tsx - Server Component
+export default async function CategoriesWrapper() {
+const categories = await getAllCategories();
+return <CategoriesNav categories={categories} />;
+}
+
+4. Suspense Boundaries & Streaming
+   <Suspense fallback={<HeroCommercialsSkeleton />}>
+   <HeroCommercials />
+   </Suspense>
+   <Suspense fallback={<BestsellersSkeleton />}>
+   <Bestsellers />
+   </Suspense>
+   Granular suspense boundaries for independent data sources
+   Custom skeleton components for each section
+   Streaming-ready architecture
+
+5. Advanced App Router Features
+   app/(store)/
+   @drawer/
+   page.tsx
+   (.)tracking/page.tsx
+   (.)account/page.tsx
+   Intercepting routes for modals ((.)tracking)
+   Parallel slot implementation (@drawer)
+
+Dynamic Routes:
+
+products/[...category] - catch-all segments
+product/[id] - dynamic parameters
+
+Performance Implications
+✅ Minimal JavaScript sent to client (server components dominant)
+✅ Parallel data fetching reduces waterfall requests
+✅ Streaming with Suspense boundaries
+✅ Static generation where appropriate
+✅ No client-side data fetching overhead
+
+Alignment with Next.js 15+ Requirements
+Requirement Status Evidence
+Server Components by Default ✅ Pass 19/24 pages are server components
+Async Server Components ✅ Pass All data fetching uses async/await
+Suspense Streaming ✅ Pass Comprehensive Suspense boundaries
+Parallel Routes ✅ Pass @drawer slot implemented
+Route Handlers ✅ Pass /api routes present
+Server Actions ⚠️ Partial Uses separate action files, not inline
+Metadata API ✅ Pass export const metadata used
+No Legacy Fetch ✅ Pass No useEffect fetch patterns
+
+Modern Next.js 15 architecture with server-first rendering
+Appropriate separation of server and client components
+Advanced App Router features (parallel routes, intercepting routes)
+Performance-conscious patterns (streaming, suspense, static generation)
+
+/////////////////////////////////////////////////////
++++
 Fetch pattern:
 
 - sanity schema -> sanity documents via localhost /studio -> sanity library of groq queries -> frontend react server component using a groq query from sanity library -> prebuilding everything that can be prebuilt -> feeding prebuilt components to client components as props (where it makes sense)
