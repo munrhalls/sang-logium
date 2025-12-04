@@ -27,3 +27,10 @@
 //  Browser back button closes drawer
 //  Refreshing page with params maintains state
 //  Navigation while drawer open closes it
+
+// Opening menu drawer (?menu=true) - smooth animation
+// Opening search drawer (?search=true) - smooth animation
+// Closing drawers - smooth animation
+// Rapid toggling - no visual jank
+// Browser back/forward still works correctly
+// URL state remains shareable/bookmarkable

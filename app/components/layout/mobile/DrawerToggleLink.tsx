@@ -1,13 +1,13 @@
 "use client";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useTransition } from "react";
 
 export function DrawerToggleLink({
   isOpen,
   param,
   openIcon,
   closeIcon,
-  label,
+  label: _label,
 }: {
   isOpen: boolean;
   param: string;
@@ -16,11 +16,25 @@ export function DrawerToggleLink({
   label: string;
 }) {
   const pathname = usePathname();
-  const href = isOpen ? pathname : `?${param}=true`;
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
+  const handleClick = () => {
+    const href = isOpen ? pathname : `${pathname}?${param}=true`;
+
+    startTransition(() => {
+      router.push(href);
+    });
+  };
 
   return (
-    <Link href={href} className="flex flex-col items-center">
+    <button
+      onClick={handleClick}
+      className="flex flex-col items-center"
+      disabled={isPending}
+      style={{ opacity: isPending ? 0.7 : 1 }}
+    >
       {isOpen ? closeIcon : openIcon}
-    </Link>
+    </button>
   );
 }
