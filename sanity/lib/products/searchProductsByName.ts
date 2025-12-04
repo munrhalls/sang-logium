@@ -1,5 +1,5 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from "../live";
+import { client } from "../client";
 
 type Query = string | string[];
 
@@ -10,13 +10,10 @@ export const searchProductsByName = async (searchParam: Query) => {
     ] | order(name asc)`);
 
   try {
-    const products = await sanityFetch({
-      query: SEARCH_FOR_PRODUCTS_QUERY,
-      params: {
-        searchParam: `${searchParam}*`,
-      },
+    const products = await client.fetch(SEARCH_FOR_PRODUCTS_QUERY, {
+      searchParam: `${searchParam}*`,
     });
-    return products.data || [];
+    return products || [];
   } catch (err) {
     console.error("Products search resulted in error: ", err);
     return [];

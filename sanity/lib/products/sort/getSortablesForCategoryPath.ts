@@ -1,5 +1,5 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from "../../live";
+import { client } from "../../client";
 import { SortOption } from "@/app/components/ui/sortables/SortTypes";
 
 interface RawSortOption {
@@ -11,7 +11,7 @@ interface RawSortOption {
 }
 
 export const getSortablesForCategoryPath = async (
-  categoryPath: string,
+  categoryPath: string
 ): Promise<SortOption[]> => {
   const cleanPath = categoryPath.replace(/^\/products\//, "");
 
@@ -37,23 +37,19 @@ export const getSortablesForCategoryPath = async (
   `);
 
   try {
-    const sortablesData = await sanityFetch({
-      query: SORTABLES_BY_CATEGORY_QUERY,
-      params: {
-        topLevelCategory,
-        cleanPath,
-      },
+    const sortablesData = await client.fetch(SORTABLES_BY_CATEGORY_QUERY, {
+      topLevelCategory,
+      cleanPath,
     });
 
-    if (!sortablesData.data) {
+    if (!sortablesData) {
       console.warn(
-        `No sortables document found for category: ${topLevelCategory}`,
+        `No sortables document found for category: ${topLevelCategory}`
       );
       return [];
     }
 
-    const allSortOptions: RawSortOption[] =
-      sortablesData.data.sortOptions || [];
+    const allSortOptions: RawSortOption[] = sortablesData.sortOptions || [];
 
     const processedOptions: SortOption[] = allSortOptions.map((option) => ({
       name: option.name || "",
@@ -63,12 +59,11 @@ export const getSortablesForCategoryPath = async (
       defaultDirection: option.defaultDirection ?? undefined,
     }));
 
-    const specificMapping =
-      sortablesData.data.mappings && sortablesData.data.mappings[0];
+    const specificMapping = sortablesData.mappings && sortablesData.mappings[0];
 
     if (specificMapping) {
       return processedOptions.filter((option) =>
-        specificMapping.sortOptions?.includes(option.name),
+        specificMapping.sortOptions?.includes(option.name)
       );
     }
 

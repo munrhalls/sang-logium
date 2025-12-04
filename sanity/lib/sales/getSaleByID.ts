@@ -1,5 +1,5 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from "../live";
+import { client } from "../client";
 
 export const getSaleById = async (saleId: string) => {
   const SALE_BY_ID_QUERY = defineQuery(`
@@ -25,14 +25,11 @@ export const getSaleById = async (saleId: string) => {
   `);
 
   try {
-    const sale = await sanityFetch({
-      query: SALE_BY_ID_QUERY,
-      params: {
-        saleId,
-      },
+    const sale = await client.fetch(SALE_BY_ID_QUERY, {
+      saleId,
     });
 
-    return sale.data || [];
+    return sale || [];
   } catch (err) {
     console.error("Fetching sale by ID failed: ", err);
     return [];

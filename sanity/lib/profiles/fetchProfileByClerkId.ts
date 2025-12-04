@@ -1,5 +1,5 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from "../live";
+import { client } from "../client";
 import { UserProfile, FetchProfileOptions } from "./profileTypes";
 
 /**
@@ -9,7 +9,7 @@ import { UserProfile, FetchProfileOptions } from "./profileTypes";
  * @returns The user profile if found, null otherwise
  */
 export async function fetchProfileByClerkId(
-  options: FetchProfileOptions,
+  options: FetchProfileOptions
 ): Promise<UserProfile | null> {
   const { clerkId } = options;
 
@@ -38,12 +38,9 @@ export async function fetchProfileByClerkId(
   `);
 
   try {
-    const result = await sanityFetch({
-      query: FETCH_PROFILE_QUERY,
-      params: { clerkId },
-    });
+    const result = await client.fetch(FETCH_PROFILE_QUERY, { clerkId });
 
-    return result.data as UserProfile | null;
+    return result as UserProfile | null;
   } catch (error) {
     console.error("Error fetching user profile:", error);
     return null;

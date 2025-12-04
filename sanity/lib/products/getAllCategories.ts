@@ -1,5 +1,5 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from "../live";
+import { client } from "../client";
 
 export const getAllCategories = async () => {
   const ALL_CATEGORIES_QUERY = defineQuery(`
@@ -9,10 +9,8 @@ export const getAllCategories = async () => {
       `);
 
   try {
-    const categories = await sanityFetch({
-      query: ALL_CATEGORIES_QUERY,
-    });
-    return categories.data || [];
+    const categories = await client.fetch(ALL_CATEGORIES_QUERY);
+    return categories || [];
   } catch (err) {
     console.error("Error fetching all categories: ", err);
     return [];

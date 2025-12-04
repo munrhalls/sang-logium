@@ -1,12 +1,12 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from "../../live";
+import { client } from "../../client";
 import {
   FilterOptions,
   FilterOptionObject,
 } from "@/app/components/ui/filters/FilterTypes";
 
 export const getFiltersForCategoryPath = async (
-  categoryPath: string[],
+  categoryPath: string[]
 ): Promise<FilterOptions> => {
   if (categoryPath[0] === "products" && categoryPath.length > 1) {
     categoryPath.shift();
@@ -36,27 +36,23 @@ export const getFiltersForCategoryPath = async (
   `);
 
   try {
-    const filtersData = await sanityFetch({
-      query: FILTERS_BY_CATEGORY_QUERY,
-      params: {
-        topLevelCategory,
-        cleanPath,
-      },
+    const filtersData = await client.fetch(FILTERS_BY_CATEGORY_QUERY, {
+      topLevelCategory,
+      cleanPath,
     });
 
-    if (!filtersData.data) {
+    if (!filtersData) {
       console.warn(
-        `No filter document found for category: ${topLevelCategory}`,
+        `No filter document found for category: ${topLevelCategory}`
       );
       return [];
     }
 
     // Get all available filters
-    const allFilters = filtersData.data.filters || [];
+    const allFilters = filtersData.filters || [];
 
     // Check if we have a specific mapping for this path
-    const specificMapping =
-      filtersData.data.mappings && filtersData.data.mappings[0];
+    const specificMapping = filtersData.mappings && filtersData.mappings[0];
 
     let filteredFilters: FilterOptionObject[];
 
@@ -66,7 +62,7 @@ export const getFiltersForCategoryPath = async (
         .filter(
           (filter) =>
             filter.name && // Check that name exists and is truthy
-            (specificMapping.filters ?? []).includes(filter.name),
+            (specificMapping.filters ?? []).includes(filter.name)
         )
         .map((filter) => ({
           // Make sure all fields match the FilterOptionObject interface

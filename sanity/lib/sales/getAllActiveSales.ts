@@ -1,5 +1,5 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from "../live";
+import { client } from "../client";
 
 export const getAllActiveSales = async () => {
   const GET_ACTIVE_SALES_QUERY = defineQuery(`
@@ -15,11 +15,9 @@ export const getAllActiveSales = async () => {
     `);
 
   try {
-    const sales = await sanityFetch({
-      query: GET_ACTIVE_SALES_QUERY,
-    });
+    const sales = await client.fetch(GET_ACTIVE_SALES_QUERY);
 
-    return sales.data || [];
+    return sales || [];
   } catch (err) {
     console.error("Error fetching active sales: ", err);
   }

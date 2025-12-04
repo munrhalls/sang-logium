@@ -1,5 +1,5 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from "../live";
+import { client } from "../client";
 
 const getProductsByCategoryPath = async (path: string) => {
   const PRODUCTS_BY_CATEGORY_PATH_QUERY = await defineQuery(`
@@ -7,13 +7,10 @@ const getProductsByCategoryPath = async (path: string) => {
   `);
 
   try {
-    const products = await sanityFetch({
-      query: PRODUCTS_BY_CATEGORY_PATH_QUERY,
-      params: {
-        path,
-      },
+    const products = await client.fetch(PRODUCTS_BY_CATEGORY_PATH_QUERY, {
+      path,
     });
-    return products.data || [];
+    return products || [];
   } catch (err) {
     console.error("Error fetching products by category: ", err);
     return [];

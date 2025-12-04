@@ -1,5 +1,5 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from "../live";
+import { client } from "../client";
 
 const getProductsByExhibitionSlug = async (slug: string) => {
   const PRODUCTS_BY_EXHIBITION_SLUG = await defineQuery(`
@@ -11,13 +11,10 @@ const getProductsByExhibitionSlug = async (slug: string) => {
        `);
 
   try {
-    const products = await sanityFetch({
-      query: PRODUCTS_BY_EXHIBITION_SLUG,
-      params: {
-        slug,
-      },
+    const products = await client.fetch(PRODUCTS_BY_EXHIBITION_SLUG, {
+      slug,
     });
-    return products.data || [];
+    return products || [];
   } catch (err) {
     console.error("Error fetching products by category: ", err);
     return [];

@@ -1,5 +1,5 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from "../../live";
+import { client } from "../../client";
 
 export const getFilters = async () => {
   const FILTERS = defineQuery(`{
@@ -7,10 +7,8 @@ export const getFilters = async () => {
   }`);
 
   try {
-    const filters = await sanityFetch({
-      query: FILTERS,
-    });
-    return filters.data || [];
+    const filters = await client.fetch(FILTERS);
+    return filters || [];
   } catch (err) {
     console.error("Error fetching filters: ", err);
     return [];

@@ -1,5 +1,5 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from "../live";
+import { client } from "../client";
 
 export const getAllProducts = async () => {
   const ALL_PRODUCTS_QUERY = defineQuery(`
@@ -9,10 +9,8 @@ export const getAllProducts = async () => {
     `);
 
   try {
-    const products = await sanityFetch({
-      query: ALL_PRODUCTS_QUERY,
-    });
-    return products.data || [];
+    const products = await client.fetch(ALL_PRODUCTS_QUERY);
+    return products || [];
   } catch (err) {
     console.error("Error fetching all products: ", err);
     return [];

@@ -1,4 +1,4 @@
-import { sanityFetch } from "../live";
+import { client } from "../client";
 import { FilterItem } from "@/app/components/ui/filters/FilterTypes";
 
 export const getSelectedProducts = async (
@@ -201,12 +201,10 @@ export const getSelectedProducts = async (
   const GET_PRODUCTS_BY_QUERY = finalQuery;
 
   try {
-    const result = await sanityFetch({
-      query: GET_PRODUCTS_BY_QUERY,
-    });
+    const result = await client.fetch(GET_PRODUCTS_BY_QUERY);
     return {
-      products: result.data.products || [],
-      totalProductsCount: result.data.totalProductsCount || 0,
+      products: result.products || [],
+      totalProductsCount: result.totalProductsCount || 0,
     };
   } catch (err) {
     console.error("Error fetching products:", err);
