@@ -92,6 +92,7 @@ export default async function RootLayout({
             <CategoriesWrapper />
           </Suspense>
           <div className="relative h-full min-h-0 overflow-hidden">
+            {/* TODO  */}
             <MobileCategoriesDrawerShell />
             <MobileSearchDrawerShell />
             <div className="relative h-full min-h-0 overflow-y-auto">

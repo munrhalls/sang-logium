@@ -29,13 +29,6 @@ export default function MobileCategoriesDrawerShellInner({
       </div>
 
       <div className="flex-1 overflow-y-auto scroll-smooth pb-6">
-        {/* TODO This is BAD, ASYNC RSC CANNOT BE IMPORTED TO CLIENT COMP */}
-        {/* DELETE IT ENTIRELY FROM HERE */}
-        {/* INSTEAD - IT SHOULD BE A CHILD OF THIS SHELL */}
-        {/* The shell and the shell inner must be separated, too */}
-        {/* <Suspense fallback={<CategoriesLoadingSkeleton />}>
-          <MobileCategoriesDrawerWrapper />
-        </Suspense> */}
         {children}
       </div>
     </div>
