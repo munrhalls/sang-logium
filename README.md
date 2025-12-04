@@ -237,3 +237,31 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 // subcategories: ["Amplifiers", "DACs", "Speakers", "Turntables"],
 // },
 // ];
+
+// TODO README:
+// - document my professional use of AI-assisted workflow by a mature and responsible web developer
+// -- document what I DON'T DO: "tenant" workflow / lack of ownership / offloading cognition to agent
+
+- identify next task
+- paste task data and ask github copilot to research it in codebase
+- read it (albeit its sometimes skimming...sensing no need to get into the weeds)
+- ask github copilot to formulate plan
+- read it (albeit its sometimes skimming...sensing no need to get into the weeds)
+- ask github copilot to implement plan
+- read it (albeit its sometimes skimming...sensing no need to get into the weeds)
+
+  // -- document what I ACTUALLY DO
+  - paste task data and ask github copilot to research it in codebase
+  - read it deeply, top-down as measured by network-understanding
+  - hunt down the first point that might be wrong and go deep on it
+  - form GRINDE of organizing info about problem (Justin Sung reference) understanding -> minimally represent on paper
+  - organize simplest plan
+    -- then ask ai to come up with its own plan
+    -- compare the two plans with the awareness built from my own cognitive work
+    -- organize simplest plan from the two
+    -- set up safe git commit, easy rollback point
+    -- whatever I can implement easily by hand, implement by hand
+    -- delegate rest to AI
+    -- read every single piece of code change and hunt for first suspicious sign of anything that's potentially concerning
+    -- confirm or go deep on disprepancy area and fix it
+    -- repeat until complete or rollback and start over
