@@ -4,8 +4,6 @@ import Link from "next/link";
 import { FaRegCircle } from "react-icons/fa";
 import { AdaptiveCategoryIcon } from "@/app/components/ui/AdaptiveCategoryIcon";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
-import { CloseDrawerButton } from "./CloseDrawerButton";
-import { useSearchParams } from "next/navigation";
 
 type SubCategory = {
   header?: string;
@@ -19,12 +17,6 @@ export default function MobileCategoriesDrawer({
 }: {
   categories: ALL_CATEGORIES_QUERYResult;
 }) {
-  const searchParams = useSearchParams();
-  const isOpen =
-    searchParams.get("menu") === "true" &&
-    searchParams.get("search") !== "true";
-  const handleClick = () => {};
-
   const renderSubcategories = (
     subcategories: SubCategory[],
     baseUrl: string
@@ -62,63 +54,40 @@ export default function MobileCategoriesDrawer({
     ));
   };
 
-  const categoriesTreeUI = (
-    <div className="grid gap-6 md:grid-cols-2">
-      {categories.map((category) => {
-        const categoryPath = `/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`;
-        return (
-          <div key={category._id} className="space-y-2">
-            <Link
-              href={categoryPath}
-              className="flex items-center text-2xl font-semibold hover:text-gray-600"
-            >
-              {category.icon && (
-                <span className="mr-3">
-                  <AdaptiveCategoryIcon title={category.icon} />
-                </span>
-              )}
-              <span
-                className={`${category.name === "On Sale" ? "text-orange-500" : ""}`}
-              >
-                {category.name}
-              </span>
-            </Link>
-            {category.subcategories && category.subcategories.length > 0 && (
-              <div className="ml-6 space-y-1">
-                {renderSubcategories(category.subcategories, categoryPath)}
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
   return (
-    <div
-      className={`pointer-events-auto absolute inset-0 z-50 flex h-full w-full flex-col overflow-hidden bg-slate-50 text-black transition-transform duration-300 ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      }`}
-    >
-      <div>
-        <div className="border-b border-gray-200 p-2">
-          <div className="flex items-center justify-end">
-            <CloseDrawerButton />
-          </div>
-        </div>
-        <h1 className="my-2 ml-4 text-center text-3xl">Categories</h1>
+    <div className="p-4">
+      <div className="grid gap-6 bg-white">
+        {categories.map((category) => {
+          const categoryPath = `/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`;
+          return (
+            <div key={category._id} className="space-y-2">
+              <Link
+                href={categoryPath}
+                className="flex items-center text-2xl font-semibold hover:text-gray-600"
+              >
+                {category.icon && (
+                  <span className="mr-3">
+                    <AdaptiveCategoryIcon title={category.icon} />
+                  </span>
+                )}
+                <span
+                  className={`${category.name === "On Sale" ? "text-orange-500" : ""}`}
+                >
+                  {category.name}
+                </span>
+              </Link>
+              {category.subcategories && category.subcategories.length > 0 && (
+                <div className="ml-6 space-y-1">
+                  {renderSubcategories(category.subcategories, categoryPath)}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
-      {}
-      <div
-        className="flex-1 overflow-y-auto scroll-smooth pb-6"
-        onClick={handleClick}
-      >
-        <div className="p-4">
-          <div className="grid gap-6 bg-white">{categoriesTreeUI}</div>
-          <p className="mt-8 flex items-center justify-center text-gray-500">
-            End.
-          </p>
-        </div>
-      </div>
+      <p className="mt-8 flex items-center justify-center text-gray-500">
+        End.
+      </p>
     </div>
   );
 }
