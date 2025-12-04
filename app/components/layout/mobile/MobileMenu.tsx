@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
 import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { useSearchParams } from "next/navigation";
 import { DrawerToggleLink } from "./DrawerToggleLink";
 
 const Authentication = dynamic(
@@ -17,15 +20,15 @@ const Authentication = dynamic(
   }
 );
 
-const MobileMenu = ({
-  searchParams,
-}: {
-  searchParams?: { menu?: string; search?: string };
-}) => {
+function MobileMenuInner() {
+  const searchParams = useSearchParams();
+
   const isSearchOpen =
-    searchParams?.search === "true" && searchParams?.menu !== "true";
+    searchParams.get("search") === "true" &&
+    searchParams.get("menu") !== "true";
   const isMenuOpen =
-    searchParams?.menu === "true" && searchParams?.search !== "true";
+    searchParams.get("menu") === "true" &&
+    searchParams.get("search") !== "true";
 
   return (
     <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">
@@ -68,5 +71,16 @@ const MobileMenu = ({
       </div>
     </div>
   );
-};
-export default MobileMenu;
+}
+
+export default function MobileMenu() {
+  return (
+    <React.Suspense
+      fallback={
+        <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden" />
+      }
+    >
+      <MobileMenuInner />
+    </React.Suspense>
+  );
+}
