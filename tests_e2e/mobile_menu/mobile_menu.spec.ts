@@ -8,3 +8,22 @@
 //  Refresh with ?menu=true → Drawer stays open
 //  Direct navigation to /?search=true → Opens search
 //  Opening one drawer closes the other (mutual exclusivity)
+
+//  ?menu=true opens mobile menu drawer
+//  ?search=true opens mobile search drawer
+//  Close buttons remove query params and close drawer
+//  Animation slides smoothly (300ms transition)
+//  Categories load and display correctly
+//  Mobile menu icons toggle between open/close states
+//  Only one drawer open at a time
+// Performance:
+//  Layout no longer has searchParams in signature
+//  next build shows layout as static (not dynamic)
+//  No hydration errors in console
+//  No layout shifts during drawer toggle
+//  Suspense fallback displays correctly
+// Edge Cases:
+//  Direct URL navigation with ?menu=true works
+//  Browser back button closes drawer
+//  Refreshing page with params maintains state
+//  Navigation while drawer open closes it

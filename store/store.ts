@@ -2,12 +2,6 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { BasketItem } from "@/app/(store)/basket/basket.types";
 
-interface UIState {
-  isProductsFilterDrawerOpen: boolean;
-  toggleProductsFilterDrawer: () => void;
-  isProductsSortDrawerOpen: boolean;
-  toggleProductsSortDrawer: () => void;
-}
 interface BasketState {
   basket: BasketItem[];
   _hasHydrated: boolean;
@@ -18,21 +12,6 @@ interface BasketState {
   isCheckoutEnabled: () => boolean;
   clearBasket: () => void;
 }
-
-export const useUIStore = create<UIState>((set) => ({
-  isProductsFilterDrawerOpen: false,
-  toggleProductsFilterDrawer: () =>
-    set((state) => ({
-      isProductsFilterDrawerOpen: !state.isProductsFilterDrawerOpen,
-      isProductsSortDrawerOpen: false,
-    })),
-  isProductsSortDrawerOpen: false,
-  toggleProductsSortDrawer: () =>
-    set((state) => ({
-      isProductsSortDrawerOpen: !state.isProductsSortDrawerOpen,
-      isProductsFilterDrawerOpen: false,
-    })),
-}));
 
 export const useBasketStore = create<BasketState>()(
   persist(
