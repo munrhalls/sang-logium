@@ -19,6 +19,11 @@ export function DrawerToggleLink({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
+  // TODO this is wrong - url navigation MUST BE INSTANT FOR GOOD USER EXPERIENCE
+  // however, the component may need time to mount
+  // drawer container should be separate from drawer content in such a way that the drawer container mounts instantly and its slide in animation starts instantly
+  // while the drawer content can load in with a spinner if needed - or with fingerbar skeleton on suspense fallback initially
+
   const handleClick = () => {
     const href = isOpen ? pathname : `${pathname}?${param}=true`;
 
