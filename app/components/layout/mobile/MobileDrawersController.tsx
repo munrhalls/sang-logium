@@ -17,15 +17,18 @@ function MobileDrawersControllerInner() {
 
   return (
     <>
-      {/* Server component - always mounted, animation controlled by isOpen */}
+      // TODO categories - this is async component and violates next.js rules -
+      fix // TODO restructure to avoid violation // TODO that kind of async comp
+      can be put into a client component but not imported when it is put as a
+      child of such component, then it remains server component // TODO figure
+      out how to restructure and if the above fact can be used to accomplish
+      simpler architecture
       <MobileCategoriesDrawerWrapper isOpen={isMenuOpen} />
-      {/* Client component - always mounted, animation controlled by isOpen */}
       <MobileSearchDrawer isOpen={isSearchOpen} />
     </>
   );
 }
 
-// Suspense boundary required for useSearchParams
 export default function MobileDrawersController() {
   return (
     <Suspense fallback={null}>

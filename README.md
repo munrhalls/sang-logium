@@ -238,7 +238,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 // },
 // ];
 
-// TODO README:
+// TODO README, fill in later:
 // - document my professional use of AI-assisted workflow by a mature and responsible web developer
 // -- document what I DON'T DO: "tenant" workflow / lack of ownership / offloading cognition to agent
 
@@ -250,7 +250,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - ask github copilot to implement plan
 - read it (albeit its sometimes skimming...sensing no need to get into the weeds)
 
-  // -- document what I ACTUALLY DO
+  // -- document what I ACTUALLY DO, HYBDRID INTELLIGENCE LOOP
   - paste task data and ask github copilot to research it in codebase
   - read it deeply, top-down as measured by network-understanding
   - hunt down the first point that might be wrong and go deep on it

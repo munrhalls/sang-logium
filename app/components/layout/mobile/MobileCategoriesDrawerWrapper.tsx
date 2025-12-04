@@ -1,6 +1,7 @@
 import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import MobileCategoriesDrawer from "./MobileCategoriesDrawer";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+
 export default async function MobileCategoriesDrawerWrapper({
   isOpen,
 }: {
