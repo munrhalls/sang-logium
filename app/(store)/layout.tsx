@@ -11,6 +11,7 @@
 
 // @ts-expect-error: Type declarations for CSS imports are not present in this project
 import "./../globals.css";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import type { Metadata } from "next";
 import { Inter, DM_Serif_Display } from "next/font/google";
@@ -25,7 +26,11 @@ import CategoriesSkeleton from "../components/layout/categoryMenu/CategoriesSkel
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://sanglogium.com",
+  },
   title: "Sang Logium Audio Shop",
+
   description: "E-commerce store",
   robots: {
     index: true,
@@ -93,13 +98,6 @@ export default async function RootLayout({
             <CategoriesWrapper />
           </Suspense>
 
-          <Link
-            href="?menu=true"
-            className="h-40 w-full bg-black px-4 py-2 text-center text-red-800"
-          >
-            Open Menu
-          </Link>
-
           <div className="relative h-full min-h-0 overflow-hidden">
             {/* TODO study understand interleaving pattern - make sure it is
             implemented correctly */}
@@ -115,10 +113,10 @@ export default async function RootLayout({
             {/* <MobileCategoriesDrawerShell />
             <MobileSearchDrawerShell /> */}
             <div className="relative h-full min-h-0 overflow-y-auto">
-              {children}
+              <NuqsAdapter>{children}</NuqsAdapter>
             </div>
           </div>
-          {/* <MobileMenu /> */}
+          <MobileMenu />
         </body>
       </ClerkProvider>
     </html>

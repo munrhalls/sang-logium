@@ -4,7 +4,7 @@ import React from "react";
 import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useQueryState } from "nuqs";
 
 const Authentication = dynamic(
   () => import("@/app/components/features/auth/Authentication"),
@@ -20,6 +20,8 @@ const Authentication = dynamic(
 );
 
 function MobileMenuInner() {
+  // TODO figure how to use NUQS to properly manage query state of both search/menu, given that they are mutually exclusive
+
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const isSearchOpen =
@@ -82,6 +84,11 @@ function MobileMenuInner() {
 }
 
 export default function MobileMenu() {
+  const [isMenu, setIsMenu] = useQueryState("menu", {
+    defaultValue: false,
+    history: "push",
+  });
+
   return (
     <React.Suspense
       fallback={
