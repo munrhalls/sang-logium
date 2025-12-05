@@ -4,8 +4,7 @@ import React from "react";
 import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useSearchParams } from "next/navigation";
-import { DrawerToggleLink } from "./DrawerToggleLink";
+import { useSearchParams, usePathname } from "next/navigation";
 
 const Authentication = dynamic(
   () => import("@/app/components/features/auth/Authentication"),
@@ -22,7 +21,7 @@ const Authentication = dynamic(
 
 function MobileMenuInner() {
   const searchParams = useSearchParams();
-
+  const pathname = usePathname();
   const isSearchOpen =
     searchParams.get("search") === "true" &&
     searchParams.get("menu") !== "true";
@@ -33,32 +32,34 @@ function MobileMenuInner() {
   return (
     <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">
       <div className="flex items-center justify-around px-4">
-        <DrawerToggleLink
-          isOpen={isMenuOpen}
-          param="menu"
-          openIcon={
-            <>
-              <Menu className="h-6 w-6" />
-              <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
-            </>
-          }
-          closeIcon={<X size={24} />}
-          label="Menu"
-        />
-        <DrawerToggleLink
-          isOpen={isSearchOpen}
-          param="search"
-          openIcon={
-            <>
-              <Search className="h-6 w-6" />
-              <span className="mt-1 hidden text-xs sm:inline-block">
-                Search
-              </span>
-            </>
-          }
-          closeIcon={<X size={24} />}
-          label="Search"
-        />
+        {isMenuOpen ? (
+          <Link href={pathname} className="flex flex-col items-center">
+            <X size={24} />
+          </Link>
+        ) : (
+          <Link
+            href={`${pathname}?menu=true`}
+            className="flex flex-col items-center"
+          >
+            <Menu className="h-6 w-6" />
+            <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
+          </Link>
+        )}
+
+        {isSearchOpen ? (
+          <Link href={pathname} className="flex flex-col items-center">
+            <X size={24} />
+          </Link>
+        ) : (
+          <Link
+            href={`${pathname}?search=true`}
+            className="flex flex-col items-center"
+          >
+            <Search className="h-6 w-6" />
+            <span className="mt-1 hidden text-xs sm:inline-block">Search</span>
+          </Link>
+        )}
+
         <Authentication />
         <Link href="/tracking" className="flex flex-col items-center">
           <Truck className="h-6 w-6" />
