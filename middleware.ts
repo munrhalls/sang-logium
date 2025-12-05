@@ -12,7 +12,7 @@ export const config = {
   matcher: [
     "/account/:path*",
     "/profile/:path*",
-    "/((?!.*\\..*|_next).*)",
+    "/((?!.*\\..*|_next|studio).*)",
     "/",
     "/(api|trpc)(.*)",
   ],

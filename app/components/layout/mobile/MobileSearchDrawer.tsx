@@ -8,6 +8,7 @@ export default function MobileSearchDrawer() {
   const isOpen =
     searchParams.get("search") === "true" &&
     searchParams.get("menu") !== "true";
+
   return (
     <div
       className={`pointer-events-auto absolute inset-0 z-50 h-full w-full overflow-hidden bg-slate-50 text-black transition-transform duration-300 ${

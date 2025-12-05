@@ -22,6 +22,7 @@ import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
 import CategoriesSkeleton from "../components/layout/categoryMenu/CategoriesSkeleton";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Sang Logium Audio Shop",
@@ -78,10 +79,10 @@ export default async function RootLayout({
           href="public/logo-orbit.svg"
           type="image/svg+xml"
           fetchPriority="high"
-        />
-        <link rel="preconnect" href="https://cdn.sanity.io" />
-        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
-      </head> */}
+          />
+          <link rel="preconnect" href="https://cdn.sanity.io" />
+          <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+          </head> */}
       <ClerkProvider>
         <body
           className={`relative grid w-full grid-rows-[auto_1fr_auto] overflow-x-hidden font-sans lg:grid-rows-[auto_auto_1fr_auto]`}
@@ -91,6 +92,14 @@ export default async function RootLayout({
           <Suspense fallback={<CategoriesSkeleton />}>
             <CategoriesWrapper />
           </Suspense>
+
+          <Link
+            href="?menu=true"
+            className="h-40 w-full bg-black px-4 py-2 text-center text-red-800"
+          >
+            Open Menu
+          </Link>
+
           <div className="relative h-full min-h-0 overflow-hidden">
             {/* TODO study understand interleaving pattern - make sure it is
             implemented correctly */}
@@ -103,13 +112,13 @@ export default async function RootLayout({
             - that comp fetches its data
             - uses streaming pattern
             - target: INSTANT FAST DRAWER SHOW/HIDE WITH URL AS ONLY SOURCE OF TRUTH*/}
-            <MobileCategoriesDrawerShell />
-            <MobileSearchDrawerShell />
+            {/* <MobileCategoriesDrawerShell />
+            <MobileSearchDrawerShell /> */}
             <div className="relative h-full min-h-0 overflow-y-auto">
               {children}
             </div>
           </div>
-          <MobileMenu />
+          {/* <MobileMenu /> */}
         </body>
       </ClerkProvider>
     </html>

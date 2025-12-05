@@ -14,7 +14,7 @@
     "verify": "node verify-deployment.js",
     "start": "next start",
     "prod": "npm run build && npm run start",
-    "lint-strict": "eslint . --ext ts,tsx --maVersion Mismatch: Your app uses Next.js 14 but your test project might drift to checking for things that don't exist yet.x-warnings 0",
+    "lint-strict": "eslint . --ext ts,tsx --maVersion Mismatch: Your app uses Next.js 15 but your test project might drift to checking for things that don't exist yet.x-warnings 0",
     "test:ci": "jest --ci --coverage",
     "backup": "node backup-env.js",
     "predeploy": "node verify-env.js",
@@ -65,6 +65,7 @@
     "next-sanity": "^9.8.42",
     "node-fetch": "^3.3.2",
     "npx": "^10.2.2",
+    "nuqs": "^2.8.3",
     "playwright": "^1.56.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -79,7 +80,7 @@
     "sanity-plugin-simpler-color-input": "^3.0.0",
     "sharp": "^0.33.5",
     "stripe": "^19.1.0",
-    "styled-components": "^6.1.13",
+    "styled-components": "^6.1.19",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "ts-node": "^10.9.2",
@@ -137,8 +138,5 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^4.0.13",
     "whatwg-fetch": "^3.6.20"
-  },
-  "overrides": {
-    "@babel/types": "7.27.7"
   }
 }

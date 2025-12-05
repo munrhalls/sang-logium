@@ -32,7 +32,7 @@ function MobileMenuInner() {
   return (
     <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">
       <div className="flex items-center justify-around px-4">
-        {isMenuOpen ? (
+        {/* {isMenuOpen ? (
           <Link href={pathname} className="flex flex-col items-center">
             <X size={24} />
           </Link>
@@ -44,7 +44,14 @@ function MobileMenuInner() {
             <Menu className="h-6 w-6" />
             <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
           </Link>
-        )}
+        )} */}
+        <Link
+          href={`${pathname}?menu=true`}
+          className="flex flex-col items-center"
+        >
+          <Menu className="h-6 w-6" />
+          <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
+        </Link>
 
         {isSearchOpen ? (
           <Link href={pathname} className="flex flex-col items-center">

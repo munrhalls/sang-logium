@@ -53,7 +53,7 @@ export default function ShippingFormView() {
     reset(scenarios[scenario]);
     trigger();
   };
-
+  // TODO Checkout Form - add onNavigation to link, with "are you sure you want to leave?"
   return (
     <div className="flex justify-center">
       <div className="relative w-full max-w-md rounded bg-white p-4">

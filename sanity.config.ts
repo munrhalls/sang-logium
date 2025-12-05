@@ -15,20 +15,20 @@ const sanityConfig = defineConfig({
   },
   plugins: [
     structureTool({ structure }),
-    simplerColorInput({
-      defaultColorFormat: "rgba",
-      defaultColorList: [
-        { label: "Light", value: "#ffffff" },
-        { label: "Dark", value: "#333333" },
-        { label: "Brand", value: "#ca786d" },
-        { label: "Accent", value: "#626754" },
-        { label: "Orange", value: "#CF8226" },
-        { label: "HighlightOrange", value: "#e0ad1f" },
-        { label: "Custom...", value: "custom" },
-      ],
-      enableSearch: true,
-    }),
-    visionTool(),
+    // simplerColorInput({
+    //   defaultColorFormat: "rgba",
+    //   defaultColorList: [
+    //     { label: "Light", value: "#ffffff" },
+    //     { label: "Dark", value: "#333333" },
+    //     { label: "Brand", value: "#ca786d" },
+    //     { label: "Accent", value: "#626754" },
+    //     { label: "Orange", value: "#CF8226" },
+    //     { label: "HighlightOrange", value: "#e0ad1f" },
+    //     { label: "Custom...", value: "custom" },
+    //   ],
+    //   enableSearch: true,
+    // }),
+    // visionTool(),
   ],
 });
 

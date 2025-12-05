@@ -18,6 +18,7 @@ import Footer from "../components/layout/footer/Footer";
 import { Suspense } from "react";
 export const revalidate = 5400;
 export const dynamic = "force-static";
+
 export default async function Page() {
   return (
     <main className="relative h-full overflow-x-hidden">
