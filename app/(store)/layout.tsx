@@ -92,8 +92,17 @@ export default async function RootLayout({
             <CategoriesWrapper />
           </Suspense>
           <div className="relative h-full min-h-0 overflow-hidden">
-            TODO study understand interleaving pattern - make sure it is
-            implemented correctly
+            {/* TODO study understand interleaving pattern - make sure it is
+            implemented correctly */}
+            {/* TODO make drawer client side comp that accept props
+            - renders conditionally based on url
+            - has slide in animation
+            - is instant
+            - is mounted all the time, only changes css to show/hide
+            - takes in server comp with categories
+            - that comp fetches its data
+            - uses streaming pattern
+            - target: INSTANT FAST DRAWER SHOW/HIDE WITH URL AS ONLY SOURCE OF TRUTH*/}
             <MobileCategoriesDrawerShell />
             <MobileSearchDrawerShell />
             <div className="relative h-full min-h-0 overflow-y-auto">

@@ -1,12 +1,13 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export function DrawerToggleLink({
   isOpen,
   param,
   openIcon,
   closeIcon,
-  label: _label,
+  label,
 }: {
   isOpen: boolean;
   param: string;
@@ -15,16 +16,15 @@ export function DrawerToggleLink({
   label: string;
 }) {
   const pathname = usePathname();
-  const router = useRouter();
-
-  const handleClick = () => {
-    const href = isOpen ? pathname : `${pathname}?${param}=true`;
-    router.push(href);
-  };
+  const href = isOpen ? pathname : `${pathname}?${param}=true`;
 
   return (
-    <button onClick={handleClick} className="flex flex-col items-center">
+    <Link
+      href={href}
+      className="flex flex-col items-center"
+      aria-label={isOpen ? `Close ${label}` : `Open ${label}`}
+    >
       {isOpen ? closeIcon : openIcon}
-    </button>
+    </Link>
   );
 }
