@@ -124,7 +124,8 @@ export default async function RootLayout({
           - each drawer is inside this comp and uses framer motion for anims
           - each drawer mounts only if it's state is active
           //////
-          - the user account + orders will use the same drawers pattern */}
+          - the user account + orders will use the same drawers pattern
+          - WHY: achieves INSTANT 0 lag drawers open/close AND url sync AND it's simple*/}
           <MobileMenu />
         </body>
       </ClerkProvider>
