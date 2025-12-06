@@ -116,6 +116,15 @@ export default async function RootLayout({
               <NuqsAdapter>{children}</NuqsAdapter>
             </div>
           </div>
+          {/* TODO Drawers system -> Mobile menu
+          - fastest ship === rework entirely, delete anything unnecessary, make it super simple
+          - plan:
+          - client comp, manages NUQS useQueryState, single state for all possible drawers
+          - NUQS useQueryState state handles open/close based on url params, syncs to url
+          - each drawer is inside this comp and uses framer motion for anims
+          - each drawer mounts only if it's state is active
+          //////
+          - the user account + orders will use the same drawers pattern */}
           <MobileMenu />
         </body>
       </ClerkProvider>
