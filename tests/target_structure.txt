@@ -1,17 +1,19 @@
 tests
 ├── e2e
-│   ├── address
-│   │   ├── cases_valid.json
-│   │   └── accept_address.spec.ts
 │   ├── checkout
-│   │   └── return.spec.ts
-│   ├── drawers
-│   │   ├── account.spec.ts
-│   │   ├── categories.spec.ts
-│   │   └── filter_sort.spec.ts
-│   ├── mobile
-│   │   └── menu.spec.ts
-│   └── smoke.spec.ts
+│   │   ├── guest_checkout.spec.ts
+│   │   └── auth_checkout.spec.ts
+│   ├── discovery
+│   │   ├── product_filter_sort.spec.ts
+│   │   └── search.spec.ts
+│   ├── user_account
+│   │   ├── auth_flow.spec.ts
+│   │   └── address_management.spec.ts
+│   ├── smoke
+│   │   └── critical_pages.spec.ts
+│   └── ui_interactions
+│       ├── mobile_drawers.spec.ts
+│       └── cart_functionality.spec.ts
 ├── fixtures
 │   ├── address.ts
 │   └── basket.ts
