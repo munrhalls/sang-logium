@@ -61,7 +61,6 @@ const dmSerifDisplay = DM_Serif_Display({
 // }
 export default async function RootLayout({
   children,
-  drawer,
 }: Readonly<{
   children: React.ReactNode;
   drawer: React.ReactNode;
@@ -92,16 +91,16 @@ export default async function RootLayout({
         <body
           className={`relative grid w-full grid-rows-[auto_1fr_auto] overflow-x-hidden font-sans lg:grid-rows-[auto_auto_1fr_auto]`}
         >
-          {drawer}
-          <Header />
-          <Suspense fallback={<CategoriesSkeleton />}>
-            <CategoriesWrapper />
-          </Suspense>
+          <NuqsAdapter>
+            <Header />
+            <Suspense fallback={<CategoriesSkeleton />}>
+              <CategoriesWrapper />
+            </Suspense>
 
-          <div className="relative h-full min-h-0 overflow-hidden">
-            {/* TODO study understand interleaving pattern - make sure it is
+            <div className="relative h-full min-h-0 overflow-hidden">
+              {/* TODO study understand interleaving pattern - make sure it is
             implemented correctly */}
-            {/* TODO make drawer client side comp that accept props
+              {/* TODO make drawer client side comp that accept props
             - renders conditionally based on url
             - has slide in animation
             - is instant
@@ -110,13 +109,13 @@ export default async function RootLayout({
             - that comp fetches its data
             - uses streaming pattern
             - target: INSTANT FAST DRAWER SHOW/HIDE WITH URL AS ONLY SOURCE OF TRUTH*/}
-            {/* <MobileCategoriesDrawerShell />
+              {/* <MobileCategoriesDrawerShell />
             <MobileSearchDrawerShell /> */}
-            <div className="relative h-full min-h-0 overflow-y-auto">
-              <NuqsAdapter>{children}</NuqsAdapter>
+              <div className="relative h-full min-h-0 overflow-y-auto">
+                {children}
+              </div>
             </div>
-          </div>
-          {/* TODO Drawers system -> Mobile menu
+            {/* TODO Drawers system -> Mobile menu
           - fastest ship === rework entirely, delete anything unnecessary, make it super simple
           - plan:
           - client comp, manages NUQS useQueryState, single state for all possible drawers
@@ -126,7 +125,8 @@ export default async function RootLayout({
           //////
           - the user account + orders will use the same drawers pattern
           - WHY: achieves INSTANT 0 lag drawers open/close AND url sync AND it's simple*/}
-          <MobileMenu />
+            <MobileMenu />
+          </NuqsAdapter>
         </body>
       </ClerkProvider>
     </html>

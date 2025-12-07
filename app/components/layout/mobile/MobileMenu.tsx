@@ -5,6 +5,7 @@ import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useQueryState } from "nuqs";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const Authentication = dynamic(
   () => import("@/app/components/features/auth/Authentication"),
@@ -22,14 +23,7 @@ const Authentication = dynamic(
 function MobileMenuInner() {
   // TODO figure how to use NUQS to properly manage query state of both search/menu, given that they are mutually exclusive
 
-  const searchParams = useSearchParams();
   const pathname = usePathname();
-  const isSearchOpen =
-    searchParams.get("search") === "true" &&
-    searchParams.get("menu") !== "true";
-  const isMenuOpen =
-    searchParams.get("menu") === "true" &&
-    searchParams.get("search") !== "true";
 
   return (
     <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">
@@ -55,19 +49,13 @@ function MobileMenuInner() {
           <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
         </Link>
 
-        {isSearchOpen ? (
-          <Link href={pathname} className="flex flex-col items-center">
-            <X size={24} />
-          </Link>
-        ) : (
-          <Link
-            href={`${pathname}?search=true`}
-            className="flex flex-col items-center"
-          >
-            <Search className="h-6 w-6" />
-            <span className="mt-1 hidden text-xs sm:inline-block">Search</span>
-          </Link>
-        )}
+        <Link
+          href={`${pathname}?search=true`}
+          className="flex flex-col items-center"
+        >
+          <Search className="h-6 w-6" />
+          <span className="mt-1 hidden text-xs sm:inline-block">Search</span>
+        </Link>
 
         <Authentication />
         <Link href="/tracking" className="flex flex-col items-center">
@@ -88,6 +76,7 @@ export default function MobileMenu() {
     defaultValue: false,
     history: "push",
   });
+  const searchParams = useSearchParams();
 
   return (
     <React.Suspense

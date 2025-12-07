@@ -1,0 +1,31 @@
+tests
+├── e2e
+│   ├── address
+│   │   ├── cases_valid.json
+│   │   └── accept_address.spec.ts
+│   ├── checkout
+│   │   └── return.spec.ts
+│   ├── drawers
+│   │   ├── account.spec.ts
+│   │   ├── categories.spec.ts
+│   │   └── filter_sort.spec.ts
+│   ├── mobile
+│   │   └── menu.spec.ts
+│   └── smoke.spec.ts
+├── fixtures
+│   ├── address.ts
+│   └── basket.ts
+├── integration
+│   └── address
+│       └── address_flow.test.ts
+├── specs
+│   ├── api_table.md
+│   ├── basket_controls.md
+│   └── basket_hydration.md
+└── unit
+    ├── basket
+    │   ├── BasketControls.test.tsx
+    │   ├── BasketStore.test.tsx
+    │   └── ProductPageBasketExperience.test.tsx
+    └── utils
+        └── formatting.test.ts
