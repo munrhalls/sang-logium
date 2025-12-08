@@ -79,7 +79,6 @@ export default {
   corePlugins: {
     preflight: true,
     container: false,
-    accessibility: false,
   },
   safelist: [
     "hero-image",
