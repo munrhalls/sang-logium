@@ -65,6 +65,10 @@ const dmSerifDisplay = DM_Serif_Display({
 // TODO refactor structure - all files around page.tsx go to /features/...
 // TODO hero carouse - tbd but complete 100% refactor needed, wrote it a year ago
 // TODO html @root layout shop - i need implement simpler/better solution than "scroll jail"
+// TODO (shop) ll be home + prod grid indiv search + basket + brand pages, (checkout) ll be just checkout - also no menu @checkout, and + top nav @checkout
+// TODO tests - this'll be a /unit /integration /e2e folders tree and only CUJ's ll be tested; for address validation - also unit test / tracer code
+// TODO framer motion for animations
+// TODO mobile drawers system - with NUQS and framer motion; and every drawer == inside mobile menu client comp, conditional render + fixed css
 
 export default async function RootLayout({
   children,
