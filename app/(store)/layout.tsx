@@ -122,6 +122,7 @@ export default async function RootLayout({
             - target: INSTANT FAST DRAWER SHOW/HIDE WITH URL AS ONLY SOURCE OF TRUTH*/}
               {/* <MobileCategoriesDrawerShell />
             <MobileSearchDrawerShell /> */}
+              {/* TODO Scroll jail - need to somehow replace it with css sticky or just less 'hacky' solution */}
               <div className="relative h-full min-h-0 overflow-y-auto">
                 {children}
               </div>
