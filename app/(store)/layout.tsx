@@ -59,6 +59,13 @@ const dmSerifDisplay = DM_Serif_Display({
 // export const metadata: Metadata = {
 //   title: 'Next.js',
 // }
+
+// Re-design of the whole solution concept (mostly adjustments but critical ones)
+// TODO restructure route groups - ll actually be (shop) and (checkout)
+// TODO refactor structure - all files around page.tsx go to /features/...
+// TODO hero carouse - tbd but complete 100% refactor needed, wrote it a year ago
+// TODO html @root layout shop - i need implement simpler/better solution than "scroll jail"
+
 export default async function RootLayout({
   children,
 }: Readonly<{
