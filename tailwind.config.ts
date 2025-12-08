@@ -88,4 +88,7 @@ export default {
     "object-cover",
     "object-center",
   ],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 } satisfies Config;
