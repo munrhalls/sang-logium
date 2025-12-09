@@ -397,6 +397,8 @@ export const orderType = defineType({
       of: [
         defineArrayMember({
           type: "object",
+          name: "return",
+          title: "Return",
           fields: [
             { name: "returnId", type: "string", title: "Return ID" },
             {

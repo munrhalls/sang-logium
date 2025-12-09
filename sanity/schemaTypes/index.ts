@@ -15,11 +15,14 @@ export const schema = {
     categoryType,
     categoryFiltersType,
     categorySortablesType,
-    productType,
-    orderType,
-    saleType,
-    exhibitionType,
-    commercialType,
-    userType,
+    // productType,
+    // orderType,
+    // saleType,
+    // exhibitionType,
+    // commercialType,
+    // userType,
   ],
 };
+
+// TODO product type, blockContentType is bugged - schema extraction fails when uncommented
+// TODO

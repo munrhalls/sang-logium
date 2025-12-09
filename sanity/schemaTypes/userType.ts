@@ -42,6 +42,8 @@ export const userType = defineType({
       of: [
         defineArrayMember({
           type: "object",
+          name: "address",
+          title: "Address",
           fields: [
             {
               name: "isDefault",
