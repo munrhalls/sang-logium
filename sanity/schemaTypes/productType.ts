@@ -1,3 +1,5 @@
+// TODO implement the Reference Pattern and switches to Markdown
+
 import { defineType, defineField, defineArrayMember } from "sanity";
 import { TrolleyIcon } from "@sanity/icons";
 
@@ -13,6 +15,7 @@ export const productType = defineType({
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
+    // TODO FIX 1: Switched to Markdown (Install 'sanity-plugin-markdown')
     defineField({
       name: "description",
       title: "Description",
@@ -77,6 +80,7 @@ export const productType = defineType({
       title: "Image Gallery",
       of: [defineArrayMember({ type: "image" })],
     }),
+    // TODO // FIX 2: Switch to Reference Pattern The "Path" string lives ON THE CATEGORY, not here
     defineField({
       name: "categoryPath",
       title: "Category Path",
@@ -109,6 +113,7 @@ export const productType = defineType({
         }),
       ],
     }),
+    // TODO Note: Use a different system for Sidebar Filtering.
     defineField({
       name: "specifications",
       title: "Specifications",
@@ -139,6 +144,7 @@ export const productType = defineType({
     }),
   ],
   preview: {
+    // TODO preview the category name too
     select: {
       title: "name",
       media: "image",
@@ -152,3 +158,129 @@ export const productType = defineType({
     },
   },
 });
+
+// INITIAL:
+// import { defineType, defineField, defineArrayMember } from "sanity";
+// import { TrolleyIcon } from "@sanity/icons";
+
+// export const productType = defineType({
+//   name: "product",
+//   title: "Products",
+//   type: "document",
+//   icon: TrolleyIcon,
+//   fields: [
+//     defineField({
+//       name: "name",
+//       title: "Product Name",
+//       type: "string",
+//       validation: (Rule) => Rule.required(),
+//     }),
+//     // FIX 1: Switched to Markdown (Install 'sanity-plugin-markdown')
+//     defineField({
+//       name: "description",
+//       title: "Description",
+//       type: "markdown",
+//       description: "Product details in standard Markdown.",
+//     }),
+//     defineField({
+//       name: "slug",
+//       title: "Slug",
+//       type: "slug",
+//       options: {
+//         source: "name",
+//         maxLength: 96,
+//       },
+//       validation: (Rule) => Rule.required(),
+//     }),
+//     // FIX 2: Switched to Reference Pattern
+//     // We link to the Category Document. The "Path" string lives ON THE CATEGORY, not here.
+//     defineField({
+//       name: "category",
+//       title: "Primary Category",
+//       type: "reference",
+//       to: [{ type: "category" }],
+//       validation: (Rule) => Rule.required(),
+//     }),
+//     defineField({
+//         name: "brand",
+//         title: "Brand",
+//         type: "string", // Or better: type: "reference", to: [{type: "brand"}]
+//         validation: (Rule) => Rule.required(),
+//     }),
+//     // ... Price, Stock, SKU are fine ...
+//     defineField({
+//       name: "stripePriceId",
+//       title: "Stripe Price ID",
+//       type: "string",
+//       validation: (Rule) => Rule.required(),
+//     }),
+//     defineField({
+//       name: "displayPrice",
+//       title: "Display Price",
+//       type: "number",
+//       validation: (Rule) => Rule.required().min(0),
+//     }),
+//     defineField({
+//       name: "stock",
+//       title: "Stock",
+//       type: "number",
+//       validation: (Rule) => Rule.min(0),
+//     }),
+//     defineField({
+//       name: "sku",
+//       title: "SKU",
+//       type: "string",
+//       validation: (Rule) => Rule.required().min(3),
+//     }),
+//     defineField({
+//       name: "image",
+//       title: "Main Image",
+//       type: "image",
+//       options: { hotspot: true },
+//       validation: (Rule) => Rule.required(),
+//     }),
+//     defineField({
+//       name: "gallery",
+//       title: "Image Gallery",
+//       type: "array",
+//       of: [defineArrayMember({ type: "image" })],
+//     }),
+//     // ... Specs and Overview ...
+//     // Kept as-is for DISPLAY purposes.
+//     // Note: Use a different system for Sidebar Filtering.
+//     defineField({
+//       name: "specifications",
+//       title: "Technical Specifications (Table)",
+//       type: "array",
+//       of: [
+//         defineArrayMember({
+//           type: "object",
+//           name: "spec",
+//           fields: [
+//             { name: "title", type: "string", title: "Label" },
+//             { name: "value", type: "string", title: "Value" },
+//           ],
+//           preview: {
+//             select: { title: "title", subtitle: "value" }
+//           }
+//         }),
+//       ],
+//     }),
+//   ],
+//   preview: {
+//     select: {
+//       title: "name",
+//       media: "image",
+//       price: "displayPrice",
+//       // You can now preview the category name too!
+//       category: "category.name"
+//     },
+//     prepare(select) {
+//       return {
+//         title: select.title,
+//         subtitle: `${select.category || 'No Category'} | $${select.price}`,
+//         media: select.media,
+//       };
+//     },
+//   },
+// });

@@ -1,3 +1,9 @@
+// TODO SCHEMA CATEGORIES REDESIGN 1. - EACH CATEGORY IS ITS OWN DOCUMENT, parent id, path...and nothing more, really
+// CASE - fetch CATEGORY products === groq === name && === startsWith path ...
+// CASE - construct categories menu tree === use parentId to build tree structure
+// TODO SCHEMA CATEGORIES REDESIGN 2. update products schema to sync
+// TODO SCHEMA CATEGORIES REDESIGN 3. update CATEGORIES MENUS ON DESKTOP / MOBILE, MAKE SURE IT WORKS
+
 // categoryType.ts
 import { TagIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
@@ -58,3 +64,39 @@ export const categoryType = defineType({
     },
   },
 });
+
+// INITIAL
+// import { defineType, defineField } from "sanity";
+
+// export const categoryType = defineType({
+//   name: "category",
+//   title: "Category",
+//   type: "document",
+//   fields: [
+//     defineField({
+//       name: "title",
+//       title: "Title",
+//       type: "string",
+//     }),
+//     defineField({
+//       name: "slug",
+//       title: "Slug",
+//       type: "slug",
+//       options: { source: "title" }
+//     }),
+//     defineField({
+//       name: "parent",
+//       title: "Parent Category",
+//       type: "reference",
+//       to: [{ type: "category" }],
+//     }),
+//     // THE SECRET WEAPON
+//     defineField({
+//       name: "path",
+//       title: "Full Path",
+//       type: "string",
+//       description: "e.g. men/shoes/running",
+//       readOnly: true, // Generated automatically
+//     }),
+//   ],
+// });
