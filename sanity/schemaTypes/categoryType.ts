@@ -1,5 +1,7 @@
 // TODO SCHEMA CATEGORIES REDESIGN 1. - EACH CATEGORY IS ITS OWN DOCUMENT, parent id, path...and nothing more, really
-// CASE - fetch CATEGORY products === groq === name && === startsWith path ...
+// CASE - fetch CATEGORY products === groq === name && === startsWith path <LAST SEGMENT OF PATH>
+// --- THAT WORKS FOR: TOP LEVEL CATEGORIES, LEAF CATEGORIES - AND ALSO FOR BETWEEN TOP AND LEAF CATEGORIES (INTERMEDIARIES)
+// --- MEANING: IF YOU HAVE NESTED ABCDFG AND SELECT C -> IT'LL FETCH CDFG BECAUSE C IS TOP LEVEL OF DFG AND SO startsWith <last segment of path> is true for all categories below C and including C
 // CASE - construct categories menu tree === use parentId to build tree structure
 // TODO SCHEMA CATEGORIES REDESIGN 2. update products schema to sync
 // TODO SCHEMA CATEGORIES REDESIGN 3. update CATEGORIES MENUS ON DESKTOP / MOBILE, MAKE SURE IT WORKS

@@ -1,3 +1,11 @@
+// TODO COMMERCIAL SCHEMA RE-DESIGN:
+// - BG HERO IMGS GO TO STATIC PUBLIC ASSETS
+// TODO COMMERCIAL CARD - NEW SCHEMA TYPE FOR REUSABLE COMMERCIAL CARD COMPONENT
+// MARKDOWN!!! NOT FREAKIN' RICH TEXT/BLOCK CONTENT TEXT FOR A FEW LINES OF TEXT...
+// - OUTPUT: just an array of objects
+// object: content row and dropdown-selectable "role" per content row (e.g., headline, subhead, body, cta-link, cta-button, image, product-grid, etc.)
+// - then the commercial schema type can have an array of these commercial card objects
+// - and dropdown-selectable is what I deal with on frontend in terms of "how to render it"
 import { defineField, defineType, defineArrayMember } from "sanity";
 
 export const commercialType = defineType({
