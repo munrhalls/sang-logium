@@ -98,3 +98,80 @@ export const commercialType = defineType({
     }),
   ],
 });
+
+// INITIAL PROPOSITION
+// import { defineField, defineType } from "sanity";
+
+// export const heroOverlay = defineType({
+//   name: "heroOverlay",
+//   title: "Hero Overlay Card",
+//   type: "document",
+//   fields: [
+//     defineField({
+//       name: "internalName",
+//       title: "Internal Name (For you only)",
+//       type: "string",
+//     }),
+
+//     // 1. THE "SMART" DATA SOURCE
+//     // Instead of typing "Price: $50", reference the product.
+//     // Your frontend can pull the live price/image automatically.
+//     defineField({
+//       name: "linkedProduct",
+//       title: "Linked Product (Auto-fills data)",
+//       type: "reference",
+//       to: [{ type: "product" }],
+//     }),
+
+//     // 2. THE "MANUAL" CONTENT (Your Request)
+//     // Simple array of text fields with types.
+//     // Replaces the "Block Content" garbage.
+//     defineField({
+//       name: "contentRows",
+//       title: "Card Content Rows",
+//       type: "array",
+//       of: [
+//         {
+//           type: "object",
+//           fields: [
+//             {
+//               name: "role",
+//               title: "Role (How frontend renders it)",
+//               type: "string",
+//               options: {
+//                 list: [
+//                   { title: "Big Title (H1)", value: "title" },
+//                   { title: "Subtitle / Tagline", value: "subtitle" },
+//                   { title: "Discount Badge (e.g. -50%)", value: "badge" },
+//                   { title: "Price Override", value: "price" },
+//                   { title: "Tiny Note", value: "note" },
+//                 ],
+//                 layout: "radio" // Makes it a nice visible list
+//               },
+//               validation: (Rule) => Rule.required(),
+//             },
+//             {
+//               name: "text",
+//               title: "Text Content (Markdown Allowed)",
+//               type: "text", // Simple text area, NOT block content
+//               rows: 2,
+//             }
+//           ],
+//           preview: {
+//             select: {
+//               title: "text",
+//               subtitle: "role",
+//             },
+//           },
+//         },
+//       ],
+//     }),
+//   ],
+// });
+
+// Frontend Component
+// {data.contentRows.map((row) => (
+//   <div className={getStylesForRole(row.role)}>
+//     <Markdown>{row.text}</Markdown>
+//   </div>
+// ))}

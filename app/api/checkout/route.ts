@@ -20,6 +20,14 @@ export async function POST(req: NextRequest) {
     // TODO validate publicBasket structure more thoroughly
     // TODO type it properly
     // TODO after checkout session is completed, send order data to sanity and only then decrement stock
+
+    // TODO IMPORTANT !!!! "Two-Phase Commit"
+    // // A. Try to decrement stock in Sanity (Atomic Transaction)
+    // This ensures nobody else grabbed the last item 1ms ago
+    // / B. DECISION TIME
+    // if (transactionResult) {
+    // Success: Stock is ours. TAKE THE MONEY.
+    // Failure: Stock is gone (Race Condition). RELEASE THE MONEY.
     if (
       !publicBasket ||
       !Array.isArray(publicBasket) ||

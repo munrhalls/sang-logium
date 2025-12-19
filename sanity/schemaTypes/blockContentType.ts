@@ -1,3 +1,5 @@
+// TODO - this DELETE ENTIRELY, NONE OF THAT IN THIS PROJECT - only markdown
+
 import { ImageIcon } from "@sanity/icons";
 import { defineType, defineArrayMember, defineField } from "sanity";
 

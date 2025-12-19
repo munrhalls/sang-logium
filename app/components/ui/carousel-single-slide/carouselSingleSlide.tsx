@@ -1,3 +1,8 @@
+// TODO skip Next.js's internal image optimization (which burns server CPU) and use Sanity's CDN directly, while keeping next/image features (layout, priority, lazy loading)
+// TODO FOR ALL IMAGES ACTUALLY
+// TODO make custon SANITY LOADER export default function sanityLoader({ src, width, quality }) {
+//   return `${src}?w=${width}&q=${quality || 75}&auto=format`
+// }
 "use client";
 import React, { useState } from "react";
 import Dots from "./dots";
@@ -21,10 +26,10 @@ const CarouselSingleSlide = ({
     handleSetIndex(newIndex);
   };
   return (
-    <div className="isolate relative h-full grid grid-rows-[1fr_3rem]">
-      <div className="relative h-full w-full z-30 overflow-hidden">
+    <div className="relative isolate grid h-full grid-rows-[1fr_3rem]">
+      <div className="relative z-30 h-full w-full overflow-hidden">
         <div
-          className="h-full w-full flex transition-transform duration-300"
+          className="flex h-full w-full transition-transform duration-300"
           style={{ transform: `translate3d(-${index * 100}%, 0, 0)` }}
         >
           {prebuiltSlides.map((slide, slideIndex) => (
@@ -37,11 +42,11 @@ const CarouselSingleSlide = ({
           ))}
         </div>
       </div>
-      <div className="z-50 h-full w-full bg-black grid grid-cols-[1fr_3fr_1fr]">
+      <div className="z-50 grid h-full w-full grid-cols-[1fr_3fr_1fr] bg-black">
         <button
           type="button"
           onClick={() => handleSlide("left")}
-          className="z-50 relative  focus:outline-none bg-black pl-2 md:pl-6 flex items-center justify-center h-full w-full text-white"
+          className="relative z-50 flex h-full w-full items-center justify-center bg-black pl-2 text-white focus:outline-none md:pl-6"
         >
           <ChevronLeft />
         </button>
@@ -53,7 +58,7 @@ const CarouselSingleSlide = ({
         <button
           type="button"
           onClick={() => handleSlide("right")}
-          className="z-50 relative focus:outline-none bg-black pr-2 md:pr-6 flex items-center justify-center h-full w-full text-white"
+          className="relative z-50 flex h-full w-full items-center justify-center bg-black pr-2 text-white focus:outline-none md:pr-6"
         >
           <ChevronRight />
         </button>
