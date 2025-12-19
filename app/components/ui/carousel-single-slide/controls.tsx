@@ -1,3 +1,13 @@
+TODO Fix very suboptimal controls for carousel single slide
+// . Interactive Menu Button Optimization
+// You mentioned menu buttons using logos. If these are "Brand Logos" inside the carousel (e.g., "As seen in..."):
+
+// Format: Do not use next/image for tiny logos if they are vector. Use SVG strings stored in Sanity (inline SVG) or standard <img> tags for SVGs.
+
+// Sanity Field: Use a logo field type that restricts uploads to .svg or .png.
+
+// Optimization: If they are PNGs, use the same sanityLoader but request a fixed small width (e.g., ?w=100) to ensure you don't download a 4MB logo for a 50px icon.
+
 import ChevronLeft from "@/public/icons/ChevronLeft.svg";
 import ChevronRight from "@/public/icons/ChevronRight.svg";
 interface BaseControlsProps {
