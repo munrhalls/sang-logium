@@ -3,6 +3,7 @@
 // TODO make custon SANITY LOADER export default function sanityLoader({ src, width, quality }) {
 //   return `${src}?w=${width}&q=${quality || 75}&auto=format`
 // }
+// TODO see the GROQ query required to fetch this "Polymorphic" structure efficiently, ensuring you don't over-fetch data for the products
 "use client";
 import React, { useState } from "react";
 import Dots from "./dots";

@@ -12,7 +12,7 @@ import { userType } from "./userType";
 
 export const schema = {
   types: [
-    blockContentType,
+    // blockContentType,
     categoryType,
     categoryFiltersType,
     categorySortablesType,
