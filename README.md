@@ -65,7 +65,7 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 
 ### MOBILE EXPERIENCE
 
-- Mobile drawers system using NUQS, seamlessly integrated with the web URL address, ensuring lightning fast navigation that retains back/forward navigation.
+- Mobile drawers system using library for URL state management (Nuqs), seamlessly integrated with the web URL address, ensuring lightning fast navigation that retains back/forward navigation.
 
 ---
 
@@ -112,6 +112,8 @@ Using Sanity Typegen to auto-generate types for schemas and GROQ queries. Fronte
 - **Fetch Strategy:** Sanity Schema -> Localhost Studio -> GROQ Library -> React Server Component -> Prebuilt Props -> Client Components.
 - **Design:** Assets designed in Figma, calibrated, and built directly into code in layers (Structure -> Mock Content -> Real Data Integration).
 
-### Web development strategy
+### Web development strategy and core lesson
 
-- Everything underwent utterly extensive, hundreds upon hundreds of hours, processes of systems-thinking and organizational engineering. That is to say - organizing everything as simply as possible first, paper sketches, diagrams, documentation second, and code - third.
+- Everything underwent rigorous, systems-first approach. That is to say - organizing everything as simply as possible first, paper sketches, diagrams, documentation - second, and code - third.
+- In honesty, that's not how I started out - but over the initial months of struggle, I realized it was the _only_ way because of the compound effect: there is always the snowball effect.
+- Lesson: It's either harder the further the project is, or easier. This whole work is my experience with the latter. It required a completely different approach. Hardest thing about the project are going to come up anyway - the only difference is WHEN. I wanted to see what happens if I tackle the "hardest" upfront and do nothing but that, first.
