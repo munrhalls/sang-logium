@@ -36,6 +36,13 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 ### ORDERS MANAGEMENT SYSTEM
 
 - Centralized dashboard for tracking fulfillment stages, allowing manual status overrides when real-world logistics require it.
+- Order Lifecycle tracked and managed with meticulously cautious, thorough steps using what's called Granular Finite State Machine
+- Views are split for "OWNER", "MANAGER", "PACKER" - each containing User Experience maximally simplified and tailored for the role.
+- For example - "PACKER" sees only and only UI elements relevant to their exact physical job parts of packing: "TO_PACK", "PACKING_LOCKED", "FLAG ISSUE", "PENDING_PRINT_LABEL", "SHIPPED"
+
+### WAREHOUSE PACKING SYSTEM
+
+- Order lifecycle - managed by ENUMERABLE - goes through packing stages
 
 ### RETURNS AND REFUNDS SYSTEM
 
@@ -82,7 +89,7 @@ Primary pages are Server Components (no "use client" directive). Data fetching i
 
 ### Performance
 
-Images - one of the single biggest influencing factors for the whole project's performance - are handled purely by Sanity, which is a design choice. It ensures CDN-based, edge-utilizing delivery. Mistakes of mixing up Next.js optimizations with Sanity CMS optimizations are thoroughly avoidede.
+Images - one of the single biggest influencing factors for the whole project's performance - are handled purely by Sanity, which is a design choice. It ensures CDN-based, edge-utilizing delivery. Mistakes of mixing up Next.js optimizations with Sanity CMS optimizations are thoroughly avoided.
 
 Code-splitting and everything about render trees is organized for the real end-user's experience first, and google performance metrics second.
 
@@ -94,7 +101,7 @@ Cross-browser and cross-OS compatible. Tested via playwright, and admittedly min
 
 Testing approach is very strategic - as few as possible, as impactful as possible. It still involves /unit, /integration, /e2e tests but they are always for a concrete, end-purpose. It follows, to some degree, Kent C. Dodds diamond shape, where most tests are /integration and /e2e.
 
-Example - google validation address API handler route required ensamble team of various different types of tests to ensure the confusing, multi-layered response object is handled in a way that contains all the possibilities and maps them onto proper result response for the consumer - the storefront's address collection form. Unit tests made sure the handler its parses the complex reponse with no fails. Integration tests ensured the state transitions operate as expected. E2E test ensures it all meshes smoothly with no errors.
+Example - google validation address API handler route required ensemble team of various different types of tests to ensure the confusing, multi-layered response object is handled in a way that contains all the possibilities and maps them onto proper result response for the consumer - the storefront's address collection form. Unit tests made sure the handler its parses the complex reponse with no fails. Integration tests ensured the state transitions operate as expected. E2E test ensures it all meshes smoothly with no errors.
 
 ### Type Safety Pattern
 
