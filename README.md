@@ -30,7 +30,7 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 
 ### ADDRESS VALIDATION AND SHIPPING
 
-- Integrates Google Maps Platform to sanitize inputs before fetching real-time rates via shipping provider APIs.
+- Integrates Google Address Validation API to validate address before fetching real-time rates via shipping provider APIs.
 - Ensures every label generated maps to a real, deliverable physical location.
 
 ### ORDERS MANAGEMENT SYSTEM
@@ -58,7 +58,7 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 
 ### MOBILE EXPERIENCE
 
-- Mobile drawers system seamlessly integrated with the web URL address, ensuring navigation without delays.
+- Mobile drawers system using NUQS, seamlessly integrated with the web URL address, ensuring lightning fast navigation that retains back/forward navigation.
 
 ---
 
@@ -70,7 +70,7 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 - **CMS:** Sanity (Backend) + GROQ (Query Language)
 - **Styling:** Tailwind CSS
 - **Auth:** Clerk.dev
-- **Services:** Google Maps Platform (Address Validation), Stripe (Payments), Inngest (Event orchestration/Idempotency)
+- **Services:** Google Address Validation API (Address Validation), Stripe (Payments), Inngest (Event orchestration/Idempotency)
 
 ---
 
@@ -79,6 +79,22 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 ### Server-First Routing
 
 Primary pages are Server Components (no "use client" directive). Data fetching is parallelized on the server to reduce waterfall requests.
+
+### Performance
+
+Images - one of the single biggest influencing factors for the whole project's performance - are handled purely by Sanity, which is a design choice. It ensures CDN-based, edge-utilizing delivery. Mistakes of mixing up Next.js optimizations with Sanity CMS optimizations are thoroughly avoidede.
+
+Code-splitting and everything about render trees is organized for the real end-user's experience first, and google performance metrics second.
+
+### Compatibility
+
+Cross-browser and cross-OS compatible. Tested via playwright, and admittedly minimally but still - on iphones and android phones.
+
+### Testing
+
+Testing approach is very strategic - as few as possible, as impactful as possible. It still involves /unit, /integration, /e2e tests but they are always for a concrete, end-purpose. It follows, to some degree, Kent C. Dodds diamond shape, where most tests are /integration and /e2e.
+
+Example - google validation address API handler route required ensamble team of various different types of tests to ensure the confusing, multi-layered response object is handled in a way that contains all the possibilities and maps them onto proper result response for the consumer - the storefront's address collection form. Unit tests made sure the handler its parses the complex reponse with no fails. Integration tests ensured the state transitions operate as expected. E2E test ensures it all meshes smoothly with no errors.
 
 ### Type Safety Pattern
 
