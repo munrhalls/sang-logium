@@ -104,3 +104,7 @@ Using Sanity Typegen to auto-generate types for schemas and GROQ queries. Fronte
 
 - **Fetch Strategy:** Sanity Schema -> Localhost Studio -> GROQ Library -> React Server Component -> Prebuilt Props -> Client Components.
 - **Design:** Assets designed in Figma, calibrated, and built directly into code in layers (Structure -> Mock Content -> Real Data Integration).
+
+### Web development strategy
+
+- Everything underwent utterly extensive, hundreds upon hundreds of hours, processes of systems-thinking and organizational engineering. That is to say - organizing everything as simply as possible first, paper sketches, diagrams, documentation second, and code - third.
