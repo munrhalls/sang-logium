@@ -85,3 +85,29 @@ note: 'Could not find Red Socks'
 }
 ]
 }
+
+Phase 1: The Warehouse (Your Control)
+
+TO_PACK (Queue)
+
+PACKING_LOCKED (Worker is checking items. Button is grey).
+
+PACKED_READY_FOR_PICKUP (Label printed. Box is waiting on the dock).
+
+Phase 2: The Carrier (API Control)
+
+SHIPPED_IN_TRANSIT (Carrier scanned it).
+
+DELIVERED (Final "Happy" State).
+
+DELIVERY_FAILED (Lost/Return to Sender).
+
+Phase 3: The Aftermath (Customer Control)
+
+COMPLETED (Auto-set after 14 days if no complaints).
+
+DISPUTE_OPEN (Customer reported Damaged/Overtime).
+
+RETURNED\_... (The Reverse Logistics flow).
+
+Why this is better: It maps 1:1 to reality. The Packer controls the checklist. The Carrier controls the movement. The Customer controls the dispute.
