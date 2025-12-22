@@ -42,7 +42,7 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 
 ### WAREHOUSE PACKING SYSTEM
 
-- Order lifecycle - managed by ENUMERABLE - goes through packing stages
+- Order lifecycle - managed by strict, pre-determined enumerable variable transitions
 
 ### RETURNS AND REFUNDS SYSTEM
 
