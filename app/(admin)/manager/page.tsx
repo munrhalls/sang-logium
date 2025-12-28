@@ -1,3 +1,3 @@
-export default function page() {
-  return <div>packer ux</div>;
+export default function Manager() {
+  return <div>manager ux</div>;
 }
