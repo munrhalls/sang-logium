@@ -112,7 +112,9 @@ export const orderType = defineType({
                 { name: "sku", type: "string", title: "SKU" },
               ],
             }),
-
+            // TODO AUDIT LOG - Structure: [{ timestamp: '...', action: 'PACKED', actor: 'user_123', metadata: {...} }]
+            // Why? Manager UI needs access to WHO, WHEN, WHY, WHAT PACKER ID
+            // BUSINESS RELEVANCE === handling human packer fraud, handling exceptions
             // Pricing snapshot
             defineField({
               name: "price",

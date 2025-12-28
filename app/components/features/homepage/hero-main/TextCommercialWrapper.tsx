@@ -4,7 +4,7 @@ import { getCommercialHeroMain } from "@/sanity/lib/commercials/getCommercialHer
 import TextCommercial from "@/app/components/ui/commercials/textCommercial";
 const Loader = function () {
   return (
-    <div className="h-full flex items-center justify-center gap-2 text-sm text-gray-500">
+    <div className="flex h-full items-center justify-center gap-2 text-sm text-gray-500">
       <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-400 border-t-gray-700"></div>
     </div>
   );
