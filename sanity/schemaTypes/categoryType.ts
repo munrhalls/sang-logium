@@ -53,5 +53,11 @@ export const categoryType = defineType({
       title: "Icon",
       type: "string",
     }),
+    defineField({
+      name: "order",
+      title: "Order",
+      type: "number",
+      description: "Order for sorting top-level categories",
+    }),
   ],
 });
