@@ -4,6 +4,7 @@ import { AdaptiveCategoryIcon } from "@/app/components/ui/AdaptiveCategoryIcon";
 import { FaChevronDown, FaRegCircle } from "react-icons/fa";
 import { useState } from "react";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+
 type SubCategory = {
   header?: string;
   name?: string;
@@ -13,6 +14,7 @@ type SubCategory = {
     _key: string;
   }>;
 };
+
 function SubcategoryList({
   items,
   baseUrl,

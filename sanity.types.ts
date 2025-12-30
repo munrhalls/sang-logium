@@ -69,19 +69,21 @@ export type Category = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  title?: string;
+  slug?: Slug;
+  parent?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  metadata?: {
+    path?: string;
+    depth?: number;
+    group?: string;
+  };
   icon?: string;
   order?: number;
-  subcategories?: Array<{
-    name?: string;
-    _type: "subcategory";
-    _key: string;
-  } | {
-    header?: string;
-    name?: string;
-    _type: "groupedSubcategory";
-    _key: string;
-  }>;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -202,5 +204,143 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = CategorySortables | CategoryFilters | Category | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes =
+  | CategorySortables
+  | CategoryFilters
+  | Category
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityImageHotspot
+  | SanityImageCrop
+  | SanityFileAsset
+  | SanityImageAsset
+  | SanityImageMetadata
+  | Geopoint
+  | Slug
+  | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./sanity/lib/commercials/getCommercialHeroMain.ts
+// Variable: GET_COMMERCIALS_HERO_MAIN
+// Query: *[_type == "commercial" && feature == "hero-main" && defined(image.asset)]  | order(displayOrder asc) [0]  {    _id,    "image": image.asset->url + "?fm=webp&w=1200&q=55",    "blurDataURL": image.asset->url + "?w=20&h=20&blur=10&q=20",    text,    ctaLink,    sale-> {      discount,      validUntil,      _id    }  }
+export type GET_COMMERCIALS_HERO_MAINResult = null;
+
+// Source: ./sanity/lib/commercials/getCommercialsByFeature.ts
+// Variable: GET_COMMERCIALS_BY_FEATURE_QUERY
+// Query: *[_type == "commercial" && feature == $feature] | order(displayOrder asc) {    _id,    title,    "image": image.asset->url,    variant,    displayOrder,    text,    ctaLink,    "products": products[]-> {      _id,      brand,      name,      description,      price,      "image": image.asset->url,    },    sale-> {      discount,      validUntil,      _id    }  }
+export type GET_COMMERCIALS_BY_FEATURE_QUERYResult = Array<never>;
+
+// Source: ./sanity/lib/commercials/getCommercialsHeroSecondary.ts
+// Variable: GET_COMMERCIALS_HERO_SECONDARY
+// Query: *[_type == "commercial" && feature == "hero-secondary" && defined(image.asset)] | order(displayOrder asc) {    _id,    title,    "image": image.asset->url,    variant,    displayOrder,    text,    ctaLink,    "products": products[]-> {      _id,      brand,      name,      description,      price,      "image": image.asset->url,    },    sale-> {      discount,      validUntil,      _id    }  }
+export type GET_COMMERCIALS_HERO_SECONDARYResult = Array<never>;
+
+// Source: ./sanity/lib/products/filter/getFilters.ts
+// Variable: FILTERS
+// Query: {    "brands": array::unique(*[_type == "product"].brand->name)  }
+export type FILTERSResult = {
+  brands: Array<never>;
+};
+
+// Source: ./sanity/lib/products/filter/getFiltersForCategoryPath.ts
+// Variable: FILTERS_BY_CATEGORY_QUERY
+// Query: *[_type == "categoryFilters" && title == $topLevelCategory][0] {      title,      "filters": filters.filterItems[]{        name,        type,        options,        defaultValue,        min,        max,        isMinOnly,        step      },      "mappings": categoryMappings[path == $cleanPath]    }
+export type FILTERS_BY_CATEGORY_QUERYResult = {
+  title: string | null;
+  filters: Array<{
+    name: string | null;
+    type: "boolean" | "checkbox" | "multiselect" | "radio" | "range" | null;
+    options: Array<string> | null;
+    defaultValue: string | null;
+    min: number | null;
+    max: number | null;
+    isMinOnly: boolean | null;
+    step: number | null;
+  }> | null;
+  mappings: Array<{
+    path?: string;
+    filters?: Array<string>;
+    _key: string;
+  }> | null;
+} | null;
+
+// Source: ./sanity/lib/products/getAllCategories.ts
+// Variable: ALL_CATEGORIES_QUERY
+// Query: *[_type == "category"] | order(order asc, title asc) {    "id": _id,    "parentId": parent._ref,    "title": title,    "slug": slug.current,    "icon": icon,    "group": metadata.group  }
+export type ALL_CATEGORIES_QUERYResult = Array<{
+  id: string;
+  parentId: string | null;
+  title: string | null;
+  slug: string | null;
+  icon: string | null;
+  group: string | null;
+}>;
+
+// Source: ./sanity/lib/products/getAllProducts.ts
+// Variable: ALL_PRODUCTS_QUERY
+// Query: *[            _type == "product"        ] | order(name asc)
+export type ALL_PRODUCTS_QUERYResult = Array<never>;
+
+// Source: ./sanity/lib/products/getProductById.ts
+// Variable: PRODUCT_BY_ID_QUERY
+// Query: *[                _type == 'product'                && _id == $id            ] | order(name asc) [0]
+export type PRODUCT_BY_ID_QUERYResult = null;
+
+// Source: ./sanity/lib/products/searchProductsByName.ts
+// Variable: SEARCH_FOR_PRODUCTS_QUERY
+// Query: *[        _type == "product"        && name match $searchParam    ] | order(name asc)
+export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<never>;
+
+// Source: ./sanity/lib/products/sort/getSortablesForCategoryPath.ts
+// Variable: SORTABLES_BY_CATEGORY_QUERY
+// Query: *[_type == "categorySortables" && title == $topLevelCategory][0] {      title,      "sortOptions": sortOptions[]{        name,        displayName,        type,        field,        defaultDirection      },      "mappings": categoryMappings[path == $cleanPath]    }
+export type SORTABLES_BY_CATEGORY_QUERYResult = {
+  title: string | null;
+  sortOptions: Array<{
+    name: string | null;
+    displayName: string | null;
+    type: "alphabetic" | "boolean" | "date" | "numeric" | null;
+    field: string | null;
+    defaultDirection: "asc" | "desc" | null;
+  }> | null;
+  mappings: Array<{
+    path?: string;
+    sortOptions?: Array<string>;
+    _key: string;
+  }> | null;
+} | null;
+
+// Source: ./sanity/lib/profiles/fetchProfileByClerkId.ts
+// Variable: FETCH_PROFILE_QUERY
+// Query: *[_type == "userProfile" && clerkId == $clerkId][0] {      _id,      _type,      clerkId,      displayName,      primaryAddress {        streetAddress,        city,        state,        postalCode,        country      },      preferences {        receiveMarketingEmails,        darkMode,        savePaymentInfo      },      createdAt,      updatedAt    }
+export type FETCH_PROFILE_QUERYResult = null;
+
+// Source: ./sanity/lib/sales/getAllActiveSales.ts
+// Variable: GET_ACTIVE_SALES_QUERY
+// Query: *[_type == "sale" && isActive == true] {        _id,        title,        "slug": slug.current,        discount,        validFrom,        validUntil,        isActive      }
+export type GET_ACTIVE_SALES_QUERYResult = Array<never>;
+
+// Source: ./sanity/lib/sales/getSaleByID.ts
+// Variable: SALE_BY_ID_QUERY
+// Query: *[_type == "sale" && _id == $saleId]{      name,      "slug": slug.current,      validFrom,      validUntil,      isActive,      description,      "image": image.asset->url,      category->{        name,        "slug": slug.current,        "products": *[_type=='product' && categoryPath == ^.metadata.path]{          name,          "slug": slug.current,          image,          defaultPrice        }      }    }
+export type SALE_BY_ID_QUERYResult = Array<never>;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    '*[_type == "commercial" && feature == "hero-main" && defined(image.asset)]\n  | order(displayOrder asc) [0]\n  {\n    _id,\n    "image": image.asset->url + "?fm=webp&w=1200&q=55",\n    "blurDataURL": image.asset->url + "?w=20&h=20&blur=10&q=20",\n    text,\n    ctaLink,\n    sale-> {\n      discount,\n      validUntil,\n      _id\n    }\n  }': GET_COMMERCIALS_HERO_MAINResult;
+    '*[_type == "commercial" && feature == $feature] | order(displayOrder asc) {\n    _id,\n    title,\n    "image": image.asset->url,\n    variant,\n    displayOrder,\n    text,\n    ctaLink,\n    "products": products[]-> {\n      _id,\n      brand,\n      name,\n      description,\n      price,\n      "image": image.asset->url,\n    },\n    sale-> {\n      discount,\n      validUntil,\n      _id\n    }\n  }': GET_COMMERCIALS_BY_FEATURE_QUERYResult;
+    '*[_type == "commercial" && feature == "hero-secondary" && defined(image.asset)] | order(displayOrder asc) {\n    _id,\n    title,\n    "image": image.asset->url,\n    variant,\n    displayOrder,\n    text,\n    ctaLink,\n    "products": products[]-> {\n      _id,\n      brand,\n      name,\n      description,\n      price,\n      "image": image.asset->url,\n    },\n    sale-> {\n      discount,\n      validUntil,\n      _id\n    }\n  }': GET_COMMERCIALS_HERO_SECONDARYResult;
+    '{\n    "brands": array::unique(*[_type == "product"].brand->name)\n  }': FILTERSResult;
+    '\n    *[_type == "categoryFilters" && title == $topLevelCategory][0] {\n      title,\n      "filters": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        isMinOnly,\n        step\n      },\n      "mappings": categoryMappings[path == $cleanPath]\n    }\n  ': FILTERS_BY_CATEGORY_QUERYResult;
+    '\n  *[_type == "category"] | order(order asc, title asc) {\n    "id": _id,\n    "parentId": parent._ref,\n    "title": title,\n    "slug": slug.current,\n    "icon": icon,\n    "group": metadata.group\n  }\n': ALL_CATEGORIES_QUERYResult;
+    '\n        *[\n            _type == "product"\n        ] | order(name asc)\n    ': ALL_PRODUCTS_QUERYResult;
+    "\n            *[\n                _type == 'product'\n                && _id == $id\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
+    '*[\n        _type == "product"\n        && name match $searchParam\n    ] | order(name asc)': SEARCH_FOR_PRODUCTS_QUERYResult;
+    '\n    *[_type == "categorySortables" && title == $topLevelCategory][0] {\n      title,\n      "sortOptions": sortOptions[]{\n        name,\n        displayName,\n        type,\n        field,\n        defaultDirection\n      },\n      "mappings": categoryMappings[path == $cleanPath]\n    }\n  ': SORTABLES_BY_CATEGORY_QUERYResult;
+    '\n    *[_type == "userProfile" && clerkId == $clerkId][0] {\n      _id,\n      _type,\n      clerkId,\n      displayName,\n      primaryAddress {\n        streetAddress,\n        city,\n        state,\n        postalCode,\n        country\n      },\n      preferences {\n        receiveMarketingEmails,\n        darkMode,\n        savePaymentInfo\n      },\n      createdAt,\n      updatedAt\n    }\n  ': FETCH_PROFILE_QUERYResult;
+    '\n      *[_type == "sale" && isActive == true] {\n        _id,\n        title,\n        "slug": slug.current,\n        discount,\n        validFrom,\n        validUntil,\n        isActive\n      }\n    ': GET_ACTIVE_SALES_QUERYResult;
+    '\n    *[_type == "sale" && _id == $saleId]{\n      name,\n      "slug": slug.current,\n      validFrom,\n      validUntil,\n      isActive,\n      description,\n      "image": image.asset->url,\n      category->{\n        name,\n        "slug": slug.current,\n        "products": *[_type==\'product\' && categoryPath == ^.metadata.path]{\n          name,\n          "slug": slug.current,\n          image,\n          defaultPrice\n        }\n      }\n    }\n  ': SALE_BY_ID_QUERYResult;
+  }
+}
