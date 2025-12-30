@@ -40,6 +40,12 @@ export const categoryType = defineType({
           type: "number",
           readOnly: true,
         },
+        {
+          name: "group",
+          title: "Menu Group",
+          type: "string",
+          description: "e.g. 'By category' or 'Home theater'",
+        },
       ],
     }),
     defineField({
