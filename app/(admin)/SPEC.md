@@ -1,20 +1,29 @@
-# Business problem
+# Orders Management System feature
 
-MAKING MONEY HERE EQUALS:
+- it triggers finite state machine changes to allowed, pre-determined next state
+- each pre-determined state change is followed by pre-determined actions of handling the order, e.g. send e-mail
+- actions are idempotent via inngest
 
-1. BRAND WHOSE ORDER'S HANDLING IS KNOWN FOR ITS PROFESSIONALISM AND EXCELLENT, POSITIVE CUSTOMER EXPERIENCE.
-2. MAJORITY % OF 'ON THE FENCE' ORDERS WITH SOME COMPLICATION, STILL GOT SOLD AND MADE MONEY.
-3. ANY BAD ORDER COMPLICATION MINIMIZED POTENTIAL DAMAGE TO BRAND'S REPUTATION VIA PROFESSIONAL COMMUNICATION/HANDLING.
+# Core
 
-WHAT DOES THAT MEAN:
-Every 10 000 orders === 10 000 customers who:
-A) STANDARD "HAPPY" PATH: got order delivered, all items present, exact $ money sum charged, professional e-mail/user account communication happened
-B) EXCEPTION "COMPLICATIONS" PATH: got complication resolved fairly, got money back or charge re-balanced depending on order complication, no "exception" went unhandled
-C)
+- finite state machine is operated by packer UI and manager UI to change order state into next pre-determined allowed state
 
-# Business solution
+# Packer UI
 
-Handle
+- login/out feature
+  -- login via QR code
+  -- automatic log out after 5 minutes of inactivity
+  -- log out mid-order equals order packer unlocked and backed to queue
 
-- money charged, delivery on time, win-win
-- money
+- order feature
+  -- any button and its associated handler function is only visible and possible to trigger if the current order state allows it
+  -- enable packer id to view queue of orders
+  -- enable packer id to lock in order id
+  -- enable packer id to view individual order id
+  -- enable packer id order items checklist pre final step
+  -- enable packer id to print label as final step
+  -- an order button triggers allowed pre-determined state change
+  -- simultaenous same order overwrite is prevented by checking \_rev field in the order doc pre-patch
+  -- two packers cannot pack same order is handled via locking an order to packer id
+
+# Manager UI
