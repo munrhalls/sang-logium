@@ -31,7 +31,7 @@ export const categoryType = defineType({
           name: "path",
           title: "Full Path",
           type: "string",
-          description: "e.g. men/shoes/running",
+          description: "e.g. headphones/wired",
           readOnly: true,
         },
         {
