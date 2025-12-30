@@ -80,15 +80,19 @@ export const productType = defineType({
       title: "Image Gallery",
       of: [defineArrayMember({ type: "image" })],
     }),
-    // TODO // FIX 2: Switch to Reference Pattern The "Path" string lives ON THE CATEGORY, not here
     defineField({
-      name: "categoryPath",
-      title: "Category Path",
-      type: "array",
-      of: [defineArrayMember({ type: "string" })],
+      name: "categories",
+      title: "Categories",
       description:
-        "The metadata.paths of the categories this product belongs to (e.g., ['hi-fi-audio/amplifiers', 'electronics/audio'])",
-      validation: (Rule) => Rule.required(),
+        "The first category in this list will be treated as the 'Primary' category for breadcrumbs and URLs.",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "category" }],
+        },
+      ],
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: "tags",
