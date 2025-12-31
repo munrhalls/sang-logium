@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaChevronDown, FaRegCircle } from "react-icons/fa";
 import { useState } from "react";
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+import { SubcategoryList } from "./SubcategoryList";
 
 type MenuItem = NonNullable<ALL_CATEGORIES_QUERYResult>[0];
 
@@ -29,39 +30,6 @@ const MenuLink = ({
     <span className="block overflow-hidden whitespace-nowrap">{title}</span>
   </Link>
 );
-
-function SubcategoryList({
-  items,
-  parentPath,
-}: {
-  items: MenuItem[];
-  parentPath: string;
-}) {
-  if (items.length === 0) return null;
-
-  return (
-    <div className="pl-4">
-      {items.map((item) => {
-        if (item.type === "header") {
-          return (
-            <div key={item._key}>
-              <MenuHeader title={item.title} />
-              <SubcategoryList items={item.children} parentPath={parentPath} />
-            </div>
-          );
-        }
-
-        const href = `${parentPath}/${item.slug}`;
-        return (
-          <div key={item._key}>
-            <MenuLink title={item.title} href={href} />
-            <SubcategoryList items={item.children} parentPath={href} />
-          </div>
-        );
-      })}
-    </div>
-  );
-}
 
 export default function CategoriesNav({
   menuItems,
