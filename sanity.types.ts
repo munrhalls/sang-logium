@@ -63,6 +63,37 @@ export type CategoryFilters = {
   }>;
 };
 
+export type Settings = {
+  _id: string;
+  _type: "settings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  mainMenu?: Array<
+    {
+      _key: string;
+    } & MenuItem
+  >;
+};
+
+export type MenuItem = {
+  _type: "menuItem";
+  title?: string;
+  type?: "link" | "header";
+  linkTarget?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  children?: Array<
+    {
+      _key: string;
+    } & MenuItem
+  >;
+  isHighlighted?: boolean;
+};
+
 export type Category = {
   _id: string;
   _type: "category";
@@ -207,6 +238,8 @@ export type SanityAssetSourceData = {
 export type AllSanitySchemaTypes =
   | CategorySortables
   | CategoryFilters
+  | Settings
+  | MenuItem
   | Category
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -266,21 +299,42 @@ export type FILTERS_BY_CATEGORY_QUERYResult = {
 
 // Source: ./sanity/lib/products/getAllCategories.ts
 // Variable: ALL_CATEGORIES_QUERY
-// Query: *[_type == "category"]{    _id,    title,    slug,    order,    icon,    metadata,    parent,    "parent": parent->{_id}  }
+// Query: *[_type == "settings"][0].mainMenu[]{      _key,      title,      type,      isHighlighted,      "slug": linkTarget->slug.current,      "children": coalesce(children[]{        _key,        title,        type,        isHighlighted,        "slug": linkTarget->slug.current,        "children": coalesce(children[]{          _key,          title,          type,          isHighlighted,          "slug": linkTarget->slug.current,          "children": coalesce(children[]{             _key,             title,             type,             isHighlighted,             "slug": linkTarget->slug.current,             "children": []          }, [])        }, [])      }, [])    }
 export type ALL_CATEGORIES_QUERYResult = Array<{
-  _id: string;
+  _key: string;
   title: string | null;
-  slug: Slug | null;
-  order: number | null;
-  icon: string | null;
-  metadata: {
-    path?: string;
-    depth?: number;
-  } | null;
-  parent: {
-    _id: string;
-  } | null;
-}>;
+  type: "header" | "link" | null;
+  isHighlighted: boolean | null;
+  slug: string | null;
+  children:
+    | Array<{
+        _key: string;
+        title: string | null;
+        type: "header" | "link" | null;
+        isHighlighted: boolean | null;
+        slug: string | null;
+        children:
+          | Array<{
+              _key: string;
+              title: string | null;
+              type: "header" | "link" | null;
+              isHighlighted: boolean | null;
+              slug: string | null;
+              children:
+                | Array<{
+                    _key: string;
+                    title: string | null;
+                    type: "header" | "link" | null;
+                    isHighlighted: boolean | null;
+                    slug: string | null;
+                    children: Array<never>;
+                  }>
+                | Array<never>;
+            }>
+          | Array<never>;
+      }>
+    | Array<never>;
+}> | null;
 
 // Source: ./sanity/lib/products/getAllProducts.ts
 // Variable: ALL_PRODUCTS_QUERY
@@ -340,7 +394,7 @@ declare module "@sanity/client" {
     '*[_type == "commercial" && feature == "hero-secondary" && defined(image.asset)] | order(displayOrder asc) {\n    _id,\n    title,\n    "image": image.asset->url,\n    variant,\n    displayOrder,\n    text,\n    ctaLink,\n    "products": products[]-> {\n      _id,\n      brand,\n      name,\n      description,\n      price,\n      "image": image.asset->url,\n    },\n    sale-> {\n      discount,\n      validUntil,\n      _id\n    }\n  }': GET_COMMERCIALS_HERO_SECONDARYResult;
     '{\n    "brands": array::unique(*[_type == "product"].brand->name)\n  }': FILTERSResult;
     '\n    *[_type == "categoryFilters" && title == $topLevelCategory][0] {\n      title,\n      "filters": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        isMinOnly,\n        step\n      },\n      "mappings": categoryMappings[path == $cleanPath]\n    }\n  ': FILTERS_BY_CATEGORY_QUERYResult;
-    '\n    *[_type == "category"]{\n    _id,\n    title,\n    slug,\n    order,\n    icon,\n    metadata,\n    parent,\n    "parent": parent->{_id}\n  }': ALL_CATEGORIES_QUERYResult;
+    '\n    *[_type == "settings"][0].mainMenu[]{\n      _key,\n      title,\n      type,\n      isHighlighted,\n      "slug": linkTarget->slug.current,\n      "children": coalesce(children[]{\n        _key,\n        title,\n        type,\n        isHighlighted,\n        "slug": linkTarget->slug.current,\n        "children": coalesce(children[]{\n          _key,\n          title,\n          type,\n          isHighlighted,\n          "slug": linkTarget->slug.current,\n          "children": coalesce(children[]{\n             _key,\n             title,\n             type,\n             isHighlighted,\n             "slug": linkTarget->slug.current,\n             "children": []\n          }, [])\n        }, [])\n      }, [])\n    }\n  ': ALL_CATEGORIES_QUERYResult;
     '\n        *[\n            _type == "product"\n        ] | order(name asc)\n    ': ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && _id == $id\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
     '*[\n        _type == "product"\n        && name match $searchParam\n    ] | order(name asc)': SEARCH_FOR_PRODUCTS_QUERYResult;

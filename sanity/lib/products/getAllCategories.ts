@@ -3,16 +3,34 @@ import { client } from "../client";
 
 export const getAllCategories = async () => {
   const ALL_CATEGORIES_QUERY = defineQuery(`
-    *[_type == "category"] | order(order asc, title asc) {
-      "id": _id,
-      "parentId": parent._ref,
+    *[_type == "settings"][0].mainMenu[]{
+      _key,
       title,
-      "slug": slug.current,
-      icon,
-      group,
-      metadata {
-        path
-      }
+      type,
+      isHighlighted,
+      "slug": linkTarget->slug.current,
+      "children": coalesce(children[]{
+        _key,
+        title,
+        type,
+        isHighlighted,
+        "slug": linkTarget->slug.current,
+        "children": coalesce(children[]{
+          _key,
+          title,
+          type,
+          isHighlighted,
+          "slug": linkTarget->slug.current,
+          "children": coalesce(children[]{
+             _key,
+             title,
+             type,
+             isHighlighted,
+             "slug": linkTarget->slug.current,
+             "children": []
+          }, [])
+        }, [])
+      }, [])
     }
   `);
 
