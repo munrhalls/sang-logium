@@ -3,14 +3,14 @@ import * as Brands from "@/public/brands";
 import Link from "next/link";
 export default async function BrandsWall() {
   return (
-    <div className="w-full grid grid-cols-[1fr_7fr_1fr] sm:grid-cols-[1fr_5fr_1fr]">
-      <div className="h-full pt-8 pb-4 col-start-2 col-end-3 flex justify-center items-center gap-4 gradient">
+    <div className="grid w-full grid-cols-[1fr_7fr_1fr] sm:grid-cols-[1fr_5fr_1fr]">
+      <div className="gradient col-start-2 col-end-3 flex h-full items-center justify-center gap-4 pb-4 pt-8">
         {}
-        <h1 className="text-black font-black text-3xl">
+        <h1 className="text-3xl font-black text-black">
           World`s best audio gear
         </h1>
       </div>
-      <div className="h-full col-start-2 col-end-3 grid grid-cols-2 2xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-12">
+      <div className="col-start-2 col-end-3 grid h-full grid-cols-2 gap-12 2xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6">
         {Object.entries(Brands).map(([brand, image], index) => {
           return (
             <Link
