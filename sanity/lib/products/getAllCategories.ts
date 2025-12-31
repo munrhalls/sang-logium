@@ -3,16 +3,18 @@ import { client } from "../client";
 
 export const getAllCategories = async () => {
   const ALL_CATEGORIES_QUERY = defineQuery(`
-    *[_type == "category"]{
-    _id,
-    title,
-    slug,
-    order,
-    icon,
-    metadata,
-    parent,
-    "parent": parent->{_id}
-  }`);
+    *[_type == "category"] | order(order asc, title asc) {
+      "id": _id,
+      "parentId": parent._ref,
+      title,
+      "slug": slug.current,
+      icon,
+      group,
+      metadata {
+        path
+      }
+    }
+  `);
 
   try {
     const categories = await client.fetch(ALL_CATEGORIES_QUERY);

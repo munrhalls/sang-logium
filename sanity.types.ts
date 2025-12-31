@@ -71,19 +71,19 @@ export type Category = {
   _rev: string;
   title?: string;
   slug?: Slug;
+  icon?: string;
   parent?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "category";
   };
+  group?: string;
+  order?: number;
   metadata?: {
     path?: string;
     depth?: number;
-    group?: string;
   };
-  icon?: string;
-  order?: number;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -266,14 +266,20 @@ export type FILTERS_BY_CATEGORY_QUERYResult = {
 
 // Source: ./sanity/lib/products/getAllCategories.ts
 // Variable: ALL_CATEGORIES_QUERY
-// Query: *[_type == "category"] | order(order asc, title asc) {    "id": _id,    "parentId": parent._ref,    "title": title,    "slug": slug.current,    "icon": icon,    "group": metadata.group  }
+// Query: *[_type == "category"]{    _id,    title,    slug,    order,    icon,    metadata,    parent,    "parent": parent->{_id}  }
 export type ALL_CATEGORIES_QUERYResult = Array<{
-  id: string;
-  parentId: string | null;
+  _id: string;
   title: string | null;
-  slug: string | null;
+  slug: Slug | null;
+  order: number | null;
   icon: string | null;
-  group: string | null;
+  metadata: {
+    path?: string;
+    depth?: number;
+  } | null;
+  parent: {
+    _id: string;
+  } | null;
 }>;
 
 // Source: ./sanity/lib/products/getAllProducts.ts
@@ -334,7 +340,7 @@ declare module "@sanity/client" {
     '*[_type == "commercial" && feature == "hero-secondary" && defined(image.asset)] | order(displayOrder asc) {\n    _id,\n    title,\n    "image": image.asset->url,\n    variant,\n    displayOrder,\n    text,\n    ctaLink,\n    "products": products[]-> {\n      _id,\n      brand,\n      name,\n      description,\n      price,\n      "image": image.asset->url,\n    },\n    sale-> {\n      discount,\n      validUntil,\n      _id\n    }\n  }': GET_COMMERCIALS_HERO_SECONDARYResult;
     '{\n    "brands": array::unique(*[_type == "product"].brand->name)\n  }': FILTERSResult;
     '\n    *[_type == "categoryFilters" && title == $topLevelCategory][0] {\n      title,\n      "filters": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        isMinOnly,\n        step\n      },\n      "mappings": categoryMappings[path == $cleanPath]\n    }\n  ': FILTERS_BY_CATEGORY_QUERYResult;
-    '\n  *[_type == "category"] | order(order asc, title asc) {\n    "id": _id,\n    "parentId": parent._ref,\n    "title": title,\n    "slug": slug.current,\n    "icon": icon,\n    "group": metadata.group\n  }\n': ALL_CATEGORIES_QUERYResult;
+    '\n    *[_type == "category"]{\n    _id,\n    title,\n    slug,\n    order,\n    icon,\n    metadata,\n    parent,\n    "parent": parent->{_id}\n  }': ALL_CATEGORIES_QUERYResult;
     '\n        *[\n            _type == "product"\n        ] | order(name asc)\n    ': ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && _id == $id\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
     '*[\n        _type == "product"\n        && name match $searchParam\n    ] | order(name asc)': SEARCH_FOR_PRODUCTS_QUERYResult;

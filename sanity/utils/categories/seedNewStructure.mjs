@@ -4,6 +4,7 @@ const rawCategories = [
   {
     title: "Headphones",
     slug: "headphones",
+    url: "/products/headphones",
     icon: "headphones",
     groups: [
       {
@@ -35,6 +36,7 @@ const rawCategories = [
   {
     title: "Speakers",
     slug: "speakers",
+    url: "/products/speakers",
     icon: "speaker",
     groups: [
       {
@@ -64,6 +66,7 @@ const rawCategories = [
   {
     title: "Personal Audio",
     slug: "personal-audio",
+    url: "/products/personal-audio",
     icon: "earbuds",
     groups: [
       {
@@ -102,6 +105,7 @@ const rawCategories = [
   {
     title: "Home Audio",
     slug: "home-audio",
+    url: "/products/home-audio",
     icon: "radio",
     groups: [
       {
@@ -133,6 +137,7 @@ const rawCategories = [
   {
     title: "Studio Equipment",
     slug: "studio-equipment",
+    url: "/products/studio-equipment",
     icon: "mic2",
     groups: [
       {
@@ -155,6 +160,7 @@ const rawCategories = [
   {
     title: "Accessories",
     slug: "accessories",
+    url: "/products/accessories",
     icon: "cable",
     groups: [
       {
@@ -196,38 +202,45 @@ const rawCategories = [
   {
     title: "On Sale",
     slug: "on-sale",
+    url: "/products/on-sale",
+    icon: null,
     groups: [],
   },
 ];
 
 async function seedCategories() {
+  // Use a transaction to bundle all creates
   const transaction = client.transaction();
-  let count = 0;
 
-  console.log("🚀 Starting category migration...");
+  console.log("🚀 Initializing Category Seeding...");
+
+  // We use a counter for top-level order to maintain the array order from JSON
+  let sortOrder = 0;
 
   for (const parent of rawCategories) {
     const parentId = `category-${parent.slug}`;
 
-    // 1. Create Parent Document
+    // 1. Create the Parent (Top-Level) Category
+    // We use createOrReplace to make this idempotent (safe to run multiple times)
     transaction.createOrReplace({
       _id: parentId,
       _type: "category",
       title: parent.title,
       slug: { _type: "slug", current: parent.slug },
       icon: parent.icon,
+      order: sortOrder++,
       metadata: {
-        path: parent.slug,
+        path: parent.slug, // e.g. "headphones"
         depth: 0,
-        group: null,
       },
     });
-    count++;
+    console.log(`+ Queueing Parent: ${parent.title}`);
 
-    // 2. Create Children Documents
-    if (parent.groups) {
+    // 2. Create the Children (Sub-Categories)
+    if (parent.groups && parent.groups.length > 0) {
       for (const group of parent.groups) {
         for (const item of group.items) {
+          // Deterministic ID based on slug to prevent duplicates
           const childId = `category-${parent.slug}-${item.slug}`;
           const childPath = `${parent.slug}/${item.slug}`;
 
@@ -236,26 +249,31 @@ async function seedCategories() {
             _type: "category",
             title: item.title,
             slug: { _type: "slug", current: item.slug },
+            // Reference to parent
             parent: { _type: "reference", _ref: parentId },
+            // Store the visual grouping here
+            group: group.title,
             metadata: {
-              path: childPath,
+              path: childPath, // e.g. "headphones/wired"
               depth: 1,
-              group: group.title,
             },
           });
-          count++;
+          console.log(
+            `  - Queueing Child: ${item.title} (Group: ${group.title})`
+          );
         }
       }
     }
   }
 
-  console.log(`📦 Committing ${count} category documents...`);
+  console.log("📦 Committing transaction to Sanity...");
 
   try {
-    await transaction.commit();
-    console.log("✅ Categories migrated successfully!");
+    const result = await transaction.commit();
+    console.log("✅ Successfully seeded categories!");
+    console.log(`   Transaction ID: ${result.transactionId}`);
   } catch (err) {
-    console.error("❌ Migration failed:", err.message);
+    console.error("❌ Seeding failed:", err.message);
   }
 }
 

@@ -1,103 +1,61 @@
 "use client";
+
 import Link from "next/link";
+import { CategoryNode } from "@/lib/utils/formatting";
 import { AdaptiveCategoryIcon } from "@/app/components/ui/AdaptiveCategoryIcon";
-import { FaChevronDown, FaRegCircle } from "react-icons/fa";
-import { useState } from "react";
-import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+import { ChevronDown } from "lucide-react";
 
-type SubCategory = {
-  header?: string;
-  name?: string;
-  _key: string;
-  subcategories?: Array<{
-    name?: string;
-    _key: string;
-  }>;
-};
-
-function SubcategoryList({
-  items,
-  baseUrl,
-}: {
-  items: NonNullable<SubCategory[]>;
-  baseUrl: string;
-}) {
-  return (
-    <div className="pl-4">
-      {items.map((sub) => (
-        <div key={sub._key}>
-          {sub.header && (
-            <h3 className="px-4 py-2 font-black text-gray-500">{sub.header}</h3>
-          )}
-          {sub.name && (
-            <Link
-              href={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}`}
-              className="group flex min-w-0 items-center rounded-md px-4 py-2 text-gray-800 transition-all duration-100 hover:bg-gray-300 hover:text-yellow-600"
-            >
-              <FaRegCircle className="mr-2 text-sm" />
-              <span className="block overflow-hidden whitespace-nowrap">
-                {sub.name}
-              </span>
-            </Link>
-          )}
-          {sub.subcategories && (
-            <SubcategoryList
-              items={sub.subcategories}
-              baseUrl={`${baseUrl}/${sub.name?.toLowerCase().replace(/\s+/g, "-")}`}
-            />
-          )}
-        </div>
-      ))}
-    </div>
-  );
-}
 export default function CategoriesNav({
   categories,
 }: {
-  categories: ALL_CATEGORIES_QUERYResult;
+  categories: CategoryNode[];
 }) {
-  const [activeCategory, setActiveCategory] = useState<string>();
   return (
-    <nav className="hidden h-11 items-center justify-center bg-black lg:flex">
-      <div className="mx-auto h-full max-w-7xl items-center justify-center lg:flex lg:px-1 xl:px-4">
-        <ul className="flex h-full items-center">
-          {categories.map((category, index) => {
-            return (
-              <li
-                key={category._id}
-                className="relative h-full"
-                onMouseEnter={() => setActiveCategory(category.name)}
-                onMouseLeave={() => setActiveCategory(undefined)}
-              >
-                <Link
-                  href={`/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`}
-                  className={`flex h-full items-center justify-around text-white transition-colors hover:text-yellow-600 lg:px-1 xl:px-4 ${activeCategory === category.name ? "text-yellow-400" : ""} ${index === 6 ? "font-black text-orange-600" : ""}`}
-                >
-                  {category.icon && (
-                    <span className="mr-2">
-                      <AdaptiveCategoryIcon title={category.icon} />
-                    </span>
-                  )}
-                  <span className="xl:text-md truncate text-sm md:text-sm 2xl:text-lg">
-                    {category.name}
-                  </span>
-                  <FaChevronDown className="ml-2 h-3 w-3" />
-                </Link>
-                {activeCategory === category.name && category.subcategories && (
-                  <div className="absolute left-0 z-50 w-72 rounded-b-lg bg-white shadow-lg">
-                    <div className="py-2">
-                      <SubcategoryList
-                        items={category.subcategories}
-                        baseUrl={`/products/${category.name?.toLowerCase().replace(/\s+/g, "-")}`}
-                      />
+    <nav className="relative hidden h-16 items-center justify-center bg-black text-white lg:flex">
+      <ul className="flex h-full items-center gap-8 px-4">
+        {categories.map((root) => (
+          <li key={root.id} className="group flex h-full items-center">
+            {/* Top Level Link */}
+            <Link
+              href={`/products/${root.slug}`}
+              className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider transition-colors hover:text-orange-500"
+            >
+              {root.icon && <AdaptiveCategoryIcon title={root.icon} />}
+              <span>{root.title}</span>
+              {root.groups && root.groups.length > 0 && (
+                <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
+              )}
+            </Link>
+
+            {/* Mega Menu Dropdown */}
+            {root.groups && root.groups.length > 0 && (
+              <div className="absolute left-0 top-full z-50 hidden w-full border-t border-gray-800 bg-black shadow-xl group-hover:block">
+                <div className="mx-auto grid max-w-7xl grid-cols-4 gap-8 p-8">
+                  {root.groups.map((group) => (
+                    <div key={group.title} className="space-y-4">
+                      <h3 className="border-b border-gray-700 pb-2 text-xs font-bold uppercase tracking-widest text-gray-400">
+                        {group.title}
+                      </h3>
+                      <ul className="space-y-2">
+                        {group.items.map((item) => (
+                          <li key={item.id}>
+                            <Link
+                              href={`/products/${item.path}`}
+                              className="block text-sm text-gray-300 hover:text-white"
+                            >
+                              {item.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
     </nav>
   );
 }
