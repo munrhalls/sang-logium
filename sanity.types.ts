@@ -72,49 +72,21 @@ export type Settings = {
   mainMenu?: Array<
     {
       _key: string;
-    } & MenuItem
+    } & CatalogueItem
   >;
 };
 
-export type MenuItem = {
-  _type: "menuItem";
+export type CatalogueItem = {
+  _type: "catalogueItem";
   title?: string;
   type?: "link" | "header";
-  linkTarget?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "category";
-  };
+  slug?: Slug;
+  icon?: string;
   children?: Array<
     {
       _key: string;
-    } & MenuItem
+    } & CatalogueItem
   >;
-  isHighlighted?: boolean;
-};
-
-export type Category = {
-  _id: string;
-  _type: "category";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  icon?: string;
-  parent?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "category";
-  };
-  group?: string;
-  order?: number;
-  metadata?: {
-    path?: string;
-    depth?: number;
-  };
 };
 
 export type SanityImagePaletteSwatch = {
@@ -239,8 +211,7 @@ export type AllSanitySchemaTypes =
   | CategorySortables
   | CategoryFilters
   | Settings
-  | MenuItem
-  | Category
+  | CatalogueItem
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -304,29 +275,29 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   _key: string;
   title: string | null;
   type: "header" | "link" | null;
-  isHighlighted: boolean | null;
-  slug: string | null;
+  isHighlighted: null;
+  slug: null;
   children:
     | Array<{
         _key: string;
         title: string | null;
         type: "header" | "link" | null;
-        isHighlighted: boolean | null;
-        slug: string | null;
+        isHighlighted: null;
+        slug: null;
         children:
           | Array<{
               _key: string;
               title: string | null;
               type: "header" | "link" | null;
-              isHighlighted: boolean | null;
-              slug: string | null;
+              isHighlighted: null;
+              slug: null;
               children:
                 | Array<{
                     _key: string;
                     title: string | null;
                     type: "header" | "link" | null;
-                    isHighlighted: boolean | null;
-                    slug: string | null;
+                    isHighlighted: null;
+                    slug: null;
                     children: Array<never>;
                   }>
                 | Array<never>;

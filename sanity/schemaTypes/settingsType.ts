@@ -1,16 +1,16 @@
-// schemas/settings.ts
 import { defineField, defineType } from "sanity";
 
 export const settingsType = defineType({
   name: "settings",
   title: "Site Settings",
-  type: "document", // <--- THIS is the Document
+  type: "document",
   fields: [
     defineField({
       name: "mainMenu",
-      title: "Main Navigation",
+      title: "Main Navigation / Catalogue Structure",
+      description: "This tree defines the site URL structure and visual menu.",
       type: "array",
-      of: [{ type: "menuItem" }], // <--- Uses the Object defined before
+      of: [{ type: "catalogueItem" }],
     }),
   ],
 });
