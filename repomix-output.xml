@@ -361,13 +361,12 @@ sanity/lib/sales/getSaleByID.ts
 sanity/lib/url/parseUrlToFilterConfig.ts
 sanity/ORDER_MANAGEMENT_SYSTEM.md
 sanity/schemaTypes/blockContentType.ts
+sanity/schemaTypes/catalogueItemType.ts
 sanity/schemaTypes/categoryFiltersType.ts
 sanity/schemaTypes/categorySortablesType.ts
-sanity/schemaTypes/categoryType.ts
 sanity/schemaTypes/commercialType.ts
 sanity/schemaTypes/exhibitionType.ts
 sanity/schemaTypes/index.ts
-sanity/schemaTypes/menuItemType.ts
 sanity/schemaTypes/orderType.ts
 sanity/schemaTypes/productType.ts
 sanity/schemaTypes/saleType.ts
@@ -393,7 +392,7 @@ sanity/utils/analyzeSortablesForCategory.mjs
 sanity/utils/brands.txt
 sanity/utils/categories/categories.json
 sanity/utils/categories/deleteAllCategories.mjs
-sanity/utils/categories/seedNewStructure.mjs
+sanity/utils/categories/seedVirtualTaxonomy.mjs
 sanity/utils/categories/updateCategoriesDepths.mjs
 sanity/utils/categories/updateCategoriesSchema.mjs
 sanity/utils/categories/updateMetadataPaths.mjs
@@ -2456,6 +2455,155 @@ const ProductPageGallery = ({ product }: { product: Product }) => {
 export default ProductPageGallery;
 </file>
 
+<file path="app/(store)/products/[...category]/page.tsx">
+import ProductsGrid from "@/app/components/features/products/ProductsGrid";
+import CategoryBreadcrumbs from "@/app/components/ui/breadcrumbs/CategoryBreadcrumbs";
+import CategoryTitleIcon from "@/app/components/ui/icons/CategoryTitleIcon";
+import AppliedFilters from "@/app/components/ui/tag-elements/AppliedFilters";
+import FilterSortBtns from "@/app/components/ui/buttons/FilterSortBtns";
+import ProductsFilterSortDrawersWrapper from "@/app/components/ui/drawers/ProductsFilterSortDrawersWrapper";
+import { getFiltersForCategoryPathAction } from "@/app/actions/categories";
+import { getSortablesForCategoryPathAction } from "@/app/actions/categories";
+import getSelectedFilters from "../helpers/getSelectedFilters";
+import { getSelectedProducts } from "@/sanity/lib/products/getSelectedProducts";
+import SidebarClient from "../SidebarClient";
+import getSelectedSort from "../helpers/getSelectedSort";
+import formatCategoryTitle from "../helpers/formatCategoryTitle";
+import formatSortName from "@/app/components/ui/sortables/helpers/formatSortName";
+import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSortDirection";
+import Footer from "@/app/components/layout/footer/Footer";
+import Pagination from "@/app/components/ui/pagination/Pagination";
+import getSelectedPagination from "../helpers/getSelectedPagination";
+type Params = Promise<{ category: string }>;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+export default async function ProductsPage(props: {
+  params: Params;
+  searchParams: SearchParams;
+}) {
+  const params = await props.params;
+  const searchParams = await props.searchParams;
+  const path = Array.isArray(params.category)
+    ? params.category
+    : [params.category];
+  const [root, leaf] = [path[0], path[path.length - 1]];
+  const categoryTitle = formatCategoryTitle(leaf);
+  const searchParamsResolved = searchParams;
+  const selectedFilters = getSelectedFilters(searchParamsResolved);
+  const selectedSort = getSelectedSort(searchParamsResolved);
+  const selectedPagination = getSelectedPagination(searchParamsResolved);
+  const sortField =
+    typeof searchParamsResolved.sort === "string"
+      ? searchParamsResolved.sort
+      : "";
+  const sortDirection =
+    typeof searchParamsResolved.dir === "string"
+      ? searchParamsResolved.dir
+      : "asc";
+  const [productsResult, filterOptions, sortOptions] = await Promise.all([
+    getSelectedProducts(
+      path,
+      selectedFilters,
+      selectedSort,
+      selectedPagination
+    ).catch((error) => {
+      console.error("Failed to fetch products:", error);
+      return { products: [], totalProductsCount: 0 };
+    }),
+    getFiltersForCategoryPathAction(path).catch((error) => {
+      console.error("Failed to fetch filters:", error);
+      return [];
+    }),
+    getSortablesForCategoryPathAction(path.join("/")).catch((error) => {
+      console.error("Failed to fetch sort options:", error);
+      return [];
+    }),
+  ]);
+  const { products, totalProductsCount } = productsResult;
+  return (
+    <>
+      <main className="container mx-auto hidden px-4 py-8 md:block">
+        <div className="mb-6">
+          <CategoryBreadcrumbs categoryParts={path} isMobile={false} />
+          <div className="mb-6 mt-8 flex items-center justify-center gap-3 pb-12">
+            <CategoryTitleIcon category={root} />
+            <h1 className="text-5xl font-bold tracking-wide">
+              {categoryTitle}
+            </h1>
+          </div>
+          <div className="hidden items-center justify-start border-b border-gray-300 md:ml-auto md:flex">
+            <Pagination totalProductsCount={totalProductsCount} />
+          </div>
+        </div>
+        <AppliedFilters filterOptions={filterOptions} />
+        <div className="mt-4 grid grid-cols-[280px_1fr] gap-6">
+          <SidebarClient
+            filterOptions={filterOptions}
+            sortOptions={sortOptions}
+            sortField={sortField}
+          />
+          <div>
+            <div className="mb-1 rounded-lg bg-slate-200 p-1 shadow">
+              <p className="text-md p-2 text-gray-500 lg:text-xl">
+                Showing {products.length} product
+                {products.length !== 1 && "s"}
+                {sortField &&
+                  ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
+              </p>
+              <ProductsGrid products={products} />
+            </div>
+          </div>
+        </div>
+        <ProductsFilterSortDrawersWrapper categoryPath={path} />
+      </main>
+      <div className="flex h-screen flex-col overflow-hidden md:hidden">
+        <div className="flex-none bg-white">
+          <div className="container mx-auto flex px-1 py-1">
+            <div className="mb-1">
+              <CategoryBreadcrumbs categoryParts={path} isMobile={true} />
+              <div className="m-1 flex items-center justify-start gap-1">
+                <CategoryTitleIcon category={root} />
+                <h1 className="text-lg font-bold tracking-wide">
+                  {categoryTitle}
+                </h1>
+              </div>
+            </div>
+            <div className="flex flex-1 justify-center">
+              <FilterSortBtns />
+            </div>
+          </div>
+          <Pagination totalProductsCount={totalProductsCount} />
+        </div>
+        <div className="flex-grow overflow-y-auto">
+          <div className="container mx-auto px-4">
+            <AppliedFilters filterOptions={filterOptions} />
+            <div className="mt-4 grid grid-cols-1 gap-6">
+              <SidebarClient
+                filterOptions={filterOptions}
+                sortOptions={sortOptions}
+                sortField={sortField}
+              />
+              <div>
+                <div className="mb-1 rounded-lg bg-slate-200 p-1 shadow">
+                  <p className="text-md p-2 text-gray-500 lg:text-xl">
+                    Showing {products.length} product
+                    {products.length !== 1 && "s"}
+                    {sortField &&
+                      ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
+                  </p>
+                  <ProductsGrid products={products} />
+                </div>
+              </div>
+            </div>
+            <ProductsFilterSortDrawersWrapper categoryPath={path} />
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+}
+</file>
+
 <file path="app/(store)/products/helpers/formatCategoryTitle.ts">
 export default function formatCategoryTitle(leaf: string) {
   let title = leaf.replace(/-/g, " ");
@@ -3811,46 +3959,6 @@ export default function BestsellersSkeleton() {
   return (
     <div className="w-full  grid grid-rows-[1fr_4fr]">
       <div className="h-full min-h-[400px] w-full "></div>
-    </div>
-  );
-}
-</file>
-
-<file path="app/components/features/homepage/brands-wall/BrandsWall.tsx">
-import Image from "next/image";
-import * as Brands from "@/public/brands";
-import Link from "next/link";
-export default async function BrandsWall() {
-  return (
-    <div className="grid w-full grid-cols-[1fr_7fr_1fr] sm:grid-cols-[1fr_5fr_1fr]">
-      <div className="gradient col-start-2 col-end-3 flex h-full items-center justify-center gap-4 pb-4 pt-8">
-        {}
-        <h1 className="text-3xl font-black text-black">
-          World`s best audio gear
-        </h1>
-      </div>
-      <div className="col-start-2 col-end-3 grid h-full grid-cols-2 gap-12 2xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6">
-        {Object.entries(Brands).map(([brand, image], index) => {
-          return (
-            <Link
-              href={`/brand/${brand}`}
-              key={brand}
-              className="grid place-content-center"
-            >
-              <Image
-                loading={index < 6 ? "eager" : "lazy"}
-                src={image.src}
-                alt={brand}
-                quality={50}
-                sizes="150px"
-                width={150}
-                height={50}
-                className="max-h-full max-w-full object-contain"
-              />
-            </Link>
-          );
-        })}
-      </div>
     </div>
   );
 }
@@ -34166,155 +34274,6 @@ export default async function Page() {
 }
 </file>
 
-<file path="app/(store)/products/[...category]/page.tsx">
-import ProductsGrid from "@/app/components/features/products/ProductsGrid";
-import CategoryBreadcrumbs from "@/app/components/ui/breadcrumbs/CategoryBreadcrumbs";
-import CategoryTitleIcon from "@/app/components/ui/icons/CategoryTitleIcon";
-import AppliedFilters from "@/app/components/ui/tag-elements/AppliedFilters";
-import FilterSortBtns from "@/app/components/ui/buttons/FilterSortBtns";
-import ProductsFilterSortDrawersWrapper from "@/app/components/ui/drawers/ProductsFilterSortDrawersWrapper";
-import { getFiltersForCategoryPathAction } from "@/app/actions/categories";
-import { getSortablesForCategoryPathAction } from "@/app/actions/categories";
-import getSelectedFilters from "../helpers/getSelectedFilters";
-import { getSelectedProducts } from "@/sanity/lib/products/getSelectedProducts";
-import SidebarClient from "../SidebarClient";
-import getSelectedSort from "../helpers/getSelectedSort";
-import formatCategoryTitle from "../helpers/formatCategoryTitle";
-import formatSortName from "@/app/components/ui/sortables/helpers/formatSortName";
-import formatSortDirection from "@/app/components/ui/sortables/helpers/formatSortDirection";
-import Footer from "@/app/components/layout/footer/Footer";
-import Pagination from "@/app/components/ui/pagination/Pagination";
-import getSelectedPagination from "../helpers/getSelectedPagination";
-type Params = Promise<{ category: string }>;
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
-export default async function ProductsPage(props: {
-  params: Params;
-  searchParams: SearchParams;
-}) {
-  const params = await props.params;
-  const searchParams = await props.searchParams;
-  const path = Array.isArray(params.category)
-    ? params.category
-    : [params.category];
-  const [root, leaf] = [path[0], path[path.length - 1]];
-  const categoryTitle = formatCategoryTitle(leaf);
-  const searchParamsResolved = searchParams;
-  const selectedFilters = getSelectedFilters(searchParamsResolved);
-  const selectedSort = getSelectedSort(searchParamsResolved);
-  const selectedPagination = getSelectedPagination(searchParamsResolved);
-  const sortField =
-    typeof searchParamsResolved.sort === "string"
-      ? searchParamsResolved.sort
-      : "";
-  const sortDirection =
-    typeof searchParamsResolved.dir === "string"
-      ? searchParamsResolved.dir
-      : "asc";
-  const [productsResult, filterOptions, sortOptions] = await Promise.all([
-    getSelectedProducts(
-      path,
-      selectedFilters,
-      selectedSort,
-      selectedPagination
-    ).catch((error) => {
-      console.error("Failed to fetch products:", error);
-      return { products: [], totalProductsCount: 0 };
-    }),
-    getFiltersForCategoryPathAction(path).catch((error) => {
-      console.error("Failed to fetch filters:", error);
-      return [];
-    }),
-    getSortablesForCategoryPathAction(path.join("/")).catch((error) => {
-      console.error("Failed to fetch sort options:", error);
-      return [];
-    }),
-  ]);
-  const { products, totalProductsCount } = productsResult;
-  return (
-    <>
-      <main className="container mx-auto hidden px-4 py-8 md:block">
-        <div className="mb-6">
-          <CategoryBreadcrumbs categoryParts={path} isMobile={false} />
-          <div className="mb-6 mt-8 flex items-center justify-center gap-3 pb-12">
-            <CategoryTitleIcon category={root} />
-            <h1 className="text-5xl font-bold tracking-wide">
-              {categoryTitle}
-            </h1>
-          </div>
-          <div className="hidden items-center justify-start border-b border-gray-300 md:ml-auto md:flex">
-            <Pagination totalProductsCount={totalProductsCount} />
-          </div>
-        </div>
-        <AppliedFilters filterOptions={filterOptions} />
-        <div className="mt-4 grid grid-cols-[280px_1fr] gap-6">
-          <SidebarClient
-            filterOptions={filterOptions}
-            sortOptions={sortOptions}
-            sortField={sortField}
-          />
-          <div>
-            <div className="mb-1 rounded-lg bg-slate-200 p-1 shadow">
-              <p className="text-md p-2 text-gray-500 lg:text-xl">
-                Showing {products.length} product
-                {products.length !== 1 && "s"}
-                {sortField &&
-                  ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
-              </p>
-              <ProductsGrid products={products} />
-            </div>
-          </div>
-        </div>
-        <ProductsFilterSortDrawersWrapper categoryPath={path} />
-      </main>
-      <div className="flex h-screen flex-col overflow-hidden md:hidden">
-        <div className="flex-none bg-white">
-          <div className="container mx-auto flex px-1 py-1">
-            <div className="mb-1">
-              <CategoryBreadcrumbs categoryParts={path} isMobile={true} />
-              <div className="m-1 flex items-center justify-start gap-1">
-                <CategoryTitleIcon category={root} />
-                <h1 className="text-lg font-bold tracking-wide">
-                  {categoryTitle}
-                </h1>
-              </div>
-            </div>
-            <div className="flex flex-1 justify-center">
-              <FilterSortBtns />
-            </div>
-          </div>
-          <Pagination totalProductsCount={totalProductsCount} />
-        </div>
-        <div className="flex-grow overflow-y-auto">
-          <div className="container mx-auto px-4">
-            <AppliedFilters filterOptions={filterOptions} />
-            <div className="mt-4 grid grid-cols-1 gap-6">
-              <SidebarClient
-                filterOptions={filterOptions}
-                sortOptions={sortOptions}
-                sortField={sortField}
-              />
-              <div>
-                <div className="mb-1 rounded-lg bg-slate-200 p-1 shadow">
-                  <p className="text-md p-2 text-gray-500 lg:text-xl">
-                    Showing {products.length} product
-                    {products.length !== 1 && "s"}
-                    {sortField &&
-                      ` sorted by ${formatSortName(sortField)} (${formatSortDirection(sortDirection)})`}
-                  </p>
-                  <ProductsGrid products={products} />
-                </div>
-              </div>
-            </div>
-            <ProductsFilterSortDrawersWrapper categoryPath={path} />
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </>
-  );
-}
-</file>
-
 <file path="app/(store)/TODO.md">
 import MobileCategoriesDrawerShell from "@/app/components/layout/mobile/MobileCategoriesDrawerShell";
 import MobileSearchDrawerShell from "@/app/components/layout/mobile/MobileSearchDrawerShell";
@@ -34512,6 +34471,46 @@ const Authentication = dynamic(
 
 export default function AuthenticationWrapper() {
   return <Authentication />;
+}
+</file>
+
+<file path="app/components/features/homepage/brands-wall/BrandsWall.tsx">
+import Image from "next/image";
+import * as Brands from "@/public/brands";
+import Link from "next/link";
+export default async function BrandsWall() {
+  return (
+    <div className="grid w-full grid-cols-[1fr_7fr_1fr] sm:grid-cols-[1fr_5fr_1fr]">
+      <div className="gradient col-start-2 col-end-3 flex h-full items-center justify-center gap-4 pb-4 pt-8">
+        {}
+        <h1 className="text-3xl font-black text-black">
+          World`s best audio gear
+        </h1>
+      </div>
+      <div className="col-start-2 col-end-3 grid h-full grid-cols-2 gap-12 2xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6">
+        {Object.entries(Brands).map(([brand, image], index) => {
+          return (
+            <Link
+              href={`/brand/${brand}`}
+              key={brand}
+              className="grid place-content-center"
+            >
+              <Image
+                loading={index < 6 ? "eager" : "lazy"}
+                src={image.src}
+                alt={brand}
+                quality={50}
+                sizes="150px"
+                width={150}
+                height={50}
+                className="max-h-full max-w-full object-contain"
+              />
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 </file>
 
@@ -36913,86 +36912,66 @@ export const blockContentType = defineType({
 });
 </file>
 
-<file path="sanity/schemaTypes/menuItemType.ts">
+<file path="sanity/schemaTypes/catalogueItemType.ts">
 import { defineField, defineType } from "sanity";
+import { TagIcon, FolderIcon } from "@sanity/icons";
 
-export const menuItemType = defineType({
-  name: "menuItem",
-  title: "Menu Item",
+export const catalogueItemType = defineType({
+  name: "catalogueItem",
+  title: "Catalogue Item",
   type: "object",
+  icon: TagIcon,
   fields: [
-    // 1. The Label (What the user sees)
     defineField({
       name: "title",
+      title: "Title",
       type: "string",
-      title: "Label",
       validation: (Rule) => Rule.required(),
     }),
-    // 2. The Logic (Is it a clickable link or just a visual header?)
     defineField({
       name: "type",
       title: "Item Type",
       type: "string",
       options: {
         list: [
-          { title: "Link (Clickable)", value: "link" },
-          { title: "Group Header (Visual Label)", value: "header" },
+          { title: "Link (Clickable Slot)", value: "link" },
+          { title: "Visual Header (Group)", value: "header" },
         ],
         layout: "radio",
       },
       initialValue: "link",
     }),
-    // 3. The Destination (Only if it's a link)
     defineField({
-      name: "linkTarget",
-      title: "Link Target",
-      type: "reference",
-      to: [{ type: "category" }], // <--- References your existing Category document
-      hidden: ({ parent }) => parent?.type === "header", // Hide if it's just a header
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: { source: "title" },
+      hidden: ({ parent }) => parent?.type === "header",
     }),
-    // 4. The Recursion (Children)
+    defineField({
+      name: "icon",
+      title: "Icon Name (Optional)",
+      type: "string",
+      description: "e.g., 'headphones', 'speaker' (Used for root items)",
+    }),
     defineField({
       name: "children",
       title: "Sub-Items",
       type: "array",
-      of: [{ type: "menuItem" }], // <--- RECURSION: Use the same type inside itself
-    }),
-    defineField({
-      name: "isHighlighted",
-      title: "Highlight this item",
-      type: "boolean",
-      description: "Make this item stand out (e.g., Orange text)",
-      initialValue: false,
+      of: [{ type: "catalogueItem" }],
     }),
   ],
   preview: {
     select: { title: "title", type: "type" },
     prepare({ title, type }) {
+      const isHeader = type === "header";
       return {
         title: title,
-        subtitle: type === "header" ? "📂 Group Header" : "🔗 Link",
+        subtitle: isHeader ? "📂 Visual Group" : "🔗 Catalogue Slot",
+        media: isHeader ? FolderIcon : TagIcon,
       };
     },
   },
-});
-</file>
-
-<file path="sanity/schemaTypes/settingsType.ts">
-// schemas/settings.ts
-import { defineField, defineType } from "sanity";
-
-export const settingsType = defineType({
-  name: "settings",
-  title: "Site Settings",
-  type: "document", // <--- THIS is the Document
-  fields: [
-    defineField({
-      name: "mainMenu",
-      title: "Main Navigation",
-      type: "array",
-      of: [{ type: "menuItem" }], // <--- Uses the Object defined before
-    }),
-  ],
 });
 </file>
 
@@ -37095,6 +37074,272 @@ export const userType = defineType({
     },
   },
 });
+</file>
+
+<file path="sanity/utils/categories/seedVirtualTaxonomy.mjs">
+import client from "../getClient.mjs";
+import { nanoid } from "nanoid";
+
+const rawStructure = [
+  {
+    title: "Headphones",
+    slug: "headphones",
+    icon: "headphones",
+    groups: [
+      {
+        title: "By category",
+        items: [
+          { title: "Wired", slug: "wired" },
+          { title: "Wireless", slug: "wireless" },
+          { title: "Noise cancelling", slug: "noise-cancelling" },
+          { title: "Earbuds", slug: "earbuds" },
+        ],
+      },
+      {
+        title: "By fit",
+        items: [
+          { title: "Over ear", slug: "over-ear" },
+          { title: "In ear", slug: "in-ear" },
+        ],
+      },
+      {
+        title: "By use",
+        items: [
+          { title: "Studio and recording", slug: "studio-and-recording" },
+          { title: "Gaming", slug: "gaming" },
+          { title: "Travel", slug: "travel" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Speakers",
+    slug: "speakers",
+    icon: "speaker",
+    groups: [
+      {
+        title: "Home theater",
+        items: [
+          { title: "Floor standing speakers", slug: "floor-standing-speakers" },
+          { title: "Subwoofers", slug: "subwoofers" },
+          { title: "Soundbars", slug: "soundbars" },
+        ],
+      },
+      {
+        title: "Home Audio",
+        items: [
+          { title: "Bookshelf speakers", slug: "bookshelf-speakers" },
+          { title: "Powered speakers", slug: "powered-speakers" },
+        ],
+      },
+      {
+        title: "Portable & Outdoor",
+        items: [
+          { title: "Bluetooth speakers", slug: "bluetooth-speakers" },
+          { title: "Outdoor speakers", slug: "outdoor-speakers" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Personal Audio",
+    slug: "personal-audio",
+    icon: "earbuds",
+    groups: [
+      {
+        title: "Audio Players & Devices",
+        items: [
+          { title: "Digital Audio Players", slug: "digital-audio-players" },
+          {
+            title: "Bluetooth receivers and transmitters",
+            slug: "bluetooth-receivers-and-transmitters",
+          },
+        ],
+      },
+      {
+        title: "Amplification",
+        items: [
+          { title: "Portable DACs and Amps", slug: "portable-dacs-and-amps" },
+          { title: "Headphone amplifiers", slug: "headphone-amplifiers" },
+        ],
+      },
+      {
+        title: "Accessories & Parts",
+        items: [
+          {
+            title: "Phone and Tablet Accessories",
+            slug: "phone-and-tablet-accessories",
+          },
+          {
+            title: "Carrying Cases and Protection",
+            slug: "carrying-cases-and-protection",
+          },
+          { title: "Replacement Parts", slug: "replacement-parts" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Home Audio",
+    slug: "home-audio",
+    icon: "radio",
+    groups: [
+      {
+        title: "Core components",
+        items: [
+          { title: "Amplifiers", slug: "amplifiers" },
+          { title: "Receivers", slug: "receivers" },
+          { title: "Preamps", slug: "preamps" },
+        ],
+      },
+      {
+        title: "Source devices",
+        items: [
+          { title: "Turntables", slug: "turntables" },
+          { title: "CD players", slug: "cd-players" },
+        ],
+      },
+      {
+        title: "Signal processing",
+        items: [
+          {
+            title: "DACs (Digital-to-Analog Converters)",
+            slug: "dacs-digital-to-analog-converters",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Studio Equipment",
+    slug: "studio-equipment",
+    icon: "mic2",
+    groups: [
+      {
+        title: "Recording Essentials",
+        items: [
+          { title: "Microphones", slug: "microphones" },
+          { title: "Studio monitors", slug: "studio-monitors" },
+          { title: "Audio interfaces", slug: "audio-interfaces" },
+        ],
+      },
+      {
+        title: "Processing & Accessories",
+        items: [
+          { title: "Studio Processors", slug: "studio-processors" },
+          { title: "Recording accessories", slug: "recording-accessories" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Accessories",
+    slug: "accessories",
+    icon: "cable",
+    groups: [
+      {
+        title: "Cables & Wiring",
+        items: [
+          { title: "Audio cables", slug: "audio-cables" },
+          { title: "Power cables", slug: "power-cables" },
+          { title: "HDMI Cables", slug: "hdmi-cables" },
+          { title: "RCA Cables", slug: "rca-cables" },
+          { title: "USB Cables", slug: "usb-cables" },
+          { title: "Headphone Cables", slug: "headphone-cables" },
+          { title: "Ethernet Cables", slug: "ethernet-cables" },
+        ],
+      },
+      {
+        title: "Mounting & Support",
+        items: [
+          { title: "Wall mounts", slug: "wall-mounts" },
+          { title: "Speaker stands", slug: "speaker-stands" },
+        ],
+      },
+      {
+        title: "Audio Equipment Accessories",
+        items: [
+          { title: "Phono Cartridges", slug: "phono-cartridges" },
+          {
+            title: "Speaker and Subwoofer accessories",
+            slug: "speaker-and-subwoofer-accessories",
+          },
+          { title: "Microphone Accessories", slug: "microphone-accessories" },
+        ],
+      },
+      {
+        title: "Power Management",
+        items: [{ title: "Power Management", slug: "power-management" }],
+      },
+    ],
+  },
+  {
+    title: "On Sale",
+    slug: "on-sale",
+    icon: null,
+    groups: [],
+  },
+];
+
+async function seedSettings() {
+  console.log("🚀 Building Virtual Taxonomy Tree...");
+
+  // Transform the flat-ish JSON into the recursive catalogueItem structure
+  const mainMenu = rawStructure.map((root) => {
+    // 1. Root Item (e.g. Headphones)
+    const rootItem = {
+      _key: nanoid(),
+      _type: "catalogueItem",
+      type: "link",
+      title: root.title,
+      slug: { _type: "slug", current: root.slug },
+      icon: root.icon,
+      children: [],
+    };
+
+    // 2. Groups (Visual Headers)
+    if (root.groups && root.groups.length > 0) {
+      rootItem.children = root.groups.map((group) => {
+        return {
+          _key: nanoid(),
+          _type: "catalogueItem",
+          type: "header",
+          title: group.title,
+          // 3. Items (The Clickable Slots)
+          children: group.items.map((item) => {
+            return {
+              _key: nanoid(),
+              _type: "catalogueItem",
+              type: "link",
+              title: item.title,
+              slug: { _type: "slug", current: item.slug },
+              children: [], // Leaves have empty children
+            };
+          }),
+        };
+      });
+    }
+
+    return rootItem;
+  });
+
+  console.log("💾 Writing to Settings document...");
+
+  try {
+    const result = await client.createOrReplace({
+      _id: "settings",
+      _type: "settings",
+      mainMenu: mainMenu,
+    });
+
+    console.log("✅ Virtual Taxonomy Seeded Successfully!");
+    console.log(`   Transaction ID: ${result._rev}`);
+  } catch (err) {
+    console.error("❌ Seed Failed:", err.message);
+  }
+}
+
+seedSettings();
 </file>
 
 <file path="structure.txt">
@@ -38296,6 +38541,133 @@ export default function AccountShell({
       </div>
     </>
   );
+}
+</file>
+
+<file path="app/(store)/checkout/CheckoutProvider.tsx">
+"use client";
+
+import { createContext, useContext, useState, ReactNode } from "react";
+import { Address, Status } from "./checkout.types";
+import { submitShippingAction } from "@/app/actions/address/address";
+
+type CheckoutContextType = {
+  status: Status;
+  address: Address | null;
+  apiErrors: Record<string, string>;
+  submitAddress: (data: Address) => Promise<void>;
+  editAddress: () => void;
+};
+
+const CheckoutContext = createContext<CheckoutContextType | null>(null);
+
+export default function CheckoutProvider({
+  children,
+  initialAddress,
+  initialStatus,
+}: {
+  children: ReactNode;
+  initialAddress: Address | null;
+  initialStatus: Status | null;
+}) {
+  const [status, setStatus] = useState<Status>(initialStatus || "EDITING");
+  const [address, setAddress] = useState<Address | null>(initialAddress);
+  const [apiErrors, setAPIErrors] = useState<Record<string, string>>({});
+
+  const DevHUD = () => (
+    <div className="absolute h-full w-full">
+      <div className="absolute bottom-4 left-4 z-[9999] max-w-sm rounded-lg border border-gray-800 bg-black/90 p-4 font-mono text-xs text-green-400 shadow-2xl">
+        <div className="mb-2 border-b border-gray-700 pb-1 font-bold text-white">
+          DEV STATE (Bret Victor Mode)
+        </div>
+        <div className="grid grid-cols-[80px_1fr] gap-2">
+          <span className="text-gray-500">Status:</span>
+          <span
+            className={`font-bold ${status === "FIX" ? "text-red-500" : "text-blue-400"}`}
+          >
+            {status}
+          </span>
+
+          <span className="text-gray-500">Address:</span>
+          <pre className="max-h-32 overflow-auto text-[10px] text-yellow-300">
+            {JSON.stringify(address, null, 2)}
+          </pre>
+        </div>
+
+        <div className="grid grid-cols-[80px_1fr] gap-2">
+          <span className="text-gray-500">API Errors:</span>
+          <pre className="max-h-32 overflow-auto text-[10px] text-red-400">
+            {JSON.stringify(apiErrors, null, 2)}
+          </pre>
+        </div>
+        <div className="mt-2 flex gap-2 border-t border-gray-700 pt-2">
+          {/* FORCE STATE BUTTONS */}
+          <button
+            onClick={() => setStatus("FIX")}
+            className="bg-red-900 px-2 py-1 hover:bg-red-700"
+          >
+            Force FIX
+          </button>
+          <button
+            onClick={() => setStatus("CONFIRM")}
+            className="bg-green-900 px-2 py-1 hover:bg-green-700"
+          >
+            Force CONFIRM
+          </button>
+          <button
+            onClick={() => setAddress(null)}
+            className="bg-gray-700 px-2 py-1 hover:bg-gray-600"
+          >
+            Clear Addr
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  const submitAddress = async (data: Address) => {
+    setStatus("LOADING");
+    setAPIErrors({});
+
+    try {
+      const response = await submitShippingAction(data);
+      const responseStatus = response.status;
+      const responseAddress = response.address;
+
+      console.log("Submit Address Response:", response);
+
+      if (responseStatus === "ACCEPT" && responseAddress) {
+        setAddress(responseAddress);
+        setStatus("ACCEPT");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      setStatus("FIX");
+      setAPIErrors({ form: "Something went wrong. Please try again." });
+    }
+  };
+
+  const editAddress = () => {
+    setStatus("EDITING");
+    setAPIErrors({});
+  };
+
+  return (
+    <CheckoutContext.Provider
+      value={{ status, address, apiErrors, submitAddress, editAddress }}
+    >
+      {process.env.NODE_ENV === "development" && <DevHUD />}
+      {children}
+    </CheckoutContext.Provider>
+  );
+}
+
+export function useCheckout() {
+  const context = useContext(CheckoutContext);
+  if (!context) {
+    throw new Error("useCheckout must be used within a CheckoutProvider");
+  }
+  return context;
 }
 </file>
 
@@ -40273,6 +40645,25 @@ export const productType = defineType({
 // });
 </file>
 
+<file path="sanity/schemaTypes/settingsType.ts">
+import { defineField, defineType } from "sanity";
+
+export const settingsType = defineType({
+  name: "settings",
+  title: "Site Settings",
+  type: "document",
+  fields: [
+    defineField({
+      name: "mainMenu",
+      title: "Main Navigation / Catalogue Structure",
+      description: "This tree defines the site URL structure and visual menu.",
+      type: "array",
+      of: [{ type: "catalogueItem" }],
+    }),
+  ],
+});
+</file>
+
 <file path="store/store.ts">
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -40633,133 +41024,6 @@ export type BasketCheckoutItem = {
 };
 </file>
 
-<file path="app/(store)/checkout/CheckoutProvider.tsx">
-"use client";
-
-import { createContext, useContext, useState, ReactNode } from "react";
-import { Address, Status } from "./checkout.types";
-import { submitShippingAction } from "@/app/actions/address/address";
-
-type CheckoutContextType = {
-  status: Status;
-  address: Address | null;
-  apiErrors: Record<string, string>;
-  submitAddress: (data: Address) => Promise<void>;
-  editAddress: () => void;
-};
-
-const CheckoutContext = createContext<CheckoutContextType | null>(null);
-
-export default function CheckoutProvider({
-  children,
-  initialAddress,
-  initialStatus,
-}: {
-  children: ReactNode;
-  initialAddress: Address | null;
-  initialStatus: Status | null;
-}) {
-  const [status, setStatus] = useState<Status>(initialStatus || "EDITING");
-  const [address, setAddress] = useState<Address | null>(initialAddress);
-  const [apiErrors, setAPIErrors] = useState<Record<string, string>>({});
-
-  const DevHUD = () => (
-    <div className="absolute h-full w-full">
-      <div className="absolute bottom-4 left-4 z-[9999] max-w-sm rounded-lg border border-gray-800 bg-black/90 p-4 font-mono text-xs text-green-400 shadow-2xl">
-        <div className="mb-2 border-b border-gray-700 pb-1 font-bold text-white">
-          DEV STATE (Bret Victor Mode)
-        </div>
-        <div className="grid grid-cols-[80px_1fr] gap-2">
-          <span className="text-gray-500">Status:</span>
-          <span
-            className={`font-bold ${status === "FIX" ? "text-red-500" : "text-blue-400"}`}
-          >
-            {status}
-          </span>
-
-          <span className="text-gray-500">Address:</span>
-          <pre className="max-h-32 overflow-auto text-[10px] text-yellow-300">
-            {JSON.stringify(address, null, 2)}
-          </pre>
-        </div>
-
-        <div className="grid grid-cols-[80px_1fr] gap-2">
-          <span className="text-gray-500">API Errors:</span>
-          <pre className="max-h-32 overflow-auto text-[10px] text-red-400">
-            {JSON.stringify(apiErrors, null, 2)}
-          </pre>
-        </div>
-        <div className="mt-2 flex gap-2 border-t border-gray-700 pt-2">
-          {/* FORCE STATE BUTTONS */}
-          <button
-            onClick={() => setStatus("FIX")}
-            className="bg-red-900 px-2 py-1 hover:bg-red-700"
-          >
-            Force FIX
-          </button>
-          <button
-            onClick={() => setStatus("CONFIRM")}
-            className="bg-green-900 px-2 py-1 hover:bg-green-700"
-          >
-            Force CONFIRM
-          </button>
-          <button
-            onClick={() => setAddress(null)}
-            className="bg-gray-700 px-2 py-1 hover:bg-gray-600"
-          >
-            Clear Addr
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-
-  const submitAddress = async (data: Address) => {
-    setStatus("LOADING");
-    setAPIErrors({});
-
-    try {
-      const response = await submitShippingAction(data);
-      const responseStatus = response.status;
-      const responseAddress = response.address;
-
-      console.log("Submit Address Response:", response);
-
-      if (responseStatus === "ACCEPT" && responseAddress) {
-        setAddress(responseAddress);
-        setStatus("ACCEPT");
-      }
-    } catch (error) {
-      console.error("Submission error:", error);
-      setStatus("FIX");
-      setAPIErrors({ form: "Something went wrong. Please try again." });
-    }
-  };
-
-  const editAddress = () => {
-    setStatus("EDITING");
-    setAPIErrors({});
-  };
-
-  return (
-    <CheckoutContext.Provider
-      value={{ status, address, apiErrors, submitAddress, editAddress }}
-    >
-      {process.env.NODE_ENV === "development" && <DevHUD />}
-      {children}
-    </CheckoutContext.Provider>
-  );
-}
-
-export function useCheckout() {
-  const context = useContext(CheckoutContext);
-  if (!context) {
-    throw new Error("useCheckout must be used within a CheckoutProvider");
-  }
-  return context;
-}
-</file>
-
 <file path="app/api/checkout/route.ts">
 import { NextRequest, NextResponse } from "next/server";
 // import { stripe } from "@/lib/stripe/stripe";
@@ -41075,289 +41339,6 @@ export interface CategoryNode {
 }
 </file>
 
-<file path="sanity/utils/categories/seedNewStructure.mjs">
-import client from "../getClient.mjs";
-
-const rawCategories = [
-  {
-    title: "Headphones",
-    slug: "headphones",
-    url: "/products/headphones",
-    icon: "headphones",
-    groups: [
-      {
-        title: "By category",
-        items: [
-          { title: "Wired", slug: "wired" },
-          { title: "Wireless", slug: "wireless" },
-          { title: "Noise cancelling", slug: "noise-cancelling" },
-          { title: "Earbuds", slug: "earbuds" },
-        ],
-      },
-      {
-        title: "By fit",
-        items: [
-          { title: "Over ear", slug: "over-ear" },
-          { title: "In ear", slug: "in-ear" },
-        ],
-      },
-      {
-        title: "By use",
-        items: [
-          { title: "Studio and recording", slug: "studio-and-recording" },
-          { title: "Gaming", slug: "gaming" },
-          { title: "Travel", slug: "travel" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Speakers",
-    slug: "speakers",
-    url: "/products/speakers",
-    icon: "speaker",
-    groups: [
-      {
-        title: "Home theater",
-        items: [
-          { title: "Floor standing speakers", slug: "floor-standing-speakers" },
-          { title: "Subwoofers", slug: "subwoofers" },
-          { title: "Soundbars", slug: "soundbars" },
-        ],
-      },
-      {
-        title: "Home Audio",
-        items: [
-          { title: "Bookshelf speakers", slug: "bookshelf-speakers" },
-          { title: "Powered speakers", slug: "powered-speakers" },
-        ],
-      },
-      {
-        title: "Portable & Outdoor",
-        items: [
-          { title: "Bluetooth speakers", slug: "bluetooth-speakers" },
-          { title: "Outdoor speakers", slug: "outdoor-speakers" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Personal Audio",
-    slug: "personal-audio",
-    url: "/products/personal-audio",
-    icon: "earbuds",
-    groups: [
-      {
-        title: "Audio Players & Devices",
-        items: [
-          { title: "Digital Audio Players", slug: "digital-audio-players" },
-          {
-            title: "Bluetooth receivers and transmitters",
-            slug: "bluetooth-receivers-and-transmitters",
-          },
-        ],
-      },
-      {
-        title: "Amplification",
-        items: [
-          { title: "Portable DACs and Amps", slug: "portable-dacs-and-amps" },
-          { title: "Headphone amplifiers", slug: "headphone-amplifiers" },
-        ],
-      },
-      {
-        title: "Accessories & Parts",
-        items: [
-          {
-            title: "Phone and Tablet Accessories",
-            slug: "phone-and-tablet-accessories",
-          },
-          {
-            title: "Carrying Cases and Protection",
-            slug: "carrying-cases-and-protection",
-          },
-          { title: "Replacement Parts", slug: "replacement-parts" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Home Audio",
-    slug: "home-audio",
-    url: "/products/home-audio",
-    icon: "radio",
-    groups: [
-      {
-        title: "Core components",
-        items: [
-          { title: "Amplifiers", slug: "amplifiers" },
-          { title: "Receivers", slug: "receivers" },
-          { title: "Preamps", slug: "preamps" },
-        ],
-      },
-      {
-        title: "Source devices",
-        items: [
-          { title: "Turntables", slug: "turntables" },
-          { title: "CD players", slug: "cd-players" },
-        ],
-      },
-      {
-        title: "Signal processing",
-        items: [
-          {
-            title: "DACs (Digital-to-Analog Converters)",
-            slug: "dacs-digital-to-analog-converters",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Studio Equipment",
-    slug: "studio-equipment",
-    url: "/products/studio-equipment",
-    icon: "mic2",
-    groups: [
-      {
-        title: "Recording Essentials",
-        items: [
-          { title: "Microphones", slug: "microphones" },
-          { title: "Studio monitors", slug: "studio-monitors" },
-          { title: "Audio interfaces", slug: "audio-interfaces" },
-        ],
-      },
-      {
-        title: "Processing & Accessories",
-        items: [
-          { title: "Studio Processors", slug: "studio-processors" },
-          { title: "Recording accessories", slug: "recording-accessories" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Accessories",
-    slug: "accessories",
-    url: "/products/accessories",
-    icon: "cable",
-    groups: [
-      {
-        title: "Cables & Wiring",
-        items: [
-          { title: "Audio cables", slug: "audio-cables" },
-          { title: "Power cables", slug: "power-cables" },
-          { title: "HDMI Cables", slug: "hdmi-cables" },
-          { title: "RCA Cables", slug: "rca-cables" },
-          { title: "USB Cables", slug: "usb-cables" },
-          { title: "Headphone Cables", slug: "headphone-cables" },
-          { title: "Ethernet Cables", slug: "ethernet-cables" },
-        ],
-      },
-      {
-        title: "Mounting & Support",
-        items: [
-          { title: "Wall mounts", slug: "wall-mounts" },
-          { title: "Speaker stands", slug: "speaker-stands" },
-        ],
-      },
-      {
-        title: "Audio Equipment Accessories",
-        items: [
-          { title: "Phono Cartridges", slug: "phono-cartridges" },
-          {
-            title: "Speaker and Subwoofer accessories",
-            slug: "speaker-and-subwoofer-accessories",
-          },
-          { title: "Microphone Accessories", slug: "microphone-accessories" },
-        ],
-      },
-      {
-        title: "Power Management",
-        items: [{ title: "Power Management", slug: "power-management" }],
-      },
-    ],
-  },
-  {
-    title: "On Sale",
-    slug: "on-sale",
-    url: "/products/on-sale",
-    icon: null,
-    groups: [],
-  },
-];
-
-async function seedCategories() {
-  // Use a transaction to bundle all creates
-  const transaction = client.transaction();
-
-  console.log("🚀 Initializing Category Seeding...");
-
-  // We use a counter for top-level order to maintain the array order from JSON
-  let sortOrder = 0;
-
-  for (const parent of rawCategories) {
-    const parentId = `category-${parent.slug}`;
-
-    // 1. Create the Parent (Top-Level) Category
-    // We use createOrReplace to make this idempotent (safe to run multiple times)
-    transaction.createOrReplace({
-      _id: parentId,
-      _type: "category",
-      title: parent.title,
-      slug: { _type: "slug", current: parent.slug },
-      icon: parent.icon,
-      order: sortOrder++,
-      metadata: {
-        path: parent.slug, // e.g. "headphones"
-        depth: 0,
-      },
-    });
-    console.log(`+ Queueing Parent: ${parent.title}`);
-
-    // 2. Create the Children (Sub-Categories)
-    if (parent.groups && parent.groups.length > 0) {
-      for (const group of parent.groups) {
-        for (const item of group.items) {
-          // Deterministic ID based on slug to prevent duplicates
-          const childId = `category-${parent.slug}-${item.slug}`;
-          const childPath = `${parent.slug}/${item.slug}`;
-
-          transaction.createOrReplace({
-            _id: childId,
-            _type: "category",
-            title: item.title,
-            slug: { _type: "slug", current: item.slug },
-            // Reference to parent
-            parent: { _type: "reference", _ref: parentId },
-            // Store the visual grouping here
-            group: group.title,
-            metadata: {
-              path: childPath, // e.g. "headphones/wired"
-              depth: 1,
-            },
-          });
-          console.log(
-            `  - Queueing Child: ${item.title} (Group: ${group.title})`
-          );
-        }
-      }
-    }
-  }
-
-  console.log("📦 Committing transaction to Sanity...");
-
-  try {
-    const result = await transaction.commit();
-    console.log("✅ Successfully seeded categories!");
-    console.log(`   Transaction ID: ${result.transactionId}`);
-  } catch (err) {
-    console.error("❌ Seeding failed:", err.message);
-  }
-}
-
-seedCategories();
-</file>
-
 <file path="tests_e2e/mobile_menu/mobile_menu.spec.ts">
 // TODO Testing Checklist
 // Ready for manual testing:
@@ -41613,6 +41594,184 @@ export const getAllCategories = async () => {
     return [];
   }
 };
+</file>
+
+<file path="tests/address/address.unit.test.ts">
+import { describe, it, expect, vi, beforeAll, afterEach } from "vitest";
+import { submitShippingAction } from "@/app/actions/address/address";
+import { MOCK_GOOGLE_SUCCESS } from "./fixtures";
+
+describe("GOOGLE ADDRESS VALIDATE API - ACCEPT case", () => {
+  const originalEnv = process.env;
+  beforeAll(() => {
+    process.env.GOOGLE_MAPS_API_KEY = "TEST_KEY";
+  });
+  afterEach(() => {
+    vi.restoreAllMocks();
+    process.env = originalEnv;
+  });
+
+  it("returns ACCEPT status when Google verdict is valid", async () => {
+    vi.spyOn(global, "fetch").mockResolvedValue({
+      ok: true,
+      json: async () => MOCK_GOOGLE_SUCCESS,
+      statusText: "OK",
+    } as Response);
+
+    const input = {
+      street: "Woodstock Road",
+      streetNumber: "28",
+      city: "London",
+      postalCode: "W4 5RA",
+      regionCode: "GB",
+    };
+
+    const result = await submitShippingAction(input);
+
+    expect(result.status).toBe("ACCEPT");
+    expect(result.address).toEqual({
+      street: "Woodstock Road",
+      streetNumber: "28",
+      city: "London",
+      postalCode: "W4 5RA",
+      regionCode: "GB",
+    });
+    expect(result.geocode).toBeDefined();
+    expect(result.geocode?.latitude).toBeTypeOf("number");
+    expect(result.geocode?.longitude).toBeTypeOf("number");
+    expect(result.placeId).toBeTypeOf("string");
+    expect(result.errors).toBeUndefined();
+  });
+  // TODO Zero Negative Coverage: Your code has critical logic in isAcceptedAddress (checking addressComplete, hasReplacedComponents, and Granularity). None of this is tested. You don't know if your code actually rejects a "Route" level address or an address with typos.
+});
+</file>
+
+<file path="app/components/layout/categoryMenu/CategoriesNav.tsx">
+"use client";
+
+import Link from "next/link";
+import { FaChevronDown } from "react-icons/fa";
+import { useState } from "react";
+import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+import { SubcategoryList } from "./SubcategoryList";
+
+export default function CategoriesNav({
+  menuItems,
+}: {
+  menuItems: ALL_CATEGORIES_QUERYResult;
+}) {
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  if (!menuItems) return null;
+
+  return (
+    <nav className="hidden h-11 items-center justify-center bg-black lg:flex">
+      <div className="mx-auto h-full max-w-7xl px-4">
+        <ul className="flex h-full items-center gap-6">
+          {menuItems.map((item) => {
+            const href = item.slug ? `/products/${item.slug}` : "#";
+            const isActive = activeCategory === item.title;
+
+            const isHighlighted = item.isHighlighted ?? false;
+
+            return (
+              <li
+                key={item._key}
+                className="relative flex h-full items-center"
+                onMouseEnter={() => setActiveCategory(item.title)}
+                onMouseLeave={() => setActiveCategory(null)}
+              >
+                <Link
+                  href={href}
+                  className={`flex items-center text-sm font-medium transition-colors hover:text-yellow-600 ${isActive ? "text-yellow-400" : "text-white"} ${isHighlighted ? "font-black text-orange-600" : ""} `}
+                >
+                  <span>{item.title}</span>
+                  <FaChevronDown
+                    className={`ml-2 h-3 w-3 transition-transform ${isActive ? "rotate-180" : ""}`}
+                  />
+                </Link>
+
+                {isActive && item.children && item.children.length > 0 && (
+                  <div className="absolute left-0 top-full z-50 w-72 rounded-b-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5">
+                    <div className="py-4">
+                      <SubcategoryList
+                        items={item.children}
+                        parentPath={href}
+                      />
+                    </div>
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </nav>
+  );
+}
+</file>
+
+<file path="app/components/layout/mobile/DrawerToggleLink.tsx">
+"use client";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+
+export function DrawerToggleLink({
+  isOpen,
+  param,
+  openIcon,
+  closeIcon,
+  label,
+}: {
+  isOpen: boolean;
+  param: string;
+  openIcon: React.ReactNode;
+  closeIcon: React.ReactNode;
+  label: string;
+}) {
+  const pathname = usePathname();
+  const href = isOpen ? pathname : `${pathname}?${param}=true`;
+
+  return (
+    <Link
+      href={href}
+      className="flex flex-col items-center"
+      aria-label={isOpen ? `Close ${label}` : `Open ${label}`}
+    >
+      {isOpen ? closeIcon : openIcon}
+    </Link>
+  );
+}
+</file>
+
+<file path="app/components/layout/mobile/MobileCategoriesDrawerWrapper.tsx">
+import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
+import MobileCategoriesDrawer from "./MobileCategoriesDrawer";
+import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+
+export default async function MobileCategoriesDrawerWrapper() {
+  const categories: ALL_CATEGORIES_QUERYResult = await getAllCategories();
+
+  if (!categories || categories.length === 0) {
+    return (
+      <div
+        className={`inset-0 h-full w-full items-center justify-center overflow-hidden bg-gray-900 lg:flex`}
+      >
+        <p className="text-xl text-white">
+          Connection issue. Could not load categories. Please refresh page. If
+          that does not work - we are working on solving that issue as soon as
+          possible. Please try again later.
+        </p>
+      </div>
+    );
+  }
+  const sortedCategories = [...categories].sort((a, b) => {
+    if (a?.order === undefined || b?.order === undefined) return 0;
+    return a?.order - b?.order;
+  });
+
+  return <MobileCategoriesDrawer categories={sortedCategories} />;
+}
 </file>
 
 <file path="schema.json">
@@ -42056,7 +42215,7 @@ export const getAllCategories = async () => {
             },
             "rest": {
               "type": "inline",
-              "name": "menuItem"
+              "name": "catalogueItem"
             }
           }
         },
@@ -42065,7 +42224,7 @@ export const getAllCategories = async () => {
     }
   },
   {
-    "name": "menuItem",
+    "name": "catalogueItem",
     "type": "type",
     "value": {
       "type": "object",
@@ -42074,7 +42233,7 @@ export const getAllCategories = async () => {
           "type": "objectAttribute",
           "value": {
             "type": "string",
-            "value": "menuItem"
+            "value": "catalogueItem"
           }
         },
         "title": {
@@ -42101,33 +42260,18 @@ export const getAllCategories = async () => {
           },
           "optional": true
         },
-        "linkTarget": {
+        "slug": {
           "type": "objectAttribute",
           "value": {
-            "type": "object",
-            "attributes": {
-              "_ref": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              },
-              "_type": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string",
-                  "value": "reference"
-                }
-              },
-              "_weak": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "boolean"
-                },
-                "optional": true
-              }
-            },
-            "dereferencesTo": "category"
+            "type": "inline",
+            "name": "slug"
+          },
+          "optional": true
+        },
+        "icon": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
           },
           "optional": true
         },
@@ -42147,145 +42291,12 @@ export const getAllCategories = async () => {
               },
               "rest": {
                 "type": "inline",
-                "name": "menuItem"
+                "name": "catalogueItem"
               }
             }
           },
           "optional": true
-        },
-        "isHighlighted": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "boolean"
-          },
-          "optional": true
         }
-      }
-    }
-  },
-  {
-    "name": "category",
-    "type": "document",
-    "attributes": {
-      "_id": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        }
-      },
-      "_type": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string",
-          "value": "category"
-        }
-      },
-      "_createdAt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        }
-      },
-      "_updatedAt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        }
-      },
-      "_rev": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        }
-      },
-      "title": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "slug": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "slug"
-        },
-        "optional": true
-      },
-      "icon": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "parent": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "object",
-          "attributes": {
-            "_ref": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              }
-            },
-            "_type": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string",
-                "value": "reference"
-              }
-            },
-            "_weak": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "boolean"
-              },
-              "optional": true
-            }
-          },
-          "dereferencesTo": "category"
-        },
-        "optional": true
-      },
-      "group": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "order": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "number"
-        },
-        "optional": true
-      },
-      "metadata": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "object",
-          "attributes": {
-            "path": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
-            "depth": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "number"
-              },
-              "optional": true
-            }
-          }
-        },
-        "optional": true
       }
     }
   },
@@ -42985,181 +42996,126 @@ export const getAllCategories = async () => {
 ]
 </file>
 
-<file path="tests/address/address.unit.test.ts">
-import { describe, it, expect, vi, beforeAll, afterEach } from "vitest";
+<file path="tests/address/address.integration.test.ts">
+import { describe, it, expect } from "vitest";
 import { submitShippingAction } from "@/app/actions/address/address";
-import { MOCK_GOOGLE_SUCCESS } from "./fixtures";
+import { Address, ServerResponse } from "@/app/(store)/checkout/checkout.types";
 
-describe("GOOGLE ADDRESS VALIDATE API - ACCEPT case", () => {
-  const originalEnv = process.env;
-  beforeAll(() => {
-    process.env.GOOGLE_MAPS_API_KEY = "TEST_KEY";
-  });
-  afterEach(() => {
-    vi.restoreAllMocks();
-    process.env = originalEnv;
-  });
-
-  it("returns ACCEPT status when Google verdict is valid", async () => {
-    vi.spyOn(global, "fetch").mockResolvedValue({
-      ok: true,
-      json: async () => MOCK_GOOGLE_SUCCESS,
-      statusText: "OK",
-    } as Response);
-
-    const input = {
+describe("submitShippingAction Live Integration", () => {
+  it("hits the real Google API and returns ACCEPT", async () => {
+    const validAddress: Address = {
+      regionCode: "GB",
+      postalCode: "W4 5RA",
       street: "Woodstock Road",
       streetNumber: "28",
       city: "London",
-      postalCode: "W4 5RA",
-      regionCode: "GB",
     };
 
-    const result = await submitShippingAction(input);
+    const result: ServerResponse = await submitShippingAction(validAddress);
 
     expect(result.status).toBe("ACCEPT");
-    expect(result.address).toEqual({
-      street: "Woodstock Road",
-      streetNumber: "28",
-      city: "London",
-      postalCode: "W4 5RA",
-      regionCode: "GB",
-    });
+    expect(result.address).toBeDefined();
+    expect(result.address?.postalCode).toBe("W4 5RA");
     expect(result.geocode).toBeDefined();
-    expect(result.geocode?.latitude).toBeTypeOf("number");
-    expect(result.geocode?.longitude).toBeTypeOf("number");
-    expect(result.placeId).toBeTypeOf("string");
-    expect(result.errors).toBeUndefined();
+    expect(result.geocode?.latitude).toEqual(expect.any(Number));
+    expect(result.geocode?.longitude).toEqual(expect.any(Number));
+    expect(result.placeId).toEqual(expect.any(String));
   });
+
   // TODO Zero Negative Coverage: Your code has critical logic in isAcceptedAddress (checking addressComplete, hasReplacedComponents, and Granularity). None of this is tested. You don't know if your code actually rejects a "Route" level address or an address with typos.
 });
 </file>
 
-<file path="app/components/layout/categoryMenu/CategoriesNav.tsx">
+<file path="app/components/layout/mobile/MobileMenu.tsx">
 "use client";
 
+import React from "react";
+import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
 import Link from "next/link";
-import { FaChevronDown } from "react-icons/fa";
-import { useState } from "react";
-import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
-import { SubcategoryList } from "./SubcategoryList";
+import dynamic from "next/dynamic";
+import { useQueryState } from "nuqs";
+import { usePathname, useSearchParams } from "next/navigation";
 
-export default function CategoriesNav({
-  menuItems,
-}: {
-  menuItems: ALL_CATEGORIES_QUERYResult;
-}) {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-
-  if (!menuItems) return null;
-
-  return (
-    <nav className="hidden h-11 items-center justify-center bg-black lg:flex">
-      <div className="mx-auto h-full max-w-7xl px-4">
-        <ul className="flex h-full items-center gap-6">
-          {menuItems.map((item) => {
-            const href = item.slug ? `/products/${item.slug}` : "#";
-            const isActive = activeCategory === item.title;
-
-            const isHighlighted = item.isHighlighted ?? false;
-
-            return (
-              <li
-                key={item._key}
-                className="relative flex h-full items-center"
-                onMouseEnter={() => setActiveCategory(item.title)}
-                onMouseLeave={() => setActiveCategory(null)}
-              >
-                <Link
-                  href={href}
-                  className={`flex items-center text-sm font-medium transition-colors hover:text-yellow-600 ${isActive ? "text-yellow-400" : "text-white"} ${isHighlighted ? "font-black text-orange-600" : ""} `}
-                >
-                  <span>{item.title}</span>
-                  <FaChevronDown
-                    className={`ml-2 h-3 w-3 transition-transform ${isActive ? "rotate-180" : ""}`}
-                  />
-                </Link>
-
-                {isActive && item.children && item.children.length > 0 && (
-                  <div className="absolute left-0 top-full z-50 w-72 rounded-b-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5">
-                    <div className="py-4">
-                      <SubcategoryList
-                        items={item.children}
-                        parentPath={href}
-                      />
-                    </div>
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+const Authentication = dynamic(
+  () => import("@/app/components/features/auth/Authentication"),
+  {
+    loading: () => (
+      <div className="flex text-white">
+        <div className="mx-auto h-[24px] w-[24px] animate-pulse rounded-full bg-blue-700" />
+        <span className="pl-2">Loading...</span>
       </div>
-    </nav>
-  );
-}
-</file>
-
-<file path="app/components/layout/mobile/DrawerToggleLink.tsx">
-"use client";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-
-export function DrawerToggleLink({
-  isOpen,
-  param,
-  openIcon,
-  closeIcon,
-  label,
-}: {
-  isOpen: boolean;
-  param: string;
-  openIcon: React.ReactNode;
-  closeIcon: React.ReactNode;
-  label: string;
-}) {
-  const pathname = usePathname();
-  const href = isOpen ? pathname : `${pathname}?${param}=true`;
-
-  return (
-    <Link
-      href={href}
-      className="flex flex-col items-center"
-      aria-label={isOpen ? `Close ${label}` : `Open ${label}`}
-    >
-      {isOpen ? closeIcon : openIcon}
-    </Link>
-  );
-}
-</file>
-
-<file path="app/components/layout/mobile/MobileCategoriesDrawerWrapper.tsx">
-import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
-import MobileCategoriesDrawer from "./MobileCategoriesDrawer";
-import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
-
-export default async function MobileCategoriesDrawerWrapper() {
-  const categories: ALL_CATEGORIES_QUERYResult = await getAllCategories();
-
-  if (!categories || categories.length === 0) {
-    return (
-      <div
-        className={`inset-0 h-full w-full items-center justify-center overflow-hidden bg-gray-900 lg:flex`}
-      >
-        <p className="text-xl text-white">
-          Connection issue. Could not load categories. Please refresh page. If
-          that does not work - we are working on solving that issue as soon as
-          possible. Please try again later.
-        </p>
-      </div>
-    );
+    ),
+    ssr: false,
   }
-  const sortedCategories = [...categories].sort((a, b) => {
-    if (a?.order === undefined || b?.order === undefined) return 0;
-    return a?.order - b?.order;
-  });
+);
 
-  return <MobileCategoriesDrawer categories={sortedCategories} />;
+function MobileMenuInner() {
+  // TODO figure how to use NUQS to properly manage query state of both search/menu, given that they are mutually exclusive
+
+  const pathname = usePathname();
+
+  return (
+    <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">
+      <div className="flex items-center justify-around px-4">
+        {/* {isMenuOpen ? (
+          <Link href={pathname} className="flex flex-col items-center">
+            <X size={24} />
+          </Link>
+        ) : (
+          <Link
+            href={`${pathname}?menu=true`}
+            className="flex flex-col items-center"
+          >
+            <Menu className="h-6 w-6" />
+            <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
+          </Link>
+        )} */}
+        <Link
+          href={`${pathname}?menu=true`}
+          className="flex flex-col items-center"
+        >
+          <Menu className="h-6 w-6" />
+          <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
+        </Link>
+
+        <Link
+          href={`${pathname}?search=true`}
+          className="flex flex-col items-center"
+        >
+          <Search className="h-6 w-6" />
+          <span className="mt-1 hidden text-xs sm:inline-block">Search</span>
+        </Link>
+
+        <Authentication />
+        <Link href="/tracking" className="flex flex-col items-center">
+          <Truck className="h-6 w-6" />
+          <span className="mt-1 hidden text-xs sm:inline-block">Track</span>
+        </Link>
+        <Link href="/basket" className="flex flex-col items-center">
+          <ShoppingBag className="h-6 w-6" />
+          <span className="mt-1 hidden text-xs sm:inline-block">Basket</span>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+export default function MobileMenu() {
+  const [isMenu, setIsMenu] = useQueryState("menu", {
+    defaultValue: false,
+    history: "push",
+  });
+  const searchParams = useSearchParams();
+
+  return (
+    <React.Suspense
+      fallback={
+        <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden" />
+      }
+    >
+      <MobileMenuInner />
+    </React.Suspense>
+  );
 }
 </file>
 
@@ -43238,49 +43194,21 @@ export type Settings = {
   mainMenu?: Array<
     {
       _key: string;
-    } & MenuItem
+    } & CatalogueItem
   >;
 };
 
-export type MenuItem = {
-  _type: "menuItem";
+export type CatalogueItem = {
+  _type: "catalogueItem";
   title?: string;
   type?: "link" | "header";
-  linkTarget?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "category";
-  };
+  slug?: Slug;
+  icon?: string;
   children?: Array<
     {
       _key: string;
-    } & MenuItem
+    } & CatalogueItem
   >;
-  isHighlighted?: boolean;
-};
-
-export type Category = {
-  _id: string;
-  _type: "category";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  icon?: string;
-  parent?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "category";
-  };
-  group?: string;
-  order?: number;
-  metadata?: {
-    path?: string;
-    depth?: number;
-  };
 };
 
 export type SanityImagePaletteSwatch = {
@@ -43405,8 +43333,7 @@ export type AllSanitySchemaTypes =
   | CategorySortables
   | CategoryFilters
   | Settings
-  | MenuItem
-  | Category
+  | CatalogueItem
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -43470,29 +43397,29 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   _key: string;
   title: string | null;
   type: "header" | "link" | null;
-  isHighlighted: boolean | null;
-  slug: string | null;
+  isHighlighted: null;
+  slug: null;
   children:
     | Array<{
         _key: string;
         title: string | null;
         type: "header" | "link" | null;
-        isHighlighted: boolean | null;
-        slug: string | null;
+        isHighlighted: null;
+        slug: null;
         children:
           | Array<{
               _key: string;
               title: string | null;
               type: "header" | "link" | null;
-              isHighlighted: boolean | null;
-              slug: string | null;
+              isHighlighted: null;
+              slug: null;
               children:
                 | Array<{
                     _key: string;
                     title: string | null;
                     type: "header" | "link" | null;
-                    isHighlighted: boolean | null;
-                    slug: string | null;
+                    isHighlighted: null;
+                    slug: null;
                     children: Array<never>;
                   }>
                 | Array<never>;
@@ -43572,37 +43499,14 @@ declare module "@sanity/client" {
 }
 </file>
 
-<file path="tests/address/address.integration.test.ts">
-import { describe, it, expect } from "vitest";
-import { submitShippingAction } from "@/app/actions/address/address";
-import { Address, ServerResponse } from "@/app/(store)/checkout/checkout.types";
-
-describe("submitShippingAction Live Integration", () => {
-  it("hits the real Google API and returns ACCEPT", async () => {
-    const validAddress: Address = {
-      regionCode: "GB",
-      postalCode: "W4 5RA",
-      street: "Woodstock Road",
-      streetNumber: "28",
-      city: "London",
-    };
-
-    const result: ServerResponse = await submitShippingAction(validAddress);
-
-    expect(result.status).toBe("ACCEPT");
-    expect(result.address).toBeDefined();
-    expect(result.address?.postalCode).toBe("W4 5RA");
-    expect(result.geocode).toBeDefined();
-    expect(result.geocode?.latitude).toEqual(expect.any(Number));
-    expect(result.geocode?.longitude).toEqual(expect.any(Number));
-    expect(result.placeId).toEqual(expect.any(String));
-  });
-
-  // TODO Zero Negative Coverage: Your code has critical logic in isAcceptedAddress (checking addressComplete, hasReplacedComponents, and Granularity). None of this is tested. You don't know if your code actually rejects a "Route" level address or an address with typos.
-});
-</file>
-
 <file path="app/components/layout/categoryMenu/CategoriesWrapper.tsx">
+// TODOs - reorg all towards virtual file system taxonomy
+// TODO 1 delete settings doc in studio, upload new one
+// TODO 2 delete all categories
+// TODO 3 delete all categories fetching code in lib/products
+// TODO 4 run virtual taxonomy seed script
+// TODO Core concept: virtual taxonomy catalogue (virtual file system) lives in the recurisve catalogueitemType schema; which is object, so it lives in 'settings' container; and then, products wire up to slots inside catalogue - a product can wire up to many places; products fetching via groq, it filters via path comparision - a slot clicked, will give all descendants that start with it in terms of path; descendant slots contain product wirings - those will be returned;
+
 import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import CategoriesNav from "./CategoriesNav";
 
@@ -43611,99 +43515,6 @@ export default async function CategoriesWrapper() {
   console.log("CATEGORIES", menuItems);
 
   return <CategoriesNav menuItems={menuItems} />;
-}
-</file>
-
-<file path="app/components/layout/mobile/MobileMenu.tsx">
-"use client";
-
-import React from "react";
-import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
-import Link from "next/link";
-import dynamic from "next/dynamic";
-import { useQueryState } from "nuqs";
-import { usePathname, useSearchParams } from "next/navigation";
-
-const Authentication = dynamic(
-  () => import("@/app/components/features/auth/Authentication"),
-  {
-    loading: () => (
-      <div className="flex text-white">
-        <div className="mx-auto h-[24px] w-[24px] animate-pulse rounded-full bg-blue-700" />
-        <span className="pl-2">Loading...</span>
-      </div>
-    ),
-    ssr: false,
-  }
-);
-
-function MobileMenuInner() {
-  // TODO figure how to use NUQS to properly manage query state of both search/menu, given that they are mutually exclusive
-
-  const pathname = usePathname();
-
-  return (
-    <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">
-      <div className="flex items-center justify-around px-4">
-        {/* {isMenuOpen ? (
-          <Link href={pathname} className="flex flex-col items-center">
-            <X size={24} />
-          </Link>
-        ) : (
-          <Link
-            href={`${pathname}?menu=true`}
-            className="flex flex-col items-center"
-          >
-            <Menu className="h-6 w-6" />
-            <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
-          </Link>
-        )} */}
-        <Link
-          href={`${pathname}?menu=true`}
-          className="flex flex-col items-center"
-        >
-          <Menu className="h-6 w-6" />
-          <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
-        </Link>
-
-        <Link
-          href={`${pathname}?search=true`}
-          className="flex flex-col items-center"
-        >
-          <Search className="h-6 w-6" />
-          <span className="mt-1 hidden text-xs sm:inline-block">Search</span>
-        </Link>
-
-        <Authentication />
-        <Link href="/tracking" className="flex flex-col items-center">
-          <Truck className="h-6 w-6" />
-          <span className="mt-1 hidden text-xs sm:inline-block">Track</span>
-        </Link>
-        <Link href="/basket" className="flex flex-col items-center">
-          <ShoppingBag className="h-6 w-6" />
-          <span className="mt-1 hidden text-xs sm:inline-block">Basket</span>
-        </Link>
-      </div>
-    </div>
-  );
-}
-
-export default function MobileMenu() {
-  const [isMenu, setIsMenu] = useQueryState("menu", {
-    defaultValue: false,
-    history: "push",
-  });
-  const searchParams = useSearchParams();
-
-  return (
-    <React.Suspense
-      fallback={
-        <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden" />
-      }
-    >
-      <MobileMenuInner />
-    </React.Suspense>
-  );
 }
 </file>
 
@@ -43717,16 +43528,14 @@ import { commercialType } from "./commercialType";
 import { categoryFiltersType } from "./categoryFiltersType";
 import { categorySortablesType } from "./categorySortablesType";
 import { userType } from "./userType";
-import { categoryType } from "./categoryType";
-import { menuItemType } from "./menuItemType";
+import { catalogueItemType } from "./catalogueItemType";
 import { settingsType } from "./settingsType";
 
 // TODO 4. delete all blockContent
 
 export const schema = {
   types: [
-    menuItemType,
-    categoryType,
+    catalogueItemType,
     settingsType,
     categoryFiltersType,
     categorySortablesType,
@@ -43741,68 +43550,6 @@ export const schema = {
 
 // TODO product type, blockContentType is bugged - schema extraction fails when uncommented
 // TODO
-</file>
-
-<file path="sanity/schemaTypes/categoryType.ts">
-// sanity/schemaTypes/categoryType.ts
-import { defineField, defineType } from "sanity";
-import { TagIcon } from "@sanity/icons";
-
-export const categoryType = defineType({
-  name: "category",
-  title: "Category",
-  type: "document",
-  icon: TagIcon,
-  fields: [
-    defineField({
-      name: "title",
-      title: "Title",
-      type: "string",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: { source: "title" },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "icon",
-      title: "Icon Name",
-      type: "string",
-    }),
-    defineField({
-      name: "parent",
-      title: "Parent Category",
-      type: "reference",
-      to: [{ type: "category" }],
-    }),
-    defineField({
-      name: "group",
-      title: "Menu Group",
-      type: "string",
-      description: 'The visual group header (e.g., "By Fit", "Home Theater").',
-    }),
-    defineField({
-      name: "order",
-      title: "Sort Order",
-      type: "number",
-    }),
-    defineField({
-      name: "metadata",
-      type: "object",
-      readOnly: true,
-      fields: [
-        { name: "path", type: "string", title: "Full Path" },
-        { name: "depth", type: "number", title: "Depth" },
-      ],
-    }),
-  ],
-  preview: {
-    select: { title: "title", subtitle: "metadata.path" },
-  },
-});
 </file>
 
 <file path="README.md">

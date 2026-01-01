@@ -37,6 +37,11 @@ export const productType = defineType({
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
+    // TODO    RECOMMENDATION: Brand as Reference.
+
+    // The Issue: brand is a string. If you type "Sony" on one product and "Sony Inc." on another, your filtering breaks.
+
+    // The Fix: Make brand a Reference to a brand document. This enforces consistency (Invariant).
     defineField({
       name: "stripePriceId",
       title: "Stripe Price ID",
@@ -92,6 +97,15 @@ export const productType = defineType({
           to: [{ type: "category" }],
         },
       ],
+      validation: (Rule) => Rule.required().min(1),
+    }),
+    defineField({
+      name: "locationKeys",
+      title: "Menu Location",
+      description: "Select where this product appears in the catalogue.",
+      type: "array",
+      of: [{ type: "string" }],
+      // components: { input: MenuLocationInput }, // <--- UNCOMMENT THIS when component exists
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
