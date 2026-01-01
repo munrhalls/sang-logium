@@ -86,35 +86,15 @@ export const productType = defineType({
       of: [defineArrayMember({ type: "image" })],
     }),
     defineField({
-      name: "categories",
-      title: "Categories",
-      description:
-        "The first category in this list will be treated as the 'Primary' category for breadcrumbs and URLs.",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "category" }],
-        },
-      ],
-      validation: (Rule) => Rule.required().min(1),
-    }),
-    defineField({
-      name: "locationKeys",
-      title: "Menu Location",
+      name: "catalogueLocationKeys",
+      title: "Catalogue Location",
       description: "Select where this product appears in the catalogue.",
       type: "array",
       of: [{ type: "string" }],
       // components: { input: MenuLocationInput }, // <--- UNCOMMENT THIS when component exists
       validation: (Rule) => Rule.required().min(1),
     }),
-    defineField({
-      name: "tags",
-      title: "Tags",
-      type: "array",
-      of: [defineArrayMember({ type: "string" })],
-      description: "Keywords or tags for search and filtering",
-    }),
+
     defineField({
       name: "overviewFields",
       title: "Overview Fields",
