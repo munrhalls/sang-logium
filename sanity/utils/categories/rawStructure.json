@@ -1,6 +1,3 @@
-import client from "../getClient.mjs";
-import { nanoid } from "nanoid";
-
 const rawStructure = [
   {
     title: "Headphones",
@@ -201,60 +198,3 @@ const rawStructure = [
     groups: [],
   },
 ];
-async function seedCatalogue() {
-  console.log("🚀 Building Virtual Taxonomy Tree...");
-
-  const catalogueTree = rawStructure.map((root) => {
-    // 1. Root Item
-    const rootItem = {
-      _key: nanoid(),
-      _type: "catalogueItem", // Matches your schema
-      type: "link",
-      title: root.title,
-      slug: { _type: "slug", current: root.slug },
-      icon: root.icon,
-      children: [],
-    };
-
-    // 2. Groups
-    if (root.groups && root.groups.length > 0) {
-      rootItem.children = root.groups.map((group) => {
-        return {
-          _key: nanoid(),
-          _type: "catalogueItem",
-          type: "header",
-          title: group.title,
-          children: group.items.map((item) => {
-            return {
-              _key: nanoid(),
-              _type: "catalogueItem",
-              type: "link",
-              title: item.title,
-              slug: { _type: "slug", current: item.slug },
-              children: [],
-            };
-          }),
-        };
-      });
-    }
-    return rootItem;
-  });
-
-  console.log("💾 Writing to Catalogue document...");
-
-  try {
-    // UPDATED: Writes to 'catalogue' document type and 'catalogue' field
-    const result = await client.createOrReplace({
-      _id: "catalogue", // Singleton ID
-      _type: "catalogue",
-      catalogue: catalogueTree,
-    });
-
-    console.log("✅ Virtual Taxonomy Seeded Successfully!");
-    console.log(`   Transaction ID: ${result._rev}`);
-  } catch (err) {
-    console.error("❌ Seed Failed:", err.message);
-  }
-}
-
-seedCatalogue();
