@@ -15,12 +15,13 @@ import { categoryType } from "./categoryType";
 
 export const schema = {
   types: [
+    blockContentType,
     catalogueItemType,
     catalogueType,
     categoryType,
     // categoryFiltersType,
     // categorySortablesType,
-    // productType,
+    productType,
     // orderType,
     // saleType,
     // exhibitionType,
