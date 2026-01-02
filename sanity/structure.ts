@@ -6,9 +6,16 @@ export const structure: StructureResolver = (S) =>
     .title("Sang Logium E-commerce Web App")
 
     .items([
-      S.documentTypeListItem("category").title("Categories"),
+      S.listItem()
+        .title("Catalogue")
+        .child(
+          S.document()
+            .schemaType("catalogue")
+            .documentId("catalogue")
+            .title("Catalogue")
+        ),
       S.divider(),
       ...S.documentTypeListItems().filter(
-        (item) => item.getId() && !["category"].includes(item.getId()!),
+        (item) => item.getId() && !["catalogue"].includes(item.getId()!)
       ),
     ]);

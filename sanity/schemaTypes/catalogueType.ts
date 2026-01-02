@@ -6,13 +6,6 @@ export const catalogueType = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "title",
-      title: "Menu Name",
-      type: "string",
-      description: "Internal name for this menu (e.g. 'Main Store Menu')",
-      initialValue: "Main Menu",
-    }),
-    defineField({
       name: "catalogue",
       title: "Catalogue",
       description: "This tree defines the site URL structure and visual menu.",
