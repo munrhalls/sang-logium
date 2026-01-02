@@ -2,10 +2,14 @@ import client from "./../../getClient.mjs";
 
 // 1. Recursive helper to build the Map (Slug -> Key)
 function buildMenuMap(nodes, map = new Map()) {
+  if (!nodes) return map; // Safety check
+
   for (const node of nodes) {
+    // We map the SLUG (string) to the KEY (stable ID)
     if (node.slug?.current) {
       map.set(node.slug.current, node._key);
     }
+    // Recurse into children
     if (node.children && node.children.length > 0) {
       buildMenuMap(node.children, map);
     }
@@ -17,9 +21,18 @@ async function migrateOneProduct() {
   console.log("🚀 Starting Single Product Migration Test...");
 
   try {
-    // A. Load the New Menu (The Target)
-    const settings = await client.fetch(`*[_type == "settings"][0]`);
-    const menuMap = buildMenuMap(settings.mainMenu || []);
+    // A. Load the New Catalogue (The Target)
+    // UPDATED: Fetch 'catalogue' singleton
+    const catalogueDoc = await client.fetch(`*[_id == "catalogue"][0]`);
+
+    if (!catalogueDoc) {
+      throw new Error(
+        "Catalogue document not found! Did you run seedCatalogue?"
+      );
+    }
+
+    // UPDATED: Access the 'catalogue' field, not 'mainMenu'
+    const menuMap = buildMenuMap(catalogueDoc.catalogue || []);
     console.log(`🗺️  Menu Map built with ${menuMap.size} valid locations.`);
 
     // B. Load ONE Product with legacy data (The Source)
@@ -45,11 +58,10 @@ async function migrateOneProduct() {
     for (const rawPath of legacyPaths) {
       if (typeof rawPath !== "string") continue;
 
-      // Strategy 1: Exact Slug Match (e.g. "wired" -> "wired")
-      // We take the last part of the path (the leaf)
+      // Strategy 1: Leaf Node (e.g. "audio/cables" -> "cables")
       const leaf = rawPath.split("/").pop();
 
-      // Strategy 2: Hyphenated Path (e.g. "audio/cables" -> "audio-cables")
+      // Strategy 2: Hyphenated (e.g. "audio/cables" -> "audio-cables")
       const hyphenated = rawPath.replace(/\//g, "-");
 
       let matchedKey = menuMap.get(leaf);
