@@ -1,10 +1,10 @@
-import { blockContentType } from "./blockContentType";
+// import { blockContentType } from "./blockContentType";
 import { productType } from "./productType";
-import { orderType } from "./orderType";
-import { saleType } from "./saleType";
-import { exhibitionType } from "./exhibitionType";
-import { commercialType } from "./commercialType";
-import { userType } from "./userType";
+// import { orderType } from "./orderType";
+// import { saleType } from "./saleType";
+// import { exhibitionType } from "./exhibitionType";
+// import { commercialType } from "./commercialType";
+// import { userType } from "./userType";
 // import { categoryFiltersType } from "./categoryFiltersType";
 // import { categorySortablesType } from "./categorySortablesType";
 import { catalogueItemType } from "./catalogueItemType";
