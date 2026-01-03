@@ -4,9 +4,21 @@
 // TODO 3 delete all categories fetching code in lib/products
 // TODO 4 run virtual taxonomy seed script
 // TODO Core concept: virtual taxonomy catalogue (virtual file system) lives in the recurisve catalogueitemType schema; which is object, so it lives in 'settings' container; and then, products wire up to slots inside catalogue - a product can wire up to many places; products fetching via groq, it filters via path comparision - a slot clicked, will give all descendants that start with it in terms of path; descendant slots contain product wirings - those will be returned;`
-import catalogueIndex from "@/data/catalogue-index.json";
+import { Catalogue } from "@/sanity.types";
+import catalogueIndex from "@/app/data/catalogue-index.json";
+
+type CatalogueTree = Catalogue["catalogue"];
+
+interface CatalogueIndexData {
+  generatedAt: string;
+  urlMap: Record<string, string>;
+  idMap: Record<string, unknown>;
+  tree: CatalogueTree;
+}
+
 export const getCatalogue = () => {
-  return (catalogueIndex as any).tree || [];
+  const data = catalogueIndex as unknown as CatalogueIndexData;
+  return data.tree || [];
 };
 
 import CategoriesNav from "./CategoriesNav";

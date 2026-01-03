@@ -16,11 +16,11 @@ export const productType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     // TODO FIX 1: Switched to Markdown (Install 'sanity-plugin-markdown')
-    defineField({
-      name: "description",
-      title: "Description",
-      type: "blockContent",
-    }),
+    // defineField({
+    //   name: "description",
+    //   title: "Description",
+    //   type: "blockContent",
+    // }),
     defineField({
       name: "slug",
       title: "Slug",
@@ -85,20 +85,20 @@ export const productType = defineType({
       title: "Image Gallery",
       of: [defineArrayMember({ type: "image" })],
     }),
-    defineField({
-      name: "categories",
-      title: "Categories",
-      description:
-        "The first category in this list will be treated as the 'Primary' category for breadcrumbs and URLs.",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "category" }],
-        },
-      ],
-      validation: (Rule) => Rule.required().min(1),
-    }),
+    // defineField({
+    //   name: "categories",
+    //   title: "Categories",
+    //   description:
+    //     "The first category in this list will be treated as the 'Primary' category for breadcrumbs and URLs.",
+    //   type: "array",
+    //   of: [
+    //     {
+    //       type: "reference",
+    //       to: [{ type: "category" }],
+    //     },
+    //   ],
+    //   validation: (Rule) => Rule.required().min(1),
+    // }),
     defineField({
       name: "catalogueLocationKeys",
       title: "Catalogue Location",

@@ -14,7 +14,7 @@ export const catalogueItemType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "type",
+      name: "itemType",
       title: "Item Type",
       type: "string",
       options: {
@@ -47,7 +47,7 @@ export const catalogueItemType = defineType({
     }),
   ],
   preview: {
-    select: { title: "title", type: "type" },
+    select: { title: "title", type: "itemType" },
     prepare({ title, type }) {
       const isHeader = type === "header";
       return {

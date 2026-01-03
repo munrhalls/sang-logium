@@ -13,63 +13,68 @@
  */
 
 // Source: schema.json
-export type CategorySortables = {
+export type Product = {
   _id: string;
-  _type: "categorySortables";
+  _type: "product";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  sortOptions?: Array<{
-    name?: string;
-    displayName?: string;
-    type?: "alphabetic" | "numeric" | "date" | "boolean";
-    field?: string;
-    defaultDirection?: "asc" | "desc";
-    _key: string;
-  }>;
-  categoryMappings?: Array<{
-    path?: string;
-    sortOptions?: Array<string>;
-    _key: string;
-  }>;
-};
-
-export type CategoryFilters = {
-  _id: string;
-  _type: "categoryFilters";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  filters?: {
-    filterItems?: Array<{
-      name?: string;
-      type?: "checkbox" | "radio" | "range" | "boolean" | "multiselect";
-      filterCategory?: "overview" | "specification" | "regular";
-      defaultValue?: string;
-      options?: Array<string>;
-      isMinOnly?: boolean;
-      min?: number;
-      max?: number;
-      step?: number;
-      _key: string;
-    }>;
+  name?: string;
+  slug?: Slug;
+  brand?: string;
+  stripePriceId?: string;
+  displayPrice?: number;
+  stock?: number;
+  sku?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
   };
-  categoryMappings?: Array<{
-    path?: string;
-    filters?: Array<string>;
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
+  catalogueLocationKeys?: Array<string>;
+  overviewFields?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
+    _type: "overviewField";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
+    _type: "spec";
     _key: string;
   }>;
 };
 
-export type Settings = {
+export type Catalogue = {
   _id: string;
-  _type: "settings";
+  _type: "catalogue";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  mainMenu?: Array<
+  catalogue?: Array<
     {
       _key: string;
     } & CatalogueItem
@@ -79,7 +84,7 @@ export type Settings = {
 export type CatalogueItem = {
   _type: "catalogueItem";
   title?: string;
-  type?: "link" | "header";
+  itemType?: "link" | "header";
   slug?: Slug;
   icon?: string;
   children?: Array<
@@ -208,9 +213,8 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
-  | CategorySortables
-  | CategoryFilters
-  | Settings
+  | Product
+  | Catalogue
   | CatalogueItem
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -243,103 +247,192 @@ export type GET_COMMERCIALS_HERO_SECONDARYResult = Array<never>;
 // Variable: FILTERS
 // Query: {    "brands": array::unique(*[_type == "product"].brand->name)  }
 export type FILTERSResult = {
-  brands: Array<never>;
+  brands: Array<null>;
 };
 
 // Source: ./sanity/lib/products/filter/getFiltersForCategoryPath.ts
 // Variable: FILTERS_BY_CATEGORY_QUERY
 // Query: *[_type == "categoryFilters" && title == $topLevelCategory][0] {      title,      "filters": filters.filterItems[]{        name,        type,        options,        defaultValue,        min,        max,        isMinOnly,        step      },      "mappings": categoryMappings[path == $cleanPath]    }
-export type FILTERS_BY_CATEGORY_QUERYResult = {
-  title: string | null;
-  filters: Array<{
-    name: string | null;
-    type: "boolean" | "checkbox" | "multiselect" | "radio" | "range" | null;
-    options: Array<string> | null;
-    defaultValue: string | null;
-    min: number | null;
-    max: number | null;
-    isMinOnly: boolean | null;
-    step: number | null;
-  }> | null;
-  mappings: Array<{
-    path?: string;
-    filters?: Array<string>;
-    _key: string;
-  }> | null;
-} | null;
-
-// Source: ./sanity/lib/products/getAllCategories.ts
-// Variable: ALL_CATEGORIES_QUERY
-// Query: *[_type == "settings"][0].mainMenu[]{      _key,      title,      type,      isHighlighted,      "slug": linkTarget->slug.current,      "children": coalesce(children[]{        _key,        title,        type,        isHighlighted,        "slug": linkTarget->slug.current,        "children": coalesce(children[]{          _key,          title,          type,          isHighlighted,          "slug": linkTarget->slug.current,          "children": coalesce(children[]{             _key,             title,             type,             isHighlighted,             "slug": linkTarget->slug.current,             "children": []          }, [])        }, [])      }, [])    }
-export type ALL_CATEGORIES_QUERYResult = Array<{
-  _key: string;
-  title: string | null;
-  type: "header" | "link" | null;
-  isHighlighted: null;
-  slug: null;
-  children:
-    | Array<{
-        _key: string;
-        title: string | null;
-        type: "header" | "link" | null;
-        isHighlighted: null;
-        slug: null;
-        children:
-          | Array<{
-              _key: string;
-              title: string | null;
-              type: "header" | "link" | null;
-              isHighlighted: null;
-              slug: null;
-              children:
-                | Array<{
-                    _key: string;
-                    title: string | null;
-                    type: "header" | "link" | null;
-                    isHighlighted: null;
-                    slug: null;
-                    children: Array<never>;
-                  }>
-                | Array<never>;
-            }>
-          | Array<never>;
-      }>
-    | Array<never>;
-}> | null;
+export type FILTERS_BY_CATEGORY_QUERYResult = null;
 
 // Source: ./sanity/lib/products/getAllProducts.ts
 // Variable: ALL_PRODUCTS_QUERY
 // Query: *[            _type == "product"        ] | order(name asc)
-export type ALL_PRODUCTS_QUERYResult = Array<never>;
+export type ALL_PRODUCTS_QUERYResult = Array<{
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  brand?: string;
+  stripePriceId?: string;
+  displayPrice?: number;
+  stock?: number;
+  sku?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
+  catalogueLocationKeys?: Array<string>;
+  overviewFields?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
+    _type: "overviewField";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
+    _type: "spec";
+    _key: string;
+  }>;
+}>;
 
 // Source: ./sanity/lib/products/getProductById.ts
 // Variable: PRODUCT_BY_ID_QUERY
 // Query: *[                _type == 'product'                && _id == $id            ] | order(name asc) [0]
-export type PRODUCT_BY_ID_QUERYResult = null;
+export type PRODUCT_BY_ID_QUERYResult = {
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  brand?: string;
+  stripePriceId?: string;
+  displayPrice?: number;
+  stock?: number;
+  sku?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
+  catalogueLocationKeys?: Array<string>;
+  overviewFields?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
+    _type: "overviewField";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
+    _type: "spec";
+    _key: string;
+  }>;
+} | null;
 
 // Source: ./sanity/lib/products/searchProductsByName.ts
 // Variable: SEARCH_FOR_PRODUCTS_QUERY
 // Query: *[        _type == "product"        && name match $searchParam    ] | order(name asc)
-export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<never>;
+export type SEARCH_FOR_PRODUCTS_QUERYResult = Array<{
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  brand?: string;
+  stripePriceId?: string;
+  displayPrice?: number;
+  stock?: number;
+  sku?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
+  catalogueLocationKeys?: Array<string>;
+  overviewFields?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
+    _type: "overviewField";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    title?: string;
+    value?: string;
+    information?: string;
+    _type: "spec";
+    _key: string;
+  }>;
+}>;
 
 // Source: ./sanity/lib/products/sort/getSortablesForCategoryPath.ts
 // Variable: SORTABLES_BY_CATEGORY_QUERY
 // Query: *[_type == "categorySortables" && title == $topLevelCategory][0] {      title,      "sortOptions": sortOptions[]{        name,        displayName,        type,        field,        defaultDirection      },      "mappings": categoryMappings[path == $cleanPath]    }
-export type SORTABLES_BY_CATEGORY_QUERYResult = {
-  title: string | null;
-  sortOptions: Array<{
-    name: string | null;
-    displayName: string | null;
-    type: "alphabetic" | "boolean" | "date" | "numeric" | null;
-    field: string | null;
-    defaultDirection: "asc" | "desc" | null;
-  }> | null;
-  mappings: Array<{
-    path?: string;
-    sortOptions?: Array<string>;
-    _key: string;
-  }> | null;
-} | null;
+export type SORTABLES_BY_CATEGORY_QUERYResult = null;
 
 // Source: ./sanity/lib/profiles/fetchProfileByClerkId.ts
 // Variable: FETCH_PROFILE_QUERY
@@ -365,7 +458,6 @@ declare module "@sanity/client" {
     '*[_type == "commercial" && feature == "hero-secondary" && defined(image.asset)] | order(displayOrder asc) {\n    _id,\n    title,\n    "image": image.asset->url,\n    variant,\n    displayOrder,\n    text,\n    ctaLink,\n    "products": products[]-> {\n      _id,\n      brand,\n      name,\n      description,\n      price,\n      "image": image.asset->url,\n    },\n    sale-> {\n      discount,\n      validUntil,\n      _id\n    }\n  }': GET_COMMERCIALS_HERO_SECONDARYResult;
     '{\n    "brands": array::unique(*[_type == "product"].brand->name)\n  }': FILTERSResult;
     '\n    *[_type == "categoryFilters" && title == $topLevelCategory][0] {\n      title,\n      "filters": filters.filterItems[]{\n        name,\n        type,\n        options,\n        defaultValue,\n        min,\n        max,\n        isMinOnly,\n        step\n      },\n      "mappings": categoryMappings[path == $cleanPath]\n    }\n  ': FILTERS_BY_CATEGORY_QUERYResult;
-    '\n    *[_type == "settings"][0].mainMenu[]{\n      _key,\n      title,\n      type,\n      isHighlighted,\n      "slug": linkTarget->slug.current,\n      "children": coalesce(children[]{\n        _key,\n        title,\n        type,\n        isHighlighted,\n        "slug": linkTarget->slug.current,\n        "children": coalesce(children[]{\n          _key,\n          title,\n          type,\n          isHighlighted,\n          "slug": linkTarget->slug.current,\n          "children": coalesce(children[]{\n             _key,\n             title,\n             type,\n             isHighlighted,\n             "slug": linkTarget->slug.current,\n             "children": []\n          }, [])\n        }, [])\n      }, [])\n    }\n  ': ALL_CATEGORIES_QUERYResult;
     '\n        *[\n            _type == "product"\n        ] | order(name asc)\n    ': ALL_PRODUCTS_QUERYResult;
     "\n            *[\n                _type == 'product'\n                && _id == $id\n            ] | order(name asc) [0]\n        ": PRODUCT_BY_ID_QUERYResult;
     '*[\n        _type == "product"\n        && name match $searchParam\n    ] | order(name asc)': SEARCH_FOR_PRODUCTS_QUERYResult;
