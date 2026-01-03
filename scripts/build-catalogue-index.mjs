@@ -71,7 +71,7 @@ async function buildCatalogueIndex() {
 
     const outputPath = path.join(
       process.cwd(),
-      "src",
+      "app",
       "data",
       "catalogue-index.json"
     );
