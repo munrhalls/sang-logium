@@ -31,35 +31,50 @@ async function buildCatalogueIndex() {
       for (const node of nodes) {
         if (!node.slug?.current) continue;
 
-        // Build URL: /parent/child
+        // 1. Normalize Type
+        if (!node.itemType && node.itemType) node.itemType = node.itemType;
+        if (!node.itemType) node.itemType = "link";
+
+        const isHeader = node.itemType === "header";
         const currentSlug = node.slug.current;
-        // Handle root vs nested
-        const fullPath = [...parentPath, currentSlug].join("/");
-        // Prefix with /shop or keep root relative depending on your route structure
-        // Assuming your catch-all is at /shop/[...slug], we might want /shop/headphones
-        // But for the map key, we often keep it simple. Let's stick to your logic:
-        const url = fullPath; // Key = "headphones/wired"
 
-        // Breadcrumbs for UI
-        const breadcrumbs = [
-          ...parentBreadcrumbs,
-          { label: node.title, url: `/shop/${url}` }, // UI URL
-        ];
+        // 2. Calculate Path
+        // If it's a header, we IGNORE it for the URL path.
+        // The children will inherit the *current* parentPath directly.
+        const pathSegments = isHeader
+          ? parentPath
+          : [...parentPath, currentSlug];
 
-        // A. URL Look-up (Routing)
-        urlMap[url] = node._key;
+        const urlString = pathSegments.join("/");
 
-        // B. ID Look-up (Product resolution)
+        // 3. Calculate Breadcrumbs
+        // We usually skip headers in breadcrumbs too, so the trail is "Home > Headphones > Wired"
+        const nextBreadcrumbs = isHeader
+          ? parentBreadcrumbs
+          : [
+              ...parentBreadcrumbs,
+              { label: node.title, url: `/shop/${urlString}` },
+            ];
+
+        // 4. Populate Maps
+        // Only Links get a URL entry
+        if (!isHeader) {
+          urlMap[urlString] = node._key;
+        }
+
         idMap[node._key] = {
           title: node.title,
-          url: `/shop/${url}`,
+          // Headers get '#' so they don't link anywhere
+          url: isHeader ? "#" : `/shop/${urlString}`,
           slug: currentSlug,
-          breadcrumbs: breadcrumbs,
+          breadcrumbs: nextBreadcrumbs,
           children: node.children?.map((c) => c._key) || [],
+          itemType: node.itemType, // Useful to have in frontend
         };
 
-        // Recurse
-        traverse(node.children, [...parentPath, currentSlug], breadcrumbs);
+        // 5. Recurse
+        // CRITICAL: Pass 'pathSegments', not '[...parentPath, currentSlug]'
+        traverse(node.children, pathSegments, nextBreadcrumbs);
       }
     }
 

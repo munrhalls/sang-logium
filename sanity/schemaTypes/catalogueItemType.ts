@@ -47,7 +47,7 @@ export const catalogueItemType = defineType({
     }),
   ],
   preview: {
-    select: { title: "title", type: "itemType" },
+    select: { title: "title", type: "type" },
     prepare({ title, type }) {
       const isHeader = type === "header";
       return {

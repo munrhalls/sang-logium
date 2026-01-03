@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-03T11:26:11.967Z",
+  "generatedAt": "2026-01-03T17:33:10.681Z",
   "urlMap": {
     "headphones": "zemHaTBY7QMZEyx6WgMYi",
     "speakers": "X0ijjgLQc5pnVGZ5uB9Md",
@@ -24,7 +24,8 @@
         "gJvupOFvek9IA28wG1pJw",
         "R9bVoOi1wleAgXnCXER9q",
         "cwjfSx5AHHNGTf46j6BXj"
-      ]
+      ],
+      "itemType": "link"
     },
     "X0ijjgLQc5pnVGZ5uB9Md": {
       "title": "Speakers",
@@ -40,7 +41,8 @@
         "9eQyVlSBWINktO5TCFf9S",
         "xgyfkJAh90oG6JJVFlURP",
         "28_Sx1s6s0xgzv1t4l4k_"
-      ]
+      ],
+      "itemType": "link"
     },
     "JfWZqAwqcOLNWBMabMc5y": {
       "title": "Personal Audio",
@@ -56,7 +58,8 @@
         "9BK0Nu0WtqIcP7_xdU_5K",
         "xJSAZj4W0ASAsSLF23jjL",
         "IgQ4lTv5Gn8QHTOTS3Es1"
-      ]
+      ],
+      "itemType": "link"
     },
     "jiS80IhRzgh41eMR_AWo6": {
       "title": "Home Audio",
@@ -72,7 +75,8 @@
         "Jdjqtf7kej4P8y10QaByV",
         "34MF_aAKZnOmEen0ZQOtG",
         "xPjQHGOI9TRXJN9QzTaCb"
-      ]
+      ],
+      "itemType": "link"
     },
     "bhGPYfXKyPyZ2sixtvS7X": {
       "title": "Studio Equipment",
@@ -84,10 +88,8 @@
           "url": "/shop/studio-equipment"
         }
       ],
-      "children": [
-        "YSOR4-ZcEmRtJUEZGgrgl",
-        "igkH1-53EAidFCuwHMC9k"
-      ]
+      "children": ["YSOR4-ZcEmRtJUEZGgrgl", "igkH1-53EAidFCuwHMC9k"],
+      "itemType": "link"
     },
     "_EDhByj4HR6NH7X1DHHfr": {
       "title": "Accessories",
@@ -104,7 +106,8 @@
         "MMsC8u8jiHf-6TEugX4dY",
         "wp8-KGe6cOwSbmV0KnssN",
         "jRqROPjh9R42eZ8GGN8pb"
-      ]
+      ],
+      "itemType": "link"
     },
     "sXIqLWIxMpCT5E2VxPkad": {
       "title": "On Sale",
@@ -116,7 +119,8 @@
           "url": "/shop/on-sale"
         }
       ],
-      "children": []
+      "children": [],
+      "itemType": "link"
     }
   },
   "tree": [
