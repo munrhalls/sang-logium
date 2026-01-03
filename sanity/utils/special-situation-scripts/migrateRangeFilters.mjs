@@ -55,7 +55,7 @@ async function migrateRangeFilters() {
 
       // Check if any range filters need updating
       const needsUpdate = doc.filters.filterItems.some(
-        (item) => item.itemType === "range" && item.isMinOnly === undefined
+        (item) => item.type === "range" && item.isMinOnly === undefined
       );
 
       if (!needsUpdate) {
@@ -66,7 +66,7 @@ async function migrateRangeFilters() {
 
       // Make a copy of the filterItems array with isMinOnly added where needed
       const updatedFilterItems = doc.filters.filterItems.map((item) => {
-        if (item.itemType === "range" && item.isMinOnly === undefined) {
+        if (item.type === "range" && item.isMinOnly === undefined) {
           console.log(
             `    Adding isMinOnly: false to range filter "${item.name}" in ${doc._id}`
           );

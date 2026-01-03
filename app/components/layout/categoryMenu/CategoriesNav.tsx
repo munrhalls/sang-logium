@@ -46,7 +46,7 @@ export default function CategoriesNav({
             const title = item.title || "Untitled";
             const children = item.children || [];
 
-            const isHeader = item.itemType === "header";
+            const isHeader = item.type === "header";
             const isHighlighted =
               (item as any).isHighlighted || slug === "on-sale";
             const isActive = activeCategory === title;

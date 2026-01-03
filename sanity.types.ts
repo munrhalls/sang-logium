@@ -84,7 +84,7 @@ export type Catalogue = {
 export type CatalogueItem = {
   _type: "catalogueItem";
   title?: string;
-  itemType?: "link" | "header";
+  type?: "link" | "header";
   slug?: Slug;
   icon?: string;
   children?: Array<

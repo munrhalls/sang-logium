@@ -32,10 +32,10 @@ async function buildCatalogueIndex() {
         if (!node.slug?.current) continue;
 
         // 1. Normalize Type
-        if (!node.itemType && node.itemType) node.itemType = node.itemType;
-        if (!node.itemType) node.itemType = "link";
+        if (!node.type && node.type) node.type = node.type;
+        if (!node.type) node.type = "link";
 
-        const isHeader = node.itemType === "header";
+        const isHeader = node.type === "header";
         const currentSlug = node.slug.current;
 
         // 2. Calculate Path
@@ -69,7 +69,7 @@ async function buildCatalogueIndex() {
           slug: currentSlug,
           breadcrumbs: nextBreadcrumbs,
           children: node.children?.map((c) => c._key) || [],
-          itemType: node.itemType, // Useful to have in frontend
+          type: node.type, // Useful to have in frontend
         };
 
         // 5. Recurse

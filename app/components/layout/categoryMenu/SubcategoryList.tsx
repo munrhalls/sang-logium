@@ -18,7 +18,7 @@ export const SubcategoryList = ({
   return (
     <div className="pl-4">
       {items.map((item) => {
-        const isHeader = item.itemType === "header";
+        const isHeader = item.type === "header";
         const slug = item.slug?.current;
 
         const href = slug ? `${parentPath}/${slug}` : "#";

@@ -429,7 +429,7 @@
           },
           "optional": true
         },
-        "itemType": {
+        "type": {
           "type": "objectAttribute",
           "value": {
             "type": "union",

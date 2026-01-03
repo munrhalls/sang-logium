@@ -364,7 +364,7 @@ sanity/lib/sales/getSaleByID.ts
 sanity/lib/url/parseUrlToFilterConfig.ts
 sanity/ORDER_MANAGEMENT_SYSTEM.md
 sanity/schemaTypes/blockContentType.ts
-sanity/schemaTypes/catalogueItemType.ts
+sanity/schemaTypes/cataloguetype.ts
 sanity/schemaTypes/catalogueType.ts
 sanity/schemaTypes/categoryFiltersType.ts
 sanity/schemaTypes/categorySortablesType.ts
@@ -1067,10 +1067,10 @@ export default function AccountModal() {
   if (!shouldShow) return null;
   const handleClose = () => {
     setIsVisible(false);
-    const basePath = pathname === "/account" ? "/" : pathname.slice(0, -8); 
+    const basePath = pathname === "/account" ? "/" : pathname.slice(0, -8);
     setTimeout(() => {
       router.push(basePath);
-    }, 300); 
+    }, 300);
   };
   return (
     <>
@@ -2991,7 +2991,7 @@ export default function validateFilterObjects(
       console.warn(`Invalid filter field: ${filter.field}`);
       return null;
     })
-    .filter(Boolean); 
+    .filter(Boolean);
   return validatedFilters;
 }
 </file>
@@ -5005,7 +5005,7 @@ interface UseProfileDataReturn {
   isLoading: boolean;
   error: Error | null;
   isAuthenticated: boolean;
-  user: unknown; 
+  user: unknown;
 }
 export function useProfileData(): UseProfileDataReturn {
   const { profile, isLoading, error, isAuthenticated, user } = useUserProfile();
@@ -6898,7 +6898,7 @@ export const OptionIcon = function () {
 export default function formatSortDirection(dir: string) {
   if (dir === "asc") return "Ascending";
   if (dir === "desc") return "Descending";
-  return dir.charAt(0).toUpperCase() + dir.slice(1); 
+  return dir.charAt(0).toUpperCase() + dir.slice(1);
 }
 </file>
 
@@ -6942,12 +6942,12 @@ import formatSortName from "./helpers/formatSortName";
 import { SortOption } from "./SortTypes";
 export default function SortClient({
   initialSortOptions = [],
-  currentSort = "", 
+  currentSort = "",
 }: {
   initialSortOptions?: SortOption[];
   currentSort?: string;
 }) {
-  const _ = currentSort; 
+  const _ = currentSort;
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -7166,7 +7166,7 @@ export default function AppliedFilters({
     filters: Array<{ key: string; value: string }>;
     sort: { name: string; dir: string } | null;
   } = Array.from(searchParams.entries())
-    .filter(([key]) => !key.includes("page")) 
+    .filter(([key]) => !key.includes("page"))
     .reduce(
       (
         acc: {
@@ -49702,11 +49702,11 @@ RETURNED\_... (The Reverse Logistics flow).
 Why this is better: It maps 1:1 to reality. The Packer controls the checklist. The Carrier controls the movement. The Customer controls the dispute.
 </file>
 
-<file path="sanity/schemaTypes/catalogueItemType.ts">
+<file path="sanity/schemaTypes/cataloguetype.ts">
 import { defineField, defineType } from "sanity";
 import { TagIcon, FolderIcon } from "@sanity/icons";
 
-export const catalogueItemType = defineType({
+export const cataloguetype = defineType({
   name: "catalogueItem",
   title: "Catalogue Item",
   type: "object",
@@ -49719,7 +49719,7 @@ export const catalogueItemType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "itemType",
+      name: "type",
       title: "Item Type",
       type: "string",
       options: {
@@ -49752,7 +49752,7 @@ export const catalogueItemType = defineType({
     }),
   ],
   preview: {
-    select: { title: "title", type: "itemType" },
+    select: { title: "title", type: "type" },
     prepare({ title, type }) {
       const isHeader = type === "header";
       return {
@@ -51477,7 +51477,7 @@ export async function POST(req: NextRequest) {
 //     <ul className="space-y-2">
 //       {items.map((item) => {
 //         const slugString = item.slug?.current;
-//         const isHeader = item.itemType === "header";
+//         const isHeader = item.type === "header";
 
 //         const href =
 //           slugString && !isHeader ? `${parentPath}/${slugString}` : "#";
@@ -52415,7 +52415,7 @@ export default function CategoriesNav({
             const children = item.children || [];
 
             // Logic Mappings
-            const isHeader = item.itemType === "header";
+            const isHeader = item.type === "header";
             const isHighlighted =
               (item as any).isHighlighted || slug === "on-sale";
             const isActive = activeCategory === title;
@@ -53255,7 +53255,7 @@ export const productType = defineType({
           },
           "optional": true
         },
-        "itemType": {
+        "type": {
           "type": "objectAttribute",
           "value": {
             "type": "union",
@@ -54276,7 +54276,7 @@ export type Catalogue = {
 export type CatalogueItem = {
   _type: "catalogueItem";
   title?: string;
-  itemType?: "link" | "header";
+  type?: "link" | "header";
   slug?: Slug;
   icon?: string;
   children?: Array<
@@ -54778,7 +54778,7 @@ import { commercialType } from "./commercialType";
 import { userType } from "./userType";
 // import { categoryFiltersType } from "./categoryFiltersType";
 // import { categorySortablesType } from "./categorySortablesType";
-import { catalogueItemType } from "./catalogueItemType";
+import { cataloguetype } from "./cataloguetype";
 import { catalogueType } from "./catalogueType";
 
 // TODO 4. delete all blockContent
@@ -54786,7 +54786,7 @@ import { catalogueType } from "./catalogueType";
 export const schema = {
   types: [
     // blockContentType,
-    catalogueItemType,
+    cataloguetype,
     catalogueType,
     // categoryType,
     productType,
@@ -54810,7 +54810,7 @@ export const schema = {
 // TODO 2 delete all categories
 // TODO 3 delete all categories fetching code in lib/products
 // TODO 4 run virtual taxonomy seed script
-// TODO Core concept: virtual taxonomy catalogue (virtual file system) lives in the recurisve catalogueitemType schema; which is object, so it lives in 'settings' container; and then, products wire up to slots inside catalogue - a product can wire up to many places; products fetching via groq, it filters via path comparision - a slot clicked, will give all descendants that start with it in terms of path; descendant slots contain product wirings - those will be returned;`
+// TODO Core concept: virtual taxonomy catalogue (virtual file system) lives in the recurisve cataloguetype schema; which is object, so it lives in 'settings' container; and then, products wire up to slots inside catalogue - a product can wire up to many places; products fetching via groq, it filters via path comparision - a slot clicked, will give all descendants that start with it in terms of path; descendant slots contain product wirings - those will be returned;`
 import { getCatalogue } from "@/data/catalogue";
 
 import CategoriesNav from "./CategoriesNav";

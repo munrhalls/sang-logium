@@ -7,7 +7,7 @@ import { commercialType } from "./commercialType";
 import { userType } from "./userType";
 // import { categoryFiltersType } from "./categoryFiltersType";
 // import { categorySortablesType } from "./categorySortablesType";
-import { catalogueItemType } from "./catalogueItemType";
+import { cataloguetype } from "./cataloguetype";
 import { catalogueType } from "./catalogueType";
 
 // TODO 4. delete all blockContent
@@ -15,7 +15,7 @@ import { catalogueType } from "./catalogueType";
 export const schema = {
   types: [
     // blockContentType,
-    catalogueItemType,
+    cataloguetype,
     catalogueType,
     // categoryType,
     productType,

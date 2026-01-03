@@ -25,7 +25,7 @@
         "R9bVoOi1wleAgXnCXER9q",
         "cwjfSx5AHHNGTf46j6BXj"
       ],
-      "itemType": "link"
+      "type": "link"
     },
     "X0ijjgLQc5pnVGZ5uB9Md": {
       "title": "Speakers",
@@ -42,7 +42,7 @@
         "xgyfkJAh90oG6JJVFlURP",
         "28_Sx1s6s0xgzv1t4l4k_"
       ],
-      "itemType": "link"
+      "type": "link"
     },
     "JfWZqAwqcOLNWBMabMc5y": {
       "title": "Personal Audio",
@@ -59,7 +59,7 @@
         "xJSAZj4W0ASAsSLF23jjL",
         "IgQ4lTv5Gn8QHTOTS3Es1"
       ],
-      "itemType": "link"
+      "type": "link"
     },
     "jiS80IhRzgh41eMR_AWo6": {
       "title": "Home Audio",
@@ -76,7 +76,7 @@
         "34MF_aAKZnOmEen0ZQOtG",
         "xPjQHGOI9TRXJN9QzTaCb"
       ],
-      "itemType": "link"
+      "type": "link"
     },
     "bhGPYfXKyPyZ2sixtvS7X": {
       "title": "Studio Equipment",
@@ -89,7 +89,7 @@
         }
       ],
       "children": ["YSOR4-ZcEmRtJUEZGgrgl", "igkH1-53EAidFCuwHMC9k"],
-      "itemType": "link"
+      "type": "link"
     },
     "_EDhByj4HR6NH7X1DHHfr": {
       "title": "Accessories",
@@ -107,7 +107,7 @@
         "wp8-KGe6cOwSbmV0KnssN",
         "jRqROPjh9R42eZ8GGN8pb"
       ],
-      "itemType": "link"
+      "type": "link"
     },
     "sXIqLWIxMpCT5E2VxPkad": {
       "title": "On Sale",
@@ -120,7 +120,7 @@
         }
       ],
       "children": [],
-      "itemType": "link"
+      "type": "link"
     }
   },
   "tree": [

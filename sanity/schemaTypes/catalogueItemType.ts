@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { TagIcon, FolderIcon } from "@sanity/icons";
 
-export const catalogueItemType = defineType({
+export const cataloguetype = defineType({
   name: "catalogueItem",
   title: "Catalogue Item",
   type: "object",
@@ -14,7 +14,7 @@ export const catalogueItemType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "itemType",
+      name: "type",
       title: "Item Type",
       type: "string",
       options: {
