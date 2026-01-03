@@ -163,7 +163,7 @@ app/components/features/profile/hooks/useErrorHandler.ts
 app/components/features/profile/hooks/useProfileData.ts
 app/components/features/profile/ProfileHeader.tsx
 app/components/features/profile/UserProfilePage.tsx
-app/components/layout/categoryMenu/CategoriesNav.tsx
+app/components/layout/categoryMenu/CatalogueNav.tsx
 app/components/layout/categoryMenu/categoriesRawDataOldFormat.json
 app/components/layout/categoryMenu/categoriesRawDataOldFormatNicelyShaped.json
 app/components/layout/categoryMenu/CategoriesSkeleton.tsx
@@ -48022,7 +48022,7 @@ C:\Users\janpi\OneDrive\Desktop\Web Development\Web Projects\sang-logium
 |  |  |     └── UserProfilePage.tsx
 |  |  ├── layout
 |  |  |  ├── categoryMenu
-|  |  |  |  ├── CategoriesNav.tsx
+|  |  |  |  ├── CatalogueNav.tsx
 |  |  |  |  ├── CategoriesSkeleton.tsx
 |  |  |  |  └── CategoriesWrapper.tsx
 |  |  |  ├── footer
@@ -52360,7 +52360,7 @@ export default async function MobileCategoriesDrawerWrapper() {
 }
 </file>
 
-<file path="app/components/layout/categoryMenu/CategoriesNav.tsx">
+<file path="app/components/layout/categoryMenu/CatalogueNav.tsx">
 "use client";
 
 import Link from "next/link";
@@ -52390,7 +52390,7 @@ const ICON_MAP: Record<string, any> = {
   "on-sale": Tag,
 };
 
-export default function CategoriesNav({
+export default function CatalogueNav({
   catalogue,
 }: {
   catalogue: CatalogueTree;
@@ -52501,7 +52501,7 @@ export default function CategoriesNav({
 // import { SubcategoryList } from "./SubcategoryList";
 // import { CatalogueTree } from "@/data/catalogue";
 
-// export default function CategoriesNav({
+// export default function CatalogueNav({
 //   catalogue,
 // }: {
 //   catalogue: CatalogueTree;
@@ -54813,7 +54813,7 @@ export const schema = {
 // TODO Core concept: virtual taxonomy catalogue (virtual file system) lives in the recurisve cataloguetype schema; which is object, so it lives in 'settings' container; and then, products wire up to slots inside catalogue - a product can wire up to many places; products fetching via groq, it filters via path comparision - a slot clicked, will give all descendants that start with it in terms of path; descendant slots contain product wirings - those will be returned;`
 import { getCatalogue } from "@/data/catalogue";
 
-import CategoriesNav from "./CategoriesNav";
+import CatalogueNav from "./CatalogueNav";
 
 export default async function CategoriesWrapper() {
   const catalogue = await getCatalogue();
@@ -54822,7 +54822,7 @@ export default async function CategoriesWrapper() {
     return null;
   }
 
-  return <CategoriesNav catalogue={catalogue} />;
+  return <CatalogueNav catalogue={catalogue} />;
 }
 </file>
 

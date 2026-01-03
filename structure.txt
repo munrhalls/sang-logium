@@ -172,7 +172,7 @@ C:\Users\janpi\OneDrive\Desktop\Web Development\Web Projects\sang-logium
 |  |  |     └── UserProfilePage.tsx
 |  |  ├── layout
 |  |  |  ├── categoryMenu
-|  |  |  |  ├── CategoriesNav.tsx
+|  |  |  |  ├── CatalogueNav.tsx
 |  |  |  |  ├── CategoriesSkeleton.tsx
 |  |  |  |  └── CategoriesWrapper.tsx
 |  |  |  ├── footer
