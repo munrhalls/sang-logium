@@ -35,12 +35,15 @@ async function buildCatalogueIndex() {
         const currentSlug = node.slug.current;
         // Handle root vs nested
         const fullPath = [...parentPath, currentSlug].join("/");
-        const url = `/${fullPath}`;
+        // Prefix with /shop or keep root relative depending on your route structure
+        // Assuming your catch-all is at /shop/[...slug], we might want /shop/headphones
+        // But for the map key, we often keep it simple. Let's stick to your logic:
+        const url = fullPath; // Key = "headphones/wired"
 
         // Breadcrumbs for UI
         const breadcrumbs = [
           ...parentBreadcrumbs,
-          { label: node.title, url: url },
+          { label: node.title, url: `/shop/${url}` }, // UI URL
         ];
 
         // A. URL Look-up (Routing)
@@ -49,7 +52,7 @@ async function buildCatalogueIndex() {
         // B. ID Look-up (Product resolution)
         idMap[node._key] = {
           title: node.title,
-          url: url,
+          url: `/shop/${url}`,
           slug: currentSlug,
           breadcrumbs: breadcrumbs,
           children: node.children?.map((c) => c._key) || [],
@@ -67,14 +70,12 @@ async function buildCatalogueIndex() {
       generatedAt: new Date().toISOString(),
       urlMap,
       idMap,
+      tree: catalogue, // 👈 CRITICAL FIX: Added the full tree here
     };
 
-    const outputPath = path.join(
-      process.cwd(),
-      "app",
-      "data",
-      "catalogue-index.json"
-    );
+    // ⚠️ Updated path to 'src/data' to match your @/data import alias
+    const outputPath = path.join(process.cwd(), "data", "catalogue-index.json");
+
     // Ensure directory exists
     await fs.mkdir(path.dirname(outputPath), { recursive: true });
     await fs.writeFile(outputPath, JSON.stringify(output, null, 2));
