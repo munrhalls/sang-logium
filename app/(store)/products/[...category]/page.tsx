@@ -18,6 +18,7 @@ import Pagination from "@/app/components/ui/pagination/Pagination";
 import getSelectedPagination from "../helpers/getSelectedPagination";
 type Params = Promise<{ category: string }>;
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
 export default async function ProductsPage(props: {
   params: Params;
   searchParams: SearchParams;

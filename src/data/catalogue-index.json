@@ -1,0 +1,122 @@
+{
+  "generatedAt": "2026-01-03T09:15:19.173Z",
+  "urlMap": {
+    "/headphones": "zemHaTBY7QMZEyx6WgMYi",
+    "/speakers": "X0ijjgLQc5pnVGZ5uB9Md",
+    "/personal-audio": "JfWZqAwqcOLNWBMabMc5y",
+    "/home-audio": "jiS80IhRzgh41eMR_AWo6",
+    "/studio-equipment": "bhGPYfXKyPyZ2sixtvS7X",
+    "/accessories": "_EDhByj4HR6NH7X1DHHfr",
+    "/on-sale": "sXIqLWIxMpCT5E2VxPkad"
+  },
+  "idMap": {
+    "zemHaTBY7QMZEyx6WgMYi": {
+      "title": "Headphones",
+      "url": "/headphones",
+      "slug": "headphones",
+      "breadcrumbs": [
+        {
+          "label": "Headphones",
+          "url": "/headphones"
+        }
+      ],
+      "children": [
+        "gJvupOFvek9IA28wG1pJw",
+        "R9bVoOi1wleAgXnCXER9q",
+        "cwjfSx5AHHNGTf46j6BXj"
+      ]
+    },
+    "X0ijjgLQc5pnVGZ5uB9Md": {
+      "title": "Speakers",
+      "url": "/speakers",
+      "slug": "speakers",
+      "breadcrumbs": [
+        {
+          "label": "Speakers",
+          "url": "/speakers"
+        }
+      ],
+      "children": [
+        "9eQyVlSBWINktO5TCFf9S",
+        "xgyfkJAh90oG6JJVFlURP",
+        "28_Sx1s6s0xgzv1t4l4k_"
+      ]
+    },
+    "JfWZqAwqcOLNWBMabMc5y": {
+      "title": "Personal Audio",
+      "url": "/personal-audio",
+      "slug": "personal-audio",
+      "breadcrumbs": [
+        {
+          "label": "Personal Audio",
+          "url": "/personal-audio"
+        }
+      ],
+      "children": [
+        "9BK0Nu0WtqIcP7_xdU_5K",
+        "xJSAZj4W0ASAsSLF23jjL",
+        "IgQ4lTv5Gn8QHTOTS3Es1"
+      ]
+    },
+    "jiS80IhRzgh41eMR_AWo6": {
+      "title": "Home Audio",
+      "url": "/home-audio",
+      "slug": "home-audio",
+      "breadcrumbs": [
+        {
+          "label": "Home Audio",
+          "url": "/home-audio"
+        }
+      ],
+      "children": [
+        "Jdjqtf7kej4P8y10QaByV",
+        "34MF_aAKZnOmEen0ZQOtG",
+        "xPjQHGOI9TRXJN9QzTaCb"
+      ]
+    },
+    "bhGPYfXKyPyZ2sixtvS7X": {
+      "title": "Studio Equipment",
+      "url": "/studio-equipment",
+      "slug": "studio-equipment",
+      "breadcrumbs": [
+        {
+          "label": "Studio Equipment",
+          "url": "/studio-equipment"
+        }
+      ],
+      "children": [
+        "YSOR4-ZcEmRtJUEZGgrgl",
+        "igkH1-53EAidFCuwHMC9k"
+      ]
+    },
+    "_EDhByj4HR6NH7X1DHHfr": {
+      "title": "Accessories",
+      "url": "/accessories",
+      "slug": "accessories",
+      "breadcrumbs": [
+        {
+          "label": "Accessories",
+          "url": "/accessories"
+        }
+      ],
+      "children": [
+        "Qt7SYKy11ImZaDXOYObrP",
+        "MMsC8u8jiHf-6TEugX4dY",
+        "wp8-KGe6cOwSbmV0KnssN",
+        "jRqROPjh9R42eZ8GGN8pb"
+      ]
+    },
+    "sXIqLWIxMpCT5E2VxPkad": {
+      "title": "On Sale",
+      "url": "/on-sale",
+      "slug": "on-sale",
+      "breadcrumbs": [
+        {
+          "label": "On Sale",
+          "url": "/on-sale"
+        }
+      ],
+      "children": []
+    }
+  }
+}
