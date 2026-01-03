@@ -1,7 +1,6 @@
 import client from "./../../getClient.mjs";
 
 const manualOverrides = {
-  // --- PREVIOUS FIXES ---
   bluetooth: "bluetooth-speakers",
   bookshelf: "bookshelf-speakers",
   outdoor: "outdoor-speakers",
@@ -12,7 +11,6 @@ const manualOverrides = {
   receivers: "receivers",
   turntables: "turntables",
   "cd-players": "cd-players",
-  // "cables": "audio-cables", <--- REMOVED (Now handled by Smart Rules)
   stands: "speaker-stands",
   mounts: "wall-mounts",
   "media-players-and-streamers": "digital-audio-players",
@@ -24,7 +22,6 @@ const manualOverrides = {
   "floor-standing": "floor-standing-speakers",
 };
 
-// 🧠 SMART RULES: Context-aware mapping based on Product Name
 const SMART_RULES = {
   cables: [
     { contains: "power", target: "power-cables" },
@@ -33,7 +30,6 @@ const SMART_RULES = {
     { contains: "ethernet", target: "ethernet-cables" },
     { contains: "rca", target: "rca-cables" },
     { contains: "headphone", target: "headphone-cables" },
-    // Default fallback if no keywords match:
     { default: "audio-cables" },
   ],
 };
@@ -58,7 +54,7 @@ function buildMenuMap(nodes, map = new Map()) {
 }
 
 async function runDryRun() {
-  console.log("🚀 Starting Full Catalog Dry Run (V7 - Smart Logic Check)...");
+  console.log("🚀 Starting Full Catalog Dry Run (V8 - Smart & Dedup Check)...");
 
   try {
     const catalogueDoc = await client.fetch(`*[_id == "catalogue"][0]`);
@@ -74,12 +70,13 @@ async function runDryRun() {
     const readyToMigrate = [];
     const failures = [];
 
-    // Log to track how smart rules are performing
+    // Logs for verification
     const smartLog = {};
+    const dedupLog = []; // <--- NEW: Tracks merged duplicates
 
     for (const product of allProducts) {
       const legacyPaths = product.categoryPath || [];
-      const proposedKeys = [];
+      const rawKeys = []; // Store ALL matches first (including duplicates)
 
       for (const rawPath of legacyPaths) {
         if (typeof rawPath !== "string") continue;
@@ -89,7 +86,7 @@ async function runDryRun() {
         let smartTarget = null;
         let isSmartMatch = false;
 
-        // 1. SMART CHECK (Priority)
+        // 1. SMART CHECK
         if (SMART_RULES[leaf]) {
           const productName = product.name.toLowerCase();
           const rule = SMART_RULES[leaf].find(
@@ -103,7 +100,7 @@ async function runDryRun() {
           }
         }
 
-        // 2. DICTIONARY CHECK (Fallback)
+        // 2. DICTIONARY CHECK
         if (!key) key = menuMap.get(manualOverrides[leaf]);
 
         // 3. FUZZY CHECK
@@ -113,8 +110,8 @@ async function runDryRun() {
         if (!key) key = menuMap.get(slugify(rawPath.replace(/\//g, "-")));
 
         if (key) {
-          proposedKeys.push(key);
-          // Collect data for the report
+          rawKeys.push(key);
+          // Smart Log logic
           if (isSmartMatch) {
             if (!smartLog[smartTarget]) smartLog[smartTarget] = [];
             smartLog[smartTarget].push(product.name);
@@ -122,7 +119,20 @@ async function runDryRun() {
         }
       }
 
-      if (proposedKeys.length > 0) {
+      // --- DEDUPLICATION LOGIC ---
+      // We convert the array of raw keys into a Set to remove duplicates
+      const uniqueKeys = new Set(rawKeys);
+
+      // If the size shrank, we successfully merged a duplicate!
+      if (uniqueKeys.size < rawKeys.length) {
+        dedupLog.push({
+          name: product.name,
+          rawCount: rawKeys.length,
+          uniqueCount: uniqueKeys.size,
+        });
+      }
+
+      if (uniqueKeys.size > 0) {
         readyToMigrate.push({ id: product._id });
       } else {
         failures.push({ name: product.name, legacyData: legacyPaths });
@@ -133,7 +143,7 @@ async function runDryRun() {
       `\n✅ Ready: ${readyToMigrate.length} | ❌ Failures: ${failures.length}`
     );
 
-    // --- SMART LOGIC SUMMARY ---
+    // --- REPORT 1: SMART LOGIC ---
     const smartKeys = Object.keys(smartLog);
     if (smartKeys.length > 0) {
       console.log("\n🧠 Smart Logic Breakdown:");
@@ -143,10 +153,25 @@ async function runDryRun() {
         console.log(
           `👉 ${target.toUpperCase()}: ${items.length} products found`
         );
-        // Show up to 3 examples
         items.slice(0, 3).forEach((name) => console.log(`      - ${name}`));
       });
+    }
+
+    // --- REPORT 2: DEDUPLICATION ---
+    if (dedupLog.length > 0) {
+      console.log("\n🔄 Deduplication Report (Redundancy Eliminated):");
       console.log("-----------------------------------------------");
+      console.log(
+        `Found ${dedupLog.length} products with redundant categories.`
+      );
+      dedupLog.slice(0, 5).forEach((d) => {
+        console.log(
+          `   - "${d.name}" merged ${d.rawCount} paths into ${d.uniqueCount} unique location.`
+        );
+      });
+      console.log("-----------------------------------------------");
+    } else {
+      console.log("\n✅ No duplicates found in legacy data (Clean dataset).");
     }
 
     if (failures.length > 0) {
@@ -155,7 +180,7 @@ async function runDryRun() {
         JSON.stringify(failures.slice(0, 5), null, 2)
       );
     } else {
-      console.log("\n✨ 100% MATCH! Protocol Check 1 Passed.");
+      console.log("\n✨ 100% MATCH! Protocol Check 2 (Duplicates) Passed.");
     }
   } catch (error) {
     console.error("❌ Error:", error.message);

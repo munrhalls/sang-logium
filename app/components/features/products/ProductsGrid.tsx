@@ -1,5 +1,6 @@
 import ProductThumb from "@/app/components/features/products/ProductThumb";
 import { ALL_PRODUCTS_QUERYResult } from "@/sanity.types";
+
 export default function ProductsGrid({
   products,
 }: {

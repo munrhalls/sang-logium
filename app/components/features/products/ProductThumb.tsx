@@ -4,9 +4,11 @@ import Link from "next/link";
 import { imageUrl } from "@/lib/sanity/imageUrl";
 import BasketControls from "../basket/BasketControls";
 import { BasketItem } from "@/app/(store)/basket/basket.types";
+
 interface ProductThumbProps {
   product: Product;
 }
+
 const ProductThumb = ({ product }: ProductThumbProps) => {
   if (
     !product.name ||
