@@ -4,7 +4,7 @@ import path from "path";
 import dotenv from "dotenv";
 
 // Load environment variables for the build script
-dotenv.config({ path: ".env.local" });
+dotenv.config({ path: ".env" });
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -73,7 +73,7 @@ async function buildCatalogueIndex() {
       tree: catalogue, // 👈 CRITICAL FIX: Added the full tree here
     };
 
-    // ⚠️ Updated path to 'src/data' to match your @/data import alias
+    // ⚠️ Updated path to '/data' to match your @/data import alias
     const outputPath = path.join(process.cwd(), "data", "catalogue-index.json");
 
     // Ensure directory exists
