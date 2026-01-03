@@ -5,7 +5,7 @@ import { FaRegCircle } from "react-icons/fa";
 import { CatalogueTree } from "@/data/catalogue";
 
 interface SubcategoryListProps {
-  items: CatalogueTree[];
+  items: CatalogueTree;
   parentPath: string;
 }
 

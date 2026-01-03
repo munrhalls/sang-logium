@@ -14,8 +14,9 @@ import {
   Cable,
   Tag,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const ICON_MAP: Record<string, any> = {
+const ICON_MAP: Record<string, LucideIcon> = {
   headphones: Headphones,
   speakers: Speaker,
   "personal-audio": Headset,
@@ -47,8 +48,7 @@ export default function CategoriesNav({
             const children = item.children || [];
 
             const isHeader = item.type === "header";
-            const isHighlighted =
-              (item as any).isHighlighted || slug === "on-sale";
+            const isHighlighted = slug === "on-sale";
             const isActive = activeCategory === title;
             const hasChildren = children.length > 0;
             const Icon = ICON_MAP[slug];
