@@ -3,7 +3,7 @@ import { client } from "../client";
 
 export const getAllCategories = async () => {
   const ALL_CATEGORIES_QUERY = defineQuery(`
-    *[_type == "settings"][0].mainMenu[]{
+    *[_type == "catalogue"][0].catalogueItem[]{
       _key,
       title,
       type,

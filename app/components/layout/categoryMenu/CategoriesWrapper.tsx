@@ -9,8 +9,8 @@ import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import CategoriesNav from "./CategoriesNav";
 
 export default async function CategoriesWrapper() {
-  const menuItems = await getAllCategories();
-  console.log("CATEGORIES", menuItems);
+  const catalogue = await getAllCategories();
+  console.log("Catalogue", catalogue);
 
-  return <CategoriesNav menuItems={menuItems} />;
+  return <CategoriesNav menuItems={catalogue} />;
 }
