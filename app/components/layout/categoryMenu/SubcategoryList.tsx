@@ -1,61 +1,54 @@
-import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
+"use client";
+
 import Link from "next/link";
-import { FaRegCircle } from "react-icons/fa";
+import { CatalogueTree } from "@/data/catalogue";
 
-type MenuItem = NonNullable<ALL_CATEGORIES_QUERYResult>[0];
+interface SubcategoryListProps {
+  items: CatalogueTree;
+  parentPath: string;
+}
 
-const MenuHeader = ({ title }: { title: string | null }) => (
-  <h3 className="px-4 py-2 font-black text-gray-500">{title}</h3>
-);
-
-const MenuLink = ({
-  title,
-  href,
-  onClick,
-}: {
-  title: string | null;
-  href: string;
-  onClick?: () => void;
-}) => (
-  <Link
-    href={href}
-    onClick={onClick}
-    className="group flex min-w-0 items-center rounded-md px-4 py-2 text-gray-800 transition-all duration-100 hover:bg-gray-300 hover:text-yellow-600"
-  >
-    <FaRegCircle className="mr-2 text-sm" />
-    <span className="block overflow-hidden whitespace-nowrap">{title}</span>
-  </Link>
-);
-
-export function SubcategoryList({
+export const SubcategoryList = ({
   items,
   parentPath,
-}: {
-  items: MenuItem[];
-  parentPath: string;
-}) {
-  if (items.length === 0) return null;
+}: SubcategoryListProps) => {
+  if (!items || items.length === 0) return null;
 
   return (
-    <div className="pl-4">
+    <ul className="space-y-2">
       {items.map((item) => {
-        if (item.type === "header") {
-          return (
-            <div key={item._key}>
-              <MenuHeader title={item.title} />
-              <SubcategoryList items={item.children} parentPath={parentPath} />
-            </div>
-          );
-        }
+        const slugString = item.slug?.current;
+        const isHeader = item.itemType === "header";
 
-        const href = `${parentPath}/${item.slug}`;
+        const href =
+          slugString && !isHeader ? `${parentPath}/${slugString}` : "#";
+
+        const itemTitle = item.title || "Untitled";
+        const hasChildren = item.children && item.children.length > 0;
+
         return (
-          <div key={item._key}>
-            <MenuLink title={item.title} href={href} />
-            <SubcategoryList items={item.children} parentPath={href} />
-          </div>
+          <li key={item._key} className="block">
+            <Link
+              href={href}
+              className={`block text-sm transition-colors duration-200 ${isHeader ? "mb-1 mt-3 cursor-default font-bold text-gray-900" : "text-gray-500 hover:text-black"} `}
+              onClick={(e) => {
+                if (isHeader) e.preventDefault();
+              }}
+            >
+              {itemTitle}
+            </Link>
+
+            {hasChildren && (
+              <div className="mt-1 border-l border-gray-100 pl-3">
+                <SubcategoryList
+                  items={item.children || []}
+                  parentPath={href}
+                />
+              </div>
+            )}
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
-}
+};
