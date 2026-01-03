@@ -12,8 +12,8 @@ import FeaturedProductsSkeleton from "../components/features/homepage/featured-p
 import FeaturedProducts from "../components/features/homepage/featured-products/FeaturedProducts";
 import MonthProductSkeleton from "../components/features/homepage/month-product/MonthProductSkeleton";
 import MonthProduct from "../components/features/homepage/month-product/MonthProduct";
-import MainCategoriesSkeleton from "../components/features/homepage/catalogueBanners/CatalogueBannersSkeleton";
-import MainCategories from "../components/features/homepage/catalogueBanners/CatalogueBanners";
+// import CatalogueBannersSkeleton from "../components/features/homepage/catalogueBanners/CatalogueBannersSkeleton";
+// import CatalogueBanners from "../components/features/homepage/catalogueBanners/CatalogueBanners";
 import Footer from "../components/layout/footer/Footer";
 import { Suspense } from "react";
 export const revalidate = 5400;
@@ -51,11 +51,11 @@ export default async function Page() {
             <MonthProduct />
           </Suspense>
         </div>
-        <div className="col-start-1 col-end-4">
-          <Suspense fallback={<MainCategoriesSkeleton />}>
-            <MainCategories />
+        {/* <div className="col-start-1 col-end-4">
+          <Suspense fallback={<CatalogueBannersSkeleton />}>
+            <CatalogueBanners />
           </Suspense>
-        </div>
+        </div> */}
       </div>
       <Footer />
     </main>
