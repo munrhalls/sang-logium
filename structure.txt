@@ -150,7 +150,7 @@ C:\Users\janpi\OneDrive\Desktop\Web Development\Web Projects\sang-logium
 |  |  |  |  |  └── TextCommercialWrapper.tsx
 |  |  |  |  ├── main-categories
 |  |  |  |  |  ├── MainCategories.tsx
-|  |  |  |  |  └── MainCategoriesSkeleton.tsx
+|  |  |  |  |  └── MainCatalogueSkeleton.tsx
 |  |  |  |  ├── month-product
 |  |  |  |  |  ├── MonthProduct.tsx
 |  |  |  |  |  ├── MonthProductSkeleton.tsx
@@ -173,7 +173,7 @@ C:\Users\janpi\OneDrive\Desktop\Web Development\Web Projects\sang-logium
 |  |  ├── layout
 |  |  |  ├── categoryMenu
 |  |  |  |  ├── CatalogueNav.tsx
-|  |  |  |  ├── CategoriesSkeleton.tsx
+|  |  |  |  ├── CatalogueSkeleton.tsx
 |  |  |  |  └── CategoriesWrapper.tsx
 |  |  |  ├── footer
 |  |  |  |  └── Footer.tsx

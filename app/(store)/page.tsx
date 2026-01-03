@@ -12,8 +12,8 @@ import FeaturedProductsSkeleton from "../components/features/homepage/featured-p
 import FeaturedProducts from "../components/features/homepage/featured-products/FeaturedProducts";
 import MonthProductSkeleton from "../components/features/homepage/month-product/MonthProductSkeleton";
 import MonthProduct from "../components/features/homepage/month-product/MonthProduct";
-import MainCategoriesSkeleton from "../components/features/homepage/main-categories/MainCategoriesSkeleton";
-import MainCategories from "../components/features/homepage/main-categories/MainCategories";
+import MainCategoriesSkeleton from "../components/features/homepage/catalogueBanners/CatalogueBannersSkeleton";
+import MainCategories from "../components/features/homepage/catalogueBanners/CatalogueBanners";
 import Footer from "../components/layout/footer/Footer";
 import { Suspense } from "react";
 export const revalidate = 5400;

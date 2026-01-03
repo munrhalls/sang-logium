@@ -6,6 +6,7 @@ import { PortableText } from "@portabletext/react";
 import { PortableTextComponents } from "@portabletext/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+
 export default async function MainCategories() {
   const commercials = await getCommercialsByFeature("main-categories");
   if (!commercials || !commercials.length) return null;

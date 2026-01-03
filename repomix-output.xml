@@ -149,7 +149,7 @@ app/components/features/homepage/hero-commercials/HeroFallback.tsx
 app/components/features/homepage/hero-main/HeroMain.tsx
 app/components/features/homepage/hero-main/TextCommercialWrapper.tsx
 app/components/features/homepage/main-categories/MainCategories.tsx
-app/components/features/homepage/main-categories/MainCategoriesSkeleton.tsx
+app/components/features/homepage/main-categories/MainCatalogueSkeleton.tsx
 app/components/features/homepage/month-product/MonthProduct.tsx
 app/components/features/homepage/month-product/MonthProductSkeleton.tsx
 app/components/features/homepage/month-product/TimeStamp.tsx
@@ -166,7 +166,7 @@ app/components/features/profile/UserProfilePage.tsx
 app/components/layout/categoryMenu/CatalogueNav.tsx
 app/components/layout/categoryMenu/categoriesRawDataOldFormat.json
 app/components/layout/categoryMenu/categoriesRawDataOldFormatNicelyShaped.json
-app/components/layout/categoryMenu/CategoriesSkeleton.tsx
+app/components/layout/categoryMenu/CatalogueSkeleton.tsx
 app/components/layout/categoryMenu/CategoriesWrapper.tsx
 app/components/layout/categoryMenu/Category.tsx
 app/components/layout/categoryMenu/oldSchema.json
@@ -4612,8 +4612,8 @@ export default async function MainCategories() {
 }
 </file>
 
-<file path="app/components/features/homepage/main-categories/MainCategoriesSkeleton.tsx">
-export default function MainCategoriesSkeleton() {
+<file path="app/components/features/homepage/main-categories/MainCatalogueSkeleton.tsx">
+export default function MainCatalogueSkeleton() {
   return (
     <div className="relative h-full grid grid-rows-3 place-items-center lg:grid-rows-1 lg:grid-cols-3 bg-black"></div>
   );
@@ -5120,9 +5120,9 @@ function ProfileNotFoundState() {
 }
 </file>
 
-<file path="app/components/layout/categoryMenu/CategoriesSkeleton.tsx">
+<file path="app/components/layout/categoryMenu/CatalogueSkeleton.tsx">
 import React from "react";
-export default function CategoriesSkeleton() {
+export default function CatalogueSkeleton() {
   return (
     <div className="flex items-center justify-center bg-black font-bold tracking-wide text-white">
       Loading...
@@ -34692,7 +34692,7 @@ import FeaturedProductsSkeleton from "../components/features/homepage/featured-p
 import FeaturedProducts from "../components/features/homepage/featured-products/FeaturedProducts";
 import MonthProductSkeleton from "../components/features/homepage/month-product/MonthProductSkeleton";
 import MonthProduct from "../components/features/homepage/month-product/MonthProduct";
-import MainCategoriesSkeleton from "../components/features/homepage/main-categories/MainCategoriesSkeleton";
+import MainCatalogueSkeleton from "../components/features/homepage/main-categories/MainCatalogueSkeleton";
 import MainCategories from "../components/features/homepage/main-categories/MainCategories";
 import Footer from "../components/layout/footer/Footer";
 import { Suspense } from "react";
@@ -34732,7 +34732,7 @@ export default async function Page() {
           </Suspense>
         </div>
         <div className="col-start-1 col-end-4">
-          <Suspense fallback={<MainCategoriesSkeleton />}>
+          <Suspense fallback={<MainCatalogueSkeleton />}>
             <MainCategories />
           </Suspense>
         </div>
@@ -48000,7 +48000,7 @@ C:\Users\janpi\OneDrive\Desktop\Web Development\Web Projects\sang-logium
 |  |  |  |  |  └── TextCommercialWrapper.tsx
 |  |  |  |  ├── main-categories
 |  |  |  |  |  ├── MainCategories.tsx
-|  |  |  |  |  └── MainCategoriesSkeleton.tsx
+|  |  |  |  |  └── MainCatalogueSkeleton.tsx
 |  |  |  |  ├── month-product
 |  |  |  |  |  ├── MonthProduct.tsx
 |  |  |  |  |  ├── MonthProductSkeleton.tsx
@@ -48023,7 +48023,7 @@ C:\Users\janpi\OneDrive\Desktop\Web Development\Web Projects\sang-logium
 |  |  ├── layout
 |  |  |  ├── categoryMenu
 |  |  |  |  ├── CatalogueNav.tsx
-|  |  |  |  ├── CategoriesSkeleton.tsx
+|  |  |  |  ├── CatalogueSkeleton.tsx
 |  |  |  |  └── CategoriesWrapper.tsx
 |  |  |  ├── footer
 |  |  |  |  └── Footer.tsx
@@ -54961,7 +54961,7 @@ import CategoriesWrapper from "../components/layout/categoryMenu/CategoriesWrapp
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
-import CategoriesSkeleton from "../components/layout/categoryMenu/CategoriesSkeleton";
+import CatalogueSkeleton from "../components/layout/categoryMenu/CatalogueSkeleton";
 
 export const metadata: Metadata = {
   alternates: {
@@ -55011,7 +55011,7 @@ export default async function RootLayout({
         >
           <NuqsAdapter>
             <Header />
-            <Suspense fallback={<CategoriesSkeleton />}>
+            <Suspense fallback={<CatalogueSkeleton />}>
               <CategoriesWrapper />
             </Suspense>
 

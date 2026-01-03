@@ -6,11 +6,11 @@ import type { Metadata } from "next";
 import { Inter, DM_Serif_Display } from "next/font/google";
 import Header from "@/app/components/layout/header/Header";
 
-import CategoriesWrapper from "../components/layout/categoryMenu/CategoriesWrapper";
+import CategoriesWrapper from "../components/layout/categoryMenu/CatalogueWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
-import CategoriesSkeleton from "../components/layout/categoryMenu/CategoriesSkeleton";
+import CatalogueSkeleton from "../components/layout/categoryMenu/CatalogueSkeleton";
 
 export const metadata: Metadata = {
   alternates: {
@@ -60,7 +60,7 @@ export default async function RootLayout({
         >
           <NuqsAdapter>
             <Header />
-            <Suspense fallback={<CategoriesSkeleton />}>
+            <Suspense fallback={<CatalogueSkeleton />}>
               <CategoriesWrapper />
             </Suspense>
 
