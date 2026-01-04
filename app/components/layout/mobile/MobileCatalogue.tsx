@@ -17,3 +17,57 @@
 // Build incrementally; test each level before adding the next
 // Use optional chaining for slug.current and add fallback slug generation
 // Test with all 7 catalogue categories to catch edge cases early
+
+"use client";
+
+import Link from "next/link";
+import { FaRegCircle } from "react-icons/fa";
+import { AdaptiveCategoryIcon } from "@/app/components/ui/AdaptiveCategoryIcon";
+import { CatalogueTree } from "@/data/catalogue";
+import { getCatalogue } from "@/data/catalogue";
+
+export default function MobileCatalogue() {
+  const catalogue: CatalogueTree = getCatalogue();
+  if (!catalogue || catalogue.length === 0) {
+    return (
+      <div className="p-4">
+        Catalogue is temporarily down due to rare exception and will be back
+        soon, please check back shortly!
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-4">
+      <div className="grid gap-6 bg-white">
+        {catalogue.map((item) => {
+          const slug = item.slug?.current || "";
+          const categoryPath = `/products/${slug}`;
+
+          return (
+            <div key={item._key} className="space-y-2">
+              <Link
+                href={categoryPath}
+                className="flex items-center text-2xl font-semibold hover:text-gray-600"
+              >
+                {item.icon && (
+                  <span className="mr-3">
+                    <AdaptiveCategoryIcon title={item.icon} />
+                  </span>
+                )}
+                <span
+                  className={`${item.title === "On Sale" ? "text-orange-500" : ""}`}
+                >
+                  {item.title}
+                </span>
+              </Link>
+            </div>
+          );
+        })}
+      </div>
+      <p className="mt-8 flex items-center justify-center text-gray-500">
+        End.
+      </p>
+    </div>
+  );
+}

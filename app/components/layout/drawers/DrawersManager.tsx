@@ -1,6 +1,9 @@
 "use client";
 import { cn } from "@/lib/utils/tailwind";
 import { useDrawer } from "@/app/hooks/nuqs/useDrawer";
+import MobileCatalogue from "@/app/components/layout/mobile/MobileCatalogue";
+// TODO
+// import mobile catalogue component here
 
 export default function DrawerManager() {
   const { drawer, isOpen, closeDrawer } = useDrawer();
@@ -15,7 +18,8 @@ export default function DrawerManager() {
       <button onClick={closeDrawer} className="p-4">
         Close
       </button>
-      <div className="p-4">Current Drawer: {drawer}</div>
+
+      {drawer === "catalogue" && <MobileCatalogue />}
     </div>
   );
 }
