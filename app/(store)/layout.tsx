@@ -11,6 +11,7 @@ import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
 import CatalogueSkeleton from "../components/layout/categoryMenu/CatalogueSkeleton";
+import DrawersManager from "../components/layout/drawers/DrawersManager";
 
 export const metadata: Metadata = {
   alternates: {
@@ -71,6 +72,7 @@ export default async function RootLayout({
             </div>
 
             <MobileMenu />
+            <DrawersManager />
           </NuqsAdapter>
         </body>
       </ClerkProvider>

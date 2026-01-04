@@ -52,13 +52,14 @@ function MobileMenuButtons() {
             <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
           </Link>
         )} */}
-        <Link
-          href={`${pathname}?drawer=true`}
+
+        <button
+          onClick={() => (isOpen ? closeDrawer() : openDrawer("catalogue"))}
           className="flex flex-col items-center"
         >
           <Menu className="h-6 w-6" />
           <span className="mt-1 hidden text-xs sm:inline-block">Menu</span>
-        </Link>
+        </button>
 
         <Link
           href={`${pathname}?search=true`}
