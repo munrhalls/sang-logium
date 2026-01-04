@@ -11,7 +11,7 @@ export default function DrawerManager() {
   return (
     <div
       className={cn(
-        "fixed right-0 top-0 z-50 h-screen w-3/4 bg-purple-600 shadow-lg transition-transform duration-300 ease-in-out lg:w-1/4",
+        "fixed right-0 top-0 z-50 h-screen w-3/4 shadow-lg transition-transform duration-300 ease-in-out lg:w-1/4",
         isOpen ? "translate-x-0" : "translate-x-full"
       )}
     >

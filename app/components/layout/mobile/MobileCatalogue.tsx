@@ -37,12 +37,63 @@ export default function MobileCatalogue() {
     );
   }
 
+  const renderChildren = (
+    children: CatalogueTree | undefined,
+    baseUrl: string
+  ): JSX.Element[] => {
+    if (!children || children.length === 0) return [];
+
+    return children.map((child) => {
+      const childSlug = child.slug?.current || "";
+      const childPath = `${baseUrl}/${childSlug}`;
+      const isHeader = child.type === "header";
+      const hasChildren = child.children && child.children.length > 0;
+
+      return (
+        <div key={child._key}>
+          {isHeader ? (
+            <h3 className="font-bold text-gray-500">{child.title}</h3>
+          ) : (
+            <Link
+              href={childPath}
+              className="mt-2 flex items-center text-gray-600 hover:text-black"
+            >
+              <FaRegCircle className="mr-2 h-2 w-2" />
+              <span className="text-lg">{child.title}</span>
+            </Link>
+          )}
+          {hasChildren && (
+            <ul className="rounded py-2 pl-3 backdrop-brightness-95">
+              {child.children!.map((grandchild) => {
+                const grandchildSlug = grandchild.slug?.current || "";
+                const grandchildPath = `${baseUrl}/${grandchildSlug}`;
+
+                return (
+                  <li key={grandchild._key}>
+                    <Link
+                      href={grandchildPath}
+                      className="flex items-center justify-start px-4 py-2 text-gray-800 hover:bg-gray-100"
+                    >
+                      <FaRegCircle className="mr-2" />
+                      <span className="text-md">{grandchild.title}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
+      );
+    });
+  };
+
   return (
     <div className="p-4">
       <div className="grid gap-6 bg-white">
         {catalogue.map((item) => {
           const slug = item.slug?.current || "";
           const categoryPath = `/products/${slug}`;
+          const hasChildren = item.children && item.children.length > 0;
 
           return (
             <div key={item._key} className="space-y-2">
@@ -61,6 +112,11 @@ export default function MobileCatalogue() {
                   {item.title}
                 </span>
               </Link>
+              {hasChildren && (
+                <div className="ml-6 space-y-1">
+                  {renderChildren(item.children!, categoryPath)}
+                </div>
+              )}
             </div>
           );
         })}
