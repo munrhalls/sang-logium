@@ -63,10 +63,14 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 
 - Hero carousel and immersive design elements immediately draw the user into the brand's unique mood.
 
-### MOBILE EXPERIENCE
+### MOBILE EXPERIENCE - DRAWERS SYSTEM
 
 - **The Struggle:** Managing 5+ drawer states (Cart, Menu, Search) can easily complicate and make client vs server boundary hard to manage. Next's (native parallel routes + intercepted routes), on the other hand, LAGS (unacceptable UX) and creates bloated code structure.
 - **The Solution:** Decoupled UI state using URL parameters (`?drawer=cart`) to achieve instant responsiveness performance and perfect history navigation. Drawers responsiveness is INSTANT, the same as if they were state-based - but the url functionality and navigation is 100% preserved. Furthermore, It's EASY to created nested url navigation drawers, e.g. user account with orders, order's detail, payment methods etc. It's also easy to split the navigation UX within drawer from the easy exit from drawer UX concerns.
+- **Core Specifications:**
+- Instant Responsiveness UX.
+- Navigation by URL UX: 100% Preserved. Back/Forward buttons work perfectly; opening a drawer pushes history, switching tabs replaces it.
+- Architecture: Decoupled. The "Drawer Shell" manages visibility; the "Content" manages its own nested logic (e.g., Account → Orders) and is 100% independent from the drawer.
 - **[View Architecture Deep Dive →](./app/components/layout/drawers/README.md)**
 
 ---
