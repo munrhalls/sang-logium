@@ -18,6 +18,8 @@
 // Use optional chaining for slug.current and add fallback slug generation
 // Test with all 7 catalogue categories to catch edge cases early
 
+// Make
+
 "use client";
 
 import Link from "next/link";
