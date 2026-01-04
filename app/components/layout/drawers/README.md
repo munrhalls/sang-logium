@@ -27,7 +27,7 @@ I use `nuqs` library to sync the drawer state directly to the URL search paramet
 
 ## 4. Architecture
 
-The DrawersManager acts as a global "host" component that listens to the ?d URL parameter to dynamically render the correct feature (Cart, Menu, Account) inside a shared UI shell.
+The DrawersManager acts as a global "host" component that listens to the ?drawer URL parameter to dynamically render the correct feature (Cart, Menu, Account) inside a shared UI shell.
 
 Critically, opening a drawer creates a new browser history entry (PUSH) so the hardware "Back" button closes it, while internal navigation (like switching Account tabs) updates the current history entry (REPLACE) to prevent trapping the user in a history loop.
 
