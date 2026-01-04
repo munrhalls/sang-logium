@@ -11,12 +11,12 @@ export default function DrawerManager() {
   return (
     <div
       className={cn(
-        "fixed right-0 top-0 z-50 h-screen w-3/4 overflow-y-auto shadow-lg transition-transform duration-300 ease-in-out lg:w-1/4",
+        "fixed bottom-14 right-0 top-0 z-50 h-[calc(100vh-3.5rem)] w-[calc(100vw-1rem)] overflow-y-auto bg-white shadow-lg transition-transform duration-300 ease-in-out lg:w-1/4",
         isOpen ? "translate-x-0" : "translate-x-full"
       )}
     >
       <button onClick={closeDrawer} className="p-4">
-        Close
+        X
       </button>
 
       {drawer === "catalogue" && <MobileCatalogue />}
