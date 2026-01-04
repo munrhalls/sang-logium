@@ -1,10 +1,8 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-import { CloseDrawerButton } from "./CloseDrawerButton";
 
-function MobileSearchDrawerShellInner() {
+export default function MobileSearchDrawer() {
   const searchParams = useSearchParams();
   const isOpen =
     searchParams.get("search") === "true" &&
@@ -19,7 +17,7 @@ function MobileSearchDrawerShellInner() {
       <div className="p-4">
         <div className="border-b border-gray-200 p-2">
           <div className="flex items-center justify-end">
-            <CloseDrawerButton />
+            {/* <CloseDrawerButton /> */}
           </div>
         </div>
         <form action="/search" className="mt-4">
@@ -40,13 +38,5 @@ function MobileSearchDrawerShellInner() {
         </form>
       </div>
     </div>
-  );
-}
-
-export default function MobileSearchDrawerShell() {
-  return (
-    <Suspense fallback={null}>
-      <MobileSearchDrawerShellInner />
-    </Suspense>
   );
 }

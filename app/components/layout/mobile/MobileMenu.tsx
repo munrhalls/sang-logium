@@ -4,8 +4,9 @@ import React from "react";
 import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useQueryState } from "nuqs";
-import { usePathname, useSearchParams } from "next/navigation";
+// import { useQueryState } from "nuqs";
+import { usePathname } from "next/navigation";
+import { useDrawer } from "@/app/hooks/nuqs/useDrawer";
 
 const Authentication = dynamic(
   () => import("@/app/components/features/auth/Authentication"),
@@ -20,10 +21,20 @@ const Authentication = dynamic(
   }
 );
 
-function MobileMenuInner() {
-  // TODO figure how to use NUQS to properly manage query state of both search/menu, given that they are mutually exclusive
+// TODO mobile menu has two parts - buttons and mobile drawers
+// - entirely contained inside mobile menu component
+// - drawers are position fixed and animated via framer motion
+// - nuqs does two part url /drawer/<menu name>
+// - /drawer is about shell that's on/off only
+// - all menu's are inside that one shell
+// - shell's job -> respond to on/off only (url)
+// - menu manager inside shell, its only job -> read the url part after drawer and display the right menu accordingly
+// - Mobile menu has 'mobile drawers' component and the buttons component
+// - mobile drawers contains everything about responding to url with the proper drawer behavior
 
+function MobileMenuButtons() {
   const pathname = usePathname();
+  const { drawer, isOpen, openDrawer, closeDrawer } = useDrawer();
 
   return (
     <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">
@@ -42,7 +53,7 @@ function MobileMenuInner() {
           </Link>
         )} */}
         <Link
-          href={`${pathname}?menu=true`}
+          href={`${pathname}?drawer=true`}
           className="flex flex-col items-center"
         >
           <Menu className="h-6 w-6" />
@@ -72,19 +83,5 @@ function MobileMenuInner() {
 }
 
 export default function MobileMenu() {
-  const [isMenu, setIsMenu] = useQueryState("menu", {
-    defaultValue: false,
-    history: "push",
-  });
-  const searchParams = useSearchParams();
-
-  return (
-    <React.Suspense
-      fallback={
-        <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden" />
-      }
-    >
-      <MobileMenuInner />
-    </React.Suspense>
-  );
+  return <MobileMenuButtons />;
 }
