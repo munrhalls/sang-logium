@@ -2,7 +2,7 @@
 
 **By:** Munrhalls
 **Project Status:** Final Construction Phase (Shipping in 1-2 weeks)
-**Project Type:** Solo Development (12+ months)
+**Project Type:** Independent Full-Stack Product Development (12+ months)
 
 [**LIVE STOREFRONT**](https://sang-logium.com) | [**LIVE MANAGEMENT PANEL**](https://sang-logium.com/studio)
 
@@ -65,7 +65,9 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 
 ### MOBILE EXPERIENCE
 
-- Mobile drawers system using library for URL state management (Nuqs), seamlessly integrated with the web URL address, ensuring lightning fast navigation that retains back/forward navigation.
+- **The Struggle:** Managing 5+ drawer states (Cart, Menu, Search) can easily complicate and make client vs server boundary hard to manage. Next's (native parallel routes + intercepted routes), on the other hand, LAGS (unacceptable UX) and creates bloated code structure.
+- **The Solution:** Decoupled UI state using URL parameters (`?drawer=cart`) to achieve instant responsiveness performance and perfect history navigation. Drawers responsiveness is INSTANT, the same as if they were state-based - but the url functionality and navigation is 100% preserved. Furthermore, It's EASY to created nested url navigation drawers, e.g. user account with orders, order's detail, payment methods etc. It's also easy to split the navigation UX within drawer from the easy exit from drawer UX concerns.
+- **[View Architecture Deep Dive →](./app/components/layout/drawers/README.md)**
 
 ---
 
@@ -99,7 +101,7 @@ Cross-browser and cross-OS compatible. Tested via playwright, and admittedly min
 
 ### Testing
 
-Testing approach is very strategic - as few as possible, as impactful as possible. It still involves /unit, /integration, /e2e tests but they are always for a concrete, end-purpose. It follows, to some degree, Kent C. Dodds diamond shape, where most tests are /integration and /e2e.
+Testing approach is strategic - minimum needed, maximum impact. It still involves /unit, /integration, /e2e tests but they are always for a concrete, end-purpose. It follows, to some degree, Kent C. Dodds diamond shape, where most tests are /integration and /e2e.
 
 Example - google validation address API handler route required ensemble team of various different types of tests to ensure the confusing, multi-layered response object is handled in a way that contains all the possibilities and maps them onto proper result response for the consumer - the storefront's address collection form. Unit tests made sure the handler its parses the complex reponse with no fails. Integration tests ensured the state transitions operate as expected. E2E test ensures it all meshes smoothly with no errors.
 
