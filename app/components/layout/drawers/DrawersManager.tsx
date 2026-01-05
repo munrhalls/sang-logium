@@ -15,10 +15,12 @@ export default function DrawerManager() {
         isOpen ? "translate-x-0" : "translate-x-full"
       )}
     >
-      <button onClick={closeDrawer} className="p-4">
+      {/* // TODO that button cannot be there as it makes styling difficult inside
+      content components */}
+      {/* TODO pass closeDrawer to content components...that requires they all accept new props..would want to avoid that, too - instead, just import closeDrawer in each content component*/}
+      {/* <button onClick={closeDrawer} className="p-4">
         X
-      </button>
-
+      </button> */}
       {drawer === "catalogue" && <MobileCatalogue />}
     </div>
   );

@@ -1,0 +1,2 @@
+1. Make short movie 30 seconds - of how seamless the navigation is.
+- homepage -> open drawer -> navigate to products -> use back button to go back to drawer to homepage and forward button to drawer to product again

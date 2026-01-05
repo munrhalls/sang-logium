@@ -19,17 +19,19 @@
 // Test with all 7 catalogue categories to catch edge cases early
 
 // Make
-
 "use client";
 
 import Link from "next/link";
 import { FaRegCircle } from "react-icons/fa";
 import { AdaptiveCategoryIcon } from "@/app/components/ui/AdaptiveCategoryIcon";
-import { CatalogueTree } from "@/data/catalogue";
-import { getCatalogue } from "@/data/catalogue";
+import { CatalogueTree, getCatalogue } from "@/data/catalogue";
+import { useDrawer } from "@/app/hooks/nuqs/useDrawer";
+import { FaTimes } from "react-icons/fa";
 
 export default function MobileCatalogue() {
   const catalogue: CatalogueTree = getCatalogue();
+  const { closeDrawer } = useDrawer();
+
   if (!catalogue || catalogue.length === 0) {
     return (
       <div className="p-4">
@@ -54,18 +56,20 @@ export default function MobileCatalogue() {
       return (
         <div key={child._key}>
           {isHeader ? (
-            <h3 className="font-bold text-gray-500">{child.title}</h3>
+            <h3 className="mt-4 text-xs font-bold uppercase tracking-widest text-gray-400">
+              {child.title}
+            </h3>
           ) : (
             <Link
               href={childPath}
-              className="mt-2 flex items-center text-gray-600 hover:text-black"
+              className="mt-2 flex items-center text-gray-600 transition-colors hover:text-black"
             >
-              <FaRegCircle className="mr-2 h-2 w-2" />
+              <FaRegCircle className="mr-2 h-2 w-2 opacity-50" />
               <span className="text-lg">{child.title}</span>
             </Link>
           )}
           {hasChildren && (
-            <ul className="rounded py-2 pl-3 backdrop-brightness-95">
+            <ul className="ml-1 mt-1 space-y-1 border-l border-gray-100 pl-4">
               {child.children!.map((grandchild) => {
                 const grandchildSlug = grandchild.slug?.current || "";
                 const grandchildPath = `${baseUrl}/${grandchildSlug}`;
@@ -74,9 +78,8 @@ export default function MobileCatalogue() {
                   <li key={grandchild._key}>
                     <Link
                       href={grandchildPath}
-                      className="flex items-center justify-start px-4 py-2 text-gray-800 hover:bg-gray-100"
+                      className="flex items-center py-2 text-gray-500 transition-colors hover:text-black"
                     >
-                      <FaRegCircle className="mr-2" />
                       <span className="text-md">{grandchild.title}</span>
                     </Link>
                   </li>
@@ -90,42 +93,56 @@ export default function MobileCatalogue() {
   };
 
   return (
-    <div className="p-4">
-      <div className="grid gap-6 bg-white">
-        {catalogue.map((item) => {
-          const slug = item.slug?.current || "";
-          const categoryPath = `/products/${slug}`;
-          const hasChildren = item.children && item.children.length > 0;
-
-          return (
-            <div key={item._key} className="space-y-2">
-              <Link
-                href={categoryPath}
-                className="flex items-center text-2xl font-semibold hover:text-gray-600"
-              >
-                {item.icon && (
-                  <span className="mr-3">
-                    <AdaptiveCategoryIcon title={item.icon} />
-                  </span>
-                )}
-                <span
-                  className={`${item.title === "On Sale" ? "text-orange-500" : ""}`}
-                >
-                  {item.title}
-                </span>
-              </Link>
-              {hasChildren && (
-                <div className="ml-6 space-y-1">
-                  {renderChildren(item.children!, categoryPath)}
-                </div>
-              )}
-            </div>
-          );
-        })}
+    <div className="flex h-full flex-col bg-white">
+      {/* Sticky Header Section */}
+      <div className="sticky top-0 z-20 flex items-center justify-between border-b bg-white p-4">
+        <span className="font-black uppercase tracking-tighter">Catalogue</span>
+        <button className="-mr-2 p-2" onClick={closeDrawer}>
+          <FaTimes className="h-6 w-6" />
+        </button>
       </div>
-      <p className="mt-8 flex items-center justify-center text-gray-500">
-        End.
-      </p>
+
+      {/* Scrollable Content Section */}
+      <div className="p-4">
+        <div className="grid gap-8">
+          {catalogue.map((item) => {
+            const slug = item.slug?.current || "";
+            const categoryPath = `/products/${slug}`;
+            const hasChildren = item.children && item.children.length > 0;
+
+            return (
+              <div key={item._key} className="space-y-3">
+                <Link
+                  href={categoryPath}
+                  className="flex items-center text-2xl font-bold transition-colors hover:text-gray-600"
+                >
+                  {item.icon && (
+                    <span className="mr-3 opacity-80">
+                      <AdaptiveCategoryIcon title={item.icon} />
+                    </span>
+                  )}
+                  <span
+                    className={
+                      item.title === "On Sale" ? "text-orange-500" : ""
+                    }
+                  >
+                    {item.title}
+                  </span>
+                </Link>
+                {hasChildren && (
+                  <div className="ml-2">
+                    {renderChildren(item.children!, categoryPath)}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <p className="mb-8 mt-12 flex items-center justify-center text-xs font-medium uppercase tracking-widest text-gray-300">
+          End.
+        </p>
+      </div>
     </div>
   );
 }
