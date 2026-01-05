@@ -3,7 +3,7 @@
 * [Home](README.md)
 
 
-### CATALOGUE INTERACTION EXPERIENCE - INSTANT RESPONSIVENESS
+## Catalogue Experience
 * [View Architecture Deep Dive →](./app/components/layout/catalogue/README.md)
 
 ## 📱 Mobile Experience
