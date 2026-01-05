@@ -49,14 +49,14 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 - Architected via a finite state machine to strictly map physical order states to digital statuses.
 - Uses idempotent background queues (Inngest) to guarantee Stripe refunds and inventory re-stocking happen exactly once, without fail.
 
-### CATALOGUE WITH INSTANT RESPONSIVENESS
+### CATALOGUE INTERACTION EXPERIENCE - INSTANT RESPONSIVENESS
 * **The Struggle:** Recursive database queries for nested category trees caused bottlenecks and 1-2s latency on navigation.
 * **The Solution:** Implemented a "Virtual File System" that pre-computes paths at build time, replacing expensive tree traversal with instant string matching.
 * **Core Specifications:**
     * **Lookup Complexity:** O(1) (Constant Time)
-    * **Refresh Strategy:** Daily Automatic Rebuild (Cron)
     * **Mechanism:** Path-Based Prefix Matching
-* [View Architecture Deep Dive →](./docs/catalogue-architecture.md)
+    * **Update Strategy:** Daily Automatic Rebuild (Cron)
+* [View Architecture Deep Dive →](./app/components/layout/catalogue/README.md)
 
 ### PRODUCT DISCOVERY EXPERIENCE
 
