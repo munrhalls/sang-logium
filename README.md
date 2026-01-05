@@ -52,7 +52,8 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 ### CATALOGUE INTERACTION EXPERIENCE - INSTANT RESPONSIVENESS
 * **The Struggle:** Recursive database queries for nested category trees caused bottlenecks and 1-2s latency on navigation.
 * **The Solution:** Implemented a "Virtual File System" that pre-computes paths at build time, replacing expensive tree traversal with instant string matching.
-* **Core Specifications:**
+* **Core Specifications/Solution strengths:**
+    * **Ease of change:** Moving a catalogue slot AUTOMATICALLY moves ALL associated products to new location - and query AUTOMATICALLY works with the new location. E.g. if we moved "Speakers" to some new location "X", user clicking "X" would now fetch all "Speakers" too, while clicking "Speakers" would fetch just "Speakers" as it did before. Any catalogue change whatsoever involves exactly 0 subsequent update needs to make it work. How? It's a graph-like virtual file system. Catalogue pathways, product positions and catalogue slots are 3 concerns desirably 100% de-coupled.
     * **Lookup Complexity:** O(1) (Constant Time)
     * **Mechanism:** Path-Based Prefix Matching
     * **Update Strategy:** Daily Automatic Rebuild (Cron)

@@ -13,6 +13,8 @@
 * **Tech Stack:** Next.js, Node.js (Virtual File System Generator), Sanity (Groq Prefix Matching).
 
 ## 3. Architecture
+* **Ease of change:** Moving a catalogue slot AUTOMATICALLY moves ALL associated products to new location - and query AUTOMATICALLY works with the new location. E.g. if we moved "Speakers" to some new location "X", user clicking "X" would now fetch all "Speakers" too, while clicking "Speakers" would fetch just "Speakers" as it did before. Any catalogue change whatsoever involves exactly 0 subsequent update needs to make it work. How? It's a graph-like virtual file system. Catalogue pathways, product positions and catalogue slots are 3 concerns desirably 100% de-coupled.
+* **Instant look up:** Database stores catalogue slots that house product ids. Storefront receives map of catalogue "starts with" pathways -> pathway selection yields all associated product ids instantly, resulting in some product ids database fetch.
 
 ```mermaid
 graph TD
