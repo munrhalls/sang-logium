@@ -6,16 +6,14 @@ import type { Metadata } from "next";
 import { Inter, DM_Serif_Display } from "next/font/google";
 import Header from "@/app/components/layout/header/Header";
 
-import CategoriesWrapper from "../components/layout/categoryMenu/CatalogueWrapper";
+import CatalogueWrapper from "../components/layout/catalogue/CatalogueWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Suspense } from "react";
-import CatalogueSkeleton from "../components/layout/categoryMenu/CatalogueSkeleton";
 import DrawersManager from "../components/layout/drawers/DrawersManager";
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: "https://sanglogium.com",
+    canonical: "https://sang-logium.com",
   },
   title: "Sang Logium Audio Shop",
 
@@ -61,9 +59,7 @@ export default async function RootLayout({
         >
           <NuqsAdapter>
             <Header />
-            <Suspense fallback={<CatalogueSkeleton />}>
-              <CategoriesWrapper />
-            </Suspense>
+            <CatalogueWrapper />
 
             <div className="relative h-full min-h-0 overflow-hidden">
               <div className="relative h-full min-h-0 overflow-y-auto">
