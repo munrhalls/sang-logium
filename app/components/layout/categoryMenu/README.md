@@ -1,21 +1,30 @@
-# [Feature Name]
+Static Catalogue Indexing & Path-Based Inheritance
+1. The Problem
+Pain Point: Traditional e-commerce categories require complex, recursive database queries to handle parent/child relationships (e.g., "Show me all Headphones, including sub-categories").
 
-## 1. The Problem
-* **Pain Point:** [What was difficult, slow, or broken before?]
-* **Impact:** [Why did it matter? e.g., "caused 200ms lag" or "spaghetti code"]
+Impact: These "tree traversal" queries are computationally heavy, causing database bottlenecks and slow response times as the catalogue grows.
 
-## 2. The Solution
-* **Strategy:** [One sentence summary of the fix]
-* **Tech Stack:** [List libs, e.g., `nuqs`, `React Context`]
+2. The Solution
+Strategy: Path-Based Prefix Matching. I flattened the entire category tree into a "Virtual File System".
 
-## 3. Architecture
+Mechanism: * The Structure: A build-time script generates a static map of all valid paths.
 
-## 4. Key Trade-offs
+The Fetch: When a user visits /headphones, I don't traverse a tree. I simply fetch all products where the path string starts with headphones.
 
-- **Decision:** Catalogue is made at build time via script that fetches and processes latest data, then stores it in static json file + run automatic re-build daily.
+The Drill-down: Clicking /headphones/earbuds just narrows the prefix string.
 
+Tech Stack: Next.js, Node.js (VFS Generator), Sanity (Groq Prefix Matching).
 
-- **Reasoning:**Alternative was to use webhook for Sanity database catalogue changes -> trigger re-validation in the receiving /api/revalidate -> which would invalidate storefront catalogue component -> cause re-fetch of catalogue due to invalid cache -> cache fresh catalogue.
-The trade off would be "in theory" cleaner "by the book" Next solution - but in reality, it would introduce 1-2 seconds lag every time catalogue was changed.
-Why? The entire point of this design is that catalogue is lightning fast, with O(1) lookup for any user action possible (instant) - BUT it requires one-time script to run at build time, to generate pathways mapping. That script can take 1-2 seconds to execute. User would have to wait (witness skeleton or loader), when someone changed catalogue in database.
-Key criteria: 1) I chose to prioritize the UX NEVER lagging for the end user., 2) Sang-logium is audio gear store - the catalogue doesn't change that often. It's okay if the update happens via daily automatic re-build.
+3. Architecture
+Fragment kodu
+
+graph TD
+    A[User Click 'Headphones'] -->
+    B --> C{Look up Path}
+    C -->|Static VFS Map| D[Render UI Slots (Instant)]
+    C -->|Database Query| E[Fetch IDs where path startsWith 'headphones']
+    E --> F[Return All Child Products]
+4. Key Trade-offs
+Decision: Pre-computed Paths + Daily Rebuilds VS Dynamic Recursive Queries.
+
+Reasoning: I prioritized Query Efficiency. By treating categories as "file paths" rather than nested nodes, product retrieval becomes a simple string match operation (O(1) complexity). The cost is that moving a category requires a daily rebuild to update the paths, but the benefit is a catalogue that feels instantaneous to the user regardless of depth.
