@@ -16,11 +16,11 @@
 
 ```mermaid
 graph TD
-    A[User Click 'Headphones'] --> B)
-    B --> C{Look up Path}
-    C -->|Static VFS Map| D[Render UI Slots (Instant)]
-    C -->|Database Query| E[Fetch IDs where path startsWith 'headphones']
-    E --> F[Return All Child Products]
+    A["User Click 'Headphones'"] --> B["URL updates to /headphones"]
+    B --> C{"Look up Path"}
+    C -->|Static VFS Map| D["Render UI Slots (Instant)"]
+    C -->|Database Query| E["Fetch IDs where path startsWith 'headphones'"]
+    E --> F["Return All Child Products"]
 ```
 
 ## 4. Key Trade-offs
