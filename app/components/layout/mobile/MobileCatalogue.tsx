@@ -35,7 +35,7 @@ export default function MobileCatalogue() {
       return (
         <div key={child._key}>
           {isHeader ? (
-            <h3 className="mt-4 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <h3 className="mt-6 text-sm font-black uppercase tracking-widest text-gray-400">
               {child.title}
             </h3>
           ) : (
@@ -43,12 +43,11 @@ export default function MobileCatalogue() {
               href={childPath}
               className="mt-2 flex items-center text-gray-600 transition-colors hover:text-black"
             >
-              <FaRegCircle className="mr-2 h-2 w-2 opacity-50" />
               <span className="text-lg">{child.title}</span>
             </Link>
           )}
           {hasChildren && (
-            <ul className="ml-1 mt-1 space-y-1 border-l border-gray-100 pl-4">
+            <ul className="ml-1 mt-1 space-y-1 pl-4">
               {child.children!.map((grandchild) => {
                 const grandchildSlug = grandchild.slug?.current || "";
                 const grandchildPath = `${baseUrl}/${grandchildSlug}`;
@@ -59,6 +58,7 @@ export default function MobileCatalogue() {
                       href={grandchildPath}
                       className="flex items-center py-2 text-gray-500 transition-colors hover:text-black"
                     >
+                      <FaRegCircle className="mr-2 h-2 w-2" />
                       <span className="text-md">{grandchild.title}</span>
                     </Link>
                   </li>
@@ -74,9 +74,11 @@ export default function MobileCatalogue() {
   return (
     <div className="flex h-full flex-col bg-white">
       {/* Sticky Header Section */}
-      <div className="sticky top-0 z-20 flex items-center justify-between border-b bg-white p-4">
-        <span className="font-black uppercase tracking-tighter">Catalogue</span>
-        <button className="-mr-2 p-2" onClick={closeDrawer}>
+      <div className="sticky top-0 z-20 flex items-center justify-center border-b bg-white p-4">
+        <span className="text-xl font-black uppercase tracking-wide">
+          Catalogue
+        </span>
+        <button className="-mr-2 ml-auto p-2" onClick={closeDrawer}>
           <FaTimes className="h-6 w-6" />
         </button>
       </div>

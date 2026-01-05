@@ -1,0 +1,10 @@
+name: Daily Rebuild
+on:
+  schedule:
+    - cron: "0 2 * * *"
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Deploy Hook
+        run: curl -X POST ${{ secrets.DAILY_REBUILD }}
