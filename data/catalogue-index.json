@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-03T17:33:10.681Z",
+  "generatedAt": "2026-01-06T05:35:50.889Z",
   "urlMap": {
     "headphones": "zemHaTBY7QMZEyx6WgMYi",
     "speakers": "X0ijjgLQc5pnVGZ5uB9Md",
@@ -11,12 +11,12 @@
   },
   "idMap": {
     "zemHaTBY7QMZEyx6WgMYi": {
-      "title": "Headphones",
+      "title": "Headphones & Personal Audio",
       "url": "/shop/headphones",
       "slug": "headphones",
       "breadcrumbs": [
         {
-          "label": "Headphones",
+          "label": "Headphones & Personal Audio",
           "url": "/shop/headphones"
         }
       ],
@@ -88,7 +88,10 @@
           "url": "/shop/studio-equipment"
         }
       ],
-      "children": ["YSOR4-ZcEmRtJUEZGgrgl", "igkH1-53EAidFCuwHMC9k"],
+      "children": [
+        "YSOR4-ZcEmRtJUEZGgrgl",
+        "igkH1-53EAidFCuwHMC9k"
+      ],
       "type": "link"
     },
     "_EDhByj4HR6NH7X1DHHfr": {
@@ -257,7 +260,7 @@
         "_type": "slug",
         "current": "headphones"
       },
-      "title": "Headphones",
+      "title": "Headphones & Personal Audio",
       "type": "link"
     },
     {
@@ -332,7 +335,7 @@
               "type": "link"
             }
           ],
-          "title": "Home Audio",
+          "title": "Hi-Fi Audio",
           "type": "header"
         },
         {

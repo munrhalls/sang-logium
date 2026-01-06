@@ -15,7 +15,7 @@ I use `nuqs` library to sync the drawer state directly to the URL search paramet
 
 ## 3. Why? Key Choices & Trade-offs
 
-**Lean Stack vs. Practical Performance**
+**Lean Tech Stack vs. Practical Performance**
 * My default approach is to delete dependencies, not add them. However, Next.js native Parallel Routes were a **hard NO**—the latency on route interception was unacceptable.
 * I considered using global state (Zustand/Redux), but that breaks the "Back" button navigation.
 * Introducing `nuqs` was the lightweight solution that solved both problems: it keeps the stack lean while guaranteeing instant responsiveness. In the end, this wasn't much of a trade-off; it was the only viable path for a professional-grade UX.
