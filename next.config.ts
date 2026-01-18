@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
+  serverExternalPackages: ["isomorphic-dompurify"],
   experimental: {
     optimizeCss: true,
     inlineCss: true,

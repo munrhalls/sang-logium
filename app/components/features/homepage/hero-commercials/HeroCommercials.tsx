@@ -4,6 +4,7 @@ import CarouselSingleSlide from "../../../ui/carousel-single-slide/carouselSingl
 import HeroCommercialItem from "./HeroCommercialItem";
 import HeroCommercialsSkeleton from "./HeroCommercialsSkeleton";
 
+// TODO fix sanity studio error
 export default async function HeroCommercials() {
   try {
     const heroCommercials = await getCommercialsHeroSecondary();

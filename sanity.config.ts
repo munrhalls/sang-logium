@@ -2,8 +2,8 @@ import { structureTool } from "sanity/structure";
 import { dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
-import { simplerColorInput } from "sanity-plugin-simpler-color-input";
-import { visionTool } from "@sanity/vision";
+// import { colorInput } from "@sanity/color-input";
+// import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 
 const sanityConfig = defineConfig({
@@ -15,20 +15,19 @@ const sanityConfig = defineConfig({
   },
   plugins: [
     structureTool({ structure }),
-    // simplerColorInput({
-    //   defaultColorFormat: "rgba",
-    //   defaultColorList: [
-    //     { label: "Light", value: "#ffffff" },
-    //     { label: "Dark", value: "#333333" },
-    //     { label: "Brand", value: "#ca786d" },
-    //     { label: "Accent", value: "#626754" },
-    //     { label: "Orange", value: "#CF8226" },
-    //     { label: "HighlightOrange", value: "#e0ad1f" },
-    //     { label: "Custom...", value: "custom" },
+    // colorInput({
+    //   colors: [
+    //     { title: "Light", value: "#ffffff" },
+    //     { title: "Dark", value: "#333333" },
+    //     { title: "Brand", value: "#ca786d" },
+    //     { title: "Accent", value: "#626754" },
+    //     { title: "Orange", value: "#CF8226" },
+    //     { title: "HighlightOrange", value: "#e0ad1f" },
     //   ],
-    //   enableSearch: true,
     // }),
+
     // visionTool(),
+    // colorInput(),
   ],
 });
 

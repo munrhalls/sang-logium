@@ -55,25 +55,25 @@ export const commercialType = defineType({
       name: "image",
       type: "image",
     }),
-    defineField({
-      name: "text",
-      type: "array",
-      of: [
-        defineArrayMember({
-          type: "block",
-          marks: {
-            annotations: [
-              {
-                type: "textColor",
-              },
-              {
-                type: "highlightColor",
-              },
-            ],
-          },
-        }),
-      ],
-    }),
+    // defineField({
+    //   name: "text",
+    //   type: "array",
+    //   of: [
+    //     defineArrayMember({
+    //       type: "block",
+    //       marks: {
+    //         annotations: [
+    //           {
+    //             type: "textColor",
+    //           },
+    //           {
+    //             type: "highlightColor",
+    //           },
+    //         ],
+    //       },
+    //     }),
+    //   ],
+    // }),
     defineField({
       name: "sale",
       title: "Reference to sale advertised by the commercial (optional)",

@@ -46,15 +46,15 @@ export const catalogueItemType = defineType({
       of: [{ type: "catalogueItem" }],
     }),
   ],
-  preview: {
-    select: { title: "title", type: "type" },
-    prepare({ title, type }) {
-      const isHeader = type === "header";
-      return {
-        title: title,
-        subtitle: isHeader ? "📂 Visual Group" : "🔗 Catalogue Slot",
-        media: isHeader ? FolderIcon : TagIcon,
-      };
-    },
-  },
+  // preview: {
+  //   select: { title: "title", type: "type" },
+  //   prepare({ title, type }) {
+  //     // const isHeader = type === "header";
+  //     return {
+  //       title: title,
+  //       // subtitle: isHeader ? "📂 Visual Group" : "🔗 Catalogue Slot",
+  //       // media: isHeader ? FolderIcon : TagIcon,
+  //     };
+  //   },
+  // },
 });
