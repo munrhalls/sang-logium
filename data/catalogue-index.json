@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-06T05:35:50.889Z",
+  "generatedAt": "2026-01-06T13:21:26.809Z",
   "urlMap": {
     "headphones": "zemHaTBY7QMZEyx6WgMYi",
     "speakers": "X0ijjgLQc5pnVGZ5uB9Md",
@@ -11,12 +11,12 @@
   },
   "idMap": {
     "zemHaTBY7QMZEyx6WgMYi": {
-      "title": "Headphones & Personal Audio",
+      "title": "Headphones & Personal Audio ",
       "url": "/shop/headphones",
       "slug": "headphones",
       "breadcrumbs": [
         {
-          "label": "Headphones & Personal Audio",
+          "label": "Headphones & Personal Audio ",
           "url": "/shop/headphones"
         }
       ],
@@ -260,7 +260,7 @@
         "_type": "slug",
         "current": "headphones"
       },
-      "title": "Headphones & Personal Audio",
+      "title": "Headphones & Personal Audio ",
       "type": "link"
     },
     {

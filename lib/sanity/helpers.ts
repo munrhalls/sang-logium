@@ -1,3 +1,4 @@
+// TODO rename folder to sanity_front
 import { ALL_CATEGORIES_QUERYResult } from "@/sanity.types";
 interface GroupItem {
   label: string | null;

@@ -21,7 +21,7 @@ export default async function HeroMain() {
       </div>
       <div className="z-30 h-full w-full bg-black">
         <p className="flex h-full items-center justify-center text-xs font-black tracking-wide text-white sm:text-sm lg:text-lg lg:tracking-wider">
-          Offer available only until November 30th!
+          Offer available only until January 30th!
         </p>
       </div>
     </div>

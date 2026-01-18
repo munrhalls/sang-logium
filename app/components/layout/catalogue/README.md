@@ -29,6 +29,11 @@ The Magic: When you move the "Headphones" shelf to a new aisle in Sanity (e.g., 
 Another extremely useful feature of this architecture is that the script distinguishes between link and header types. This allows to create visual clusters (e.g., "By Category" or "By Fit") in the UI that do not affect the URL structure. This keeps URLs clean (/headphones/wired instead of /headphones/by-category/wired). And it could, if need be, be extended. The recursive map making script has a step of type recognition.
 
 How does updating catalogue in database with quick storefront feedback work?
+
+First of all, this is where this architecture truly shines. It's extremely strong in this regard because a product isn't really in a place. There is no "location" where the product is.  A product is in a "startsWith pathway" mechinism. A product id wires up to some catalogue slots it belongs to - but that doesn't mean the product is IN those catalogue slots. It's not. A product is in a "startsWith pathway" mechanism.
+This causes extreme strength (in terms of ease of change) of this approach because moving a catalogue item to another catalogue location - laterally or vertically - AUTOMATICALLY moves ALL associated products to their rightful new place with ZERO COMPLICATIONS whatsoever. There's nothing to update, nothing to modify, nothing complicating with anything else, nothing is needed for the catalogue item movement to result in the 100% exact and accurate changes in product browsing experience. The reason that's possible is also because Sanity DB _id are immutable. Moving or updating never changes _id.
+
+
 I appended webhook to database catalogue changes. It hits  /api/revalidate on any catalogue change, which then re-validates catalogue cache tag in Next app. That causes silent re-fetch and background product ids pathways mapping script.
 Sanity database catalogue change -> webhook -> /api/revalidate revalidateTag (catalogue cache tag) -> storefront catalogue server component re-fetches updated catalogue -> storefront catalogue consumer component gets new catalogue.
 Meanwhile User Experience - INSTANT PERFORMANCE AND 0 LAG RETAINED because the user gets stale data, while catalogue update happens in the background.
