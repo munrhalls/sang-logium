@@ -1,6 +1,7 @@
 import Image from "next/image";
 import TextCommercialWrapper from "./TextCommercialWrapper";
 export default async function HeroMain() {
+  // redesign;
   return (
     <div className="relative grid h-full grid-rows-[1fr_3rem]">
       <div className="relative z-30 h-full w-full overflow-hidden">
