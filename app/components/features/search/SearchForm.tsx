@@ -3,16 +3,16 @@ function SearchForm() {
   return (
     <form
       action="/search"
-      className="hidden lg:grid h-full w-full grid-cols-[auto_1fr] place-content-center"
+      className="hidden h-full w-full grid-cols-[auto_1fr] place-content-center lg:grid"
     >
-      <div className="h-full grid place-content-center">
+      <div className="grid h-full place-content-center">
         <MagnifyingGlassIcon className="text-white" height={16} width={16} />
       </div>
       <input
         type="text"
         name="query"
         placeholder="Search products..."
-        className="ml-3 w-full text-xl bg-transparent border-b border-white text-white placeholder-orange-400 focus:outline-none"
+        className="ml-3 w-full border-b border-white bg-transparent text-xl text-white placeholder-orange-400 focus:outline-none"
       />
     </form>
   );

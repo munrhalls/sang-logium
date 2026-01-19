@@ -1,6 +1,6 @@
-import Carousel from "../../../ui/carousel-single-slide/carouselSingleSlide";
-import SegmentTitle from "../../../ui/segment-title/SegmentTitle";
-import BrandTitle from "../../../ui/commercials/minor/brandTitle";
+import Carousel from "../../../../ui/carousel-single-slide/carouselSingleSlide";
+import SegmentTitle from "../../../../ui/segment-title/SegmentTitle";
+import BrandTitle from "../../../../ui/commercials/minor/brandTitle";
 import Link from "next/link";
 import { getCommercialsByFeature } from "@/sanity/lib/commercials/getCommercialsByFeature";
 import Image from "next/image";
