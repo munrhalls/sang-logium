@@ -10,7 +10,9 @@ export default function Hero() {
       <HeroMain />
       <Suspense fallback={<HeroCommercialsSkeleton />}>
         {/* <HeroCommercials /> */}
-        <HeroSegment />
+
+        {/* TODO data needed: 5 background images for slides, "commercials" (campaign items) for forefront per slide  */}
+        <HeroSegment data={data} />
       </Suspense>
     </section>
   );

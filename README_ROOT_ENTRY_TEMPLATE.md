@@ -1,4 +1,4 @@
-### HOMEPAGE EXPERIENCE
+### FEATURE NAME
 **The Problem:**
 **The Solution:**
 * **Core Specifications/Solution strengths:**

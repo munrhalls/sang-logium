@@ -1,6 +1,10 @@
-import CarouselSingleSlide from "@/ui/carousel-single-slide"; // Your existing carousel
 import { HeroPayload } from "@/types";
 import { HeroSlide } from "./../hero-slide/HeroSlide";
+import {
+  Carousel,
+  CarouselItem,
+  CarouselContent,
+} from "@/app/components/ui/carousel/Carousel";
 
 export default function HeroSegment({ data }: { data: HeroPayload }) {
   const { layout, slides } = data;
@@ -11,20 +15,20 @@ export default function HeroSegment({ data }: { data: HeroPayload }) {
     // OR update your carousel to accept children/components.
     // Here we wrap our nice HeroSlide in the carousel.
     const carouselSlides = slides.map((slide, index) => (
-      <HeroSlide
-        key={slide._id}
-        slide={slide}
-        layout="overlay" // Carousels usually look best as overlays
-        priority={index === 0}
-      />
+      <CarouselItem key={slide._id}>
+        <HeroSlide slide={slide} layout="overlay" priority={index === 0} />
+      </CarouselItem>
     ));
 
     return (
       <section className="h-[600px] w-full">
-        <CarouselSingleSlide
+        {/* <CarouselSingleSlide
           prebuiltSlides={carouselSlides}
           keys={slides.map((s) => s._id)}
-        />
+        /> */}
+        <Carousel>
+          <CarouselContent>{carouselSlides}</CarouselContent>
+        </Carousel>
       </section>
     );
   }

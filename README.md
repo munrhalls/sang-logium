@@ -61,19 +61,19 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 
 
 ### HOME PAGE DATA ORCHESTRATOR
+
 **The Problem:**
-Fragmented, asynchronous fetching across multiple page segments creates network waterfalls, high developer cognitive load when tracking data flow, and unpredictable LCP (Largest Contentful Paint) performance.
+Fragmented fetching creates "network waterfalls" and complex prop-drilling, delaying LCP and increasing cognitive load.
 
 **The Solution:**
-A unified "Single-Pass Mega-Query" architecture that builds the entire page tree at the server-side entry point, delivering a fully-formed HTML shell with prioritized assets for instant rendering.
+**Colocated Parallel Fetching** via React Server Components (RSC) triggers independent GROQ queries simultaneously during server rendering.
 
-* **Core Specifications/Solution strengths:**
- * **LCP Priority Hijacking:** Explicitly marks Hero assets for browser preloading, ensuring the fastest possible paint for static pages.
- * **Single-Request Efficiency:** Reduces Sanity API costs and network overhead by aggregating data into a single, optimized JSON round-trip.
- * **Static Build Predictability:** Ensures stable, flicker-free builds for `force-static` generation by eliminating client-side data waterfalls and hydration jumps.
- * **Semantic Slicing:** Distributes clean, type-safe data "slices" to pure UI components, maintaining a strict separation between data logic and presentation.
+* **Parallel Execution:** Eliminates waterfalls by fetching Hero, Main, and Bottom data concurrently.
+* **Zero Prop-Drilling:** Each component manages its own data, keeping `page.tsx` clean.
+* **LCP Optimization:** Uses Next.js `priority` images in the Hero for instant preloading.
+* **Auto-Deduplication:** Uses React's native cache to prevent redundant Sanity API calls.
 
-* [View Architecture Deep Dive →](./app/components/features/homepage/aggregate/README.md)
+* [View Architecture Deep Dive →](./app/components/features/homepage/README.md)
 
 
 ### PRODUCT DISCOVERY EXPERIENCE

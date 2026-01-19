@@ -1,5 +1,6 @@
 import { Carousel } from "@/app/components/ui/carousel/Carousel";
 import SanityImage from "@/app/components/ui/sanity-image/SanityImage";
+import { SmartLink } from "@/app/components/ui/smart-link/SmartLink";
 
 export default function HeroSegment({ data }: { data: HeroSectionData }) {
   // 1. One Layout Switcher

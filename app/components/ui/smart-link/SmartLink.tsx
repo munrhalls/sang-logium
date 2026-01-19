@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { HeroPayload } from "@/types"; // Defined in previous step
 
-const SmartLink = ({
+export const SmartLink = ({
   link,
   className,
   children,

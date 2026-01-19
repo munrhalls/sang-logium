@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image"; // Your sanity image helper
+import { SmartLink } from "@/app/components/ui/smart-link/SmartLink";
 
 interface HeroSlideProps {
   slide: HeroPayload["slides"][0];
@@ -15,6 +16,10 @@ export const HeroSlide = ({
   const isSplit = layout === "split";
   const { content, assets, link } = slide;
 
+  const isMock = assets.desktopImage.asset._ref?.includes("MOCK");
+  const imgSrc = isMock
+    ? `https://images.unsplash.com/photo-1511497584788-8767fe771d21?q=80&w=1920`
+    : urlFor(assets.desktopImage).url();
   return (
     <div
       className={`relative h-full w-full overflow-hidden ${isSplit ? "flex flex-col md:flex-row" : ""}`}
@@ -24,7 +29,9 @@ export const HeroSlide = ({
         className={`relative h-full ${isSplit ? "order-2 md:w-1/2" : "w-full"}`}
       >
         <Image
-          src={urlFor(assets.desktopImage).url()}
+          // TODO restore after mock test
+          // src={urlFor(assets.desktopImage).url()}
+          src={imgSrc}
           alt={content.headline}
           fill
           priority={priority}

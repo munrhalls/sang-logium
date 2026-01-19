@@ -17,7 +17,6 @@
 
 How does <feature name> work?
 
-
 1. The Core Mechanism:
 
 <mermaid diagram>
@@ -26,14 +25,7 @@ How does <feature name> work?
 * **Ease of change:**
 * **Instant look up:**
 
-```mermaid
-graph TD
-    A["User Click 'Headphones'"] --> B["URL updates to /headphones"]
-    B --> C{"Look up Path"}
-    C -->|Static VFS Map| D["Render UI Slots (Instant)"]
-    C -->|Database Query| E["Fetch IDs where path startsWith 'headphones'"]
-    E --> F["Return All Child Products"]
-```
+<mermaid diagram>
 
 ## 4. Key Trade-offs
 **Decision**:

@@ -1,3 +1,4 @@
+"use client";
 // ui/carousel.tsx
 import * as React from "react";
 
