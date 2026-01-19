@@ -10,6 +10,8 @@ import CatalogueWrapper from "../components/layout/catalogue/CatalogueWrapper";
 import MobileMenu from "../components/layout/mobile/MobileMenu";
 import { ClerkProvider } from "@clerk/nextjs";
 import DrawersManager from "../components/layout/drawers/DrawersManager";
+import { Suspense } from "react";
+import Loader from "@/app/components/common/Loader";
 
 export const metadata: Metadata = {
   alternates: {
@@ -57,19 +59,21 @@ export default async function RootLayout({
         <body
           className={`relative grid w-full grid-rows-[auto_1fr_auto] overflow-x-hidden font-sans lg:grid-rows-[auto_auto_1fr_auto]`}
         >
-          <NuqsAdapter>
-            <Header />
-            <CatalogueWrapper />
+          <Suspense fallback={<Loader />}>
+            <NuqsAdapter>
+              <Header />
+              <CatalogueWrapper />
 
-            <div className="relative h-full min-h-0 overflow-hidden">
-              <div className="relative h-full min-h-0 overflow-y-auto">
-                {children}
+              <div className="relative h-full min-h-0 overflow-hidden">
+                <div className="relative h-full min-h-0 overflow-y-auto">
+                  {children}
+                </div>
               </div>
-            </div>
 
-            <MobileMenu />
-            <DrawersManager />
-          </NuqsAdapter>
+              <MobileMenu />
+              <DrawersManager />
+            </NuqsAdapter>
+          </Suspense>
         </body>
       </ClerkProvider>
     </html>

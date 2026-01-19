@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Menu, Search, ShoppingBag, X, Truck } from "lucide-react";
+import { Menu, Search, ShoppingBag, Truck } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 // import { useQueryState } from "nuqs";
@@ -34,7 +34,8 @@ const Authentication = dynamic(
 
 function MobileMenuButtons() {
   const pathname = usePathname();
-  const { drawer, isOpen, openDrawer, closeDrawer } = useDrawer();
+  // drawer
+  const { isOpen, openDrawer, closeDrawer } = useDrawer();
 
   return (
     <div className="h-14 border-t border-white bg-black py-2 text-white lg:hidden">

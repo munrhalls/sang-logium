@@ -30,6 +30,7 @@ const isProductVerified = (product: unknown): product is ProductVerified => {
 };
 const HeroCommercialItem = ({ commercial, index }: SlideProps) => {
   const {
+    _id,
     variant,
     products,
     text,

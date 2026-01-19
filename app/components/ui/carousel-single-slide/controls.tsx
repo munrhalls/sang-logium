@@ -1,4 +1,4 @@
-TODO Fix very suboptimal controls for carousel single slide
+// TODO Fix very suboptimal controls for carousel single slide
 // . Interactive Menu Button Optimization
 // You mentioned menu buttons using logos. If these are "Brand Logos" inside the carousel (e.g., "As seen in..."):
 
@@ -18,13 +18,13 @@ export default function Controls({ onSlide }: BaseControlsProps) {
     <>
       <button
         onClick={() => onSlide("left")}
-        className="max-h-full z-50 col-start-1 text-white text-3xl "
+        className="z-50 col-start-1 max-h-full text-3xl text-white"
       >
         <ChevronLeft />
       </button>
       <button
         onClick={() => onSlide("right")}
-        className="max-h-full z-50 col-start-3  text-white text-3xl lg:top-0"
+        className="z-50 col-start-3 max-h-full text-3xl text-white lg:top-0"
       >
         <ChevronRight />
       </button>

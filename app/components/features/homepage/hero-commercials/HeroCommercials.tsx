@@ -14,6 +14,8 @@ export default async function HeroCommercials() {
         index: number
       ) => (
         <HeroCommercialItem
+          // TODO FIX THAT STUPID CRAPP ASAP, NO MATTER HOW HACK'Y
+
           key={commercial._id}
           commercial={commercial}
           index={index}

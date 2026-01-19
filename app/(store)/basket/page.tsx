@@ -1,5 +1,7 @@
 import SegmentTitle from "@/app/components/ui/segment-title/SegmentTitle";
 import BasketClientWrapper from "./BasketClientWrapper";
+import { Suspense } from "react";
+import Loader from "@/app/components/common/Loader";
 
 export default function BasketPage() {
   return (
@@ -7,7 +9,9 @@ export default function BasketPage() {
       <div className="mb-8">
         <SegmentTitle title="Your Basket" />
       </div>
-      <BasketClientWrapper />
+      <Suspense fallback={<Loader />}>
+        <BasketClientWrapper />
+      </Suspense>
     </div>
   );
 }
