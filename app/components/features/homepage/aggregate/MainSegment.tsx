@@ -9,30 +9,46 @@ import ExtremeQuality from "../product-showcase/extreme-quality/ExtremeQuality";
 import FeaturedProductsSkeleton from "../product-showcase/featured-products/FeaturedProductsSkeleton";
 import FeaturedProducts from "../product-showcase/featured-products/FeaturedProducts";
 
+const SectionGrid = ({ children }: { children: React.ReactNode }) => (
+  <div className="mx-auto grid grid-cols-[auto_8fr_auto] xl:grid-cols-[1fr_8fr_1fr]">
+    {children}
+  </div>
+);
+
+const ConstrainedCol = ({ children }: { children: React.ReactNode }) => (
+  <div className="col-start-2 col-end-3 mx-auto w-full max-w-[1400px]">
+    {children}
+  </div>
+);
+
+const FullWidthCol = ({ children }: { children: React.ReactNode }) => (
+  <div className="col-start-1 col-end-4 w-full">{children}</div>
+);
+
 export default function MainSegment() {
   return (
-    <div className="mx-auto grid grid-cols-[auto_8fr_auto] xl:grid-cols-[1fr_8fr_1fr]">
-      <div className="col-start-2 col-end-3 mx-auto max-w-[1400px]">
+    <SectionGrid>
+      <ConstrainedCol>
         <BrandsWall />
         <Suspense fallback={<BestsellersSkeleton />}>
           <Bestsellers />
         </Suspense>
-      </div>
+      </ConstrainedCol>
 
-      <div className="col-start-1 col-end-4">
+      <FullWidthCol>
         <Suspense fallback={<NewestReleaseSkeleton />}>
           <NewestRelease />
         </Suspense>
-      </div>
+      </FullWidthCol>
 
-      <div className="col-start-2 col-end-3 mx-auto max-w-[1400px]">
+      <ConstrainedCol>
         <Suspense fallback={<ExtremeQualitySkeleton />}>
           <ExtremeQuality />
         </Suspense>
         <Suspense fallback={<FeaturedProductsSkeleton />}>
           <FeaturedProducts />
         </Suspense>
-      </div>
-    </div>
+      </ConstrainedCol>
+    </SectionGrid>
   );
 }
