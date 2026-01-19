@@ -3,7 +3,7 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { Truck } from "lucide-react";
 import Image from "next/image";
 import logo from "@/public/logo.svg";
-import SearchForm from "../../features/homepage/individual/search/SearchForm";
+import SearchForm from "../../features/search/SearchForm";
 import AuthenticationWrapper from "@/app/components/features/auth/AuthenticationWrapper";
 
 export default function Header() {
