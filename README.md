@@ -59,6 +59,23 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
     * **Update Strategy:** Daily Automatic Rebuild (Cron)
 * [View Architecture Deep Dive →](./app/components/layout/catalogue/README.md)
 
+
+### HOME PAGE DATA ORCHESTRATOR
+**The Problem:**
+Fragmented, asynchronous fetching across multiple page segments creates network waterfalls, high developer cognitive load when tracking data flow, and unpredictable LCP (Largest Contentful Paint) performance.
+
+**The Solution:**
+A unified "Single-Pass Mega-Query" architecture that builds the entire page tree at the server-side entry point, delivering a fully-formed HTML shell with prioritized assets for instant rendering.
+
+* **Core Specifications/Solution strengths:**
+ * **LCP Priority Hijacking:** Explicitly marks Hero assets for browser preloading, ensuring the fastest possible paint for static pages.
+ * **Single-Request Efficiency:** Reduces Sanity API costs and network overhead by aggregating data into a single, optimized JSON round-trip.
+ * **Static Build Predictability:** Ensures stable, flicker-free builds for `force-static` generation by eliminating client-side data waterfalls and hydration jumps.
+ * **Semantic Slicing:** Distributes clean, type-safe data "slices" to pure UI components, maintaining a strict separation between data logic and presentation.
+
+* [View Architecture Deep Dive →](./app/components/features/homepage/aggregate/README.md)
+
+
 ### PRODUCT DISCOVERY EXPERIENCE
 
 - Organized with extreme care to ensure performance and reliability while browsing 500+ products.
