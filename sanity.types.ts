@@ -13,6 +13,49 @@
  */
 
 // Source: schema.json
+export type Promotion = {
+  _id: string;
+  _type: "promotion";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  internalTitle?: string;
+  headline?: Array<{
+    text?: string;
+    highlighted?: boolean;
+    color?: string;
+    _type: "segment";
+    _key: string;
+  }>;
+  description?: Array<{
+    text?: string;
+    highlighted?: boolean;
+    color?: string;
+    _type: "segment";
+    _key: string;
+  }>;
+  visual?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  discountPercent?: number;
+  actionLabel?: Array<{
+    text?: string;
+    highlighted?: boolean;
+    color?: string;
+    _type: "segment";
+    _key: string;
+  }>;
+};
+
 export type Product = {
   _id: string;
   _type: "product";
@@ -213,6 +256,7 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
+  | Promotion
   | Product
   | Catalogue
   | CatalogueItem
@@ -439,6 +483,35 @@ export type SORTABLES_BY_CATEGORY_QUERYResult = null;
 // Query: *[_type == "userProfile" && clerkId == $clerkId][0] {      _id,      _type,      clerkId,      displayName,      primaryAddress {        streetAddress,        city,        state,        postalCode,        country      },      preferences {        receiveMarketingEmails,        darkMode,        savePaymentInfo      },      createdAt,      updatedAt    }
 export type FETCH_PROFILE_QUERYResult = null;
 
+// Source: ./sanity/lib/promotions/getPromotionByName.ts
+// Variable: PROMOTION_BY_NAME_QUERY
+// Query: *[_type == "promotion" && internalTitle == $name][0] {      "src": visual.asset->url,      headline,      description,      discountPercent,      actionLabel,    }
+export type PROMOTION_BY_NAME_QUERYResult = {
+  src: string | null;
+  headline: Array<{
+    text?: string;
+    highlighted?: boolean;
+    color?: string;
+    _type: "segment";
+    _key: string;
+  }> | null;
+  description: Array<{
+    text?: string;
+    highlighted?: boolean;
+    color?: string;
+    _type: "segment";
+    _key: string;
+  }> | null;
+  discountPercent: number | null;
+  actionLabel: Array<{
+    text?: string;
+    highlighted?: boolean;
+    color?: string;
+    _type: "segment";
+    _key: string;
+  }> | null;
+} | null;
+
 // Source: ./sanity/lib/sales/getAllActiveSales.ts
 // Variable: GET_ACTIVE_SALES_QUERY
 // Query: *[_type == "sale" && isActive == true] {        _id,        title,        "slug": slug.current,        discount,        validFrom,        validUntil,        isActive      }
@@ -463,6 +536,7 @@ declare module "@sanity/client" {
     '*[\n        _type == "product"\n        && name match $searchParam\n    ] | order(name asc)': SEARCH_FOR_PRODUCTS_QUERYResult;
     '\n    *[_type == "categorySortables" && title == $topLevelCategory][0] {\n      title,\n      "sortOptions": sortOptions[]{\n        name,\n        displayName,\n        type,\n        field,\n        defaultDirection\n      },\n      "mappings": categoryMappings[path == $cleanPath]\n    }\n  ': SORTABLES_BY_CATEGORY_QUERYResult;
     '\n    *[_type == "userProfile" && clerkId == $clerkId][0] {\n      _id,\n      _type,\n      clerkId,\n      displayName,\n      primaryAddress {\n        streetAddress,\n        city,\n        state,\n        postalCode,\n        country\n      },\n      preferences {\n        receiveMarketingEmails,\n        darkMode,\n        savePaymentInfo\n      },\n      createdAt,\n      updatedAt\n    }\n  ': FETCH_PROFILE_QUERYResult;
+    '\n    *[_type == "promotion" && internalTitle == $name][0] {\n      "src": visual.asset->url,\n      headline,\n      description,\n      discountPercent,\n      actionLabel,\n    }\n  ': PROMOTION_BY_NAME_QUERYResult;
     '\n      *[_type == "sale" && isActive == true] {\n        _id,\n        title,\n        "slug": slug.current,\n        discount,\n        validFrom,\n        validUntil,\n        isActive\n      }\n    ': GET_ACTIVE_SALES_QUERYResult;
     '\n    *[_type == "sale" && _id == $saleId]{\n      name,\n      "slug": slug.current,\n      validFrom,\n      validUntil,\n      isActive,\n      description,\n      "image": image.asset->url,\n      category->{\n        name,\n        "slug": slug.current,\n        "products": *[_type==\'product\' && categoryPath == ^.metadata.path]{\n          name,\n          "slug": slug.current,\n          image,\n          defaultPrice\n        }\n      }\n    }\n  ': SALE_BY_ID_QUERYResult;
   }

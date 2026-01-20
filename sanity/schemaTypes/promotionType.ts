@@ -1,4 +1,31 @@
+import { comprehensiveColorList } from "./colors";
+
 import { defineField, defineType } from "sanity";
+
+const segmentType = {
+  type: "object",
+  name: "segment",
+  fields: [
+    defineField({
+      name: "text",
+      title: "Text",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "highlighted",
+      title: "Highlighted",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
+      name: "color",
+      title: "Color",
+      type: "string",
+      hidden: ({ parent }) => !parent?.highlighted,
+    }),
+  ],
+};
 
 export const promotionType = defineType({
   name: "promotion",
@@ -14,14 +41,15 @@ export const promotionType = defineType({
     defineField({
       name: "headline",
       title: "Headline",
-      type: "string",
-      validation: (Rule) => Rule.required(),
+      type: "array",
+      of: [segmentType],
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: "description",
       title: "Description",
-      type: "text",
-      rows: 3,
+      type: "array",
+      of: [segmentType],
     }),
     defineField({
       name: "visual",
@@ -39,19 +67,18 @@ export const promotionType = defineType({
     defineField({
       name: "actionLabel",
       title: "Action Label",
-      type: "string",
+      type: "array",
+      of: [segmentType],
     }),
   ],
   preview: {
     select: {
       title: "internalTitle",
-      subtitle: "headline",
       media: "visual",
     },
     prepare(select) {
       return {
         title: select.title,
-        subtitle: select.subtitle,
         media: select.media,
       };
     },
