@@ -1,34 +1,4 @@
-import { comprehensiveColorList } from "./colors";
-
 import { defineField, defineType } from "sanity";
-
-const segmentType = {
-  type: "object",
-  name: "segment",
-  fields: [
-    defineField({
-      name: "text",
-      title: "Text",
-      type: "string",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "highlighted",
-      title: "Highlighted",
-      type: "boolean",
-      initialValue: false,
-    }),
-    defineField({
-      name: "color",
-      title: "Color",
-      type: "string",
-      options: {
-        list: comprehensiveColorList,
-      },
-      hidden: ({ parent }) => !parent?.highlighted,
-    }),
-  ],
-};
 
 export const promotionType = defineType({
   name: "promotion",
@@ -42,17 +12,53 @@ export const promotionType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "headline",
-      title: "Headline",
+      name: "promotion_text",
+      title: "Promotion text",
       type: "array",
-      of: [segmentType],
-      validation: (Rule) => Rule.required().min(1),
-    }),
-    defineField({
-      name: "description",
-      title: "Description",
-      type: "array",
-      of: [segmentType],
+      of: [
+        {
+          type: "block",
+          styles: [
+            { title: "H1", value: "h1" },
+            { title: "H2", value: "h2" },
+            { title: "H3", value: "h3" },
+            { title: "Normal", value: "normal" },
+            { title: "Small", value: "small" },
+          ],
+          lists: [],
+          marks: {
+            decorators: [
+              { title: "Strong", value: "strong" },
+              { title: "Emphasis", value: "em" },
+            ],
+            annotations: [
+              {
+                name: "color",
+                type: "object",
+                title: "Color",
+                fields: [
+                  {
+                    name: "hex",
+                    type: "string",
+                    title: "Color",
+                    options: {
+                      list: [
+                        { title: "White", value: "#ffffff" },
+                        { title: "Red", value: "#ff0000" },
+                        { title: "Blue", value: "#0000ff" },
+                        { title: "Green", value: "#00ff00" },
+                        { title: "Yellow", value: "#ffff00" },
+                        { title: "Purple", value: "#800080" },
+                      ],
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "visual",
@@ -62,28 +68,65 @@ export const promotionType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "discountPercent",
-      title: "Discount Percentage",
+      name: "cta_text",
+      title: "CALL TO ACTION button text",
       type: "array",
-      of: [segmentType],
+      of: [
+        {
+          type: "block",
+          styles: [
+            { title: "H1", value: "h1" },
+            { title: "H2", value: "h2" },
+            { title: "H3", value: "h3" },
+            { title: "Normal", value: "normal" },
+            { title: "Small", value: "small" },
+          ],
+          lists: [],
+          marks: {
+            decorators: [
+              { title: "Strong", value: "strong" },
+              { title: "Emphasis", value: "em" },
+            ],
+            annotations: [
+              {
+                name: "color",
+                type: "object",
+                title: "Color",
+                fields: [
+                  {
+                    name: "hex",
+                    type: "string",
+                    title: "Color",
+                    options: {
+                      list: [
+                        { title: "White", value: "#ffffff" },
+                        { title: "Red", value: "#ff0000" },
+                        { title: "Blue", value: "#0000ff" },
+                        { title: "Green", value: "#00ff00" },
+                        { title: "Yellow", value: "#ffff00" },
+                        { title: "Purple", value: "#800080" },
+                      ],
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "actionLabel",
-      title: "Action Label",
-      type: "array",
-      of: [segmentType],
+      name: "cta_background",
+      title: "CALL TO ACTION button background color",
+      type: "string",
+      validation: (Rule) => Rule.required(),
     }),
   ],
   preview: {
     select: {
       title: "internalTitle",
       media: "visual",
-    },
-    prepare(select) {
-      return {
-        title: select.title,
-        media: select.media,
-      };
     },
   },
 });
