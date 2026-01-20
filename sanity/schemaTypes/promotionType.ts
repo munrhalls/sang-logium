@@ -22,6 +22,9 @@ const segmentType = {
       name: "color",
       title: "Color",
       type: "string",
+      options: {
+        list: comprehensiveColorList,
+      },
       hidden: ({ parent }) => !parent?.highlighted,
     }),
   ],
@@ -61,8 +64,8 @@ export const promotionType = defineType({
     defineField({
       name: "discountPercent",
       title: "Discount Percentage",
-      type: "number",
-      validation: (Rule) => Rule.min(0).max(100),
+      type: "array",
+      of: [segmentType],
     }),
     defineField({
       name: "actionLabel",
