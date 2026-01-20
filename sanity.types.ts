@@ -20,30 +20,54 @@ export type Promotion = {
   _updatedAt: string;
   _rev: string;
   internalTitle?: string;
-  headline?: Array<{
+  promotion_text?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
       _type: "span";
       _key: string;
     }>;
-    style?: "normal";
+    style?: "h1" | "h2" | "h3" | "normal" | "small";
     listItem?: never;
-    markDefs?: null;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
+    markDefs?: Array<{
+      hex?:
+        | "#ffffff"
+        | "#000000"
+        | "#d1d5db"
+        | "#6b7280"
+        | "#374151"
+        | "#ef4444"
+        | "#f97316"
+        | "#f59e0b"
+        | "#eab308"
+        | "#84cc16"
+        | "#22c55e"
+        | "#10b981"
+        | "#14b8a6"
+        | "#06b6d4"
+        | "#0ea5e9"
+        | "#3b82f6"
+        | "#6366f1"
+        | "#8b5cf6"
+        | "#a855f7"
+        | "#d946ef"
+        | "#ec4899"
+        | "#f43f5e"
+        | "#b91c1c"
+        | "#c2410c"
+        | "#a16207"
+        | "#15803d"
+        | "#1e40af"
+        | "#6b21a8"
+        | "#fecaca"
+        | "#fed7aa"
+        | "#fef08a"
+        | "#bbf7d0"
+        | "#bfdbfe"
+        | "#e9d5ff";
+      _type: "color";
       _key: string;
     }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: null;
     level?: number;
     _type: "block";
     _key: string;
@@ -60,8 +84,93 @@ export type Promotion = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  discountPercent?: number;
-  actionLabel?: string;
+  cta_text?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "h1" | "h2" | "h3" | "normal" | "small";
+    listItem?: never;
+    markDefs?: Array<{
+      hex?:
+        | "#ffffff"
+        | "#000000"
+        | "#d1d5db"
+        | "#6b7280"
+        | "#374151"
+        | "#ef4444"
+        | "#f97316"
+        | "#f59e0b"
+        | "#eab308"
+        | "#84cc16"
+        | "#22c55e"
+        | "#10b981"
+        | "#14b8a6"
+        | "#06b6d4"
+        | "#0ea5e9"
+        | "#3b82f6"
+        | "#6366f1"
+        | "#8b5cf6"
+        | "#a855f7"
+        | "#d946ef"
+        | "#ec4899"
+        | "#f43f5e"
+        | "#b91c1c"
+        | "#c2410c"
+        | "#a16207"
+        | "#15803d"
+        | "#1e40af"
+        | "#6b21a8"
+        | "#fecaca"
+        | "#fed7aa"
+        | "#fef08a"
+        | "#bbf7d0"
+        | "#bfdbfe"
+        | "#e9d5ff";
+      _type: "color";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  cta_background?:
+    | "#ffffff"
+    | "#000000"
+    | "#d1d5db"
+    | "#6b7280"
+    | "#374151"
+    | "#ef4444"
+    | "#f97316"
+    | "#f59e0b"
+    | "#eab308"
+    | "#84cc16"
+    | "#22c55e"
+    | "#10b981"
+    | "#14b8a6"
+    | "#06b6d4"
+    | "#0ea5e9"
+    | "#3b82f6"
+    | "#6366f1"
+    | "#8b5cf6"
+    | "#a855f7"
+    | "#d946ef"
+    | "#ec4899"
+    | "#f43f5e"
+    | "#b91c1c"
+    | "#c2410c"
+    | "#a16207"
+    | "#15803d"
+    | "#1e40af"
+    | "#6b21a8"
+    | "#fecaca"
+    | "#fed7aa"
+    | "#fef08a"
+    | "#bbf7d0"
+    | "#bfdbfe"
+    | "#e9d5ff";
 };
 
 export type Product = {
@@ -496,16 +605,8 @@ export type FETCH_PROFILE_QUERYResult = null;
 // Query: *[_type == "promotion" && internalTitle == $name][0]  {      _id,      headline[] { text, highlighted, color },      description[] { text, highlighted, color },      actionLabel[] { text, highlighted, color },      discountPercent[] { text, highlighted, color },      "image": {        "src": visual.asset->url,        "alt": visual.alt,        "width": visual.asset->metadata.dimensions.width,        "height": visual.asset->metadata.dimensions.height,        "blurDataURL": visual.asset->metadata.lqip      }    }
 export type PROMOTION_BY_NAME_QUERYResult = {
   _id: string;
-  headline: Array<{
-    text: null;
-    highlighted: null;
-    color: null;
-  }> | null;
-  description: Array<{
-    text: null;
-    highlighted: null;
-    color: null;
-  }> | null;
+  headline: null;
+  description: null;
   actionLabel: null;
   discountPercent: null;
   image: {
@@ -515,6 +616,169 @@ export type PROMOTION_BY_NAME_QUERYResult = {
     height: number | null;
     blurDataURL: string | null;
   };
+} | null;
+
+// Source: ./sanity/lib/promotions/smallTest.ts
+// Variable: SMALL_TEST
+// Query: *[_type == "promotion"][0]
+export type SMALL_TESTResult = {
+  _id: string;
+  _type: "promotion";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  internalTitle?: string;
+  promotion_text?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "h1" | "h2" | "h3" | "normal" | "small";
+    listItem?: never;
+    markDefs?: Array<{
+      hex?:
+        | "#000000"
+        | "#06b6d4"
+        | "#0ea5e9"
+        | "#10b981"
+        | "#14b8a6"
+        | "#15803d"
+        | "#1e40af"
+        | "#22c55e"
+        | "#374151"
+        | "#3b82f6"
+        | "#6366f1"
+        | "#6b21a8"
+        | "#6b7280"
+        | "#84cc16"
+        | "#8b5cf6"
+        | "#a16207"
+        | "#a855f7"
+        | "#b91c1c"
+        | "#bbf7d0"
+        | "#bfdbfe"
+        | "#c2410c"
+        | "#d1d5db"
+        | "#d946ef"
+        | "#e9d5ff"
+        | "#eab308"
+        | "#ec4899"
+        | "#ef4444"
+        | "#f43f5e"
+        | "#f59e0b"
+        | "#f97316"
+        | "#fecaca"
+        | "#fed7aa"
+        | "#fef08a"
+        | "#ffffff";
+      _type: "color";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  visual?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  cta_text?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "h1" | "h2" | "h3" | "normal" | "small";
+    listItem?: never;
+    markDefs?: Array<{
+      hex?:
+        | "#000000"
+        | "#06b6d4"
+        | "#0ea5e9"
+        | "#10b981"
+        | "#14b8a6"
+        | "#15803d"
+        | "#1e40af"
+        | "#22c55e"
+        | "#374151"
+        | "#3b82f6"
+        | "#6366f1"
+        | "#6b21a8"
+        | "#6b7280"
+        | "#84cc16"
+        | "#8b5cf6"
+        | "#a16207"
+        | "#a855f7"
+        | "#b91c1c"
+        | "#bbf7d0"
+        | "#bfdbfe"
+        | "#c2410c"
+        | "#d1d5db"
+        | "#d946ef"
+        | "#e9d5ff"
+        | "#eab308"
+        | "#ec4899"
+        | "#ef4444"
+        | "#f43f5e"
+        | "#f59e0b"
+        | "#f97316"
+        | "#fecaca"
+        | "#fed7aa"
+        | "#fef08a"
+        | "#ffffff";
+      _type: "color";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  cta_background?:
+    | "#000000"
+    | "#06b6d4"
+    | "#0ea5e9"
+    | "#10b981"
+    | "#14b8a6"
+    | "#15803d"
+    | "#1e40af"
+    | "#22c55e"
+    | "#374151"
+    | "#3b82f6"
+    | "#6366f1"
+    | "#6b21a8"
+    | "#6b7280"
+    | "#84cc16"
+    | "#8b5cf6"
+    | "#a16207"
+    | "#a855f7"
+    | "#b91c1c"
+    | "#bbf7d0"
+    | "#bfdbfe"
+    | "#c2410c"
+    | "#d1d5db"
+    | "#d946ef"
+    | "#e9d5ff"
+    | "#eab308"
+    | "#ec4899"
+    | "#ef4444"
+    | "#f43f5e"
+    | "#f59e0b"
+    | "#f97316"
+    | "#fecaca"
+    | "#fed7aa"
+    | "#fef08a"
+    | "#ffffff";
 } | null;
 
 // Source: ./sanity/lib/sales/getAllActiveSales.ts
@@ -542,6 +806,7 @@ declare module "@sanity/client" {
     '\n    *[_type == "categorySortables" && title == $topLevelCategory][0] {\n      title,\n      "sortOptions": sortOptions[]{\n        name,\n        displayName,\n        type,\n        field,\n        defaultDirection\n      },\n      "mappings": categoryMappings[path == $cleanPath]\n    }\n  ': SORTABLES_BY_CATEGORY_QUERYResult;
     '\n    *[_type == "userProfile" && clerkId == $clerkId][0] {\n      _id,\n      _type,\n      clerkId,\n      displayName,\n      primaryAddress {\n        streetAddress,\n        city,\n        state,\n        postalCode,\n        country\n      },\n      preferences {\n        receiveMarketingEmails,\n        darkMode,\n        savePaymentInfo\n      },\n      createdAt,\n      updatedAt\n    }\n  ': FETCH_PROFILE_QUERYResult;
     '\n    *[_type == "promotion" && internalTitle == $name][0]  {\n      _id,\n      headline[] { text, highlighted, color },\n      description[] { text, highlighted, color },\n      actionLabel[] { text, highlighted, color },\n      discountPercent[] { text, highlighted, color },\n      "image": {\n        "src": visual.asset->url,\n        "alt": visual.alt,\n        "width": visual.asset->metadata.dimensions.width,\n        "height": visual.asset->metadata.dimensions.height,\n        "blurDataURL": visual.asset->metadata.lqip\n      }\n    }\n  ': PROMOTION_BY_NAME_QUERYResult;
+    '\n    *[_type == "promotion"][0]\n  ': SMALL_TESTResult;
     '\n      *[_type == "sale" && isActive == true] {\n        _id,\n        title,\n        "slug": slug.current,\n        discount,\n        validFrom,\n        validUntil,\n        isActive\n      }\n    ': GET_ACTIVE_SALES_QUERYResult;
     '\n    *[_type == "sale" && _id == $saleId]{\n      name,\n      "slug": slug.current,\n      validFrom,\n      validUntil,\n      isActive,\n      description,\n      "image": image.asset->url,\n      category->{\n        name,\n        "slug": slug.current,\n        "products": *[_type==\'product\' && categoryPath == ^.metadata.path]{\n          name,\n          "slug": slug.current,\n          image,\n          defaultPrice\n        }\n      }\n    }\n  ': SALE_BY_ID_QUERYResult;
   }

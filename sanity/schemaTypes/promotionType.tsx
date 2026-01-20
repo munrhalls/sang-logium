@@ -1,4 +1,6 @@
 import { defineField, defineType } from "sanity";
+import { COLOR_OPTIONS } from "@/sanity/lib/colors/colors";
+import { EyeOpenIcon } from "@sanity/icons";
 
 export const promotionType = defineType({
   name: "promotion",
@@ -36,20 +38,14 @@ export const promotionType = defineType({
                 name: "color",
                 type: "object",
                 title: "Color",
+                icon: () => "🎨",
                 fields: [
                   {
                     name: "hex",
                     type: "string",
                     title: "Color",
                     options: {
-                      list: [
-                        { title: "White", value: "#ffffff" },
-                        { title: "Red", value: "#ff0000" },
-                        { title: "Blue", value: "#0000ff" },
-                        { title: "Green", value: "#00ff00" },
-                        { title: "Yellow", value: "#ffff00" },
-                        { title: "Purple", value: "#800080" },
-                      ],
+                      list: COLOR_OPTIONS,
                     },
                   },
                 ],
@@ -98,14 +94,7 @@ export const promotionType = defineType({
                     type: "string",
                     title: "Color",
                     options: {
-                      list: [
-                        { title: "White", value: "#ffffff" },
-                        { title: "Red", value: "#ff0000" },
-                        { title: "Blue", value: "#0000ff" },
-                        { title: "Green", value: "#00ff00" },
-                        { title: "Yellow", value: "#ffff00" },
-                        { title: "Purple", value: "#800080" },
-                      ],
+                      list: COLOR_OPTIONS,
                     },
                   },
                 ],
@@ -120,7 +109,18 @@ export const promotionType = defineType({
       name: "cta_background",
       title: "CALL TO ACTION button background color",
       type: "string",
-      validation: (Rule) => Rule.required(),
+      options: {
+        list: COLOR_OPTIONS,
+        layout: "dropdown",
+      },
+      validation: (Rule) =>
+        Rule.required().custom((value) => {
+          const validValues = COLOR_OPTIONS.map((option) => option.value);
+          if (!value || validValues.includes(value)) {
+            return true;
+          }
+          return "Please select a color from the list";
+        }),
     }),
   ],
   preview: {

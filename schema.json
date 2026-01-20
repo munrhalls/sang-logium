@@ -41,7 +41,7 @@
         },
         "optional": true
       },
-      "headline": {
+      "promotion_text": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -102,7 +102,23 @@
                   "of": [
                     {
                       "type": "string",
+                      "value": "h1"
+                    },
+                    {
+                      "type": "string",
+                      "value": "h2"
+                    },
+                    {
+                      "type": "string",
+                      "value": "h3"
+                    },
+                    {
+                      "type": "string",
                       "value": "normal"
+                    },
+                    {
+                      "type": "string",
+                      "value": "small"
                     }
                   ]
                 },
@@ -119,68 +135,152 @@
               "markDefs": {
                 "type": "objectAttribute",
                 "value": {
-                  "type": "null"
-                },
-                "optional": true
-              },
-              "level": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "number"
-                },
-                "optional": true
-              },
-              "_type": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string",
-                  "value": "block"
-                }
-              }
-            },
-            "rest": {
-              "type": "object",
-              "attributes": {
-                "_key": {
-                  "type": "objectAttribute",
-                  "value": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "optional": true
-      },
-      "description": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "children": {
-                "type": "objectAttribute",
-                "value": {
                   "type": "array",
                   "of": {
                     "type": "object",
                     "attributes": {
-                      "marks": {
+                      "hex": {
                         "type": "objectAttribute",
                         "value": {
-                          "type": "array",
-                          "of": {
-                            "type": "string"
-                          }
-                        },
-                        "optional": true
-                      },
-                      "text": {
-                        "type": "objectAttribute",
-                        "value": {
-                          "type": "string"
+                          "type": "union",
+                          "of": [
+                            {
+                              "type": "string",
+                              "value": "#ffffff"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#000000"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#d1d5db"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#6b7280"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#374151"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#ef4444"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#f97316"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#f59e0b"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#eab308"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#84cc16"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#22c55e"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#10b981"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#14b8a6"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#06b6d4"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#0ea5e9"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#3b82f6"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#6366f1"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#8b5cf6"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#a855f7"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#d946ef"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#ec4899"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#f43f5e"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#b91c1c"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#c2410c"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#a16207"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#15803d"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#1e40af"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#6b21a8"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#fecaca"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#fed7aa"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#fef08a"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#bbf7d0"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#bfdbfe"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#e9d5ff"
+                            }
+                          ]
                         },
                         "optional": true
                       },
@@ -188,7 +288,7 @@
                         "type": "objectAttribute",
                         "value": {
                           "type": "string",
-                          "value": "span"
+                          "value": "color"
                         }
                       }
                     },
@@ -204,34 +304,6 @@
                       }
                     }
                   }
-                },
-                "optional": true
-              },
-              "style": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "union",
-                  "of": [
-                    {
-                      "type": "string",
-                      "value": "normal"
-                    }
-                  ]
-                },
-                "optional": true
-              },
-              "listItem": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "union",
-                  "of": []
-                },
-                "optional": true
-              },
-              "markDefs": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "null"
                 },
                 "optional": true
               },
@@ -334,17 +406,444 @@
         },
         "optional": true
       },
-      "discountPercent": {
+      "cta_text": {
         "type": "objectAttribute",
         "value": {
-          "type": "number"
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "children": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "array",
+                  "of": {
+                    "type": "object",
+                    "attributes": {
+                      "marks": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "array",
+                          "of": {
+                            "type": "string"
+                          }
+                        },
+                        "optional": true
+                      },
+                      "text": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "_type": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string",
+                          "value": "span"
+                        }
+                      }
+                    },
+                    "rest": {
+                      "type": "object",
+                      "attributes": {
+                        "_key": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "optional": true
+              },
+              "style": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "union",
+                  "of": [
+                    {
+                      "type": "string",
+                      "value": "h1"
+                    },
+                    {
+                      "type": "string",
+                      "value": "h2"
+                    },
+                    {
+                      "type": "string",
+                      "value": "h3"
+                    },
+                    {
+                      "type": "string",
+                      "value": "normal"
+                    },
+                    {
+                      "type": "string",
+                      "value": "small"
+                    }
+                  ]
+                },
+                "optional": true
+              },
+              "listItem": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "union",
+                  "of": []
+                },
+                "optional": true
+              },
+              "markDefs": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "array",
+                  "of": {
+                    "type": "object",
+                    "attributes": {
+                      "hex": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "union",
+                          "of": [
+                            {
+                              "type": "string",
+                              "value": "#ffffff"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#000000"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#d1d5db"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#6b7280"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#374151"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#ef4444"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#f97316"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#f59e0b"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#eab308"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#84cc16"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#22c55e"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#10b981"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#14b8a6"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#06b6d4"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#0ea5e9"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#3b82f6"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#6366f1"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#8b5cf6"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#a855f7"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#d946ef"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#ec4899"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#f43f5e"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#b91c1c"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#c2410c"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#a16207"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#15803d"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#1e40af"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#6b21a8"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#fecaca"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#fed7aa"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#fef08a"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#bbf7d0"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#bfdbfe"
+                            },
+                            {
+                              "type": "string",
+                              "value": "#e9d5ff"
+                            }
+                          ]
+                        },
+                        "optional": true
+                      },
+                      "_type": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string",
+                          "value": "color"
+                        }
+                      }
+                    },
+                    "rest": {
+                      "type": "object",
+                      "attributes": {
+                        "_key": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "optional": true
+              },
+              "level": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "number"
+                },
+                "optional": true
+              },
+              "_type": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string",
+                  "value": "block"
+                }
+              }
+            },
+            "rest": {
+              "type": "object",
+              "attributes": {
+                "_key": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
         },
         "optional": true
       },
-      "actionLabel": {
+      "cta_background": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "#ffffff"
+            },
+            {
+              "type": "string",
+              "value": "#000000"
+            },
+            {
+              "type": "string",
+              "value": "#d1d5db"
+            },
+            {
+              "type": "string",
+              "value": "#6b7280"
+            },
+            {
+              "type": "string",
+              "value": "#374151"
+            },
+            {
+              "type": "string",
+              "value": "#ef4444"
+            },
+            {
+              "type": "string",
+              "value": "#f97316"
+            },
+            {
+              "type": "string",
+              "value": "#f59e0b"
+            },
+            {
+              "type": "string",
+              "value": "#eab308"
+            },
+            {
+              "type": "string",
+              "value": "#84cc16"
+            },
+            {
+              "type": "string",
+              "value": "#22c55e"
+            },
+            {
+              "type": "string",
+              "value": "#10b981"
+            },
+            {
+              "type": "string",
+              "value": "#14b8a6"
+            },
+            {
+              "type": "string",
+              "value": "#06b6d4"
+            },
+            {
+              "type": "string",
+              "value": "#0ea5e9"
+            },
+            {
+              "type": "string",
+              "value": "#3b82f6"
+            },
+            {
+              "type": "string",
+              "value": "#6366f1"
+            },
+            {
+              "type": "string",
+              "value": "#8b5cf6"
+            },
+            {
+              "type": "string",
+              "value": "#a855f7"
+            },
+            {
+              "type": "string",
+              "value": "#d946ef"
+            },
+            {
+              "type": "string",
+              "value": "#ec4899"
+            },
+            {
+              "type": "string",
+              "value": "#f43f5e"
+            },
+            {
+              "type": "string",
+              "value": "#b91c1c"
+            },
+            {
+              "type": "string",
+              "value": "#c2410c"
+            },
+            {
+              "type": "string",
+              "value": "#a16207"
+            },
+            {
+              "type": "string",
+              "value": "#15803d"
+            },
+            {
+              "type": "string",
+              "value": "#1e40af"
+            },
+            {
+              "type": "string",
+              "value": "#6b21a8"
+            },
+            {
+              "type": "string",
+              "value": "#fecaca"
+            },
+            {
+              "type": "string",
+              "value": "#fed7aa"
+            },
+            {
+              "type": "string",
+              "value": "#fef08a"
+            },
+            {
+              "type": "string",
+              "value": "#bbf7d0"
+            },
+            {
+              "type": "string",
+              "value": "#bfdbfe"
+            },
+            {
+              "type": "string",
+              "value": "#e9d5ff"
+            }
+          ]
         },
         "optional": true
       }
