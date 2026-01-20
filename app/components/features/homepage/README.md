@@ -46,3 +46,16 @@ graph TD
     style Hero fill:#e6f3ff,stroke:#0366d6
     style Main fill:#e6f3ff,stroke:#0366d6
     style Bottom fill:#e6f3ff,stroke:#0366d6
+```
+
+# Sanity Schema Design
+
+- **Single Source of Truth**: One singleton `homepage` document. All content editors manage the homepage in one place — atomic publishes, no coordination between multiple documents, simple previews/drafts.
+- **Colocated Parallel Fetching Compatibility**: Each segment (`HeroSegment`, `MainSegment`, `BottomSegment`) runs its own focused GROQ query against the single `homepage` document, selecting only the fields it needs. Next.js executes them in parallel — no waterfalls, no mega-query.
+- **No Portable Text / Block Content**: Replaced with simple `string` for short text and `text` (multi-line, markdown-supported) for longer bodies. Frontend renders with a lightweight markdown parser (e.g., `react-markdown` or `remark`).
+- **Explicit Structure Where Predictable**: Hero overlays use dedicated fields (eyebrow, headline, subhead, CTA) — no ambiguous "role" arrays needed, as the layout is fixed in code.
+- **Flexibility for Reordering/Moving Sections**: `mainSections` and `bottomSections` are separate orderable arrays of polymorphic sections. Editors can reorder within an array via drag-and-drop. Moving a section between Main ↔ Bottom requires deleting from one array and recreating in the other.
+- **Manual Control**: All product selections are manual references. No auto-queries by date/sales.
+- **Images from CMS**: All backgrounds and assets are Sanity images (with hotspot + alt).
+- **Minimal Custom Types**: Reusable objects only where it reduces repetition (`promotionContent`, `heroSlide`).
+- **Future-Proof**: Easy to add new section types by extending the `sectionType` list and adding conditional fields.

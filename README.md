@@ -49,6 +49,12 @@ The architecture is robust, secure, and fault-tolerant, designed to prioritize a
 - Architected via a finite state machine to strictly map physical order states to digital statuses.
 - Uses idempotent background queues (Inngest) to guarantee Stripe refunds and inventory re-stocking happen exactly once, without fail.
 
+### PERFORMANCE - IMAGE STRATEGY
+* **Hero Image Strategy**
+Strategy uses Sanity's Image Pipeline *integrated* with Next.js next/image in a way that avoids double-optimization. I avoid hardcoded dimension. Instead I use custom loader to map Sanity's crop and hotspot.
+That data goes  directly to the browser's viewport using dynamic srcset generation. This does the next optimization: 1) a device gets image size as small as fits (next optimization) and 2) via network delivery speed is optimized (sanity optimization). Sanity handles processing and delivery.
+Sanity applies crops, hotspots, and compression on-the-fly via CDN. The next and sanity image optimizations are both preserved. But they don't conflict. This is extremely important because images are the largest assets. This has the biggest impact on performance.
+
 ### CATALOGUE INTERACTION EXPERIENCE - INSTANT RESPONSIVENESS
 * **The Struggle:** Recursive database queries for nested category trees caused bottlenecks and 1-2s latency on navigation.
 * **The Solution:** Implemented a "Virtual File System" that pre-computes paths at build time, replacing expensive tree traversal with instant string matching.
@@ -74,6 +80,7 @@ Fragmented fetching creates "network waterfalls" and complex prop-drilling, dela
 * **Auto-Deduplication:** Uses React's native cache to prevent redundant Sanity API calls.
 
 * [View Architecture Deep Dive →](./app/components/features/homepage/README.md)
+
 
 
 ### PRODUCT DISCOVERY EXPERIENCE

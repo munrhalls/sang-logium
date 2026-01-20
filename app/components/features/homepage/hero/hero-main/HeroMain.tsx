@@ -1,23 +1,29 @@
 import Image from "next/image";
-import TextCommercialWrapper from "./TextCommercialWrapper";
+import PromotionCommercial from "./PromotionCommercial";
+import { getPromotionByName } from "@/sanity/lib/promotions/getPromotionByName";
+import PromotionImage from "@/app/components/ui/promotion-image/PromotionImage";
 
 export default async function HeroMain() {
+  const promotion = await getPromotionByName("Main Hero");
+  {
+    /* TODO just make it display that image */
+  }
+
+  console.log("prom", promotion);
+  const { src, headline, description, discountPercent, actionLabel } =
+    promotion;
+
   return (
     <div className="relative grid h-full grid-rows-[1fr_3rem]">
       <div className="relative z-30 h-full w-full overflow-hidden">
         <div className="relative h-full flex-[0_0_100%]">
-          <Image
-            src={"/HeroMain.avif"}
-            priority
-            fetchPriority="high"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
-            style={{ objectFit: "cover", objectPosition: "right" }}
-            className="hero-image"
-            quality={95}
-            alt="Sang logium Hero image"
+          {/* // TODO fix the error  */}
+          <PromotionImage src={src} headline={headline} />
+          <PromotionCommercial
+            description={description}
+            discountPercent={discountPercent}
+            actionLabel={actionLabel}
           />
-          <TextCommercialWrapper />
         </div>
       </div>
       <div className="z-30 h-full w-full bg-black">

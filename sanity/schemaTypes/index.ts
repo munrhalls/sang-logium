@@ -9,6 +9,7 @@ import { productType } from "./productType";
 // import { categorySortablesType } from "./categorySortablesType";
 import { catalogueItemType } from "./catalogueItemType";
 import { catalogueType } from "./catalogueType";
+import { promotionType } from "./promotionType";
 
 // TODO 4. delete all blockContent
 
@@ -17,8 +18,9 @@ export const schema = {
     // blockContentType,
     catalogueItemType,
     catalogueType,
-    // categoryType,
     productType,
+    promotionType,
+    // categoryType,
     // categoryFiltersType,
     // categorySortablesType,
     // orderType,
