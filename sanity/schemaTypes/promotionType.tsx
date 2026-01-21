@@ -1,6 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { COLOR_OPTIONS } from "@/sanity/lib/colors/colors";
-import { EyeOpenIcon } from "@sanity/icons";
+import { COLOR_OPTIONS } from "@/sanity/schemaTypes/colors";
 
 export const promotionType = defineType({
   name: "promotion",
@@ -53,12 +52,23 @@ export const promotionType = defineType({
             ],
           },
         },
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            {
+              name: "alt",
+              type: "string",
+              title: "Alternative Text",
+            },
+          ],
+        },
       ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "visual",
-      title: "Visual Asset",
+      name: "image_background",
+      title: "Image background",
       type: "image",
       options: { hotspot: true },
       validation: (Rule) => Rule.required(),

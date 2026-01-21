@@ -1,5 +1,6 @@
-export const comprehensiveColorList = [
-  // Reds
+export const COLOR_OPTIONS = [
+  { title: "Crimson Frost", value: "#e11d48" },
+
   { title: "Red 50", value: "#fef2f2" },
   { title: "Red 100", value: "#fee2e2" },
   { title: "Red 200", value: "#fecaca" },
@@ -10,8 +11,8 @@ export const comprehensiveColorList = [
   { title: "Red 700", value: "#b91c1c" },
   { title: "Red 800", value: "#991b1b" },
   { title: "Red 900", value: "#7f1d1d" },
+  { title: "Red 950", value: "#450a0a" },
 
-  // Oranges
   { title: "Orange 50", value: "#fff7ed" },
   { title: "Orange 100", value: "#ffedd5" },
   { title: "Orange 200", value: "#fed7aa" },
@@ -22,8 +23,8 @@ export const comprehensiveColorList = [
   { title: "Orange 700", value: "#c2410c" },
   { title: "Orange 800", value: "#9a3412" },
   { title: "Orange 900", value: "#7c2d12" },
+  { title: "Orange 950", value: "#431407" },
 
-  // Ambers
   { title: "Amber 50", value: "#fffbeb" },
   { title: "Amber 100", value: "#fef3c7" },
   { title: "Amber 200", value: "#fde68a" },
@@ -34,32 +35,32 @@ export const comprehensiveColorList = [
   { title: "Amber 700", value: "#b45309" },
   { title: "Amber 800", value: "#92400e" },
   { title: "Amber 900", value: "#78350f" },
+  { title: "Amber 950", value: "#451a03" },
 
-  // Yellows
   { title: "Yellow 50", value: "#fefce8" },
-  { title: "Yellow 100", value: "#fef08a" },
+  { title: "Yellow 100", value: "#fef9c3" },
   { title: "Yellow 200", value: "#fef08a" },
-  { title: "Yellow 300", value: "#fcd34d" },
+  { title: "Yellow 300", value: "#fde047" },
   { title: "Yellow 400", value: "#facc15" },
   { title: "Yellow 500", value: "#eab308" },
   { title: "Yellow 600", value: "#ca8a04" },
   { title: "Yellow 700", value: "#a16207" },
   { title: "Yellow 800", value: "#854d0e" },
   { title: "Yellow 900", value: "#713f12" },
+  { title: "Yellow 950", value: "#422006" },
 
-  // Limes
   { title: "Lime 50", value: "#f7fee7" },
   { title: "Lime 100", value: "#ecfccb" },
   { title: "Lime 200", value: "#d9f99d" },
-  { title: "Lime 300", value: "#bfdbfe" },
-  { title: "Lime 400", value: "#a4e857" },
+  { title: "Lime 300", value: "#bef264" },
+  { title: "Lime 400", value: "#a3e635" },
   { title: "Lime 500", value: "#84cc16" },
   { title: "Lime 600", value: "#65a30d" },
   { title: "Lime 700", value: "#4d7c0f" },
   { title: "Lime 800", value: "#3f6212" },
   { title: "Lime 900", value: "#365314" },
+  { title: "Lime 950", value: "#1a2e05" },
 
-  // Greens
   { title: "Green 50", value: "#f0fdf4" },
   { title: "Green 100", value: "#dcfce7" },
   { title: "Green 200", value: "#bbf7d0" },
@@ -69,10 +70,10 @@ export const comprehensiveColorList = [
   { title: "Green 600", value: "#16a34a" },
   { title: "Green 700", value: "#15803d" },
   { title: "Green 800", value: "#166534" },
-  { title: "Green 900", value: "#134e4a" },
+  { title: "Green 900", value: "#14532d" },
+  { title: "Green 950", value: "#052e16" },
 
-  // Emeralds
-  { title: "Emerald 50", value: "#f0fdf4" },
+  { title: "Emerald 50", value: "#ecfdf5" },
   { title: "Emerald 100", value: "#d1fae5" },
   { title: "Emerald 200", value: "#a7f3d0" },
   { title: "Emerald 300", value: "#6ee7b7" },
@@ -82,8 +83,8 @@ export const comprehensiveColorList = [
   { title: "Emerald 700", value: "#047857" },
   { title: "Emerald 800", value: "#065f46" },
   { title: "Emerald 900", value: "#064e3b" },
+  { title: "Emerald 950", value: "#022c22" },
 
-  // Teals
   { title: "Teal 50", value: "#f0fdfa" },
   { title: "Teal 100", value: "#ccfbf1" },
   { title: "Teal 200", value: "#99f6e4" },
@@ -92,11 +93,11 @@ export const comprehensiveColorList = [
   { title: "Teal 500", value: "#14b8a6" },
   { title: "Teal 600", value: "#0d9488" },
   { title: "Teal 700", value: "#0f766e" },
-  { title: "Teal 800", value: "#134e4a" },
-  { title: "Teal 900", value: "#0f2f2f" },
+  { title: "Teal 800", value: "#115e59" },
+  { title: "Teal 900", value: "#134e4a" },
+  { title: "Teal 950", value: "#042f2e" },
 
-  // Cyans
-  { title: "Cyan 50", value: "#ecf0ff" },
+  { title: "Cyan 50", value: "#ecfeff" },
   { title: "Cyan 100", value: "#cffafe" },
   { title: "Cyan 200", value: "#a5f3fc" },
   { title: "Cyan 300", value: "#67e8f9" },
@@ -106,8 +107,20 @@ export const comprehensiveColorList = [
   { title: "Cyan 700", value: "#0e7490" },
   { title: "Cyan 800", value: "#155e75" },
   { title: "Cyan 900", value: "#164e63" },
+  { title: "Cyan 950", value: "#083344" },
 
-  // Blues
+  { title: "Sky 50", value: "#f0f9ff" },
+  { title: "Sky 100", value: "#e0f2fe" },
+  { title: "Sky 200", value: "#bae6fd" },
+  { title: "Sky 300", value: "#7dd3fc" },
+  { title: "Sky 400", value: "#38bdf8" },
+  { title: "Sky 500", value: "#0ea5e9" },
+  { title: "Sky 600", value: "#0284c7" },
+  { title: "Sky 700", value: "#0369a1" },
+  { title: "Sky 800", value: "#075985" },
+  { title: "Sky 900", value: "#0c4a6e" },
+  { title: "Sky 950", value: "#082f49" },
+
   { title: "Blue 50", value: "#eff6ff" },
   { title: "Blue 100", value: "#dbeafe" },
   { title: "Blue 200", value: "#bfdbfe" },
@@ -118,8 +131,8 @@ export const comprehensiveColorList = [
   { title: "Blue 700", value: "#1d4ed8" },
   { title: "Blue 800", value: "#1e40af" },
   { title: "Blue 900", value: "#1e3a8a" },
+  { title: "Blue 950", value: "#172554" },
 
-  // Indigos
   { title: "Indigo 50", value: "#eef2ff" },
   { title: "Indigo 100", value: "#e0e7ff" },
   { title: "Indigo 200", value: "#c7d2fe" },
@@ -130,8 +143,8 @@ export const comprehensiveColorList = [
   { title: "Indigo 700", value: "#4338ca" },
   { title: "Indigo 800", value: "#3730a3" },
   { title: "Indigo 900", value: "#312e81" },
+  { title: "Indigo 950", value: "#1e1b4b" },
 
-  // Violets
   { title: "Violet 50", value: "#f5f3ff" },
   { title: "Violet 100", value: "#ede9fe" },
   { title: "Violet 200", value: "#ddd6fe" },
@@ -142,8 +155,8 @@ export const comprehensiveColorList = [
   { title: "Violet 700", value: "#6d28d9" },
   { title: "Violet 800", value: "#5b21b6" },
   { title: "Violet 900", value: "#4c1d95" },
+  { title: "Violet 950", value: "#2e1065" },
 
-  // Purples
   { title: "Purple 50", value: "#faf5ff" },
   { title: "Purple 100", value: "#f3e8ff" },
   { title: "Purple 200", value: "#e9d5ff" },
@@ -154,44 +167,44 @@ export const comprehensiveColorList = [
   { title: "Purple 700", value: "#7e22ce" },
   { title: "Purple 800", value: "#6b21a8" },
   { title: "Purple 900", value: "#581c87" },
+  { title: "Purple 950", value: "#3b0764" },
 
-  // Pinks
+  { title: "Fuchsia 50", value: "#fdf4ff" },
+  { title: "Fuchsia 100", value: "#fae8ff" },
+  { title: "Fuchsia 200", value: "#f5d0fe" },
+  { title: "Fuchsia 300", value: "#f0abfc" },
+  { title: "Fuchsia 400", value: "#e879f9" },
+  { title: "Fuchsia 500", value: "#d946ef" },
+  { title: "Fuchsia 600", value: "#c026d3" },
+  { title: "Fuchsia 700", value: "#a21caf" },
+  { title: "Fuchsia 800", value: "#86198f" },
+  { title: "Fuchsia 900", value: "#701a75" },
+  { title: "Fuchsia 950", value: "#4a044e" },
+
   { title: "Pink 50", value: "#fdf2f8" },
   { title: "Pink 100", value: "#fce7f3" },
   { title: "Pink 200", value: "#fbcfe8" },
-  { title: "Pink 300", value: "#f8b4d5" },
+  { title: "Pink 300", value: "#f9a8d4" },
   { title: "Pink 400", value: "#f472b6" },
   { title: "Pink 500", value: "#ec4899" },
   { title: "Pink 600", value: "#db2777" },
   { title: "Pink 700", value: "#be185d" },
   { title: "Pink 800", value: "#9d174d" },
   { title: "Pink 900", value: "#831843" },
+  { title: "Pink 950", value: "#500724" },
 
-  // Roses
-  { title: "Rose 50", value: "#fff5f7" },
+  { title: "Rose 50", value: "#fff1f2" },
   { title: "Rose 100", value: "#ffe4e6" },
-  { title: "Rose 200", value: "#fbcfe8" },
-  { title: "Rose 300", value: "#f8b4d5" },
-  { title: "Rose 400", value: "#f472b6" },
+  { title: "Rose 200", value: "#fecdd3" },
+  { title: "Rose 300", value: "#fda4af" },
+  { title: "Rose 400", value: "#fb7185" },
   { title: "Rose 500", value: "#f43f5e" },
   { title: "Rose 600", value: "#e11d48" },
   { title: "Rose 700", value: "#be123c" },
   { title: "Rose 800", value: "#9f1239" },
   { title: "Rose 900", value: "#881337" },
+  { title: "Rose 950", value: "#4c0519" },
 
-  // Grays
-  { title: "Gray 50", value: "#f9fafb" },
-  { title: "Gray 100", value: "#f3f4f6" },
-  { title: "Gray 200", value: "#e5e7eb" },
-  { title: "Gray 300", value: "#d1d5db" },
-  { title: "Gray 400", value: "#9ca3af" },
-  { title: "Gray 500", value: "#6b7280" },
-  { title: "Gray 600", value: "#4b5563" },
-  { title: "Gray 700", value: "#374151" },
-  { title: "Gray 800", value: "#1f2937" },
-  { title: "Gray 900", value: "#111827" },
-
-  // Slates
   { title: "Slate 50", value: "#f8fafc" },
   { title: "Slate 100", value: "#f1f5f9" },
   { title: "Slate 200", value: "#e2e8f0" },
@@ -202,4 +215,5 @@ export const comprehensiveColorList = [
   { title: "Slate 700", value: "#334155" },
   { title: "Slate 800", value: "#1e293b" },
   { title: "Slate 900", value: "#0f172a" },
+  { title: "Slate 950", value: "#020617" },
 ];

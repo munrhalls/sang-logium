@@ -8,7 +8,7 @@ import CTA from "@/app/components/ui/buttons/cta";
 
 export default async function HeroMain() {
   const promotion = await getPromotionByName("Main Hero");
-  const imageData = promotion.image;
+  const imageData = promotion.image_background;
   const textData = {
     // headline: promotion.headline,
     _id: promotion._id,
@@ -22,10 +22,16 @@ export default async function HeroMain() {
     <div className="relative grid h-full grid-rows-[1fr_3rem]">
       <div className="relative z-30 h-full w-full overflow-hidden">
         <div className="relative h-full flex-[0_0_100%]">
-          <PromotionImage
-            imageData={imageData}
-            // alt={textData.description[0].text}
-          />
+          <div
+            className="absolute inset-0 z-20 bg-black/35"
+            aria-hidden="true"
+          ></div>
+          <div className="absolute inset-0 z-10">
+            <PromotionImage
+              imageData={imageData}
+              // alt={textData.description[0].text}
+            />
+          </div>
           {/* <PromotionCommercial textData={textData} /> */}
           <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-2">
             <SmallTest />
