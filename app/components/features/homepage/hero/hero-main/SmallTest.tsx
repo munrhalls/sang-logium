@@ -38,7 +38,7 @@ export default async function SmallTest() {
 
   return (
     <div className="relative flex min-h-[400px] w-full flex-col items-center justify-center overflow-hidden py-12 md:min-h-[500px] xl:min-h-[600px]">
-      <div className="z-10 flex w-[90%] max-w-[1000px] flex-col items-center justify-center gap-3 text-white">
+      <div className="z-10 ml-0 flex w-[90%] max-w-[1000px] flex-col items-center justify-center gap-3 text-white lg:ml-80">
         <PortableText value={text} components={components} />
         {/* <div className="mt-[clamp(16px,2vw,32px)] flex w-[clamp(340px,30vw,500px)] justify-center">
           <button

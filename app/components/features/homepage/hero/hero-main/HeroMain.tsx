@@ -24,6 +24,10 @@ export default async function HeroMain() {
         <div className="relative h-full flex-[0_0_100%]">
           <div className="absolute inset-0 z-20" aria-hidden="true"></div>
           <div className="absolute inset-0 z-10">
+            <div
+              className="absolute inset-0 z-20 bg-gradient-to-r from-black/15 via-black/45 to-transparent"
+              aria-hidden="true"
+            />
             <PromotionImage
               imageData={imageData}
               // alt={textData.description[0].text}

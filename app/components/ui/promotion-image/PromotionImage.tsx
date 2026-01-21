@@ -23,7 +23,7 @@ export default function PromotionImage({
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px"
         priority
         className={
-          "h-full w-full object-cover object-center lg:object-[100%_center]"
+          "h-full w-full object-cover object-[35%_center] lg:object-[center_center]"
         }
       />
     </div>
