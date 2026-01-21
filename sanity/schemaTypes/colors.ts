@@ -1,5 +1,7 @@
 export const COLOR_OPTIONS = [
   { title: "Crimson Frost", value: "#e11d48" },
+  { title: "Maroon", value: "#800000" },
+  { title: "Black Cherry", value: "#581818" },
 
   { title: "Red 50", value: "#fef2f2" },
   { title: "Red 100", value: "#fee2e2" },

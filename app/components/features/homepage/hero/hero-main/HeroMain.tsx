@@ -22,10 +22,7 @@ export default async function HeroMain() {
     <div className="relative grid h-full grid-rows-[1fr_3rem]">
       <div className="relative z-30 h-full w-full overflow-hidden">
         <div className="relative h-full flex-[0_0_100%]">
-          <div
-            className="absolute inset-0 z-20 bg-black/35"
-            aria-hidden="true"
-          ></div>
+          <div className="absolute inset-0 z-20" aria-hidden="true"></div>
           <div className="absolute inset-0 z-10">
             <PromotionImage
               imageData={imageData}

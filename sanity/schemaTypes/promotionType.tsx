@@ -22,9 +22,6 @@ export const promotionType = defineType({
           styles: [
             { title: "H1", value: "h1" },
             { title: "H2", value: "h2" },
-            { title: "H3", value: "h3" },
-            { title: "Normal", value: "normal" },
-            { title: "Small", value: "small" },
           ],
           lists: [],
           marks: {
@@ -76,43 +73,7 @@ export const promotionType = defineType({
     defineField({
       name: "cta_text",
       title: "CALL TO ACTION button text",
-      type: "array",
-      of: [
-        {
-          type: "block",
-          styles: [
-            { title: "H1", value: "h1" },
-            { title: "H2", value: "h2" },
-            { title: "H3", value: "h3" },
-            { title: "Normal", value: "normal" },
-            { title: "Small", value: "small" },
-          ],
-          lists: [],
-          marks: {
-            decorators: [
-              { title: "Strong", value: "strong" },
-              { title: "Emphasis", value: "em" },
-            ],
-            annotations: [
-              {
-                name: "color",
-                type: "object",
-                title: "Color",
-                fields: [
-                  {
-                    name: "hex",
-                    type: "string",
-                    title: "Color",
-                    options: {
-                      list: COLOR_OPTIONS,
-                    },
-                  },
-                ],
-              },
-            ],
-          },
-        },
-      ],
+      type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({

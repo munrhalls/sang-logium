@@ -22,7 +22,9 @@ export default function PromotionImage({
         blurDataURL={imageData.blurDataURL}
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px"
         priority
-        className={"h-full w-full object-cover"}
+        className={
+          "h-full w-full object-cover object-center lg:object-[100%_center]"
+        }
       />
     </div>
   );
