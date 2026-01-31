@@ -10,13 +10,11 @@ export default async function HeroMain() {
   const promotion = await getPromotionByName("Main Hero");
   const imageData = promotion.image_background;
   const textData = {
-    // headline: promotion.headline,
     _id: promotion._id,
     description: promotion.description,
     discountPercent: promotion.discountPercent,
     actionLabel: promotion.actionLabel,
   };
-  console.log(textData, "text data at main as qeweasdsads as");
 
   return (
     <div className="relative grid h-full grid-rows-[1fr_3rem]">
@@ -25,15 +23,11 @@ export default async function HeroMain() {
           <div className="absolute inset-0 z-20" aria-hidden="true"></div>
           <div className="absolute inset-0 z-10">
             <div
-              className="absolute inset-0 z-20 bg-gradient-to-r from-black/15 via-black/45 to-transparent"
+              className="absolute inset-0 z-20 bg-gradient-to-r from-black/80 via-black/60 to-transparent sm:from-transparent sm:via-transparent sm:to-transparent"
               aria-hidden="true"
             />
-            <PromotionImage
-              imageData={imageData}
-              // alt={textData.description[0].text}
-            />
+            <PromotionImage imageData={imageData} />
           </div>
-          {/* <PromotionCommercial textData={textData} /> */}
           <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-2">
             <SmallTest />
           </div>
